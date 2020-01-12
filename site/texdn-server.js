@@ -7,7 +7,7 @@ var qs = require('querystring');
 const { exec } = require('child_process');
 var parse = require('csv-parse');
 var nunjucks = require('nunjucks');
-//const flate = require('wasm-flate');
+const flate = require('wasm-flate');
 
 const options = {
   key: fs.readFileSync('/etc/letsencrypt/live/tabdn.com/privkey.pem'),
