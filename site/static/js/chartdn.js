@@ -23,6 +23,13 @@ function dst() {
 }
 function copyChg() {
 	var dataTable = document.getElementById("dataTable");
-	var csvValues = dataCopy.value;
-	//parse csvValues;
+	var csv = dataCopy.value;
+	var data = Papa.parse(csv);
+	console.log(data);
+	dataTable.innerHTML = '';
+	var newrow = document.createElement('tr');
+	var newcell = document.createElement('td');
+	newcell.text = 'hi';
+	newrow.appendChild(newcell);
+	dataTable.appendChild(newrow);
 }
