@@ -51,14 +51,14 @@
 							<div class="col-sm-12">
 								
 								<input type="file" name="dataFile" id="dataFile"></input>
-								<textarea rows="7" name="dataCopy" id="dataCopy"></textarea>
+								<textarea rows="7" name="dataCopy" id="dataCopy" onchange="copyChg()"></textarea>
 								<input type="text" name="dataUrl" id="dataUrl"></input>
 								
 							</div>
 						</div>
 					</div>
 					<div class="col-sm-6">
-						<table></table>
+						<table id="dataTable"></table>
 					</div>
 				  </div>
 				  <div class="row sectionpart">
@@ -193,33 +193,9 @@
       	
       	
   </div>
-  <!--<script src="js/chartdn.js"></script>-->
-  <script>
-  	var dataFile = document.getElementById("dataFile");
-  	var dataCopy = document.getElementById("dataCopy");
-  	var dataUrl = document.getElementById("dataUrl");
-  	dataCopy.style.display = 'none';
-  	dataUrl.style.display = 'none';
-  	function dst() {
-  		var radioChecked = document.querySelector("input[name=data-source-type]:checked").value;
-  		if (radioChecked == 'File'){
-  			dataFile.style.display = 'inline-block';
-  			dataCopy.style.display = 'none';
-  			dataUrl.style.display = 'none';
-  		}
-  		else if (radioChecked == 'Copy'){
-  			dataCopy.style.display = 'inline-block';
-  			dataFile.style.display = 'none';
-  			dataUrl.style.display = 'none';
-  		}
-  		else if (radioChecked == 'Url'){
-  			dataUrl.style.display = 'inline-block';
-  			dataCopy.style.display = 'none';
-  			dataFile.style.display = 'none';
-  		}
-  	}
-  	
-  </script>
+  <script src="js/chartdn.js"></script>
+  <script src="js/papaparse.min.js"></script>
+
 
 </body>
 
