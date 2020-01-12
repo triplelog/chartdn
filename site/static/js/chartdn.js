@@ -29,7 +29,7 @@ function copyChg() {
 	dataTable.innerHTML = '';
 	var newrow = document.createElement('tr');
 	var newcell = document.createElement('td');
-	newcell.text = 'hi';
+	newcell.textContent = data.data[0][0];
 	newrow.appendChild(newcell);
 	dataTable.appendChild(newrow);
 }
