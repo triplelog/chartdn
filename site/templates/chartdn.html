@@ -52,7 +52,7 @@
 							<div class="col-sm-12">
 								
 								<input type="file" name="dataFile" id="dataFile"></input>
-								<textarea rows="7" name="dataCopy" id="dataCopy" oninput="copyChg()" onchange="copyChg()"></textarea>
+								<textarea rows="7" name="dataCopy" id="dataCopy" oninput="copyChg()" onchange="copyChg()">{{ dataAreaText }}</textarea>
 								<input type="text" name="dataUrl" id="dataUrl"></input>
 								
 							</div>
@@ -195,7 +195,7 @@
   </div>
   <script src="js/chartdn.js"></script>
   <script src="js/papaparse.min.js"></script>
-
+  {{ chartScript }}
 
 </body>
 
