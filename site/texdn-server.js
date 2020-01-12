@@ -206,7 +206,7 @@ for (var i=0;i<frameworks.length;i++){
 //fullJS += endJS;
 
 fullJS = fullJS.replace(/replacexarray/g,JSON.stringify(colArrays[xColumn]));
-fullJS = fullJS.replace(/replaceyarray/g,JSON.stringify(colArrays[yColumns[0]]));
+fullJS = fullJS.replace(/replaceyarray/g,JSON.stringify(colArrays[yColumns]));
 fullJS = fullJS.replace(/replaceyyarray/g,JSON.stringify(colArrays[2]));
 fullJS = fullJS.replace(/replacefullarray/g,JSON.stringify(fullArray));
 fullJS = fullJS.replace(/replaceobjectarray/g,JSON.stringify(bothArrays[2]));
