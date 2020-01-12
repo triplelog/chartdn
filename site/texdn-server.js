@@ -149,7 +149,8 @@ function convertDataToFull(dataStr) {
 
 function createLine(alldata) {
 var mydata = alldata.dataCopy;
-var frameworks = alldata.framework;
+//var frameworks = alldata.framework;
+var frameworks = ['latex','xkcd','google','plotly','chartjs'];
 var title = alldata.title;
 var stepSizeX = alldata.stepSizeX;
 var stepSizeY = alldata.stepSizeY;
