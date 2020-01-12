@@ -24,12 +24,18 @@ function dst() {
 function copyChg() {
 	var dataTable = document.getElementById("dataTable");
 	var csv = dataCopy.value;
-	var data = Papa.parse(csv);
-	console.log(data);
+	var data = Papa.parse(csv).data;
 	dataTable.innerHTML = '';
-	var newrow = document.createElement('tr');
-	var newcell = document.createElement('td');
-	newcell.textContent = data.data[0][0];
-	newrow.appendChild(newcell);
-	dataTable.appendChild(newrow);
+	for (var i=0;i<data.length;i++){
+		var newrow = document.createElement('tr');
+		for (var ii=0;ii<data[i].length;ii++){
+			var newcell = document.createElement('td');
+			newcell.textContent = data[i][ii];
+			newrow.appendChild(newcell);
+		}
+		dataTable.appendChild(newrow);
+	}
+	
+	
+	
 }
