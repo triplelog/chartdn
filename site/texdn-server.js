@@ -50,7 +50,7 @@ https.createServer(options, function(req, res) {
 		req.on('end', () => {
 			//console.log(qs.parse(data).latexArea);
 			if (data.length > 0){
-				var templateType = qs.parse(data).chart-type;
+				var templateType = qs.parse(data).chartType;
 				var templateLoc = 'static/charts/'+templateType+'Chart.txt';
 				fs.readFile(templateLoc, 'utf8', function(err, fileData) {
 					fs.writeFile("texdnLatex/newtest2.tex", fileData, function (err) {
