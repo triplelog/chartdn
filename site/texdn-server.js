@@ -1,6 +1,6 @@
 
-//const https = require('https');
-const http = require('http');
+const https = require('https');
+//const http = require('http');
 var fs = require("fs");
 //var myParser = require("body-parser");
 var qs = require('querystring');
@@ -10,8 +10,8 @@ var nunjucks = require('nunjucks');
 //const flate = require('wasm-flate');
 
 const options = {
-  //key: fs.readFileSync('/etc/letsencrypt/live/tabdn.com/privkey.pem'),
-  //cert: fs.readFileSync('/etc/letsencrypt/live/tabdn.com/fullchain.pem')
+  key: fs.readFileSync('/etc/letsencrypt/live/tabdn.com/privkey.pem'),
+  cert: fs.readFileSync('/etc/letsencrypt/live/tabdn.com/fullchain.pem')
 };
 
 
@@ -21,8 +21,8 @@ var express = require('express');
 var app = express();
 app.use('/',express.static('static'));
 
-//const server1 = https.createServer(options, app);
-const server1 = http.createServer(options, app);
+const server1 = https.createServer(options, app);
+//const server1 = http.createServer(options, app);
 
 server1.listen(12312);
 
@@ -33,7 +33,7 @@ nunjucks.configure('templates', {
 
 
 
-http.createServer(options, function(req, res) {
+https.createServer(options, function(req, res) {
 	if (req.url == "/createchart"){
 		var data = '';
 		var start = process.hrtime();
