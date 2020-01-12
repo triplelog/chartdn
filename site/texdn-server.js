@@ -104,7 +104,7 @@ https.createServer(options, function(req, res) {
 
 
 
-function convertDataToFull(dataStr) {
+function convertDataToFull(dataStr,nHeaders) {
 	const parser = parse(dataStr, {
 	  trim: true,
 	  skip_empty_lines: true
@@ -112,16 +112,18 @@ function convertDataToFull(dataStr) {
 	retArray = [];
 	var cols = [];
 	var objArray = [];
+	var currentRow = 0;
 	while (2 == 2) {
 		var tempA = parser.read();
 		if (!tempA){break;}
-		if (cols.length == 0){
+		if (currentRow == 0){
 			for (var i=0;i<tempA.length;i++) {
 				cols.push([]);
 				
 			}
+			
 		}
-		else {
+		if (currentRow >= nHeaders) {
 			for (var i=0;i<tempA.length;i++) {
 				var cell = tempA[i];
 				if (!isNaN(parseFloat(cell))){
@@ -142,6 +144,7 @@ function convertDataToFull(dataStr) {
 			var yval = tempA[1];
 			objArray.push({x:xval,y:yval});
 		}
+		currentRow++;
 		retArray.push(tempA);
 	}
 	return [retArray,cols,objArray];
@@ -151,6 +154,9 @@ function createLine(alldata) {
 var mydata = alldata.dataCopy;
 //var frameworks = alldata.framework;
 var frameworks = ['latex','xkcd','google','plotly','chartjs'];
+var xColumn = parseInt(alldata.xColumn);
+var yColumns = parseInt(alldata.yColumns);
+var nHeaders = parseInt(alldata.nHeaders);
 var title = alldata.title;
 var stepSizeX = alldata.stepSizeX;
 var stepSizeY = alldata.stepSizeY;
@@ -162,7 +168,7 @@ if (!mydata || mydata.length == 0){
 }
 
 
-var bothArrays = convertDataToFull(mydata);
+var bothArrays = convertDataToFull(mydata,nHeaders);
 var fullArray = bothArrays[0];
 var colArrays = bothArrays[1];
 
@@ -199,8 +205,8 @@ for (var i=0;i<frameworks.length;i++){
 }
 //fullJS += endJS;
 
-fullJS = fullJS.replace(/replacexarray/g,JSON.stringify(colArrays[0]));
-fullJS = fullJS.replace(/replaceyarray/g,JSON.stringify(colArrays[1]));
+fullJS = fullJS.replace(/replacexarray/g,JSON.stringify(colArrays[xColumn]));
+fullJS = fullJS.replace(/replaceyarray/g,JSON.stringify(colArrays[yColumns[0]]));
 fullJS = fullJS.replace(/replaceyyarray/g,JSON.stringify(colArrays[2]));
 fullJS = fullJS.replace(/replacefullarray/g,JSON.stringify(fullArray));
 fullJS = fullJS.replace(/replaceobjectarray/g,JSON.stringify(bothArrays[2]));
