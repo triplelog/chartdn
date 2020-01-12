@@ -4,7 +4,7 @@ var dataUrl = document.getElementById("dataUrl");
 dataCopy.style.display = 'none';
 dataUrl.style.display = 'none';
 function dst() {
-	var radioChecked = document.querySelector("input[name=data-source-type]:checked").value;
+	var radioChecked = document.querySelector("input[name=dataSourceType]:checked").value;
 	if (radioChecked == 'File'){
 		dataFile.style.display = 'inline-block';
 		dataCopy.style.display = 'none';
