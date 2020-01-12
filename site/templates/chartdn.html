@@ -82,20 +82,20 @@
 									<input type="radio" name="chartType" onchange="typeChg()" value="calendar">Calendar</input>
 							</div>
 						</div>
-						<div class="row">
+						<div class="row" id="lineOptions">
 							<div class="col-sm-12">
-								1st col (a): <select name="col1">
-												<option value="x">x</option>
-												<option value="y">y</option>
-												<option value="ignore">Ignore</option>
+								x-axis Column: <select name="xColumn">
+												<option value="1">1st</option>
+												<option value="2">2nd</option>
+												<option value="3">3rd</option>
+												<option value="0">Seq</option>
 											</select>
 							</div>
 							<div class="col-sm-12">
-								2nd col (b): <select name="col1">
-												<option value="x">x</option>
-												<option value="y">y</option>
-												<option value="ignore">Ignore</option>
-											</select>
+								y-axis Column(s): <input type="text" name="yColumns"></input>
+							</div>
+							<div class="col-sm-12">
+								Number of header rows: <input type="number" value="1" name="nHeaders"></input>
 							</div>
 						</div>
 						<div class="row">
