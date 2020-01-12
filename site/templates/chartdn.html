@@ -42,8 +42,9 @@
 			<form method="post" action="/createchart">
 				<div class="container">
 				  <div class="row sectionpart">
-				  	<b>Data</b>
+				  	
 					<div class="col-sm-6">
+						<b>Data</b>
 						<input type="radio" name="data-source-type" onchange="dst()" value="File" checked>Upload File (csv or Excel)</input>
 						<input type="radio" name="data-source-type" onchange="dst()" value="Copy">Copy/Paste</input>
 						<input type="radio" name="data-source-type" onchange="dst()" value="Url">URL</input>
@@ -134,11 +135,7 @@
 
 							</div>
 						</div>
-						<div class="row">
-							<div class="col-sm-12">
-								<input type="submit" value="Submit">
-							</div>
-						</div>
+						
 					</div>
 				  </div>
 				  <div class="row sectionpart">
@@ -148,6 +145,9 @@
 						<input type="radio" name="share-chart" onchange="shareChg()" value="Code">Code</input>
 						<input type="radio" name="share-chart" onchange="shareChg()" value="Url">URL</input>
 						<input type="radio" name="share-chart" onchange="shareChg()" value="Embed">Embed</input>
+					</div>
+					<div class="col-sm-12">
+						<input type="submit" value="Submit">
 					</div>
 				  </div>
 				</div>

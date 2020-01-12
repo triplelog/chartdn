@@ -34,7 +34,7 @@ nunjucks.configure('templates', {
 
 
 https.createServer(options, function(req, res) {
-	if (req.url == "/createchart"){
+	if (req.url == "/chartdn"){
 		var data = '';
 		var start = process.hrtime();
         req.on('data', function (chunk) {
@@ -64,13 +64,13 @@ https.createServer(options, function(req, res) {
 					});
 				});
 				//res.write(createLine(qs.parse(data))); //write a response to the client
-				res.write(nunjucks.render('createchart.html',{
+				res.write(nunjucks.render('chartdn.html',{
 					chartScript:createLine(qs.parse(data)), 
 					dataAreaText: qs.parse(data).dataArea,
 				}));
 			}
 			else {
-				res.write(nunjucks.render('createchart.html',{
+				res.write(nunjucks.render('chartdn.html',{
 					chartScript:'', 
 					dataAreaText: '',
 				}));
@@ -79,7 +79,7 @@ https.createServer(options, function(req, res) {
 		});
 	
     }
-    else if (req.url == "/chartdn"){
+    else if (req.url == "/createchart"){
 		var data = '';
 		var start = process.hrtime();
         req.on('data', function (chunk) {
