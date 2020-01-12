@@ -50,11 +50,11 @@ https.createServer(options, function(req, res) {
 		req.on('end', () => {
 			//console.log(qs.parse(data).latexArea);
 			if (data.length > 0){
-				var templateType = qs.parse(data).latexTemplate;
+				var templateType = qs.parse(data).chart-type;
 				var templateLoc = 'static/charts/'+templateType+'Chart.txt';
 				fs.readFile(templateLoc, 'utf8', function(err, fileData) {
 					fs.writeFile("texdnLatex/newtest2.tex", fileData, function (err) {
-						fs.writeFile("texdnData/newdata.csv", qs.parse(data).dataArea, function (err) {
+						fs.writeFile("texdnData/newdata.csv", qs.parse(data).dataCopy, function (err) {
 							var runtime = process.hrtime(start) // we also check how much time has passed
 							console.info('Execution time (hr): %ds %dms', runtime[0], runtime[1] / 1000000);
 							//exec('latex -output-directory=texdnLatex texdnLatex/newtest2.tex && dvisvgm --output=static/%f-%p texdnLatex/newtest2.dvi --font-format=woff && python3 static/charts/pythonscript.py');
@@ -66,7 +66,7 @@ https.createServer(options, function(req, res) {
 				//res.write(createLine(qs.parse(data))); //write a response to the client
 				res.write(nunjucks.render('chartdn.html',{
 					chartScript:createLine(qs.parse(data)), 
-					dataAreaText: qs.parse(data).dataArea,
+					dataAreaText: qs.parse(data).dataCopy,
 				}));
 			}
 			else {
@@ -148,7 +148,7 @@ function convertDataToFull(dataStr) {
 }
 
 function createLine(alldata) {
-var mydata = alldata.dataArea;
+var mydata = alldata.dataCopy;
 var frameworks = alldata.framework;
 var title = alldata.title;
 var stepSizeX = alldata.stepSizeX;
