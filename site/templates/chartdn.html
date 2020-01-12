@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Create a Chart</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mini.css/3.0.1/mini-default.min.css">
+  <!-- Your custom styles (optional) -->
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/mygrid.css" rel="stylesheet">
+  <link href="css/dragula.min.css" rel="stylesheet">
+  <link href="css/kanban.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.xkcd@1.1/dist/chart.xkcd.min.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<style>
+.sectionpart {
+	border: 1px solid black;
+}
+</style>
+
+</head>
+
+<body>
+   <header style="border: 0px solid black; background: rgb(255,255,255); background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(102,204,204,0.8757878151260504) 100%);">
+	  <a href="index.html" class="logo"><img src="img/logo.png" style="max-width: 150px; vertical-align:middle;"/></a>
+	  <a href="features.html" class="button" style="background: rgba(245, 238, 236,0);">Features</a>
+	  <a href="documentation.html" class="button" style="background: rgba(245, 238, 236,0);">Documentation</a>
+	  <a href="upload.html" class="button" style="background: rgba(245, 238, 236,0);">Beta Upload</a>
+	  <a href="baseball.html" class="button" style="background: rgba(245, 238, 236,0);">Ball Monitor</a>
+	</header>
+  <div class="" id="">
+
+      	
+      	<div>
+
+			<form method="post" action="/createchart">
+				<div class="container">
+				  <div class="row sectionpart">
+				  	<b>Data</b>
+					<div class="col-sm-6">
+						<input type="radio" name="data-source-type" onchange="dst()" value="File" checked>Upload File (csv or Excel)</input>
+						<input type="radio" name="data-source-type" onchange="dst()" value="Copy">Copy/Paste</input>
+						<input type="radio" name="data-source-type" onchange="dst()" value="Url">URL</input>
+						<div class="row">
+							<div class="col-sm-12">
+								
+								<input type="file" name="dataFile" id="dataFile"></input>
+								<textarea rows="7" name="dataCopy" id="dataCopy"></textarea>
+								<input type="text" name="dataUrl" id="dataUrl"></input>
+								
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<table></table>
+					</div>
+				  </div>
+				  <div class="row sectionpart">
+				  	<b>Create Chart</b>
+					<div class="col-sm-12">
+						<div class="row">
+							<div class="col-sm-12">
+									<input type="radio" name="chart-type" onchange="typeChg()" value="line" checked>Line</input>
+									<input type="radio" name="chart-type" onchange="typeChg()" value="bar">Bar</input>
+									<input type="radio" name="chart-type" onchange="typeChg()" value="scatter">Scatter</input>
+									<input type="radio" name="chart-type" onchange="typeChg()" value="pie">Pie</input>
+									<input type="radio" name="chart-type" onchange="typeChg()" value="bubble">Bubble</input>
+									<input type="radio" name="chart-type" onchange="typeChg()" value="histogram">Histogram</input>
+									<input type="radio" name="chart-type" onchange="typeChg()" value="heatmap">Heatmap</input>
+									<input type="radio" name="chart-type" onchange="typeChg()" value="radar">Radar</input>
+									<input type="radio" name="chart-type" onchange="typeChg()" value="box">Box</input>
+									<input type="radio" name="chart-type" onchange="typeChg()" value="choropleth">Choropleth</input>
+									<input type="radio" name="chart-type" onchange="typeChg()" value="splom">Splom</input>
+									<input type="radio" name="chart-type" onchange="typeChg()" value="diff">Diff</input>
+									<input type="radio" name="chart-type" onchange="typeChg()" value="calendar">Calendar</input>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12">
+								1st col (a): <select name="col1">
+												<option value="x">x</option>
+												<option value="y">y</option>
+												<option value="ignore">Ignore</option>
+											</select>
+							</div>
+							<div class="col-sm-12">
+								2nd col (b): <select name="col1">
+												<option value="x">x</option>
+												<option value="y">y</option>
+												<option value="ignore">Ignore</option>
+											</select>
+							</div>
+						</div>
+						<div class="row">
+							Adjustments, set data types, automators
+						</div>
+					</div>
+				  </div>
+				  
+				  <div class="row sectionpart">
+				  	<b>Customize Chart</b>
+					<div class="col-sm-12">
+						<div class="row">
+							<div class="col-sm-12">
+								Title: <input type="text" name="title" placeholder="notitle"/>
+								Label(s): <input type="text" name="labels" placeholder="column headers"/><br />
+								X Axis Title: <input type="text" name="xaxistitle" placeholder="notitle"/>
+								Y Axis Title: <input type="text" name="yaxistitle" placeholder="notitle"/>
+
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12">
+								Line Color(s): <input type="text" name="lineColor" placeholder="default"/>
+								Dot Color(s): <input type="text" name="dotColor" placeholder="default"/>
+								
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12">
+								Step Size: <span class="icon-help"></span>
+								x:<input type="text" name="stepSizeX" placeholder="default"/>
+								y:<input type="text" name="stepSizeY" placeholder="default"/>
+								<br />
+								<input type="radio" name="curveType" value="default" checked>Default</input>
+								<input type="radio" name="curveType" value="smooth">Smooth</input>
+								<input type="radio" name="curveType" value="sharp">Sharp</input>
+
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12">
+								<input type="submit" value="Submit">
+							</div>
+						</div>
+					</div>
+				  </div>
+				  <div class="row sectionpart">
+				  	<b>Share Chart</b>
+					<div class="col-sm-12">
+						<input type="radio" name="share-chart" onchange="shareChg()" value="Svg" checked>SVG</input>
+						<input type="radio" name="share-chart" onchange="shareChg()" value="Code">Code</input>
+						<input type="radio" name="share-chart" onchange="shareChg()" value="Url">URL</input>
+						<input type="radio" name="share-chart" onchange="shareChg()" value="Embed">Embed</input>
+					</div>
+				  </div>
+				</div>
+				
+				
+			</form>
+			<div class="container">
+			  <div class="row">
+			  	<b>Preview</b>
+				<div class="col-sm-6" style="border: 1px solid black;">
+					Chart JS
+					<div class="chart-container" style="position: relative;">
+						<canvas id="myChart" style="display: none;"></canvas>
+					</div>
+				</div>
+				<div class="col-sm-6" style="border: 1px solid black;">
+					Plotly
+					<div class="chart-container" style="position: relative;">
+						<div id="plotlyDiv" style="display: none;"></div>
+					</div>
+				</div>
+				<div class="col-sm-6" style="border: 1px solid black;">
+					Xkcd
+					<div class="chart-container" style="position: relative;">
+						<svg id="xkcdSvg" style="display: none;"></svg>
+					</div>
+				</div>
+				<div class="col-sm-6" style="border: 1px solid black;">
+					Google
+					<div class="chart-container" style="position: relative;">
+						<div id="googleChart" style="display: none;"></div>
+					</div>
+				</div>
+				<div class="col-sm-6" style="border: 1px solid black;">
+					Pgfplots
+					<div class="chart-container" style="position: relative;">
+						<!--<object data="test4.svg" type="image/svg+xml"></object>-->
+					</div>
+				</div>
+			  </div>
+			</div>
+		</div>
+      	
+      	
+  </div>
+  <!--<script src="js/chartdn.js"></script>-->
+  <script>
+  	var dataFile = document.getElementById("dataFile");
+  	var dataCopy = document.getElementById("dataCopy");
+  	var dataUrl = document.getElementById("dataUrl");
+  	dataCopy.style.display = 'none';
+  	dataUrl.style.display = 'none';
+  	function dst() {
+  		var radioChecked = document.querySelector("input[name=data-source-type]:checked").value;
+  		if (radioChecked == 'File'){
+  			dataFile.style.display = 'inline-block';
+  			dataCopy.style.display = 'none';
+  			dataUrl.style.display = 'none';
+  		}
+  		else if (radioChecked == 'Copy'){
+  			dataCopy.style.display = 'inline-block';
+  			dataFile.style.display = 'none';
+  			dataUrl.style.display = 'none';
+  		}
+  		else if (radioChecked == 'Url'){
+  			dataUrl.style.display = 'inline-block';
+  			dataCopy.style.display = 'none';
+  			dataFile.style.display = 'none';
+  		}
+  	}
+  	
+  </script>
+
+</body>
+
+</html>

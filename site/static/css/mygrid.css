@@ -1,0 +1,17 @@
+.gridwrapper {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-gap: 10px;
+  grid-auto-rows: minmax(100px, auto);
+}
+.newGrid {
+	width: 100%;
+	border: 1px dashed red;
+}
+.ui-selectable {
+	visibility: hidden;
+	pointer-events: none;
+	width: 100%;
+	background-color: blue;
+	opacity: 0;
+}

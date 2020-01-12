@@ -1,0 +1,12 @@
+.kanbanSort {
+	border: 1px solid black;
+	border-left: 5px solid red;
+}
+.kanbanFilter {
+	border: 1px solid black;
+	border-left: 5px solid blue;
+}
+.kanbanAddColumn {
+	border: 1px solid black;
+	border-left: 5px solid green;
+}
