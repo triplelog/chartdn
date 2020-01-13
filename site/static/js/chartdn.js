@@ -42,7 +42,8 @@ function copyChg() {
 
 
 //Dragula with column choices
-dragula([document.getElementById('allColumns'), document.getElementById('xColumn'), document.getElementById('yColumns')], {
+
+var drake = dragula([document.getElementById('allColumns'), document.getElementById('xColumn'), document.getElementById('yColumns')], {
   copy: function (el, source) {
     return source === document.getElementById('allColumns');
   },
