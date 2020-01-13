@@ -85,21 +85,23 @@
 						<div class="row" id="lineOptions">
 							<div class="col-sm-12">
 								x-axis Column: <select name="xColumn">
-												<option value="1">1st</option>
-												<option value="2">2nd</option>
-												<option value="3">3rd</option>
-												<option value="0">Seq</option>
+												<option value="0">1st</option>
+												<option value="1">2nd</option>
+												<option value="2">3rd</option>
+												<option value="-1">Seq</option>
 											</select>
 							</div>
 							<div class="col-sm-12">
-								y-axis Column(s): <input type="text" name="yColumns"></input>
+								y-axis Column(s): Dropdown w/ column head/index and data type: number (format), date, percent
 							</div>
 							<div class="col-sm-12">
 								Number of header rows: <input type="number" value="1" name="nHeaders"></input>
 							</div>
 						</div>
 						<div class="row">
-							Adjustments, set data types, automators
+							Blank cells: Skip or 0
+							x-scale: linear, log, seq
+							y-scale: linear, log
 						</div>
 					</div>
 				  </div>
@@ -195,6 +197,7 @@
   </div>
   <script src="js/chartdn.js"></script>
   <script src="js/papaparse.min.js"></script>
+  <script src="js/dragula.min.js"></script>
   {{ chartScript }}
 
 </body>

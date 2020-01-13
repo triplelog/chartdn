@@ -1,0 +1,38 @@
+Use node on backend
+Need csv-parse, nunjucks(template system), express, wasm-flate
+Add https stuff
+
+# Set Data
+automated functions: find max for given column
+
+
+# Line Charts
+Need (multiple) columns for y-data
+Need x-data labels (potentially scatter)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#Stretch
+API to autogenerate chart
+Bar chart races
