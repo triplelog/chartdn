@@ -52,7 +52,7 @@ function copyChg() {
 		
 				}
 				else {
-					headers.push(ii+1);
+					headers.push(getOrdinal(ii+1));
 				}
 			}
 		}
@@ -62,7 +62,8 @@ function copyChg() {
 	allColumns.innerHTML = '';
 	for (var i=0;i<headers.length;i++){
 		var newColumn = document.createElement('span');
-		newColumn.textContent = getOrdinal(i);
+		newColumn.textContent = headers[i];
+		newColumn.id = 'colId'+i;
 		newColumn.style.display = 'block';
 		allColumns.appendChild(newColumn);
 	}
