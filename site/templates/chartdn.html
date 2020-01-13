@@ -44,7 +44,7 @@
 				  <div class="row sectionpart">
 				  	
 					<div class="col-sm-6">
-						<b>Data</b>
+						<b>Data Source</b>
 						<input type="radio" name="dataSourceType" onchange="dst()" value="File" checked>Upload File (csv or Excel)</input>
 						<input type="radio" name="dataSourceType" onchange="dst()" value="Copy">Copy/Paste</input>
 						<input type="radio" name="dataSourceType" onchange="dst()" value="Url">URL</input>
@@ -56,6 +56,21 @@
 								<input type="text" name="dataUrl" id="dataUrl"></input>
 								
 							</div>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<table id="dataTable"></table>
+					</div>
+				  </div>
+				  <div class="row sectionpart">
+				  	
+					<div class="col-sm-6">
+						<b>Filter Data</b>
+						<div class="row">
+							Blank cells: Skip or 0
+							x-scale: linear, log, seq
+							y-scale: linear, log
+							Filter only max, etc. Drag/drop filters to use.
 						</div>
 					</div>
 					<div class="col-sm-6">
@@ -96,12 +111,7 @@
 								Number of header rows: <input type="number" value="1" name="nHeaders"></input>
 							</div>
 						</div>
-						<div class="row">
-							Blank cells: Skip or 0
-							x-scale: linear, log, seq
-							y-scale: linear, log
-							Filter only max, etc. Drag/drop filters to use.
-						</div>
+						
 					</div>
 				  </div>
 				  

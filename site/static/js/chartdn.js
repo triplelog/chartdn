@@ -1,3 +1,9 @@
+function getOrdinal(n) {
+   var s=["th","st","nd","rd"],
+       v=n%100;
+   return n+(s[(v-20)%10]||s[v]||s[0]);
+}
+
 //Set columns in Create Chart
 var allColumns = document.getElementById('allColumns');
 allColumns.innerHTML = '';
@@ -56,7 +62,7 @@ function copyChg() {
 	allColumns.innerHTML = '';
 	for (var i=0;i<headers.length;i++){
 		var newColumn = document.createElement('span');
-		newColumn.textContent = i;
+		newColumn.textContent = getOrdinal(i);
 		newColumn.style.display = 'block';
 		allColumns.appendChild(newColumn);
 	}
