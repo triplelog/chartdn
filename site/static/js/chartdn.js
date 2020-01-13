@@ -1,3 +1,9 @@
+//Set columns in Create Chart
+var allColumns = document.getElementById('allColumns');
+allColumns.innerHTML = '';
+
+
+
 var dataFile = document.getElementById("dataFile");
 var dataCopy = document.getElementById("dataCopy");
 var dataUrl = document.getElementById("dataUrl");
@@ -26,19 +32,37 @@ function copyChg() {
 	var csv = dataCopy.value;
 	var data = Papa.parse(csv).data;
 	dataTable.innerHTML = '';
+	var headers = [];
+	var includeHeaders = false;
 	for (var i=0;i<data.length;i++){
 		var newrow = document.createElement('tr');
 		for (var ii=0;ii<data[i].length;ii++){
 			var newcell = document.createElement('td');
 			newcell.textContent = data[i][ii];
 			newrow.appendChild(newcell);
+			if (i==0){
+				if (includeHeaders) {
+		
+				}
+				else {
+					headers.push(ii+1);
+				}
+			}
 		}
 		dataTable.appendChild(newrow);
+		
+	}
+	allColumns.innerHTML = '';
+	for (var i=0;i<headers.length;i++){
+		var newColumn = document.createElement('span');
+		newColumn.textContent = i;
+		allColumns.appendChild(newColumn);
 	}
 	
 	
 	
 }
+
 
 
 //Dragula with column choices
