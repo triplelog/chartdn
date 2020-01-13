@@ -1,7 +1,8 @@
 //Set columns in Create Chart
 var allColumns = document.getElementById('allColumns');
 allColumns.innerHTML = '';
-
+document.getElementById('xColumn').innerHTML = '';
+document.getElementById('yColumns').innerHTML = '';
 
 
 var dataFile = document.getElementById("dataFile");
@@ -79,4 +80,4 @@ var drake = dragula([document.getElementById('allColumns'), document.getElementB
     return source !== document.getElementById('allColumns');
   }
 });
-drake.on('drop', function (el, container) { if (container.id == 'xColumn') {container.innerHTML = '';}});
+drake.on('drop', function (el, container) { if (container.id == 'xColumn') {container.innerHTML = ''; container.appendChild(el);}});
