@@ -56,6 +56,7 @@ function copyChg() {
 	for (var i=0;i<headers.length;i++){
 		var newColumn = document.createElement('span');
 		newColumn.textContent = i;
+		newColumn.style.display = 'block';
 		allColumns.appendChild(newColumn);
 	}
 	
@@ -78,3 +79,4 @@ var drake = dragula([document.getElementById('allColumns'), document.getElementB
     return source !== document.getElementById('allColumns');
   }
 });
+drake.on('drop', function (el, container) { if (container.id == 'xColumn') {container.innerHTML = '';}});
