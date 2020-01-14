@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Material Design Bootstrap</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+  <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mini.css/3.0.1/mini-default.min.css">-->
+  <!-- Your custom styles (optional) -->
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/mygrid.css" rel="stylesheet">
+  <link href="css/dragula.min.css" rel="stylesheet">
+  <link href="css/kanban.css" rel="stylesheet">
+  <style>
+
+table {
+	max-height: 50vh;
+}
+table:not(.horizontal) th.rotate {
+  white-space: nowrap;
+  overflow: visible;
+  background: rgba(0,0,0,0);
+  height:150px;
+}
+
+th.rotate > div {
+  transform: translate(-22px,130px) rotate(225deg);
+  transform-origin: 100% 0%;
+  height: 150px;
+  
+}
+  
+th.rotate > div > span {
+  border-left: 1px dashed #111;
+  padding: 0px 5px;
+  writing-mode: vertical-lr;
+  width: 20px;
+  height: 150px;
+  float: right;
+  text-align: left;
+}
+
+td {
+	border-right: 1px dashed #111 !important;
+	min-width: 20px;
+}
+
+tbody tr:nth-of-type(2n) {
+  background: rgb(200,200,200);
+}
+tbody tr:nth-of-type(2n-1) {
+  background: rgb(240,240,240);
+}
+
+#dropArea {
+	width: 200px;
+	height: 200px;
+	border: 1px solid black;
+}
+#outputTable {
+	height: 50vh;
+}
+  
+  </style>
+</head>
+
+<body>
+   <header style="border: 0px solid black; background: rgb(255,255,255); background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(102,204,204,0.8757878151260504) 100%);">
+	  <a href="index.html" class="logo"><img src="img/logo.png" style="max-width: 150px; vertical-align:middle;"/></a>
+	  <a href="features.html" class="button" style="background: rgba(245, 238, 236,0);">Features</a>
+	  <a href="documentation.html" class="button" style="background: rgba(245, 238, 236,0);">Documentation</a>
+	  <a href="upload.html" class="button" style="background: rgba(245, 238, 236,0);">Beta Upload</a>
+	  <a href="baseball.html" class="button" style="background: rgba(245, 238, 236,0);">Ball Monitor</a>
+	</header>
+  <div class="" id="">
+
+      	
+      	<div>
+			<small>Upload a csv file.</small>
+			<br />
+			<input id="to-compress" type="file" />
+			<input id="from-url" type="text"></input>
+			<div id="formholder">
+      	
+      		</div>
+		</div>
+		<div id="dropArea">
+		
+		</div>
+      	
+      	<div id="outputTable">
+      	
+      	</div>
+      	
+      	
+      	
+  </div>
+
+  <script src="https://unpkg.com/wasm-flate@0.1.11-alpha/dist/bootstrap.js"></script>
+  <script src="js/upload.js"></script>
+  <script src="js/papaparse.min.js"></script>
+
+</body>
+
+</html>
