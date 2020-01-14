@@ -25,6 +25,7 @@ function handleDrop(e) {
 	};
 }
 
+/*
 document.querySelector('#from-url').addEventListener('change', function() {
 	
 	//console.log(document.getElementById('from-url').value);
@@ -34,6 +35,7 @@ document.querySelector('#from-url').addEventListener('change', function() {
 		console.log(xmlHttp.responseText);
 
 }, false);
+*/
 
 document.querySelector('#dataFile').addEventListener('change', function(inp) {
 	

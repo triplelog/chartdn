@@ -21,7 +21,7 @@ var Module = {
 		}
 };
 Module.setStatus('Downloading...');
-importScripts('datatype.js');
+//importScripts('datatype.js');
 importScripts('../js/papaparse.min.js');
 
 self.addEventListener('message', function(e) {
@@ -56,6 +56,8 @@ self.addEventListener('message', function(e) {
 			var get_type = Module.cwrap('getType', 'string', ['string']);
 			
 			var ctypestr = "-1";
+			/*
+			var ctypestr = "-1";
 			for (var i=0; i<parsedstr[1].length; i++ ) {
 				ctypestr += ",";
 				var isdata = 0; var isstring = 0;
@@ -77,6 +79,7 @@ self.addEventListener('message', function(e) {
 					ctypestr += '0';
 				}
 			}
+			*/
 			
 			postMessage({
 				result: partstrH+partstrE,
