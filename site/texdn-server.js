@@ -154,10 +154,10 @@ function createLine(alldata) {
 var mydata = alldata.dataCopy;
 //var frameworks = alldata.framework;
 var frameworks = ['latex','xkcd','google','plotly','chartjs'];
-var xColumn = parseInt(alldata.xColumn);
-var yColumns = parseInt(alldata.yColumns);
-console.log(xColumn);
-console.log(yColumns);
+var xColumn = 0;//parseInt(alldata.xColumn);
+var yColumns = 1;//parseInt(alldata.yColumns);
+console.log(alldata.xColumn);
+console.log(alldata.yColumns);
 var nHeaders = parseInt(alldata.nHeaders);
 var title = alldata.title;
 var stepSizeX = alldata.stepSizeX;
