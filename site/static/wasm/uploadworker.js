@@ -53,7 +53,7 @@ self.addEventListener('message', function(e) {
 			
 			var parsedstr = parsedstrH.data.concat(parsedstrE.data);
 			
-			var get_type = Module.cwrap('getType', 'string', ['string']);
+			//var get_type = Module.cwrap('getType', 'string', ['string']);
 			
 			var ctypestr = "-1";
 			/*
