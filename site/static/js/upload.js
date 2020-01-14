@@ -97,38 +97,51 @@ function toTable(input_str,ctypestr){
 	var datatypes = [];
 	var ncols = Math.max(data.data[0].length,data.data[1].length);
 	
-	var tableDiv = document.getElementById("outputTable");
-	tableDiv.classList.add("flex-center");
-	tableDiv.classList.add("flex-column");
-		var table = document.createElement("table");
-		table.classList.add("striped");
-		table.classList.add("hoverable");
-			var thead = document.createElement("thead");
-				var tr = document.createElement("tr");
-					for (var i=0;i<data.data[0].length;i++) {
-						var th = document.createElement("th");
-						var tdiv = document.createElement("div");
-						var tspan = document.createElement("span");
-						tspan.textContent = data.data[0][i]+' ';
-						tdiv.appendChild(tspan);
-						th.appendChild(tdiv);
-						//th.classList.add('rotate');
-						tr.appendChild(th);
-					}
-				thead.appendChild(tr);
-			table.appendChild(thead);
-			var tbody = document.createElement("tbody");
-				for (var ii=1;ii<data.data.length-1;ii++) {
-					var tr2 = document.createElement("tr");
-					for (var i=0;i<data.data[ii].length;i++) {
-						var td = document.createElement("td");
-						td.textContent = data.data[ii][i];
-						tr2.appendChild(td);
-					}
-					tbody.appendChild(tr2);
+	var dataCopyStr = '';
+	
+	
+	var table = document.getElementById("dataTable");
+	table.innerHTML = '';
+	var thead = document.createElement("thead");
+		var tr = document.createElement("tr");
+			for (var i=0;i<data.data[0].length;i++) {
+				var th = document.createElement("th");
+				var tdiv = document.createElement("div");
+				var tspan = document.createElement("span");
+				tspan.textContent = data.data[0][i]+' ';
+				if (i<data.data[0].length-1){
+					dataCopyStr += data.data[0][i]+', ';
 				}
-			table.appendChild(tbody);
-		tableDiv.appendChild(table);
+				else {
+					dataCopyStr += data.data[0][i]+'\n';
+				}
+				
+				tdiv.appendChild(tspan);
+				th.appendChild(tdiv);
+				//th.classList.add('rotate');
+				tr.appendChild(th);
+				
+			}
+		thead.appendChild(tr);
+	table.appendChild(thead);
+	var tbody = document.createElement("tbody");
+		for (var ii=1;ii<data.data.length-1;ii++) {
+			var tr2 = document.createElement("tr");
+			for (var i=0;i<data.data[ii].length;i++) {
+				var td = document.createElement("td");
+				td.textContent = data.data[ii][i];
+				if (i<data.data[0].length-1){
+					dataCopyStr += data.data[ii][i]+', ';
+				}
+				else {
+					dataCopyStr += data.data[ii][i]+'\n';
+				}
+				tr2.appendChild(td);
+			}
+			tbody.appendChild(tr2);
+		}
+	table.appendChild(tbody);
+	document.getElementById('dataCopy').value = dataCopyStr;
 	
 	//var ctypestr = '-1';
 	var cheaders = [];
