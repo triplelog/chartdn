@@ -76,7 +76,7 @@ function fullCompression(to_compress) {
 	readerF.readAsArrayBuffer(to_compress);
 }
 
-
+/*
 function createConfirmForm(){
 	var form = document.createElement("form");
 	form.setAttribute("action","/savefile?n="+filen);
@@ -90,7 +90,7 @@ function createConfirmForm(){
 		button.textContent = "Submit";
 		form.appendChild(button);
 	document.getElementById("formholder").appendChild(form);
-}
+}*/
 function toTable(input_str,ctypestr){
 	
 	var data = Papa.parse(input_str);
