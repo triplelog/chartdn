@@ -154,10 +154,16 @@ function createLine(alldata) {
 var mydata = alldata.dataCopy;
 //var frameworks = alldata.framework;
 var frameworks = ['latex','xkcd','google','plotly','chartjs'];
-var xColumn = 0;//parseInt(alldata.xColumn);
-var yColumns = 1;//parseInt(alldata.yColumns);
-console.log(alldata.xColumn);
-console.log(alldata.yColumns);
+var xColumn = 0;
+var yColumns = [];//parseInt(alldata.yColumns);
+if (!isNaN(parseInt(alldata.xColumn))){ xColumn = parseInt(alldata.xColumn);}
+var yCols = alldata.yColumns.split(',');
+for (var i=0;i<yCols.length;i++){
+	if (!isNaN(parseInt(yCols[i]))){ yColumns.push(parseInt(yCols[i]));}
+}
+if(yColumns.length==0){
+	yColumns.push(1);
+}
 var nHeaders = parseInt(alldata.nHeaders);
 var title = alldata.title;
 var stepSizeX = alldata.stepSizeX;
@@ -208,7 +214,7 @@ for (var i=0;i<frameworks.length;i++){
 //fullJS += endJS;
 
 fullJS = fullJS.replace(/replacexarray/g,JSON.stringify(colArrays[xColumn]));
-fullJS = fullJS.replace(/replaceyarray/g,JSON.stringify(colArrays[yColumns]));
+fullJS = fullJS.replace(/replaceyarray/g,JSON.stringify(colArrays[yColumns[0]]));
 fullJS = fullJS.replace(/replaceyyarray/g,JSON.stringify(colArrays[2]));
 fullJS = fullJS.replace(/replacefullarray/g,JSON.stringify(fullArray));
 fullJS = fullJS.replace(/replaceobjectarray/g,JSON.stringify(bothArrays[2]));
