@@ -87,4 +87,12 @@ var drake = dragula([document.getElementById('allColumns'), document.getElementB
     return source !== document.getElementById('allColumns');
   }
 });
-drake.on('drop', function (el, container) { if (container.id == 'xColumn') {container.innerHTML = ''; container.appendChild(el);}});
+drake.on('drop', function (el, container) { 
+	if (container.id == 'xColumn') {
+		container.innerHTML = ''; container.appendChild(el);
+		document.getElementById('xColVal').value = el.id.substring(5);
+	}
+	else if (container.id == 'yColumns') {
+		document.getElementById('yColsVal').value += el.id.substring(5);
+	}
+});

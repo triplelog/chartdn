@@ -156,6 +156,8 @@ var mydata = alldata.dataCopy;
 var frameworks = ['latex','xkcd','google','plotly','chartjs'];
 var xColumn = parseInt(alldata.xColumn);
 var yColumns = parseInt(alldata.yColumns);
+console.log(xColumn);
+console.log(yColumns);
 var nHeaders = parseInt(alldata.nHeaders);
 var title = alldata.title;
 var stepSizeX = alldata.stepSizeX;
