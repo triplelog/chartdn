@@ -31,7 +31,10 @@ nunjucks.configure('templates', {
     autoescape: false
 });
 
+function downloadUrl(url) {
+	exec('curl '+url+' --output newtable.csv');
 
+}
 
 https.createServer(options, function(req, res) {
 	if (req.url == "/chartdn"){
