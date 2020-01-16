@@ -57,10 +57,9 @@ wss.on('connection', function connection(ws) {
 		  var child = exec(wget, function(err, stdout, stderr) {
 			if (err) throw err;
 			else {
-				console.log(stdout);
-				var csv = readDownloaded('file.csv');
-				ws.send(csv);
-				console.log(csv);
+				fs.readFile('file.csv', 'utf8', function(err, fileData) {
+					ws.send(fileData);
+				});
 			}
 		  });
 
@@ -69,14 +68,7 @@ wss.on('connection', function connection(ws) {
   });
 });
 
-function readDownloaded(fileLoc) {
-	console.log('reading...');
-	fs.readFile(fileLoc, 'utf8', function(err, fileData) {
-		console.log(err);
-		console.log(fileData);
-		return fileData;
-	});
-}
+
 https.createServer(options, function(req, res) {
 	if (req.url == "/chartdn"){
 		var data = '';
