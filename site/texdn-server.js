@@ -52,7 +52,7 @@ wss.on('connection', function connection(ws) {
   		console.log(dm.message)
   	}
   	else if (dm.operation == 'download'){
-		  var wget = 'wget -O file.csv "' + dm.message + '"';
+		  var wget = 'wget -O file.csv "' + dm.message + '" && echo "done"';
 		  // excute wget using child_process' exec function
 		  var child = exec(wget, function(err, stdout, stderr) {
 			if (err) throw err;
