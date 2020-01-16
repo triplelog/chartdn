@@ -17,7 +17,7 @@ function handleDrop(e) {
   let files = dt.files;
   document.getElementById('dropArea').style.display = 'none';
   var ffile = files[0];
-	syncWorker.postMessage(ffile.slice(0,20000));
+	syncWorker.postMessage(ffile);
 	syncWorker.onmessage = function(e) {
 		ctypestr = toTable(e.data.result,e.data.ctypestr);
 		//if (filen != ""){createConfirmForm();}
@@ -41,7 +41,7 @@ document.querySelector('#dataFile').addEventListener('change', function(inp) {
 	
 	document.getElementById('dropArea').style.display = 'none';
 	var ffile = this.files[0];
-	syncWorker.postMessage(ffile.slice(0,20000));
+	syncWorker.postMessage(ffile);
 	syncWorker.onmessage = function(e) {
 		ctypestr = toTable(e.data.result,e.data.ctypestr);
 		//if (filen != ""){createConfirmForm();}
@@ -64,13 +64,15 @@ function fullCompression(to_compress) {
 
 		var array = flate.deflate_encode_raw(array)
 		var compressed_size = array.length
-		//console.log(original_size, compressed_size)
-
+		console.log(original_size, compressed_size)
+		
+		/*
 		var xmlHttp = new XMLHttpRequest();
 		xmlHttp.open("POST", "/uploadfile", false); // false for synchronous request
 		xmlHttp.send(array);
 		filen = xmlHttp.responseText;
 		if (ctypestr != ""){createConfirmForm();}
+		*/
 		
 	}
 	readerF.readAsArrayBuffer(to_compress);
