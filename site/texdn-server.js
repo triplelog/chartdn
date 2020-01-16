@@ -57,6 +57,7 @@ wss.on('connection', function connection(ws) {
 		  var child = exec(wget, function(err, stdout, stderr) {
 			if (err) throw err;
 			else {
+				console.log(stdout);
 				var csv = readDownloaded('file.csv');
 				ws.send(csv);
 				console.log(csv);
