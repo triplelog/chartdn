@@ -56,8 +56,6 @@ wss.on('connection', function connection(ws) {
 
 		const request = require('request');
 		let file = fs.createWriteStream('file.csv');
-		/* Using Promises so that we can use the ASYNC AWAIT syntax */        
-		await new Promise((resolve, reject) => {
 			let stream = request({
 				/* Here you should specify the exact link to the file you are trying to download */
 				uri: dm.message,
@@ -81,10 +79,6 @@ wss.on('connection', function connection(ws) {
 			.on('error', (error) => {
 				reject(error);
 			})
-		})
-		.catch(error => {
-			console.log(`Something happened: ${error}`);
-		});
 
 
   	}
