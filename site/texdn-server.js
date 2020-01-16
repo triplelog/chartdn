@@ -52,12 +52,16 @@ wss.on('connection', function connection(ws) {
   ws.on('message', function incoming(message) {
   	var dm = JSON.parse(message);
   	if (dm.operation == 'upload'){
-  		console.log(dm.message);
-  		//mkdir
+  		//make the directory
   		fs.mkdirSync('saved/'+chartid, { recursive: true });
-  		console.log(dm.message);
   		//write data.csv
-  		//write options.txt
+  		fs.writeFile("saved/"+chartid+"/data.csv", dm.message, function (err) {
+			
+		});
+  		//write options.json
+  		fs.writeFile("saved/"+chartid+"/options.json", JSON.stringify({'nHeaders':0}), function (err) {
+			
+		});
   	}
   	else if (dm.operation == 'download'){
 		  var wget = 'wget -O file.csv "' + dm.message + '" && echo "done"';
