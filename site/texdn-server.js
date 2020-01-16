@@ -58,7 +58,7 @@ wss.on('connection', function connection(ws) {
 		  // excute wget using child_process' exec function
 		  var child = exec(wget, function(err, stdout, stderr) {
 			if (err) throw err;
-			else console.log('downloaded'');
+			else console.log('downloaded');
 		  });
 
 
