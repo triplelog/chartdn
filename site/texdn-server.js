@@ -48,14 +48,11 @@ const wss = new WebSocket.Server({ server });
 wss.on('connection', function connection(ws) {
   ws.on('message', function incoming(message) {
   	var dm = JSON.parse(message);
-  	console.log(dm);
   	if (dm.operation == 'upload'){
   		console.log(dm.message)
   	}
   	else if (dm.operation == 'download'){
-  		console.log(dm.message);
-  		exec('curl '+dm.message+' --output newtable.csv');
-  		console.log('done?');
+  		exec('wget -O newtable.csv '+dm.message);
   	}
   });
 });
