@@ -4,8 +4,16 @@ function getOrdinal(n) {
        v=n%100;
    return n+(s[(v-20)%10]||s[v]||s[0]);
 }
-// Sewt number of Header Rows
+// Set number of Header Rows
 var nHeaders = 1;
+
+//Download from url
+function urlChg(url) {
+	var url = document.getElementById('dataUrl').value;
+	var jsonmessage = {'operation':'download','message':url};
+	ws.send(JSON.stringify(jsonmessage));
+}
+
 
 //Set columns in Create Chart
 var allColumns = document.getElementById('allColumns');
@@ -48,7 +56,8 @@ function dataChg() {
 	
 	var dataTable = document.getElementById("dataTable");
 	var csv = dataCopy.value;
-	ws.send(csv);
+	var jsonmessage = {'operation':'upload','message':csv};
+	ws.send(JSON.stringify(jsonmessage));
 	var data = Papa.parse(csv).data;
 	dataTable.innerHTML = '';
 	var headers = [];

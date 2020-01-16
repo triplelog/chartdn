@@ -32,7 +32,7 @@ nunjucks.configure('templates', {
 });
 
 function downloadUrl(url) {
-	exec('curl '+url+' --output newtable.csv');
+	
 
 }
 
@@ -47,7 +47,13 @@ const wss = new WebSocket.Server({ server });
 
 wss.on('connection', function connection(ws) {
   ws.on('message', function incoming(message) {
-  	console.log('received');
+  	var dm = JSON.parse(message);
+  	if (dm.operation == 'upload'){
+  		console.log(dm.message)
+  	}
+  	else if (dm.operation == 'download'){
+  		exec('curl '+dm.message+' --output newtable.csv');
+  	}
   });
 });
 
