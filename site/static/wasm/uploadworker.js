@@ -36,22 +36,12 @@ self.addEventListener('message', function(e) {
 			console.log("Compressing")
 			
 			
-			var partBufferH = this.result.slice(0,10000),
+			var partBufferH = this.result,
 				partarrayH = new Uint8Array(partBufferH)
-			var partstrH = new TextDecoder("utf-8").decode(partarrayH);
-			
-			
-			var parsedstrH = Papa.parse(partstrH);
-			parsedstrH.data.pop();
-			var partBufferE = this.result.slice(10000,20000),
-				partarrayE = new Uint8Array(partBufferE)
-			var partstrE = new TextDecoder("utf-8").decode(partarrayE);
+			var fullstr = new TextDecoder("utf-8").decode(partarrayH);
 			
 
-			var parsedstrE = Papa.parse(partstrE);
-			parsedstrE.data.splice(0,1);
-			
-			var parsedstr = parsedstrH.data.concat(parsedstrE.data);
+			var parsedstr = Papa.parse(fullstr);
 			
 			//var get_type = Module.cwrap('getType', 'string', ['string']);
 			
@@ -82,7 +72,7 @@ self.addEventListener('message', function(e) {
 			*/
 			
 			postMessage({
-				result: partstrH+partstrE,
+				result: fullstr,
 				ctypestr: ctypestr
 			});
 		

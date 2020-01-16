@@ -64,8 +64,8 @@ function fullCompression(to_compress) {
 
 		var array = flate.deflate_encode_raw(array)
 		var compressed_size = array.length
-		console.log(original_size, compressed_size)
-		
+		//console.log(original_size, compressed_size)
+		dataChg();
 		/*
 		var xmlHttp = new XMLHttpRequest();
 		xmlHttp.open("POST", "/uploadfile", false); // false for synchronous request
@@ -102,15 +102,15 @@ function toTable(input_str,ctypestr){
 	var dataCopyStr = '';
 	
 	
-	var table = document.getElementById("dataTable");
-	table.innerHTML = '';
-	var thead = document.createElement("thead");
-		var tr = document.createElement("tr");
+	//var table = document.getElementById("dataTable");
+	//table.innerHTML = '';
+	//var thead = document.createElement("thead");
+		//var tr = document.createElement("tr");
 			for (var i=0;i<data.data[0].length;i++) {
-				var th = document.createElement("th");
-				var tdiv = document.createElement("div");
-				var tspan = document.createElement("span");
-				tspan.textContent = data.data[0][i]+' ';
+				//var th = document.createElement("th");
+				//var tdiv = document.createElement("div");
+				//var tspan = document.createElement("span");
+				//tspan.textContent = data.data[0][i]+' ';
 				if (i<data.data[0].length-1){
 					dataCopyStr += data.data[0][i]+', ';
 				}
@@ -118,34 +118,35 @@ function toTable(input_str,ctypestr){
 					dataCopyStr += data.data[0][i]+'\n';
 				}
 				
-				tdiv.appendChild(tspan);
-				th.appendChild(tdiv);
+				//tdiv.appendChild(tspan);
+				//th.appendChild(tdiv);
 				//th.classList.add('rotate');
-				tr.appendChild(th);
+				//tr.appendChild(th);
 				
 			}
-		thead.appendChild(tr);
-	table.appendChild(thead);
-	var tbody = document.createElement("tbody");
+		//thead.appendChild(tr);
+	//table.appendChild(thead);
+	//var tbody = document.createElement("tbody");
 		for (var ii=1;ii<data.data.length-1;ii++) {
-			var tr2 = document.createElement("tr");
+			//var tr2 = document.createElement("tr");
 			for (var i=0;i<data.data[ii].length;i++) {
-				var td = document.createElement("td");
-				td.textContent = data.data[ii][i];
+				//var td = document.createElement("td");
+				//td.textContent = data.data[ii][i];
 				if (i<data.data[0].length-1){
 					dataCopyStr += data.data[ii][i]+', ';
 				}
 				else {
 					dataCopyStr += data.data[ii][i]+'\n';
 				}
-				tr2.appendChild(td);
+				//tr2.appendChild(td);
 			}
-			tbody.appendChild(tr2);
+			//tbody.appendChild(tr2);
 		}
-	table.appendChild(tbody);
+	//table.appendChild(tbody);
 	document.getElementById('dataCopy').value = dataCopyStr;
 	
 	//var ctypestr = '-1';
+	/*
 	var cheaders = [];
 	var dtypes = ctypestr.split(',');
 	for (var i=1;i<dtypes.length;i++) {
@@ -170,7 +171,7 @@ function toTable(input_str,ctypestr){
 		var tspan = tdiv.querySelector("span");
 		tspan.innerHTML += ' <a href="#">'+cheaders[i]+'</a>';
 	}
-
+	*/
 	return ctypestr;
 }
 

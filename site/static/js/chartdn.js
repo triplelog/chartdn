@@ -43,7 +43,7 @@ function dst() {
 function headerChg() {
 	nHeaders = parseInt(document.getElementById('nHeaders').value);
 }
-function copyChg() {
+function dataChg() {
 	var dataTable = document.getElementById("dataTable");
 	var csv = dataCopy.value;
 	var data = Papa.parse(csv).data;
