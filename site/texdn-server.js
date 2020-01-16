@@ -72,7 +72,7 @@ function readDownloaded(fileLoc) {
 	console.log('reading...');
 	fs.readFile(fileLoc, 'utf8', function(err, fileData) {
 		return fileData;
-	}
+	});
 }
 https.createServer(options, function(req, res) {
 	if (req.url == "/chartdn"){
