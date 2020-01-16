@@ -54,12 +54,11 @@ wss.on('connection', function connection(ws) {
   	else if (dm.operation == 'download'){
   		
 
-		var file = fs.createWriteStream('file.csv');
-		  var request = https.get(dm.message, function(response) {
-			response.pipe(file);
-			file.on('finish', function() {
-			  file.close();
-			});
+		  var wget = 'wget -O file.csv ' + dm.message;
+		  // excute wget using child_process' exec function
+		  var child = exec(wget, function(err, stdout, stderr) {
+			if (err) throw err;
+			else console.log('downloaded'');
 		  });
 
 
