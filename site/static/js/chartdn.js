@@ -1,3 +1,4 @@
+var ws = new WebSocket('wss://tabdn.com:8080');
 function getOrdinal(n) {
    var s=["th","st","nd","rd"],
        v=n%100;
@@ -44,10 +45,10 @@ function headerChg() {
 	nHeaders = parseInt(document.getElementById('nHeaders').value);
 }
 function dataChg() {
-	var ws = new WebSocket('wss://tabdn.com:8080');
-	ws.send('test');
+	
 	var dataTable = document.getElementById("dataTable");
 	var csv = dataCopy.value;
+	ws.send(csv);
 	var data = Papa.parse(csv).data;
 	dataTable.innerHTML = '';
 	var headers = [];
