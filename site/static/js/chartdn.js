@@ -3,6 +3,8 @@ function getOrdinal(n) {
        v=n%100;
    return n+(s[(v-20)%10]||s[v]||s[0]);
 }
+// Sewt number of Header Rows
+var nHeaders = 1;
 
 //Set columns in Create Chart
 var allColumns = document.getElementById('allColumns');
@@ -10,7 +12,7 @@ allColumns.innerHTML = '';
 document.getElementById('xColumn').innerHTML = '';
 document.getElementById('yColumns').innerHTML = '';
 
-
+// Show table input type
 var dataFile = document.getElementById("dataFile");
 var dropArea = document.getElementById("dropArea");
 var dataCopy = document.getElementById("dataCopy");
@@ -38,6 +40,9 @@ function dst() {
 		dropArea.style.display = 'none';
 	}
 }
+function headerChg() {
+	nHeaders = parseInt(document.getElementById('nHeaders').value);
+}
 function copyChg() {
 	var dataTable = document.getElementById("dataTable");
 	var csv = dataCopy.value;
@@ -52,8 +57,8 @@ function copyChg() {
 			newcell.textContent = data[i][ii];
 			newrow.appendChild(newcell);
 			if (i==0){
-				if (includeHeaders) {
-		
+				if (nHeaders > 0) {
+					headers.push(data[i][ii]);
 				}
 				else {
 					headers.push(getOrdinal(ii+1));
