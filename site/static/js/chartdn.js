@@ -1,9 +1,13 @@
+var chartid = '';
 var ws = new WebSocket('wss://tabdn.com:8080');
 ws.onmessage = function(evt){
 	var dm = JSON.parse(evt.data);
 	if (dm.operation == 'downloaded'){
 		document.getElementById('dataCopy').value = dm.message;
 		dataChg();
+	}
+	else if (dm.operation == 'id'){
+		chartid = dm.message;
 	}
 }
 function getOrdinal(n) {

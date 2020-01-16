@@ -46,10 +46,18 @@ const WebSocket = require('ws');
 const wss = new WebSocket.Server({ server });
 
 wss.on('connection', function connection(ws) {
+  var chartid = 'testchart';
+  var jsonmessage = {'operation':'id','message':chartid};
+  ws.send(JSON.stringify(jsonmessage));
   ws.on('message', function incoming(message) {
   	var dm = JSON.parse(message);
   	if (dm.operation == 'upload'){
-  		console.log(dm.message)
+  		console.log(dm.message);
+  		//mkdir
+  		fs.mkdirSync('saved/'+chartid, { recursive: true });
+  		console.log(dm.message);
+  		//write data.csv
+  		//write options.txt
   	}
   	else if (dm.operation == 'download'){
 		  var wget = 'wget -O file.csv "' + dm.message + '" && echo "done"';
