@@ -1,4 +1,10 @@
 var ws = new WebSocket('wss://tabdn.com:8080');
+ws.onmessage = function(evt){
+	var dm = JSON.parse(evt.data);
+	if (dm.operation == 'downloaded'){
+		console.log(dm.message);
+	}
+}
 function getOrdinal(n) {
    var s=["th","st","nd","rd"],
        v=n%100;

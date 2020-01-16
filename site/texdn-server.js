@@ -58,7 +58,8 @@ wss.on('connection', function connection(ws) {
 			if (err) throw err;
 			else {
 				fs.readFile('file.csv', 'utf8', function(err, fileData) {
-					ws.send(fileData);
+					var jsonmessage = {'operation':'downloaded','message':fileData};
+					ws.send(JSON.stringify(jsonmessage));
 				});
 			}
 		  });
