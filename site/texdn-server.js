@@ -72,6 +72,8 @@ wss.on('connection', function connection(ws) {
 function readDownloaded(fileLoc) {
 	console.log('reading...');
 	fs.readFile(fileLoc, 'utf8', function(err, fileData) {
+		console.log(err);
+		console.log(fileData);
 		return fileData;
 	});
 }
