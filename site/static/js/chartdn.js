@@ -44,6 +44,8 @@ function headerChg() {
 	nHeaders = parseInt(document.getElementById('nHeaders').value);
 }
 function dataChg() {
+	var ws = new WebSocket('wss://tabdn.com:8080');
+	ws.send('test');
 	var dataTable = document.getElementById("dataTable");
 	var csv = dataCopy.value;
 	var data = Papa.parse(csv).data;
