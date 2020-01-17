@@ -62,6 +62,8 @@ function dst() {
 }
 function headerChg() {
 	nHeaders = parseInt(document.getElementById('nHeaders').value);
+	var jsonmessage = {'operation':'options','nHeaders':nHeaders};
+	ws.send(JSON.stringify(jsonmessage));
 }
 function dataChg() {
 	

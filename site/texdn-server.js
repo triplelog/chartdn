@@ -59,9 +59,9 @@ wss.on('connection', function connection(ws) {
 			
 		});
   		//write options.json
-  		fs.writeFile("saved/"+chartid+"/options.json", JSON.stringify({'nHeaders':0}), function (err) {
+  		//fs.writeFile("saved/"+chartid+"/options.json", JSON.stringify({'nHeaders':0}), function (err) {
 			
-		});
+		//});
   	}
   	else if (dm.operation == 'download'){
 		  var wget = 'wget -O file.csv "' + dm.message + '" && echo "done"';
@@ -78,6 +78,35 @@ wss.on('connection', function connection(ws) {
 
 
   	}
+  	else if (dm.operation == 'options'){
+  		//make the directory
+  		fs.mkdirSync('saved/'+chartid, { recursive: true });
+  		//write data.csv
+  		//fs.writeFile("saved/"+chartid+"/data.csv", dm.message, function (err) {
+			
+		//});
+  		//write options.json
+  		
+  		fs.readFile("saved/"+chartid+"/options.json", 'utf8', function(err, fileData) {
+  			if (err){
+  			
+  			}
+  			else {
+  				var options = JSON.parse(fileData);
+  				for(var k in dm){
+					if (k != 'operation'){
+						options[k] = dm[k];
+					}
+				}
+  				fs.writeFile("saved/"+chartid+"/options.json", JSON.stringify(options), function (err) {
+				
+				});
+  			}
+			
+		});
+  		
+  	}
+  	
   });
 });
 
