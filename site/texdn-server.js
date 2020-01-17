@@ -112,7 +112,7 @@ wss.on('connection', function connection(ws) {
 
 
 https.createServer(options, function(req, res) {
-	if (req.url == "/chartdn"){
+	if (req.url.substring(0,8) == "/chartdn"){
 		var data = '';
 		var start = process.hrtime();
         req.on('data', function (chunk) {
