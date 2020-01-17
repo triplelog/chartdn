@@ -136,6 +136,7 @@ function dataChg(initialData=false) {
 		newColumn.style.display = 'block';
 		allColumns.appendChild(newColumn);
 	}
+	console.log(document.getElementById('xColumn').getAttribute('data-initial'));
 	if (initialData && document.getElementById('xColumn').getAttribute('data-initial') != ''){
 		var xcv = parseInt(document.getElementById('xColumn').getAttribute('data-initial'));
 		document.getElementById('xColVal').value = xcv;
