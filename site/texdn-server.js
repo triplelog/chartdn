@@ -120,8 +120,9 @@ https.createServer(options, function(req, res) {
 			chartid = req.url.substring(11);
 			console.log(chartid);
 			fs.readFileSync('saved/'+chartid+'/options.json', 'utf8', function(err, fileData) {
+				console.log(fileData);
 				data = JSON.parse(fileData);
-				console.log(data);
+				
 			});
 		}
 		var start = process.hrtime();
