@@ -140,7 +140,7 @@ drake.on('drop', function (el, target, source) {
 			ycvStr += yid+', ';
 		}
 		document.getElementById('yColsVal').value = ycvStr.substring(0,ycvStr.length-2);
-		
+		console.log(yColsVals,document.getElementById('yColsVal').value);
 		
 	}
 });
@@ -165,5 +165,6 @@ drake.on('remove', function (el, target, source) {
 		else {
 			document.getElementById('yColsVal').value = '';
 		}
+		console.log(yColsVals,document.getElementById('yColsVal').value);
 	}
 });
