@@ -148,6 +148,7 @@ https.createServer(options, function(req, res) {
 					chartScript:createLine(qs.parse(data)), 
 					dataAreaText: qs.parse(data).dataCopy,
 				}));
+				res.end();
 			}
 			else {
 				if (req.url.length>8 && req.url.substring(8,11) == "?q=") {
@@ -157,7 +158,9 @@ https.createServer(options, function(req, res) {
 						res.write(nunjucks.render('chartdn.html',{
 							chartScript:'', 
 							dataAreaText: '',
+							nHeaders: 2,
 						}));
+						res.end();
 					});
 				}
 				else {
@@ -165,10 +168,11 @@ https.createServer(options, function(req, res) {
 						chartScript:'', 
 						dataAreaText: '',
 					}));
+					res.end();
 				}
 				
 			}
-			res.end();
+			
 		});
 	
     }
