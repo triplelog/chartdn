@@ -154,12 +154,17 @@ https.createServer(options, function(req, res) {
 				if (req.url.length>8 && req.url.substring(8,11) == "?q=") {
 					chartid = req.url.substring(11);
 					fs.readFile('saved/'+chartid+'/options.json', 'utf8', function(err, fileData) {
-						console.log(JSON.parse(fileData));
+						var savedData = JSON.parse(fileData);
+						var chartType = {'line':'','bar':'','scatter':''};
+						if (savedData['type']){
+							chartType[savedData['type']]='checked';
+						}
 						res.write(nunjucks.render('chartdn.html',{
 							chartScript:'', 
 							dataAreaText: '',
-							nHeaders: 2,
-							isChecked: {'line':'checked','bar':'','scatter':''},
+							nHeaders: savedData.nHeaders || 1,
+							isChecked: chartType,
+							title: savedData.title || '',
 						}));
 						res.end();
 					});
