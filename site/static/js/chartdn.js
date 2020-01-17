@@ -118,7 +118,7 @@ var drake = dragula([document.getElementById('allColumns'), document.getElementB
   	if (target === document.getElementById('allColumns')) {return false;}
   	if (target === source || target.id === 'xColumn'){return true;}
   	for (var yid in yColsVals){
-  		if ('colId'+yid == el.id){return false;}
+  		if ('colId'+yColsVals[yid] == el.id){return false;}
   	}
   	return true;
     
@@ -137,7 +137,7 @@ drake.on('drop', function (el, target, source) {
 		yColsVals.push(el.id.substring(5));
 		var ycvStr = '';
 		for (var yid in yColsVals){
-			ycvStr += yid+', ';
+			ycvStr += yColsVals[yid]+', ';
 		}
 		document.getElementById('yColsVal').value = ycvStr.substring(0,ycvStr.length-2);
 		console.log(yColsVals,document.getElementById('yColsVal').value);
@@ -158,7 +158,7 @@ drake.on('remove', function (el, target, source) {
 		if (yColsVals.length > 0) {
 			var ycvStr = '';
 			for (var yid in yColsVals){
-				ycvStr += yid+', ';
+				ycvStr += yColsVals[yid]+', ';
 			}
 			document.getElementById('yColsVal').value = ycvStr.substring(0,ycvStr.length-2);
 		}
