@@ -153,20 +153,24 @@ https.createServer(options, function(req, res) {
 			else {
 				if (req.url.length>8 && req.url.substring(8,11) == "?q=") {
 					chartid = req.url.substring(11);
-					fs.readFile('saved/'+chartid+'/options.json', 'utf8', function(err, fileData) {
-						var savedData = JSON.parse(fileData);
-						var chartType = {'line':'','bar':'','scatter':''};
-						if (savedData['type']){
-							chartType[savedData['type']]='checked';
-						}
-						res.write(nunjucks.render('chartdn.html',{
-							chartScript:'', 
-							dataAreaText: '',
-							nHeaders: savedData.nHeaders || 1,
-							isChecked: chartType,
-							title: savedData.title || '',
-						}));
-						res.end();
+					fs.readFile('saved/'+chartid+'/options.json', 'utf8', function(err, optionData) {
+						fs.readFile('saved/'+chartid+'/data.csv', 'utf8', function(err, fileData) {
+							var defaultData = ''
+							if (!err) {defaultData = fileData;}
+							var savedData = JSON.parse(optionData);
+							var chartType = {'line':'','bar':'','scatter':'','pie':'','bubble':'','histogram':'','heatmap':'','radar':'','box':'','choropleth':'','splom':'','diff':'','calendar':''};
+							if (savedData['type']){
+								chartType[savedData['type']]='checked';
+							}
+							res.write(nunjucks.render('chartdn.html',{
+								chartScript:'', 
+								dataAreaText: defaultData,
+								nHeaders: savedData.nHeaders || 1,
+								isChecked: chartType,
+								title: savedData.title || '',
+							}));
+							res.end();
+						});
 					});
 				}
 				else {

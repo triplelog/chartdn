@@ -10,6 +10,9 @@ ws.onmessage = function(evt){
 		chartid = dm.message;
 	}
 }
+
+
+
 function getOrdinal(n) {
    var s=["th","st","nd","rd"],
        v=n%100;
@@ -61,6 +64,13 @@ function dst() {
 		dropArea.style.display = 'none';
 	}
 }
+
+// Set table if already have data
+var oldData = document.getElementById('dataCopy').textContent;
+if (oldData.length > 0){
+	dataChg();
+}
+
 function headerChg() {
 	nHeaders = parseInt(document.getElementById('nHeaders').value);
 	var jsonmessage = {'operation':'options','nHeaders':nHeaders};
