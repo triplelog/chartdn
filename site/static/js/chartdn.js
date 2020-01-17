@@ -109,24 +109,61 @@ function dataChg() {
 
 
 //Dragula with column choices
-
+var yColsVals = [];
 var drake = dragula([document.getElementById('allColumns'), document.getElementById('xColumn'), document.getElementById('yColumns')], {
   copy: function (el, source) {
     return source === document.getElementById('allColumns');
   },
-  accepts: function (el, target) {
-    return target !== document.getElementById('allColumns');
+  accepts: function (el, target, source) {
+  	if (target === document.getElementById('allColumns')) {return false;}
+  	if (target === source || target.id === 'xColumn'){return true;}
+  	for (var yid in yColsVals){
+  		if (yid === el.id){return false;}
+  	}
+  	return true;
+    
   },
   removeOnSpill: function (el, source) {
     return source !== document.getElementById('allColumns');
   }
 });
-drake.on('drop', function (el, container) { 
+
+drake.on('drop', function (el, target, source) { 
 	if (container.id == 'xColumn') {
 		container.innerHTML = ''; container.appendChild(el);
 		document.getElementById('xColVal').value = el.id.substring(5);
 	}
 	else if (container.id == 'yColumns') {
-		document.getElementById('yColsVal').value += el.id.substring(5);
+		yColsVals.push(el.id.substring(5));
+		var ycvStr = '';
+		for (var yid in yColsVals){
+			ycvStr += yid+', ';
+		}
+		document.getElementById('yColsVal').value = ycvStr.substring(0,ycvStr.length-2);
+		
+		
+	}
+});
+drake.on('remove', function (el, container, source) { 
+	if (source.id == 'xColumn') {
+		document.getElementById('xColVal').value = '';
+	}
+	else if (source.id == 'yColumns') {
+		for( var i = 0; i < yColsVals.length; i++){ 
+		   if ( yColsVals[i] === el.id.substring(5)) {
+			 yColsVals.splice(i, 1);
+			 break;
+		   }
+		}
+		if (yColsVals.length > 0) {
+			var ycvStr = '';
+			for (var yid in yColsVals){
+				ycvStr += yid+', ';
+			}
+			document.getElementById('yColsVal').value = ycvStr.substring(0,ycvStr.length-2);
+		}
+		else {
+			document.getElementById('yColsVal').value = '';
+		}
 	}
 });
