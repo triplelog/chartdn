@@ -183,6 +183,8 @@ https.createServer(options, function(req, res) {
 								nHeaders: savedData.nHeaders || 1,
 								isChecked: chartType,
 								title: savedData.title || '',
+								xColumn: savedData.xColumn || '',
+								yColumns: savedData.yColumns || '',
 							}));
 							res.end();
 						});
