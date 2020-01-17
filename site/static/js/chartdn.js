@@ -15,8 +15,9 @@ function getOrdinal(n) {
        v=n%100;
    return n+(s[(v-20)%10]||s[v]||s[0]);
 }
-// Set number of Header Rows
+// Set options like number of Header Rows
 var nHeaders = 1;
+var filters = [];
 
 //Download from url
 function urlChg(url) {
@@ -63,6 +64,21 @@ function dst() {
 function headerChg() {
 	nHeaders = parseInt(document.getElementById('nHeaders').value);
 	var jsonmessage = {'operation':'options','nHeaders':nHeaders};
+	ws.send(JSON.stringify(jsonmessage));
+}
+function columnsChg() {
+	var yColsStr = document.getElementById('yColsVal').value;
+	var xColStr = document.getElementById('xColVal').value;
+	var jsonmessage = {'operation':'options','yColsStr':yColsStr,'xColStr':xColStr};
+	ws.send(JSON.stringify(jsonmessage));
+}
+function filterChg() {
+	var isChecked = document.querySelectorAll('input[name="filter"]:checked');
+	filters = [];
+	for (var i=0;i<isChecked.length;i++){
+		filters.push(isChecked[i].id);
+	}
+	var jsonmessage = {'operation':'options','filters':filters};
 	ws.send(JSON.stringify(jsonmessage));
 }
 function dataChg() {
@@ -132,6 +148,7 @@ drake.on('drop', function (el, target, source) {
 	if (target.id == 'xColumn') {
 		target.innerHTML = ''; target.appendChild(el);
 		document.getElementById('xColVal').value = el.id.substring(5);
+		columnsChg();
 	}
 	else if (target.id == 'yColumns') {
 		yColsVals.push(el.id.substring(5));
@@ -141,12 +158,14 @@ drake.on('drop', function (el, target, source) {
 		}
 		document.getElementById('yColsVal').value = ycvStr.substring(0,ycvStr.length-2);
 		console.log(yColsVals,document.getElementById('yColsVal').value);
+		columnsChg();
 		
 	}
 });
 drake.on('remove', function (el, target, source) { 
 	if (source.id == 'xColumn') {
 		document.getElementById('xColVal').value = '';
+		columnsChg();
 	}
 	else if (source.id == 'yColumns') {
 		for( var i = 0; i < yColsVals.length; i++){ 
@@ -166,5 +185,6 @@ drake.on('remove', function (el, target, source) {
 			document.getElementById('yColsVal').value = '';
 		}
 		console.log(yColsVals,document.getElementById('yColsVal').value);
+		columnsChg();
 	}
 });
