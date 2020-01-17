@@ -20,12 +20,13 @@ exports.createLine = function(alldata,csvdata) {
 	var lineColor = alldata.lineColor;
 	var dotColor = alldata.dotColor;
 
-	if (!mydata || mydata.length == 0){
-		return '';
-	}
+	
 
 
 	var bothArrays = csvdata;
+	if (bothArrays[0].length == 0){
+		return '';
+	}
 	var fullArray = bothArrays[0];
 	var colArrays = bothArrays[1];
 
