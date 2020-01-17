@@ -21,6 +21,7 @@ function getOrdinal(n) {
 // Set options like number of Header Rows
 var nHeaders = 1;
 var filters = [];
+var yColsVals = [];
 
 //Download from url
 function urlChg(url) {
@@ -136,10 +137,8 @@ function dataChg(initialData=false) {
 		newColumn.style.display = 'block';
 		allColumns.appendChild(newColumn);
 	}
-	console.log(document.getElementById('xColumn').getAttribute('data-initial'));
-	if (initialData && document.getElementById('xColumn').getAttribute('data-initial') != ''){
-		var xcv = parseInt(document.getElementById('xColumn').getAttribute('data-initial'));
-		document.getElementById('xColVal').value = xcv;
+	if (initialData && document.getElementById('xColVal').value != ''){
+		var xcv = parseInt(document.getElementById('xColVal').value);
 		document.getElementById('xColumn').innerHTML = '';
 		var newColumn = document.createElement('span');
 		newColumn.textContent = headers[xcv];
@@ -147,14 +146,22 @@ function dataChg(initialData=false) {
 		newColumn.style.display = 'block';
 		document.getElementById('xColumn').appendChild(newColumn);
 	}
-	/*
-	yColsVals.push(el.id.substring(5));
-			var ycvStr = '';
-			for (var yid in yColsVals){
-				ycvStr += yColsVals[yid]+', ';
-			}
-			document.getElementById('yColsVal').value = ycvStr.substring(0,ycvStr.length-2);
-	*/	
+	if (initialData && document.getElementById('yColsVal').value != ''){
+		yColsVals = document.getElementById('yColsVal').value.split(',');
+		document.getElementById('yColumns').innerHTML = '';
+		var ycvStr = '';
+		for (var yid in yColsVals){
+			yColsVals[yid] = parseInt(yColsVals[yid]);
+			ycvStr += yColsVals[yid]+', ';
+			var newColumn = document.createElement('span');
+			newColumn.textContent = headers[yColsVals[yid]];
+			newColumn.id = 'colId'+yColsVals[yid];
+			newColumn.style.display = 'block';
+			document.getElementById('yColumns').appendChild(newColumn);
+		}
+		document.getElementById('yColsVal').value = ycvStr.substring(0,ycvStr.length-2);
+		
+	}
 	
 	
 	
@@ -163,7 +170,7 @@ function dataChg(initialData=false) {
 
 
 //Dragula with column choices
-var yColsVals = [];
+
 var drake = dragula([document.getElementById('allColumns'), document.getElementById('xColumn'), document.getElementById('yColumns')], {
   copy: function (el, source) {
     return source === document.getElementById('allColumns');

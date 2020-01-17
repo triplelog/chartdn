@@ -178,7 +178,7 @@ https.createServer(options, function(req, res) {
 								chartType[savedData['type']]='checked';
 							}
 							res.write(nunjucks.render('chartdn.html',{
-								chartScript:createLine(savedData), 
+								chartScript: createLine(savedData), 
 								dataAreaText: defaultData,
 								nHeaders: savedData.nHeaders || 1,
 								isChecked: chartType,
@@ -256,6 +256,7 @@ function convertDataToFull(dataStr,nHeaders) {
 }
 
 function createLine(alldata) {
+console.log(mydata);
 var mydata = alldata.dataCopy;
 //var frameworks = alldata.framework;
 var frameworks = ['latex','xkcd','google','plotly','chartjs'];
