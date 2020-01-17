@@ -178,7 +178,7 @@ https.createServer(options, function(req, res) {
 								chartType[savedData['type']]='checked';
 							}
 							res.write(nunjucks.render('chartdn.html',{
-								chartScript: createLine(savedData), 
+								chartScript: createLine(savedData,defaultData), 
 								dataAreaText: defaultData,
 								nHeaders: savedData.nHeaders || 1,
 								isChecked: chartType,
@@ -255,14 +255,14 @@ function convertDataToFull(dataStr,nHeaders) {
 	return [retArray,cols,objArray];
 }
 
+
 function createLine(alldata,csvdata='') {
-console.log(alldata);
 var mydata = '';
-if (csvdata == ''){
+if (dataname == ''){
 	mydata = alldata.dataCopy;
 }
 else {
-	mydata = csvdata
+	mydata = csvdata;
 }
 //var frameworks = alldata.framework;
 var frameworks = ['latex','xkcd','google','plotly','chartjs'];
