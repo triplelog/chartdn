@@ -118,7 +118,7 @@ var drake = dragula([document.getElementById('allColumns'), document.getElementB
   	if (target === document.getElementById('allColumns')) {return false;}
   	if (target === source || target.id === 'xColumn'){return true;}
   	for (var yid in yColsVals){
-  		if (yid === el.id){return false;}
+  		if ('colId'+yid == el.id){return false;}
   	}
   	return true;
     
