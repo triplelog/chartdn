@@ -157,7 +157,6 @@ https.createServer(options, function(req, res) {
 						res.write(nunjucks.render('chartdn.html',{
 							chartScript:'', 
 							dataAreaText: '',
-							nHeaders: 2,
 						}));
 					});
 				}
