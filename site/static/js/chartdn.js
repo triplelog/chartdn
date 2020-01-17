@@ -66,7 +66,8 @@ function dst() {
 }
 
 // Set table if already have data
-var oldData = document.getElementById('dataCopy').textContent;
+var oldData = document.getElementById('dataCopy').value;
+console.log(oldData.length);
 if (oldData.length > 0){
 	dataChg();
 }
