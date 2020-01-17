@@ -129,11 +129,11 @@ var drake = dragula([document.getElementById('allColumns'), document.getElementB
 });
 
 drake.on('drop', function (el, target, source) { 
-	if (container.id == 'xColumn') {
-		container.innerHTML = ''; container.appendChild(el);
+	if (target.id == 'xColumn') {
+		target.innerHTML = ''; target.appendChild(el);
 		document.getElementById('xColVal').value = el.id.substring(5);
 	}
-	else if (container.id == 'yColumns') {
+	else if (target.id == 'yColumns') {
 		yColsVals.push(el.id.substring(5));
 		var ycvStr = '';
 		for (var yid in yColsVals){
@@ -144,7 +144,7 @@ drake.on('drop', function (el, target, source) {
 		
 	}
 });
-drake.on('remove', function (el, container, source) { 
+drake.on('remove', function (el, target, source) { 
 	if (source.id == 'xColumn') {
 		document.getElementById('xColVal').value = '';
 	}
