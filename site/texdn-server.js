@@ -159,6 +159,7 @@ https.createServer(options, function(req, res) {
 							chartScript:'', 
 							dataAreaText: '',
 							nHeaders: 2,
+							isChecked: {'line':'checked','bar':'','scatter':''},
 						}));
 						res.end();
 					});

@@ -95,9 +95,9 @@
 					<div class="col-sm-12">
 						<div class="row">
 							<div class="col-sm-12">
-									<input type="radio" name="chartType" onchange="typeChg()" value="line" checked>Line</input>
-									<input type="radio" name="chartType" onchange="typeChg()" value="bar">Bar</input>
-									<input type="radio" name="chartType" onchange="typeChg()" value="scatter">Scatter</input>
+									<input type="radio" name="chartType" onchange="typeChg()" value="line" {{ isChecked['line'] }}>Line</input>
+									<input type="radio" name="chartType" onchange="typeChg()" value="bar" {{ isChecked['bar'] }}>Bar</input>
+									<input type="radio" name="chartType" onchange="typeChg()" value="scatter" {{ isChecked['scatter'] }}>Scatter</input>
 									<input type="radio" name="chartType" onchange="typeChg()" value="pie">Pie</input>
 									<input type="radio" name="chartType" onchange="typeChg()" value="bubble">Bubble</input>
 									<input type="radio" name="chartType" onchange="typeChg()" value="histogram">Histogram</input>
