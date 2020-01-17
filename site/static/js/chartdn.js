@@ -67,9 +67,8 @@ function dst() {
 
 // Set table if already have data
 var oldData = document.getElementById('dataCopy').value;
-console.log(oldData.length);
 if (oldData.length > 0){
-	dataChg();
+	dataChg(true);
 }
 
 function headerChg() {
@@ -98,12 +97,14 @@ function typeChg() {
 	var jsonmessage = {'operation':'options','type':isChecked.value};
 	ws.send(JSON.stringify(jsonmessage));
 }
-function dataChg() {
+function dataChg(initialData=false) {
 	
 	var dataTable = document.getElementById("dataTable");
 	var csv = dataCopy.value;
-	var jsonmessage = {'operation':'upload','message':csv};
-	ws.send(JSON.stringify(jsonmessage));
+	if (!initialData){
+		var jsonmessage = {'operation':'upload','message':csv};
+		ws.send(JSON.stringify(jsonmessage));
+	}
 	var data = Papa.parse(csv).data;
 	dataTable.innerHTML = '';
 	var headers = [];
