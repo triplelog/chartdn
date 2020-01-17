@@ -70,7 +70,8 @@ var oldData = document.getElementById('dataCopy').value;
 if (oldData.length > 0){
 	dataChg(true);
 }
-
+		
+		
 function headerChg() {
 	nHeaders = parseInt(document.getElementById('nHeaders').value);
 	var jsonmessage = {'operation':'options','nHeaders':nHeaders};
@@ -135,6 +136,24 @@ function dataChg(initialData=false) {
 		newColumn.style.display = 'block';
 		allColumns.appendChild(newColumn);
 	}
+	if (initialData && document.getElementById('xColumn').getAttribute('data-initial') != ''){
+		var xcv = parseInt(document.getElementById('xColumn').getAttribute('data-initial'));
+		document.getElementById('xColVal').value = xcv;
+		document.getElementById('xColumn').innerHTML = '';
+		var newColumn = document.createElement('span');
+		newColumn.textContent = headers[xcv];
+		newColumn.id = 'colId'+xcv;
+		newColumn.style.display = 'block';
+		document.getElementById('xColumn').appendChild(newColumn);
+	}
+	/*
+	yColsVals.push(el.id.substring(5));
+			var ycvStr = '';
+			for (var yid in yColsVals){
+				ycvStr += yColsVals[yid]+', ';
+			}
+			document.getElementById('yColsVal').value = ycvStr.substring(0,ycvStr.length-2);
+	*/	
 	
 	
 	
@@ -175,7 +194,6 @@ drake.on('drop', function (el, target, source) {
 			ycvStr += yColsVals[yid]+', ';
 		}
 		document.getElementById('yColsVal').value = ycvStr.substring(0,ycvStr.length-2);
-		console.log(yColsVals,document.getElementById('yColsVal').value);
 		columnsChg();
 		
 	}
