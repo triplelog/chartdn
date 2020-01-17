@@ -113,7 +113,15 @@ wss.on('connection', function connection(ws) {
 
 https.createServer(options, function(req, res) {
 	if (req.url.substring(0,8) == "/chartdn"){
+		var chartid = '';
 		var data = '';
+		if (req.url.length>8 && req.url.substring(8,11) == "?q=") {
+			chartid = req.url.substring(11);
+			fs.readFileSync('saved/'+chartid+'/options.json', 'utf8', function(err, fileData) {
+				data = JSON.parse(fileData);
+				console.log(data);
+			});
+		}
 		var start = process.hrtime();
         req.on('data', function (chunk) {
             data += chunk;
