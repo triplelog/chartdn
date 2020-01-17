@@ -159,9 +159,9 @@ https.createServer(options, function(req, res) {
 						});
 					});
 				});
-				//res.write(createLine.createLine(qs.parse(data))); //write a response to the client
+
 				res.write(nunjucks.render('chartdn.html',{
-					chartScript:createLine.createLine(qs.parse(data),convertDataToFull(qs.parse(data).dataCopy,qs.parse(data).nHeaders)), 
+					chartScript:createChart(qs.parse(data),convertDataToFull(qs.parse(data).dataCopy,qs.parse(data).nHeaders),'line'), 
 					dataAreaText: qs.parse(data).dataCopy,
 				}));
 				res.end();
@@ -179,7 +179,7 @@ https.createServer(options, function(req, res) {
 								chartType[savedData['type']]='checked';
 							}
 							res.write(nunjucks.render('chartdn.html',{
-								chartScript: createLine.createLine(savedData,convertDataToFull(defaultData,savedData.nHeaders)), 
+								chartScript: createChart(savedData,convertDataToFull(defaultData,savedData.nHeaders),'line'), 
 								dataAreaText: defaultData,
 								nHeaders: savedData.nHeaders || 1,
 								isChecked: chartType,
@@ -256,3 +256,79 @@ function convertDataToFull(dataStr,nHeaders) {
 	return [retArray,cols,objArray];
 }
 
+function createChart(alldata,csvdata,chartType="line") {
+
+	//var frameworks = alldata.framework;
+	var frameworks = ['latex','xkcd','google','plotly','chartjs'];
+	var xColumn = 0;
+	var yColumns = [];//parseInt(alldata.yColumns);
+	if (!isNaN(parseInt(alldata.xColumn))){ xColumn = parseInt(alldata.xColumn);}
+	var yCols = alldata.yColumns.split(',');
+	for (var i=0;i<yCols.length;i++){
+		if (!isNaN(parseInt(yCols[i]))){ yColumns.push(parseInt(yCols[i]));}
+	}
+	if(yColumns.length==0){
+		yColumns.push(1);
+	}
+	var nHeaders = parseInt(alldata.nHeaders);
+	var title = alldata.title;
+	var stepSizeX = alldata.stepSizeX;
+	var stepSizeY = alldata.stepSizeY;
+	var lineColor = alldata.lineColor;
+	var dotColor = alldata.dotColor;
+
+	
+
+
+	var bothArrays = csvdata;
+	if (bothArrays[0].length == 0){
+		return '';
+	}
+	var fullArray = bothArrays[0];
+	var colArrays = bothArrays[1];
+
+	var fullJS = '';
+	
+	var chartFile = createLine;
+	if (chartType == 'bar'){chartFile = createBar;}
+	for (var i=0;i<frameworks.length;i++){
+		var options = {};
+		if (frameworks[i] == 'latex'){
+			fullJS += '';
+		}
+		else if (frameworks[i] == 'xkcd'){
+			if (title != '' && title != 'notitle') {options['title'] = 'title: "'+title+'",';}
+			fullJS += nunjucks.renderString(chartFile.createXkcd(),options);
+		}
+		else if (frameworks[i] == 'google'){
+			if (title != '' && title != 'notitle') {options['title'] = 'title: "'+title+'",';}
+			fullJS += nunjucks.renderString(chartFile.createGoogle(),options);
+		}
+		else if (frameworks[i] == 'plotly'){
+			if (title != '' && title != 'notitle') {options['title'] = 'title: "'+title+'",';}
+			if (stepSizeX != '' && stepSizeX != 'default') {options['xaxis'] = 'xaxis: {dtick: '+stepSizeX+'},' }
+			if (stepSizeY != '' && stepSizeY != 'default') {options['yaxis'] = 'yaxis: {dtick: '+stepSizeY+'},' }
+			fullJS += nunjucks.renderString(chartFile.createPlotly(),options);
+		}
+		else if (frameworks[i] == 'chartjs'){
+			if (title != '' && title != 'notitle') {options['title'] = 'title: {display: true, text: "'+title+'"},';}
+			if (stepSizeX != '' && stepSizeX != 'default') {options['stepSizeX'] = 'stepSize: '+stepSizeX+',' }
+			if (stepSizeY != '' && stepSizeY != 'default') {options['stepSizeY'] = 'stepSize: '+stepSizeY+',' }
+			if (lineColor != '' && lineColor != 'default') {options['lineColor'] = 'borderColor: "'+lineColor+'",'}
+			if (dotColor != '' && dotColor != 'default') {options['dotColor'] = 'backgroundColor: "'+dotColor+'",'}
+		
+			fullJS += nunjucks.renderString(chartFile.createChartjs(),options);
+		}
+	}
+	//fullJS += endJS;
+
+	fullJS = fullJS.replace(/replacexarray/g,JSON.stringify(colArrays[xColumn]));
+	fullJS = fullJS.replace(/replaceyarray/g,JSON.stringify(colArrays[yColumns[0]]));
+	fullJS = fullJS.replace(/replaceyyarray/g,JSON.stringify(colArrays[2]));
+	fullJS = fullJS.replace(/replacefullarray/g,JSON.stringify(fullArray));
+	fullJS = fullJS.replace(/replaceobjectarray/g,JSON.stringify(bothArrays[2]));
+
+
+
+	return fullJS;
+}

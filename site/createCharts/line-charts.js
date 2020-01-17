@@ -1,90 +1,5 @@
 
-exports.createLine = function(alldata,csvdata) {
-
-	//var frameworks = alldata.framework;
-	var frameworks = ['latex','xkcd','google','plotly','chartjs'];
-	var xColumn = 0;
-	var yColumns = [];//parseInt(alldata.yColumns);
-	if (!isNaN(parseInt(alldata.xColumn))){ xColumn = parseInt(alldata.xColumn);}
-	var yCols = alldata.yColumns.split(',');
-	for (var i=0;i<yCols.length;i++){
-		if (!isNaN(parseInt(yCols[i]))){ yColumns.push(parseInt(yCols[i]));}
-	}
-	if(yColumns.length==0){
-		yColumns.push(1);
-	}
-	var nHeaders = parseInt(alldata.nHeaders);
-	var title = alldata.title;
-	var stepSizeX = alldata.stepSizeX;
-	var stepSizeY = alldata.stepSizeY;
-	var lineColor = alldata.lineColor;
-	var dotColor = alldata.dotColor;
-
-	
-
-
-	var bothArrays = csvdata;
-	if (bothArrays[0].length == 0){
-		return '';
-	}
-	var fullArray = bothArrays[0];
-	var colArrays = bothArrays[1];
-
-	var fullJS = '';
-
-	for (var i=0;i<frameworks.length;i++){
-		var options = {};
-		if (frameworks[i] == 'latex'){
-			fullJS += '';
-		}
-		else if (frameworks[i] == 'xkcd'){
-			if (title != '' && title != 'notitle') {options['title'] = 'title: "'+title+'",';}
-			fullJS += nunjucks.renderString(createXkcdLine(),options);
-		}
-		else if (frameworks[i] == 'google'){
-			if (title != '' && title != 'notitle') {options['title'] = 'title: "'+title+'",';}
-			fullJS += nunjucks.renderString(createGoogleLine(),options);
-		}
-		else if (frameworks[i] == 'plotly'){
-			if (title != '' && title != 'notitle') {options['title'] = 'title: "'+title+'",';}
-			if (stepSizeX != '' && stepSizeX != 'default') {options['xaxis'] = 'xaxis: {dtick: '+stepSizeX+'},' }
-			if (stepSizeY != '' && stepSizeY != 'default') {options['yaxis'] = 'yaxis: {dtick: '+stepSizeY+'},' }
-			fullJS += nunjucks.renderString(createPlotlyLine(),options);
-		}
-		else if (frameworks[i] == 'chartjs'){
-			if (title != '' && title != 'notitle') {options['title'] = 'title: {display: true, text: "'+title+'"},';}
-			if (stepSizeX != '' && stepSizeX != 'default') {options['stepSizeX'] = 'stepSize: '+stepSizeX+',' }
-			if (stepSizeY != '' && stepSizeY != 'default') {options['stepSizeY'] = 'stepSize: '+stepSizeY+',' }
-			if (lineColor != '' && lineColor != 'default') {options['lineColor'] = 'borderColor: "'+lineColor+'",'}
-			if (dotColor != '' && dotColor != 'default') {options['dotColor'] = 'backgroundColor: "'+dotColor+'",'}
-		
-			fullJS += nunjucks.renderString(createChartjsLine(),options);
-		}
-	}
-	//fullJS += endJS;
-
-	fullJS = fullJS.replace(/replacexarray/g,JSON.stringify(colArrays[xColumn]));
-	fullJS = fullJS.replace(/replaceyarray/g,JSON.stringify(colArrays[yColumns[0]]));
-	fullJS = fullJS.replace(/replaceyyarray/g,JSON.stringify(colArrays[2]));
-	fullJS = fullJS.replace(/replacefullarray/g,JSON.stringify(fullArray));
-	fullJS = fullJS.replace(/replaceobjectarray/g,JSON.stringify(bothArrays[2]));
-
-
-
-	return fullJS;
-}
-
-
-
-
-
-
-
-
-
-
-
-function createPlotlyLine() {
+exports.createPlotly = function() {
 var baseJS = `
 <script>
 document.getElementById('plotlyDiv').style.display = 'block';
@@ -110,7 +25,7 @@ return baseJS;
 
 }
 
-function createChartjsLine() {
+exports.createChartjs = function() {
 var baseJS = `
 <script>
 document.getElementById('myChart').style.display = 'block';
@@ -152,7 +67,7 @@ return baseJS;
 
 }
 
-function createXkcdLine() {
+exports.createXkcd = function() {
 var baseJS = `
 <script>
 document.querySelector('#xkcdSvg').style.display = 'block';
@@ -184,7 +99,7 @@ return baseJS;
 
 
 
-function createGoogleLine() {
+exports.createGoogle = function() {
 var baseJS = `
 <script>
   document.getElementById('googleChart').style.display = 'block';
