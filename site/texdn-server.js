@@ -161,7 +161,7 @@ https.createServer(options, function(req, res) {
 				});
 				//res.write(createLine.createLine(qs.parse(data))); //write a response to the client
 				res.write(nunjucks.render('chartdn.html',{
-					chartScript:createLine.createLine(qs.parse(data)), 
+					chartScript:createLine.createLine(qs.parse(data),convertDataToFull(qs.parse(data).dataCopy,qs.parse(data).nHeaders)), 
 					dataAreaText: qs.parse(data).dataCopy,
 				}));
 				res.end();
@@ -179,7 +179,7 @@ https.createServer(options, function(req, res) {
 								chartType[savedData['type']]='checked';
 							}
 							res.write(nunjucks.render('chartdn.html',{
-								chartScript: createLine.createLine(savedData,defaultData), 
+								chartScript: createLine.createLine(savedData,convertDataToFull(defaultData,savedData.nHeaders)), 
 								dataAreaText: defaultData,
 								nHeaders: savedData.nHeaders || 1,
 								isChecked: chartType,

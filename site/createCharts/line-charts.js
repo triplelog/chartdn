@@ -1,12 +1,6 @@
 
-exports.createLine = function(alldata,csvdata='') {
-	var mydata = '';
-	if (csvdata == ''){
-		mydata = alldata.dataCopy;
-	}
-	else {
-		mydata = csvdata;
-	}
+exports.createLine = function(alldata,csvdata) {
+
 	//var frameworks = alldata.framework;
 	var frameworks = ['latex','xkcd','google','plotly','chartjs'];
 	var xColumn = 0;
@@ -31,7 +25,7 @@ exports.createLine = function(alldata,csvdata='') {
 	}
 
 
-	var bothArrays = convertDataToFull(mydata,nHeaders);
+	var bothArrays = csvdata;
 	var fullArray = bothArrays[0];
 	var colArrays = bothArrays[1];
 
