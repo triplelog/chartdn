@@ -116,7 +116,9 @@ https.createServer(options, function(req, res) {
 		var chartid = '';
 		var data = '';
 		if (req.url.length>8 && req.url.substring(8,11) == "?q=") {
+			console.log(req.url);
 			chartid = req.url.substring(11);
+			console.log(chartid);
 			fs.readFileSync('saved/'+chartid+'/options.json', 'utf8', function(err, fileData) {
 				data = JSON.parse(fileData);
 				console.log(data);
