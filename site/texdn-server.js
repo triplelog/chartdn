@@ -115,16 +115,7 @@ https.createServer(options, function(req, res) {
 	if (req.url.substring(0,8) == "/chartdn"){
 		var chartid = '';
 		var data = '';
-		if (req.url.length>8 && req.url.substring(8,11) == "?q=") {
-			console.log(req.url);
-			chartid = req.url.substring(11);
-			console.log(chartid);
-			fs.readFile('saved/'+chartid+'/options.json', 'utf8', function(err, fileData) {
-				console.log(fileData);
-				data = JSON.parse(fileData);
-				
-			});
-		}
+		
 		var start = process.hrtime();
         req.on('data', function (chunk) {
             data += chunk;
@@ -159,30 +150,24 @@ https.createServer(options, function(req, res) {
 				}));
 			}
 			else {
-				res.write(nunjucks.render('chartdn.html',{
-					chartScript:'', 
-					dataAreaText: '',
-				}));
+				if (req.url.length>8 && req.url.substring(8,11) == "?q=") {
+					chartid = req.url.substring(11);
+					fs.readFile('saved/'+chartid+'/options.json', 'utf8', function(err, fileData) {
+						console.log(JSON.parse(fileData));
+						res.write(nunjucks.render('chartdn.html',{
+							chartScript:createLine(JSON.parse(fileData)), 
+							dataAreaText: '',
+						}));
+					});
+				}
+				else {
+					res.write(nunjucks.render('chartdn.html',{
+						chartScript:'', 
+						dataAreaText: '',
+					}));
+				}
+				
 			}
-			res.end();
-		});
-	
-    }
-    else if (req.url == "/createchart"){
-		var data = '';
-		var start = process.hrtime();
-        req.on('data', function (chunk) {
-            data += chunk;
-
-            // Too much POST data, kill the connection!
-            // 1e6 === 1 * Math.pow(10, 6) === 1 * 1000000 ~~~ 1MB
-            if (data.length > 1e6)
-                req.connection.destroy();
-        });
-
-		// when we get data we want to store it in memory
-		req.on('end', () => {
-			res.write(nunjucks.render('chartdn.html',{}));
 			res.end();
 		});
 	
