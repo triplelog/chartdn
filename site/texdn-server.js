@@ -155,8 +155,9 @@ https.createServer(options, function(req, res) {
 					fs.readFile('saved/'+chartid+'/options.json', 'utf8', function(err, fileData) {
 						console.log(JSON.parse(fileData));
 						res.write(nunjucks.render('chartdn.html',{
-							chartScript:createLine(JSON.parse(fileData)), 
+							chartScript:'', 
 							dataAreaText: '',
+							nHeaders: 2,
 						}));
 					});
 				}
