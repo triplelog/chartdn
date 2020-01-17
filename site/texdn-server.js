@@ -255,9 +255,15 @@ function convertDataToFull(dataStr,nHeaders) {
 	return [retArray,cols,objArray];
 }
 
-function createLine(alldata) {
-console.log(mydata);
-var mydata = alldata.dataCopy;
+function createLine(alldata,csvdata='') {
+console.log(alldata);
+var mydata = '';
+if (csvdata == ''){
+	mydata = alldata.dataCopy;
+}
+else {
+	mydata = csvdata
+}
 //var frameworks = alldata.framework;
 var frameworks = ['latex','xkcd','google','plotly','chartjs'];
 var xColumn = 0;
