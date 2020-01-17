@@ -31,8 +31,8 @@ nunjucks.configure('templates', {
     autoescape: false
 });
 
-function downloadUrl(url) {
-	
+function updateChart() {
+	return '';
 
 }
 
@@ -56,7 +56,7 @@ wss.on('connection', function connection(ws) {
   		fs.mkdirSync('saved/'+chartid, { recursive: true });
   		//write data.csv
   		fs.writeFile("saved/"+chartid+"/data.csv", dm.message, function (err) {
-			
+			updateChart();
 		});
   		//write options.json
   		//fs.writeFile("saved/"+chartid+"/options.json", JSON.stringify({'nHeaders':0}), function (err) {
@@ -99,7 +99,7 @@ wss.on('connection', function connection(ws) {
 					}
 				}
   				fs.writeFile("saved/"+chartid+"/options.json", JSON.stringify(options), function (err) {
-				
+					updateChart();
 				});
   			}
 			

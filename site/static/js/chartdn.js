@@ -81,6 +81,12 @@ function filterChg() {
 	var jsonmessage = {'operation':'options','filters':filters};
 	ws.send(JSON.stringify(jsonmessage));
 }
+function typeChg() {
+	var isChecked = document.querySelector('input[name="chartType"]:checked');
+
+	var jsonmessage = {'operation':'options','type':isChecked.value};
+	ws.send(JSON.stringify(jsonmessage));
+}
 function dataChg() {
 	
 	var dataTable = document.getElementById("dataTable");
