@@ -65,8 +65,8 @@ wss.on('connection', function connection(ws) {
   				defaultOptions['nHeaders'] = 1;
   				defaultOptions['filters'] = [];
   				defaultOptions['type'] = '';
-  				defaultOptions['yColsStr'] = '';
-  				defaultOptions['xColStr'] = '';
+  				defaultOptions['yColumns'] = '';
+  				defaultOptions['xColumn'] = '';
   				defaultOptions['stepSizeX'] = '';
   				defaultOptions['stepSizeY'] = '';
 				fs.writeFile("saved/"+chartid+"/options.json", JSON.stringify(defaultOptions), function (err) {
@@ -174,7 +174,7 @@ https.createServer(options, function(req, res) {
 							if (!err) {defaultData = fileData;}
 							var savedData = JSON.parse(optionData);
 							var chartType = {'line':'','bar':'','scatter':'','pie':'','bubble':'','histogram':'','heatmap':'','radar':'','box':'','choropleth':'','splom':'','diff':'','calendar':''};
-							if (savedData['type']){
+							if (savedData['type'] && savedData['type'] != ''){
 								chartType[savedData['type']]='checked';
 							}
 							res.write(nunjucks.render('chartdn.html',{

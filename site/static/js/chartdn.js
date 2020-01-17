@@ -79,7 +79,7 @@ function headerChg() {
 function columnsChg() {
 	var yColsStr = document.getElementById('yColsVal').value;
 	var xColStr = document.getElementById('xColVal').value;
-	var jsonmessage = {'operation':'options','yColsStr':yColsStr,'xColStr':xColStr};
+	var jsonmessage = {'operation':'options','yColumns':yColsStr,'xColumn':xColStr};
 	ws.send(JSON.stringify(jsonmessage));
 }
 function filterChg() {
