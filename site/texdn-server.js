@@ -59,6 +59,21 @@ wss.on('connection', function connection(ws) {
 			updateChart();
 		});
   		//write options.json
+  		fs.readFile("saved/"+chartid+"/options.json", 'utf8', function(err, fileData) {
+  			if (err){
+  				var defaultOptions = {};
+  				defaultOptions['nHeaders'] = 1;
+  				defaultOptions['filters'] = [];
+  				defaultOptions['type'] = '';
+  				defaultOptions['yColsStr'] = '';
+  				defaultOptions['xColStr'] = '';
+  				defaultOptions['stepSizeX'] = '';
+  				defaultOptions['stepSizeY'] = '';
+				fs.writeFile("saved/"+chartid+"/options.json", JSON.stringify(defaultOptions), function (err) {
+			
+				});
+			}
+		});
   		//fs.writeFile("saved/"+chartid+"/options.json", JSON.stringify({'nHeaders':0}), function (err) {
 			
 		//});
@@ -163,7 +178,7 @@ https.createServer(options, function(req, res) {
 								chartType[savedData['type']]='checked';
 							}
 							res.write(nunjucks.render('chartdn.html',{
-								chartScript:'', 
+								chartScript:createLine(savedData), 
 								dataAreaText: defaultData,
 								nHeaders: savedData.nHeaders || 1,
 								isChecked: chartType,
