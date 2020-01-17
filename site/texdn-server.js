@@ -258,7 +258,7 @@ function convertDataToFull(dataStr,nHeaders) {
 
 function createLine(alldata,csvdata='') {
 var mydata = '';
-if (dataname == ''){
+if (csvdata == ''){
 	mydata = alldata.dataCopy;
 }
 else {
