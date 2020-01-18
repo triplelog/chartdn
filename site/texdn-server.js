@@ -239,7 +239,7 @@ function convertDataToFull(dataStr,nHeaders) {
 		currentRow++;
 		rawArray.push(tempA);
 	}
-	
+	console.log(rawArray);
 	var filteredArray = rawArray;
 	retArray = [];
 	var cols = [];
@@ -261,6 +261,7 @@ function convertDataToFull(dataStr,nHeaders) {
 		}
 		
 	}
+	console.log(retArray);
 	return {'byrow':retArray,'bycol':cols};
 }
 
