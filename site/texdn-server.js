@@ -296,7 +296,7 @@ function createChart(alldata,csvdata,chartType="line") {
 	var chartFile = createLine;
 	if (chartType == 'bar'){chartFile = createBar;}
 	for (var i=0;i<frameworks.length;i++){
-		var options = {'xColumn':xColumn,'yColumns':yColumns};
+		var options = {'xColumn':xColumn,'yColumns':yColumns,'nHeaders':nHeaders};
 		if (frameworks[i] == 'latex'){
 			fullJS += '';
 		}
