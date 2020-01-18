@@ -33,7 +33,7 @@ exports.createChartjs = function(data,options) {
 	for (var i=0;i<options['yColumns'].length;i++){
 		var newdataset = {'label':'Label','data':[],'fill':false};
 		for (var ii=0;ii<data['bycol'][options['yColumns'][i]].length;ii++){
-			newdataset.push({'x':data['bycol'][options['xColumn']][ii], 'y':data['bycol'][options['yColumns'][i]][ii]});
+			newdataset['data'].push({'x':data['bycol'][options['xColumn']][ii], 'y':data['bycol'][options['yColumns'][i]][ii]});
 		}
 		if (options.lineColor) {newdataset['borderColor']=lineColor}
 		if (options.dotColor) {newdataset['backgroundColor']=dotColor}
