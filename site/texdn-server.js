@@ -253,7 +253,7 @@ function convertDataToFull(dataStr,nHeaders) {
 		currentRow++;
 		retArray.push(tempA);
 	}
-	return [retArray,cols,objArray];
+	return {'byrow':retArray,'bycol':cols,'objArray':objArray};
 }
 
 function createChart(alldata,csvdata,chartType="line") {
@@ -284,7 +284,7 @@ function createChart(alldata,csvdata,chartType="line") {
 	if (bothArrays[0].length == 0){
 		return '';
 	}
-	var fullArray = bothArrays[0];
+
 	var colArrays = bothArrays[1];
 
 	var fullJS = '';
@@ -322,11 +322,11 @@ function createChart(alldata,csvdata,chartType="line") {
 	}
 	//fullJS += endJS;
 
-	fullJS = fullJS.replace(/replacexarray/g,JSON.stringify(colArrays[xColumn]));
-	fullJS = fullJS.replace(/replaceyarray/g,JSON.stringify(colArrays[yColumns[0]]));
-	fullJS = fullJS.replace(/replaceyyarray/g,JSON.stringify(colArrays[2]));
-	fullJS = fullJS.replace(/replacefullarray/g,JSON.stringify(fullArray));
-	fullJS = fullJS.replace(/replaceobjectarray/g,JSON.stringify(bothArrays[2]));
+	fullJS = fullJS.replace(/replacexarray/g,JSON.stringify(csvdata['bycol'][xColumn]));
+	fullJS = fullJS.replace(/replaceyarray/g,JSON.stringify(csvdata['bycol'][yColumns[0]]));
+	fullJS = fullJS.replace(/replaceyyarray/g,JSON.stringify(csvdata['bycol'][2]));
+	fullJS = fullJS.replace(/replacefullarray/g,JSON.stringify(csvdata['byrow']));
+	fullJS = fullJS.replace(/replaceobjectarray/g,JSON.stringify(csvdata['objArray']));
 
 
 
