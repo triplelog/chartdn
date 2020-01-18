@@ -226,6 +226,7 @@ function convertDataToFull(dataStr,nHeaders) {
 		if (!tempA){break;}
 		if (currentRow >= nHeaders) {
 			for (var i=0;i<tempA.length;i++) {
+				var cell = tempA[i];
 				if (!isNaN(parseFloat(cell))){
 					if ((parseFloat(cell)%1)===0) {
 						tempA[i] = parseInt(cell);
@@ -239,7 +240,7 @@ function convertDataToFull(dataStr,nHeaders) {
 		currentRow++;
 		rawArray.push(tempA);
 	}
-	console.log(rawArray);
+
 	var filteredArray = rawArray;
 	retArray = [];
 	var cols = [];
@@ -261,7 +262,7 @@ function convertDataToFull(dataStr,nHeaders) {
 		}
 		
 	}
-	console.log(retArray);
+
 	return {'byrow':retArray,'bycol':cols};
 }
 
