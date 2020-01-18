@@ -244,20 +244,22 @@ function convertDataToFull(dataStr,nHeaders) {
 	retArray = [];
 	var cols = [];
 	for (var i=0;i<filteredArray.length;i++) {
-		var tempA = [];
+		
 		if (i == 0){
 			for (var ii=0;ii<filteredArray[i].length;ii++) {
 				cols.push([]);
 			}
 		}
 		if (i >= nHeaders) {
+			var tempA = [];
 			for (var ii=0;ii<filteredArray[i].length;ii++) {
 				var cell = filteredArray[i][ii];
 				cols[ii].push(cell);
 				tempA.push(cell);
 			}
+			retArray.push(tempA);
 		}
-		retArray.push(tempA);
+		
 	}
 	return {'byrow':retArray,'bycol':cols};
 }
