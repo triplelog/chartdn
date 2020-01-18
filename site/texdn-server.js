@@ -179,8 +179,11 @@ https.createServer(options, function(req, res) {
 							if (savedData['type'] && savedData['type'] != ''){
 								chartType[savedData['type']]='checked';
 							}
+							else {
+								savedData['type']='line';
+							}
 							res.write(nunjucks.render('chartdn.html',{
-								chartScript: createChart(savedData,convertDataToFull(defaultData,savedData.nHeaders),'line'), 
+								chartScript: createChart(savedData,convertDataToFull(defaultData,savedData.nHeaders),savedData['type']), 
 								dataAreaText: defaultData,
 								nHeaders: savedData.nHeaders || 1,
 								isChecked: chartType,
