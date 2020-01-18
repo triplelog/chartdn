@@ -67,33 +67,35 @@ return baseJS;
 
 }
 
-exports.createXkcd = function() {
-var baseJS = `
-<script>
-document.querySelector('#xkcdSvg').style.display = 'block';
-const lineChart = new chartXkcd.Line(document.querySelector('#xkcdSvg'), {
-  {{ title }}
-  xLabel: 'Month', // optional
-  yLabel: '$ Dollars', // optional
-  data: {
-    labels: ['1','2','7','4','5'],
-    datasets: [{
-      label: 'Plan',
-      data: replaceyarray,
-    }, {
-      label: 'Reality',
-      data: replaceyyarray,
-    }],
-  },
-  options: { // optional
-    {{ tickCountY }}
-    {{ tickCountX }}
-    legendPosition: chartXkcd.config.positionType.upLeft
-  }
-})
-</script>
-`;
-return baseJS;
+exports.createXkcd = function(data,options) {
+	var datasets = [];
+	for (var i=0;i<options['yColumns'].length;i++){
+		datasets.push({'label': 'Y'+i, 'data':data['bycol'][options['yColumns'][i]]});
+	}
+	var labels = [];
+	for (var i=0;i<data['bycol'][options['xColumn']].length;i++){
+		labels.push(data['bycol'][options['xColumn']][i]);
+	}
+	var baseJS = `
+	<script>
+	document.querySelector('#xkcdSvg').style.display = 'block';
+	const lineChart = new chartXkcd.Line(document.querySelector('#xkcdSvg'), {
+	  {{ title }}
+	  xLabel: 'Month', // optional
+	  yLabel: '$ Dollars', // optional
+	  data: {
+		labels: `+JSON.stringify(labels)+`,
+		datasets: `+JSON.stringify(datasets)+`,
+	  },
+	  options: { // optional
+		{{ tickCountY }}
+		{{ tickCountX }}
+		legendPosition: chartXkcd.config.positionType.upLeft
+	  }
+	})
+	</script>
+	`;
+	return baseJS;
 
 }
 

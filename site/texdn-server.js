@@ -277,8 +277,6 @@ function createChart(alldata,csvdata,chartType="line") {
 	var lineColor = alldata.lineColor;
 	var dotColor = alldata.dotColor;
 
-	
-
 
 
 	if (csvdata['byrow'].length == 0){
@@ -290,13 +288,13 @@ function createChart(alldata,csvdata,chartType="line") {
 	var chartFile = createLine;
 	if (chartType == 'bar'){chartFile = createBar;}
 	for (var i=0;i<frameworks.length;i++){
-		var options = {};
+		var options = {'xColumn':xColumn,'yColumns':yColumns};
 		if (frameworks[i] == 'latex'){
 			fullJS += '';
 		}
 		else if (frameworks[i] == 'xkcd'){
 			if (title != '' && title != 'notitle') {options['title'] = 'title: "'+title+'",';}
-			fullJS += nunjucks.renderString(chartFile.createXkcd(),options);
+			fullJS += chartFile.createXkcd(csvdata,options);
 		}
 		else if (frameworks[i] == 'google'){
 			if (title != '' && title != 'notitle') {options['title'] = 'title: "'+title+'",';}
