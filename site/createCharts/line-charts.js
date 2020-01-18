@@ -76,11 +76,12 @@ exports.createXkcd = function(data,options) {
 	for (var i=0;i<data['bycol'][options['xColumn']].length;i++){
 		labels.push(''+data['bycol'][options['xColumn']][i]);
 	}
+	if (!options.title) {options['title']=''}
 	var baseJS = `
 	<script>
 	document.querySelector('#xkcdSvg').style.display = 'block';
 	const lineChart = new chartXkcd.Line(document.querySelector('#xkcdSvg'), {
-	  {{ title }}
+	  `+options.title+`
 	  xLabel: 'Month', // optional
 	  yLabel: '$ Dollars', // optional
 	  data: {
@@ -88,13 +89,12 @@ exports.createXkcd = function(data,options) {
 		datasets: `+JSON.stringify(datasets)+`,
 	  },
 	  options: { // optional
-		{{ tickCountY }}
-		{{ tickCountX }}
 		legendPosition: chartXkcd.config.positionType.upLeft
 	  }
 	})
 	</script>
 	`;
+	
 	return baseJS;
 
 }
