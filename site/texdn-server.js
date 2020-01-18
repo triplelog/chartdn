@@ -304,7 +304,7 @@ function createChart(alldata,csvdata,chartType="line") {
 			if (title != '' && title != 'notitle') {options['title'] = 'title: "'+title+'",';}
 			if (stepSizeX != '' && stepSizeX != 'default') {options['xaxis'] = 'xaxis: {dtick: '+stepSizeX+'},' }
 			if (stepSizeY != '' && stepSizeY != 'default') {options['yaxis'] = 'yaxis: {dtick: '+stepSizeY+'},' }
-			fullJS += nunjucks.renderString(chartFile.createPlotly(),options);
+			fullJS += chartFile.createPlotly(csvdata,options);
 		}
 		else if (frameworks[i] == 'chartjs'){
 			if (title != '' && title != 'notitle') {options['title'] = 'title: {display: true, text: "'+title+'"},';}

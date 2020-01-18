@@ -1,27 +1,30 @@
 
 exports.createPlotly = function() {
-var baseJS = `
-<script>
-document.getElementById('plotlyDiv').style.display = 'block';
-var trace3 = {
-  x: replacexarray,
-  y: replaceyarray,
-  mode: 'lines+markers'
-};
+	var datasets = [];
+	for (var i=0;i<options['yColumns'].length;i++){
+		datasets.push({'x':data['bycol'][options['xColumn']], 'y':data['bycol'][options['yColumns'][i]], 'mode': 'lines+markers'});
+	}
 
-var data = [ trace3 ];
+	if (!options.title) {options['title']=''}
+	if (!options.xaxis) {options['xaxis']=''}
+	if (!options.yaxis) {options['yaxis']=''}
+	var baseJS = `
+	<script>
+	document.getElementById('plotlyDiv').style.display = 'block';
 
-var layout = {
-  {{ title }}
-  {{ xaxis }}
-  {{ yaxis }}
+	var data = `+JSON.stringify(datasets)+`;
+
+	var layout = {
+	  `+options.title+`
+	  `+options.xaxis+`
+	  `+options.yaxis+`
   
-};
+	};
 
-Plotly.newPlot('plotlyDiv', data, layout);
-</script>
-`;
-return baseJS;
+	Plotly.newPlot('plotlyDiv', data, layout);
+	</script>
+	`;
+	return baseJS;
 
 }
 
@@ -77,6 +80,8 @@ exports.createXkcd = function(data,options) {
 		labels.push(''+data['bycol'][options['xColumn']][i]);
 	}
 	if (!options.title) {options['title']=''}
+	if (!options.tickCountY) {options['tickCountY']=''}
+	if (!options.tickCountX) {options['tickCountX']=''}
 	var baseJS = `
 	<script>
 	document.querySelector('#xkcdSvg').style.display = 'block';
@@ -89,6 +94,8 @@ exports.createXkcd = function(data,options) {
 		datasets: `+JSON.stringify(datasets)+`,
 	  },
 	  options: { // optional
+		`+options.tickCountY+`
+		`+options.tickCountX+`
 		legendPosition: chartXkcd.config.positionType.upLeft
 	  }
 	})
