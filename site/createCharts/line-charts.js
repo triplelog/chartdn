@@ -42,8 +42,8 @@ exports.createChartjs = function(data,options) {
 	}
 
 	if (!options.title) {options['title']=''}
-	if (!options.xaxis) {options['xaxis']=''}
-	if (!options.yaxis) {options['yaxis']=''}
+	if (!options.stepSizeX) {options['stepSizeX']=''}
+	if (!options.stepSizeY) {options['stepSizeY']=''}
 	
 	var baseJS = `
 	<script>
@@ -59,12 +59,14 @@ exports.createChartjs = function(data,options) {
 				yAxes: [{
 					ticks: {
 						beginAtZero: true,
+						`+options.stepSizeY+`
 					}
 				}],
 				xAxes: [{
 					type: 'linear',
 					position: 'bottom',
 					ticks: {
+						`+options.stepSizeX+`
 					}
 				}]
 			},
