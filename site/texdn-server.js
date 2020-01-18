@@ -219,41 +219,44 @@ function convertDataToFull(dataStr,nHeaders) {
 	  trim: true,
 	  skip_empty_lines: true
 	})
-	retArray = [];
-	var cols = [];
-	var objArray = [];
+	rawArray = [];
 	var currentRow = 0;
 	while (2 == 2) {
 		var tempA = parser.read();
 		if (!tempA){break;}
-		if (currentRow == 0){
-			for (var i=0;i<tempA.length;i++) {
-				cols.push([]);
-				
-			}
-			
-		}
 		if (currentRow >= nHeaders) {
 			for (var i=0;i<tempA.length;i++) {
-				var cell = tempA[i];
 				if (!isNaN(parseFloat(cell))){
 					if ((parseFloat(cell)%1)===0) {
-						cols[i].push(parseInt(cell));
 						tempA[i] = parseInt(cell);
 					}
 					else {
-						cols[i].push(parseFloat(cell));
 						tempA[i] = parseFloat(cell);
 					}
 				}
-				else {
-					cols[i].push(cell);
-				}
 			}
-			var xval = tempA[0];
-			var yval = tempA[1];
 		}
 		currentRow++;
+		rawArray.push(tempA);
+	}
+	
+	var filteredArray = rawArray;
+	retArray = [];
+	var cols = [];
+	for (var i=0;i<filteredArray.length;i++) {
+		var tempA = [];
+		if (i == 0){
+			for (var ii=0;ii<filteredArray[i].length;ii++) {
+				cols.push([]);
+			}
+		}
+		if (i >= nHeaders) {
+			for (var ii=0;ii<filteredArray[i].length;ii++) {
+				var cell = filteredArray[i][ii];
+				cols[ii].push(cell);
+				tempA.push(cell);
+			}
+		}
 		retArray.push(tempA);
 	}
 	return {'byrow':retArray,'bycol':cols};
