@@ -119,9 +119,18 @@ exports.createXkcd = function(data,options) {
 
 
 exports.createGoogle = function(data,options) {
-
+	var retArray = [];
+	for (var i=0;i<data['byrow'].length;i++) {
+		if (i >= data['nHeaders']) {
+			var tempA = [];
+			for (var ii=0;ii<options['yColumns'].length;ii++) {
+				var cell = data['byrow'][i][options['yColumns'][ii]];
+				tempA.push(cell);
+			}
+			retArray.push(tempA);
+		}
+	}
 	if (!options.title) {options['title']=''}
-	console.log(JSON.stringify(data['byrow']));
 	var baseJS = `
 	<script>
 	  document.getElementById('googleChart').style.display = 'block';
@@ -129,7 +138,7 @@ exports.createGoogle = function(data,options) {
 	  google.charts.setOnLoadCallback(drawChart);
 
 	  function drawChart() {
-		var data = google.visualization.arrayToDataTable(`+JSON.stringify(data['byrow'])+`);
+		var data = google.visualization.arrayToDataTable(`+JSON.stringify(retArray)+`);
 
 		var options = {
 		  `+options.title+`
