@@ -1,5 +1,5 @@
 
-exports.createPlotly = function() {
+exports.createPlotly = function(data,options) {
 	var datasets = [];
 	for (var i=0;i<options['yColumns'].length;i++){
 		datasets.push({'x':data['bycol'][options['xColumn']], 'y':data['bycol'][options['yColumns'][i]], 'mode': 'lines+markers'});
