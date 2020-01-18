@@ -28,45 +28,53 @@ exports.createPlotly = function(data,options) {
 
 }
 
-exports.createChartjs = function() {
-var baseJS = `
-<script>
-document.getElementById('myChart').style.display = 'block';
-var ctx = document.getElementById('myChart').getContext('2d');
-var myLineChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-        datasets: [{
-            label: 'Label',
-            data: replaceobjectarray,
-            fill: false,
-            {{ dotColor }}
-            {{ lineColor }}
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true,
-                    {{ stepSizeY }}
-                }
-            }],
-            xAxes: [{
-                type: 'linear',
-                position: 'bottom',
-                ticks: {
-                    {{ stepSizeX }}
-                }
-            }]
-        },
-        {{ title }}
-        
-    }
-});
-</script>
-`;
-return baseJS;
+exports.createChartjs = function(data,options) {
+	var datasets = [];
+	for (var i=0;i<options['yColumns'].length;i++){
+		var newdataset = {'label':'Label','data':[],'fill':false};
+		for (var ii=0;ii<data['bycol'][options['yColumns'][i]].length;ii++){
+			newdataset.push({'x':data['bycol'][options['xColumn']][ii], 'y':data['bycol'][options['yColumns'][i]][ii]});
+		}
+		if (options.lineColor) {newdataset['borderColor']=lineColor}
+		if (options.dotColor) {newdataset['backgroundColor']=dotColor}
+			
+		datasets.push(newdataset);
+	}
+
+	if (!options.title) {options['title']=''}
+	if (!options.xaxis) {options['xaxis']=''}
+	if (!options.yaxis) {options['yaxis']=''}
+	
+	var baseJS = `
+	<script>
+	document.getElementById('myChart').style.display = 'block';
+	var ctx = document.getElementById('myChart').getContext('2d');
+	var myLineChart = new Chart(ctx, {
+		type: 'line',
+		data: {
+			datasets: `+JSON.stringify(datasets)+`,
+		},
+		options: {
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true,
+					}
+				}],
+				xAxes: [{
+					type: 'linear',
+					position: 'bottom',
+					ticks: {
+					}
+				}]
+			},
+			`+options.title+`
+		
+		}
+	});
+	</script>
+	`;
+	return baseJS;
 
 }
 

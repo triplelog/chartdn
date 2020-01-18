@@ -248,12 +248,11 @@ function convertDataToFull(dataStr,nHeaders) {
 			}
 			var xval = tempA[0];
 			var yval = tempA[1];
-			objArray.push({x:xval,y:yval});
 		}
 		currentRow++;
 		retArray.push(tempA);
 	}
-	return {'byrow':retArray,'bycol':cols,'objArray':objArray};
+	return {'byrow':retArray,'bycol':cols};
 }
 
 function createChart(alldata,csvdata,chartType="line") {
@@ -310,10 +309,10 @@ function createChart(alldata,csvdata,chartType="line") {
 			if (title != '' && title != 'notitle') {options['title'] = 'title: {display: true, text: "'+title+'"},';}
 			if (stepSizeX != '' && stepSizeX != 'default') {options['stepSizeX'] = 'stepSize: '+stepSizeX+',' }
 			if (stepSizeY != '' && stepSizeY != 'default') {options['stepSizeY'] = 'stepSize: '+stepSizeY+',' }
-			if (lineColor != '' && lineColor != 'default') {options['lineColor'] = 'borderColor: "'+lineColor+'",'}
-			if (dotColor != '' && dotColor != 'default') {options['dotColor'] = 'backgroundColor: "'+dotColor+'",'}
+			if (lineColor != '' && lineColor != 'default') {options['lineColor'] = lineColor}
+			if (dotColor != '' && dotColor != 'default') {options['dotColor'] = dotColor}
 		
-			fullJS += nunjucks.renderString(chartFile.createChartjs(),options);
+			fullJS += chartFile.createChartjs(csvdata,options);
 		}
 	}
 	//fullJS += endJS;
@@ -322,7 +321,6 @@ function createChart(alldata,csvdata,chartType="line") {
 	fullJS = fullJS.replace(/replaceyarray/g,JSON.stringify(csvdata['bycol'][yColumns[0]]));
 	fullJS = fullJS.replace(/replaceyyarray/g,JSON.stringify(csvdata['bycol'][2]));
 	fullJS = fullJS.replace(/replacefullarray/g,JSON.stringify(csvdata['byrow']));
-	fullJS = fullJS.replace(/replaceobjectarray/g,JSON.stringify(csvdata['objArray']));
 
 
 
