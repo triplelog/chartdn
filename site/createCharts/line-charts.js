@@ -130,6 +130,7 @@ exports.createGoogle = function(data,options) {
 			retArray.push(tempA);
 		}
 	}
+	console.log(retArray);
 	if (!options.title) {options['title']=''}
 	var baseJS = `
 	<script>
