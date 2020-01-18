@@ -121,6 +121,7 @@ exports.createXkcd = function(data,options) {
 exports.createGoogle = function(data,options) {
 
 	if (!options.title) {options['title']=''}
+	console.log(JSON.stringify(data['byrow']));
 	var baseJS = `
 	<script>
 	  document.getElementById('googleChart').style.display = 'block';
