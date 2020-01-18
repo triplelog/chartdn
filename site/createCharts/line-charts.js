@@ -118,28 +118,30 @@ exports.createXkcd = function(data,options) {
 
 
 
-exports.createGoogle = function() {
-var baseJS = `
-<script>
-  document.getElementById('googleChart').style.display = 'block';
-  google.charts.load('current', {'packages':['corechart']});
-  google.charts.setOnLoadCallback(drawChart);
+exports.createGoogle = function(data,options) {
 
-  function drawChart() {
-	var data = google.visualization.arrayToDataTable(replacefullarray);
+	if (!options.title) {options['title']=''}
+	var baseJS = `
+	<script>
+	  document.getElementById('googleChart').style.display = 'block';
+	  google.charts.load('current', {'packages':['corechart']});
+	  google.charts.setOnLoadCallback(drawChart);
 
-	var options = {
-	  {{ title }}
-	  curveType: 'function',
-	  legend: { position: 'bottom' }
-	};
+	  function drawChart() {
+		var data = google.visualization.arrayToDataTable(`+JSON.stringify(data['byrow'])+`);
 
-	var chart = new google.visualization.LineChart(document.getElementById('googleChart'));
+		var options = {
+		  `+options.title+`
+		  curveType: 'function',
+		  legend: { position: 'bottom' }
+		};
 
-	chart.draw(data, options);
-  }
-</script>
-`;
-return baseJS;
+		var chart = new google.visualization.LineChart(document.getElementById('googleChart'));
+
+		chart.draw(data, options);
+	  }
+	</script>
+	`;
+	return baseJS;
 
 }

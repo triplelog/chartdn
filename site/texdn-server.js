@@ -297,7 +297,7 @@ function createChart(alldata,csvdata,chartType="line") {
 		}
 		else if (frameworks[i] == 'google'){
 			if (title != '' && title != 'notitle') {options['title'] = 'title: "'+title+'",';}
-			fullJS += nunjucks.renderString(chartFile.createGoogle(),options);
+			fullJS += chartFile.createGoogle(csvdata,options);
 		}
 		else if (frameworks[i] == 'plotly'){
 			if (title != '' && title != 'notitle') {options['title'] = 'title: "'+title+'",';}
@@ -315,12 +315,7 @@ function createChart(alldata,csvdata,chartType="line") {
 			fullJS += chartFile.createChartjs(csvdata,options);
 		}
 	}
-	//fullJS += endJS;
 
-	fullJS = fullJS.replace(/replacexarray/g,JSON.stringify(csvdata['bycol'][xColumn]));
-	fullJS = fullJS.replace(/replaceyarray/g,JSON.stringify(csvdata['bycol'][yColumns[0]]));
-	fullJS = fullJS.replace(/replaceyyarray/g,JSON.stringify(csvdata['bycol'][2]));
-	fullJS = fullJS.replace(/replacefullarray/g,JSON.stringify(csvdata['byrow']));
 
 
 
