@@ -119,7 +119,7 @@ exports.createXkcd = function(data,options) {
 
 
 exports.createGoogle = function(data,options) {
-	var retArray = [];
+	var retArray = [['x','y']];
 	for (var i=0;i<data['byrow'].length;i++) {
 		if (i >= options['nHeaders']) {
 			var tempA = [];
@@ -130,7 +130,7 @@ exports.createGoogle = function(data,options) {
 			retArray.push(tempA);
 		}
 	}
-	console.log(retArray);
+
 	if (!options.title) {options['title']=''}
 	var baseJS = `
 	<script>
