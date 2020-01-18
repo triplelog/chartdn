@@ -74,7 +74,7 @@ exports.createXkcd = function(data,options) {
 	}
 	var labels = [];
 	for (var i=0;i<data['bycol'][options['xColumn']].length;i++){
-		labels.push(data['bycol'][options['xColumn']][i]);
+		labels.push(''+data['bycol'][options['xColumn']][i]);
 	}
 	var baseJS = `
 	<script>
