@@ -280,12 +280,10 @@ function createChart(alldata,csvdata,chartType="line") {
 	
 
 
-	var bothArrays = csvdata;
-	if (bothArrays[0].length == 0){
+
+	if (csvdata['byrow'].length == 0){
 		return '';
 	}
-
-	var colArrays = bothArrays[1];
 
 	var fullJS = '';
 	
