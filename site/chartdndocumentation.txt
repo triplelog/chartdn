@@ -16,6 +16,7 @@ sudo apt-get install git
 sudo curl -sL https://deb.nodesource.com/setup_13.x | sudo bash -
 apt-get install -y nodejs
 
+npm install -s ws
 
 
 Use node on backend
