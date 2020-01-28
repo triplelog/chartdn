@@ -1,9 +1,57 @@
+# Installation
+Create Debian 10 image with key
+ssh -i /Users/robertwilcox/.ssh/id_rsa root@155.138.208.216
+Create new sudo user: adduser rwilcox, password: kZGWGda3A
+Copy key from root/.ssh/authorized_keys to /home/rwilcox/.ssh (create .ssh directory)
+Change Namecheap A record to IP
+
+sudo apt-get install nginx
+save chartdn.com to /etc/nginx/sites-available
+sudo ln -s /etc/nginx/sites-available/chartdn.com /etc/nginx/sites-enabled/
+sudo apt-get install certbot python-certbot-nginx
+sudo certbot -nginx
+
+sudo apt-get install git
+
+sudo curl -sL https://deb.nodesource.com/setup_13.x | sudo bash -
+apt-get install -y nodejs
+
+
+
 Use node on backend
 Need csv-parse, nunjucks(template system), express, wasm-flate
+Need passport
 Add https stuff
 
 # Set Data
 automated functions: find max for given column
+
+
+# Basic Charts
+Line
+Bar
+Scatter
+Pie
+Histogram
+Radar
+Box
+Bubble
+
+
+# More Charts
+Choropleth
+Heat Map
+Diff
+Calendar
+Splom
+Ridgeline
+
+
+# Premium Charts
+Per Capita Map
+Server-based interactive
+Animated
+Bar Chart Races
 
 
 # Line Charts

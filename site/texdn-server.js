@@ -11,8 +11,8 @@ var nunjucks = require('nunjucks');
 var createLine = require('./createCharts/line-charts.js');
 var createBar = require('./createCharts/bar-charts.js');
 const options = {
-  key: fs.readFileSync('/etc/letsencrypt/live/tabdn.com/privkey.pem'),
-  cert: fs.readFileSync('/etc/letsencrypt/live/tabdn.com/fullchain.pem')
+  key: fs.readFileSync('/etc/letsencrypt/live/chartdn.com/privkey.pem'),
+  cert: fs.readFileSync('/etc/letsencrypt/live/chartdn.com/fullchain.pem')
 };
 
 
@@ -241,7 +241,12 @@ function convertDataToFull(dataStr,nHeaders) {
 		rawArray.push(tempA);
 	}
 
+
+
 	var filteredArray = rawArray;
+	
+	
+	
 	retArray = [];
 	var cols = [];
 	for (var i=0;i<filteredArray.length;i++) {
