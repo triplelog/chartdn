@@ -15,6 +15,16 @@ const options = {
   cert: fs.readFileSync('/etc/letsencrypt/live/chartdn.com/fullchain.pem')
 };
 
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const passportLocalMongoose = require('passport-local-mongoose');
+const User = new Schema({});
+User.plugin(passportLocalMongoose);
+module.exports = mongoose.model('User', User);
+
+var passport = require('passport')
+var LocalStrategy = require('passport-local').Strategy;
+
 
 var express = require('express');
 
