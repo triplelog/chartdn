@@ -36,7 +36,7 @@ label {
 	background: white;
 	color: rgb(30,30,30);
 }
-.striped .headerrow {
+table.striped tr.headerrow {
 	background: rgb(30,30,30);
 	color: white;
 }
