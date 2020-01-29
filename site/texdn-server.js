@@ -20,7 +20,7 @@ const User = require('./models/user');
 var passport = require('passport')
 var LocalStrategy = require('passport-local').Strategy;
 // use static authenticate method of model in LocalStrategy
-passport.use(new LocalStrategy(User.authenticate()));
+passport.use(User.createStrategy());
  
 // use static serialize and deserialize of model for passport session support
 passport.serializeUser(User.serializeUser());
@@ -31,6 +31,11 @@ var express = require('express');
 
 var app = express();
 app.use('/',express.static('static'));
+
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 const server1 = https.createServer(options, app);
 //const server1 = http.createServer(options, app);
