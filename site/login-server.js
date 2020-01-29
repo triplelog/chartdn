@@ -40,8 +40,16 @@ app.get('/register',
   function(req, res){
   	//const user = ;
 	//user.setPassword('password');
-	User.register(new User({username: 'user6'}),'password');
-	console.log('new user?');
+	User.register(new User({username: 'user7'}),'password', function(err) {
+		if (err) {
+		  console.log('error while user register!', err);
+		  return next(err);
+		}
+
+		console.log('user registered!');
+
+		res.redirect('/');
+	});
     res.write(nunjucks.render('templates/login.html',{}));
     //res.writeHead(200);
   	res.end();
