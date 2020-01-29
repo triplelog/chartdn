@@ -25,11 +25,16 @@ label {
 }
 
 .flex-column {
-	height: 25rem;
+	max-height: 25rem;
 	overflow: auto;
 }
 .striped tr:nth-child(even){
-	background: gray;
+	background: rgb(220,220,220);
+	color: black;
+}
+.striped tr:nth-child(odd){
+	background: white;
+	color: rgb(30,30,30);
 }
 
 .pure-img-responsive {
