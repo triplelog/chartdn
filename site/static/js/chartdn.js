@@ -118,6 +118,9 @@ function dataChg(initialData=false) {
 	var includeHeaders = false;
 	for (var i=0;i<data.length;i++){
 		var newrow = document.createElement('tr');
+		if (nHeaders <= i+1) {
+			newrow.classList.add('headerrow');
+		}
 		for (var ii=0;ii<data[i].length;ii++){
 			var newcell = document.createElement('td');
 			newcell.textContent = data[i][ii];

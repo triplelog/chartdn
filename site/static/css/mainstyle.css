@@ -36,6 +36,10 @@ label {
 	background: white;
 	color: rgb(30,30,30);
 }
+.striped .headerrow {
+	background: rgb(30,30,30);
+	color: white;
+}
 
 .pure-img-responsive {
     max-width: 100%;
