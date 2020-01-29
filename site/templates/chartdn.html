@@ -56,10 +56,7 @@
     <div class="content">
     	<div class="pure-g">
 			
-			<div class="l-box pure-u-1 sectionpart">
-				
-				<div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-2">
-					
+			<div class="l-box pure-u-1-3 sectionpart">
 					<b>Data Source</b>
 					<form class="pure-form">
 						<fieldset>
@@ -90,27 +87,11 @@
 							</div>
 						</fieldset>
 					</form>
-				</div>
-				<div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-2">
-					<div id="dataTableHolder" class="flex-center flex-column">
-						<table id="dataTable" class="striped hoverable"></table>
-					</div>
-				</div>
-					
 			</div>
-			<div class="l-box pure-u-1-2 sectionpart">
-				<form class="pure-form">
-					<fieldset>
-						<b>Filter Data</b>
-						<div class="row">
-							Blank cells: Skip or 0
-							x-scale: linear, log, seq
-							y-scale: linear, log
-							Filter only max, etc. Drag/drop filters to use.
-							<input type="checkbox" name="filter" id="test" onchange="filterChg()">Test</input>
-						</div>
-					</fieldset>
-				</form>
+			<div class="l-box pure-u-2-3">
+				<div id="dataTableHolder" class="flex-center flex-column">
+					<table id="dataTable" class="striped hoverable"></table>
+				</div>
 			</div>
 			<div class="l-box pure-u-1-2 sectionpart">
 				<form class="pure-form">
@@ -152,53 +133,61 @@
 					</fieldset>
 				</form>
 					
-			</div>			  
-				  <div class="l-box pure-u-1 sectionpart">
-					<b>Customize Chart</b>
-					<div class="col-sm-12">
+			</div>	
+			<div class="l-box pure-u-1-2 sectionpart">
+				<form class="pure-form">
+					<fieldset>
+						<b>Filter Data</b>
 						<div class="row">
-							<div class="col-sm-12">
+							Blank cells: Skip or 0
+							x-scale: linear, log, seq
+							y-scale: linear, log
+							Filter only max, etc. Drag/drop filters to use.
+							<input type="checkbox" name="filter" id="test" onchange="filterChg()">Test</input>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+					  
+			<div class="l-box pure-u-1 sectionpart">
+				<form class="pure-form">
+					<fieldset>
+						<b>Customize Chart</b>
+						<div class="l-box pure-u-1">
+							<div class="l-box pure-u-1">
 								Title: <input type="text" name="title" placeholder="notitle" value="{{ title }}"/>
 								Label(s): <input type="text" name="labels" placeholder="column headers"/><br />
 								X Axis Title: <input type="text" name="xaxistitle" placeholder="notitle"/>
 								Y Axis Title: <input type="text" name="yaxistitle" placeholder="notitle"/>
-
 							</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-12">
+							<div class="l-box pure-u-1">
 								Line Color(s): <input type="text" name="lineColor" placeholder="default"/>
 								Dot Color(s): <input type="text" name="dotColor" placeholder="default"/>
-							
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-12">
-								Step Size: <span class="icon-help"></span>
-								x:<input type="text" name="stepSizeX" placeholder="default"/>
-								y:<input type="text" name="stepSizeY" placeholder="default"/>
-								<br />
-								<input type="radio" name="curveType" value="default" checked>Default</input>
-								<input type="radio" name="curveType" value="smooth">Smooth</input>
-								<input type="radio" name="curveType" value="sharp">Sharp</input>
 
 							</div>
-						</div>
+							<div class="l-box pure-u-1">
+								<div class="l-box pure-u-1">
+									Step Size: <span class="icon-help"></span>
+									x:<input type="text" name="stepSizeX" placeholder="default"/>
+									y:<input type="text" name="stepSizeY" placeholder="default"/>
+									<br />
+									<input type="radio" name="curveType" value="default" checked>Default</input>
+									<input type="radio" name="curveType" value="smooth">Smooth</input>
+									<input type="radio" name="curveType" value="sharp">Sharp</input>
+
+								</div>
+								<div class="l-box pure-u-1">
+									<input type="radio" name="shareChart" onchange="shareChg()" value="Svg" checked>SVG</input>
+									<input type="radio" name="shareChart" onchange="shareChg()" value="Code">Code</input>
+									<input type="radio" name="shareChart" onchange="shareChg()" value="Url">URL</input>
+									<input type="radio" name="shareChart" onchange="shareChg()" value="Embed">Embed</input>
+								</div>
+							</div>
 					
-					</div>
-				  </div>
-				  <div class="l-box pure-u-1 sectionpart">
-						<b>Share Chart</b>
-						<div class="col-sm-12">
-							<input type="radio" name="shareChart" onchange="shareChg()" value="Svg" checked>SVG</input>
-							<input type="radio" name="shareChart" onchange="shareChg()" value="Code">Code</input>
-							<input type="radio" name="shareChart" onchange="shareChg()" value="Url">URL</input>
-							<input type="radio" name="shareChart" onchange="shareChg()" value="Embed">Embed</input>
 						</div>
-						<div class="col-sm-12">
-							<input type="submit" value="Submit">
-						</div>
-					  </div>
+					</fieldset>
+				</form>
+			</div>
 				
 			<div class="l-box pure-u-1-2" style="border: 1px solid black;">
 				Chart JS
