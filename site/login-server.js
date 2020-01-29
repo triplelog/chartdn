@@ -76,7 +76,10 @@ app2.get('/login',
 app2.post('/login', 
   passport.authenticate('local', { failureRedirect: '/fail' }),
   function(req, res) {
-  	passport.serializeUser();
+  	passport.serializeUser(function(user, done) {
+		done(null, user.id); 
+	   // where is this user.id going? Are we supposed to access this anywhere?
+	});
   	console.log(req.user.username);
     res.redirect('/');
   }
