@@ -81,11 +81,12 @@ app2.post('/login',
   }
 );
 app2.get('/success',
-  function(req, res){
-
-    res.writeHead(200);
-  	res.end('Success/n');
-  });
+  passport.authenticate('local', { failureRedirect: '/fail' }),
+  function(req, res) {
+  	console.log(req.user.username);
+    res.redirect('/');
+  }
+);
 
 const server2 = https.createServer(options, app2);
 module.exports = server2;
