@@ -141,7 +141,8 @@ wss.on('connection', function connection(ws) {
 
 
 https.createServer(options, function(req, res) {
-	if (req.url.substring(0,8) == "/new"){
+	if (req.url.substring(0,4) == "/new"){
+		console.log(req.isAuthenticated());
 		var chartid = '';
 		var data = '';
 		
@@ -180,8 +181,8 @@ https.createServer(options, function(req, res) {
 				res.end();
 			}
 			else {
-				if (req.url.length>8 && req.url.substring(8,11) == "?q=") {
-					chartid = req.url.substring(11);
+				if (req.url.length>4 && req.url.substring(4,7) == "?q=") {
+					chartid = req.url.substring(7);
 					fs.readFile('saved/'+chartid+'/options.json', 'utf8', function(err, optionData) {
 						fs.readFile('saved/'+chartid+'/data.csv', 'utf8', function(err, fileData) {
 							var defaultData = ''
