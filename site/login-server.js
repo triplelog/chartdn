@@ -86,7 +86,6 @@ app2.post('/login',
 );
 app2.get('/success',
   function(req, res) {
-  	console.log(req.user.username);
   	console.log(req.isAuthenticated());
     res.redirect('/');
   }
