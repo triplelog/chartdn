@@ -24,7 +24,12 @@ module.exports = mongoose.model('User', User);
 
 var passport = require('passport')
 var LocalStrategy = require('passport-local').Strategy;
-
+// use static authenticate method of model in LocalStrategy
+passport.use(User.createStrategy());
+ 
+// use static serialize and deserialize of model for passport session support
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 var express = require('express');
 
