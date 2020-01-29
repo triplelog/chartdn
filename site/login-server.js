@@ -36,6 +36,9 @@ var express = require('express');
 
 
 var app2 = express();
+const session = require("express-session");
+app2.use(session({ secret: "cats" }));
+app2.use(express.urlencoded({ extended: true }));
 app2.use(bodyParser.json());
 app2.use(bodyParser.urlencoded({extended: false}));
 app2.use(passport.initialize());
