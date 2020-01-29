@@ -55,14 +55,14 @@ app2.get('/register',
 
 		res.redirect('/');
 	});
-    res.write(nunjucks.render('templates/login.html',{}));
+    res.write(nunjucks.render('login.html',{}));
     //res.writeHead(200);
   	res.end();
   });
 app2.get('/login',
   function(req, res){
   	
-    res.write(nunjucks.render('templates/login.html',{}));
+    res.write(nunjucks.render('login.html',{}));
     //res.writeHead(200);
   	res.end();
   });
