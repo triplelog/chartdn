@@ -55,42 +55,45 @@
   <div class="content-wrapper">
     <div class="content">
     	<div class="pure-g">
-			<form class="pure-form" action="/new" method="post">
-				<fieldset>
-				  <div class="l-box pure-u-1 sectionpart">
-				
-					<div class="col-sm-6">
-						<b>Data Source</b>
-						<input type="radio" name="dataSourceType" onchange="dst()" value="File" checked>Upload File (csv or Excel)</input>
-						<input type="radio" name="dataSourceType" onchange="dst()" value="Copy">Copy/Paste</input>
-						<input type="radio" name="dataSourceType" onchange="dst()" value="Url">URL</input>
-						<div class="row">
-							<div class="col-sm-12">
+			
+			<div class="l-box pure-u-1 sectionpart">
+				<form class="pure-form">
+					<fieldset>
+						<div class="col-sm-6">
+							<b>Data Source</b>
+							<input type="radio" name="dataSourceType" onchange="dst()" value="File" checked>Upload File (csv or Excel)</input>
+							<input type="radio" name="dataSourceType" onchange="dst()" value="Copy">Copy/Paste</input>
+							<input type="radio" name="dataSourceType" onchange="dst()" value="Url">URL</input>
+							<div class="row">
+								<div class="col-sm-12">
 							
-								<input type="file" name="dataFile" id="dataFile"></input>
-								<div id="dropArea">
+									<input type="file" name="dataFile" id="dataFile"></input>
+									<div id="dropArea">
 	
-								</div>
-								<textarea rows="7" name="dataCopy" id="dataCopy" oninput="dataChg()" onchange="dataChg()">{{ dataAreaText }}</textarea>
-								<input type="text" name="dataUrl" id="dataUrl" onchange="urlChg()"></input>
+									</div>
+									<textarea rows="7" name="dataCopy" id="dataCopy" oninput="dataChg()" onchange="dataChg()">{{ dataAreaText }}</textarea>
+									<input type="text" name="dataUrl" id="dataUrl" onchange="urlChg()"></input>
 							
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-12">
+									Number of header rows: <input type="number" value="{{ nHeaders | default(1) }}" name="nHeaders" id="nHeaders" onchange="headerChg()"></input>
+								</div>
+								<div class="col-sm-12">
+									Delimiter: <input type="text" value="," name="delimiter" id="delimiter" onchange="delimiterChg()"></input>
+								</div>
 							</div>
 						</div>
-						<div class="row">
-							<div class="col-sm-12">
-								Number of header rows: <input type="number" value="{{ nHeaders | default(1) }}" name="nHeaders" id="nHeaders" onchange="headerChg()"></input>
-							</div>
-							<div class="col-sm-12">
-								Delimiter: <input type="text" value="," name="delimiter" id="delimiter" onchange="delimiterChg()"></input>
+						<div class="col-sm-6">
+							<div id="dataTableHolder" class="flex-center flex-column">
+								<table id="dataTable" class="striped hoverable"></table>
 							</div>
 						</div>
-					</div>
-					<div class="col-sm-6">
-						<div id="dataTableHolder" class="flex-center flex-column">
-							<table id="dataTable" class="striped hoverable"></table>
-						</div>
-					</div>
-				  </div>
+					  </div>
+					</fieldset>
+				</form>
+			</div>
 				  <div class="l-box pure-u-1 sectionpart">
 				
 					<div class="col-sm-6">
@@ -192,8 +195,7 @@
 							<input type="submit" value="Submit">
 						</div>
 					  </div>
-				</fieldset>
-			</form>
+				
 			<div class="l-box pure-u-1-2" style="border: 1px solid black;">
 				Chart JS
 				<div class="chart-container" style="position: relative;">
