@@ -148,7 +148,10 @@ wss.on('connection', function connection(ws) {
 loginApp.get('/new',
 	function(req, res){
 		var chartid = '';
-		
+		var username = '';
+		if (req.user) {
+			username = req.user.username;
+		}
 		var start = process.hrtime();
         req.on('data', function (chunk) {
         
@@ -178,7 +181,7 @@ loginApp.get('/new',
 							title: savedData.title || '',
 							xColumn: savedData.xColumn || '',
 							yColumns: savedData.yColumns || '',
-							username: req.user.username || '',
+							username: username || '',
 						}));
 						res.end();
 					});
@@ -188,7 +191,7 @@ loginApp.get('/new',
 				res.write(nunjucks.render('chartdn.html',{
 					chartScript:'', 
 					dataAreaText: '',
-					username: req.user.username || '',
+					username: username || '',
 				}));
 				res.end();
 			}
