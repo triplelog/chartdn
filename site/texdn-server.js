@@ -60,6 +60,7 @@ const wss = new WebSocket.Server({ server });
 
 wss.on('connection', function connection(ws) {
   var chartid = 'testchart';
+  var username = '';
   var jsonmessage = {'operation':'id','message':chartid};
   ws.send(JSON.stringify(jsonmessage));
   ws.on('message', function incoming(message) {
@@ -136,7 +137,7 @@ wss.on('connection', function connection(ws) {
   		
   	}
   	else if (dm.operation == 'username'){
-		  console.log(dm.message);
+		  username = dm.message;
   	}
   });
 });
