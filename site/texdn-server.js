@@ -32,7 +32,7 @@ var express = require('express');
 var app = express();
 app.use('/',express.static('static'));
 
-
+/*
 app.use(passport.initialize());
 app.use(passport.session());
 app.get('/login',
@@ -45,12 +45,13 @@ app.post('/login',
   function(req, res) {
     res.redirect('/');
   });
-app.listen(12312);
+app.listen(3000);
+*/
 
-//const server1 = https.createServer(options, app);
+const server1 = https.createServer(options, app);
 //const server1 = http.createServer(options, app);
 
-//server1.listen(12312);
+server1.listen(12312);
 
 
 nunjucks.configure('templates', {

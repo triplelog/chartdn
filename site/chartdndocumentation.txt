@@ -1,22 +1,25 @@
 # Installation
 Create Debian 10 image with key
-ssh -i /Users/robertwilcox/.ssh/id_rsa root@155.138.208.216
+ssh -i /Users/robertwilcox/.ssh/id_rsa root@155.138.236.241
 Create new sudo user: adduser rwilcox, password: kZGWGda3A
-Copy key from root/.ssh/authorized_keys to /home/rwilcox/.ssh (create .ssh directory)
+Copy key from root/.ssh/authorized_keys to /home/rwilcox/.ssh (create .ssh directory first)
 Change Namecheap A record to IP
 
 sudo apt-get install nginx
 save chartdn.com to /etc/nginx/sites-available
 sudo ln -s /etc/nginx/sites-available/chartdn.com /etc/nginx/sites-enabled/
 sudo apt-get install certbot python-certbot-nginx
-sudo certbot -nginx
+sudo chown -R rwilcox:rwilcox /etc/nginx
+sudo certbot --nginx
 
 sudo apt-get install git
-
+git clone https://github.com/triplelog/chartdn.git in ~
 sudo curl -sL https://deb.nodesource.com/setup_13.x | sudo bash -
-apt-get install -y nodejs
+sudo apt-get install -y nodejs
+sudo chown -R rwilcox:rwilcox /etc/letsencrypt
 
 npm install -s ws
+npm install passport passport-local mongoose passport-local-mongoose
 
 
 Use node on backend
