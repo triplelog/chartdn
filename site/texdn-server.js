@@ -142,7 +142,6 @@ wss.on('connection', function connection(ws) {
 
 
 
-https.createServer(options, function(req, res) {
 loginApp.get('/new',
 	function(req, res){
 		console.log(req.isAuthenticated());
