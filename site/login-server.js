@@ -33,8 +33,19 @@ var express = require('express');
 var app = express();
 app.use(passport.initialize());
 app.use(passport.session());
+app.get('/register',
+  function(req, res){
+  	const user = new DefaultUser({username: 'user'});
+	await user.setPassword('password');
+	await user.save();
+	console.log('new user?');
+    res.write(nunjucks.render('templates/login.html',{}));
+    //res.writeHead(200);
+  	res.end();
+  });
 app.get('/login',
   function(req, res){
+  	
     res.write(nunjucks.render('templates/login.html',{}));
     //res.writeHead(200);
   	res.end();
