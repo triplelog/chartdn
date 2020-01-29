@@ -1,7 +1,9 @@
 var chartid = '';
 var ws = new WebSocket('wss://chartdn.com:8080');
-ws.onconnection = function(evt) {
+ws.onopen = function(evt) {
 	console.log(username);
+	var jsonmessage = {'operation':'username','message':username};
+	ws.send(JSON.stringify(jsonmessage));
 }
 ws.onmessage = function(evt){
 	var dm = JSON.parse(evt.data);

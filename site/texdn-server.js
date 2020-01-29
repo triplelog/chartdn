@@ -135,7 +135,9 @@ wss.on('connection', function connection(ws) {
 		});
   		
   	}
-  	
+  	else if (dm.operation == 'username'){
+		  console.log(dm.message);
+  	}
   });
 });
 
