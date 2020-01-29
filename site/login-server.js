@@ -87,6 +87,12 @@ app2.post('/login',
 app2.get('/success',
   function(req, res) {
   	  console.log('hi');
+  	  passport.serializeUser(function(user, done) {
+  	  		console.log('ahia');
+		  done(null, user.id);
+		  	console.log('bhib');
+		});
+	  console.log('chic');
 	  passport.deserializeUser(function(id, done) {
 	  	  console.log('aahiaa');
 		  User.findById(id, function(err, user) {
