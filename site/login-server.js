@@ -43,8 +43,14 @@ app2.use(passport.session());
 
 app2.get('/register',
   function(req, res){
-  	//const user = ;
-	//user.setPassword('password');
+    res.write(nunjucks.render('register.html',{}));
+  	res.end();
+  }
+);
+app2.post('/register',
+  function(req, res){
+  	console.log(req.body);
+  	/*
 	User.register(new User({username: 'user8'}),'password', function(err) {
 		if (err) {
 		  console.log('error while user register!', err);
@@ -55,10 +61,12 @@ app2.get('/register',
 
 		res.redirect('/');
 	});
-    res.write(nunjucks.render('login.html',{}));
+	*/
+    res.write(nunjucks.render('register.html',{}));
     //res.writeHead(200);
   	res.end();
-  });
+  }
+);
 app2.get('/login',
   function(req, res){
   	
