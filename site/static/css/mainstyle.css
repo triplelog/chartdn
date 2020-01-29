@@ -90,9 +90,7 @@ a.pure-button-primary {
  * -- MENU STYLES --
  * I want to customize how my .pure-menu looks at the top of the page
  */
-div.header {
-	background: rgb(255,255,255);
-}
+
 .home-menu {
     padding: 0.5em;
     text-align: center;
@@ -101,7 +99,7 @@ div.header {
 .home-menu {
     border: 0px solid black;
 	background: rgb(255,255,255);
-	background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(102,204,204,0.8757878151260504) 100%);
+	background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(102,204,204,1) 100%);
 }
 .pure-menu.pure-menu-fixed {
     /* Fixed menus normally have a border at the bottom. */
