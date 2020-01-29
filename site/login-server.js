@@ -38,8 +38,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.get('/register',
   function(req, res){
-  	const user = new User({username: 'user3'});
-	user.setPassword('password');
+  	const user = new User({username: 'user4',password:'password'});
+	//user.setPassword('password');
 	user.save();
 	console.log('new user?');
     res.write(nunjucks.render('templates/login.html',{}));
