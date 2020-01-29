@@ -32,20 +32,20 @@ var express = require('express');
 var app = express();
 app.use('/',express.static('static'));
 
-
-app.use(passport.initialize());
-app.use(passport.session());
-app.get('/login',
+var app2 = express();
+app2.use(passport.initialize());
+app2.use(passport.session());
+app2.get('/login',
   function(req, res){
     res.render('login');
   });
   
-app.post('/login', 
+app2.post('/login', 
   passport.authenticate('local', { failureRedirect: '/login' }),
   function(req, res) {
     res.redirect('/');
   });
-app.listen(1231);
+app2.listen(1231);
 
 
 const server1 = https.createServer(options, app);
