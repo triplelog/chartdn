@@ -5,6 +5,7 @@ var fs = require("fs");
 //var myParser = require("body-parser");
 var qs = require('querystring');
 const { exec } = require('child_process');
+const bodyParser = require('body-parser');
 var parse = require('csv-parse');
 var nunjucks = require('nunjucks');
 //const flate = require('wasm-flate');
@@ -23,9 +24,10 @@ mongoose.connect('mongodb://localhost:27017/test', {useNewUrlParser: true});
 var passport = require('passport')
 var LocalStrategy = require('passport-local').Strategy;
 // use static authenticate method of model in LocalStrategy
-passport.use(User.createStrategy());
+//passport.use(User.createStrategy());
  
 // use static serialize and deserialize of model for passport session support
+passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
@@ -34,8 +36,11 @@ var express = require('express');
 
 
 var app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(passport.initialize());
 app.use(passport.session());
+
 app.get('/register',
   function(req, res){
   	//const user = ;
