@@ -55,12 +55,10 @@
   <div class="content-wrapper">
     <div class="content">
     	<div class="pure-g">
-
-			<div class="l-box pure-u-1">
-				<form method="post" action="/new">
-				<div class="container">
-				  <div class="row sectionpart">
-				  	
+			<form class="pure-form pure-form-stacked" action="/new" method="post">
+				<fieldset>
+				  <div class="l-box pure-u-1 sectionpart">
+				
 					<div class="col-sm-6">
 						<b>Data Source</b>
 						<input type="radio" name="dataSourceType" onchange="dst()" value="File" checked>Upload File (csv or Excel)</input>
@@ -68,14 +66,14 @@
 						<input type="radio" name="dataSourceType" onchange="dst()" value="Url">URL</input>
 						<div class="row">
 							<div class="col-sm-12">
-								
+							
 								<input type="file" name="dataFile" id="dataFile"></input>
 								<div id="dropArea">
-		
+	
 								</div>
 								<textarea rows="7" name="dataCopy" id="dataCopy" oninput="dataChg()" onchange="dataChg()">{{ dataAreaText }}</textarea>
 								<input type="text" name="dataUrl" id="dataUrl" onchange="urlChg()"></input>
-								
+							
 							</div>
 						</div>
 						<div class="row">
@@ -93,8 +91,8 @@
 						</div>
 					</div>
 				  </div>
-				  <div class="row sectionpart">
-				  	
+				  <div class="l-box pure-u-1 sectionpart">
+				
 					<div class="col-sm-6">
 						<b>Filter Data</b>
 						<div class="row">
@@ -109,8 +107,8 @@
 						<table id="dataTable"></table>
 					</div>
 				  </div>
-				  <div class="row sectionpart">
-				  	<b>Create Chart</b>
+				  <div class="l-box pure-u-1 sectionpart">
+					<b>Create Chart</b>
 					<div class="col-sm-12">
 						<div class="row">
 							<div class="col-sm-12">
@@ -143,14 +141,13 @@
 								<input type="number" name="xColumn" id="xColVal" value="{{ xColumn }}"></input>
 								<input type="text" name="yColumns" id="yColsVal" value="{{ yColumns }}"></input>
 							</div>
-							
-						</div>
 						
+						</div>
+					
 					</div>
-				  </div>
-				  
-				  <div class="row sectionpart">
-				  	<b>Customize Chart</b>
+				  </div>			  
+				  <div class="l-box pure-u-1 sectionpart">
+					<b>Customize Chart</b>
 					<div class="col-sm-12">
 						<div class="row">
 							<div class="col-sm-12">
@@ -165,7 +162,7 @@
 							<div class="col-sm-12">
 								Line Color(s): <input type="text" name="lineColor" placeholder="default"/>
 								Dot Color(s): <input type="text" name="dotColor" placeholder="default"/>
-								
+							
 							</div>
 						</div>
 						<div class="row">
@@ -180,26 +177,23 @@
 
 							</div>
 						</div>
-						
+					
 					</div>
 				  </div>
-				  <div class="row sectionpart">
-				  	<b>Share Chart</b>
-					<div class="col-sm-12">
-						<input type="radio" name="shareChart" onchange="shareChg()" value="Svg" checked>SVG</input>
-						<input type="radio" name="shareChart" onchange="shareChg()" value="Code">Code</input>
-						<input type="radio" name="shareChart" onchange="shareChg()" value="Url">URL</input>
-						<input type="radio" name="shareChart" onchange="shareChg()" value="Embed">Embed</input>
-					</div>
-					<div class="col-sm-12">
-						<input type="submit" value="Submit">
-					</div>
-				  </div>
-				</div>
-				
-				
+				  <div class="l-box pure-u-1 sectionpart">
+						<b>Share Chart</b>
+						<div class="col-sm-12">
+							<input type="radio" name="shareChart" onchange="shareChg()" value="Svg" checked>SVG</input>
+							<input type="radio" name="shareChart" onchange="shareChg()" value="Code">Code</input>
+							<input type="radio" name="shareChart" onchange="shareChg()" value="Url">URL</input>
+							<input type="radio" name="shareChart" onchange="shareChg()" value="Embed">Embed</input>
+						</div>
+						<div class="col-sm-12">
+							<input type="submit" value="Submit">
+						</div>
+					  </div>
+
 			</form>
-			</div>
 			<div class="l-box pure-u-1-2" style="border: 1px solid black;">
 				Chart JS
 				<div class="chart-container" style="position: relative;">
