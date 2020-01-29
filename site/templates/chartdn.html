@@ -64,25 +64,21 @@
 							<input type="radio" name="dataSourceType" onchange="dst()" value="File" checked>Upload File (csv or Excel)</input>
 							<input type="radio" name="dataSourceType" onchange="dst()" value="Copy">Copy/Paste</input>
 							<input type="radio" name="dataSourceType" onchange="dst()" value="Url">URL</input>
-							<div class="row">
-								<div class="col-sm-12">
+							<div class="l-box pure-u-1">
 							
-									<input type="file" name="dataFile" id="dataFile"></input>
-									<div id="dropArea">
-	
-									</div>
-									<textarea rows="7" name="dataCopy" id="dataCopy" oninput="dataChg()" onchange="dataChg()">{{ dataAreaText }}</textarea>
-									<input type="text" name="dataUrl" id="dataUrl" onchange="urlChg()"></input>
-							
+								<input type="file" name="dataFile" id="dataFile"></input>
+								<div id="dropArea">
+
 								</div>
+								<textarea rows="7" name="dataCopy" id="dataCopy" oninput="dataChg()" onchange="dataChg()">{{ dataAreaText }}</textarea>
+								<input type="text" name="dataUrl" id="dataUrl" onchange="urlChg()"></input>
+
 							</div>
-							<div class="row">
-								<div class="col-sm-12">
-									Number of header rows: <input type="number" value="{{ nHeaders | default(1) }}" name="nHeaders" id="nHeaders" onchange="headerChg()"></input>
-								</div>
-								<div class="col-sm-12">
-									Delimiter: <input type="text" value="," name="delimiter" id="delimiter" onchange="delimiterChg()"></input>
-								</div>
+							<div class="l-box pure-u-1">
+								Number of header rows: <input type="number" value="{{ nHeaders | default(1) }}" name="nHeaders" id="nHeaders" onchange="headerChg()"></input>
+							</div>
+							<div class="l-box pure-u-1">
+								Delimiter: <input type="text" value="," name="delimiter" id="delimiter" onchange="delimiterChg()"></input>
 							</div>
 						</div>
 						<div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-2">
