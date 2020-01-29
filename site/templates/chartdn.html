@@ -96,12 +96,11 @@
 						<table id="dataTable" class="striped hoverable"></table>
 					</div>
 				</div>
-			  </div>
 					
 			</div>
-				  <div class="l-box pure-u-1 sectionpart">
-				
-					<div class="col-sm-6">
+			<div class="l-box pure-u-1-2 sectionpart">
+				<form class="pure-form">
+					<fieldset>
 						<b>Filter Data</b>
 						<div class="row">
 							Blank cells: Skip or 0
@@ -110,14 +109,13 @@
 							Filter only max, etc. Drag/drop filters to use.
 							<input type="checkbox" name="filter" id="test" onchange="filterChg()">Test</input>
 						</div>
-					</div>
-					<div class="col-sm-6">
-						<table id="dataTable"></table>
-					</div>
-				  </div>
-				  <div class="l-box pure-u-1 sectionpart">
-					<b>Create Chart</b>
-					<div class="col-sm-12">
+					</fieldset>
+				</form>
+			</div>
+			<div class="l-box pure-u-1-2 sectionpart">
+				<form class="pure-form">
+					<fieldset>
+						<b>Create Chart</b>
 						<div class="row">
 							<div class="col-sm-12">
 									<input type="radio" name="chartType" onchange="typeChg()" value="line" {{ isChecked['line'] }}>Line</input>
@@ -151,9 +149,10 @@
 							</div>
 						
 						</div>
+					</fieldset>
+				</form>
 					
-					</div>
-				  </div>			  
+			</div>			  
 				  <div class="l-box pure-u-1 sectionpart">
 					<b>Customize Chart</b>
 					<div class="col-sm-12">
