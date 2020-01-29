@@ -35,7 +35,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.get('/register',
   function(req, res){
-  	const user = new DefaultUser({username: 'user'});
+  	const user = new User({username: 'user'});
 	user.setPassword('password');
 	user.save();
 	console.log('new user?');
