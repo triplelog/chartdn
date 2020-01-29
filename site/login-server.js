@@ -76,6 +76,7 @@ app2.get('/login',
 app2.post('/login', 
   passport.authenticate('local', { failureRedirect: '/fail' }),
   function(req, res) {
+  	passport.serializeUser();
   	console.log(req.user.username);
     res.redirect('/');
   }
