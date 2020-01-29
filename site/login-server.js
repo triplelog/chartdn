@@ -17,6 +17,8 @@ const options = {
 
 
 const User = require('./models/user');
+mongoose.connect('mongodb://localhost:27017/test', {useNewUrlParser: true});
+
 var passport = require('passport')
 var LocalStrategy = require('passport-local').Strategy;
 // use static authenticate method of model in LocalStrategy
@@ -35,7 +37,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.get('/register',
   function(req, res){
-  	const user = new User({username: 'user2'});
+  	const user = new User({username: 'user3'});
 	user.setPassword('password');
 	user.save();
 	console.log('new user?');
