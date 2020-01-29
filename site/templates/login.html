@@ -32,20 +32,24 @@
 
 <div class="content-wrapper">
     <div class="content">
-        <form action="/login" method="post">
-			<div>
-			<label>Username:</label>
-			<input type="text" name="username"/><br/>
-			</div>
-			<div>
-			<label>Password:</label>
-			<input type="password" name="password"/>
-			</div>
-			<div>
-			<input type="submit" value="Submit"/>
-			</div>
-		</form>
+    	<form class="pure-form pure-form-stacked">
+			<fieldset>
+				<legend>A Stacked Form</legend>
 
+				<label for="username">Username</label>
+				<input id="username" name="username" type="text" placeholder="Username">
+				<span class="pure-form-message">This is a required field.</span>
+
+				<label for="password">Password</label>
+				<input id="password" name="password" type="password" placeholder="Password">
+
+				<label for="remember" class="pure-checkbox">
+					<input id="remember" type="checkbox"> Remember me
+				</label>
+
+				<button type="submit" class="pure-button pure-button-primary">Sign in</button>
+			</fieldset>
+		</form>
 
     </div>
 
