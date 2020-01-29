@@ -57,10 +57,12 @@
     	<div class="pure-g">
 			
 			<div class="l-box pure-u-1 sectionpart">
-				<form class="pure-form">
-					<fieldset>
-						<div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-2">
-							<b>Data Source</b>
+				
+				<div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-2">
+					
+					<b>Data Source</b>
+					<form class="pure-form">
+						<fieldset>
 							<label>
 								<input type="radio" name="dataSourceType" onchange="dst()" value="File" checked>Upload File (csv or Excel)
 							</label>
@@ -71,7 +73,7 @@
 								<input type="radio" name="dataSourceType" onchange="dst()" value="Url">URL
 							</label>
 							<div class="l-box pure-u-1">
-							
+					
 								<input type="file" name="dataFile" id="dataFile"></input>
 								<div id="dropArea">
 
@@ -86,15 +88,16 @@
 							<div class="l-box pure-u-1">
 								Delimiter: <input type="text" value="," name="delimiter" id="delimiter" onchange="delimiterChg()"></input>
 							</div>
-						</div>
-						<div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-2">
-							<div id="dataTableHolder" class="flex-center flex-column">
-								<table id="dataTable" class="striped hoverable"></table>
-							</div>
-						</div>
-					  </div>
-					</fieldset>
-				</form>
+						</fieldset>
+					</form>
+				</div>
+				<div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-2">
+					<div id="dataTableHolder" class="flex-center flex-column">
+						<table id="dataTable" class="striped hoverable"></table>
+					</div>
+				</div>
+			  </div>
+					
 			</div>
 				  <div class="l-box pure-u-1 sectionpart">
 				
