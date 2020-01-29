@@ -70,10 +70,10 @@ app.get('/login',
 app.post('/login', 
   passport.authenticate('local', { failureRedirect: '/fail' }),
   function(req, res) {
-  	console.log(req);
-  	console.log(req.user);
-    res.redirect('/success');
-  });
+  	console.log(req.user.username);
+    res.redirect('/');
+  }
+);
 app.get('/success',
   function(req, res){
 
@@ -82,4 +82,4 @@ app.get('/success',
   });
 
 const server1 = https.createServer(options, app);
-server1.listen(3000);
+server1.listen(3003);
