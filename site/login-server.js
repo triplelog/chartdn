@@ -16,7 +16,7 @@ const options = {
 };
 
 
-const User = require('./models/user');
+//const User = require('./models/user');
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/test', {useNewUrlParser: true});
 
@@ -38,9 +38,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.get('/register',
   function(req, res){
-  	const user = new User();
+  	const User = require('./models/user');
 	//user.setPassword('password');
-	user.register('user5','password');
+	User.register('user5','password');
 	console.log('new user?');
     res.write(nunjucks.render('templates/login.html',{}));
     //res.writeHead(200);
