@@ -90,7 +90,9 @@ a.pure-button-primary {
  * -- MENU STYLES --
  * I want to customize how my .pure-menu looks at the top of the page
  */
-
+div.header {
+	background: rgb(255,255,255);
+}
 .home-menu {
     padding: 0.5em;
     text-align: center;
