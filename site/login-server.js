@@ -37,7 +37,19 @@ app.get('/login',
   function(req, res){
     //res.render('login');
     res.writeHead(200);
-  	res.end('hello world\n');
+  	res.end(`<form action="/login" method="post">
+	<div>
+	<label>Username:</label>
+	<input type="text" name="username"/><br/>
+	</div>
+	<div>
+	<label>Password:</label>
+	<input type="password" name="password"/>
+	</div>
+	<div>
+	<input type="submit" value="Submit"/>
+	</div>
+</form>\n`);
   });
   
 app.post('/login', 
