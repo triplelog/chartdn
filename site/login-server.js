@@ -49,9 +49,8 @@ app2.get('/register',
 );
 app2.post('/register',
   function(req, res){
-  	console.log(req.body);
-  	/*
-	User.register(new User({username: 'user8'}),'password', function(err) {
+  	
+	User.register(new User({username: req.body.username}),req.body.password, function(err) {
 		if (err) {
 		  console.log('error while user register!', err);
 		  return next(err);
@@ -61,7 +60,6 @@ app2.post('/register',
 
 		res.redirect('/');
 	});
-	*/
     res.write(nunjucks.render('register.html',{}));
     //res.writeHead(200);
   	res.end();
