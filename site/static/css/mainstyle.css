@@ -29,6 +29,11 @@ label {
     height: auto;
 }
 
+.header {
+	border: 0px solid black;
+	background: rgb(255,255,255);
+	background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(102,204,204,0.8757878151260504) 100%);
+}
 /*
  * -- LAYOUT STYLES --
  * These are some useful classes which I will need
