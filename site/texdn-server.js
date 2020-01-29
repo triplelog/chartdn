@@ -144,81 +144,52 @@ wss.on('connection', function connection(ws) {
 
 loginApp.get('/new',
 	function(req, res){
-		console.log(req.isAuthenticated());
 		var chartid = '';
-		var data = '';
 		
 		var start = process.hrtime();
         req.on('data', function (chunk) {
-            data += chunk;
-
-            // Too much POST data, kill the connection!
-            // 1e6 === 1 * Math.pow(10, 6) === 1 * 1000000 ~~~ 1MB
-            if (data.length > 1e6)
-                req.connection.destroy();
+        
         });
 
 		// when we get data we want to store it in memory
 		req.on('end', () => {
-			//console.log(qs.parse(data).latexArea);
-			if (data.length > 0){
-				var templateType = qs.parse(data).chartType;
-				var templateLoc = 'static/charts/'+templateType+'Chart.txt';
-				fs.readFile(templateLoc, 'utf8', function(err, fileData) {
-					fs.writeFile("texdnLatex/newtest2.tex", fileData, function (err) {
-						fs.writeFile("texdnData/newdata.csv", qs.parse(data).dataCopy, function (err) {
-							var runtime = process.hrtime(start) // we also check how much time has passed
-							console.info('Execution time (hr): %ds %dms', runtime[0], runtime[1] / 1000000);
-							//exec('latex -output-directory=texdnLatex texdnLatex/newtest2.tex && dvisvgm --output=static/%f-%p texdnLatex/newtest2.dvi --font-format=woff && python3 static/charts/pythonscript.py');
-							exec('latex -output-directory=texdnLatex texdnLatex/newtest2.tex && dvisvgm --output=static/%f-%p texdnLatex/newtest2.dvi --font-format=woff');
-
-						});
+			if (req.url.length>4 && req.url.substring(4,7) == "?q=") {
+				chartid = req.url.substring(7);
+				fs.readFile('saved/'+chartid+'/options.json', 'utf8', function(err, optionData) {
+					fs.readFile('saved/'+chartid+'/data.csv', 'utf8', function(err, fileData) {
+						var defaultData = ''
+						if (!err) {defaultData = fileData;}
+						var savedData = JSON.parse(optionData);
+						var chartType = {'line':'','bar':'','scatter':'','pie':'','bubble':'','histogram':'','heatmap':'','radar':'','box':'','choropleth':'','splom':'','diff':'','calendar':''};
+						if (savedData['type'] && savedData['type'] != ''){
+							chartType[savedData['type']]='checked';
+						}
+						else {
+							savedData['type']='line';
+						}
+						res.write(nunjucks.render('chartdn.html',{
+							chartScript: createChart(savedData,convertDataToFull(defaultData,savedData.nHeaders),savedData['type']), 
+							dataAreaText: defaultData,
+							nHeaders: savedData.nHeaders || 1,
+							isChecked: chartType,
+							title: savedData.title || '',
+							xColumn: savedData.xColumn || '',
+							yColumns: savedData.yColumns || '',
+							username: req.user.username || '',
+						}));
+						res.end();
 					});
 				});
-
+			}
+			else {
 				res.write(nunjucks.render('chartdn.html',{
-					chartScript:createChart(qs.parse(data),convertDataToFull(qs.parse(data).dataCopy,qs.parse(data).nHeaders),'line'), 
-					dataAreaText: qs.parse(data).dataCopy,
+					chartScript:'', 
+					dataAreaText: '',
+					username: req.user.username || '',
 				}));
 				res.end();
 			}
-			else {
-				if (req.url.length>4 && req.url.substring(4,7) == "?q=") {
-					chartid = req.url.substring(7);
-					fs.readFile('saved/'+chartid+'/options.json', 'utf8', function(err, optionData) {
-						fs.readFile('saved/'+chartid+'/data.csv', 'utf8', function(err, fileData) {
-							var defaultData = ''
-							if (!err) {defaultData = fileData;}
-							var savedData = JSON.parse(optionData);
-							var chartType = {'line':'','bar':'','scatter':'','pie':'','bubble':'','histogram':'','heatmap':'','radar':'','box':'','choropleth':'','splom':'','diff':'','calendar':''};
-							if (savedData['type'] && savedData['type'] != ''){
-								chartType[savedData['type']]='checked';
-							}
-							else {
-								savedData['type']='line';
-							}
-							res.write(nunjucks.render('chartdn.html',{
-								chartScript: createChart(savedData,convertDataToFull(defaultData,savedData.nHeaders),savedData['type']), 
-								dataAreaText: defaultData,
-								nHeaders: savedData.nHeaders || 1,
-								isChecked: chartType,
-								title: savedData.title || '',
-								xColumn: savedData.xColumn || '',
-								yColumns: savedData.yColumns || '',
-							}));
-							res.end();
-						});
-					});
-				}
-				else {
-					res.write(nunjucks.render('chartdn.html',{
-						chartScript:'', 
-						dataAreaText: '',
-					}));
-					res.end();
-				}
-				
-			}
+
 			
 		});
     }

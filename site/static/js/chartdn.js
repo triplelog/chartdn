@@ -1,5 +1,5 @@
 var chartid = '';
-var ws = new WebSocket('wss://tabdn.com:8080');
+var ws = new WebSocket('wss://chartdn.com:8080');
 ws.onmessage = function(evt){
 	var dm = JSON.parse(evt.data);
 	if (dm.operation == 'downloaded'){
