@@ -56,7 +56,7 @@
     <div class="content">
     	<div class="pure-g">
 			
-			<div class="l-box pure-u-1-6 sectionpart">
+			<div class="l-box pure-u-1-4 sectionpart">
 					<b>Data Source</b>
 					<form class="pure-form-stacked">
 						<fieldset>
@@ -79,16 +79,16 @@
 								<input type="text" name="dataUrl" id="dataUrl" onchange="urlChg()"></input>
 
 							</div>
-							<label>
-								<input type="number" value="{{ nHeaders | default(1) }}" name="nHeaders" id="nHeaders" onchange="headerChg()">Header Rows
+							<label for="nHeaders">Header Rows
+								<input type="number" value="{{ nHeaders | default(1) }}" name="nHeaders" id="nHeaders" onchange="headerChg()">
 							</label>
-							<label>
-								<input type="text" value="," name="delimiter" id="delimiter" onchange="delimiterChg()">Delimiter
+							<label for="delimiter">Delimiter
+								<input type="text" value="," name="delimiter" id="delimiter" onchange="delimiterChg()">
 							</label>
 						</fieldset>
 					</form>
 			</div>
-			<div class="l-box pure-u-5-6 sectionpart">
+			<div class="l-box pure-u-3-4 sectionpart">
 				<div id="dataTableHolder" class="flex-center flex-column">
 					<table id="dataTable" class="striped hoverable"></table>
 				</div>
