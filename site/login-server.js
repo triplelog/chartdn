@@ -86,9 +86,13 @@ app2.post('/login',
 );
 app2.get('/success',
   function(req, res) {
+  	  console.log('hi');
 	  passport.deserializeUser(function(id, done) {
+	  	  console.log('aahiaa');
 		  User.findById(id, function(err, user) {
+		  	console.log('bbhibb');
 			done(err, user);
+			console.log('cchicc');
 			res.redirect('/');
 		  });
 	  });
