@@ -56,9 +56,9 @@
     <div class="content">
     	<div class="pure-g">
 			
-			<div class="l-box pure-u-1-8 sectionpart">
+			<div class="l-box pure-u-1-6 sectionpart">
 					<b>Data Source</b>
-					<form class="pure-form">
+					<form class="pure-form-stacked">
 						<fieldset>
 							<label>
 								<input type="radio" name="dataSourceType" onchange="dst()" value="File" checked>Upload File (csv or Excel)
@@ -79,16 +79,16 @@
 								<input type="text" name="dataUrl" id="dataUrl" onchange="urlChg()"></input>
 
 							</div>
-							<div class="l-box pure-u-1">
-								Number of header rows: <input type="number" value="{{ nHeaders | default(1) }}" name="nHeaders" id="nHeaders" onchange="headerChg()"></input>
-							</div>
-							<div class="l-box pure-u-1">
-								Delimiter: <input type="text" value="," name="delimiter" id="delimiter" onchange="delimiterChg()"></input>
-							</div>
+							<label>
+								<input type="number" value="{{ nHeaders | default(1) }}" name="nHeaders" id="nHeaders" onchange="headerChg()">Header Rows
+							</label>
+							<label>
+								<input type="text" value="," name="delimiter" id="delimiter" onchange="delimiterChg()">Delimiter
+							</label>
 						</fieldset>
 					</form>
 			</div>
-			<div class="l-box pure-u-7-8 sectionpart">
+			<div class="l-box pure-u-5-6 sectionpart">
 				<div id="dataTableHolder" class="flex-center flex-column">
 					<table id="dataTable" class="striped hoverable"></table>
 				</div>
