@@ -35,7 +35,16 @@ app.use('/',express.static('static'));
 
 app.use(passport.initialize());
 app.use(passport.session());
-
+app.get('/login',
+  function(req, res){
+    res.render('login');
+  });
+  
+app.post('/login', 
+  passport.authenticate('local', { failureRedirect: '/login' }),
+  function(req, res) {
+    res.redirect('/');
+  });
 
 const server1 = https.createServer(options, app);
 //const server1 = http.createServer(options, app);
