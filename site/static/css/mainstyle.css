@@ -115,11 +115,11 @@ a.pure-button-primary {
 }
 
 .home-menu .pure-menu-selected a {
-    color: white;
+    color: black;
 }
 
 .home-menu a {
-    color: #6FBEF3;
+    color: black;
 }
 .home-menu li a:hover,
 .home-menu li a:focus {

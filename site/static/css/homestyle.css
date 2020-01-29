@@ -96,7 +96,9 @@ a.pure-button-primary {
     box-shadow: 0 1px 1px rgba(0,0,0, 0.10);
 }
 .home-menu {
-    background: #2d3e50;
+    border: 0px solid black;
+	background: rgb(255,255,255);
+	background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(102,204,204,0.8757878151260504) 100%);
 }
 .pure-menu.pure-menu-fixed {
     /* Fixed menus normally have a border at the bottom. */
@@ -106,17 +108,17 @@ a.pure-button-primary {
 }
 
 .home-menu .pure-menu-heading {
-    color: white;
+    color: black;
     font-weight: 400;
     font-size: 120%;
 }
 
 .home-menu .pure-menu-selected a {
-    color: white;
+    color: black;
 }
 
 .home-menu a {
-    color: #6FBEF3;
+    color: black;
 }
 .home-menu li a:hover,
 .home-menu li a:focus {
