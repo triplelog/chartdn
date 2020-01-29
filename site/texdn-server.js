@@ -32,6 +32,7 @@ var express = require('express');
 var app = express();
 app.use('/',express.static('static'));
 
+/*
 var app2 = express();
 app2.use(passport.initialize());
 app2.use(passport.session());
@@ -45,8 +46,8 @@ app2.post('/login',
   function(req, res) {
     res.redirect('/');
   });
-app2.listen(1231);
-
+app2.listen(3000);
+*/
 
 const server1 = https.createServer(options, app);
 //const server1 = http.createServer(options, app);
