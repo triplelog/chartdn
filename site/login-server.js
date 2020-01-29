@@ -45,7 +45,7 @@ app.get('/register',
   function(req, res){
   	//const user = ;
 	//user.setPassword('password');
-	User.register(new User({username: 'user7'}),'password', function(err) {
+	User.register(new User({username: 'user8'}),'password', function(err) {
 		if (err) {
 		  console.log('error while user register!', err);
 		  return next(err);
