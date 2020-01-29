@@ -35,7 +35,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.get('/login',
   function(req, res){
-    res.render('login');
+    //res.render('login');
+    res.writeHead(200);
+  	res.end('hello world\n');
   });
   
 app.post('/login', 
@@ -43,8 +45,6 @@ app.post('/login',
   function(req, res) {
     res.redirect('/');
   });
-  
-const server1 = https.createServer(options, app);
-//const server1 = http.createServer(options, app);
 
+const server1 = https.createServer(options, app);
 server1.listen(3000);
