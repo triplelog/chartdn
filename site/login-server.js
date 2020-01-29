@@ -90,5 +90,5 @@ app2.get('/success',
   }
 );
 
-const server2 = https.createServer(options, app2);
-module.exports = server2;
+
+module.exports = app2;

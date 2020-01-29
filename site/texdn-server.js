@@ -1,5 +1,5 @@
-var loginServer = require('./login-server.js');
-loginServer.listen(3003);
+var loginApp = require('./login-server.js');
+
 const https = require('https');
 //const http = require('http');
 var fs = require("fs");
@@ -140,8 +140,11 @@ wss.on('connection', function connection(ws) {
 });
 
 
+
+
 https.createServer(options, function(req, res) {
-	if (req.url.substring(0,4) == "/new"){
+loginApp.get('/new',
+	function(req, res){
 		console.log(req.isAuthenticated());
 		var chartid = '';
 		var data = '';
@@ -219,12 +222,10 @@ https.createServer(options, function(req, res) {
 			}
 			
 		});
-	
     }
-
-    
-}).listen(3000);
-
+);
+const loginServer = https.createServer(options, loginApp);
+loginServer.listen(3000);
 
 
 function convertDataToFull(dataStr,nHeaders) {
