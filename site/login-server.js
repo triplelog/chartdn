@@ -41,9 +41,9 @@ app.get('/login',
   });
   
 app.post('/login', 
-  passport.authenticate('local', { failureRedirect: '/login' }),
+  passport.authenticate('local', { failureRedirect: '/fail' }),
   function(req, res) {
-    res.redirect('/');
+    res.redirect('/success');
   });
 
 const server1 = https.createServer(options, app);
