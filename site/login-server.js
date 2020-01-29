@@ -72,6 +72,12 @@ app.post('/login',
   function(req, res) {
     res.redirect('/success');
   });
+app.get('/success',
+  function(req, res){
+
+    res.writeHead(200);
+  	res.end('Success/n');
+  });
 
 const server1 = https.createServer(options, app);
 server1.listen(3000);
