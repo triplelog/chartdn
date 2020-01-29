@@ -35,7 +35,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.get('/login',
   function(req, res){
-    res.write(nunjucks.render('login.html',{}));
+    res.write(nunjucks.render('templates/login.html',{}));
     //res.writeHead(200);
   	res.end();
   });
