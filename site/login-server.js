@@ -85,12 +85,14 @@ app2.post('/login',
   }
 );
 app2.get('/success',
-  passport.deserializeUser(function(id, done) {
-	  User.findById(id, function(err, user) {
-		done(err, user);
-		res.redirect('/');
+  function(req, res) {
+	  passport.deserializeUser(function(id, done) {
+		  User.findById(id, function(err, user) {
+			done(err, user);
+			res.redirect('/');
+		  });
 	  });
-  });
+  }
 );
 
 const server2 = https.createServer(options, app2);
