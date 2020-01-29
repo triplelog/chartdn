@@ -81,7 +81,7 @@ app2.post('/login',
 	   // where is this user.id going? Are we supposed to access this anywhere?
 	});
   	console.log(req.user.username);
-    res.redirect('/');
+    res.redirect('/success');
   }
 );
 app2.get('/success',
