@@ -70,6 +70,8 @@ app.get('/login',
 app.post('/login', 
   passport.authenticate('local', { failureRedirect: '/fail' }),
   function(req, res) {
+  	console.log(req);
+  	console.log(req.user);
     res.redirect('/success');
   });
 app.get('/success',
