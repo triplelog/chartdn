@@ -24,6 +24,14 @@ label {
     color: #34495e;
 }
 
+.flex-column {
+	height: 25rem;
+	overflow: auto;
+}
+.striped tr:nth-child(even){
+	background: gray;
+}
+
 .pure-img-responsive {
     max-width: 100%;
     height: auto;
