@@ -35,13 +35,13 @@ var express = require('express');
 
 
 
-var app = express();
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(passport.initialize());
-app.use(passport.session());
+var app2 = express();
+app2.use(bodyParser.json());
+app2.use(bodyParser.urlencoded({extended: false}));
+app2.use(passport.initialize());
+app2.use(passport.session());
 
-app.get('/register',
+app2.get('/register',
   function(req, res){
   	//const user = ;
 	//user.setPassword('password');
@@ -59,7 +59,7 @@ app.get('/register',
     //res.writeHead(200);
   	res.end();
   });
-app.get('/login',
+app2.get('/login',
   function(req, res){
   	
     res.write(nunjucks.render('templates/login.html',{}));
@@ -67,19 +67,19 @@ app.get('/login',
   	res.end();
   });
   
-app.post('/login', 
+app2.post('/login', 
   passport.authenticate('local', { failureRedirect: '/fail' }),
   function(req, res) {
   	console.log(req.user.username);
     res.redirect('/');
   }
 );
-app.get('/success',
+app2.get('/success',
   function(req, res){
 
     res.writeHead(200);
   	res.end('Success/n');
   });
 
-const server1 = https.createServer(options, app);
-server1.listen(3003);
+const server2 = https.createServer(options, app2);
+server2.listen(3003);
