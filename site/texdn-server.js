@@ -159,8 +159,31 @@ loginApp.get('/new',
 
 		// when we get data we want to store it in memory
 		req.on('end', () => {
-			if (req.url.length>4 && req.url.substring(4,7) == "?q=") {
-				chartid = req.url.substring(7);
+				res.write(nunjucks.render('chartdn.html',{
+					chartScript:'', 
+					dataAreaText: '',
+					username: username || '',
+				}));
+				res.end();
+
+			
+		});
+    }
+);
+loginApp.get('/charts/:chartid',
+	function(req, res){
+		var chartid = req.params.chartid;
+		var username = '';
+		if (req.user) {
+			username = req.user.username;
+		}
+		var start = process.hrtime();
+        req.on('data', function (chunk) {
+        
+        });
+
+		// when we get data we want to store it in memory
+		req.on('end', () => {
 				fs.readFile('saved/'+chartid+'/options.json', 'utf8', function(err, optionData) {
 					fs.readFile('saved/'+chartid+'/data.csv', 'utf8', function(err, fileData) {
 						var defaultData = ''
@@ -186,15 +209,7 @@ loginApp.get('/new',
 						res.end();
 					});
 				});
-			}
-			else {
-				res.write(nunjucks.render('chartdn.html',{
-					chartScript:'', 
-					dataAreaText: '',
-					username: username || '',
-				}));
-				res.end();
-			}
+
 
 			
 		});
