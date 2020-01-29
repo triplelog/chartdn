@@ -35,21 +35,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.get('/login',
   function(req, res){
-    //res.render('login');
-    res.writeHead(200);
-  	res.end(`<form action="/login" method="post">
-	<div>
-	<label>Username:</label>
-	<input type="text" name="username"/><br/>
-	</div>
-	<div>
-	<label>Password:</label>
-	<input type="password" name="password"/>
-	</div>
-	<div>
-	<input type="submit" value="Submit"/>
-	</div>
-</form>\n`);
+    res.write(nunjucks.render('login.html',{}));
+    //res.writeHead(200);
+  	res.end();
   });
   
 app.post('/login', 
