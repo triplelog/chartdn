@@ -45,11 +45,12 @@ app.post('/login',
   function(req, res) {
     res.redirect('/');
   });
+app.listen(12312);
 
-const server1 = https.createServer(options, app);
+//const server1 = https.createServer(options, app);
 //const server1 = http.createServer(options, app);
 
-server1.listen(12312);
+//server1.listen(12312);
 
 
 nunjucks.configure('templates', {
