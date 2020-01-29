@@ -1,5 +1,8 @@
 var chartid = '';
 var ws = new WebSocket('wss://chartdn.com:8080');
+ws.onconnection = function(evt) {
+	console.log(username);
+}
 ws.onmessage = function(evt){
 	var dm = JSON.parse(evt.data);
 	if (dm.operation == 'downloaded'){
