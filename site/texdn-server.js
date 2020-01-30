@@ -217,11 +217,14 @@ loginApp.get('/charts/:chartid',
 
 		// when we get data we want to store it in memory
 		req.on('end', () => {
-				fs.readFile('saved/'+chartid+'/options.json', 'utf8', function(err, optionData) {
-					fs.readFile('saved/'+chartid+'/data.csv', 'utf8', function(err, fileData) {
+				Chart.findOne({ id: chartid }, function(err, result) {
+				  if (err) {
+				
+				  } else {
+					fs.readFile('saved/'+result.data, 'utf8', function(err, fileData) {
 						var defaultData = ''
 						if (!err) {defaultData = fileData;}
-						var savedData = JSON.parse(optionData);
+						var savedData = result.options;
 						var chartType = {'line':'','bar':'','scatter':'','pie':'','bubble':'','histogram':'','heatmap':'','radar':'','box':'','choropleth':'','splom':'','diff':'','calendar':''};
 						if (savedData['type'] && savedData['type'] != ''){
 							chartType[savedData['type']]='checked';
@@ -241,7 +244,12 @@ loginApp.get('/charts/:chartid',
 						}));
 						res.end();
 					});
+					
+				  }
 				});
+
+					
+
 
 
 			
