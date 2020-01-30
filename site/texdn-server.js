@@ -79,7 +79,7 @@ wss.on('connection', function connection(ws) {
   	var dm = JSON.parse(message);
   	if (dm.operation == 'upload'){
   		if (chartid == ''){
-  			chartid = crypto.randomBytes(20).toString(36).substr(2, 5);
+  			chartid = crypto.randomBytes(20).toString('hex').substr(2, 5);
   			var defaultOptions = {};
 			defaultOptions['nHeaders'] = 1;
 			defaultOptions['filters'] = [];
@@ -106,7 +106,7 @@ wss.on('connection', function connection(ws) {
   	}
   	else if (dm.operation == 'download'){
   		  if (chartid == ''){
-  			chartid = crypto.randomBytes(20).toString(36).substr(2, 5);
+  			chartid = crypto.randomBytes(20).toString('hex').substr(2, 5);
   			var defaultOptions = {};
 			defaultOptions['nHeaders'] = 1;
 			defaultOptions['filters'] = [];
