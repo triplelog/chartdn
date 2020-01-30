@@ -70,6 +70,7 @@ const WebSocket = require('ws');
 const wss = new WebSocket.Server({ server });
 
 wss.on('connection', function connection(ws) {
+  var charts = {};
   var chartid = '';
   var dataid = '';
   var chartidtemp = '';
@@ -235,15 +236,16 @@ wss.on('connection', function connection(ws) {
   	}
   	else if (dm.operation == 'view'){
 		  chartid = dm.id;
-		  console.log(chartid);
 		  if (chartid && chartid != ""){
-		  	updateNow = true;
+			  Chart.findOne({ id: chartid }, function(err, result) {
+			  	
+				var jsonmessage = {'operation':'chart','message':makeAllCharts(result),'loc':dm.loc};
+				ws.send(JSON.stringify(jsonmessage));
+			  }
 		  }
   	}
 
-  		var chartjsOptions = {'datasets':[{"label":"Label","data":[{"x":1,"y":2},{"x":2,"y":3},{"x":3,"y":2}],"fill":false}]};
-		var jsonmessage = {'operation':'chart','message':makeChartjs(chartjsOptions),'loc':dm.loc};
-		ws.send(JSON.stringify(jsonmessage));
+  		
 
   });
 });
@@ -569,33 +571,55 @@ function createChart(alldata,csvdata,chartType="line") {
 
 	return fullJS;
 }
-
-function makeChartjs(chartjsOptions) {
-	//{'datasets':[{"label":"Label","data":[{"x":1,"y":2},{"x":2,"y":3},{"x":3,"y":2}],"fill":false}]};
-	var chartJSON = {
-		type: 'line',
-		data: {
-			datasets: chartjsOptions['datasets'],
-		},
-		options: {
-			scales: {
-				yAxes: [{
-					ticks: {
-						beginAtZero: true,
-						
-					}
-				}],
-				xAxes: [{
-					type: 'linear',
-					position: 'bottom',
-					ticks: {
-						
-					}
-				}]
+				
+function makeAllCharts(result) {
+	fs.readFile('saved/'+result.data, 'utf8', function(err, fileData) {
+		var nHeaders = results.options.nHeaders || 1;
+		var data = convertDataToFull(fileData,nHeaders);
+		
+		
+		var chartjsOptions = {'datasets':datasetsChartjs(data,result.options)};
+		//{'datasets':[{"label":"Label","data":[{"x":1,"y":2},{"x":2,"y":3},{"x":3,"y":2}],"fill":false}]};
+		var chartJSON = {
+			type: 'line',
+			data: {
+				datasets: chartjsOptions['datasets'],
 			},
+			options: {
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero: true,
+						
+						}
+					}],
+					xAxes: [{
+						type: 'linear',
+						position: 'bottom',
+						ticks: {
+						
+						}
+					}]
+				},
 			
 		
+			}
+		};
+		return chartJSON;
+	}
+}
+
+function datasetsChartjs(data,options) {
+	var datasets = [];
+	for (var i=0;i<options['yColumns'].length;i++){
+		var newdataset = {'label':'Label','data':[],'fill':false};
+		for (var ii=0;ii<data['bycol'][options['yColumns'][i]].length;ii++){
+			newdataset['data'].push({'x':data['bycol'][options['xColumn']][ii], 'y':data['bycol'][options['yColumns'][i]][ii]});
 		}
-	};
-	return chartJSON;
+		if (options.lineColor) {newdataset['borderColor']=lineColor}
+		if (options.dotColor) {newdataset['backgroundColor']=dotColor}
+			
+		datasets.push(newdataset);
+	}
+	return datasets;
 }
