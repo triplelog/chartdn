@@ -221,6 +221,8 @@ loginApp.get('/charts/:chartid',
 				  if (err) {
 				
 				  } else {
+				  	console.log(chartid);
+				  	console.log(result);
 					fs.readFile('saved/'+result.data, 'utf8', function(err, fileData) {
 						var defaultData = ''
 						if (!err) {defaultData = fileData;}
