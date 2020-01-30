@@ -225,10 +225,16 @@ loginApp.get('/charts/:chartid',
 				  if (err) {
 				
 				  } else {
+				    if (result == null){
+				    	res.write(nunjucks.render('chartdn.html',{
+							chartScript:'', 
+							dataAreaText: '',
+							username: username || '',
+						}));
+						res.end();
+				    }
 				  	var dataname = result.data;
 				  	var myOptions = result.options;
-				  	console.log(result);
-				  	console.log(myOptions);
 					fs.readFile('saved/'+dataname, 'utf8', function(err, fileData) {
 						var defaultData = ''
 						if (!err) {defaultData = fileData;}
