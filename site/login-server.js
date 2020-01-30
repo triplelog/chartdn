@@ -62,15 +62,15 @@ app2.get('/account',
 
 app2.post('/register',
   function(req, res){
-  	
-	User.register(new User({username: req.body.username}),req.body.password, function(err) {
+  	var user = new User({username: req.body.username});
+	User.register(user,req.body.password, function(err) {
 		if (err) {
 		  console.log('error while user register!', err);
 		  res.redirect('/account');
 		}
 
 		console.log('user registered!');
-		req.login(req.user, function(err) {
+		req.login(user, function(err) {
 		  if (err) { console.log(err); res.redirect('/'); }
 		  else {res.redirect('/account'); }
 		});
