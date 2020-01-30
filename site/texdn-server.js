@@ -549,6 +549,7 @@ function createChart(alldata,csvdata,chartType="line") {
 			if (stepSizeY != '' && stepSizeY != 'default') {options['yaxis'] = 'yaxis: {dtick: '+stepSizeY+'},' }
 			fullJS += chartFile.createPlotly(csvdata,options);
 		}
+		/*
 		else if (frameworks[i] == 'chartjs'){
 			if (title != '' && title != 'notitle') {options['title'] = 'title: {display: true, text: "'+title+'"},';}
 			if (stepSizeX != '' && stepSizeX != 'default') {options['stepSizeX'] = 'stepSize: '+stepSizeX+',' }
@@ -557,7 +558,7 @@ function createChart(alldata,csvdata,chartType="line") {
 			if (dotColor != '' && dotColor != 'default') {options['dotColor'] = dotColor}
 		
 			fullJS += chartFile.createChartjs(csvdata,options);
-		}
+		}*/
 	}
 
 
