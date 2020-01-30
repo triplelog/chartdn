@@ -158,6 +158,7 @@ wss.on('connection', function connection(ws) {
 				for(var k in dm){
 					if (k != 'operation'){
 						result[k] = dm[k];
+						console.log(k,dm[k],result[k]);
 					}
 				}
 				result.save(function (err, result) {
