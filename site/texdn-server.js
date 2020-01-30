@@ -157,10 +157,11 @@ wss.on('connection', function connection(ws) {
 			  } else {
 				for(var k in dm){
 					if (k != 'operation'){
-						result[k] = dm[k];
-						console.log(k,dm[k],result[k]);
+						result.options[k] = dm[k];
+						console.log(k,dm[k],result.options[k]);
 					}
 				}
+				result.markModified(options);
 				result.save(function (err, result) {
 					if (err) return console.error('sajdhfkasdhjfkjsahdfkjsadhfs\n',err);
 					console.log('saved options');
