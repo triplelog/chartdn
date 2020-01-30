@@ -243,3 +243,22 @@ drake.on('remove', function (el, target, source) {
 		columnsChg();
 	}
 });
+
+
+
+
+class chartdnChart extends HTMLElement {
+  constructor() {
+    // Always call super first in constructor
+    super();
+	var _this = this;
+    //this.ws = new WebSocket('wss://tabdn.com:8080');
+    const shadowRoot = this.attachShadow({mode: 'open'});
+  	shadowRoot.innerHTML = `Chart JS
+	<div class="chart-container" style="position: relative;">
+		<canvas id="myChart" style="display: none;"></canvas>
+	</div>`
+  }
+}
+customElements.define('chartdn-chart', chartdnChart);
+
