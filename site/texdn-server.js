@@ -80,6 +80,7 @@ wss.on('connection', function connection(ws) {
   	if (dm.operation == 'upload'){
   		if (chartid == ''){
   			chartid = crypto.randomBytes(20).toString('hex').substr(2, 5);
+  			console.log(chartid);
   			var defaultOptions = {};
 			defaultOptions['nHeaders'] = 1;
 			defaultOptions['filters'] = [];
@@ -226,47 +227,39 @@ loginApp.get('/charts/:chartid',
 				
 				  } else {
 				    if (result == null){
-				    	res.write(nunjucks.render('chartdn.html',{
-							chartScript:'', 
-							dataAreaText: '',
-							username: username || '',
-						}));
-						res.end();
+				    	
 				    }
-				  	var dataname = result.data;
-				  	var myOptions = result.options;
-					fs.readFile('saved/'+dataname, 'utf8', function(err, fileData) {
-						var defaultData = ''
-						if (!err) {defaultData = fileData;}
-						var savedData = myOptions;
-						var chartType = {'line':'','bar':'','scatter':'','pie':'','bubble':'','histogram':'','heatmap':'','radar':'','box':'','choropleth':'','splom':'','diff':'','calendar':''};
-						if (savedData['type'] && savedData['type'] != ''){
-							chartType[savedData['type']]='checked';
-						}
-						else {
-							savedData['type']='line';
-						}
-						res.write(nunjucks.render('chartdn.html',{
-							chartScript: createChart(savedData,convertDataToFull(defaultData,savedData.nHeaders),savedData['type']), 
-							dataAreaText: defaultData,
-							nHeaders: savedData.nHeaders || 1,
-							isChecked: chartType,
-							title: savedData.title || '',
-							xColumn: savedData.xColumn || '',
-							yColumns: savedData.yColumns || '',
-							username: username || '',
-						}));
-						res.end();
-					});
+				    else {
+						var dataname = result.data;
+						var myOptions = result.options;
+						fs.readFile('saved/'+dataname, 'utf8', function(err, fileData) {
+							var defaultData = ''
+							if (!err) {defaultData = fileData;}
+							var savedData = myOptions;
+							var chartType = {'line':'','bar':'','scatter':'','pie':'','bubble':'','histogram':'','heatmap':'','radar':'','box':'','choropleth':'','splom':'','diff':'','calendar':''};
+							if (savedData['type'] && savedData['type'] != ''){
+								chartType[savedData['type']]='checked';
+							}
+							else {
+								savedData['type']='line';
+							}
+							res.write(nunjucks.render('chartdn.html',{
+								chartScript: createChart(savedData,convertDataToFull(defaultData,savedData.nHeaders),savedData['type']), 
+								dataAreaText: defaultData,
+								nHeaders: savedData.nHeaders || 1,
+								isChecked: chartType,
+								title: savedData.title || '',
+								xColumn: savedData.xColumn || '',
+								yColumns: savedData.yColumns || '',
+								username: username || '',
+							}));
+							res.end();
+						});
+					}
 					
 				  }
 				});
 
-					
-
-
-
-			
 		});
     }
 );
