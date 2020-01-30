@@ -47,6 +47,13 @@ nunjucks.configure('templates', {
     autoescape: false
 });
 
+var db = mongoose.connection;
+var chartSchema = new mongoose.Schema({
+	id: String,
+	data: String,
+	options: {},
+});
+var Chart = mongoose.model('Chart', chartSchema);
 function updateChart() {
 	return '';
 
@@ -62,20 +69,32 @@ const WebSocket = require('ws');
 const wss = new WebSocket.Server({ server });
 
 wss.on('connection', function connection(ws) {
-  var chartid = 'testchart';
+  var chartid = 'newtesta';
   var username = '';
   var jsonmessage = {'operation':'id','message':chartid};
   ws.send(JSON.stringify(jsonmessage));
   ws.on('message', function incoming(message) {
   	var dm = JSON.parse(message);
   	if (dm.operation == 'upload'){
-  		//make the directory
-  		fs.mkdirSync('saved/'+chartid, { recursive: true });
+  		
   		//write data.csv
-  		fs.writeFile("saved/"+chartid+"/data.csv", dm.message, function (err) {
+  		fs.writeFile("saved/"+chartid+".csv", dm.message, function (err) {
 			updateChart();
 		});
+		
+		var defaultOptions = {};
+		defaultOptions['nHeaders'] = 1;
+		defaultOptions['filters'] = [];
+		defaultOptions['type'] = '';
+		defaultOptions['yColumns'] = '';
+		defaultOptions['xColumn'] = '';
+		defaultOptions['stepSizeX'] = '';
+		defaultOptions['stepSizeY'] = '';
+		defaultOptions['title'] = '';
+		var chart = new Chart({id:'newtesta',data:'newtesta.csv',options:defaultOptions});
+		
   		//write options.json
+  		/*
   		fs.readFile("saved/"+chartid+"/options.json", 'utf8', function(err, fileData) {
   			if (err){
   				var defaultOptions = {};
@@ -91,7 +110,7 @@ wss.on('connection', function connection(ws) {
 			
 				});
 			}
-		});
+		})*/
   		//fs.writeFile("saved/"+chartid+"/options.json", JSON.stringify({'nHeaders':0}), function (err) {
 			
 		//});
