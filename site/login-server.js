@@ -71,8 +71,7 @@ app2.post('/register',
 
 		console.log('user registered!');
 		
-		passport.authenticate('local', { failureRedirect: '/fail' })
-		res.redirect('/account');
+		passport.authenticate('local', { successRedirect: '/account', failureRedirect: '/fail' });
 
 	});
   }
@@ -80,10 +79,7 @@ app2.post('/register',
 
   
 app2.post('/login', 
-  passport.authenticate('local', { failureRedirect: '/fail' }),
-  function(req, res) {
-    res.redirect('/account');
-  }
+  passport.authenticate('local', { successRedirect: '/account', failureRedirect: '/fail' })
 );
 
 
