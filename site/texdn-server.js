@@ -578,8 +578,9 @@ function makeAllCharts(result) {
 		var nHeaders = result.options.nHeaders || 1;
 		var data = convertDataToFull(fileData,nHeaders);
 		var datasets = datasetsChartjs(data,result.options);
-		console.log(datasets);
+		
 		var chartjsOptions = {'datasets':datasets};
+		console.log('aaaa',chartjsOptions['datasets']);
 		//{'datasets':[{"label":"Label","data":[{"x":1,"y":2},{"x":2,"y":3},{"x":3,"y":2}],"fill":false}]};
 		var chartJSON = {
 			type: 'line',
