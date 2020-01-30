@@ -206,7 +206,7 @@ wss.on('connection', function connection(ws) {
 				}
 			}
 			//updateChart();
-			var jsonmessage = {'operation':'chart','message':myOptions};
+			var jsonmessage = {'operation':'chart','message':makeChartjs()};
   			ws.send(JSON.stringify(jsonmessage));
   		}
   		else {
@@ -225,7 +225,7 @@ wss.on('connection', function connection(ws) {
 					console.log('saved options');
 				});
 				//updateChart();
-				var jsonmessage = {'operation':'chart','message':myOptions};
+				var jsonmessage = {'operation':'chart','message':makeChartjs()};
   				ws.send(JSON.stringify(jsonmessage));
 			  }
 			});
@@ -567,4 +567,33 @@ function createChart(alldata,csvdata,chartType="line") {
 
 
 	return fullJS;
+}
+
+function makeChartjs() {
+	var chartJSON = {
+		type: 'line',
+		data: {
+			datasets: [{"label":"Label","data":[{"x":1,"y":2},{"x":2,"y":3},{"x":3,"y":2}],"fill":false}],
+		},
+		options: {
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true,
+						
+					}
+				}],
+				xAxes: [{
+					type: 'linear',
+					position: 'bottom',
+					ticks: {
+						
+					}
+				}]
+			},
+			
+		
+		}
+	};
+	return chartJSON;
 }

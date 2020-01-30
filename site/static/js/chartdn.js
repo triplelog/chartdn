@@ -19,9 +19,9 @@ ws.onmessage = function(evt){
 	}
 	else if (dm.operation == 'chart'){
 		var chartJSON = dm.message;
-		//console.log(chartJSON);
+		console.log(chartJSON);
 		//console.log(document.querySelector('chartdn-chart'));
-		document.querySelector('chartdn-chart').testFn();
+		document.querySelector('chartdn-chart').makeChart(chartJSON);
 	}
 }
 
@@ -296,9 +296,6 @@ class chartdnChart extends HTMLElement {
   makeChart(chartJSON) {
   	var ctx = this.shadowRoot.querySelector('#myChart').getContext('2d');
 	var myLineChart = new Chart(ctx, chartJSON);
-  }
-  testFn() {
-  	console.log('working');
   }
 }
 customElements.define('chartdn-chart', chartdnChart);
