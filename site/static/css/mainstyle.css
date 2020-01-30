@@ -261,6 +261,7 @@ a.pure-button-primary {
 .chart-box, .text-box {
     overflow: hidden;
     text-align: center;
+    height: auto;
 }
 
 .chart-box img {
