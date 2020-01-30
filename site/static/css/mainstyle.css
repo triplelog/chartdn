@@ -245,10 +245,7 @@ a.pure-button-primary {
   grid-column-end: span 2;
   grid-row-end: span 1;
 }
-.text-box:hover {
-  grid-column-end: span 4;
-  grid-row-end: span 2;
-}
+
 .box-1-1 {
   grid-column-end: span 1;
   grid-row-end: span 1;
@@ -274,6 +271,7 @@ a.pure-button-primary {
     overflow: hidden;
     text-align: center;
     height: auto;
+    position: relative;
 }
 
 .chart-box img {
