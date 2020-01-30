@@ -375,7 +375,7 @@ loginApp.get('/edit/:chartid',
 										yColumns: savedData.yColumns || '',
 										username: username || '',
 										chartid: chartid || '',
-										dataid: dataname || '',
+										dataid: dataname.split('.')[0] || '',
 									}));
 									res.end();
 								});
@@ -410,7 +410,7 @@ loginApp.get('/edit/:chartid',
 							yColumns: savedData.yColumns || '',
 							username: username || '',
 							chartid: chartid || '',
-							dataid: dataname || '',
+							dataid: dataname.split('.')[0] || '',
 						}));
 						res.end();
 					  });

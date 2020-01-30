@@ -1,6 +1,6 @@
 var ctypestr = "";
 var filen = "";
-var syncWorker = new Worker('wasm/uploadworker.js');
+var syncWorker = new Worker('../wasm/uploadworker.js');
 
 document.getElementById('dropArea').addEventListener('drop', handleDrop, false);
 ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
