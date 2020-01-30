@@ -92,7 +92,10 @@ wss.on('connection', function connection(ws) {
 		defaultOptions['stepSizeY'] = '';
 		defaultOptions['title'] = '';
 		var chart = new Chart({id:'newtesta',data:'newtesta.csv',options:defaultOptions});
-		
+		chart.save(function (err, chart) {
+			if (err) return console.error(err);
+			console.log('saved');
+		});
   		//write options.json
   		/*
   		fs.readFile("saved/"+chartid+"/options.json", 'utf8', function(err, fileData) {
