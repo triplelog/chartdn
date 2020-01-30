@@ -233,26 +233,29 @@ a.pure-button-primary {
 
 }
 
-.photo-box, .text-box {
+
+.grid-wrapper {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 100px;
+  grid-gap: 10px;
+  grid-auto-flow: dense;
+}
+.text-box {
+  grid-column-end: span 2;
+  grid-row-end: span 2;
+}
+.chart-box, .text-box {
     overflow: hidden;
-    position: relative;
-    /*height: 250px;*/
-    height: auto;
     text-align: center;
 }
 
-.photo-box-thin {
-    height: 120px;
-}
-
-
-.photo-box img {
+.chart-box img {
 	max-width: 100%;
 	height: auto;
-	min-height: 250px;
 }
 
-.photo-box aside {
+.chart-box aside {
 	position: absolute;
 	bottom: 0;
 	right: 0;
@@ -271,11 +274,11 @@ a.pure-button-primary {
 
 }
 
-.photo-box aside span {
+.chart-box aside span {
 	color: #aaa;
 }
 
-.photo-box aside span a {
+.chart-box aside span a {
 	color: #ccc;
 	text-decoration: none;
 }
@@ -300,13 +303,10 @@ a.pure-button-primary {
 	text-transform: uppercase;
 }
 @media (min-width: 30em) {
-    .photo-box, .text-box {
+    .chart-box, .text-box {
         text-align: left;
     }
 
-    .photo-box-thin {
-        height: 250px;
-    }
 }
 
 .browse.footer {
