@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Create a Chart</title>
+  <!-- Font Awesome -->
+  <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mini.css/3.0.1/mini-default.min.css">-->
+  <!-- Your custom styles (optional) -->
+  
+  <link href="../css/dragula.min.css" rel="stylesheet">
+  <!--<link href="css/mygrid.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/kanban.css" rel="stylesheet">-->
+  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/grids-responsive-min.css">
+
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+
+    <link rel="stylesheet" href="../css/mainstyle.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.xkcd@1.1/dist/chart.xkcd.min.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<style>
+.sectionpart {
+	border: 1px solid black;
+}
+</style>
+
+</head>
+
+<body>
+   <!--<div class="header">
+	  <a href="index.html" class="logo"><img src="img/logo.png" style="max-width: 150px; vertical-align:middle;"/></a>
+	  <a href="documentation.html" class="button" style="background: rgba(245, 238, 236,0);">Browse</a>
+	  <a href="upload.html" class="button" style="background: rgba(245, 238, 236,0);">My Charts</a>
+	  <a href="baseball.html" class="button" style="background: rgba(245, 238, 236,0);">New Chart</a>
+	</div>-->
+  <div class="header">
+    <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
+        <a class="pure-menu-heading" href="">ChartDN</a>
+
+        <ul class="pure-menu-list">
+            <li class="pure-menu-item"><a href="/new" class="pure-menu-link">New Chart</a></li>
+            <li class="pure-menu-item"><a href="/browse" class="pure-menu-link">Browse Charts</a></li>
+            <li class="pure-menu-item"><a href="/login" class="pure-menu-link">Log In</a></li>
+            <li class="pure-menu-item"><a href="/register" class="pure-menu-link">Register</a></li>
+        </ul>
+    </div>
+  </div>
+  <div class="content-wrapper">
+    <div class="content">
+    	<div class="pure-g">
+				
+			<div class="l-box pure-u-1-2" style="border: 1px solid black;">
+				Chart JS
+				<div class="chart-container" style="position: relative;">
+					<canvas id="myChart" style="display: none;"></canvas>
+				</div>
+			</div>
+			<div class="l-box pure-u-1-2" style="border: 1px solid black;">
+				Plotly
+				<div class="chart-container" style="position: relative;">
+					<div id="plotlyDiv" style="display: none;"></div>
+				</div>
+			</div>
+			<div class="l-box pure-u-1-2" style="border: 1px solid black;">
+				Xkcd
+				<div class="chart-container" style="position: relative;">
+					<svg id="xkcdSvg" style="display: none;"></svg>
+				</div>
+			</div>
+			<div class="l-box pure-u-1-2" style="border: 1px solid black;">
+				Google
+				<div class="chart-container" style="position: relative;">
+					<div id="googleChart" style="display: none;"></div>
+				</div>
+			</div>
+			<div class="l-box pure-u-1-2" style="border: 1px solid black;">
+				Pgfplots
+				<div class="chart-container" style="position: relative;">
+					<!--<object data="test4.svg" type="image/svg+xml"></object>-->
+				</div>
+			</div>
+		</div>
+    </div>	
+      	
+  </div>
+  <script>var username = "{{ username }}"</script>
+  
+  {{ chartScript }}
+
+</body>
+
+</html>
