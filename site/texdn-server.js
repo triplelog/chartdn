@@ -243,12 +243,20 @@ wss.on('connection', function connection(ws) {
   });
 });
 
+var chartBox = `<div class="chart-box box-1-2">
+	<a href="/charts/">
+		<img src="https://via.placeholder.com/200x400.png" alt="Beach">
+	</a>
 
+	<aside class="photo-box-caption">
+		<span>by <a href="http://www.dillonmcintosh.tumblr.com/">Me</a></span>
+	</aside>
+</div>`
 
 loginApp.get('/browse',
 	function(req, res){
 		res.write(nunjucks.render('browse.html',{
-										
+			chartBox: chartBox,		
 		}));
 		res.end();
     }
