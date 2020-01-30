@@ -81,7 +81,7 @@ wss.on('connection', function connection(ws) {
   	var dm = JSON.parse(message);
   	if (dm.operation == 'upload'){
   		if (chartid == ''){
-  			chartid = crhartidtemp;
+  			chartid = chartidtemp;
   			dataid = chartid;
   			console.log(chartid);
   			var defaultOptions = {};
