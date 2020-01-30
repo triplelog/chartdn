@@ -205,7 +205,9 @@ wss.on('connection', function connection(ws) {
 					myOptions[k] = dm[k];
 				}
 			}
-			updateChart();
+			//updateChart();
+			var jsonmessage = {'operation':'chart','message':myOptions};
+  			ws.send(JSON.stringify(jsonmessage));
   		}
   		else {
   			Chart.findOne({ id: chartid }, function(err, result) {

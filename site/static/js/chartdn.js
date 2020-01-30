@@ -17,6 +17,11 @@ ws.onmessage = function(evt){
 	else if (dm.operation == 'id'){
 		chartid = dm.message;
 	}
+	else if (dm.operation == 'chart'){
+		var chartJSON = dm.message;
+		console.log(chartJSON);
+		console.log(document.querySelector('chartdn-chart'));
+	}
 }
 
 
@@ -252,7 +257,6 @@ class chartdnChart extends HTMLElement {
     // Always call super first in constructor
     super();
 	var _this = this;
-    this.ws = new WebSocket('wss://chartdn.com:8080');
     const shadowRoot = this.attachShadow({mode: 'open'});
   	
 	shadowRoot.innerHTML = `Chart JS
