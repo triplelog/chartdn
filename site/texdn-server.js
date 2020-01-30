@@ -11,6 +11,7 @@ var qs = require('querystring');
 const { exec } = require('child_process');
 var parse = require('csv-parse');
 var nunjucks = require('nunjucks');
+var crypto = require("crypto");
 //const flate = require('wasm-flate');
 var createLine = require('./createCharts/line-charts.js');
 var createBar = require('./createCharts/bar-charts.js');
@@ -69,96 +70,103 @@ const WebSocket = require('ws');
 const wss = new WebSocket.Server({ server });
 
 wss.on('connection', function connection(ws) {
-  var chartid = 'newtesta';
+  var chartid = '';
   var username = '';
+  var myOptions = {};
   var jsonmessage = {'operation':'id','message':chartid};
   ws.send(JSON.stringify(jsonmessage));
   ws.on('message', function incoming(message) {
   	var dm = JSON.parse(message);
   	if (dm.operation == 'upload'){
-  		
+  		if (chartid == ''){
+  			chartid = crypto.randomBytes(20).toString(36).substr(2, 5);
+  			var defaultOptions = {};
+			defaultOptions['nHeaders'] = 1;
+			defaultOptions['filters'] = [];
+			defaultOptions['type'] = '';
+			defaultOptions['yColumns'] = '';
+			defaultOptions['xColumn'] = '';
+			defaultOptions['stepSizeX'] = '';
+			defaultOptions['stepSizeY'] = '';
+			defaultOptions['title'] = '';
+			for(var k in myOptions){
+				defaultOptions[k] = myOptions[k];
+			}
+			var chart = new Chart({id:chartid,data:chartid+'.csv',options:defaultOptions});
+			chart.save(function (err, chart) {
+				if (err) return console.error(err);
+				console.log('saved');
+			});
+  		}
   		//write data.csv
   		fs.writeFile("saved/"+chartid+".csv", dm.message, function (err) {
 			updateChart();
 		});
-		
-		var defaultOptions = {};
-		defaultOptions['nHeaders'] = 1;
-		defaultOptions['filters'] = [];
-		defaultOptions['type'] = '';
-		defaultOptions['yColumns'] = '';
-		defaultOptions['xColumn'] = '';
-		defaultOptions['stepSizeX'] = '';
-		defaultOptions['stepSizeY'] = '';
-		defaultOptions['title'] = '';
-		var chart = new Chart({id:'newtesta',data:'newtesta.csv',options:defaultOptions});
-		chart.save(function (err, chart) {
-			if (err) return console.error(err);
-			console.log('saved');
-		});
-  		//write options.json
-  		/*
-  		fs.readFile("saved/"+chartid+"/options.json", 'utf8', function(err, fileData) {
-  			if (err){
-  				var defaultOptions = {};
-  				defaultOptions['nHeaders'] = 1;
-  				defaultOptions['filters'] = [];
-  				defaultOptions['type'] = '';
-  				defaultOptions['yColumns'] = '';
-  				defaultOptions['xColumn'] = '';
-  				defaultOptions['stepSizeX'] = '';
-  				defaultOptions['stepSizeY'] = '';
-  				defaultOptions['title'] = '';
-				fs.writeFile("saved/"+chartid+"/options.json", JSON.stringify(defaultOptions), function (err) {
-			
-				});
-			}
-		})*/
-  		//fs.writeFile("saved/"+chartid+"/options.json", JSON.stringify({'nHeaders':0}), function (err) {
-			
-		//});
+
   	}
   	else if (dm.operation == 'download'){
-		  var wget = 'wget -O file.csv "' + dm.message + '" && echo "done"';
+  		  if (chartid == ''){
+  			chartid = crypto.randomBytes(20).toString(36).substr(2, 5);
+  			var defaultOptions = {};
+			defaultOptions['nHeaders'] = 1;
+			defaultOptions['filters'] = [];
+			defaultOptions['type'] = '';
+			defaultOptions['yColumns'] = '';
+			defaultOptions['xColumn'] = '';
+			defaultOptions['stepSizeX'] = '';
+			defaultOptions['stepSizeY'] = '';
+			defaultOptions['title'] = '';
+			for(var k in myOptions){
+				defaultOptions[k] = myOptions[k];
+			}
+			var chart = new Chart({id:chartid,data:chartid+'.csv',options:defaultOptions});
+			chart.save(function (err, chart) {
+				if (err) return console.error(err);
+				console.log('saved');
+			});
+  		}
+		  var wget = 'wget -O saved/'+chartid+'.csv "' + dm.message + '" && echo "done"';
 		  // excute wget using child_process' exec function
 		  var child = exec(wget, function(err, stdout, stderr) {
 			if (err) throw err;
 			else {
-				fs.readFile('file.csv', 'utf8', function(err, fileData) {
+				fs.readFile('saved/'+chartid+'.csv', 'utf8', function(err, fileData) {
 					var jsonmessage = {'operation':'downloaded','message':fileData};
 					ws.send(JSON.stringify(jsonmessage));
 				});
 			}
 		  });
+		  
+		  
 
 
   	}
   	else if (dm.operation == 'options'){
-  		//make the directory
-  		fs.mkdirSync('saved/'+chartid, { recursive: true });
-  		//write data.csv
-  		//fs.writeFile("saved/"+chartid+"/data.csv", dm.message, function (err) {
-			
-		//});
-  		//write options.json
-  		
-  		fs.readFile("saved/"+chartid+"/options.json", 'utf8', function(err, fileData) {
-  			if (err){
-  			
-  			}
-  			else {
-  				var options = JSON.parse(fileData);
-  				for(var k in dm){
+  		if (chartid == ''){
+			for(var k in dm){
+				if (k != 'operation'){
+					myOptions[k] = dm[k];
+				}
+			}
+			updateChart();
+  		}
+  		else {
+  			Chart.findOne({ id: chartid }, function(err, result) {
+			  if (err) {
+				
+			  } else {
+				for(var k in dm){
 					if (k != 'operation'){
-						options[k] = dm[k];
+						result[k] = dm[k];
 					}
 				}
-  				fs.writeFile("saved/"+chartid+"/options.json", JSON.stringify(options), function (err) {
-					updateChart();
-				});
-  			}
-			
-		});
+				result.save();
+				updateChart();
+			  }
+			});
+  		}
+  		
+  		
   		
   	}
   	else if (dm.operation == 'username'){
