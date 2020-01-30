@@ -44,51 +44,46 @@ app2.use(bodyParser.urlencoded({extended: false}));
 app2.use(passport.initialize());
 app2.use(passport.session());
 
-app2.get('/register',
+app2.get('/account',
   function(req, res){
-    res.write(nunjucks.render('register.html',{}));
-  	res.end();
+  	if (!req.isAuthenticated()){
+		res.write(nunjucks.render('loginregister.html',{}));
+		res.end();
+  	}
+  	else {
+  		res.write(nunjucks.render('account.html',{
+  			username: req.user.username,
+  		}));
+		res.end();
+  	}
+  	
   }
 );
+
 app2.post('/register',
   function(req, res){
   	
 	User.register(new User({username: req.body.username}),req.body.password, function(err) {
 		if (err) {
 		  console.log('error while user register!', err);
-		  return next(err);
+		  res.redirect('/account');
 		}
 
 		console.log('user registered!');
 
-		res.redirect('/');
+		res.redirect('/account');
 	});
-    res.write(nunjucks.render('register.html',{}));
-    //res.writeHead(200);
-  	res.end();
   }
 );
-app2.get('/login',
-  function(req, res){
-  	
-    res.write(nunjucks.render('login.html',{}));
-    //res.writeHead(200);
-  	res.end();
-  });
+
   
 app2.post('/login', 
   passport.authenticate('local', { failureRedirect: '/fail' }),
   function(req, res) {
-    res.redirect('/new');
+    res.redirect('/account');
   }
 );
-app2.get('/success',
-  function(req, res) {
-  	console.log(req.isAuthenticated());
-  	console.log(req.user);
-    res.redirect('/');
-  }
-);
+
 
 
 module.exports = app2;
