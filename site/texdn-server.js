@@ -238,9 +238,8 @@ wss.on('connection', function connection(ws) {
 		  chartid = dm.id;
 		  if (chartid && chartid != ""){
 			  Chart.findOne({ id: chartid }, function(err, result) {
-			  	
-				var jsonmessage = {'operation':'chart','message':makeAllCharts(result),'loc':dm.loc};
-				ws.send(JSON.stringify(jsonmessage));
+			  	makeAllCharts(ws,dm,result);
+				
 			  });
 		  }
   	}
@@ -572,7 +571,7 @@ function createChart(alldata,csvdata,chartType="line") {
 	return fullJS;
 }
 				
-function makeAllCharts(result) {
+function makeAllCharts(ws,dm,result) {
 	fs.readFile('saved/'+result.data, 'utf8', function(err, fileData) {
 		if (err) {console.log('aaaaaa',err);}
 		var nHeaders = result.options.nHeaders || 1;
@@ -580,12 +579,11 @@ function makeAllCharts(result) {
 		var datasets = datasetsChartjs(data,result.options);
 		
 		var chartjsOptions = {'datasets':datasets};
-		console.log('aaaa',chartjsOptions['datasets'][0]['data'][0]);
 		//{'datasets':[{"label":"Label","data":[{"x":1,"y":2},{"x":2,"y":3},{"x":3,"y":2}],"fill":false}]};
 		var chartJSON = {
 			type: 'line',
 			data: {
-				datasets: {'datasets':[{"label":"Label","data":[{"x":1,"y":2},{"x":2,"y":3},{"x":3,"y":2}],"fill":false}]},
+				datasets: chartjsOptions['datasets'],
 			},
 			options: {
 				scales: {
@@ -607,7 +605,8 @@ function makeAllCharts(result) {
 		
 			}
 		};
-		return chartJSON;
+		var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc};
+		ws.send(JSON.stringify(jsonmessage));
 	});
 }
 
