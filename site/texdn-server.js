@@ -72,6 +72,7 @@ const wss = new WebSocket.Server({ server });
 wss.on('connection', function connection(ws) {
   var chartid = '';
   var dataid = '';
+  var chartidtemp = '';
   var username = '';
   var myOptions = {};
   var jsonmessage = {'operation':'id','message':chartid};
@@ -80,7 +81,7 @@ wss.on('connection', function connection(ws) {
   	var dm = JSON.parse(message);
   	if (dm.operation == 'upload'){
   		if (chartid == ''){
-  			chartid = crypto.randomBytes(20).toString('hex').substr(2, 5);
+  			chartid = crhartidtemp;
   			dataid = chartid;
   			console.log(chartid);
   			var defaultOptions = {};
@@ -130,7 +131,7 @@ wss.on('connection', function connection(ws) {
   	}
   	else if (dm.operation == 'download'){
   		  if (chartid == ''){
-  			chartid = crypto.randomBytes(20).toString('hex').substr(2, 5);
+  			chartid = chartidtemp;
   			dataid = chartid;
   			var defaultOptions = {};
 			defaultOptions['nHeaders'] = 1;
@@ -235,6 +236,9 @@ wss.on('connection', function connection(ws) {
 		  	chartid = dm.chartid;
 		  	dataid = dm.dataid;
 		  }
+		  else {
+		  	chartidtemp = dm.chartidtemp;
+		  }
   	}
   });
 });
@@ -244,27 +248,12 @@ wss.on('connection', function connection(ws) {
 
 loginApp.get('/new',
 	function(req, res){
-		var chartid = '';
+		var chartid = crypto.randomBytes(50).toString('hex').substr(2, 8);
 		var username = '';
 		if (req.user) {
 			username = req.user.username;
 		}
-		var start = process.hrtime();
-        req.on('data', function (chunk) {
-        
-        });
-
-		// when we get data we want to store it in memory
-		req.on('end', () => {
-				res.write(nunjucks.render('chartdn.html',{
-					chartScript:'', 
-					dataAreaText: '',
-					username: username || '',
-				}));
-				res.end();
-
-			
-		});
+		res.redirect('/edit/'+chartid);
     }
 );
 loginApp.get('/charts/:chartid',
@@ -341,7 +330,7 @@ loginApp.get('/edit/:chartid',
 				  var dataname;
 				  var myOptions;
 				  if (err || result == null) {
-					if (chartid.length > 1) {
+					if (chartid.length > 8) {
 						Chart.findOne({ id: chartid.substr(0,chartid.length-1) }, function(err, result) {
 							if (err){
 							
@@ -382,7 +371,17 @@ loginApp.get('/edit/:chartid',
 							}
 						});
 					}
+					else if (chartid.length == 8) {
+						res.write(nunjucks.render('chartdn.html',{
+							chartScript: '', 
+							dataAreaText: '',
+							username: username || '',
+							chartidtemp: chartid || '',
+						}));
+						res.end();
+					}
 					else {
+						
 						return 0;
 					}
 				  } 

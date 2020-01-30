@@ -5,6 +5,7 @@ ws.onopen = function(evt) {
 	var jsonmessage = {'operation':'username','message':username};
 	if (chartid != ""){jsonmessage['chartid']=chartid;}
 	if (dataid != ""){jsonmessage['dataid']=dataid;}
+	if (chartidtemp != ""){jsonmessage['chartidtemp']=chartidtemp;}
 	ws.send(JSON.stringify(jsonmessage));
 }
 ws.onmessage = function(evt){
