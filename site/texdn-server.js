@@ -257,7 +257,7 @@ wss.on('connection', function connection(ws) {
 
 var chartBox = `<div class="chart-box box-1-2">
 	<a href="/charts/">
-		<img src="https://via.placeholder.com/200x400.png" alt="Beach">
+		<chartdn-chart src="f02fd57c"></chartdn-chart>
 	</a>
 
 	<aside class="photo-box-caption">
