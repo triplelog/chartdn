@@ -230,8 +230,9 @@ drake.on('remove', function (el, target, source) {
 		columnsChg();
 	}
 	else if (source.id == 'yColumns') {
+		console.log(el.id);
 		for( var i = 0; i < yColsVals.length; i++){ 
-		   if ( yColsVals[i] === el.id.substring(5)) {
+		   if ( yColsVals[i] == parseInt(el.id.substring(5))) {
 			 yColsVals.splice(i, 1);
 			 break;
 		   }
