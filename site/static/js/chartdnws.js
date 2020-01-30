@@ -9,10 +9,8 @@ ws.onopen = function(evt) {
 }
 ws.onmessage = function(evt){
 	var dm = JSON.parse(evt.data);
-	console.log(dm);
 	if (dm.operation == 'chart'){
 		var chartJSON = dm.message;
-		console.log(chartJSON);
 		document.querySelectorAll('chartdn-chart')[parseInt(dm.loc)].makeChart(chartJSON);
 	}
 }

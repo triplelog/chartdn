@@ -249,7 +249,6 @@ wss.on('connection', function connection(ws) {
 		  console.log(chartid);
 		  if (chartid && chartid != ""){
 		  	var jsonmessage = {'operation':'chart','message':makeChartjs(),'loc':dm.loc};
-		  	console.log(jsonmessage);
   			ws.send(JSON.stringify(jsonmessage));
 		  }
   	}
