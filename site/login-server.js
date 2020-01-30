@@ -71,7 +71,7 @@ app2.post('/register',
 
 		console.log('user registered!');
 		req.login(user, function(err) {
-		  if (err) { console.log(err); res.redirect('/'); }
+		  if (err) { res.redirect('/'); }
 		  else {res.redirect('/account'); }
 		});
 		
