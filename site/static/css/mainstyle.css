@@ -236,7 +236,8 @@ a.pure-button-primary {
 .photo-box, .text-box {
     overflow: hidden;
     position: relative;
-    height: 250px;
+    /*height: 250px;*/
+    height: auto;
     text-align: center;
 }
 
