@@ -192,11 +192,6 @@ wss.on('connection', function connection(ws) {
 			});
 			
 		}
-		  
-		  
-		  
-
-
   	}
   	else if (dm.operation == 'options'){
   		if (chartid == ''){
@@ -205,9 +200,6 @@ wss.on('connection', function connection(ws) {
 					myOptions[k] = dm[k];
 				}
 			}
-			//updateChart();
-			var jsonmessage = {'operation':'chart','message':makeChartjs()};
-  			ws.send(JSON.stringify(jsonmessage));
   		}
   		else {
   			Chart.findOne({ id: chartid }, function(err, result) {
@@ -224,9 +216,6 @@ wss.on('connection', function connection(ws) {
 					if (err) return console.error('sajdhfkasdhjfkjsahdfkjsadhfs\n',err);
 					console.log('saved options');
 				});
-				//updateChart();
-				var jsonmessage = {'operation':'chart','message':makeChartjs()};
-  				ws.send(JSON.stringify(jsonmessage));
 			  }
 			});
   		}
@@ -248,10 +237,14 @@ wss.on('connection', function connection(ws) {
 		  chartid = dm.id;
 		  console.log(chartid);
 		  if (chartid && chartid != ""){
-		  	var jsonmessage = {'operation':'chart','message':makeChartjs(),'loc':dm.loc};
-  			ws.send(JSON.stringify(jsonmessage));
+		  	updateNow = true;
 		  }
   	}
+
+  		var chartjsOptions = {'datasets':[{"label":"Label","data":[{"x":1,"y":2},{"x":2,"y":3},{"x":3,"y":2}],"fill":false}]};
+		var jsonmessage = {'operation':'chart','message':makeChartjs(chartjsOptions),'loc':dm.loc};
+		ws.send(JSON.stringify(jsonmessage));
+
   });
 });
 
@@ -577,11 +570,12 @@ function createChart(alldata,csvdata,chartType="line") {
 	return fullJS;
 }
 
-function makeChartjs() {
+function makeChartjs(chartjsOptions) {
+	//{'datasets':[{"label":"Label","data":[{"x":1,"y":2},{"x":2,"y":3},{"x":3,"y":2}],"fill":false}]};
 	var chartJSON = {
 		type: 'line',
 		data: {
-			datasets: [{"label":"Label","data":[{"x":1,"y":2},{"x":2,"y":3},{"x":3,"y":2}],"fill":false}],
+			datasets: chartjsOptions['datasets'],
 		},
 		options: {
 			scales: {
