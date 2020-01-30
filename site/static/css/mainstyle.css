@@ -282,10 +282,10 @@ a.pure-button-primary {
 	position: absolute;
 	bottom: 0;
 	right: 0;
-	padding: 1em 0.5em;
+	padding: .5em 0.25em;
 	color: white;
 	width: 100%;
-	font-size: 80%;
+	font-size: 70%;
 	text-align: right;
 	background: -moz-linear-gradient(top,  rgba(16,27,30,0) 0%, rgba(12,2,2,1) 90%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(16,27,30,0)), color-stop(90%,rgba(12,2,2,1))); /* Chrome,Safari4+ */
