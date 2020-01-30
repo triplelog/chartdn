@@ -7,6 +7,9 @@ ws.onopen = function(evt) {
 	if (dataid != ""){jsonmessage['dataid']=dataid;}
 	if (chartidtemp != ""){jsonmessage['chartidtemp']=chartidtemp;}
 	ws.send(JSON.stringify(jsonmessage));
+	
+	var jsonmessage = {'operation':'view','id':chartid,'loc':0}
+	ws.send(JSON.stringify(jsonmessage));
 }
 ws.onmessage = function(evt){
 	var dm = JSON.parse(evt.data);
