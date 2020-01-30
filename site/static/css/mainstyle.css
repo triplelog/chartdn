@@ -238,12 +238,12 @@ a.pure-button-primary {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-auto-rows: 30vh;
-  grid-gap: 5px;
+  grid-gap: 1px;
   grid-auto-flow: dense;
 }
 .text-box {
   grid-column-end: span 2;
-  grid-row-end: span 2;
+  grid-row-end: span 1;
 }
 .box-1-1 {
   grid-column-end: span 1;
@@ -261,7 +261,7 @@ a.pure-button-primary {
   height: 30vh;
 }
 .box-1-2 img{
-  height: 60vh;
+  height: calc(60vh + 1px);
 }
 .box-2-1 img{
   height: 30vh;
