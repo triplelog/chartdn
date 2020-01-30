@@ -245,7 +245,14 @@ wss.on('connection', function connection(ws) {
 
 
 
-
+loginApp.get('/browse',
+	function(req, res){
+		res.write(nunjucks.render('browse.html',{
+										
+		}));
+		res.end();
+    }
+);
 loginApp.get('/new',
 	function(req, res){
 		var chartid = crypto.randomBytes(50).toString('hex').substr(2, 8);
