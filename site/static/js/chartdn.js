@@ -257,7 +257,6 @@ class chartdnChart extends HTMLElement {
   	
 	var baseJS = `
 	<script>
-	document.getElementById('myChart').style.display = 'block';
 	var ctx = document.getElementById('myChart').getContext('2d');
 	var myLineChart = new Chart(ctx, {
 		type: 'line',
@@ -289,7 +288,8 @@ class chartdnChart extends HTMLElement {
 	shadowRoot.innerHTML = `Chart JS
 	<div class="chart-container" style="position: relative;">
 		<canvas id="myChart" style="display: none;"></canvas>
-	</div>`+baseJS;
+	</div>`;
+	shadowRoot.querySelector('#myChart').style.display = 'block';
   }
 }
 customElements.define('chartdn-chart', chartdnChart);
