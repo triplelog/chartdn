@@ -252,6 +252,7 @@ loginApp.get('/charts/:chartid',
 								xColumn: savedData.xColumn || '',
 								yColumns: savedData.yColumns || '',
 								username: username || '',
+								newchartid: chartid+'a',
 							}));
 							res.end();
 						});
@@ -278,41 +279,76 @@ loginApp.get('/edit/:chartid',
 		// when we get data we want to store it in memory
 		req.on('end', () => {
 				Chart.findOne({ id: chartid }, function(err, result) {
-				  if (err) {
-				
-				  } else {
-				    if (result == null){
-				    	
-				    }
-				    else {
-						var dataname = result.data;
-						var myOptions = result.options;
-						fs.readFile('saved/'+dataname, 'utf8', function(err, fileData) {
-							var defaultData = ''
-							if (!err) {defaultData = fileData;}
-							var savedData = myOptions;
-							var chartType = {'line':'','bar':'','scatter':'','pie':'','bubble':'','histogram':'','heatmap':'','radar':'','box':'','choropleth':'','splom':'','diff':'','calendar':''};
-							if (savedData['type'] && savedData['type'] != ''){
-								chartType[savedData['type']]='checked';
+				  var dataname;
+				  var myOptions;
+				  if (err || result == null) {
+					if (chartid.length > 1) {
+						Chart.findOne({ id: chartid.substr(0,chartid.length-1) }, function(err, result) {
+							if (err){
+							
 							}
 							else {
-								savedData['type']='line';
+								dataname = result.data;
+								myOptions = result.options;
+								fs.readFile('saved/'+dataname, 'utf8', function(err, fileData) {
+									var defaultData = ''
+									if (!err) {defaultData = fileData;}
+									var savedData = myOptions;
+									var chartType = {'line':'','bar':'','scatter':'','pie':'','bubble':'','histogram':'','heatmap':'','radar':'','box':'','choropleth':'','splom':'','diff':'','calendar':''};
+									if (savedData['type'] && savedData['type'] != ''){
+										chartType[savedData['type']]='checked';
+									}
+									else {
+										savedData['type']='line';
+									}
+									res.write(nunjucks.render('chartdn.html',{
+										chartScript: createChart(savedData,convertDataToFull(defaultData,savedData.nHeaders),savedData['type']), 
+										dataAreaText: defaultData,
+										nHeaders: savedData.nHeaders || 1,
+										isChecked: chartType,
+										title: savedData.title || '',
+										xColumn: savedData.xColumn || '',
+										yColumns: savedData.yColumns || '',
+										username: username || '',
+									}));
+									res.end();
+								});
 							}
-							res.write(nunjucks.render('chartdn.html',{
-								chartScript: createChart(savedData,convertDataToFull(defaultData,savedData.nHeaders),savedData['type']), 
-								dataAreaText: defaultData,
-								nHeaders: savedData.nHeaders || 1,
-								isChecked: chartType,
-								title: savedData.title || '',
-								xColumn: savedData.xColumn || '',
-								yColumns: savedData.yColumns || '',
-								username: username || '',
-							}));
-							res.end();
 						});
 					}
-					
+					else {
+						return 0;
+					}
+				  } 
+				  else {
+					dataname = result.data;
+					myOptions = result.options;
+					fs.readFile('saved/'+dataname, 'utf8', function(err, fileData) {
+						var defaultData = ''
+						if (!err) {defaultData = fileData;}
+						var savedData = myOptions;
+						var chartType = {'line':'','bar':'','scatter':'','pie':'','bubble':'','histogram':'','heatmap':'','radar':'','box':'','choropleth':'','splom':'','diff':'','calendar':''};
+						if (savedData['type'] && savedData['type'] != ''){
+							chartType[savedData['type']]='checked';
+						}
+						else {
+							savedData['type']='line';
+						}
+						res.write(nunjucks.render('chartdn.html',{
+							chartScript: createChart(savedData,convertDataToFull(defaultData,savedData.nHeaders),savedData['type']), 
+							dataAreaText: defaultData,
+							nHeaders: savedData.nHeaders || 1,
+							isChecked: chartType,
+							title: savedData.title || '',
+							xColumn: savedData.xColumn || '',
+							yColumns: savedData.yColumns || '',
+							username: username || '',
+						}));
+						res.end();
+					  });
+
 				  }
+				  
 				});
 
 		});
