@@ -244,6 +244,14 @@ wss.on('connection', function connection(ws) {
 		  	chartidtemp = dm.chartidtemp;
 		  }
   	}
+  	else if (dm.operation == 'view'){
+		  chartid = dm.id;
+		  console.log(chartid);
+		  if (dm.chartid && dm.chartid != ""){
+		  	var jsonmessage = {'operation':'chart','message':makeChartjs()};
+  			ws.send(JSON.stringify(jsonmessage));
+		  }
+  	}
   });
 });
 
