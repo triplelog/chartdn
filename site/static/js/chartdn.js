@@ -252,7 +252,7 @@ class chartdnChart extends HTMLElement {
     // Always call super first in constructor
     super();
 	var _this = this;
-    //this.ws = new WebSocket('wss://tabdn.com:8080');
+    this.ws = new WebSocket('wss://chartdn.com:8080');
     const shadowRoot = this.attachShadow({mode: 'open'});
   	
 	shadowRoot.innerHTML = `Chart JS
@@ -260,7 +260,11 @@ class chartdnChart extends HTMLElement {
 		<canvas id="myChart" style="display: none;"></canvas>
 	</div>`;
 	shadowRoot.querySelector('#myChart').style.display = 'block';
-	var ctx = shadowRoot.querySelector('#myChart').getContext('2d');
+	this.makeChart();
+	
+  }
+  makeChart() {
+  	var ctx = this.shadowRoot.querySelector('#myChart').getContext('2d');
 	var myLineChart = new Chart(ctx, {
 		type: 'line',
 		data: {
