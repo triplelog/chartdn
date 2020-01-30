@@ -606,7 +606,7 @@ function makeAllCharts(result) {
 			}
 		};
 		return chartJSON;
-	}
+	});
 }
 
 function datasetsChartjs(data,options) {
