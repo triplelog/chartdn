@@ -193,7 +193,7 @@ a.pure-button-primary {
     bottom: 0;
     width: 100%;
 }
-.footer {
+.footer:not(.browse) {
     background: #111;
     width: 100%;
     position: absolute;
@@ -308,5 +308,11 @@ a.pure-button-primary {
     }
 }
 
-
+.browse.footer {
+    background: #111;
+    color: #666;
+    text-align: center;
+    padding: 1em;
+    font-size: 80%;
+}
 
