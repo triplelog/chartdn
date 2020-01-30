@@ -574,7 +574,7 @@ function createChart(alldata,csvdata,chartType="line") {
 				
 function makeAllCharts(result) {
 	fs.readFile('saved/'+result.data, 'utf8', function(err, fileData) {
-		var nHeaders = results.options.nHeaders || 1;
+		var nHeaders = result.options.nHeaders || 1;
 		var data = convertDataToFull(fileData,nHeaders);
 		
 		
