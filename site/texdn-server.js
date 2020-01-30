@@ -573,7 +573,6 @@ function createChart(alldata,csvdata,chartType="line") {
 }
 				
 function makeAllCharts(ws,dm,result) {
-	console.log(result);
 	fs.readFile('saved/'+result.data, 'utf8', function(err, fileData) {
 		if (err) {console.log('aaaaaa',err);}
 		var nHeaders = result.options.nHeaders || 1;
@@ -615,8 +614,8 @@ function makeAllCharts(ws,dm,result) {
 
 function datasetsChartjs(data,options) {
 	var datasets = [];
-	options['yColumns']=[2];
-	options['xColumn']=1;
+	if (!options['yColumns']){return [];}
+	if (!options['xColumn']){return [];}
 	for (var i=0;i<options['yColumns'].length;i++){
 		var newdataset = {'label':'Label','data':[],'fill':false};
 		for (var ii=0;ii<data['bycol'][options['yColumns'][i]].length;ii++){
