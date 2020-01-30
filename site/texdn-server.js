@@ -243,6 +243,61 @@ loginApp.get('/charts/:chartid',
 							else {
 								savedData['type']='line';
 							}
+							res.write(nunjucks.render('onechart.html',{
+								chartScript: createChart(savedData,convertDataToFull(defaultData,savedData.nHeaders),savedData['type']), 
+								dataAreaText: defaultData,
+								nHeaders: savedData.nHeaders || 1,
+								isChecked: chartType,
+								title: savedData.title || '',
+								xColumn: savedData.xColumn || '',
+								yColumns: savedData.yColumns || '',
+								username: username || '',
+							}));
+							res.end();
+						});
+					}
+					
+				  }
+				});
+
+		});
+    }
+);
+loginApp.get('/edit/:chartid',
+	function(req, res){
+		var chartid = req.params.chartid;
+		var username = '';
+		if (req.user) {
+			username = req.user.username;
+		}
+		var start = process.hrtime();
+        req.on('data', function (chunk) {
+        
+        });
+
+		// when we get data we want to store it in memory
+		req.on('end', () => {
+				Chart.findOne({ id: chartid }, function(err, result) {
+				  if (err) {
+				
+				  } else {
+				    if (result == null){
+				    	
+				    }
+				    else {
+						var dataname = result.data;
+						var myOptions = result.options;
+						fs.readFile('saved/'+dataname, 'utf8', function(err, fileData) {
+							var defaultData = ''
+							if (!err) {defaultData = fileData;}
+							var savedData = myOptions;
+							var chartType = {'line':'','bar':'','scatter':'','pie':'','bubble':'','histogram':'','heatmap':'','radar':'','box':'','choropleth':'','splom':'','diff':'','calendar':''};
+							if (savedData['type'] && savedData['type'] != ''){
+								chartType[savedData['type']]='checked';
+							}
+							else {
+								savedData['type']='line';
+							}
 							res.write(nunjucks.render('chartdn.html',{
 								chartScript: createChart(savedData,convertDataToFull(defaultData,savedData.nHeaders),savedData['type']), 
 								dataAreaText: defaultData,
