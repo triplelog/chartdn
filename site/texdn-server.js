@@ -241,7 +241,7 @@ wss.on('connection', function connection(ws) {
 			  	
 				var jsonmessage = {'operation':'chart','message':makeAllCharts(result),'loc':dm.loc};
 				ws.send(JSON.stringify(jsonmessage));
-			  }
+			  });
 		  }
   	}
 
