@@ -19,7 +19,7 @@ const options = {
 
 const User = require('./models/user');
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/test', {useNewUrlParser: true});
+mongoose.connect('mongodb://localhost:27017/chartdn', {useNewUrlParser: true});
 
 var passport = require('passport')
 var LocalStrategy = require('passport-local').Strategy;

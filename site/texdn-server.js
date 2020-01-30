@@ -1,5 +1,8 @@
 var loginApp = require('./login-server.js');
 
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/chartdn', {useNewUrlParser: true});
+
 const https = require('https');
 //const http = require('http');
 var fs = require("fs");
