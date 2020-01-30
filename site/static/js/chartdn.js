@@ -255,9 +255,12 @@ class chartdnChart extends HTMLElement {
     //this.ws = new WebSocket('wss://tabdn.com:8080');
     const shadowRoot = this.attachShadow({mode: 'open'});
   	
-	var baseJS = `
-	<script>
-	var ctx = document.getElementById('myChart').getContext('2d');
+	shadowRoot.innerHTML = `Chart JS
+	<div class="chart-container" style="position: relative;">
+		<canvas id="myChart" style="display: none;"></canvas>
+	</div>`;
+	shadowRoot.querySelector('#myChart').style.display = 'block';
+	var ctx = shadowRoot.querySelector('#myChart').getContext('2d');
 	var myLineChart = new Chart(ctx, {
 		type: 'line',
 		data: {
@@ -283,13 +286,6 @@ class chartdnChart extends HTMLElement {
 		
 		}
 	});
-	</script>
-	`;
-	shadowRoot.innerHTML = `Chart JS
-	<div class="chart-container" style="position: relative;">
-		<canvas id="myChart" style="display: none;"></canvas>
-	</div>`;
-	shadowRoot.querySelector('#myChart').style.display = 'block';
   }
 }
 customElements.define('chartdn-chart', chartdnChart);
