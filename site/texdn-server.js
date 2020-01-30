@@ -216,6 +216,7 @@ wss.on('connection', function connection(ws) {
 				result.save(function (err, result) {
 					if (err) return console.error('sajdhfkasdhjfkjsahdfkjsadhfs\n',err);
 					console.log('saved options');
+					makeAllCharts(ws,dm,result);
 				});
 			  }
 			});
@@ -605,6 +606,7 @@ function makeAllCharts(ws,dm,result) {
 		
 			}
 		};
+		if (!dm.loc){dm.loc = 0}
 		var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc};
 		ws.send(JSON.stringify(jsonmessage));
 	});
