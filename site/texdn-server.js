@@ -71,6 +71,7 @@ const wss = new WebSocket.Server({ server });
 
 wss.on('connection', function connection(ws) {
   var chartid = '';
+  var dataid = '';
   var username = '';
   var myOptions = {};
   var jsonmessage = {'operation':'id','message':chartid};
@@ -80,7 +81,57 @@ wss.on('connection', function connection(ws) {
   	if (dm.operation == 'upload'){
   		if (chartid == ''){
   			chartid = crypto.randomBytes(20).toString('hex').substr(2, 5);
+  			dataid = chartid;
   			console.log(chartid);
+  			var defaultOptions = {};
+			defaultOptions['nHeaders'] = 1;
+			defaultOptions['filters'] = [];
+			defaultOptions['type'] = '';
+			defaultOptions['yColumns'] = '';
+			defaultOptions['xColumn'] = '';
+			defaultOptions['stepSizeX'] = '';
+			defaultOptions['stepSizeY'] = '';
+			defaultOptions['title'] = '';
+			for(var k in myOptions){
+				defaultOptions[k] = myOptions[k];
+			}
+			var chart = new Chart({id:chartid,data:dataid+'.csv',options:defaultOptions});
+			chart.save(function (err, chart) {
+				if (err) return console.error(err);
+				console.log('saved');
+			});
+  		}
+  		//write data.csv
+  		if (chartid == dataid){
+			fs.writeFile("saved/"+chartid+".csv", dm.message, function (err) {
+				updateChart();
+			});
+		}
+		else {
+			Chart.findOne({ id: chartid }, function(err, result) {
+			  if (err) {
+				
+			  } else {
+			  	result.data = chartid+'.csv';
+			  	dataid = chartid;
+				result.markModified('data');
+				result.save(function (err, result) {
+					if (err) return console.error('sajdhfkasdhjfkjsahdfkjsadhfs\n',err);
+					console.log('saved new dataname');
+				});
+				fs.writeFile("saved/"+chartid+".csv", dm.message, function (err) {
+					updateChart();
+				});
+			  }
+			});
+			
+		}
+
+  	}
+  	else if (dm.operation == 'download'){
+  		  if (chartid == ''){
+  			chartid = crypto.randomBytes(20).toString('hex').substr(2, 5);
+  			dataid = chartid;
   			var defaultOptions = {};
 			defaultOptions['nHeaders'] = 1;
 			defaultOptions['filters'] = [];
@@ -100,32 +151,7 @@ wss.on('connection', function connection(ws) {
 			});
   		}
   		//write data.csv
-  		fs.writeFile("saved/"+chartid+".csv", dm.message, function (err) {
-			updateChart();
-		});
-
-  	}
-  	else if (dm.operation == 'download'){
-  		  if (chartid == ''){
-  			chartid = crypto.randomBytes(20).toString('hex').substr(2, 5);
-  			var defaultOptions = {};
-			defaultOptions['nHeaders'] = 1;
-			defaultOptions['filters'] = [];
-			defaultOptions['type'] = '';
-			defaultOptions['yColumns'] = '';
-			defaultOptions['xColumn'] = '';
-			defaultOptions['stepSizeX'] = '';
-			defaultOptions['stepSizeY'] = '';
-			defaultOptions['title'] = '';
-			for(var k in myOptions){
-				defaultOptions[k] = myOptions[k];
-			}
-			var chart = new Chart({id:chartid,data:chartid+'.csv',options:defaultOptions});
-			chart.save(function (err, chart) {
-				if (err) return console.error(err);
-				console.log('saved');
-			});
-  		}
+  		if (chartid == dataid){
 		  var wget = 'wget -O saved/'+chartid+'.csv "' + dm.message + '" && echo "done"';
 		  // excute wget using child_process' exec function
 		  var child = exec(wget, function(err, stdout, stderr) {
@@ -137,6 +163,35 @@ wss.on('connection', function connection(ws) {
 				});
 			}
 		  });
+		}
+		else {
+			Chart.findOne({ id: chartid }, function(err, result) {
+			  if (err) {
+				
+			  } else {
+			  	result.data = chartid+'.csv';
+			  	dataid = chartid;
+				result.markModified('data');
+				result.save(function (err, result) {
+					if (err) return console.error('sajdhfkasdhjfkjsahdfkjsadhfs\n',err);
+					console.log('saved new dataname');
+				});
+				  var wget = 'wget -O saved/'+chartid+'.csv "' + dm.message + '" && echo "done"';
+				  // excute wget using child_process' exec function
+				  var child = exec(wget, function(err, stdout, stderr) {
+					if (err) throw err;
+					else {
+						fs.readFile('saved/'+chartid+'.csv', 'utf8', function(err, fileData) {
+							var jsonmessage = {'operation':'downloaded','message':fileData};
+							ws.send(JSON.stringify(jsonmessage));
+						});
+					}
+				  });
+			  }
+			});
+			
+		}
+		  
 		  
 		  
 
@@ -176,6 +231,10 @@ wss.on('connection', function connection(ws) {
   	}
   	else if (dm.operation == 'username'){
 		  username = dm.message;
+		  if (dm.chartid && dm.chartid != ""){
+		  	chartid = dm.chartid;
+		  	dataid = dm.dataid;
+		  }
   	}
   });
 });
@@ -290,6 +349,11 @@ loginApp.get('/edit/:chartid',
 							else {
 								dataname = result.data;
 								myOptions = result.options;
+								var newchart = new Chart({id:chartid,data:result.data,options:result.options});
+								newchart.save(function (err, newchart) {
+									if (err) return console.error(err);
+									console.log('saved');
+								});
 								fs.readFile('saved/'+dataname, 'utf8', function(err, fileData) {
 									var defaultData = ''
 									if (!err) {defaultData = fileData;}
@@ -310,6 +374,8 @@ loginApp.get('/edit/:chartid',
 										xColumn: savedData.xColumn || '',
 										yColumns: savedData.yColumns || '',
 										username: username || '',
+										chartid: chartid || '',
+										dataid: dataname || '',
 									}));
 									res.end();
 								});
@@ -343,6 +409,8 @@ loginApp.get('/edit/:chartid',
 							xColumn: savedData.xColumn || '',
 							yColumns: savedData.yColumns || '',
 							username: username || '',
+							chartid: chartid || '',
+							dataid: dataname || '',
 						}));
 						res.end();
 					  });

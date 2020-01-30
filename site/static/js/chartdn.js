@@ -1,8 +1,10 @@
-var chartid = '';
+
 var ws = new WebSocket('wss://chartdn.com:8080');
 ws.onopen = function(evt) {
 	console.log(username);
 	var jsonmessage = {'operation':'username','message':username};
+	if (chartid != ""){jsonmessage['chartid']=chartid;}
+	if (dataid != ""){jsonmessage['dataid']=dataid;}
 	ws.send(JSON.stringify(jsonmessage));
 }
 ws.onmessage = function(evt){
