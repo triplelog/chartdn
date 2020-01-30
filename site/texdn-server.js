@@ -585,7 +585,7 @@ function makeAllCharts(result) {
 		var chartJSON = {
 			type: 'line',
 			data: {
-				datasets: chartjsOptions['datasets'],
+				datasets: {'datasets':[{"label":"Label","data":[{"x":1,"y":2},{"x":2,"y":3},{"x":3,"y":2}],"fill":false}]},
 			},
 			options: {
 				scales: {
