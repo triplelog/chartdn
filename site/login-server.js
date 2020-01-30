@@ -70,8 +70,11 @@ app2.post('/register',
 		}
 
 		console.log('user registered!');
-
-		res.redirect('/account');
+		
+		passport.authenticate('local', { failureRedirect: '/fail' }),
+		  function(req, res) {
+			res.redirect('/account');
+		  }
 	});
   }
 );
