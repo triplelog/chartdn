@@ -158,14 +158,12 @@ wss.on('connection', function connection(ws) {
 				for(var k in dm){
 					if (k != 'operation'){
 						result.options[k] = dm[k];
-						console.log(k,dm[k],result.options[k]);
 					}
 				}
 				result.markModified(options);
 				result.save(function (err, result) {
 					if (err) return console.error('sajdhfkasdhjfkjsahdfkjsadhfs\n',err);
 					console.log('saved options');
-					console.log(result);
 				});
 				updateChart();
 			  }
@@ -229,6 +227,8 @@ loginApp.get('/charts/:chartid',
 				  } else {
 				  	var dataname = result.data;
 				  	var myOptions = result.options;
+				  	console.log(result);
+				  	console.log(myOptions);
 					fs.readFile('saved/'+dataname, 'utf8', function(err, fileData) {
 						var defaultData = ''
 						if (!err) {defaultData = fileData;}
