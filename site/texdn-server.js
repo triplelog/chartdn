@@ -160,7 +160,7 @@ wss.on('connection', function connection(ws) {
 						result.options[k] = dm[k];
 					}
 				}
-				result.markModified(options);
+				result.markModified('options');
 				result.save(function (err, result) {
 					if (err) return console.error('sajdhfkasdhjfkjsahdfkjsadhfs\n',err);
 					console.log('saved options');
