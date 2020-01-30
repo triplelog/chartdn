@@ -580,7 +580,7 @@ function makeAllCharts(result) {
 		var datasets = datasetsChartjs(data,result.options);
 		
 		var chartjsOptions = {'datasets':datasets};
-		console.log('aaaa',chartjsOptions['datasets']['data'][0]);
+		console.log('aaaa',chartjsOptions['datasets'][0]['data'][0]);
 		//{'datasets':[{"label":"Label","data":[{"x":1,"y":2},{"x":2,"y":3},{"x":3,"y":2}],"fill":false}]};
 		var chartJSON = {
 			type: 'line',
