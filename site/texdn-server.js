@@ -160,7 +160,11 @@ wss.on('connection', function connection(ws) {
 						result[k] = dm[k];
 					}
 				}
-				result.save();
+				result.save((function (err, result) {
+					if (err) return console.error('sajdhfkasdhjfkjsahdfkjsadhfs\n',err);
+					console.log('saved options');
+					console.log(result);
+				});
 				updateChart();
 			  }
 			});
@@ -221,10 +225,12 @@ loginApp.get('/charts/:chartid',
 				  if (err) {
 				
 				  } else {
-					fs.readFile('saved/'+result.data, 'utf8', function(err, fileData) {
+				  	var dataname = result.data;
+				  	var myOptions = result.options;
+					fs.readFile('saved/'+dataname, 'utf8', function(err, fileData) {
 						var defaultData = ''
 						if (!err) {defaultData = fileData;}
-						var savedData = result.options;
+						var savedData = myOptions;
 						var chartType = {'line':'','bar':'','scatter':'','pie':'','bubble':'','histogram':'','heatmap':'','radar':'','box':'','choropleth':'','splom':'','diff':'','calendar':''};
 						if (savedData['type'] && savedData['type'] != ''){
 							chartType[savedData['type']]='checked';
