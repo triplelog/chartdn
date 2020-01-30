@@ -616,6 +616,7 @@ function datasetsChartjs(data,options) {
 	var datasets = [];
 	if (!options['yColumns']){return [];}
 	if (!options['xColumn']){return [];}
+	console.log(options['yColumns']);
 	for (var i=0;i<options['yColumns'].length;i++){
 		var newdataset = {'label':'Label','data':[],'fill':false};
 		for (var ii=0;ii<data['bycol'][options['yColumns'][i]].length;ii++){
