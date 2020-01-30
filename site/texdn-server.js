@@ -616,11 +616,21 @@ function datasetsChartjs(data,options) {
 	var datasets = [];
 	if (!options['yColumns']){return [];}
 	if (!options['xColumn']){return [];}
-	console.log(options['yColumns']);
+	var xColumn = 0;
+	var yColumns = [];
+	if (!isNaN(parseInt(options.xColumn))){ xColumn = parseInt(options.xColumn);}
+	var yCols = options.yColumns.split(',');
+	for (var i=0;i<yCols.length;i++){
+		if (!isNaN(parseInt(yCols[i]))){ yColumns.push(parseInt(yCols[i]));}
+	}
+	if(yColumns.length==0){
+		yColumns.push(1);
+	}
+	console.log(yColumns);
 	for (var i=0;i<options['yColumns'].length;i++){
 		var newdataset = {'label':'Label','data':[],'fill':false};
-		for (var ii=0;ii<data['bycol'][options['yColumns'][i]].length;ii++){
-			newdataset['data'].push({'x':data['bycol'][options['xColumn']][ii], 'y':data['bycol'][options['yColumns'][i]][ii]});
+		for (var ii=0;ii<data['bycol'][yColumns[i]].length;ii++){
+			newdataset['data'].push({'x':data['bycol'][xColumn][ii], 'y':data['bycol'][yColumns[i]][ii]});
 		}
 		if (options.lineColor) {newdataset['borderColor']=lineColor}
 		if (options.dotColor) {newdataset['backgroundColor']=dotColor}
