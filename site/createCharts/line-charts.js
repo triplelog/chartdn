@@ -124,6 +124,7 @@ exports.createXkcd = function(data,options) {
 		legendPosition: 'chartXkcd.config.positionType.upLeft'
 	  }
 	};
+	console.log(chartJSON);
 	if (options.title != '' && options.title != 'notitle') {chartJSON['title']=options.title;}
 	/*if (!options.tickCountY) {options['tickCountY']=''}
 	if (!options.tickCountX) {options['tickCountX']=''}*/
