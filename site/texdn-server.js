@@ -639,15 +639,15 @@ function createChart(alldata,csvdata,chartType="line") {
 	return fullJS;
 }
 				
-function makeAllCharts(ws,dm,result) {
+function makeAllCharts(ws,dm,chartInfo) {
 	var t0 = performance.now();
 	var chartFile = createLine;
-	fs.readFile('saved/'+result.data, 'utf8', function(err, fileData) {
+	fs.readFile('saved/'+chartInfo.data, 'utf8', function(err, fileData) {
 		var results = Papa.parse(fileData, {
 			complete: function(results) {
-				var nHeaders = result.options.nHeaders || 1;
+				var nHeaders = chartInfo.options.nHeaders || 1;
 				var data = convertDataToFull(results.data,nHeaders,true);
-				chartFile.createChartjs(data,results.options);
+				chartFile.createChartjs(data,chartInfo.options);
 				if (!dm.loc){dm.loc = 0}
 				var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc};
 				ws.send(JSON.stringify(jsonmessage));
