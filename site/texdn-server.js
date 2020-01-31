@@ -270,7 +270,7 @@ loginApp.get('/browse',
 	function(req, res){
 		Chart.find({  }, function(err, result) {
 			console.log(result.length);
-		}
+		});
 		var charts = [];
 		
 		res.write(nunjucks.render('browse.html',{
