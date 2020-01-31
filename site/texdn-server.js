@@ -10,7 +10,7 @@ var fs = require("fs");
 var qs = require('querystring');
 const { exec } = require('child_process');
 var parse = require('csv-parse');
-var csvparse = require('fast-csv');
+var Papa = require('papaparse');
 var nunjucks = require('nunjucks');
 var crypto = require("crypto");
 //const flate = require('wasm-flate');
@@ -467,14 +467,7 @@ loginServer.listen(3000);
 
 function convertDataToFull(dataStr,nHeaders,filen) {
 	var tn2 = performance.now();
-	var results = [];
-	const stream = csvparse.parse({ headers: true })
-		.on('error', error => console.error(error))
-		.on('data', row => results.push(row[0]))
-		.on('end', rowCount => console.log(`Parsed ${rowCount} rows`));
-
-	stream.write(dataStr);
-	stream.end();
+	
 	var t0 = performance.now();
 	
 	const parser = parse(dataStr, {
