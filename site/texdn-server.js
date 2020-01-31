@@ -470,7 +470,7 @@ function convertDataToFull(dataStr,nHeaders,filen) {
 	var results = [];
 	const stream = csvparse.parse({ headers: true })
 		.on('error', error => console.error(error))
-		.on('data', row => results.push(row[0]);)
+		.on('data', row => results.push(row[0]))
 		.on('end', rowCount => console.log(`Parsed ${rowCount} rows`));
 
 	stream.write(dataStr);
@@ -532,6 +532,7 @@ function convertDataToFull(dataStr,nHeaders,filen) {
 	}
 	var t4 = performance.now();
 	console.log('-----');
+	console.log(tn2);
 	console.log(t0);
 	console.log(t1);
 	console.log(t2);
