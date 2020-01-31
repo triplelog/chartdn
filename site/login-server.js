@@ -53,7 +53,7 @@ app2.get('/account',
   	else {
   		res.write(nunjucks.render('account.html',{
   			username: req.user.username,
-  			name: req.user.name || '',
+  			name: req.user.nickname || '',
   			robot: req.user.robot || 1,
   		}));
 		res.end();
@@ -73,8 +73,8 @@ app2.post('/settings',
 	
 		  } else {
 		    console.log(result);
-			result['name']=req.body.name;
-			console.log(result['name']);
+			result.nickname=req.body.name;
+			console.log(result.nickname);
 			console.log(result);
 			result.save(function (err, result) {
 				if (err) return console.error('error updating user\n',err);
