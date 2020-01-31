@@ -667,6 +667,7 @@ function makeAllCharts(ws,dm,result) {
 	if (2 == 2){
 		var results = Papa.parse('saved/'+result.data, {
 			complete: function(results) {
+				console.log(results.data);
 				var nHeaders = result.options.nHeaders || 1;
 				var data = convertDataToFull(results.data,nHeaders,true);
 				var datasets = datasetsChartjs(data,result.options);
