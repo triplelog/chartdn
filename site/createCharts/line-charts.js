@@ -100,7 +100,7 @@ exports.createXkcd = function(data,options) {
 	if (!options.tickCountY) {options['tickCountY']=''}
 	if (!options.tickCountX) {options['tickCountX']=''}
 	
-	chartJSON = {
+	var chartJSON = {};/*{
 	  `+options.title+`
 	  xLabel: 'Month', // optional
 	  yLabel: '$ Dollars', // optional
@@ -113,7 +113,7 @@ exports.createXkcd = function(data,options) {
 		`+options.tickCountX+`
 		legendPosition: chartXkcd.config.positionType.upLeft
 	  }
-	};
+	};*/
 	
 	return chartJSON;
 
