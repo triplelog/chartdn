@@ -7,7 +7,7 @@ class chartdnChart extends HTMLElement {
   	shadowRoot.innerHTML = `<div class="chart-container" style="position: relative;">
 		<canvas id="myChart" style="display: none;"></canvas>
 	</div>`;
-	console.log(this.type);
+	console.log(this.getAttribute('type'));
 	
 	
 	
