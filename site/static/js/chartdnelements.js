@@ -28,7 +28,7 @@ class chartdnChart extends HTMLElement {
   
   makeChart(chartJSON){
   	if (this.getAttribute('type') == 'XKCD'){
-  		this.makeXKCD(chartJSON);
+  		this.makeXkcd(chartJSON);
   	}
   	else {
   		this.makeChartjs(chartJSON);

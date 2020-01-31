@@ -24,7 +24,6 @@ ws.onmessage = function(evt){
 		var chartJSON = dm.message;
 		var allCharts = document.querySelectorAll('chartdn-chart');
 		for (var i=0;i< allCharts.length;i++){
-			console.log(allCharts[i]);
 			if (allCharts[i].getAttribute('type')==dm.type){
 				allCharts[i].makeChart(chartJSON);
 			}
