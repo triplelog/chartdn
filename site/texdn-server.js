@@ -469,7 +469,7 @@ function convertDataToFull(dataStr,nHeaders,filen) {
 	var tn2 = performance.now();
 	var results = Papa.parse(dataStr, {
 		complete: function(results) {
-			console.log(results.length);
+			console.log(results);
 			var tn1 = performance.now();
 			console.log('--a-a-a-a-a');
 			console.log(tn2);
