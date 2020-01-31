@@ -99,6 +99,12 @@ function columnsChg() {
 	var jsonmessage = {'operation':'options','yColumns':yColsStr,'xColumn':xColStr};
 	ws.send(JSON.stringify(jsonmessage));
 }
+function optionsChg(optionname) {
+	var newoption = document.querySelector('input[name='+optionname+']').value;
+	var jsonmessage = {'operation':'options'};
+	jsonmessage[optionname]=newoption;
+	ws.send(JSON.stringify(jsonmessage));
+}
 function filterChg() {
 	var isChecked = document.querySelectorAll('input[name="filter"]:checked');
 	filters = [];
