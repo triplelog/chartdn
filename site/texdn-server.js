@@ -268,13 +268,18 @@ wss.on('connection', function connection(ws) {
 
 loginApp.get('/browse',
 	function(req, res){
-		Chart.find({  }, function(err, result) {
-			console.log(result.length);
-		});
 		var charts = [];
+		Chart.find({  }, function(err, result) {
+			var charlen = Math.min(result.length,100);
+			for (var i=0;i<charlen;i++){
+				var mychart = {'src':result[i].id,'cols':2,'rows':1,'name':'test'};
+				charts.push(mychart);
+			}
+		});
+		
 		
 		res.write(nunjucks.render('browse.html',{
-			charts: [{'src':'f02fd57c','cols':2,'rows':1,'name':'test'}],		
+			charts: charts,		
 		}));
 		res.end();
     }
