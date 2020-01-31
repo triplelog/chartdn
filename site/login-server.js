@@ -72,7 +72,7 @@ app2.post('/settings',
 		  if (err) {
 	
 		  } else {
-		    console.log(result['name']);
+		    console.log(result);
 			result['name']=req.body.name;
 			console.log(result['name']);
 			console.log(result.name);
