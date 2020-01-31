@@ -467,7 +467,6 @@ loginServer.listen(3000);
 
 function convertDataToFull(dataStr,nHeaders,usepapa=false) {
 	if (usepapa){
-		var t0 = performance.now();
 
 		rawArray = [];
 		var currentRow = 0;
@@ -492,12 +491,8 @@ function convertDataToFull(dataStr,nHeaders,usepapa=false) {
 			rawArray.push(tempA);
 		}
 
-		var t2 = performance.now();
 
 		var filteredArray = rawArray;
-	
-		var t3 = performance.now();
-	
 		retArray = [];
 		var cols = [];
 		for (var i=0;i<filteredArray.length;i++) {
@@ -518,13 +513,6 @@ function convertDataToFull(dataStr,nHeaders,usepapa=false) {
 			}
 		
 		}
-		var t4 = performance.now();
-		console.log('-----');
-		console.log(t0);
-		console.log(t1);
-		console.log(t2);
-		console.log(t3);
-		console.log(t4);
 		return {'byrow':retArray,'bycol':cols};
 	}
 	else {
@@ -536,7 +524,6 @@ function convertDataToFull(dataStr,nHeaders,usepapa=false) {
 		})
 		rawArray = [];
 		var currentRow = 0;
-		var t1 = performance.now();
 		while (2 == 2) {
 			var tempA = parser.read();
 			if (!tempA){break;}
@@ -557,11 +544,8 @@ function convertDataToFull(dataStr,nHeaders,usepapa=false) {
 			rawArray.push(tempA);
 		}
 
-		var t2 = performance.now();
 
 		var filteredArray = rawArray;
-	
-		var t3 = performance.now();
 	
 		retArray = [];
 		var cols = [];
@@ -583,13 +567,6 @@ function convertDataToFull(dataStr,nHeaders,usepapa=false) {
 			}
 		
 		}
-		var t4 = performance.now();
-		console.log('-----');
-		console.log(t0);
-		console.log(t1);
-		console.log(t2);
-		console.log(t3);
-		console.log(t4);
 		return {'byrow':retArray,'bycol':cols};
 	}
 }
@@ -664,94 +641,51 @@ function createChart(alldata,csvdata,chartType="line") {
 				
 function makeAllCharts(ws,dm,result) {
 	var t0 = performance.now();
-	if (2 == 2){
-		fs.readFile('saved/'+result.data, 'utf8', function(err, fileData) {
-			var results = Papa.parse(fileData, {
-				complete: function(results) {
-					//console.log(results.data);
-					var nHeaders = result.options.nHeaders || 1;
-					var data = convertDataToFull(results.data,nHeaders,true);
-					var datasets = datasetsChartjs(data,result.options);
-					var chartjsOptions = {'datasets':datasets};
-					//{'datasets':[{"label":"Label","data":[{"x":1,"y":2},{"x":2,"y":3},{"x":3,"y":2}],"fill":false}]};
-					var chartJSON = {
-						type: 'line',
-						data: {
-							datasets: chartjsOptions['datasets'],
-						},
-						options: {
-							scales: {
-								yAxes: [{
-									ticks: {
-										beginAtZero: true,
-						
-									}
-								}],
-								xAxes: [{
-									type: 'linear',
-									position: 'bottom',
-									ticks: {
-						
-									}
-								}]
-							},
-			
-		
-						}
-					};
-					if (!dm.loc){dm.loc = 0}
-					var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc};
-					ws.send(JSON.stringify(jsonmessage));
-					var t1 = performance.now();
-					console.log('-a-');
-					console.log(t0);
-					console.log(t1);
-				}
-			});
-		});
-	}
-	else {
 	fs.readFile('saved/'+result.data, 'utf8', function(err, fileData) {
-		if (err) {console.log('aaaaaa',err);}
-		var nHeaders = result.options.nHeaders || 1;
-		var data = convertDataToFull(fileData,nHeaders,false);
-		var datasets = datasetsChartjs(data,result.options);
-		var chartjsOptions = {'datasets':datasets};
-		//{'datasets':[{"label":"Label","data":[{"x":1,"y":2},{"x":2,"y":3},{"x":3,"y":2}],"fill":false}]};
-		var chartJSON = {
-			type: 'line',
-			data: {
-				datasets: chartjsOptions['datasets'],
-			},
-			options: {
-				scales: {
-					yAxes: [{
-						ticks: {
-							beginAtZero: true,
-						
-						}
-					}],
-					xAxes: [{
-						type: 'linear',
-						position: 'bottom',
-						ticks: {
-						
-						}
-					}]
-				},
-			
+		var results = Papa.parse(fileData, {
+			complete: function(results) {
+				var nHeaders = result.options.nHeaders || 1;
+				var data = convertDataToFull(results.data,nHeaders,true);
+				var datasets = datasetsChartjs(data,result.options);
+				var chartjsOptions = {'datasets':datasets};
+				//{'datasets':[{"label":"Label","data":[{"x":1,"y":2},{"x":2,"y":3},{"x":3,"y":2}],"fill":false}]};
+				var chartJSON = {
+					type: 'line',
+					data: {
+						datasets: chartjsOptions['datasets'],
+					},
+					options: {
+						scales: {
+							yAxes: [{
+								ticks: {
+									beginAtZero: true,
+					
+								}
+							}],
+							xAxes: [{
+								type: 'linear',
+								position: 'bottom',
+								ticks: {
+					
+								}
+							}]
+						},
 		
+	
+					}
+				};
+				if (!dm.loc){dm.loc = 0}
+				var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc};
+				ws.send(JSON.stringify(jsonmessage));
+				var t1 = performance.now();
+				console.log('-a-');
+				console.log(t0);
+				console.log(t1);
 			}
-		};
-		if (!dm.loc){dm.loc = 0}
-		var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc};
-		ws.send(JSON.stringify(jsonmessage));
-		var t1 = performance.now();
-		console.log('-b-');
-		console.log(t0);
-		console.log(t1);
+		});
 	});
-	}
+
+	
 }
 
 function datasetsChartjs(data,options) {
