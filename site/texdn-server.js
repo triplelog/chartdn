@@ -270,18 +270,22 @@ loginApp.get('/browse',
 	function(req, res){
 		var charts = [];
 		Chart.find({  }, function(err, result) {
+			if (err){console.log('errrrr');}
 			var charlen = Math.min(result.length,100);
+			console.log(charlen);
 			for (var i=0;i<charlen;i++){
 				var mychart = {'src':result[i].id,'cols':2,'rows':1,'name':'test'};
 				charts.push(mychart);
 			}
+			console.log(charts);
+			res.write(nunjucks.render('browse.html',{
+				charts: charts,		
+			}));
+			res.end();
 		});
 		
 		
-		res.write(nunjucks.render('browse.html',{
-			charts: charts,		
-		}));
-		res.end();
+		
     }
 );
 loginApp.get('/new',
