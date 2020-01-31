@@ -264,18 +264,15 @@ wss.on('connection', function connection(ws) {
   });
 });
 
-var chartBox = `<div class="chart-box box-1-2">
-	<a href="/charts/">
-		<chartdn-chart src="f02fd57c"></chartdn-chart>
-	</a>
 
-	<aside class="photo-box-caption">
-		<span>by <a href="http://www.dillonmcintosh.tumblr.com/">Me</a></span>
-	</aside>
-</div>`
 
 loginApp.get('/browse',
 	function(req, res){
+		Chart.find({  }, function(err, result) {
+			console.log(result.length);
+		}
+		var charts = [];
+		
 		res.write(nunjucks.render('browse.html',{
 			charts: [{'src':'f02fd57c','cols':2,'rows':1,'name':'test'}],		
 		}));
