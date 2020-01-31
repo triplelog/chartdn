@@ -346,6 +346,7 @@ loginApp.get('/charts/:chartid',
 								yColumns: savedData.yColumns || '',
 								username: username || '',
 								newchartid: chartid+'a',
+								chartid: chartid,
 							}));
 							res.end();
 						});
