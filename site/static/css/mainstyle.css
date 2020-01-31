@@ -345,3 +345,15 @@ a.pure-button-primary {
 	width: 100%;
 	border-radius: 1rem;
 }
+
+.tabbed-menu {
+	background: rgb(200,200,200);
+}
+.tabbed-menu .pure-menu-item:not(.pure-menu-selected) {
+	border-bottom: 1px solid black;
+}
+.tabbed-menu .pure-menu-item.pure-menu-selected {
+	border: 1px solid black;
+	border-bottom: 0px solid black;
+	background: rgb(150,150,150);
+}
