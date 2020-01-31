@@ -10,7 +10,7 @@ var fs = require("fs");
 var qs = require('querystring');
 const { exec } = require('child_process');
 var parse = require('csv-parse');
-var csvparse = require('csv-parser');
+var csvparse = require('fast-csv');
 var nunjucks = require('nunjucks');
 var crypto = require("crypto");
 //const flate = require('wasm-flate');
@@ -466,23 +466,15 @@ loginServer.listen(3000);
 
 
 function convertDataToFull(dataStr,nHeaders,filen) {
-	var tn1 = performance.now();
-	if (filen){
-		var results = [];
-		fs.createReadStream(filen)
-		  .pipe(csvparse())
-		  .on('data', (data) => results.push(data))
-		  .on('end', () => {
-			var tn2 = performance.now();
-			console.log('-a-a-a-a-a');
-			console.log(tn1);
-			console.log(tn2);
-			// [
-			//   { NAME: 'Daffy Duck', AGE: '24' },
-			//   { NAME: 'Bugs Bunny', AGE: '22' }
-			// ]
-		  });
-	}
+	var tn2 = performance.now();
+	var results = [];
+	const stream = csvparse.parse({ headers: true })
+		.on('error', error => console.error(error))
+		.on('data', row => results.push(row[0]);)
+		.on('end', rowCount => console.log(`Parsed ${rowCount} rows`));
+
+	stream.write(dataStr);
+	stream.end();
 	var t0 = performance.now();
 	
 	const parser = parse(dataStr, {
@@ -617,17 +609,10 @@ function createChart(alldata,csvdata,chartType="line") {
 }
 				
 function makeAllCharts(ws,dm,result) {
-	var tt0 = performance.now();
 	fs.readFile('saved/'+result.data, 'utf8', function(err, fileData) {
 		if (err) {console.log('aaaaaa',err);}
 		var nHeaders = result.options.nHeaders || 1;
-		var tt1 = performance.now();
 		var data = convertDataToFull(fileData,nHeaders,'saved/'+result.data);
-		var tt2 = performance.now();
-		console.log('-b-b--b-');
-		console.log(tt0);
-		console.log(tt1);
-		console.log(tt2);
 		var datasets = datasetsChartjs(data,result.options);
 		var chartjsOptions = {'datasets':datasets};
 		//{'datasets':[{"label":"Label","data":[{"x":1,"y":2},{"x":2,"y":3},{"x":3,"y":2}],"fill":false}]};
