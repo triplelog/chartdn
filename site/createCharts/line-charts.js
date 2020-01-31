@@ -28,7 +28,7 @@ exports.createPlotly = function(data,options) {
 
 }
 
-exports.createChartjs = function(data,options) {
+function createJSdatasets(data,options) {
 	var datasets = [];
 	if (!options['yColumns']){return [];}
 	if (!options['xColumn']){return [];}
@@ -52,9 +52,18 @@ exports.createChartjs = function(data,options) {
 			
 		datasets.push(newdataset);
 	}
+	return datasets;
+}
+exports.createChartjs = function(data,options) {
 	
-	var chartjsOptions = {'datasets':datasets};
-	//{'datasets':[{"label":"Label","data":[{"x":1,"y":2},{"x":2,"y":3},{"x":3,"y":2}],"fill":false}]};
+	var datasets = createJSdatasets(data,options);
+	var chartjsOptions = {'datasets':datasets,'title':{}};
+	if (options.title != '' && options.title != 'notitle') {chartjsOptions['title'] = {display: true, text: options.title};}
+	/*if (stepSizeX != '' && stepSizeX != 'default') {options['stepSizeX'] = 'stepSize: '+stepSizeX+',' }
+	if (stepSizeY != '' && stepSizeY != 'default') {options['stepSizeY'] = 'stepSize: '+stepSizeY+',' }
+	if (lineColor != '' && lineColor != 'default') {options['lineColor'] = lineColor}
+	if (dotColor != '' && dotColor != 'default') {options['dotColor'] = dotColor}*/
+
 	var chartJSON = {
 		type: 'line',
 		data: {
@@ -76,7 +85,7 @@ exports.createChartjs = function(data,options) {
 					}
 				}]
 			},
-
+			title: chartJSoptions['title'],
 
 		}
 	};
