@@ -36,22 +36,33 @@
     		<div class="l-box pure-u-1 pure-u-md-1-4 pure-u-lg-1-5">
 				<img class="avatar" src="robots/{{ username }}1.png"></img>
 				<center>Robert Wilcox</center>
-				{{ username }}
-				Activity
-				Website
+				<div id="profile">
+					{{ username }}
+					Activity (forks, calendar)
+					Website
+				</div>
+				
     		</div>
 			<div class="l-box pure-u-1 pure-u-md-3-4 pure-u-lg-4-5">
 				<div class="pure-menu pure-menu-horizontal">
 					<ul class="pure-menu-list tabbed-menu">
-						<li class="pure-menu-item pure-menu-selected"><a href="#" class="pure-menu-link">Created</a></li>
-						<li class="pure-menu-item"><a href="#" class="pure-menu-link">Favorites</a></li>
-						<li class="pure-menu-item"><a href="#" class="pure-menu-link">Settings</a></li>
+						<li class="pure-menu-item pure-menu-selected" onclick="chgTab('created')" id="tabcreated"><a href="#" class="pure-menu-link">Created</a></li>
+						<li class="pure-menu-item" onclick="chgTab('favorites')" id="tabfavorites"><a href="#" class="pure-menu-link">Favorites</a></li>
+						<li class="pure-menu-item" onclick="chgTab('friends')" id="tabfriends"><a href="#" class="pure-menu-link">Friends</a></li>
+						<li class="pure-menu-item" onclick="chgTab('settings')" id="tabsettings"><a href="#" class="pure-menu-link">Settings</a></li>
 					</ul>
 				</div>
-				Change contact preferences?
-				Upgrade/downgrade premium?
-				Friends?
-				Calendar of Activity?
+				<div id="created">
+				</div>
+				<div id="favorites">
+				</div>
+				<div id="settings">
+					Change contact preferences?
+					Upgrade/downgrade premium?
+				</div>
+				<div id="friends">
+				</div>
+				
 			</div>
 		</div>
 
@@ -65,6 +76,6 @@
     </div>
 
 </div>
-
+<script src="../js/account.js"></script>
 </body>
 </html>
