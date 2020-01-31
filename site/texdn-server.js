@@ -467,21 +467,22 @@ loginServer.listen(3000);
 
 function convertDataToFull(dataStr,nHeaders,filen) {
 	var tn1 = performance.now();
-	var results = [];
-	fs.createReadStream(filen)
-	  .pipe(csvparse())
-	  .on('data', (data) => results.push(data))
-	  .on('end', () => {
-		var tn2 = performance.now();
-		console.log('-a-a-a-a-a');
-		console.log(tn1);
-		console.log(tn2);
-		// [
-		//   { NAME: 'Daffy Duck', AGE: '24' },
-		//   { NAME: 'Bugs Bunny', AGE: '22' }
-		// ]
-	  });
-	
+	if (filen){
+		var results = [];
+		fs.createReadStream(filen)
+		  .pipe(csvparse())
+		  .on('data', (data) => results.push(data))
+		  .on('end', () => {
+			var tn2 = performance.now();
+			console.log('-a-a-a-a-a');
+			console.log(tn1);
+			console.log(tn2);
+			// [
+			//   { NAME: 'Daffy Duck', AGE: '24' },
+			//   { NAME: 'Bugs Bunny', AGE: '22' }
+			// ]
+		  });
+	}
 	var t0 = performance.now();
 	
 	const parser = parse(dataStr, {
