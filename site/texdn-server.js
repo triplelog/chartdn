@@ -617,10 +617,17 @@ function createChart(alldata,csvdata,chartType="line") {
 }
 				
 function makeAllCharts(ws,dm,result) {
+	var tt0 = performance.now();
 	fs.readFile('saved/'+result.data, 'utf8', function(err, fileData) {
 		if (err) {console.log('aaaaaa',err);}
 		var nHeaders = result.options.nHeaders || 1;
+		var tt1 = performance.now();
 		var data = convertDataToFull(fileData,nHeaders,'saved/'+result.data);
+		var tt2 = performance.now();
+		console.log('-b-b--b-');
+		console.log(tt0);
+		console.log(tt1);
+		console.log(tt2);
 		var datasets = datasetsChartjs(data,result.options);
 		var chartjsOptions = {'datasets':datasets};
 		//{'datasets':[{"label":"Label","data":[{"x":1,"y":2},{"x":2,"y":3},{"x":3,"y":2}],"fill":false}]};
