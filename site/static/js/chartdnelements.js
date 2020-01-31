@@ -7,11 +7,14 @@ class chartdnChart extends HTMLElement {
   	shadowRoot.innerHTML = `<div class="chart-container" style="position: relative;">
 		<canvas id="myChart" style="display: none;"></canvas>
 	</div>`;
-	console.log(this.getAttribute('type'));
+	if (this.getAttribute('type') != 'chartJS'){
+		chgType(this.getAttribute('type'));
+	}
 	
 	
 	
   }
+  
   makeChartjs(chartJSON) {
   	
   	this.shadowRoot.querySelector('#myChart').style.display = 'block';
@@ -19,13 +22,18 @@ class chartdnChart extends HTMLElement {
 	var myLineChart = new Chart(ctx, chartJSON);
   }
   makeXkcd(chartJSON) {
-  	this.shadowRoot.innerHTML = `<div class="chart-container" style="position: relative;">
-					<svg id="xkcdSvg" style="display: none;"></svg>
-				</div>`
   	this.shadowRoot.querySelector('#xkcdSvg').style.display = 'block';
 	const lineChart = new chartXkcd.Line(this.shadowRoot.querySelector('#xkcdSvg'), chartJSON);
   }
   
+  makeChart(chartJSON){
+  	if (this.getAttribute('type') == 'XKCD'){
+  		this.makeXKCD(chartJSON);
+  	}
+  	else {
+  		this.makeChartjs(chartJSON);
+  	}
+  }
   chgType(type) {
   	if (type == 'XKCD'){
   		this.shadowRoot.innerHTML = `<div class="chart-container" style="position: relative;">

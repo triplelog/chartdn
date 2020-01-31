@@ -89,32 +89,44 @@ exports.createChartjs = function(data,options) {
 
 exports.createXkcd = function(data,options) {
 	var datasets = [];
-	for (var i=0;i<options['yColumns'].length;i++){
-		datasets.push({'label': 'Y'+i, 'data':data['bycol'][options['yColumns'][i]]});
+	if (!options['yColumns']){return {};}
+	if (!options['xColumn']){return {};}
+	var xColumn = 0;
+	var yColumns = [];
+	if (!isNaN(parseInt(options.xColumn))){ xColumn = parseInt(options.xColumn);}
+	var yCols = options.yColumns.split(',');
+	for (var i=0;i<yCols.length;i++){
+		if (!isNaN(parseInt(yCols[i]))){ yColumns.push(parseInt(yCols[i]));}
 	}
-	var labels = [];
-	for (var i=0;i<data['bycol'][options['xColumn']].length;i++){
-		labels.push(''+data['bycol'][options['xColumn']][i]);
+	if(yColumns.length==0){
+		yColumns.push(1);
 	}
-	if (!options.title) {options['title']=''}
-	if (!options.tickCountY) {options['tickCountY']=''}
-	if (!options.tickCountX) {options['tickCountX']=''}
 	
-	var chartJSON = {};/*{
-	  `+options.title+`
+	for (var i=0;i<options['yColumns'].length;i++){
+		datasets.push({'label': 'Y'+i, 'data':data['bycol'][yColumns[i]]});
+	}
+	
+	var labels = [];
+	for (var i=0;i<data['bycol'][xColumn].length;i++){
+		labels.push(''+data['bycol'][xColumn][i]);
+	}
+	
+	
+	
+	var chartJSON = {
 	  xLabel: 'Month', // optional
 	  yLabel: '$ Dollars', // optional
 	  data: {
-		labels: `+JSON.stringify(labels)+`,
-		datasets: `+JSON.stringify(datasets)+`,
+		labels: labels,
+		datasets: datasets,
 	  },
 	  options: { // optional
-		`+options.tickCountY+`
-		`+options.tickCountX+`
 		legendPosition: chartXkcd.config.positionType.upLeft
 	  }
-	};*/
-	
+	};
+	if (options.title != '' && options.title != 'notitle') {chartJSON['title']=options.title;}
+	/*if (!options.tickCountY) {options['tickCountY']=''}
+	if (!options.tickCountX) {options['tickCountX']=''}*/
 	return chartJSON;
 
 }
