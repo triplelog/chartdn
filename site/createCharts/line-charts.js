@@ -59,8 +59,8 @@ exports.createChartjs = function(data,options) {
 	var datasets = createJSdatasets(data,options);
 	var chartjsOptions = {'datasets':datasets,'title':{},'xTicks':{},'yTicks':{}};
 	if (options.title != '' && options.title != 'notitle') {chartjsOptions['title'] = {display: true, text: options.title};}
-	if (options.stepSizeX != '' && options.stepSizeX != 'default') {chartjsOptions['xTicks'] = {'stepSize': stepSizeX };}
-	if (options.stepSizeY != '' && options.stepSizeY != 'default') {chartjsOptions['yTicks'] = {'stepSize': stepSizeY };}
+	if (options.stepSizeX != '' && options.stepSizeX != 'default') {chartjsOptions['xTicks'] = {'stepSize': options.stepSizeX };}
+	if (options.stepSizeY != '' && options.stepSizeY != 'default') {chartjsOptions['yTicks'] = {'stepSize': options.stepSizeY };}
 	//chartjsOptions['yTicks']['beginAtZero'] = true;
 	//Check if step sizes are numbers?
 	var chartJSON = {
