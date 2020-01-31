@@ -102,7 +102,7 @@ exports.createXkcd = function(data,options) {
 		yColumns.push(1);
 	}
 	
-	for (var i=0;i<options['yColumns'].length;i++){
+	for (var i=0;i<yColumns.length;i++){
 		datasets.push({'label': 'Y'+i, 'data':data['bycol'][yColumns[i]]});
 	}
 	
@@ -124,7 +124,7 @@ exports.createXkcd = function(data,options) {
 		legendPosition: 'chartXkcd.config.positionType.upLeft'
 	  }
 	};
-	console.log(datasets[2]);
+
 	if (options.title != '' && options.title != 'notitle') {chartJSON['title']=options.title;}
 	/*if (!options.tickCountY) {options['tickCountY']=''}
 	if (!options.tickCountX) {options['tickCountX']=''}*/
