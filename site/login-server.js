@@ -53,10 +53,24 @@ app2.get('/account',
   	else {
   		res.write(nunjucks.render('account.html',{
   			username: req.user.username,
+  			name: req.user.name || '',
+  			robot req.user.robot || 1,
   		}));
 		res.end();
   	}
   	
+  }
+);
+app2.post('/settings',
+  function(req, res){
+  	if (!req.isAuthenticated()){
+		res.redirect('/account');
+  	}
+  	else {
+  		var user = req.user;
+  		console.log(req.user);
+  		res.redirect('/account');
+  	}
   }
 );
 
