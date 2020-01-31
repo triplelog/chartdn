@@ -68,8 +68,21 @@ app2.post('/settings',
   	}
   	else {
   		var user = req.user;
-  		console.log(req.user);
-  		res.redirect('/account');
+  		User.findOne({ username: req.user.username }, function(err, result) {
+		  if (err) {
+	
+		  } else {
+			result['name']=req.body.name;
+			console.log(result['name']);
+			console.log(result.name);
+			result.save(function (err, result) {
+				if (err) return console.error('error updating user\n',err);
+				console.log(req.user);
+  				res.redirect('/account');
+			});
+		  }
+		});
+  		
   	}
   }
 );
