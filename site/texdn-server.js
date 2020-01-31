@@ -520,7 +520,6 @@ function convertDataToFull(dataStr,nHeaders,usepapa=false) {
 		}
 		var t4 = performance.now();
 		console.log('-----');
-		console.log(tn2);
 		console.log(t0);
 		console.log(t1);
 		console.log(t2);
@@ -586,7 +585,6 @@ function convertDataToFull(dataStr,nHeaders,usepapa=false) {
 		}
 		var t4 = performance.now();
 		console.log('-----');
-		console.log(tn2);
 		console.log(t0);
 		console.log(t1);
 		console.log(t2);
