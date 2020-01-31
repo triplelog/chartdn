@@ -41,7 +41,10 @@
 					<p class="text-box-subhead">Or Search for keyword</p>
 				</div>
 			</div>
-			{{ chartBox }}
+			{% for chart in charts %}
+			  <li>{{ chart }}</li>
+			{% else %}
+			{% endfor %}
 			
 			<div class="chart-box box-1-1">
 				<a href="/charts/">

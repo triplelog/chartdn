@@ -106,7 +106,13 @@ wss.on('connection', function connection(ws) {
   		//write data.csv
   		if (chartid == dataid){
 			fs.writeFile("saved/"+chartid+".csv", dm.message, function (err) {
-				updateChart();
+				Chart.findOne({ id: chartid }, function(err, result) {
+				  if (err) {
+			
+				  } else {
+					makeAllCharts(ws,dm,result);
+				  }
+				});
 			});
 		}
 		else {
@@ -122,7 +128,7 @@ wss.on('connection', function connection(ws) {
 					console.log('saved new dataname');
 				});
 				fs.writeFile("saved/"+chartid+".csv", dm.message, function (err) {
-					updateChart();
+					makeAllCharts(ws,dm,result);
 				});
 			  }
 			});
@@ -162,6 +168,13 @@ wss.on('connection', function connection(ws) {
 				fs.readFile('saved/'+chartid+'.csv', 'utf8', function(err, fileData) {
 					var jsonmessage = {'operation':'downloaded','message':fileData};
 					ws.send(JSON.stringify(jsonmessage));
+					Chart.findOne({ id: chartid }, function(err, result) {
+					  if (err) {
+				
+					  } else {
+					  	makeAllCharts(ws,dm,result);
+					  }
+					});
 				});
 			}
 		  });
@@ -186,6 +199,7 @@ wss.on('connection', function connection(ws) {
 						fs.readFile('saved/'+chartid+'.csv', 'utf8', function(err, fileData) {
 							var jsonmessage = {'operation':'downloaded','message':fileData};
 							ws.send(JSON.stringify(jsonmessage));
+							makeAllCharts(ws,dm,result);
 						});
 					}
 				  });
@@ -263,7 +277,7 @@ var chartBox = `<div class="chart-box box-1-2">
 loginApp.get('/browse',
 	function(req, res){
 		res.write(nunjucks.render('browse.html',{
-			chartBox: chartBox,		
+			charts: [chartBox],		
 		}));
 		res.end();
     }
