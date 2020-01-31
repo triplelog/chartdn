@@ -10,6 +10,7 @@ var fs = require("fs");
 var qs = require('querystring');
 const { exec } = require('child_process');
 var parse = require('csv-parse');
+var csvparse = require('csv-parser');
 var nunjucks = require('nunjucks');
 var crypto = require("crypto");
 //const flate = require('wasm-flate');
@@ -464,8 +465,25 @@ const loginServer = https.createServer(options, loginApp);
 loginServer.listen(3000);
 
 
-function convertDataToFull(dataStr,nHeaders) {
+function convertDataToFull(dataStr,nHeaders,filen) {
+	var tn1 = performance.now();
+	var results = [];
+	fs.createReadStream(filen)
+	  .pipe(csvparse())
+	  .on('data', (data) => results.push(data))
+	  .on('end', () => {
+		var tn2 = performance.now();
+		console.log('-a-a-a-a-a');
+		console.log(tn1);
+		console.log(tn2);
+		// [
+		//   { NAME: 'Daffy Duck', AGE: '24' },
+		//   { NAME: 'Bugs Bunny', AGE: '22' }
+		// ]
+	  });
+	
 	var t0 = performance.now();
+	
 	const parser = parse(dataStr, {
 	  trim: true,
 	  skip_empty_lines: true
@@ -601,7 +619,7 @@ function makeAllCharts(ws,dm,result) {
 	fs.readFile('saved/'+result.data, 'utf8', function(err, fileData) {
 		if (err) {console.log('aaaaaa',err);}
 		var nHeaders = result.options.nHeaders || 1;
-		var data = convertDataToFull(fileData,nHeaders);
+		var data = convertDataToFull(fileData,nHeaders,'saved/'+result.data);
 		var datasets = datasetsChartjs(data,result.options);
 		var chartjsOptions = {'datasets':datasets};
 		//{'datasets':[{"label":"Label","data":[{"x":1,"y":2},{"x":2,"y":3},{"x":3,"y":2}],"fill":false}]};
