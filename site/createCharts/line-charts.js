@@ -121,7 +121,7 @@ exports.createXkcd = function(data,options) {
 		datasets: datasets,
 	  },
 	  options: { // optional
-		legendPosition: chartXkcd.config.positionType.upLeft
+		legendPosition: 'chartXkcd.config.positionType.upLeft'
 	  }
 	};
 	if (options.title != '' && options.title != 'notitle') {chartJSON['title']=options.title;}
