@@ -665,7 +665,7 @@ function createChart(alldata,csvdata,chartType="line") {
 function makeAllCharts(ws,dm,result) {
 	if (2 == 2){
 		var tn2 = performance.now();
-		var results = Papa.parse(dataStr, {
+		var results = Papa.parse('saved/'+result.data, {
 			complete: function(results) {
 				var nHeaders = result.options.nHeaders || 1;
 				var data = convertDataToFull(results.data,nHeaders,true);
