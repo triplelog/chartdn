@@ -663,8 +663,8 @@ function createChart(alldata,csvdata,chartType="line") {
 }
 				
 function makeAllCharts(ws,dm,result) {
+	var t0 = performance.now();
 	if (2 == 2){
-		var tn2 = performance.now();
 		var results = Papa.parse('saved/'+result.data, {
 			complete: function(results) {
 				var nHeaders = result.options.nHeaders || 1;
@@ -700,6 +700,10 @@ function makeAllCharts(ws,dm,result) {
 				if (!dm.loc){dm.loc = 0}
 				var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc};
 				ws.send(JSON.stringify(jsonmessage));
+				var t1 = performance.now();
+				console.log('-a-');
+				console.log(t0);
+				console.log(t1);
 			}
 		});
 	}
@@ -739,6 +743,10 @@ function makeAllCharts(ws,dm,result) {
 		if (!dm.loc){dm.loc = 0}
 		var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc};
 		ws.send(JSON.stringify(jsonmessage));
+		var t1 = performance.now();
+		console.log('-b-');
+		console.log(t0);
+		console.log(t1);
 	});
 	}
 }
