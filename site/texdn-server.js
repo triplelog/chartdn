@@ -253,7 +253,12 @@ wss.on('connection', function connection(ws) {
 		  chartid = dm.id;
 		  if (chartid && chartid != ""){
 			  Chart.findOne({ id: chartid }, function(err, result) {
-			  	makeAllCharts(ws,dm,result);
+			  	if (dm.type){
+			  		makeAllCharts(ws,dm,result,'chartJS');
+			  	}
+			  	else {
+			  		makeAllCharts(ws,dm,result);
+			  	}
 				
 			  });
 		  }
@@ -629,7 +634,7 @@ function createChart(alldata,csvdata,chartType="line") {
 	return fullJS;
 }
 				
-function makeAllCharts(ws,dm,chartInfo) {
+function makeAllCharts(ws,dm,chartInfo,chartType='all') {
 	var t0 = performance.now();
 	var chartFile = createLine;
 	fs.readFile('saved/'+chartInfo.data, 'utf8', function(err, fileData) {
@@ -637,15 +642,19 @@ function makeAllCharts(ws,dm,chartInfo) {
 			complete: function(results) {
 				var nHeaders = chartInfo.options.nHeaders || 1;
 				var data = convertDataToFull(results.data,nHeaders,true);
-				var chartJSON = chartFile.createChartjs(data,chartInfo.options);
-				if (!dm.loc){dm.loc = 0}
-				var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc,'type':'chartJS'};
-				ws.send(JSON.stringify(jsonmessage));
+				if (chartType == 'all' || chartType == 'chartJS') {
+					var chartJSON = chartFile.createChartjs(data,chartInfo.options);
+					if (!dm.loc){dm.loc = 0}
+					var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc,'type':'chartJS'};
+					ws.send(JSON.stringify(jsonmessage));
+				}
 				var t1 = performance.now();
-				chartJSON = chartFile.createXkcd(data,chartInfo.options);
-				if (!dm.loc){dm.loc = 0}
-				var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc,'type':'XKCD'};
-				ws.send(JSON.stringify(jsonmessage));
+				if (chartType == 'all' || chartType == 'XKCD') {
+					var chartJSON = chartFile.createXkcd(data,chartInfo.options);
+					if (!dm.loc){dm.loc = 0}
+					var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc,'type':'XKCD'};
+					ws.send(JSON.stringify(jsonmessage));
+				}
 				var t2 = performance.now();
 				console.log('-a-');
 				console.log(t0);

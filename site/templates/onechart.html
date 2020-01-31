@@ -58,9 +58,8 @@
     	<div class="pure-g">
 				
 			<div class="l-box pure-u-1-2" style="border: 1px solid black;">
-				Chart JS
 				<div class="chart-container" style="position: relative;">
-					<canvas id="myChart" style="display: none;"></canvas>
+					<chartdn-chart src="{{ chartid }}" type="chartJS"></chartdn-chart>
 				</div>
 			</div>
 			<div class="l-box pure-u-1-2" style="border: 1px solid black;">
@@ -94,6 +93,8 @@
   <script>var username = "{{ username }}"</script>
   
   {{ chartScript }}
+  <script src="../js/chartdnws.js"></script>
+  <script src="../js/chartdnelements.js"></script>
 
 </body>
 
