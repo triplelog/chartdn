@@ -340,3 +340,6 @@ a.pure-button-primary {
     font-size: 80%;
 }
 
+.avatar {
+	border: 1px solid black;
+}
