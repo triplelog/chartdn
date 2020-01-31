@@ -641,39 +641,13 @@ function createChart(alldata,csvdata,chartType="line") {
 				
 function makeAllCharts(ws,dm,result) {
 	var t0 = performance.now();
+	var chartFile = createLine;
 	fs.readFile('saved/'+result.data, 'utf8', function(err, fileData) {
 		var results = Papa.parse(fileData, {
 			complete: function(results) {
 				var nHeaders = result.options.nHeaders || 1;
 				var data = convertDataToFull(results.data,nHeaders,true);
-				var datasets = datasetsChartjs(data,result.options);
-				var chartjsOptions = {'datasets':datasets};
-				//{'datasets':[{"label":"Label","data":[{"x":1,"y":2},{"x":2,"y":3},{"x":3,"y":2}],"fill":false}]};
-				var chartJSON = {
-					type: 'line',
-					data: {
-						datasets: chartjsOptions['datasets'],
-					},
-					options: {
-						scales: {
-							yAxes: [{
-								ticks: {
-									beginAtZero: true,
-					
-								}
-							}],
-							xAxes: [{
-								type: 'linear',
-								position: 'bottom',
-								ticks: {
-					
-								}
-							}]
-						},
-		
-	
-					}
-				};
+				chartFile.createChartjs(data,results.options);
 				if (!dm.loc){dm.loc = 0}
 				var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc};
 				ws.send(JSON.stringify(jsonmessage));

@@ -30,6 +30,60 @@ exports.createPlotly = function(data,options) {
 
 exports.createChartjs = function(data,options) {
 	var datasets = [];
+	if (!options['yColumns']){return [];}
+	if (!options['xColumn']){return [];}
+	var xColumn = 0;
+	var yColumns = [];
+	if (!isNaN(parseInt(options.xColumn))){ xColumn = parseInt(options.xColumn);}
+	var yCols = options.yColumns.split(',');
+	for (var i=0;i<yCols.length;i++){
+		if (!isNaN(parseInt(yCols[i]))){ yColumns.push(parseInt(yCols[i]));}
+	}
+	if(yColumns.length==0){
+		yColumns.push(1);
+	}
+	for (var i=0;i<yColumns.length;i++){
+		var newdataset = {'label':'Label','data':[],'fill':false};
+		for (var ii=0;ii<data['bycol'][yColumns[i]].length;ii++){
+			newdataset['data'].push({'x':data['bycol'][xColumn][ii], 'y':data['bycol'][yColumns[i]][ii]});
+		}
+		if (options.lineColor) {newdataset['borderColor']=lineColor}
+		if (options.dotColor) {newdataset['backgroundColor']=dotColor}
+			
+		datasets.push(newdataset);
+	}
+	
+	var chartjsOptions = {'datasets':datasets};
+	//{'datasets':[{"label":"Label","data":[{"x":1,"y":2},{"x":2,"y":3},{"x":3,"y":2}],"fill":false}]};
+	var chartJSON = {
+		type: 'line',
+		data: {
+			datasets: chartjsOptions['datasets'],
+		},
+		options: {
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true,
+		
+					}
+				}],
+				xAxes: [{
+					type: 'linear',
+					position: 'bottom',
+					ticks: {
+		
+					}
+				}]
+			},
+
+
+		}
+	};
+}
+/*
+exports.createChartjs = function(data,options) {
+	var datasets = [];
 	for (var i=0;i<options['yColumns'].length;i++){
 		var newdataset = {'label':'Label','data':[],'fill':false};
 		for (var ii=0;ii<data['bycol'][options['yColumns'][i]].length;ii++){
@@ -79,7 +133,7 @@ exports.createChartjs = function(data,options) {
 	return baseJS;
 
 }
-
+*/
 exports.createXkcd = function(data,options) {
 	var datasets = [];
 	for (var i=0;i<options['yColumns'].length;i++){
