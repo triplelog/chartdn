@@ -54,7 +54,7 @@ app2.get('/account',
   		res.write(nunjucks.render('account.html',{
   			username: req.user.username,
   			name: req.user.name || '',
-  			robot req.user.robot || 1,
+  			robot: req.user.robot || 1,
   		}));
 		res.end();
   	}
