@@ -84,7 +84,6 @@ wss.on('connection', function connection(ws) {
   		if (chartid == ''){
   			chartid = chartidtemp;
   			dataid = chartid;
-  			console.log(chartid);
   			var defaultOptions = {};
 			defaultOptions['nHeaders'] = 1;
 			defaultOptions['filters'] = [];
@@ -272,12 +271,10 @@ loginApp.get('/browse',
 		Chart.find({  }, function(err, result) {
 			if (err){console.log('errrrr');}
 			var charlen = Math.min(result.length,100);
-			console.log(charlen);
 			for (var i=0;i<charlen;i++){
 				var mychart = {'src':result[i].id,'cols':2,'rows':1,'name':'test'};
 				charts.push(mychart);
 			}
-			console.log(charts);
 			res.write(nunjucks.render('browse.html',{
 				charts: charts,		
 			}));
@@ -596,9 +593,11 @@ function makeAllCharts(ws,dm,result) {
 	fs.readFile('saved/'+result.data, 'utf8', function(err, fileData) {
 		if (err) {console.log('aaaaaa',err);}
 		var nHeaders = result.options.nHeaders || 1;
+		var t0 = performance.now();
 		var data = convertDataToFull(fileData,nHeaders);
+		var t1 = performance.now();
 		var datasets = datasetsChartjs(data,result.options);
-		
+		var t2 = performance.now();
 		var chartjsOptions = {'datasets':datasets};
 		//{'datasets':[{"label":"Label","data":[{"x":1,"y":2},{"x":2,"y":3},{"x":3,"y":2}],"fill":false}]};
 		var chartJSON = {
@@ -626,9 +625,19 @@ function makeAllCharts(ws,dm,result) {
 		
 			}
 		};
+		var t3 = performance.now();
 		if (!dm.loc){dm.loc = 0}
 		var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc};
+		var t4 = performance.now();
 		ws.send(JSON.stringify(jsonmessage));
+		var t5 = performance.now();
+		console.log('-----');
+		console.log(t0);
+		console.log(t1);
+		console.log(t2);
+		console.log(t3);
+		console.log(t4);
+		console.log(t5);
 	});
 }
 
@@ -646,7 +655,6 @@ function datasetsChartjs(data,options) {
 	if(yColumns.length==0){
 		yColumns.push(1);
 	}
-	console.log(yColumns);
 	for (var i=0;i<yColumns.length;i++){
 		var newdataset = {'label':'Label','data':[],'fill':false};
 		for (var ii=0;ii<data['bycol'][yColumns[i]].length;ii++){
