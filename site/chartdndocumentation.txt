@@ -21,6 +21,8 @@ sudo chown -R rwilcox:rwilcox /etc/letsencrypt
 npm install -s ws
 npm install passport passport-local mongoose passport-local-mongoose
 
+sudo apt-get install python3-pip
+pip3 install robohash
 
 Use node on backend
 Need csv-parse, nunjucks(template system), express, wasm-flate
