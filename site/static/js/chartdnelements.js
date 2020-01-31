@@ -8,7 +8,7 @@ class chartdnChart extends HTMLElement {
 		<canvas id="myChart" style="display: none;"></canvas>
 	</div>`;
 	if (this.getAttribute('type') != 'chartJS'){
-		chgType(this.getAttribute('type'));
+		this.chgType(this.getAttribute('type'));
 	}
 	
 	
