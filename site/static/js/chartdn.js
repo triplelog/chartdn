@@ -22,7 +22,7 @@ ws.onmessage = function(evt){
 	}
 	else if (dm.operation == 'chart'){
 		var chartJSON = dm.message;
-		document.querySelector('chartdn-chart').makeChart(chartJSON);
+		document.querySelector('chartdn-chart').makeChartjs(chartJSON);
 	}
 }
 

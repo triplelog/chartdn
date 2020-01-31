@@ -86,6 +86,40 @@ exports.createChartjs = function(data,options) {
 	return chartJSON;
 }
 
+
+exports.createXkcd = function(data,options) {
+	var datasets = [];
+	for (var i=0;i<options['yColumns'].length;i++){
+		datasets.push({'label': 'Y'+i, 'data':data['bycol'][options['yColumns'][i]]});
+	}
+	var labels = [];
+	for (var i=0;i<data['bycol'][options['xColumn']].length;i++){
+		labels.push(''+data['bycol'][options['xColumn']][i]);
+	}
+	if (!options.title) {options['title']=''}
+	if (!options.tickCountY) {options['tickCountY']=''}
+	if (!options.tickCountX) {options['tickCountX']=''}
+	
+	chartJSON = {
+	  `+options.title+`
+	  xLabel: 'Month', // optional
+	  yLabel: '$ Dollars', // optional
+	  data: {
+		labels: `+JSON.stringify(labels)+`,
+		datasets: `+JSON.stringify(datasets)+`,
+	  },
+	  options: { // optional
+		`+options.tickCountY+`
+		`+options.tickCountX+`
+		legendPosition: chartXkcd.config.positionType.upLeft
+	  }
+	};
+	
+	return chartJSON;
+
+}
+
+/*
 exports.createXkcd = function(data,options) {
 	var datasets = [];
 	for (var i=0;i<options['yColumns'].length;i++){
@@ -120,7 +154,7 @@ exports.createXkcd = function(data,options) {
 	
 	return baseJS;
 
-}
+}*/
 
 
 

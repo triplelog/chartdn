@@ -607,10 +607,10 @@ function createChart(alldata,csvdata,chartType="line") {
 		if (frameworks[i] == 'latex'){
 			fullJS += '';
 		}
-		else if (frameworks[i] == 'xkcd'){
+		/*else if (frameworks[i] == 'xkcd'){
 			if (title != '' && title != 'notitle') {options['title'] = 'title: "'+title+'",';}
 			fullJS += chartFile.createXkcd(csvdata,options);
-		}
+		}*/
 		else if (frameworks[i] == 'google'){
 			if (title != '' && title != 'notitle') {options['title'] = 'title: "'+title+'",';}
 			fullJS += chartFile.createGoogle(csvdata,options);
