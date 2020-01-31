@@ -62,7 +62,7 @@ exports.createChartjs = function(data,options) {
 	if (options.stepSizeX != '' && options.stepSizeX != 'default') {chartjsOptions['xTicks'] = {'stepSize': stepSizeX };}
 	if (options.stepSizeY != '' && options.stepSizeY != 'default') {chartjsOptions['yTicks'] = {'stepSize': stepSizeY };}
 	//chartjsOptions['yTicks']['beginAtZero'] = true;
-
+	//Check if step sizes are numbers?
 	var chartJSON = {
 		type: 'line',
 		data: {
