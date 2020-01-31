@@ -85,7 +85,7 @@ exports.createChartjs = function(data,options) {
 					}
 				}]
 			},
-			title: chartJSoptions['title'],
+			title: chartjsOptions['title'],
 
 		}
 	};
