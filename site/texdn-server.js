@@ -467,7 +467,16 @@ loginServer.listen(3000);
 
 function convertDataToFull(dataStr,nHeaders,filen) {
 	var tn2 = performance.now();
-	var results = Papa.parse(dataStr);
+	var results = Papa.parse(dataStr, {
+		complete: function(results) {
+			console.log(results.length);
+			var tn1 = performance.now();
+			console.log('--a-a-a-a-a');
+			console.log(tn2);
+			console.log(tn1);
+		}
+	});
+	
 	var t0 = performance.now();
 	
 	const parser = parse(dataStr, {
