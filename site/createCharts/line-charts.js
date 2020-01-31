@@ -57,12 +57,11 @@ function createJSdatasets(data,options) {
 exports.createChartjs = function(data,options) {
 	
 	var datasets = createJSdatasets(data,options);
-	var chartjsOptions = {'datasets':datasets,'title':{}};
+	var chartjsOptions = {'datasets':datasets,'title':{},'xTicks':{},'yTicks':{}};
 	if (options.title != '' && options.title != 'notitle') {chartjsOptions['title'] = {display: true, text: options.title};}
-	/*if (stepSizeX != '' && stepSizeX != 'default') {options['stepSizeX'] = 'stepSize: '+stepSizeX+',' }
-	if (stepSizeY != '' && stepSizeY != 'default') {options['stepSizeY'] = 'stepSize: '+stepSizeY+',' }
-	if (lineColor != '' && lineColor != 'default') {options['lineColor'] = lineColor}
-	if (dotColor != '' && dotColor != 'default') {options['dotColor'] = dotColor}*/
+	if (options.stepSizeX != '' && options.stepSizeX != 'default') {chartjsOptions['xTicks'] = {'stepSize': stepSizeX };}
+	if (options.stepSizeY != '' && options.stepSizeY != 'default') {chartjsOptions['yTicks'] = {'stepSize': stepSizeY };}
+	//chartjsOptions['yTicks']['beginAtZero'] = true;
 
 	var chartJSON = {
 		type: 'line',
@@ -72,17 +71,12 @@ exports.createChartjs = function(data,options) {
 		options: {
 			scales: {
 				yAxes: [{
-					ticks: {
-						beginAtZero: true,
-		
-					}
+					ticks: chartjsOptions['yTicks'],
 				}],
 				xAxes: [{
 					type: 'linear',
 					position: 'bottom',
-					ticks: {
-		
-					}
+					ticks: chartjsOptions['xTicks'],
 				}]
 			},
 			title: chartjsOptions['title'],
@@ -91,59 +85,7 @@ exports.createChartjs = function(data,options) {
 	};
 	return chartJSON;
 }
-/*
-exports.createChartjs = function(data,options) {
-	var datasets = [];
-	for (var i=0;i<options['yColumns'].length;i++){
-		var newdataset = {'label':'Label','data':[],'fill':false};
-		for (var ii=0;ii<data['bycol'][options['yColumns'][i]].length;ii++){
-			newdataset['data'].push({'x':data['bycol'][options['xColumn']][ii], 'y':data['bycol'][options['yColumns'][i]][ii]});
-		}
-		if (options.lineColor) {newdataset['borderColor']=lineColor}
-		if (options.dotColor) {newdataset['backgroundColor']=dotColor}
-			
-		datasets.push(newdataset);
-	}
 
-	if (!options.title) {options['title']=''}
-	if (!options.stepSizeX) {options['stepSizeX']=''}
-	if (!options.stepSizeY) {options['stepSizeY']=''}
-	
-	var baseJS = `
-	<script>
-	document.getElementById('myChart').style.display = 'block';
-	var ctx = document.getElementById('myChart').getContext('2d');
-	var myLineChart = new Chart(ctx, {
-		type: 'line',
-		data: {
-			datasets: `+JSON.stringify(datasets)+`,
-		},
-		options: {
-			scales: {
-				yAxes: [{
-					ticks: {
-						beginAtZero: true,
-						`+options.stepSizeY+`
-					}
-				}],
-				xAxes: [{
-					type: 'linear',
-					position: 'bottom',
-					ticks: {
-						`+options.stepSizeX+`
-					}
-				}]
-			},
-			`+options.title+`
-		
-		}
-	});
-	</script>
-	`;
-	return baseJS;
-
-}
-*/
 exports.createXkcd = function(data,options) {
 	var datasets = [];
 	for (var i=0;i<options['yColumns'].length;i++){
