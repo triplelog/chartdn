@@ -467,7 +467,7 @@ loginServer.listen(3000);
 
 function convertDataToFull(dataStr,nHeaders,filen) {
 	var tn2 = performance.now();
-	
+	var results = Papa.parse(dataStr);
 	var t0 = performance.now();
 	
 	const parser = parse(dataStr, {
