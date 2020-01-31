@@ -277,7 +277,7 @@ var chartBox = `<div class="chart-box box-1-2">
 loginApp.get('/browse',
 	function(req, res){
 		res.write(nunjucks.render('browse.html',{
-			charts: [chartBox],		
+			charts: [{'src':'f02fd57c','cols':2,'rows':1,'name':'test'}],		
 		}));
 		res.end();
     }

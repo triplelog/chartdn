@@ -42,7 +42,15 @@
 				</div>
 			</div>
 			{% for chart in charts %}
-			  <li>{{ chart }}</li>
+			  <div class="chart-box box-{{ chart.cols }}-{{ chart.rows }}">
+				<a href="/charts/{{ chart.src }}">
+					<chartdn-chart src="{{ chart.src }}"></chartdn-chart>
+				</a>
+
+				<aside class="photo-box-caption">
+					<span><a href="/charts/{{ chart.src }}">{{ chart.name }}</a></span>
+				</aside>
+			  </div>
 			{% else %}
 			{% endfor %}
 			
