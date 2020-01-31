@@ -75,7 +75,7 @@ app2.post('/settings',
 		    console.log(result);
 			result['name']=req.body.name;
 			console.log(result['name']);
-			console.log(result.name);
+			console.log(result);
 			result.save(function (err, result) {
 				if (err) return console.error('error updating user\n',err);
 				console.log(result);
