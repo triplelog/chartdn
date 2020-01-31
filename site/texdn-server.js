@@ -465,82 +465,135 @@ const loginServer = https.createServer(options, loginApp);
 loginServer.listen(3000);
 
 
-function convertDataToFull(dataStr,nHeaders,filen) {
-	var tn2 = performance.now();
-	var results = Papa.parse(dataStr, {
-		complete: function(results) {
-			console.log(results.data.length);
-			var tn1 = performance.now();
-			console.log('--a-a-a-a-a');
-			console.log(tn2);
-			console.log(tn1);
-		}
-	});
-	
-	var t0 = performance.now();
-	
-	const parser = parse(dataStr, {
-	  trim: true,
-	  skip_empty_lines: true
-	})
-	rawArray = [];
-	var currentRow = 0;
-	var t1 = performance.now();
-	while (2 == 2) {
-		var tempA = parser.read();
-		if (!tempA){break;}
-		if (currentRow >= nHeaders) {
-			for (var i=0;i<tempA.length;i++) {
-				var cell = tempA[i];
-				if (!isNaN(parseFloat(cell))){
-					if ((parseFloat(cell)%1)===0) {
-						tempA[i] = parseInt(cell);
-					}
-					else {
-						tempA[i] = parseFloat(cell);
+function convertDataToFull(dataStr,nHeaders,usepapa=false) {
+	if (usepapa){
+		var t0 = performance.now();
+
+		rawArray = [];
+		var currentRow = 0;
+		var t1 = performance.now();
+		for (var i in dataStr) {
+			var tempA = dataStr[i];
+			if (!tempA){break;}
+			if (currentRow >= nHeaders) {
+				for (var i=0;i<tempA.length;i++) {
+					var cell = tempA[i];
+					if (!isNaN(parseFloat(cell))){
+						if ((parseFloat(cell)%1)===0) {
+							tempA[i] = parseInt(cell);
+						}
+						else {
+							tempA[i] = parseFloat(cell);
+						}
 					}
 				}
 			}
+			currentRow++;
+			rawArray.push(tempA);
 		}
-		currentRow++;
-		rawArray.push(tempA);
-	}
 
-	var t2 = performance.now();
+		var t2 = performance.now();
 
-	var filteredArray = rawArray;
+		var filteredArray = rawArray;
 	
-	var t3 = performance.now();
+		var t3 = performance.now();
 	
-	retArray = [];
-	var cols = [];
-	for (var i=0;i<filteredArray.length;i++) {
+		retArray = [];
+		var cols = [];
+		for (var i=0;i<filteredArray.length;i++) {
 		
-		if (i == 0){
-			for (var ii=0;ii<filteredArray[i].length;ii++) {
-				cols.push([]);
+			if (i == 0){
+				for (var ii=0;ii<filteredArray[i].length;ii++) {
+					cols.push([]);
+				}
 			}
-		}
-		if (i >= nHeaders) {
-			var tempA = [];
-			for (var ii=0;ii<filteredArray[i].length;ii++) {
-				var cell = filteredArray[i][ii];
-				cols[ii].push(cell);
-				tempA.push(cell);
+			if (i >= nHeaders) {
+				var tempA = [];
+				for (var ii=0;ii<filteredArray[i].length;ii++) {
+					var cell = filteredArray[i][ii];
+					cols[ii].push(cell);
+					tempA.push(cell);
+				}
+				retArray.push(tempA);
 			}
-			retArray.push(tempA);
-		}
 		
+		}
+		var t4 = performance.now();
+		console.log('-----');
+		console.log(tn2);
+		console.log(t0);
+		console.log(t1);
+		console.log(t2);
+		console.log(t3);
+		console.log(t4);
+		return {'byrow':retArray,'bycol':cols};
 	}
-	var t4 = performance.now();
-	console.log('-----');
-	console.log(tn2);
-	console.log(t0);
-	console.log(t1);
-	console.log(t2);
-	console.log(t3);
-	console.log(t4);
-	return {'byrow':retArray,'bycol':cols};
+	else {
+		var t0 = performance.now();
+	
+		const parser = parse(dataStr, {
+		  trim: true,
+		  skip_empty_lines: true
+		})
+		rawArray = [];
+		var currentRow = 0;
+		var t1 = performance.now();
+		while (2 == 2) {
+			var tempA = parser.read();
+			if (!tempA){break;}
+			if (currentRow >= nHeaders) {
+				for (var i=0;i<tempA.length;i++) {
+					var cell = tempA[i];
+					if (!isNaN(parseFloat(cell))){
+						if ((parseFloat(cell)%1)===0) {
+							tempA[i] = parseInt(cell);
+						}
+						else {
+							tempA[i] = parseFloat(cell);
+						}
+					}
+				}
+			}
+			currentRow++;
+			rawArray.push(tempA);
+		}
+
+		var t2 = performance.now();
+
+		var filteredArray = rawArray;
+	
+		var t3 = performance.now();
+	
+		retArray = [];
+		var cols = [];
+		for (var i=0;i<filteredArray.length;i++) {
+		
+			if (i == 0){
+				for (var ii=0;ii<filteredArray[i].length;ii++) {
+					cols.push([]);
+				}
+			}
+			if (i >= nHeaders) {
+				var tempA = [];
+				for (var ii=0;ii<filteredArray[i].length;ii++) {
+					var cell = filteredArray[i][ii];
+					cols[ii].push(cell);
+					tempA.push(cell);
+				}
+				retArray.push(tempA);
+			}
+		
+		}
+		var t4 = performance.now();
+		console.log('-----');
+		console.log(tn2);
+		console.log(t0);
+		console.log(t1);
+		console.log(t2);
+		console.log(t3);
+		console.log(t4);
+		return {'byrow':retArray,'bycol':cols};
+	}
 }
 
 function createChart(alldata,csvdata,chartType="line") {
@@ -612,10 +665,51 @@ function createChart(alldata,csvdata,chartType="line") {
 }
 				
 function makeAllCharts(ws,dm,result) {
+	if (2 == 2){
+		var tn2 = performance.now();
+		var results = Papa.parse(dataStr, {
+			complete: function(results) {
+				var nHeaders = result.options.nHeaders || 1;
+				var data = convertDataToFull(results.data,nHeaders,true);
+				var datasets = datasetsChartjs(data,result.options);
+				var chartjsOptions = {'datasets':datasets};
+				//{'datasets':[{"label":"Label","data":[{"x":1,"y":2},{"x":2,"y":3},{"x":3,"y":2}],"fill":false}]};
+				var chartJSON = {
+					type: 'line',
+					data: {
+						datasets: chartjsOptions['datasets'],
+					},
+					options: {
+						scales: {
+							yAxes: [{
+								ticks: {
+									beginAtZero: true,
+						
+								}
+							}],
+							xAxes: [{
+								type: 'linear',
+								position: 'bottom',
+								ticks: {
+						
+								}
+							}]
+						},
+			
+		
+					}
+				};
+				if (!dm.loc){dm.loc = 0}
+				var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc};
+				ws.send(JSON.stringify(jsonmessage));
+			}
+		});
+	}
+	else {
 	fs.readFile('saved/'+result.data, 'utf8', function(err, fileData) {
 		if (err) {console.log('aaaaaa',err);}
 		var nHeaders = result.options.nHeaders || 1;
-		var data = convertDataToFull(fileData,nHeaders,'saved/'+result.data);
+		var data = convertDataToFull(fileData,nHeaders,false);
 		var datasets = datasetsChartjs(data,result.options);
 		var chartjsOptions = {'datasets':datasets};
 		//{'datasets':[{"label":"Label","data":[{"x":1,"y":2},{"x":2,"y":3},{"x":3,"y":2}],"fill":false}]};
@@ -648,6 +742,7 @@ function makeAllCharts(ws,dm,result) {
 		var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc};
 		ws.send(JSON.stringify(jsonmessage));
 	});
+	}
 }
 
 function datasetsChartjs(data,options) {
