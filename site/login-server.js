@@ -72,12 +72,13 @@ app2.post('/settings',
 		  if (err) {
 	
 		  } else {
+		    console.log(result['name']);
 			result['name']=req.body.name;
 			console.log(result['name']);
 			console.log(result.name);
 			result.save(function (err, result) {
 				if (err) return console.error('error updating user\n',err);
-				console.log(req.user);
+				console.log(result);
   				res.redirect('/account');
 			});
 		  }
