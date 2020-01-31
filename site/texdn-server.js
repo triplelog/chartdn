@@ -226,6 +226,7 @@ wss.on('connection', function connection(ws) {
 						result.options[k] = dm[k];
 					}
 				}
+				console.log(result);
 				result.markModified('options');
 				result.save(function (err, result) {
 					if (err) return console.error('sajdhfkasdhjfkjsahdfkjsadhfs\n',err);
@@ -637,7 +638,6 @@ function makeAllCharts(ws,dm,chartInfo) {
 			complete: function(results) {
 				var nHeaders = chartInfo.options.nHeaders || 1;
 				var data = convertDataToFull(results.data,nHeaders,true);
-				console.log(chartInfo.options);
 				var chartJSON = chartFile.createChartjs(data,chartInfo.options);
 				if (!dm.loc){dm.loc = 0}
 				var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc};
