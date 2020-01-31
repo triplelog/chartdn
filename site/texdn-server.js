@@ -665,47 +665,49 @@ function createChart(alldata,csvdata,chartType="line") {
 function makeAllCharts(ws,dm,result) {
 	var t0 = performance.now();
 	if (2 == 2){
-		var results = Papa.parse('saved/'+result.data, {
-			complete: function(results) {
-				console.log(results.data);
-				var nHeaders = result.options.nHeaders || 1;
-				var data = convertDataToFull(results.data,nHeaders,true);
-				var datasets = datasetsChartjs(data,result.options);
-				var chartjsOptions = {'datasets':datasets};
-				//{'datasets':[{"label":"Label","data":[{"x":1,"y":2},{"x":2,"y":3},{"x":3,"y":2}],"fill":false}]};
-				var chartJSON = {
-					type: 'line',
-					data: {
-						datasets: chartjsOptions['datasets'],
-					},
-					options: {
-						scales: {
-							yAxes: [{
-								ticks: {
-									beginAtZero: true,
-						
-								}
-							}],
-							xAxes: [{
-								type: 'linear',
-								position: 'bottom',
-								ticks: {
-						
-								}
-							}]
+		fs.readFile('saved/'+result.data, 'utf8', function(err, fileData) {
+			var results = Papa.parse(fileData, {
+				complete: function(results) {
+					//console.log(results.data);
+					var nHeaders = result.options.nHeaders || 1;
+					var data = convertDataToFull(results.data,nHeaders,true);
+					var datasets = datasetsChartjs(data,result.options);
+					var chartjsOptions = {'datasets':datasets};
+					//{'datasets':[{"label":"Label","data":[{"x":1,"y":2},{"x":2,"y":3},{"x":3,"y":2}],"fill":false}]};
+					var chartJSON = {
+						type: 'line',
+						data: {
+							datasets: chartjsOptions['datasets'],
 						},
+						options: {
+							scales: {
+								yAxes: [{
+									ticks: {
+										beginAtZero: true,
+						
+									}
+								}],
+								xAxes: [{
+									type: 'linear',
+									position: 'bottom',
+									ticks: {
+						
+									}
+								}]
+							},
 			
 		
-					}
-				};
-				if (!dm.loc){dm.loc = 0}
-				var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc};
-				ws.send(JSON.stringify(jsonmessage));
-				var t1 = performance.now();
-				console.log('-a-');
-				console.log(t0);
-				console.log(t1);
-			}
+						}
+					};
+					if (!dm.loc){dm.loc = 0}
+					var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc};
+					ws.send(JSON.stringify(jsonmessage));
+					var t1 = performance.now();
+					console.log('-a-');
+					console.log(t0);
+					console.log(t1);
+				}
+			});
 		});
 	}
 	else {
