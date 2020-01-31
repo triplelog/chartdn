@@ -80,6 +80,7 @@ exports.createChartjs = function(data,options) {
 
 		}
 	};
+	return chartJSON;
 }
 /*
 exports.createChartjs = function(data,options) {

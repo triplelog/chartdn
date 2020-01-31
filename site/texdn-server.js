@@ -647,7 +647,7 @@ function makeAllCharts(ws,dm,chartInfo) {
 			complete: function(results) {
 				var nHeaders = chartInfo.options.nHeaders || 1;
 				var data = convertDataToFull(results.data,nHeaders,true);
-				chartFile.createChartjs(data,chartInfo.options);
+				var chartJSON = chartFile.createChartjs(data,chartInfo.options);
 				if (!dm.loc){dm.loc = 0}
 				var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc};
 				ws.send(JSON.stringify(jsonmessage));
