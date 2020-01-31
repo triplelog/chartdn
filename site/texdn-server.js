@@ -465,12 +465,14 @@ loginServer.listen(3000);
 
 
 function convertDataToFull(dataStr,nHeaders) {
+	var t0 = performance.now();
 	const parser = parse(dataStr, {
 	  trim: true,
 	  skip_empty_lines: true
 	})
 	rawArray = [];
 	var currentRow = 0;
+	var t1 = performance.now();
 	while (2 == 2) {
 		var tempA = parser.read();
 		if (!tempA){break;}
@@ -491,11 +493,11 @@ function convertDataToFull(dataStr,nHeaders) {
 		rawArray.push(tempA);
 	}
 
-
+	var t2 = performance.now();
 
 	var filteredArray = rawArray;
 	
-	
+	var t3 = performance.now();
 	
 	retArray = [];
 	var cols = [];
@@ -517,7 +519,13 @@ function convertDataToFull(dataStr,nHeaders) {
 		}
 		
 	}
-
+	var t4 = performance.now();
+	console.log('-----');
+	console.log(t0);
+	console.log(t1);
+	console.log(t2);
+	console.log(t3);
+	console.log(t4);
 	return {'byrow':retArray,'bycol':cols};
 }
 
@@ -593,11 +601,8 @@ function makeAllCharts(ws,dm,result) {
 	fs.readFile('saved/'+result.data, 'utf8', function(err, fileData) {
 		if (err) {console.log('aaaaaa',err);}
 		var nHeaders = result.options.nHeaders || 1;
-		var t0 = performance.now();
 		var data = convertDataToFull(fileData,nHeaders);
-		var t1 = performance.now();
 		var datasets = datasetsChartjs(data,result.options);
-		var t2 = performance.now();
 		var chartjsOptions = {'datasets':datasets};
 		//{'datasets':[{"label":"Label","data":[{"x":1,"y":2},{"x":2,"y":3},{"x":3,"y":2}],"fill":false}]};
 		var chartJSON = {
@@ -625,19 +630,9 @@ function makeAllCharts(ws,dm,result) {
 		
 			}
 		};
-		var t3 = performance.now();
 		if (!dm.loc){dm.loc = 0}
 		var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc};
-		var t4 = performance.now();
 		ws.send(JSON.stringify(jsonmessage));
-		var t5 = performance.now();
-		console.log('-----');
-		console.log(t0);
-		console.log(t1);
-		console.log(t2);
-		console.log(t3);
-		console.log(t4);
-		console.log(t5);
 	});
 }
 
