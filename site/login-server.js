@@ -68,12 +68,17 @@ app2.post('/register',
 		  console.log('error while user register!', err);
 		  res.redirect('/account');
 		}
-
+		
 		console.log('user registered!');
-		req.login(user, function(err) {
-		  if (err) { res.redirect('/'); }
-		  else {res.redirect('/account'); }
+		var robot = 'python3 python/createrobo.py '+req.body.username;
+		var child = exec(robot, function(err, stdout, stderr) {
+			
+			req.login(user, function(err) {
+			  if (err) { res.redirect('/'); }
+			  else {res.redirect('/account'); }
+			});
 		});
+		
 		
 
 	});
