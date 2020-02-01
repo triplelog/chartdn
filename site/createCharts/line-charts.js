@@ -146,15 +146,16 @@ exports.createGoogle = function(data,options) {
 	}
 	
 	var retArray = [['x','y']];
-	console.log(data['byrow'][data['byrow'].length-1])
 	for (var i=0;i<data['byrow'].length;i++) {
 		if (i >= options['nHeaders']) {
 			var tempA = [];
 			for (var ii=0;ii<yColumns.length;ii++) {
 				var cell = data['byrow'][i][yColumns[ii]];
-				tempA.push(cell);
 				if (isNaN(cell)){continue;}
+				tempA.push(cell);
+				
 			}
+			if (tempA.length<yColumns.length){continue;}
 			retArray.push(tempA);
 		}
 	}
