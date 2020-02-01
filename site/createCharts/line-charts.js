@@ -30,22 +30,18 @@ exports.createPlotly = function(data,options) {
 
 function createJSdatasets(data,options) {
 	var datasets = [];
-	if (!options['yColumns']){return [];}
-	if (!options['xColumn']){return [];}
-	var xColumn = 0;
-	var yColumns = [];
-	if (!isNaN(parseInt(options.xColumn))){ xColumn = parseInt(options.xColumn);}
-	var yCols = options.yColumns.split(',');
-	for (var i=0;i<yCols.length;i++){
-		if (!isNaN(parseInt(yCols[i]))){ yColumns.push(parseInt(yCols[i]));}
-	}
-	if(yColumns.length==0){
-		yColumns.push(1);
-	}
-	for (var i=0;i<yColumns.length;i++){
+	
+
+	for (var i=0;i<options.yColumns.length;i++){
 		var newdataset = {'label':'Label','data':[],'fill':false};
-		for (var ii=0;ii<data['bycol'][yColumns[i]].length;ii++){
-			newdataset['data'].push({'x':data['bycol'][xColumn][ii], 'y':data['bycol'][yColumns[i]][ii]});
+		for (var ii=0;ii<data['bycol'][options.yColumns[i]].length;ii++){
+			if (options.xColumn != ''){
+				newdataset['data'].push({'x':data['bycol'][options.xColumn][ii], 'y':data['bycol'][options.yColumns[i]][ii]});
+			}
+			else {
+				newdataset['data'].push({'x':ii, 'y':data['bycol'][options.yColumns[i]][ii]});
+
+			}
 		}
 		if (options.lineColor) {newdataset['borderColor']=lineColor}
 		if (options.dotColor) {newdataset['backgroundColor']=dotColor}
@@ -55,6 +51,7 @@ function createJSdatasets(data,options) {
 	return datasets;
 }
 exports.createChartjs = function(data,options) {
+	if (!options['yColumns'] || options['yColumns'].length == 0){return {};}
 	
 	var datasets = createJSdatasets(data,options);
 	var chartjsOptions = {'datasets':datasets,'title':{},'xTicks':{},'yTicks':{}};
@@ -89,26 +86,23 @@ exports.createChartjs = function(data,options) {
 
 exports.createXkcd = function(data,options) {
 	var datasets = [];
-	if (!options['yColumns']){return {};}
-	if (!options['xColumn']){return {};}
-	var xColumn = 0;
-	var yColumns = [];
-	if (!isNaN(parseInt(options.xColumn))){ xColumn = parseInt(options.xColumn);}
-	var yCols = options.yColumns.split(',');
-	for (var i=0;i<yCols.length;i++){
-		if (!isNaN(parseInt(yCols[i]))){ yColumns.push(parseInt(yCols[i]));}
-	}
-	if(yColumns.length==0){
-		yColumns.push(1);
-	}
-	
-	for (var i=0;i<yColumns.length;i++){
-		datasets.push({'label': 'Y'+i, 'data':data['bycol'][yColumns[i]]});
+	if (!options['yColumns'] || options['yColumns'].length == 0){return {};}
+
+
+	for (var i=0;i<options.yColumns.length;i++){
+		datasets.push({'label': 'Y'+i, 'data':data['bycol'][options.yColumns[i]]});
 	}
 	
 	var labels = [];
-	for (var i=0;i<data['bycol'][xColumn].length;i++){
-		labels.push(''+data['bycol'][xColumn][i]);
+	if (options.xColumn != ''){
+		for (var i=0;i<data['bycol'][options.xColumn].length;i++){
+			labels.push(''+data['bycol'][options.xColumn][i]);
+		}
+	}
+	else {
+		for (var i=0;i<data['bycol'][options.yColumns[0]].length;i++){
+			labels.push(''+i);
+		}
 	}
 	
 	
@@ -132,31 +126,18 @@ exports.createXkcd = function(data,options) {
 
 }
 exports.createGoogle = function(data,options) {
-	if (!options['yColumns']){return {};}
-	if (!options['xColumn']){return {};}
-	var xColumn = 0;
-	var yColumns = [];
-	if (!isNaN(parseInt(options.xColumn))){ xColumn = parseInt(options.xColumn);}
-	console.log(options);
-	var yCols = options.yColumns.split(',');
-	for (var i=0;i<yCols.length;i++){
-		if (!isNaN(parseInt(yCols[i]))){ yColumns.push(parseInt(yCols[i]));}
-	}
-	if(yColumns.length==0){
-		yColumns.push(1);
-	}
 	
 	var retArray = [['x','y']];
 	for (var i=0;i<data['byrow'].length;i++) {
 		if (i >= options['nHeaders']) {
 			var tempA = [];
-			for (var ii=0;ii<yColumns.length;ii++) {
-				var cell = data['byrow'][i][yColumns[ii]];
+			for (var ii=0;ii<options.yColumns.length;ii++) {
+				var cell = data['byrow'][i][options.yColumns[ii]];
 				if (isNaN(cell)){continue;}
 				tempA.push(cell);
 				
 			}
-			if (tempA.length<yColumns.length){continue;}
+			if (tempA.length<options.yColumns.length){continue;}
 			retArray.push(tempA);
 		}
 	}

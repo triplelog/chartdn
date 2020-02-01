@@ -429,7 +429,28 @@ loginApp.get('/edit/:chartid',
 const loginServer = https.createServer(options, loginApp);
 loginServer.listen(3000);
 
-
+function convertToOptions(oldOptions){
+	var options = oldOptions;
+	if (!oldOptions['yColumns']){options['yColumns']=[];}
+	else {
+		var yColumns = [];
+		var yCols = oldOptions.yColumns.split(',');
+		for (var i=0;i<yCols.length;i++){
+			if (!isNaN(parseInt(yCols[i]))){ yColumns.push(parseInt(yCols[i]));}
+		}
+		if(yColumns.length==0){
+			yColumns.push(1);
+		}
+		options['yColumns']=yColumns;
+	}
+	if (!oldOptions['xColumn'] || isNaN(oldOptions['xColumn']) ){options['xColumn']='';}
+	else {
+		var xColumn = 0;
+		if (!isNaN(parseInt(oldOptions.xColumn))){ xColumn = parseInt(oldOptions.xColumn);}
+		options['xColumn']=xColumn;
+	}
+	return options;
+}
 function convertDataToFull(dataStr,nHeaders,usepapa=false) {
 	if (usepapa){
 
@@ -602,22 +623,24 @@ function makeAllCharts(ws,dm,chartInfo,chartType='all') {
 			complete: function(results) {
 				var nHeaders = chartInfo.options.nHeaders || 1;
 				var data = convertDataToFull(results.data,nHeaders,true);
+				var options = convertToOptions(chartInfo.options);
+				
 				if (chartType == 'all' || chartType == 'chartJS') {
-					var chartJSON = chartFile.createChartjs(data,chartInfo.options);
+					var chartJSON = chartFile.createChartjs(data,options);
 					if (!dm.loc){dm.loc = 0}
 					var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc,'type':'chartJS'};
 					ws.send(JSON.stringify(jsonmessage));
 				}
 				var t1 = performance.now();
 				if (chartType == 'all' || chartType == 'XKCD') {
-					var chartJSON = chartFile.createXkcd(data,chartInfo.options);
+					var chartJSON = chartFile.createXkcd(data,options);
 					if (!dm.loc){dm.loc = 0}
 					var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc,'type':'XKCD'};
 					ws.send(JSON.stringify(jsonmessage));
 				}
 				var t2 = performance.now();
 				if (chartType == 'all' || chartType == 'google') {
-					var chartJSON = chartFile.createGoogle(data,chartInfo.options);
+					var chartJSON = chartFile.createGoogle(data,options);
 					if (!dm.loc){dm.loc = 0}
 					var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc,'type':'google'};
 					ws.send(JSON.stringify(jsonmessage));
