@@ -62,7 +62,7 @@ class chartdnChart extends HTMLElement {
   	
   }
 }
-drawGoogle(chartJSON,el) {
+function drawGoogle(chartJSON,el) {
 	console.log(chartJSON.retArray);
 	var data = google.visualization.arrayToDataTable();
 	var chart = new google.visualization.LineChart(el);
