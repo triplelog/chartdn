@@ -131,7 +131,40 @@ exports.createXkcd = function(data,options) {
 	return chartJSON;
 
 }
+exports.createGoogle = function(data,options) {
+	if (!options['yColumns']){return {};}
+	if (!options['xColumn']){return {};}
+	var xColumn = 0;
+	var yColumns = [];
+	if (!isNaN(parseInt(options.xColumn))){ xColumn = parseInt(options.xColumn);}
+	var yCols = options.yColumns.split(',');
+	for (var i=0;i<yCols.length;i++){
+		if (!isNaN(parseInt(yCols[i]))){ yColumns.push(parseInt(yCols[i]));}
+	}
+	if(yColumns.length==0){
+		yColumns.push(1);
+	}
+	
+	var retArray = [['x','y']];
+	for (var i=0;i<data['byrow'].length;i++) {
+		if (i >= options['nHeaders']) {
+			var tempA = [];
+			for (var ii=0;ii<yColumns.length;ii++) {
+				var cell = data['byrow'][i][yColumns[ii]];
+				tempA.push(cell);
+			}
+			retArray.push(tempA);
+		}
+	}
 
+	var chartJSON = {'retArray':retArray,'options':{
+		  curveType: 'function',
+		  legend: { position: 'bottom' }
+		}};
+	
+	return chartJSON;
+
+}
 /*
 exports.createXkcd = function(data,options) {
 	var datasets = [];
@@ -167,7 +200,7 @@ exports.createXkcd = function(data,options) {
 	
 	return baseJS;
 
-}*/
+}
 
 
 
@@ -208,4 +241,4 @@ exports.createGoogle = function(data,options) {
 	`;
 	return baseJS;
 
-}
+}*/

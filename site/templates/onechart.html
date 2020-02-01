@@ -58,9 +58,7 @@
     	<div class="pure-g">
 				
 			<div class="l-box pure-u-1-2" style="border: 1px solid black;">
-				<div class="chart-container" style="position: relative;">
-					<chartdn-chart src="{{ chartid }}" type="chartJS"></chartdn-chart>
-				</div>
+				<chartdn-chart src="{{ chartid }}" type="chartJS"></chartdn-chart>
 			</div>
 			<div class="l-box pure-u-1-2" style="border: 1px solid black;">
 				Plotly
@@ -69,15 +67,10 @@
 				</div>
 			</div>
 			<div class="l-box pure-u-1-2" style="border: 1px solid black;">
-				<div class="chart-container" style="position: relative;">
-					<chartdn-chart src="{{ chartid }}" type="XKCD"></chartdn-chart>
-				</div>
+				<chartdn-chart src="{{ chartid }}" type="XKCD"></chartdn-chart>
 			</div>
 			<div class="l-box pure-u-1-2" style="border: 1px solid black;">
-				Google
-				<div class="chart-container" style="position: relative;">
-					<div id="googleChart" style="display: none;"></div>
-				</div>
+				<chartdn-chart src="{{ chartid }}" type="google"></chartdn-chart>
 			</div>
 			<div class="l-box pure-u-1-2" style="border: 1px solid black;">
 				Pgfplots
@@ -90,8 +83,7 @@
       	
   </div>
   <script>var username = "{{ username }}"</script>
-  
-  {{ chartScript }}
+
   <script src="../js/chartdnws.js"></script>
   <script src="../js/chartdnelements.js"></script>
 

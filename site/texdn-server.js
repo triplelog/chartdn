@@ -309,53 +309,12 @@ loginApp.get('/charts/:chartid',
 			username = req.user.username;
 		}
 		var start = process.hrtime();
-        req.on('data', function (chunk) {
-        
-        });
-
-		// when we get data we want to store it in memory
-		req.on('end', () => {
-				Chart.findOne({ id: chartid }, function(err, result) {
-				  if (err) {
-				
-				  } else {
-				    if (result == null){
-				    	
-				    }
-				    else {
-						var dataname = result.data;
-						var myOptions = result.options;
-						fs.readFile('saved/'+dataname, 'utf8', function(err, fileData) {
-							var defaultData = ''
-							if (!err) {defaultData = fileData;}
-							var savedData = myOptions;
-							var chartType = {'line':'','bar':'','scatter':'','pie':'','bubble':'','histogram':'','heatmap':'','radar':'','box':'','choropleth':'','splom':'','diff':'','calendar':''};
-							if (savedData['type'] && savedData['type'] != ''){
-								chartType[savedData['type']]='checked';
-							}
-							else {
-								savedData['type']='line';
-							}
-							res.write(nunjucks.render('onechart.html',{
-								chartScript: createChart(savedData,convertDataToFull(defaultData,savedData.nHeaders),savedData['type']), 
-								dataAreaText: defaultData,
-								nHeaders: savedData.nHeaders || 1,
-								isChecked: chartType,
-								title: savedData.title || '',
-								xColumn: savedData.xColumn || '',
-								yColumns: savedData.yColumns || '',
-								username: username || '',
-								newchartid: chartid+'a',
-								chartid: chartid,
-							}));
-							res.end();
-						});
-					}
-					
-				  }
-				});
-
-		});
+        res.write(nunjucks.render('onechart.html',{
+			username: username || '',
+			newchartid: chartid+'a',
+			chartid: chartid,
+		}));
+		res.end();
     }
 );
 loginApp.get('/edit/:chartid',
@@ -657,10 +616,18 @@ function makeAllCharts(ws,dm,chartInfo,chartType='all') {
 					ws.send(JSON.stringify(jsonmessage));
 				}
 				var t2 = performance.now();
+				if (chartType == 'all' || chartType == 'google') {
+					var chartJSON = chartFile.createGoogle(data,chartInfo.options);
+					if (!dm.loc){dm.loc = 0}
+					var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc,'type':'google'};
+					ws.send(JSON.stringify(jsonmessage));
+				}
+				var t3 = performance.now();
 				console.log('-a-');
 				console.log(t0);
 				console.log(t1);
 				console.log(t2);
+				console.log(t3);
 			}
 		});
 	});
