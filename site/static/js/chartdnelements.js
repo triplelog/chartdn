@@ -32,7 +32,7 @@ class chartdnChart extends HTMLElement {
   }
   drawGoogle(chartJSON) {
   		console.log(chartJSON.retArray);
-		var data = google.visualization.arrayToDataTable([{label: 'Country', type: 'string'},
+		var data = google.visualization.arrayToDataTable([[{label: 'Country', type: 'string'},
    {label: 'Population', type: 'number'},
    {label: 'Area', type: 'number'},
    {type: 'string', role: 'annotation'}],
