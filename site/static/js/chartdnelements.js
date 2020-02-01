@@ -11,7 +11,7 @@ class chartdnChart extends HTMLElement {
 		this.chgType(this.getAttribute('type'));
 	}
 	
-	
+	this.googleEl = shadowRoot.querySelector('#googleChart');
 	
   }
   
@@ -34,7 +34,7 @@ class chartdnChart extends HTMLElement {
   drawChart() {
   	var _this = this;
   	var data = google.visualization.arrayToDataTable([]);
-	var chart = new google.visualization.LineChart(_this.shadowRoot.querySelector('#googleChart'));
+	var chart = new google.visualization.LineChart(_this.googleEl);
 	chart.draw(data, {});
   }
   
