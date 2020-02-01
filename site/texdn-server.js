@@ -596,7 +596,7 @@ function createChart(alldata,csvdata,chartType="line") {
 		/*else if (frameworks[i] == 'xkcd'){
 			if (title != '' && title != 'notitle') {options['title'] = 'title: "'+title+'",';}
 			fullJS += chartFile.createXkcd(csvdata,options);
-		}*/
+		}
 		else if (frameworks[i] == 'google'){
 			if (title != '' && title != 'notitle') {options['title'] = 'title: "'+title+'",';}
 			fullJS += chartFile.createGoogle(csvdata,options);
@@ -606,7 +606,7 @@ function createChart(alldata,csvdata,chartType="line") {
 			if (stepSizeX != '' && stepSizeX != 'default') {options['xaxis'] = 'xaxis: {dtick: '+stepSizeX+'},' }
 			if (stepSizeY != '' && stepSizeY != 'default') {options['yaxis'] = 'yaxis: {dtick: '+stepSizeY+'},' }
 			fullJS += chartFile.createPlotly(csvdata,options);
-		}
+		}*/
 	}
 
 
@@ -646,11 +646,19 @@ function makeAllCharts(ws,dm,chartInfo,chartType='all') {
 					ws.send(JSON.stringify(jsonmessage));
 				}
 				var t3 = performance.now();
+				if (chartType == 'all' || chartType == 'plotly') {
+					var chartJSON = chartFile.createPlotly(data,options);
+					if (!dm.loc){dm.loc = 0}
+					var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc,'type':'plotly'};
+					ws.send(JSON.stringify(jsonmessage));
+				}
+				var t4 = performance.now();
 				console.log('-a-');
 				console.log(t0);
 				console.log(t1);
 				console.log(t2);
 				console.log(t3);
+				console.log(t4);
 			}
 		});
 	});

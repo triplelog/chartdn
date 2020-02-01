@@ -33,6 +33,11 @@ class chartdnChart extends HTMLElement {
 	google.charts.load('current', {'packages':['corechart']});
 	google.charts.setOnLoadCallback(drawChart);
   }
+  makePlotly(chartJSON){
+  	this.shadowRoot.querySelector('#plotlyDiv').style.display = 'block';
+
+	Plotly.newPlot(this.shadowRoot.querySelector('#plotlyDiv'), chartJSON.data, chartJSON.options);
+  }
   
   
   makeChart(chartJSON){
@@ -41,6 +46,9 @@ class chartdnChart extends HTMLElement {
   	}
   	else if (this.getAttribute('type') == 'google'){
   		this.makeGoogle(chartJSON);
+  	}
+  	else if (this.getAttribute('type') == 'plotly'){
+  		this.makePlotly(chartJSON);
   	}
   	else {
   		this.makeChartjs(chartJSON);
@@ -57,11 +65,17 @@ class chartdnChart extends HTMLElement {
 					<div id="googleChart" style="display: none;"></div>
 				</div>`;
   	}
+  	else if (type == 'plotly') {
+  		this.shadowRoot.innerHTML = `<div class="chart-container" style="position: relative;">
+					<div id="plotlyDiv" style="display: none;"></div>
+				</div>`;
+  	}
   	else if (type == 'chartJS') {
   		this.shadowRoot.innerHTML = `<div class="chart-container" style="position: relative;">
 			<canvas id="myChart" style="display: none;"></canvas>
 		</div>`;
   	}
+  	
   	
   }
 }
