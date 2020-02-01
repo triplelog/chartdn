@@ -161,7 +161,7 @@ exports.createGoogle = function(data,options) {
 		  curveType: 'function',
 		  legend: { position: 'bottom' }
 		}};
-	
+	console.log(chartJSON);
 	return chartJSON;
 
 }
