@@ -40,6 +40,9 @@ class chartdnChart extends HTMLElement {
   	if (this.getAttribute('type') == 'XKCD'){
   		this.makeXkcd(chartJSON);
   	}
+  	else if (this.getAttribute('type') == 'google'){
+  		this.makeGoogle(chartJSON);
+  	}
   	else {
   		this.makeChartjs(chartJSON);
   	}
