@@ -137,6 +137,7 @@ exports.createGoogle = function(data,options) {
 	var xColumn = 0;
 	var yColumns = [];
 	if (!isNaN(parseInt(options.xColumn))){ xColumn = parseInt(options.xColumn);}
+	console.log(options);
 	var yCols = options.yColumns.split(',');
 	for (var i=0;i<yCols.length;i++){
 		if (!isNaN(parseInt(yCols[i]))){ yColumns.push(parseInt(yCols[i]));}
