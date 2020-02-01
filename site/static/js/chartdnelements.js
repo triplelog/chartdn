@@ -11,7 +11,7 @@ class chartdnChart extends HTMLElement {
 		this.chgType(this.getAttribute('type'));
 	}
 	
-	this.googleEl = shadowRoot.querySelector('#googleChart');
+	googleEl = shadowRoot.querySelector('#googleChart');
 	
   }
   
@@ -29,14 +29,9 @@ class chartdnChart extends HTMLElement {
     var el = this.shadowRoot.querySelector('#googleChart');
   	el.style.display = 'block';
 	google.charts.load('current', {'packages':['corechart']});
-	google.charts.setOnLoadCallback(this.drawChart);
+	google.charts.setOnLoadCallback(drawChart);
   }
-  drawChart() {
-  	var _this = this;
-  	var data = google.visualization.arrayToDataTable([]);
-	var chart = new google.visualization.LineChart(this.googleEl);
-	chart.draw(data, {});
-  }
+  
   
   makeChart(chartJSON){
   	if (this.getAttribute('type') == 'XKCD'){
@@ -68,5 +63,10 @@ class chartdnChart extends HTMLElement {
   	
   }
 }
-
+var googleEl;
+function drawChart() {
+  	var data = google.visualization.arrayToDataTable([]);
+	var chart = new google.visualization.LineChart(googleEl);
+	chart.draw(data, {});
+}
 customElements.define('chartdn-chart', chartdnChart);
