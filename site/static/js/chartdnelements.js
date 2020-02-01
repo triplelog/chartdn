@@ -32,8 +32,9 @@ class chartdnChart extends HTMLElement {
 	google.charts.setOnLoadCallback(this.drawChart);
   }
   drawChart() {
+  	var _this = this;
   	var data = google.visualization.arrayToDataTable([]);
-	var chart = new google.visualization.LineChart(this.shadowRoot.querySelector('#googleChart'));
+	var chart = new google.visualization.LineChart(_this.shadowRoot.querySelector('#googleChart'));
 	chart.draw(data, {});
   }
   
