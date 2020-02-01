@@ -26,11 +26,13 @@ class chartdnChart extends HTMLElement {
 	const lineChart = new chartXkcd.Line(this.shadowRoot.querySelector('#xkcdSvg'), chartJSON);
   }
   makeGoogle(chartJSON) {
+  	console.log(chartJSON);
   	this.shadowRoot.querySelector('#googleChart').style.display = 'block';
 	google.charts.load('current', {'packages':['corechart']});
 	google.charts.setOnLoadCallback(this.drawGoogle(chartJSON));
   }
   drawGoogle(chartJSON) {
+  		console.log(chartJSON);
 		var data = google.visualization.arrayToDataTable(chartJSON.retArray);
 		var chart = new google.visualization.LineChart(document.getElementById('googleChart'));
 		chart.draw(data, chartJSON.options);
