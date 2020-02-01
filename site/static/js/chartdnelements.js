@@ -32,16 +32,7 @@ class chartdnChart extends HTMLElement {
   }
   drawGoogle(chartJSON) {
   		console.log(chartJSON.retArray);
-		var data = google.visualization.arrayToDataTable([[{label: 'Country', type: 'string'},
-   {label: 'Population', type: 'number'},
-   {label: 'Area', type: 'number'},
-   {type: 'string', role: 'annotation'}],
-  ['CN', 1324, 9640821, 'Annotated'],
-  ['IN', 1133, 3287263, 'Annotated'],
-  ['US', 304, 9629091, 'Annotated'],
-  ['ID', 232, 1904569, 'Annotated'],
-  ['BR', 187, 8514877, 'Annotated']
-]);
+		var data = google.visualization.arrayToDataTable();
 		var chart = new google.visualization.LineChart(document.getElementById('googleChart'));
 		chart.draw(data, chartJSON.options);
   }
