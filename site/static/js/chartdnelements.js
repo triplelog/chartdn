@@ -34,7 +34,7 @@ class chartdnChart extends HTMLElement {
   drawChart() {
   	var _this = this;
   	var data = google.visualization.arrayToDataTable([]);
-	var chart = new google.visualization.LineChart(_this.googleEl);
+	var chart = new google.visualization.LineChart(this.googleEl);
 	chart.draw(data, {});
   }
   
