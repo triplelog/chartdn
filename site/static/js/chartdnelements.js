@@ -26,6 +26,8 @@ class chartdnChart extends HTMLElement {
 	const lineChart = new chartXkcd.Line(this.shadowRoot.querySelector('#xkcdSvg'), chartJSON);
   }
   makeGoogle(chartJSON) {
+  	googleArray = chartJSON.retArray;
+  	googleOptions = chartJSON.options;
     var el = this.shadowRoot.querySelector('#googleChart');
   	el.style.display = 'block';
 	google.charts.load('current', {'packages':['corechart']});
@@ -64,9 +66,11 @@ class chartdnChart extends HTMLElement {
   }
 }
 var googleEl;
+var googleArray;
+var googleOptions;
 function drawChart() {
-  	var data = google.visualization.arrayToDataTable([]);
+  	var data = google.visualization.arrayToDataTable(googleArray);
 	var chart = new google.visualization.LineChart(googleEl);
-	chart.draw(data, {});
+	chart.draw(data, googleOptions);
 }
 customElements.define('chartdn-chart', chartdnChart);
