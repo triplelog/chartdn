@@ -28,7 +28,7 @@ class chartdnChart extends HTMLElement {
   makeGoogle(chartJSON) {
   	this.shadowRoot.querySelector('#googleChart').style.display = 'block';
 	google.charts.load('current', {'packages':['corechart']});
-	google.charts.setOnLoadCallback(this.drawGoogle(chartJSON,this.shadowRoot.querySelector('#googleChart')));
+	google.charts.setOnLoadCallback(drawGoogle(chartJSON,this.shadowRoot.querySelector('#googleChart')));
   }
   
   
