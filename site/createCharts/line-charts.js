@@ -152,6 +152,7 @@ exports.createGoogle = function(data,options) {
 			for (var ii=0;ii<yColumns.length;ii++) {
 				var cell = data['byrow'][i][yColumns[ii]];
 				tempA.push(cell);
+				if (!cell){continue;}
 			}
 			retArray.push(tempA);
 		}
