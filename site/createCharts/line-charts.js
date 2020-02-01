@@ -146,6 +146,7 @@ exports.createGoogle = function(data,options) {
 	}
 	
 	var retArray = [['x','y']];
+	console.log(data['byrow'][data['byrow'].length-1])
 	for (var i=0;i<data['byrow'].length;i++) {
 		if (i >= options['nHeaders']) {
 			var tempA = [];
