@@ -28,14 +28,14 @@ class chartdnChart extends HTMLElement {
   makeGoogle(chartJSON) {
   	this.shadowRoot.querySelector('#googleChart').style.display = 'block';
 	google.charts.load('current', {'packages':['corechart']});
-	google.charts.setOnLoadCallback(this.drawGoogle(chartJSON));
-  }
-  drawGoogle(chartJSON) {
-  		console.log(chartJSON.retArray);
-		var data = google.visualization.arrayToDataTable();
+	google.charts.setOnLoadCallback(function () {
+		console.log(chartJSON.retArray);
+		var data = google.visualization.arrayToDataTable(chartJSON.retArray);
 		var chart = new google.visualization.LineChart(document.getElementById('googleChart'));
 		chart.draw(data, chartJSON.options);
+	});
   }
+
   
   makeChart(chartJSON){
   	if (this.getAttribute('type') == 'XKCD'){
