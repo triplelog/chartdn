@@ -29,7 +29,7 @@ exports.createPlotly = function(data,options) {
 	if (options.title) {chartOptions['title']=options.title;}
 	if (options.stepSizeX != '' && options.stepSizeX != 'default') {chartOptions['xaxis']={'dtick':options.stepSizeX};}
 	if (options.stepSizeY != '' && options.stepSizeY != 'default') {chartOptions['yaxis']={'dtick':options.stepSizeY};}
-	chartOptions['grid']= {rows: 2, columns: 1}
+	//chartOptions['grid']= {rows: 2, columns: 1}
 	
 	var chartJSON = {'data':datasets,'options':chartOptions}
 	return chartJSON;
