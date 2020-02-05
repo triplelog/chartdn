@@ -25,6 +25,7 @@ ws.onmessage = function(evt){
 		var allCharts = document.querySelectorAll('chartdn-chart');
 		for (var i=0;i< allCharts.length;i++){
 			if (allCharts[i].getAttribute('data-style')==dm.style){
+				console.log(chartJSON);
 				allCharts[i].makeChart(chartJSON);
 			}
 		}
