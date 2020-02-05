@@ -13,7 +13,9 @@ exports.createPlotly = function(data,options) {
 	
 	chartOptions = {}
 	if (options.title) {chartOptions['title']=options.title;}
+	if (options.stepSizeX != '' && options.stepSizeX != 'default') {chartOptions['xaxis']={'dtick':options.stepSizeX};}
 
+	
 	var chartJSON = {'data':datasets,'options':chartOptions}
 	return chartJSON;
 
