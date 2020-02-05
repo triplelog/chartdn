@@ -629,28 +629,28 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 				if (chartStyle == 'all' || chartStyle == 'chartJS') {
 					var chartJSON = chartFile.createChartjs(data,options);
 					if (!dm.loc){dm.loc = 0}
-					var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc,'type':'chartJS'};
+					var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc,'style':'chartJS'};
 					ws.send(JSON.stringify(jsonmessage));
 				}
 				var t1 = performance.now();
 				if (chartStyle == 'all' || chartStyle == 'XKCD') {
 					var chartJSON = chartFile.createXkcd(data,options);
 					if (!dm.loc){dm.loc = 0}
-					var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc,'type':'XKCD'};
+					var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc,'style':'XKCD'};
 					ws.send(JSON.stringify(jsonmessage));
 				}
 				var t2 = performance.now();
 				if (chartStyle == 'all' || chartStyle == 'google') {
 					var chartJSON = chartFile.createGoogle(data,options);
 					if (!dm.loc){dm.loc = 0}
-					var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc,'type':'google'};
+					var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc,'style':'google'};
 					ws.send(JSON.stringify(jsonmessage));
 				}
 				var t3 = performance.now();
 				if (chartStyle == 'all' || chartStyle == 'plotly') {
 					var chartJSON = chartFile.createPlotly(data,options);
 					if (!dm.loc){dm.loc = 0}
-					var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc,'type':'plotly'};
+					var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc,'style':'plotly'};
 					ws.send(JSON.stringify(jsonmessage));
 				}
 				var t4 = performance.now();
