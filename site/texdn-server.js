@@ -16,6 +16,7 @@ var crypto = require("crypto");
 //const flate = require('wasm-flate');
 var createLine = require('./createCharts/line-charts.js');
 var createBar = require('./createCharts/bar-charts.js');
+var createPlotly = require('./createCharts/plotly-charts.js');
 const options = {
   key: fs.readFileSync('/etc/letsencrypt/live/chartdn.com/privkey.pem'),
   cert: fs.readFileSync('/etc/letsencrypt/live/chartdn.com/fullchain.pem')
@@ -618,7 +619,7 @@ function createChart(alldata,csvdata,chartType="line") {
 function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 	var t0 = performance.now();
 	var chartFile = createLine;
-	if (chartInfo.options.type == 'bar'){chartFile = createBar;}
+	//if (chartInfo.options.type == 'bar'){chartFile = createBar;}
 	fs.readFile('saved/'+chartInfo.data, 'utf8', function(err, fileData) {
 		var results = Papa.parse(fileData, {
 			complete: function(results) {
@@ -648,7 +649,7 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 				}
 				var t3 = performance.now();
 				if (chartStyle == 'all' || chartStyle == 'plotly') {
-					var chartJSON = chartFile.createPlotly(data,options);
+					var chartJSON = createPlotly.createPlotly(data,options);
 					if (!dm.loc){dm.loc = 0}
 					var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc,'style':'plotly'};
 					ws.send(JSON.stringify(jsonmessage));
