@@ -110,7 +110,7 @@ wss.on('connection', function connection(ws) {
 				  if (err) {
 			
 				  } else {
-					makeAllCharts(ws,dm,result);
+					makeAllCharts(ws,dm,result,'all');
 				  }
 				});
 			});
@@ -128,7 +128,7 @@ wss.on('connection', function connection(ws) {
 					console.log('saved new dataname');
 				});
 				fs.writeFile("saved/"+chartid+".csv", dm.message, function (err) {
-					makeAllCharts(ws,dm,result);
+					makeAllCharts(ws,dm,result,'all');
 				});
 			  }
 			});
@@ -172,7 +172,7 @@ wss.on('connection', function connection(ws) {
 					  if (err) {
 				
 					  } else {
-					  	makeAllCharts(ws,dm,result);
+					  	makeAllCharts(ws,dm,result,'all');
 					  }
 					});
 				});
@@ -199,7 +199,7 @@ wss.on('connection', function connection(ws) {
 						fs.readFile('saved/'+chartid+'.csv', 'utf8', function(err, fileData) {
 							var jsonmessage = {'operation':'downloaded','message':fileData};
 							ws.send(JSON.stringify(jsonmessage));
-							makeAllCharts(ws,dm,result);
+							makeAllCharts(ws,dm,result,'all');
 						});
 					}
 				  });
@@ -230,7 +230,7 @@ wss.on('connection', function connection(ws) {
 				result.save(function (err, result) {
 					if (err) return console.error('sajdhfkasdhjfkjsahdfkjsadhfs\n',err);
 					console.log('saved options');
-					makeAllCharts(ws,dm,result);
+					makeAllCharts(ws,dm,result,'all');
 				});
 			  }
 			});
@@ -253,11 +253,11 @@ wss.on('connection', function connection(ws) {
 		  chartid = dm.id;
 		  if (chartid && chartid != ""){
 			  Chart.findOne({ id: chartid }, function(err, result) {
-			  	if (dm.type){
-			  		makeAllCharts(ws,dm,result,dm.type);
+			  	if (dm.style){
+			  		makeAllCharts(ws,dm,result,dm.style);
 			  	}
 			  	else {
-			  		makeAllCharts(ws,dm,result);
+			  		makeAllCharts(ws,dm,result,'all');
 			  	}
 				
 			  });
@@ -615,9 +615,10 @@ function createChart(alldata,csvdata,chartType="line") {
 	return fullJS;
 }
 				
-function makeAllCharts(ws,dm,chartInfo,chartType='all') {
+function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 	var t0 = performance.now();
-	var chartFile = createLine;
+	var chartFile = createBar;
+	//if (chartInfo.options.type == 'bar'){chartFile = createBar;}
 	fs.readFile('saved/'+chartInfo.data, 'utf8', function(err, fileData) {
 		var results = Papa.parse(fileData, {
 			complete: function(results) {
@@ -625,28 +626,28 @@ function makeAllCharts(ws,dm,chartInfo,chartType='all') {
 				var data = convertDataToFull(results.data,nHeaders,true);
 				var options = convertToOptions(chartInfo.options);
 				
-				if (chartType == 'all' || chartType == 'chartJS') {
+				if (chartStyle == 'all' || chartStyle == 'chartJS') {
 					var chartJSON = chartFile.createChartjs(data,options);
 					if (!dm.loc){dm.loc = 0}
 					var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc,'type':'chartJS'};
 					ws.send(JSON.stringify(jsonmessage));
 				}
 				var t1 = performance.now();
-				if (chartType == 'all' || chartType == 'XKCD') {
+				if (chartStyle == 'all' || chartStyle == 'XKCD') {
 					var chartJSON = chartFile.createXkcd(data,options);
 					if (!dm.loc){dm.loc = 0}
 					var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc,'type':'XKCD'};
 					ws.send(JSON.stringify(jsonmessage));
 				}
 				var t2 = performance.now();
-				if (chartType == 'all' || chartType == 'google') {
+				if (chartStyle == 'all' || chartStyle == 'google') {
 					var chartJSON = chartFile.createGoogle(data,options);
 					if (!dm.loc){dm.loc = 0}
 					var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc,'type':'google'};
 					ws.send(JSON.stringify(jsonmessage));
 				}
 				var t3 = performance.now();
-				if (chartType == 'all' || chartType == 'plotly') {
+				if (chartStyle == 'all' || chartStyle == 'plotly') {
 					var chartJSON = chartFile.createPlotly(data,options);
 					if (!dm.loc){dm.loc = 0}
 					var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc,'type':'plotly'};

@@ -14,41 +14,14 @@ exports.createPlotly = function(data,options) {
 	chartOptions = {}
 	if (options.title) {chartOptions['title']=options.title;}
 	if (options.stepSizeX != '' && options.stepSizeX != 'default') {chartOptions['xaxis']={'dtick':options.stepSizeX};}
+	if (options.stepSizeY != '' && options.stepSizeY != 'default') {chartOptions['yaxis']={'dtick':options.stepSizeY};}
 
 	
 	var chartJSON = {'data':datasets,'options':chartOptions}
 	return chartJSON;
 
 }
-/*
-exports.createPlotly = function(data,options) {
-	var datasets = [];
-	for (var i=0;i<options['yColumns'].length;i++){
-		datasets.push({'x':data['bycol'][options['xColumn']], 'y':data['bycol'][options['yColumns'][i]], 'mode': 'lines+markers'});
-	}
 
-	if (!options.title) {options['title']=''}
-	if (!options.xaxis) {options['xaxis']=''}
-	if (!options.yaxis) {options['yaxis']=''}
-	var baseJS = `
-	<script>
-	document.getElementById('plotlyDiv').style.display = 'block';
-
-	var data = `+JSON.stringify(datasets)+`;
-
-	var layout = {
-	  `+options.title+`
-	  `+options.xaxis+`
-	  `+options.yaxis+`
-  
-	};
-
-	Plotly.newPlot('plotlyDiv', data, layout);
-	</script>
-	`;
-	return baseJS;
-
-}*/
 
 function createJSdatasets(data,options) {
 	var datasets = [];

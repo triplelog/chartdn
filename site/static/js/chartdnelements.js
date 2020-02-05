@@ -7,8 +7,8 @@ class chartdnChart extends HTMLElement {
   	shadowRoot.innerHTML = `<div class="chart-container" style="position: relative;">
 		<canvas id="myChart" style="display: none;"></canvas>
 	</div>`;
-	if (this.getAttribute('type') != 'chartJS'){
-		this.chgType(this.getAttribute('type'));
+	if (this.getAttribute('data-style') != 'chartJS'){
+		this.chgType(this.getAttribute('data-style'));
 	}
 	
 	googleEl = shadowRoot.querySelector('#googleChart');
@@ -41,31 +41,31 @@ class chartdnChart extends HTMLElement {
   
   
   makeChart(chartJSON){
-  	if (this.getAttribute('type') == 'XKCD'){
+  	if (this.getAttribute('data-style') == 'XKCD'){
   		this.makeXkcd(chartJSON);
   	}
-  	else if (this.getAttribute('type') == 'google'){
+  	else if (this.getAttribute('data-style') == 'google'){
   		this.makeGoogle(chartJSON);
   	}
-  	else if (this.getAttribute('type') == 'plotly'){
+  	else if (this.getAttribute('data-style') == 'plotly'){
   		this.makePlotly(chartJSON);
   	}
   	else {
   		this.makeChartjs(chartJSON);
   	}
   }
-  chgType(type) {
-  	if (type == 'XKCD'){
+  chgType(style) {
+  	if (style == 'XKCD'){
   		this.shadowRoot.innerHTML = `<div class="chart-container" style="position: relative;">
 					<svg id="xkcdSvg" style="display: none;"></svg>
 				</div>`;
   	}
-  	else if (type == 'google') {
+  	else if (style == 'google') {
   		this.shadowRoot.innerHTML = `<div class="chart-container" style="position: relative;">
 					<div id="googleChart" style="display: none;"></div>
 				</div>`;
   	}
-  	else if (type == 'plotly') {
+  	else if (style == 'plotly') {
   		this.shadowRoot.innerHTML = `<style>.js-plotly-plot .plotly, .js-plotly-plot .plotly div {
     font-family:'Open Sans', verdana, arial, sans-serif;
     margin:0;
@@ -356,7 +356,7 @@ class chartdnChart extends HTMLElement {
 					<div id="plotlyDiv" style="display: none;"></div>
 				</div>`;
   	}
-  	else if (type == 'chartJS') {
+  	else if (style == 'chartJS') {
   		this.shadowRoot.innerHTML = `<div class="chart-container" style="position: relative;">
 			<canvas id="myChart" style="display: none;"></canvas>
 		</div>`;
