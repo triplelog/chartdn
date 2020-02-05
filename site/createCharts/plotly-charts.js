@@ -5,12 +5,21 @@ exports.createPlotly = function(data,options) {
 		dataObject = {};
 		if (options.type == 'line'){dataObject['mode']='lines+markers'}
 		else if (options.type == 'bar'){dataObject['type']='bar'}
+		else if (options.type == 'pie'){dataObject['type']='pie'}
 		else {dataObject['mode']='lines+markers'}
 		
-		if (options.xColumn != ''){dataObject['x']=data['bycol'][options['xColumn']];}
-		else {dataObject['x']=i;}
+		if (options.type == 'line' || options.type == 'bar'){
+			if (options.xColumn != ''){dataObject['x']=data['bycol'][options['xColumn']];}
+			else {dataObject['x']=i;}
 		
-		dataObject['y']=data['bycol'][options['yColumns'][i]];
+			dataObject['y']=data['bycol'][options['yColumns'][i]];
+		}
+		if (options.type == 'pie') {
+			if (options.xColumn != ''){dataObject['labels']=data['bycol'][options['xColumn']];}
+			else {dataObject['labels']=i;}
+			
+			dataObject['values']=data['bycol'][options['yColumns'][i]];
+		}
 		
 		datasets.push(dataObject);
 	}
@@ -25,3 +34,4 @@ exports.createPlotly = function(data,options) {
 	return chartJSON;
 
 }
+

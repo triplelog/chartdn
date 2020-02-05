@@ -1,6 +1,5 @@
 
 
-
 function createJSdatasets(data,options) {
 	var datasets = [];
 	
