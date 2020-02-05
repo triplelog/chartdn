@@ -19,6 +19,7 @@ exports.createPlotly = function(data,options) {
 			else {dataObject['labels']=i;}
 			
 			dataObject['values']=data['bycol'][options['yColumns'][i]];
+			dataObject['hole']=.5;
 		}
 		
 		datasets.push(dataObject);
