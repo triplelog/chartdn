@@ -617,7 +617,7 @@ function createChart(alldata,csvdata,chartType="line") {
 				
 function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 	var t0 = performance.now();
-	var chartFile = createBar;
+	var chartFile = createLine;
 	//if (chartInfo.options.type == 'bar'){chartFile = createBar;}
 	fs.readFile('saved/'+chartInfo.data, 'utf8', function(err, fileData) {
 		var results = Papa.parse(fileData, {
