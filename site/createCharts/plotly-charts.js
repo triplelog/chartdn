@@ -43,8 +43,17 @@ exports.createPlotly = function(data,options) {
 	
 	chartOptions = {}
 	if (options.title) {chartOptions['title']=options.title;}
-	if (options.stepSize.x != '' && options.stepSize.x != 'default') {chartOptions['xaxis']={'dtick':options.stepSize.x};}
-	if (options.stepSize.y != '' && options.stepSize.y != 'default') {chartOptions['yaxis']={'dtick':options.stepSize.y};}
+	
+	chartOptions['xaxis']={};
+	chartOptions['yaxis']={};
+	if (options.stepSize){
+		if (options.stepSize.x != '' && options.stepSize.x != 'default') {chartOptions['xaxis']['dtick']=options.stepSize.x;}
+		if (options.stepSize.y != '' && options.stepSize.y != 'default') {chartOptions['yaxis']['dtick']=options.stepSize.y;}
+	}
+	if (options.labels){
+		if (options.labels.x != '' && options.labels.x != 'default') {chartOptions['xaxis']['title']=options.labels.x;}
+		if (options.labels.y != '' && options.labels.y != 'default') {chartOptions['yaxis']['title']=options.labels.y;}
+	}
 	//chartOptions['grid']= {rows: 2, columns: 1}
 	
 	var chartJSON = {'data':datasets,'options':chartOptions}

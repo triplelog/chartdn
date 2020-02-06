@@ -94,8 +94,6 @@ function updateOptions(oldOptions, newOptions) {
 			oldOptions[k] = v;
 		}
 	}
-	console.log(oldOptions);
-	return oldOptions;
 }
 wss.on('connection', function connection(ws) {
   var charts = {};
@@ -237,17 +235,16 @@ wss.on('connection', function connection(ws) {
   	}
   	else if (dm.operation == 'options'){
   		if (chartid == ''){
-			myOptions = updateOptions(myOptions, dm);
+			updateOptions(myOptions, dm);
   		}
   		else {
   			Chart.findOne({ id: chartid }, function(err, result) {
 			  if (err) {
 				
 			  } else {
-				result.options = updateOptions(result.options, dm);
-				myOptions = updateOptions(myOptions, dm);
+				updateOptions(result.options, dm);
+				updateOptions(myOptions, dm);
 				result.markModified('options');
-				console.log(result);
 				result.save(function (err, result) {
 					if (err) return console.error('sajdhfkasdhjfkjsahdfkjsadhfs\n',err);
 					console.log('saved options');
