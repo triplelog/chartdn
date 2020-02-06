@@ -91,10 +91,10 @@ function updateOptions(oldOptions, newOptions) {
 			}
 		}
 		else if (k != 'operation'){
-			console.log(k,v);
 			oldOptions[k] = v;
 		}
 	}
+	console.log(oldOptions);
 	return oldOptions;
 }
 wss.on('connection', function connection(ws) {
