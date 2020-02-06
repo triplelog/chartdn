@@ -245,9 +245,11 @@ wss.on('connection', function connection(ws) {
 				updateOptions(result, dm);
 				updateOptions(myOptions, dm);
 				result.markModified('options');
+				console.log(result);
 				result.save(function (err, result) {
 					if (err) return console.error('sajdhfkasdhjfkjsahdfkjsadhfs\n',err);
 					console.log('saved options');
+					console.log(result);
 					makeAllCharts(ws,dm,result,'all');
 				});
 			  }
