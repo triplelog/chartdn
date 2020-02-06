@@ -9,8 +9,6 @@ const bodyParser = require('body-parser');
 var parse = require('csv-parse');
 var nunjucks = require('nunjucks');
 //const flate = require('wasm-flate');
-var createLine = require('./createCharts/line-charts.js');
-var createBar = require('./createCharts/bar-charts.js');
 const options = {
   key: fs.readFileSync('/etc/letsencrypt/live/chartdn.com/privkey.pem'),
   cert: fs.readFileSync('/etc/letsencrypt/live/chartdn.com/fullchain.pem')
