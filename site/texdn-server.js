@@ -614,8 +614,8 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 				var t4 = performance.now();
 				console.log('-a-');
 				console.log(t0);
-				console.log(t1);
-				console.log(t2);
+				//console.log(t1);
+				//console.log(t2);
 				console.log(t3);
 				console.log(t4);
 			}
