@@ -14,9 +14,10 @@ var Papa = require('papaparse');
 var nunjucks = require('nunjucks');
 var crypto = require("crypto");
 //const flate = require('wasm-flate');
-var createLine = require('./createCharts/line-charts.js');
-var createBar = require('./createCharts/bar-charts.js');
 var createPlotly = require('./createCharts/plotly-charts.js');
+var createXkcd = require('./createCharts/xkcd-charts.js');
+var createGoogle = require('./createCharts/google-charts.js');
+var createChartjs = require('./createCharts/chartjs-charts.js');
 const options = {
   key: fs.readFileSync('/etc/letsencrypt/live/chartdn.com/privkey.pem'),
   cert: fs.readFileSync('/etc/letsencrypt/live/chartdn.com/fullchain.pem')
@@ -587,28 +588,6 @@ function createChart(alldata,csvdata,chartType="line") {
 
 	var fullJS = '';
 	
-	var chartFile = createLine;
-	if (chartType == 'bar'){chartFile = createBar;}
-	for (var i=0;i<frameworks.length;i++){
-		var options = {'xColumn':xColumn,'yColumns':yColumns,'nHeaders':nHeaders};
-		if (frameworks[i] == 'latex'){
-			fullJS += '';
-		}
-		/*else if (frameworks[i] == 'xkcd'){
-			if (title != '' && title != 'notitle') {options['title'] = 'title: "'+title+'",';}
-			fullJS += chartFile.createXkcd(csvdata,options);
-		}
-		else if (frameworks[i] == 'google'){
-			if (title != '' && title != 'notitle') {options['title'] = 'title: "'+title+'",';}
-			fullJS += chartFile.createGoogle(csvdata,options);
-		}
-		else if (frameworks[i] == 'plotly'){
-			if (title != '' && title != 'notitle') {options['title'] = 'title: "'+title+'",';}
-			if (stepSizeX != '' && stepSizeX != 'default') {options['xaxis'] = 'xaxis: {dtick: '+stepSizeX+'},' }
-			if (stepSizeY != '' && stepSizeY != 'default') {options['yaxis'] = 'yaxis: {dtick: '+stepSizeY+'},' }
-			fullJS += chartFile.createPlotly(csvdata,options);
-		}*/
-	}
 
 
 
@@ -618,8 +597,6 @@ function createChart(alldata,csvdata,chartType="line") {
 				
 function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 	var t0 = performance.now();
-	var chartFile = createLine;
-	//if (chartInfo.options.type == 'bar'){chartFile = createBar;}
 	fs.readFile('saved/'+chartInfo.data, 'utf8', function(err, fileData) {
 		var results = Papa.parse(fileData, {
 			complete: function(results) {
@@ -628,21 +605,21 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 				var options = convertToOptions(chartInfo.options);
 				
 				if (chartStyle == 'all' || chartStyle == 'chartJS') {
-					var chartJSON = chartFile.createChartjs(data,options);
+					var chartJSON = createChartjs.createChartjs(data,options);
 					if (!dm.loc){dm.loc = 0}
 					var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc,'style':'chartJS'};
 					ws.send(JSON.stringify(jsonmessage));
 				}
 				var t1 = performance.now();
 				if (chartStyle == 'all' || chartStyle == 'XKCD') {
-					var chartJSON = chartFile.createXkcd(data,options);
+					var chartJSON = createXkcd.createXkcd(data,options);
 					if (!dm.loc){dm.loc = 0}
 					var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc,'style':'XKCD'};
 					ws.send(JSON.stringify(jsonmessage));
 				}
 				var t2 = performance.now();
 				if (chartStyle == 'all' || chartStyle == 'google') {
-					var chartJSON = chartFile.createGoogle(data,options);
+					var chartJSON = createGoogle.createGoogle(data,options);
 					if (!dm.loc){dm.loc = 0}
 					var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc,'style':'google'};
 					ws.send(JSON.stringify(jsonmessage));

@@ -1,3 +1,5 @@
+//Line, bar, pie/donut, scatter, bubble,
+ 
 exports.createPlotly = function(data,options) {
 	var datasets = [];
 	if (!options['yColumns'] || options['yColumns'].length == 0){return {};}
