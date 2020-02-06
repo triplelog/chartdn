@@ -152,12 +152,12 @@
 						<div class="pure-g">
 							<div class="pure-u-1-3">
 									Title: <input type="text" name="title" onchange="optionsChg('title')" placeholder="notitle" value="{{ title }}"/>
-									X Axis Title: <input type="text" name="xaxistitle" placeholder="notitle"/>
-									Y Axis Title: <input type="text" name="yaxistitle" placeholder="notitle"/>
+									X Axis Title: <input type="text" name="xaxistitle" onchange="optionsChg('xaxistitle')" placeholder="notitle"/>
+									Y Axis Title: <input type="text" name="yaxistitle" onchange="optionsChg('yaxistitle')" placeholder="notitle"/>
 							</div>
 							<div class="pure-u-1-3">
 									Line Color(s): <input type="text" name="lineColor" placeholder="default"/>
-									Dot Color(s): <input type="text" name="dotColor" placeholder="default"/>
+									Dot Color(s): <select><option>Match Line</option><option>None</option><option>Custom</option></select><input type="text" name="dotColor" placeholder="default"/>
 
 							</div>
 							<div class="pure-u-1-3">

@@ -105,10 +105,26 @@ function columnsChg() {
 	ws.send(JSON.stringify(jsonmessage));
 }
 function optionsChg(optionname) {
-	var newoption = document.querySelector('input[name='+optionname+']').value;
-	var jsonmessage = {'operation':'options'};
-	jsonmessage[optionname]=newoption;
-	ws.send(JSON.stringify(jsonmessage));
+	if (optionname == 'xaxistitle' || optionname == 'yaxistitle'){
+		var newoption = document.querySelector('input[name='+optionname+']').value;
+		var jsonmessage = {'operation':'options','labels':{}};
+		if (optionname == 'xaxistitle') {jsonmessage['labels']['x']=newoption;}
+		else if (optionname == 'yaxistitle') {jsonmessage['labels']['y']=newoption;}
+		ws.send(JSON.stringify(jsonmessage));
+	}
+	if (optionname == 'stepSizeX' || optionname == 'stepSizeY'){
+		var newoption = document.querySelector('input[name='+optionname+']').value;
+		var jsonmessage = {'operation':'options','stepSize':{}};
+		if (optionname == 'stepSizeX') {jsonmessage['stepSize']['x']=newoption;}
+		else if (optionname == 'stepSizeY') {jsonmessage['stepSize']['y']=newoption;}
+		ws.send(JSON.stringify(jsonmessage));
+	}
+	else {
+		var newoption = document.querySelector('input[name='+optionname+']').value;
+		var jsonmessage = {'operation':'options'};
+		jsonmessage[optionname]=newoption;
+		ws.send(JSON.stringify(jsonmessage));
+	}
 }
 function filterChg() {
 	var isChecked = document.querySelectorAll('input[name="filter"]:checked');

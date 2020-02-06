@@ -72,6 +72,29 @@ const WebSocket = require('ws');
 //const wss = new WebSocket.Server({ port: 8080 , origin: 'http://tabdn.com'});
 const wss = new WebSocket.Server({ server });
 
+function updateOptions(oldOptions, newOptions) {
+	for(var k in newOptions){
+		var v = newOptions[k];
+		if (Array.isArray(v)){
+			if (!oldOptions[k]){oldOptions[k]=[];}
+			for (var i=0;i<v.length;i++){
+				if (!oldOptions[k][i]){oldOptions[k].push({});}
+				for (var key in v[i]){
+					oldOptions[k][i][key] = v[i][key];
+				}
+			}
+		}
+		else if (v && typeof v === 'object' && v.constructor === Object){
+			if (!oldOptions[k]){oldOptions[k]={};}
+			for (var key in v){
+				oldOptions[k][key] = v[key];
+			}
+		}
+		else if (k != 'operation'){
+			oldOptions[k] = v;
+		}
+	}
+}
 wss.on('connection', function connection(ws) {
   var charts = {};
   var chartid = '';
@@ -212,22 +235,15 @@ wss.on('connection', function connection(ws) {
   	}
   	else if (dm.operation == 'options'){
   		if (chartid == ''){
-			for(var k in dm){
-				if (k != 'operation'){
-					myOptions[k] = dm[k];
-				}
-			}
+			updateOptions(myOptions, dm);
   		}
   		else {
   			Chart.findOne({ id: chartid }, function(err, result) {
 			  if (err) {
 				
 			  } else {
-				for(var k in dm){
-					if (k != 'operation'){
-						result.options[k] = dm[k];
-					}
-				}
+				updateOptions(result, dm);
+				updateOptions(myOptions, dm);
 				result.markModified('options');
 				result.save(function (err, result) {
 					if (err) return console.error('sajdhfkasdhjfkjsahdfkjsadhfs\n',err);
@@ -603,7 +619,7 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 				var nHeaders = chartInfo.options.nHeaders || 1;
 				var data = convertDataToFull(results.data,nHeaders,true);
 				var options = convertToOptions(chartInfo.options);
-				
+				/*
 				if (chartStyle == 'all' || chartStyle == 'chartJS') {
 					var chartJSON = createChartjs.createChartjs(data,options);
 					if (!dm.loc){dm.loc = 0}
@@ -623,7 +639,7 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 					if (!dm.loc){dm.loc = 0}
 					var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc,'style':'google'};
 					ws.send(JSON.stringify(jsonmessage));
-				}
+				}*/
 				var t3 = performance.now();
 				if (chartStyle == 'all' || chartStyle == 'plotly') {
 					var chartJSON = createPlotly.createPlotly(data,options);
