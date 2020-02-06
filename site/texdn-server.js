@@ -116,8 +116,8 @@ wss.on('connection', function connection(ws) {
 			defaultOptions['type'] = '';
 			defaultOptions['yColumns'] = '';
 			defaultOptions['xColumn'] = '';
-			defaultOptions['stepSizeX'] = '';
-			defaultOptions['stepSizeY'] = '';
+			defaultOptions['stepSize'] = {};
+			defaultOptions['labels'] = {};
 			defaultOptions['title'] = '';
 			for(var k in myOptions){
 				defaultOptions[k] = myOptions[k];
@@ -171,8 +171,8 @@ wss.on('connection', function connection(ws) {
 			defaultOptions['type'] = '';
 			defaultOptions['yColumns'] = '';
 			defaultOptions['xColumn'] = '';
-			defaultOptions['stepSizeX'] = '';
-			defaultOptions['stepSizeY'] = '';
+			defaultOptions['stepSize'] = {};
+			defaultOptions['labels'] = {};
 			defaultOptions['title'] = '';
 			for(var k in myOptions){
 				defaultOptions[k] = myOptions[k];
@@ -378,7 +378,7 @@ loginApp.get('/edit/:chartid',
 										savedData['type']='line';
 									}
 									res.write(nunjucks.render('chartdn.html',{
-										chartScript: createChart(savedData,convertDataToFull(defaultData,savedData.nHeaders),savedData['type']), 
+										chartScript: '',
 										dataAreaText: defaultData,
 										nHeaders: savedData.nHeaders || 1,
 										isChecked: chartType,
@@ -423,7 +423,7 @@ loginApp.get('/edit/:chartid',
 							savedData['type']='line';
 						}
 						res.write(nunjucks.render('chartdn.html',{
-							chartScript: createChart(savedData,convertDataToFull(defaultData,savedData.nHeaders),savedData['type']), 
+							chartScript: '',
 							dataAreaText: defaultData,
 							nHeaders: savedData.nHeaders || 1,
 							isChecked: chartType,
@@ -574,43 +574,7 @@ function convertDataToFull(dataStr,nHeaders,usepapa=false) {
 		return {'byrow':retArray,'bycol':cols};
 	}
 }
-
-function createChart(alldata,csvdata,chartType="line") {
-
-	//var frameworks = alldata.framework;
-	var frameworks = ['latex','xkcd','google','plotly','chartjs'];
-	var xColumn = 0;
-	var yColumns = [];//parseInt(alldata.yColumns);
-	if (!isNaN(parseInt(alldata.xColumn))){ xColumn = parseInt(alldata.xColumn);}
-	var yCols = alldata.yColumns.split(',');
-	for (var i=0;i<yCols.length;i++){
-		if (!isNaN(parseInt(yCols[i]))){ yColumns.push(parseInt(yCols[i]));}
-	}
-	if(yColumns.length==0){
-		yColumns.push(1);
-	}
-	var nHeaders = parseInt(alldata.nHeaders);
-	var title = alldata.title;
-	var stepSizeX = alldata.stepSizeX;
-	var stepSizeY = alldata.stepSizeY;
-	var lineColor = alldata.lineColor;
-	var dotColor = alldata.dotColor;
-
-
-
-	if (csvdata['byrow'].length == 0){
-		return '';
-	}
-
-	var fullJS = '';
-	
-
-
-
-
-	return fullJS;
-}
-				
+			
 function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 	var t0 = performance.now();
 	fs.readFile('saved/'+chartInfo.data, 'utf8', function(err, fileData) {
