@@ -94,6 +94,7 @@ function updateOptions(oldOptions, newOptions) {
 			oldOptions[k] = v;
 		}
 	}
+	return oldOptions;
 }
 wss.on('connection', function connection(ws) {
   var charts = {};
@@ -235,15 +236,15 @@ wss.on('connection', function connection(ws) {
   	}
   	else if (dm.operation == 'options'){
   		if (chartid == ''){
-			updateOptions(myOptions, dm);
+			myOptions = updateOptions(myOptions, dm);
   		}
   		else {
   			Chart.findOne({ id: chartid }, function(err, result) {
 			  if (err) {
 				
 			  } else {
-				updateOptions(result, dm);
-				updateOptions(myOptions, dm);
+				result = updateOptions(result, dm);
+				myOptions = updateOptions(myOptions, dm);
 				result.markModified('options');
 				console.log(result);
 				result.save(function (err, result) {
