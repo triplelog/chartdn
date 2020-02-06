@@ -244,7 +244,7 @@ wss.on('connection', function connection(ws) {
 			  if (err) {
 				
 			  } else {
-				result = updateOptions(result, dm);
+				result.options = updateOptions(result.options, dm);
 				myOptions = updateOptions(myOptions, dm);
 				result.markModified('options');
 				console.log(result);
