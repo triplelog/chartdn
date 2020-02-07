@@ -55,12 +55,19 @@ function chgLineTab(tabId){
 	}
 	menuItems[tabId].classList.add('pure-menu-selected');
 	lineId = tabId;
+	var colid = yColsVals[tabId];
 	
 	var lineDivs = document.getElementById('lineStyleDivs').children;
 	for (var i=0;i<lineDivs.length;i++){
-		lineDivs[i].style.display = 'none';
+		if (lineDivs[i].id != 'lineStyleDiv'+colid) {
+			lineDivs[i].style.display = 'none';
+		}
+		else {
+			lineDivs[i].style.display = 'block';
+		}
+		
 	}
-	lineDivs[tabId].style.display = 'block';
+	
 	
 }
 
@@ -161,7 +168,7 @@ function columnsChg() {
 			el.classList.add('pure-menu-item');
 			if (i==0){el.classList.add('pure-menu-selected');}
 			el.setAttribute('onclick',"chgLineTab("+i+")");
-			el.innerHTML= '<a class="pure-menu-link">1</a>';
+			el.innerHTML= '<a class="pure-menu-link">'+i+'</a>';
 			menu.appendChild(el);
 		}
 		
