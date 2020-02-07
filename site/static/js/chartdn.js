@@ -51,7 +51,7 @@ function chgLineTab(tabId){
 	for (var i=0;i<menuItems.length;i++){
 		menuItems[i].classList.remove('pure-menu-selected');
 	}
-	console.log(menuItems);
+	console.log(menuItems[1]);
 	console.log(tabId);
 	menuItems[tabId].classList.add('pure-menu-selected');
 	lineId = tabId;
