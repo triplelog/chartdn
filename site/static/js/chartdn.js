@@ -47,14 +47,11 @@ var lineId = 0;
 // Change Tab of which line to style
 function chgLineTab(tabId){
 	var menuList = document.getElementById('lineStyleMenu').firstElementChild;
-	console.log(menuList);
-	var menuItems = menuList.childNodes;
+	var menuItems = menuList.children;
 	console.log(menuItems.length);
 	for (var i=0;i<menuItems.length;i++){
 		menuItems[i].classList.remove('pure-menu-selected');
 	}
-	console.log(menuItems[1]);
-	console.log(tabId);
 	menuItems[tabId].classList.add('pure-menu-selected');
 	lineId = tabId;
 }
