@@ -17,7 +17,7 @@ exports.createPlotly = function(data,options) {
 			if (myStyle.dash){dataObject['line']['dash']=myStyle.dash;}
 			if (myStyle.width){dataObject['line']['width']=myStyle.width;}
 			
-			if (myStyle.name){dataObject['line']['name']=myStyle.name;}
+			if (myStyle.name){dataObject['name']=myStyle.name;}
 		}
 		else if (options.type == 'bar'){dataObject['type']='bar'}
 		else if (options.type == 'pie'){dataObject['type']='pie'}
