@@ -132,7 +132,7 @@ function columnsChg() {
 		if (!isNaN(parseInt(yCols[i]))){ 
 			yColumns.push(parseInt(yCols[i]));
 			if (parseInt(yCols[i])<headers.length){
-				lineNames.push({'id':parseInt(yCols[i]),'name':headers[parseInt(yCols[i])]});
+				lineNames.push({'passive':true,'id':parseInt(yCols[i]),'name':headers[parseInt(yCols[i])]});
 			}
 			else {
 				noNames = true;

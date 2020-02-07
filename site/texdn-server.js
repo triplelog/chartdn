@@ -86,7 +86,9 @@ function updateOptions(oldOptions, newOptions) {
 				for (var i=0;i<oldOptions['lines'].length;i++){
 					if (oldOptions['lines'][i].id == vv.id){
 						for (var key in vv){
-							oldOptions['lines'][i][key] = vv[key];
+							if (!vv['passive'] || !oldOptions['lines'][i][key]){
+								oldOptions['lines'][i][key] = vv[key];
+							}
 						}
 						noObject = false;
 						break;
