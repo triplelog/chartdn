@@ -44,6 +44,17 @@ var filters = [];
 var yColsVals = [];
 var lineId = 0;
 
+// Change Tab of which line to style
+function chgLineTab(tabId){
+	var menuList = document.getElementById('lineStyleMenu').childNodes[0];
+	var menuItems = menuList.childNodes;
+	for (var i=0;i<menuItems.length;i++){
+		menuItems[i].classList.remove('pure-menu-selected');
+	}
+	menuItems[tabId].classList.add('pure-menu-selected');
+	lineId = tabId;
+}
+
 //Download from url
 function urlChg(url) {
 	var url = document.getElementById('dataUrl').value;
