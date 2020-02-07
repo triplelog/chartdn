@@ -2,7 +2,6 @@
  
 exports.createPlotly = function(data,options) {
 	var datasets = [];
-	console.log(options);
 	if (!options['yColumns'] || options['yColumns'].length == 0){return {};}
 	for (var i=0;i<options['yColumns'].length;i++){
 		dataObject = {};
