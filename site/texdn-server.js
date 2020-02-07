@@ -56,6 +56,7 @@ var chartSchema = new mongoose.Schema({
 	id: String,
 	data: String,
 	options: {},
+	user: String,
 });
 var Chart = mongoose.model('Chart', chartSchema);
 function updateChart() {
