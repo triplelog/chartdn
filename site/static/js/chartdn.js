@@ -58,7 +58,7 @@ function chgLineTab(tabId){
 	
 	var lineDivs = document.getElementById('lineStyleDivs').children;
 	for (var i=0;i<lineDivs.length;i++){
-		lineDivs.style.display = 'none';
+		lineDivs[i].style.display = 'none';
 	}
 	lineDivs[tabId].style.display = 'block';
 }
