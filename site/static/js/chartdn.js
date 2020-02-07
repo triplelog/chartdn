@@ -157,7 +157,11 @@ function optionsChg(optionname) {
 		ws.send(JSON.stringify(jsonmessage));
 	}
 	else if (optionname == 'shape' || optionname == 'dash' || optionname == 'lineName'){
-		var newoption = document.querySelector('input[name='+optionname+']:checked').value;
+		var el = document.querySelector('input[name='+optionname+']:checked');
+		if (optionname == 'lineName'){
+			el = document.querySelector('input[name='+optionname+']')
+		}
+		var newoption = el.value;
 		var jsonmessage = {'operation':'options','lines':[]};
 		for (var i=0;i<=lineId;i++){
 			jsonmessage['lines'].push({});
