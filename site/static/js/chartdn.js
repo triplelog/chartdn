@@ -49,11 +49,18 @@ var lineId = 0;
 function chgLineTab(tabId){
 	var menuList = document.getElementById('lineStyleMenu').firstElementChild;
 	var menuItems = menuList.children;
+	
 	for (var i=0;i<menuItems.length;i++){
 		menuItems[i].classList.remove('pure-menu-selected');
 	}
 	menuItems[tabId].classList.add('pure-menu-selected');
 	lineId = tabId;
+	
+	var lineDivs = document.getElementById('lineStyleDivs').children;
+	for (var i=0;i<lineDivs.length;i++){
+		lineDivs.style.display = 'none';
+	}
+	lineDivs[tabId].style.display = 'block';
 }
 
 //Download from url
@@ -157,9 +164,10 @@ function optionsChg(optionname) {
 		ws.send(JSON.stringify(jsonmessage));
 	}
 	else if (optionname == 'shape' || optionname == 'dash' || optionname == 'lineName'){
-		var el = document.querySelector('input[name='+optionname+']:checked');
+		var parentEl = document.querySelectorAll("div[name='lineStyleDiv']")[lineId];
+		var el = parentEl.querySelector('input[name='+optionname+']:checked');
 		if (optionname == 'lineName'){
-			el = document.querySelector('input[name='+optionname+']')
+			el = parentEl.querySelector('input[name='+optionname+']')
 		}
 		var newoption = el.value;
 		var jsonmessage = {'operation':'options','lines':[]};
