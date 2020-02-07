@@ -46,7 +46,7 @@ var lineId = 0;
 
 // Change Tab of which line to style
 function chgLineTab(tabId){
-	var menuList = document.getElementById('lineStyleMenu');
+	var menuList = document.getElementById('lineStyleMenu').firstElementChild;
 	console.log(menuList);
 	var menuItems = menuList.childNodes;
 	console.log(menuItems.length);
