@@ -133,13 +133,13 @@ function createLineDiv(id) {
 		Name: <input type="text" name="lineName" onchange="optionsChg('lineName')" placeholder="default"/>
 		Line Color(s): <input type="text" name="lineColor" onchange="optionsChg('lineColor')" placeholder="default"/>
 		Dot Color(s): <select><option>Match Line</option><option>None</option><option>Custom</option></select><input type="text" name="dotColor" placeholder="default"/>
-		<input type="radio" name="shape" onchange="optionsChg('shape')" value="default" checked>Default</input>
-		<input type="radio" name="shape" onchange="optionsChg('shape')" value="spline">Smooth</input>
-		<input type="radio" name="shape" onchange="optionsChg('shape')" value="linear">Linear</input><br />
-		<input type="radio" name="dash" onchange="optionsChg('dash')" value="solid" checked>Solid</input>
-		<input type="radio" name="dash" onchange="optionsChg('dash')" value="dash">Dash</input>
-		<input type="radio" name="dash" onchange="optionsChg('dash')" value="dot">Dot</input>
-		<input type="radio" name="dash" onchange="optionsChg('dash')" value="dashdot">DashDot</input>`;
+		<input type="radio" name="shape`+id+`" onchange="optionsChg('shape')" value="default" checked>Default</input>
+		<input type="radio" name="shape`+id+`" onchange="optionsChg('shape')" value="spline">Smooth</input>
+		<input type="radio" name="shape`+id+`" onchange="optionsChg('shape')" value="linear">Linear</input><br />
+		<input type="radio" name="dash`+id+`" onchange="optionsChg('dash')" value="solid" checked>Solid</input>
+		<input type="radio" name="dash`+id+`" onchange="optionsChg('dash')" value="dash">Dash</input>
+		<input type="radio" name="dash`+id+`" onchange="optionsChg('dash')" value="dot">Dot</input>
+		<input type="radio" name="dash`+id+`" onchange="optionsChg('dash')" value="dashdot">DashDot</input>`;
 	document.getElementById("lineStyleDivs").appendChild(el);
 }
 function columnsChg() {
