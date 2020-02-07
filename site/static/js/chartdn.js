@@ -116,15 +116,28 @@ function columnsChg() {
 	
 	var yColumns = [];
 	var xColumn = '';
+	var lineNames = [];
+	var noNames = false;
 	
 	var yCols = yColsStr.split(',');
 	for (var i=0;i<yCols.length;i++){
-		if (!isNaN(parseInt(yCols[i]))){ yColumns.push(parseInt(yCols[i]));}
+		if (!isNaN(parseInt(yCols[i]))){ 
+			yColumns.push(parseInt(yCols[i]));
+			if (parseInt(yCols[i])<headers.length){
+				lineNames.push({'name':headers[parseInt(yCols[i])]});
+			}
+			else {
+				noNames = true;
+			}
+		}
+		
 	}
 	
 	if (!isNaN(parseInt(xColStr))){ xColumn = parseInt(xColStr);}
-		
+	
+	
 	var jsonmessage = {'operation':'options','yColumns':yColumns,'xColumn':xColumn};
+	if (!noNames){jsonmessage['lines']=lineNames}
 	ws.send(JSON.stringify(jsonmessage));
 }
 function optionsChg(optionname) {
