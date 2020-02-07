@@ -118,6 +118,22 @@ function headerChg() {
 	var jsonmessage = {'operation':'options','nHeaders':nHeaders};
 	ws.send(JSON.stringify(jsonmessage));
 }
+function createLineDiv(id) {
+	var el = document.createElement('div');
+	el.id = "lineStyleDiv"+id;
+	el.innerHTML = `
+		Name: <input type="text" name="lineName" onchange="optionsChg('lineName')" placeholder="default"/>
+		Line Color(s): <input type="text" name="lineColor" onchange="optionsChg('lineColor')" placeholder="default"/>
+		Dot Color(s): <select><option>Match Line</option><option>None</option><option>Custom</option></select><input type="text" name="dotColor" placeholder="default"/>
+		<input type="radio" name="shape" onchange="optionsChg('shape')" value="default" checked>Default</input>
+		<input type="radio" name="shape" onchange="optionsChg('shape')" value="spline">Smooth</input>
+		<input type="radio" name="shape" onchange="optionsChg('shape')" value="linear">Linear</input><br />
+		<input type="radio" name="dash" onchange="optionsChg('dash')" value="solid" checked>Solid</input>
+		<input type="radio" name="dash" onchange="optionsChg('dash')" value="dash">Dash</input>
+		<input type="radio" name="dash" onchange="optionsChg('dash')" value="dot">Dot</input>
+		<input type="radio" name="dash" onchange="optionsChg('dash')" value="dashdot">DashDot</input>`;
+	document.getElementById("lineStyleDivs").appendChild(el);
+}
 function columnsChg() {
 	var yColsStr = document.getElementById('yColsVal').value;
 	var xColStr = document.getElementById('xColVal').value;
@@ -164,8 +180,9 @@ function optionsChg(optionname) {
 		ws.send(JSON.stringify(jsonmessage));
 	}
 	else if (optionname == 'shape' || optionname == 'dash' || optionname == 'lineName'){
-		var parentEl = document.querySelectorAll("div[name='lineStyleDiv']")[lineId];
 		var colid = yColsVals[lineId];
+		var parentEl = document.querySelectorAll("#lineStyleDiv"+colid);
+		
 		var el = parentEl.querySelector('input[name='+optionname+']:checked');
 		if (optionname == 'lineName'){
 			el = parentEl.querySelector('input[name='+optionname+']')
@@ -258,6 +275,7 @@ function dataChg(initialData=false) {
 		document.getElementById('yColumns').innerHTML = '';
 		var ycvStr = '';
 		for (var yid in yColsVals){
+			createLineDiv(yColsVals[yid]);
 			yColsVals[yid] = parseInt(yColsVals[yid]);
 			ycvStr += yColsVals[yid]+', ';
 			var newColumn = document.createElement('span');
@@ -317,6 +335,8 @@ drake.on('drop', function (el, target, source, sibling) {
 				}
 			}
 			if (oldId != -1){yColsVals.splice(oldId,1);}
+			else {createLineDiv(elid);}
+			
 			yColsVals.push(elid);
 			ycvStr += elid+', ';
 			document.getElementById('yColsVal').value = ycvStr.substring(0,ycvStr.length-2);
@@ -332,6 +352,8 @@ drake.on('drop', function (el, target, source, sibling) {
 				}
 			}
 			if (oldId != -1){yColsVals.splice(oldId,1);}
+			else {createLineDiv(elid);}
+			
 			for (var yid in yColsVals){
 				if (sibid == yColsVals[yid]) {
 					newId = yid;
