@@ -55,7 +55,7 @@ exports.createPlotly = function(data,options) {
 		if (options.labels.y != '' && options.labels.y != 'default') {chartOptions['yaxis']['title']=options.labels.y;}
 	}
 	//chartOptions['grid']= {rows: 2, columns: 1}
-	
+	console.log(JSON.stringify(datasets));
 	var chartJSON = {'data':datasets,'options':chartOptions};
 	return chartJSON;
 
