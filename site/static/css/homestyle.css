@@ -90,6 +90,17 @@ a.pure-button-primary {
  * I want to customize how my .pure-menu looks at the top of the page
  */
 
+.header-logo {
+	padding: 0px;
+	display: inline-block;
+	vertical-align: middle;
+	height: 2.7rem;
+}
+.header-menu {
+	display: inline-block;
+	vertical-align: middle;
+	height: 100%;
+}
 .home-menu {
     padding: 0.5em;
     text-align: center;
