@@ -325,8 +325,9 @@ wss.on('connection', function connection(ws) {
 		  chartid = dm.id;
 		  if (chartid && chartid != ""){
 			  Chart.findOne({ id: chartid }, function(err, result) {
-			  	if (err){}
+			  	if (err || result == null){}
 			  	else {
+			  		console.log(chartid);
 					if (dm.style){
 						makeAllCharts(ws,dm,result,dm.style);
 					}
