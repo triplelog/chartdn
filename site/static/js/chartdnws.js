@@ -5,7 +5,6 @@ ws.onopen = function(evt) {
 		var jsonmessage = {'operation':'view','id':allcharts[i].getAttribute('src'),'loc':i,'style':allcharts[i].getAttribute('data-style')}
 		ws.send(JSON.stringify(jsonmessage));
 	}
-	
 }
 ws.onmessage = function(evt){
 	var dm = JSON.parse(evt.data);

@@ -146,7 +146,7 @@ wss.on('connection', function connection(ws) {
 			for(var k in myOptions){
 				defaultOptions[k] = myOptions[k];
 			}
-			var chart = new Chart({id:chartid,data:dataid+'.csv',options:defaultOptions});
+			var chart = new Chart({id:chartid,data:dataid+'.csv',options:defaultOptions,user:username});
 			chart.save(function (err, chart) {
 				if (err) return console.error(err);
 				console.log('saved');
@@ -201,7 +201,7 @@ wss.on('connection', function connection(ws) {
 			for(var k in myOptions){
 				defaultOptions[k] = myOptions[k];
 			}
-			var chart = new Chart({id:chartid,data:chartid+'.csv',options:defaultOptions});
+			var chart = new Chart({id:chartid,data:chartid+'.csv',options:defaultOptions,user:username});
 			chart.save(function (err, chart) {
 				if (err) return console.error(err);
 				console.log('saved');
@@ -386,7 +386,7 @@ loginApp.get('/edit/:chartid',
 							else {
 								dataname = result.data;
 								myOptions = result.options;
-								var newchart = new Chart({id:chartid,data:result.data,options:result.options});
+								var newchart = new Chart({id:chartid,data:result.data,options:result.options,user:username});
 								newchart.save(function (err, newchart) {
 									if (err) return console.error(err);
 									console.log('saved');
@@ -436,31 +436,36 @@ loginApp.get('/edit/:chartid',
 				  else {
 					dataname = result.data;
 					myOptions = result.options;
-					fs.readFile('saved/'+dataname, 'utf8', function(err, fileData) {
-						var defaultData = ''
-						if (!err) {defaultData = fileData;}
-						var savedData = myOptions;
-						var chartType = {'line':'','bar':'','scatter':'','pie':'','bubble':'','histogram':'','heatmap':'','radar':'','box':'','choropleth':'','splom':'','diff':'','calendar':''};
-						if (savedData['type'] && savedData['type'] != ''){
-							chartType[savedData['type']]='checked';
-						}
-						else {
-							savedData['type']='line';
-						}
-						res.write(nunjucks.render('chartdn.html',{
-							chartScript: '',
-							dataAreaText: defaultData,
-							nHeaders: savedData.nHeaders || 1,
-							isChecked: chartType,
-							title: savedData.title || '',
-							xColumn: savedData.xColumn || '',
-							yColumns: savedData.yColumns || '',
-							username: username || '',
-							chartid: chartid || '',
-							dataid: dataname.split('.')[0] || '',
-						}));
-						res.end();
-					  });
+					if (result.user == '' || result.user == username){
+						fs.readFile('saved/'+dataname, 'utf8', function(err, fileData) {
+							var defaultData = ''
+							if (!err) {defaultData = fileData;}
+							var savedData = myOptions;
+							var chartType = {'line':'','bar':'','scatter':'','pie':'','bubble':'','histogram':'','heatmap':'','radar':'','box':'','choropleth':'','splom':'','diff':'','calendar':''};
+							if (savedData['type'] && savedData['type'] != ''){
+								chartType[savedData['type']]='checked';
+							}
+							else {
+								savedData['type']='line';
+							}
+							res.write(nunjucks.render('chartdn.html',{
+								chartScript: '',
+								dataAreaText: defaultData,
+								nHeaders: savedData.nHeaders || 1,
+								isChecked: chartType,
+								title: savedData.title || '',
+								xColumn: savedData.xColumn || '',
+								yColumns: savedData.yColumns || '',
+								username: username || '',
+								chartid: chartid || '',
+								dataid: dataname.split('.')[0] || '',
+							}));
+							res.end();
+						  });
+					  }
+					  else {
+					  	res.redirect('/charts/'+chartid);
+					  }
 
 				  }
 				  
