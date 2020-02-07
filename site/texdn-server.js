@@ -251,7 +251,7 @@ wss.on('connection', function connection(ws) {
 				result.save(function (err, result) {
 					if (err) return console.error('sajdhfkasdhjfkjsahdfkjsadhfs\n',err);
 					console.log('saved options');
-					console.log(result);
+					console.log(JSON.stringify(result));
 					makeAllCharts(ws,dm,result,'all');
 				});
 			  }
