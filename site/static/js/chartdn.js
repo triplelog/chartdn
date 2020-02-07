@@ -181,7 +181,7 @@ function optionsChg(optionname) {
 	}
 	else if (optionname == 'shape' || optionname == 'dash' || optionname == 'lineName'){
 		var colid = yColsVals[lineId];
-		var parentEl = document.querySelectorAll("#lineStyleDiv"+colid);
+		var parentEl = document.querySelector("#lineStyleDiv"+colid);
 		
 		var el = parentEl.querySelector('input[name='+optionname+']:checked');
 		if (optionname == 'lineName'){
