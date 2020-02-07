@@ -591,6 +591,7 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 					var chartJSON = createPlotly.createPlotly(data,options);
 					if (!dm.loc){dm.loc = 0}
 					var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc,'style':'plotly'};
+					console.log(JSON.stringify(jsonmessage));
 					ws.send(JSON.stringify(jsonmessage));
 				}
 				var t4 = performance.now();
