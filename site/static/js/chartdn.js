@@ -101,7 +101,18 @@ function headerChg() {
 function columnsChg() {
 	var yColsStr = document.getElementById('yColsVal').value;
 	var xColStr = document.getElementById('xColVal').value;
-	var jsonmessage = {'operation':'options','yColumns':yColsStr,'xColumn':xColStr};
+	
+	var yColumns = [];
+	var xColumn = '';
+	
+	var yCols = yColsStr.split(',');
+	for (var i=0;i<yCols.length;i++){
+		if (!isNaN(parseInt(yCols[i]))){ yColumns.push(parseInt(yCols[i]));}
+	}
+	
+	if (!isNaN(parseInt(xColStr))){ xColumn = parseInt(xColStr);}
+		
+	var jsonmessage = {'operation':'options','yColumns':yColumns,'xColumn':xColumn};
 	ws.send(JSON.stringify(jsonmessage));
 }
 function optionsChg(optionname) {
@@ -274,7 +285,6 @@ drake.on('remove', function (el, target, source) {
 		else {
 			document.getElementById('yColsVal').value = '';
 		}
-		console.log(yColsVals,document.getElementById('yColsVal').value);
 		columnsChg();
 	}
 });

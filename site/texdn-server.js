@@ -75,7 +75,10 @@ const wss = new WebSocket.Server({ server });
 function updateOptions(oldOptions, newOptions) {
 	for(var k in newOptions){
 		var v = newOptions[k];
-		if (Array.isArray(v)){
+		if (k == 'yColumns'){
+			oldOptions[k] = v;
+		}
+		else if (Array.isArray(v)){
 			if (!oldOptions[k]){oldOptions[k]=[];}
 			for (var i=0;i<v.length;i++){
 				if (!oldOptions[k][i]){oldOptions[k].push({});}
@@ -114,7 +117,7 @@ wss.on('connection', function connection(ws) {
 			defaultOptions['nHeaders'] = 1;
 			defaultOptions['filters'] = [];
 			defaultOptions['type'] = '';
-			defaultOptions['yColumns'] = '';
+			defaultOptions['yColumns'] = [];
 			defaultOptions['xColumn'] = '';
 			defaultOptions['stepSize'] = {};
 			defaultOptions['labels'] = {};
@@ -169,7 +172,7 @@ wss.on('connection', function connection(ws) {
 			defaultOptions['nHeaders'] = 1;
 			defaultOptions['filters'] = [];
 			defaultOptions['type'] = '';
-			defaultOptions['yColumns'] = '';
+			defaultOptions['yColumns'] = [];
 			defaultOptions['xColumn'] = '';
 			defaultOptions['stepSize'] = {};
 			defaultOptions['labels'] = {};
@@ -448,28 +451,7 @@ loginApp.get('/edit/:chartid',
 const loginServer = https.createServer(options, loginApp);
 loginServer.listen(3000);
 
-function convertToOptions(oldOptions){
-	var options = oldOptions;
-	if (!oldOptions['yColumns']){options['yColumns']=[];}
-	else {
-		var yColumns = [];
-		var yCols = oldOptions.yColumns.split(',');
-		for (var i=0;i<yCols.length;i++){
-			if (!isNaN(parseInt(yCols[i]))){ yColumns.push(parseInt(yCols[i]));}
-		}
-		if(yColumns.length==0){
-			yColumns.push(1);
-		}
-		options['yColumns']=yColumns;
-	}
-	if (!oldOptions['xColumn'] || isNaN(oldOptions['xColumn']) ){options['xColumn']='';}
-	else {
-		var xColumn = 0;
-		if (!isNaN(parseInt(oldOptions.xColumn))){ xColumn = parseInt(oldOptions.xColumn);}
-		options['xColumn']=xColumn;
-	}
-	return options;
-}
+
 function convertDataToFull(dataStr,nHeaders,usepapa=false) {
 	if (usepapa){
 
@@ -583,7 +565,6 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 			complete: function(results) {
 				var nHeaders = chartInfo.options.nHeaders || 1;
 				var data = convertDataToFull(results.data,nHeaders,true);
-				var options = convertToOptions(chartInfo.options);
 				/*
 				if (chartStyle == 'all' || chartStyle == 'chartJS') {
 					var chartJSON = createChartjs.createChartjs(data,options);

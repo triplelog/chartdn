@@ -56,8 +56,7 @@ exports.createPlotly = function(data,options) {
 	}
 	//chartOptions['grid']= {rows: 2, columns: 1}
 	
-	var chartJSON = {'data':datasets,'options':chartOptions}
-	console.log(chartJSON);
+	var chartJSON = {'data':datasets,'options':chartOptions};
 	return chartJSON;
 
 }
