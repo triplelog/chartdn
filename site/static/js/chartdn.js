@@ -148,7 +148,7 @@ function columnsChg() {
 	if (!noNames){jsonmessage['lines']=lineNames}
 	ws.send(JSON.stringify(jsonmessage));
 }
-function optionsChg(optionname, evt) {
+function optionsChg(optionname) {
 	if (optionname == 'xaxistitle' || optionname == 'yaxistitle'){
 		var newoption = document.querySelector('input[name='+optionname+']').value;
 		var jsonmessage = {'operation':'options','labels':{}};
@@ -164,7 +164,6 @@ function optionsChg(optionname, evt) {
 		ws.send(JSON.stringify(jsonmessage));
 	}
 	else if (optionname == 'shape' || optionname == 'dash' || optionname == 'lineName'){
-		console.log(evt);
 		var parentEl = document.querySelectorAll("div[name='lineStyleDiv']")[lineId];
 		var el = parentEl.querySelector('input[name='+optionname+']:checked');
 		if (optionname == 'lineName'){
@@ -298,20 +297,56 @@ var drake = dragula([document.getElementById('allColumns'), document.getElementB
   }
 });
 
-drake.on('drop', function (el, target, source) { 
+drake.on('drop', function (el, target, source, sibling) { 
 	if (target.id == 'xColumn') {
 		target.innerHTML = ''; target.appendChild(el);
 		document.getElementById('xColVal').value = el.id.substring(5);
 		columnsChg();
 	}
 	else if (target.id == 'yColumns') {
-		yColsVals.push(el.id.substring(5));
-		var ycvStr = '';
-		for (var yid in yColsVals){
-			ycvStr += yColsVals[yid]+', ';
+		var elid = el.id.substring(5);
+		if (!sibling){
+			
+			var ycvStr = '';
+			var oldId = -1;
+			for (var yid in yColsVals){
+				if (elid != yColsVals[yid]){
+					ycvStr += yColsVals[yid]+', ';
+				}
+				else {
+					oldId = yid;
+				}
+			}
+			if (oldId != -1){yColsVals.splice(oldId,1);}
+			yColsVals.push(elid);
+			ycvStr += elid+', ';
+			document.getElementById('yColsVal').value = ycvStr.substring(0,ycvStr.length-2);
+			columnsChg();
 		}
-		document.getElementById('yColsVal').value = ycvStr.substring(0,ycvStr.length-2);
-		columnsChg();
+		else {
+			var sibid = sibling.id.substring(5);
+			var ycvStr = '';
+			var oldId = -1;
+			for (var yid in yColsVals){
+				if (elid == yColsVals[yid]){
+					oldId = yid;
+				}
+			}
+			if (oldId != -1){yColsVals.splice(oldId,1);}
+			for (var yid in yColsVals){
+				if (sibid == yColsVals[yid]) {
+					newId = yid;
+					ycvStr += elid+', ';
+					ycvStr += yColsVals[yid]+', ';
+				}
+				else {
+					ycvStr += yColsVals[yid]+', ';
+				}
+			}
+			yColsVals.splice(newId,0,elid);
+			document.getElementById('yColsVal').value = ycvStr.substring(0,ycvStr.length-2);
+			columnsChg();
+		}
 		
 	}
 });
