@@ -14,27 +14,26 @@ class chartdnChart extends HTMLElement {
 	
   }
   
+  
   makeChartjs(chartJSON) {
-  	
-  	this.shadowRoot.querySelector('#myChart').style.display = 'block';
-  	var ctx = this.shadowRoot.querySelector('#myChart').getContext('2d');
+  	this.querySelector('#myChart').style.display = 'block';
+  	var ctx = this.querySelector('#myChart').getContext('2d');
 	var myLineChart = new Chart(ctx, chartJSON);
   }
   makeXkcd(chartJSON) {
-  	this.shadowRoot.querySelector('#xkcdSvg').style.display = 'block';
-	const lineChart = new chartXkcd.Line(this.shadowRoot.querySelector('#xkcdSvg'), chartJSON);
+  	this.querySelector('#xkcdSvg').style.display = 'block';
+	const lineChart = new chartXkcd.Line(this.querySelector('#xkcdSvg'), chartJSON);
   }
   makeGoogle(chartJSON) {
   	googleArray = chartJSON.retArray;
   	googleOptions = chartJSON.options;
-    var el = this.shadowRoot.querySelector('#googleChart');
+    var el = this.querySelector('#googleChart');
   	el.style.display = 'block';
 	google.charts.load('current', {'packages':['corechart']});
 	google.charts.setOnLoadCallback(drawChart);
   }
-  makePlotly(chartJSON){
+  makePlotly(chartJSON) {
   	this.querySelector('#plotlyDiv').style.display = 'block';
-
 	Plotly.newPlot(this.querySelector('#plotlyDiv'), chartJSON.data, chartJSON.options);
   }
   
