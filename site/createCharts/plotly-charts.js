@@ -13,7 +13,7 @@ exports.createPlotly = function(data,options) {
 			if (myStyle.color){dataObject['line']={'color': myStyle.color};}
 			else {dataObject['line']={};}
 			
-			if (myStyle.shape){dataObject['line']['shape']=myStyle.shape;}
+			if (myStyle.shape && myStyle.shape != 'default'){dataObject['line']['shape']=myStyle.shape;}
 			if (myStyle.dash){dataObject['line']['dash']=myStyle.dash;}
 			if (myStyle.width){dataObject['line']['width']=myStyle.width;}
 			
