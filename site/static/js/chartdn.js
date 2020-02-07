@@ -165,20 +165,19 @@ function optionsChg(optionname) {
 	}
 	else if (optionname == 'shape' || optionname == 'dash' || optionname == 'lineName'){
 		var parentEl = document.querySelectorAll("div[name='lineStyleDiv']")[lineId];
+		var colid = yColsVals[lineId];
 		var el = parentEl.querySelector('input[name='+optionname+']:checked');
 		if (optionname == 'lineName'){
 			el = parentEl.querySelector('input[name='+optionname+']')
 		}
 		var newoption = el.value;
-		var jsonmessage = {'operation':'options','lines':[]};
-		for (var i=0;i<=lineId;i++){
-			jsonmessage['lines'].push({});
-		}
+		var jsonmessage = {'operation':'options','lines':{'id':colid}};
+
 		if (optionname != 'lineName'){
-			jsonmessage['lines'][lineId][optionname]=newoption;
+			jsonmessage['lines'][optionname]=newoption;
 		}
 		else {
-			jsonmessage['lines'][lineId]['name']=newoption;
+			jsonmessage['lines']['name']=newoption;
 		}
 		ws.send(JSON.stringify(jsonmessage));
 	}

@@ -78,6 +78,17 @@ function updateOptions(oldOptions, newOptions) {
 		if (k == 'yColumns'){
 			oldOptions[k] = v;
 		}
+		else if (k == 'lines'){
+			if (!oldOptions['lines']){oldOptions['lines']=[];}
+			for (var i=0;i<oldOptions['lines'].length;i++){
+				if (oldOptions['lines'][i].id == v.id){
+					for (var key in v){
+						oldOptions['lines'][i][key] = v[key];
+					}
+					break;
+				}
+			}
+		}
 		else if (Array.isArray(v)){
 			if (!oldOptions[k]){oldOptions[k]=[];}
 			for (var i=0;i<v.length;i++){
