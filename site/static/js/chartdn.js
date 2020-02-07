@@ -179,6 +179,7 @@ function optionsChg(optionname) {
 		else {
 			jsonmessage['lines']['name']=newoption;
 		}
+		console.log(JSON.stringify(jsonmessage));
 		ws.send(JSON.stringify(jsonmessage));
 	}
 	else {
