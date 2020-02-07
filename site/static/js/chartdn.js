@@ -42,6 +42,7 @@ function getOrdinal(n) {
 var nHeaders = 1;
 var filters = [];
 var yColsVals = [];
+var lineId = 0;
 
 //Download from url
 function urlChg(url) {
@@ -131,7 +132,6 @@ function optionsChg(optionname) {
 		ws.send(JSON.stringify(jsonmessage));
 	}
 	else if (optionname == 'shape'){
-		var lineId = 0;
 		var newoption = document.querySelector('input[name='+optionname+']:checked').value;
 		var jsonmessage = {'operation':'options','lines':[]};
 		for (var i=0;i<=lineId;i++){
