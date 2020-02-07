@@ -132,7 +132,7 @@ function columnsChg() {
 		if (!isNaN(parseInt(yCols[i]))){ 
 			yColumns.push(parseInt(yCols[i]));
 			if (parseInt(yCols[i])<headers.length){
-				lineNames.push({'name':headers[parseInt(yCols[i])]});
+				lineNames.push({'id':parseInt(yCols[i]),'name':headers[parseInt(yCols[i])]});
 			}
 			else {
 				noNames = true;
@@ -171,13 +171,13 @@ function optionsChg(optionname) {
 			el = parentEl.querySelector('input[name='+optionname+']')
 		}
 		var newoption = el.value;
-		var jsonmessage = {'operation':'options','lines':{'id':colid}};
+		var jsonmessage = {'operation':'options','lines':[{'id':colid}]};
 
 		if (optionname != 'lineName'){
-			jsonmessage['lines'][optionname]=newoption;
+			jsonmessage['lines'][0][optionname]=newoption;
 		}
 		else {
-			jsonmessage['lines']['name']=newoption;
+			jsonmessage['lines'][0]['name']=newoption;
 		}
 		ws.send(JSON.stringify(jsonmessage));
 	}

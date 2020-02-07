@@ -79,19 +79,22 @@ function updateOptions(oldOptions, newOptions) {
 			oldOptions[k] = v;
 		}
 		else if (k == 'lines'){
-			if (!oldOptions['lines']){oldOptions['lines']=[];}
-			var noObject = true;
-			for (var i=0;i<oldOptions['lines'].length;i++){
-				if (oldOptions['lines'][i].id == v.id){
-					for (var key in v){
-						oldOptions['lines'][i][key] = v[key];
+			for (var vvv in v){
+				var vv = v[vvv];
+				if (!oldOptions['lines']){oldOptions['lines']=[];}
+				var noObject = true;
+				for (var i=0;i<oldOptions['lines'].length;i++){
+					if (oldOptions['lines'][i].id == vv.id){
+						for (var key in vv){
+							oldOptions['lines'][i][key] = vv[key];
+						}
+						noObject = false;
+						break;
 					}
-					noObject = false;
-					break;
 				}
-			}
-			if (noObject){
-				oldOptions['lines'].push(v);
+				if (noObject){
+					oldOptions['lines'].push(vv);
+				}
 			}
 		}
 		else if (Array.isArray(v)){
