@@ -55,12 +55,12 @@ class chartdnChart extends HTMLElement {
   }
   chgType(style) {
   	if (style == 'XKCD'){
-  		this.shadowRoot.innerHTML = `<div class="chart-container" style="position: relative;">
+  		this.innerHTML = `<div class="chart-container" style="position: relative;">
 					<svg id="xkcdSvg" style="display: none;"></svg>
 				</div>`;
   	}
   	else if (style == 'google') {
-  		this.shadowRoot.innerHTML = `<div class="chart-container" style="position: relative;">
+  		this.innerHTML = `<div class="chart-container" style="position: relative;">
 					<div id="googleChart" style="display: none;"></div>
 				</div>`;
   	}
@@ -70,7 +70,7 @@ class chartdnChart extends HTMLElement {
 				</div>`;
   	}
   	else if (style == 'chartJS') {
-  		this.shadowRoot.innerHTML = `<div class="chart-container" style="position: relative;">
+  		this.innerHTML = `<div class="chart-container" style="position: relative;">
 			<canvas id="myChart" style="display: none;"></canvas>
 		</div>`;
   	}
