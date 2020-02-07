@@ -4,6 +4,7 @@ class chartdnChart extends HTMLElement {
     super();
 	var _this = this;
     const shadowRoot = this.attachShadow({mode: 'open'});
+    this.appendChild(document.createElement('span'));
     console.log(this);
   	shadowRoot.innerHTML = `<div class="chart-container" style="position: relative;">
 		<canvas id="myChart" style="display: none;"></canvas>
