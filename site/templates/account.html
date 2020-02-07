@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
 
     <link rel="stylesheet" href="css/mainstyle.css">
+    
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
 </head>
 <body>
@@ -64,7 +66,7 @@
 				</div>
 				<div id="created">
 					{% for chart in charts %}
-					  {{ chart }}<br />
+						<chartdn-chart src="{{ chart }}" data-style="plotly"></chartdn-chart>
 					{% else %}
 					{% endfor %}
 				</div>
@@ -103,5 +105,7 @@
 
 </div>
 <script src="../js/account.js"></script>
+<script src="../js/chartdnws.js"></script>
+<script src="../js/chartdnelements.js"></script>
 </body>
 </html>
