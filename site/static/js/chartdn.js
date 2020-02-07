@@ -156,22 +156,18 @@ function optionsChg(optionname) {
 		else if (optionname == 'stepSizeY') {jsonmessage['stepSize']['y']=newoption;}
 		ws.send(JSON.stringify(jsonmessage));
 	}
-	else if (optionname == 'shape'){
+	else if (optionname == 'shape' || optionname == 'dash' || optionname == 'lineName'){
 		var newoption = document.querySelector('input[name='+optionname+']:checked').value;
 		var jsonmessage = {'operation':'options','lines':[]};
 		for (var i=0;i<=lineId;i++){
 			jsonmessage['lines'].push({});
 		}
-		jsonmessage['lines'][lineId]['shape']=newoption;
-		ws.send(JSON.stringify(jsonmessage));
-	}
-	else if (optionname == 'dash'){
-		var newoption = document.querySelector('input[name='+optionname+']:checked').value;
-		var jsonmessage = {'operation':'options','lines':[]};
-		for (var i=0;i<=lineId;i++){
-			jsonmessage['lines'].push({});
+		if (optionname != 'lineName'){
+			jsonmessage['lines'][lineId][optionname]=newoption;
 		}
-		jsonmessage['lines'][lineId]['dash']=newoption;
+		else {
+			jsonmessage['lines'][lineId]['name']=newoption;
+		}
 		ws.send(JSON.stringify(jsonmessage));
 	}
 	else {
