@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Logo</title>
+	
+	
+</head>
+
+<body>
+  <div>
+  	 <svg id="svgout" width="270" height="270"></svg>
+  </div>
+  
+	
+  
+	<script src="rough.js"></script>
+	<script type='text/javascript'>
+  		var svg = document.getElementById('svgout');
+  		var rness = 0.4;
+  		var scale = .4;
+  		var fStyle = 'cross-hatch';
+		const rc = rough.svg(svg);
+		let node = rc.rectangle(10*scale, 10*scale, 100*scale, 50*scale, { roughness: rness, fill: 'red', fillStyle: fStyle }); // x, y, width, height
+		svg.appendChild(node);
+		node = rc.rectangle(110*scale, 10*scale, 150*scale, 50*scale, { roughness: rness, fill: 'white' }); // x, y, width, height
+		svg.appendChild(node);
+		node = rc.rectangle(10*scale, 60*scale, 50*scale, 50*scale, { roughness: rness, fill: 'red', fillStyle: fStyle }); // x, y, width, height
+		svg.appendChild(node);
+		node = rc.rectangle(60*scale, 60*scale, 100*scale, 50*scale, { roughness: rness, fill: 'red', fillStyle: fStyle }); // x, y, width, height
+		svg.appendChild(node);
+		node = rc.rectangle(160*scale, 60*scale, 100*scale, 50*scale, { roughness: rness, fill: 'white' }); // x, y, width, height
+		svg.appendChild(node);
+		node = rc.rectangle(10*scale, 110*scale, 100*scale, 50*scale, { roughness: rness, fill: 'red', fillStyle: fStyle }); // x, y, width, height
+		svg.appendChild(node);
+		node = rc.rectangle(110*scale, 110*scale, 50*scale, 50*scale, { roughness: rness, fill: 'red', fillStyle: fStyle }); // x, y, width, height
+		svg.appendChild(node);
+		node = rc.rectangle(160*scale, 110*scale, 50*scale, 50*scale, { roughness: rness, fill: 'red', fillStyle: fStyle }); // x, y, width, height
+		svg.appendChild(node);
+		node = rc.rectangle(210*scale, 110*scale, 50*scale, 50*scale, { roughness: rness, fill: 'red', fillStyle: fStyle }); // x, y, width, height
+		svg.appendChild(node);
+		node = rc.rectangle(10*scale, 160*scale, 100*scale, 50*scale, { roughness: rness, fill: 'red', fillStyle: fStyle }); // x, y, width, height
+		svg.appendChild(node);
+		node = rc.rectangle(110*scale, 160*scale, 50*scale, 50*scale, { roughness: rness, fill: 'red', fillStyle: fStyle }); // x, y, width, height
+		svg.appendChild(node);
+		node = rc.rectangle(160*scale, 160*scale, 50*scale, 50*scale, { roughness: rness, fill: 'red', fillStyle: fStyle }); // x, y, width, height
+		svg.appendChild(node);
+		node = rc.rectangle(210*scale, 160*scale, 50*scale, 50*scale, { roughness: rness, fill: 'white' }); // x, y, width, height
+		svg.appendChild(node);
+		node = rc.rectangle(10*scale, 210*scale, 100*scale, 50*scale, { roughness: rness, fill: 'red', fillStyle: fStyle }); // x, y, width, height
+		svg.appendChild(node);
+		node = rc.rectangle(110*scale, 210*scale, 50*scale, 50*scale, { roughness: rness, fill: 'red', fillStyle: fStyle }); // x, y, width, height
+		svg.appendChild(node);
+		node = rc.rectangle(160*scale, 210*scale, 100*scale, 50*scale, { roughness: rness, fill: 'white' }); // x, y, width, height
+		svg.appendChild(node);
+  </script>
+  </body>
+</html>
+
+
+	  
