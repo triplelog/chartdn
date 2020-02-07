@@ -80,13 +80,18 @@ function updateOptions(oldOptions, newOptions) {
 		}
 		else if (k == 'lines'){
 			if (!oldOptions['lines']){oldOptions['lines']=[];}
+			var noObject = true;
 			for (var i=0;i<oldOptions['lines'].length;i++){
 				if (oldOptions['lines'][i].id == v.id){
 					for (var key in v){
 						oldOptions['lines'][i][key] = v[key];
 					}
+					noObject = false;
 					break;
 				}
+			}
+			if (noObject){
+				oldOptions['lines'].push(v);
 			}
 		}
 		else if (Array.isArray(v)){
