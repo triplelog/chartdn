@@ -152,6 +152,20 @@ wss.on('connection', function connection(ws) {
 				if (err) return console.error(err);
 				console.log('saved');
 			});
+			if (username != '') {
+				User.findOne({username: username}, function(err, result) {
+				  if (err) {
+			
+				  } else {
+					result.charts.push(chartid);
+					result.markModified('charts');
+					result.save(function (err, result) {
+						if (err) return console.error('sajdhfkasdhj\n',err);
+						console.log('updated user charts');
+					});
+				  }
+				});
+			}
   		}
   		//write data.csv
   		if (chartid == dataid){
@@ -207,6 +221,20 @@ wss.on('connection', function connection(ws) {
 				if (err) return console.error(err);
 				console.log('saved');
 			});
+			if (username != '') {
+				User.findOne({username: username}, function(err, result) {
+				  if (err) {
+			
+				  } else {
+					result.charts.push(chartid);
+					result.markModified('charts');
+					result.save(function (err, result) {
+						if (err) return console.error('sajdhfkasdhj\n',err);
+						console.log('updated user charts');
+					});
+				  }
+				});
+			}
   		}
   		//write data.csv
   		if (chartid == dataid){
@@ -392,6 +420,20 @@ loginApp.get('/edit/:chartid',
 									if (err) return console.error(err);
 									console.log('saved');
 								});
+								if (username != '') {
+									User.findOne({username: username}, function(err, result) {
+									  if (err) {
+			
+									  } else {
+										result.charts.push(chartid);
+										result.markModified('charts');
+										result.save(function (err, result) {
+											if (err) return console.error('sajdhfkasdhj\n',err);
+											console.log('updated user charts');
+										});
+									  }
+									});
+								}
 								fs.readFile('saved/'+dataname, 'utf8', function(err, fileData) {
 									var defaultData = ''
 									if (!err) {defaultData = fileData;}

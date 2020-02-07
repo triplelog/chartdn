@@ -53,7 +53,7 @@ app2.get('/account',
   			username: req.user.username,
   			name: req.user.name || '',
   			robot: req.user.robot || 1,
-  			charts: req.user.charts[0] || '',
+  			charts: req.user.charts || [],
   		}));
 		res.end();
   	}
@@ -86,7 +86,7 @@ app2.post('/settings',
 
 app2.post('/register',
   function(req, res){
-  	var user = new User({username: req.body.username, charts: ['A']});
+  	var user = new User({username: req.body.username, charts: []});
 	User.register(user,req.body.password, function(err) {
 		if (err) {
 		  console.log('error while user register!', err);
