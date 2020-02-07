@@ -132,7 +132,7 @@ function optionsChg(optionname) {
 	}
 	else if (optionname == 'shape'){
 		var lineId = 0;
-		var newoption = document.querySelector('input[name='+optionname+']').value;
+		var newoption = document.querySelector('input[name='+optionname+']:checked').value;
 		var jsonmessage = {'operation':'options','lines':[]};
 		for (var i=0;i<=lineId;i++){
 			jsonmessage['lines'].push({});
