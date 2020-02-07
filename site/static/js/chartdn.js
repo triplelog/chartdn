@@ -148,7 +148,7 @@ function columnsChg() {
 	if (!noNames){jsonmessage['lines']=lineNames}
 	ws.send(JSON.stringify(jsonmessage));
 }
-function optionsChg(optionname) {
+function optionsChg(optionname, evt) {
 	if (optionname == 'xaxistitle' || optionname == 'yaxistitle'){
 		var newoption = document.querySelector('input[name='+optionname+']').value;
 		var jsonmessage = {'operation':'options','labels':{}};
@@ -164,6 +164,7 @@ function optionsChg(optionname) {
 		ws.send(JSON.stringify(jsonmessage));
 	}
 	else if (optionname == 'shape' || optionname == 'dash' || optionname == 'lineName'){
+		console.log(evt);
 		var parentEl = document.querySelectorAll("div[name='lineStyleDiv']")[lineId];
 		var el = parentEl.querySelector('input[name='+optionname+']:checked');
 		if (optionname == 'lineName'){
