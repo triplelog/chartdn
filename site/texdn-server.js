@@ -325,11 +325,14 @@ wss.on('connection', function connection(ws) {
 		  chartid = dm.id;
 		  if (chartid && chartid != ""){
 			  Chart.findOne({ id: chartid }, function(err, result) {
-			  	if (dm.style){
-			  		makeAllCharts(ws,dm,result,dm.style);
-			  	}
+			  	if (err){}
 			  	else {
-			  		makeAllCharts(ws,dm,result,'all');
+					if (dm.style){
+						makeAllCharts(ws,dm,result,dm.style);
+					}
+					else {
+						makeAllCharts(ws,dm,result,'all');
+					}
 			  	}
 				
 			  });
