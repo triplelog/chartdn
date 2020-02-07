@@ -42,6 +42,7 @@ function getOrdinal(n) {
 var nHeaders = 1;
 var filters = [];
 var yColsVals = [];
+var headers = [];
 var lineId = 0;
 
 // Change Tab of which line to style
@@ -205,7 +206,7 @@ function dataChg(initialData=false) {
 	}
 	var data = Papa.parse(csv).data;
 	dataTable.innerHTML = '';
-	var headers = [];
+	headers = [];
 	var includeHeaders = false;
 	for (var i=0;i<data.length;i++){
 		var newrow = document.createElement('tr');
