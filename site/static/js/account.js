@@ -1,5 +1,5 @@
 hideAll();
-document.getElementById('tabcreated').classList.add('pure-menu-selected');
+chgTab('created');
 function hideAll() {
 	var tabids = ['created','favorites','friends','settings'];
 	for (var i=0;i<tabids.length;i++){
