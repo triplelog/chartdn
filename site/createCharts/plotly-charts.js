@@ -7,7 +7,7 @@ exports.createPlotly = function(data,options) {
 		dataObject = {};
 		var myStyle = {};
 		if (options.type == 'line'){
-			if (options.lines) {myStyle = options.lines[Math.min(i,options.lines.length)];}
+			if (options.lines) {myStyle = options.lines[Math.min(i,options.lines.length-1)];}
 			if (myStyle.dots === false){dataObject['mode']='lines';}
 			else {dataObject['mode']='lines+markers';}
 			if (myStyle.color){dataObject['line']={'color': myStyle.color};}
