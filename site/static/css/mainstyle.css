@@ -390,7 +390,6 @@ a.pure-button-primary {
 	background: var(--color-main);
 }
 .box-header {
-	border: 1px dotted black;
 	text-align: center;
 	background: rgb(180,180,180);
 	color: rgb(0,0,20);
