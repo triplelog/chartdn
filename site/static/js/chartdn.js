@@ -421,12 +421,13 @@ drake.on('remove', function (el, target, source) {
 function minimizeBox(boxid){
 	if (boxid == 'dataSource'){
 		var el = document.getElementById('dataSourceBox');
-		el.classList.add('pure-u-1-24');
+		el.classList.add('pure-u-1-1');
 		el.classList.remove('pure-u-1-4');
 		el.querySelector('form').style.display = 'none';
-		el.querySelector('.box-header').classList.add('sideways-text');
+		el.querySelector('i').classList.remove('fa-compress-alt');
+		el.querySelector('i').classList.add('fa-expand-alt');
 		var otherEl = document.getElementById('dataTableBox');
-		otherEl.classList.add('pure-u-23-24');
+		otherEl.classList.add('pure-u-1-1');
 		otherEl.classList.remove('pure-u-3-4');
 	}
 }
