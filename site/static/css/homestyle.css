@@ -4,6 +4,7 @@
     box-sizing: border-box;
     --color0: #1f8dd6;
     --color1: #2d3e50;
+    --color1-gradient: linear-gradient(0deg, rgb(0,0,0) 0%, rgb(150,150,150) 100%);
     --color1-text: #aaa;
     --color2: #fff;
     --color2-text: #888;
@@ -248,6 +249,7 @@ a.pure-button-primary {
 /* This is the class used for the dark-background areas. */
 .ribbon1 {
     background: var(--color1);
+    background: var(--color1-gradient);
     color: var(--color1-text);
 }
 .ribbon2 {
