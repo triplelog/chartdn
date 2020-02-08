@@ -221,15 +221,9 @@ div.l-box {
 									<select id="lineStyleMenu" onchange="chgLineTab()">
 										<option value="-1" selected>All</option>
 									</select>
-									<span class="box-buttons">X</span>
 								</div>
 								<div class="box-form" style="max-height: 50rem; overflow: auto;" id="lineStyleDivs">
-									<!--<div class="pure-menu pure-menu-horizontal" id="lineStyleMenu">
-										<ul class="pure-menu-list tabbed-menu">
-											<li class="pure-menu-item pure-menu-selected" onclick="chgLineTab(0)"><a class="pure-menu-link">0</a></li>
-											<li class="pure-menu-item" onclick="chgLineTab(1)"><a class="pure-menu-link">1</a></li>
-										</ul>
-									</div>-->
+									
 								</div>
 							</div>
 							
@@ -251,20 +245,29 @@ div.l-box {
 				</div>
 			</div>
 			<div class="l-box pure-u-1-2" style="border: 1px solid black;">
-				<chartdn-chart data-style="plotly"></chartdn-chart>
-			</div>
-			<div class="l-box pure-u-1-2" style="border: 1px solid black;">
-				<chartdn-chart data-style="XKCD"></chartdn-chart>
-			</div>
-			<div class="l-box pure-u-1-2" style="border: 1px solid black;">
-				<chartdn-chart data-style="google"></chartdn-chart>
-			</div>
-			<div class="l-box pure-u-1-2" style="border: 1px solid black;">
-				Pgfplots
-				<div class="chart-container" style="position: relative;">
-					<!--<object data="test4.svg" type="image/svg+xml"></object>-->
+				<div class="box-header">Plotly<span class="box-buttons"><i class="fas fa-compress-alt"></i></span></div>
+				<div class='box-form'>
+					<chartdn-chart data-style="plotly"></chartdn-chart>
 				</div>
 			</div>
+			<div class="l-box pure-u-1-2" style="border: 1px solid black;">
+				<div class="box-header">XKCD<span class="box-buttons"><i class="fas fa-compress-alt"></i></span></div>
+				<div class='box-form'>
+					<chartdn-chart data-style="XKCD"></chartdn-chart>
+				</div>
+			</div>
+			<div class="l-box pure-u-1-2" style="border: 1px solid black;">
+				<div class="box-header">Google<span class="box-buttons"><i class="fas fa-compress-alt"></i></span></div>
+				<div class='box-form'>
+					<chartdn-chart data-style="google"></chartdn-chart>
+				</div>
+			</div>
+			<!--<div class="l-box pure-u-1-2" style="border: 1px solid black;">
+				Pgfplots
+				<div class="chart-container" style="position: relative;">
+					<object data="test4.svg" type="image/svg+xml"></object>
+				</div>
+			</div>-->
 		</div>
     </div>	
       	

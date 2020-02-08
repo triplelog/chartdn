@@ -392,12 +392,12 @@ a.pure-button-primary {
 .box-header {
 	text-align: center;
 	background: var(--color-main);
-	color: 'white';
+	color: white;
 }
 .box-header2 {
 	text-align: center;
 	background: #DDD;
-	color: 'black';
+	color: black;
 }
 .box-form {
 	border: 1px solid black;
