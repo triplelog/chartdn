@@ -12,7 +12,7 @@
 
 <body>
   <div>
-  	 <svg width="750" height="150"><g id="svgout" transform="rotate(-90 65 60)"></g><text font-family="Oswald" font-size="96" x="160" y="95" fill="#a62854">ChartDN</text></svg>
+  	 <svg width="750" height="150"><g id="svgout" transform="rotate(-90 65 60)"></g><text font-family="Oswald" font-size="100" x="170" y="100" fill="black">ChartDN</text></svg>
   </div>
   
 	
@@ -22,9 +22,9 @@
   		var svg = document.getElementById('svgout');
   		var rness = 0.2;
   		var scale = .4;
-  		var fStyle = 'cross-hatch';
-  		var fillW = 1.5;
-  		var strokeColor = "rgba(0,0,0,.75)";
+  		var fStyle = 'solid';
+  		var fillW = 1.1;
+  		var strokeColor = "white";
   		var fillColor = '#A62854'
 		const rc = rough.svg(svg);
 		let node = rc.rectangle(10*scale, 10*scale, 100*scale, 50*scale, { roughness: rness, fillWeight: fillW, stroke: strokeColor, fill: fillColor, fillStyle: fStyle }); // x, y, width, height
