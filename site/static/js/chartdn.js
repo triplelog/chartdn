@@ -47,17 +47,11 @@ var lineId = 0;
 var dataSourceSize = 'large';
 
 // Change Tab of which line to style
-function chgLineTab(tabId){
-	console.log(tabId);
-	var menuList = document.getElementById('lineStyleMenu').firstElementChild;
-	var menuItems = menuList.children;
-	
-	for (var i=0;i<menuItems.length;i++){
-		menuItems[i].classList.remove('pure-menu-selected');
-	}
-	menuItems[tabId].classList.add('pure-menu-selected');
-	lineId = tabId;
-	var colid = yColsVals[tabId];
+function chgLineTab(){
+
+	lineId = document.getElementById('lineStyleMenu').querySelector('option:selected').value;
+	if (lineId == -1){lineId = 0;}
+	var colid = yColsVals[lineId];
 	
 	var lineDivs = document.getElementById('lineStyleDivs').children;
 	for (var i=0;i<lineDivs.length;i++){
@@ -154,7 +148,7 @@ function columnsChg() {
 	var noNames = false;
 	
 	var yCols = yColsStr.split(',');
-	var menu = document.getElementById('lineStyleMenu').firstElementChild;
+	var menu = document.getElementById('lineStyleMenu');
 	for (var i=0;i<yCols.length;i++){
 		if (!isNaN(parseInt(yCols[i]))){ 
 			yColumns.push(parseInt(yCols[i]));
@@ -165,12 +159,10 @@ function columnsChg() {
 				noNames = true;
 			}
 		}
-		if (i >= menu.children.length){
-			var el = document.createElement('li');
-			el.classList.add('pure-menu-item');
-			if (i==0){el.classList.add('pure-menu-selected');}
-			el.setAttribute('onclick',"chgLineTab("+i+")");
-			el.innerHTML= '<a class="pure-menu-link">'+i+'</a>';
+		if (i >= menu.children.length - 1){
+			var el = document.createElement('option');
+			el.value = i;
+			el.textContent = i;
 			menu.appendChild(el);
 		}
 		
