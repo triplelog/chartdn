@@ -6,7 +6,7 @@
     --color-second: #EBBF67;
     --color0: #1f8dd6;
     --color1: #2d3e50;
-    --color1-gradient: linear-gradient(0deg, rgb(0,0,0) 0%, #EBBF67 100%);
+    --color1-gradient: linear-gradient(0deg, rgb(10,0,0) 0%, rgb(0,0,80) 100%);
     --color1-text: #aaa;
     --color2: #fff;
     --color2-text: #888;
@@ -243,7 +243,7 @@ a.pure-button-primary {
 
 /* This is the class used for the content sub-headers (<h3>) */
 .content-subhead {
-    color: #1f8dd6;
+    color: var(--color-main);
 }
     .content-subhead i {
         margin-right: 7px;
