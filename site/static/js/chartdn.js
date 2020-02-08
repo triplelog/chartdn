@@ -49,7 +49,7 @@ var dataSourceSize = 'large';
 // Change Tab of which line to style
 function chgLineTab(){
 
-	lineId = document.getElementById('lineStyleMenu').querySelector('option:selected').value;
+	lineId = document.getElementById('lineStyleMenu').querySelector('option[]:selected').value;
 	if (lineId == -1){lineId = 0;}
 	var colid = yColsVals[lineId];
 	
