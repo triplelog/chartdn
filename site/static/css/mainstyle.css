@@ -2,6 +2,11 @@
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+    --color1: #2d3e50;
+    --color1-text: #aaa;
+    --color2: #fff;
+    --color2-text: #888;
+    
 }
 
 /*
@@ -187,12 +192,12 @@ a.pure-button-primary {
 
 /* This is the class used for the dark-background areas. */
 .ribbon1 {
-    background: #2d3e50;
-    color: #aaa;
+    background: var(--color1);
+    color: var(--color1-text);
 }
 .ribbon2 {
-    background: #FFF;
-    color: #888;
+    background: var(--color2);
+    color: var(--color2-text);
 }
 /* This is a modifier class used when the content-head is inside a ribbon */
 .content-head-ribbon1 {
