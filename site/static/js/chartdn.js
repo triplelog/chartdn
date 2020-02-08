@@ -48,6 +48,7 @@ var dataSourceSize = 'large';
 
 // Change Tab of which line to style
 function chgLineTab(tabId){
+	console.log(tabId);
 	var menuList = document.getElementById('lineStyleMenu').firstElementChild;
 	var menuItems = menuList.children;
 	
