@@ -391,13 +391,13 @@ a.pure-button-primary {
 }
 .box-header {
 	text-align: center;
-	background: rgb(210,210,210);
-	color: rgb(0,0,20);
+	background: var(--color-main);
+	color: 'white';
 }
 .box-header2 {
 	text-align: center;
-	background: rgb(45,45,45);
-	color: rgb(255,255,235);
+	background: #DDD;
+	color: 'black';
 }
 .box-form {
 	border: 1px solid black;
