@@ -186,7 +186,7 @@ a.pure-button-primary {
     font-size: 1rem;
     font-weight: bold;
     background-color: rgba(0,0,0,.67);
-    background: linear-gradient(0deg, rgba(0,0,0,.67) 0%, rgba(102,204,204,.67) 100%);
+    background: linear-gradient(0deg, rgba(0,0,0,.67) 0%, rgba(150,150,150,.77) 100%);
     margin-top:5.2rem;
     height: 11.2rem;
     color: white;
@@ -229,7 +229,7 @@ a.pure-button-primary {
     font-weight: 400;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    margin: 2em 0 1em;
+    margin: 1em 0 1em;
 }
 
 
