@@ -44,6 +44,7 @@ var filters = [];
 var yColsVals = [];
 var headers = [];
 var lineId = 0;
+var dataSourceSize = 'large';
 
 // Change Tab of which line to style
 function chgLineTab(tabId){
@@ -419,7 +420,7 @@ drake.on('remove', function (el, target, source) {
 
 // Minimize and Maximize elements
 function minimizeBox(boxid){
-	if (boxid == 'dataSource'){
+	if (boxid == 'dataSource' && dataSourceSize == 'large'){
 		var el = document.getElementById('dataSourceBox');
 		el.classList.add('pure-u-1-1');
 		el.classList.remove('pure-u-1-4');
@@ -429,6 +430,19 @@ function minimizeBox(boxid){
 		var otherEl = document.getElementById('dataTableBox');
 		otherEl.classList.add('pure-u-1-1');
 		otherEl.classList.remove('pure-u-3-4');
+		dataSourceSize = 'small';
+	}
+	else if (boxid == 'dataSource' && dataSourceSize == 'small'){
+		var el = document.getElementById('dataSourceBox');
+		el.classList.remove('pure-u-1-1');
+		el.classList.add('pure-u-1-4');
+		el.querySelector('form').style.display = 'block';
+		el.querySelector('i').classList.add('fa-compress-alt');
+		el.querySelector('i').classList.remove('fa-expand-alt');
+		var otherEl = document.getElementById('dataTableBox');
+		otherEl.classList.remove('pure-u-1-1');
+		otherEl.classList.add('pure-u-3-4');
+		dataSourceSize = 'large';
 	}
 }
 
