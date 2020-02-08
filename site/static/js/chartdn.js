@@ -423,6 +423,8 @@ function minimizeBox(boxid){
 		var el = document.getElementById('dataSourceBox');
 		el.classList.add('pure-u-1-24');
 		el.classList.remove('pure-u-1-4');
+		el.querySelector('form').style.display = 'none';
+		el.querySelector('.box-header').style.writingMode = 'vertical';
 		var otherEl = document.getElementById('dataTableBox');
 		otherEl.classList.add('pure-u-23-24');
 		otherEl.classList.remove('pure-u-3-4');
