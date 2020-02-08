@@ -137,6 +137,7 @@ function createLineDiv(id) {
 		<input type="radio" name="dash`+id+`" onchange="optionsChg('dash')" value="dot">Dot</input>
 		<input type="radio" name="dash`+id+`" onchange="optionsChg('dash')" value="dashdot">DashDot</input>`;
 	document.getElementById("lineStyleDivs").appendChild(el);
+	chgLineTab();
 }
 function columnsChg() {
 	var yColsStr = document.getElementById('yColsVal').value;
@@ -285,8 +286,16 @@ function dataChg(initialData=false) {
 		yColsVals = document.getElementById('yColsVal').value.split(',');
 		document.getElementById('yColumns').innerHTML = '';
 		var ycvStr = '';
+		var menu = document.getElementById('lineStyleMenu');
 		for (var yid in yColsVals){
 			createLineDiv(yColsVals[yid]);
+			if (yid >= menu.children.length - 1){
+				var el = document.createElement('option');
+				el.value = yid;
+				el.textContent = yid;
+				menu.appendChild(el);
+			}
+			
 			yColsVals[yid] = parseInt(yColsVals[yid]);
 			ycvStr += yColsVals[yid]+', ';
 			var newColumn = document.createElement('span');
@@ -295,7 +304,7 @@ function dataChg(initialData=false) {
 			newColumn.style.display = 'block';
 			document.getElementById('yColumns').appendChild(newColumn);
 		}
-		chgLineTab(0);
+		chgLineTab();
 		document.getElementById('yColsVal').value = ycvStr.substring(0,ycvStr.length-2);
 		
 	}
