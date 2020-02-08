@@ -121,7 +121,8 @@ a.pure-button-primary {
 .home-menu {
     border: 0px solid black;
 	background: rgb(255,255,255);
-	background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(102,204,204,1) 100%);
+	/*background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(102,204,204,1) 100%);*/
+	background: linear-gradient(0deg, #FFF 0%, #EBBF67 100%);
 }
 .pure-menu.pure-menu-fixed {
     /* Fixed menus normally have a border at the bottom. */
