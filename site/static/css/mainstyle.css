@@ -414,3 +414,6 @@ a.pure-button-primary {
 	writing-mode: vertical-rl;
 	
 }
+#lineStyleMenu {
+	display: inline-block;
+}
