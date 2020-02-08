@@ -23,6 +23,11 @@ const options = {
   cert: fs.readFileSync('/etc/letsencrypt/live/chartdn.com/fullchain.pem')
 };
 const { PerformanceObserver, performance } = require('perf_hooks');
+const {VM, VMScript} = require('vm2');
+
+const vm = new VM();
+
+
 
 const User = require('./models/user');
 var passport = require('passport')
@@ -545,7 +550,12 @@ function convertDataToFull(dataStr,nHeaders) {
 		currentRow++;
 		rawArray.push(tempA);
 	}
-	
+	var t2 = performance.now();
+	const script = new VMScript("Math.random()");
+	var t3 = performance.now();
+	var vmresult = vm.run(script);
+	var t4 = performance.now();
+	console.log(t1,t2,t3,t4);
 	//Run filters
 
 	var filteredArray = rawArray;
