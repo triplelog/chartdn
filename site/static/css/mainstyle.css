@@ -404,3 +404,8 @@ a.pure-button-primary {
 .box-buttons i {
 	padding-right: .5rem;
 }
+.sideways-text {
+	writing-mode: rl;
+	writing-mode: vertical-rl;
+	
+}
