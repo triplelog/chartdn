@@ -17,7 +17,7 @@
  */
 body {
     line-height: 1.7em;
-    color: #7f8c8d;
+    color: rgb(0,0,20);
     font-size: 13px;
 }
 
@@ -391,7 +391,11 @@ a.pure-button-primary {
 }
 .box-header {
 	border: 1px dotted black;
+	text-align: center;
+	background: rgb(180,180,180);
+	color: rgb(0,0,20);
 }
 .box-form {
 	border: 1px solid black;
+	padding: .5rem;
 }
