@@ -371,13 +371,12 @@ a.pure-button-primary {
 }
 
 .tabbed-menu {
-	background: rgb(200,200,200);
-	
+	background: rgb(150,150,150);	
 }
+
 .tabbed-menu .pure-menu-item:not(.pure-menu-selected) {
+	background: rgb(200,200,200);
 	border-bottom: 0px solid black;
-	border-left: 1px dotted black;
-	border-right: 1px dotted black;
 }
 .tabbed-menu .pure-menu-item.pure-menu-selected {
 	border: 1px solid black;
@@ -386,4 +385,8 @@ a.pure-button-primary {
 }
 .tabbed-menu .pure-menu-item.pure-menu-selected>.pure-menu-link {
 	color: white;
+}
+.tabbed-menu .pure-menu-item.pure-menu-selected>.pure-menu-link:hover {
+	background: var(--color-main);
+	color: rgb(200,200,200);
 }
