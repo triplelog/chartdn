@@ -12,7 +12,7 @@
 
 <body>
   <div>
-  	 <svg id="svgout" width="270" height="270"></svg>
+  	 <svg width="750" height="150"><g id="svgout" transform="rotate(-90 65 60)"></g><text font-family="Oswald" font-size="96" x="160" y="95" fill="#a62854">ChartDN</text></svg>
   </div>
   
 	
@@ -20,65 +20,68 @@
 	<script src="rough.js"></script>
 	<script type='text/javascript'>
   		var svg = document.getElementById('svgout');
-  		var rness = 0.3;
+  		var rness = 0.2;
   		var scale = .4;
   		var fStyle = 'cross-hatch';
+  		var fillW = 1.5;
+  		var strokeColor = "rgba(0,0,0,.75)";
+  		var fillColor = '#A62854'
 		const rc = rough.svg(svg);
-		let node = rc.rectangle(10*scale, 10*scale, 100*scale, 50*scale, { roughness: rness, fill: 'red', fillStyle: fStyle }); // x, y, width, height
+		let node = rc.rectangle(10*scale, 10*scale, 100*scale, 50*scale, { roughness: rness, fillWeight: fillW, stroke: strokeColor, fill: fillColor, fillStyle: fStyle }); // x, y, width, height
 		svg.appendChild(node);
-		node = rc.rectangle(110*scale, 10*scale, 50*scale, 50*scale, { roughness: rness, fill: 'red', fillStyle: fStyle }); // x, y, width, height
+		node = rc.rectangle(110*scale, 10*scale, 50*scale, 50*scale, { roughness: rness, fillWeight: fillW, stroke: strokeColor, fill: fillColor, fillStyle: fStyle }); // x, y, width, height
 		svg.appendChild(node);
-		node = rc.rectangle(160*scale, 10*scale, 100*scale, 50*scale, { roughness: rness, fill: 'red', fillStyle: fStyle }); // x, y, width, height
+		node = rc.rectangle(160*scale, 10*scale, 100*scale, 50*scale, { roughness: rness, fillWeight: fillW, stroke: strokeColor, fill: fillColor, fillStyle: fStyle }); // x, y, width, height
 		svg.appendChild(node);
-		node = rc.rectangle(260*scale, 10*scale, 50*scale, 50*scale, { roughness: rness, fill: 'red', fillStyle: fStyle }); // x, y, width, height
+		node = rc.rectangle(260*scale, 10*scale, 50*scale, 50*scale, { roughness: rness, fillWeight: fillW, stroke: strokeColor, fill: fillColor, fillStyle: fStyle }); // x, y, width, height
 		svg.appendChild(node);
 		node = rc.rectangle(310*scale, 10*scale, 50*scale, 50*scale, { roughness: rness, fill: 'white' }); // x, y, width, height
 		
 		
-		node = rc.rectangle(10*scale, 60*scale, 50*scale, 50*scale, { roughness: rness, fill: 'red', fillStyle: fStyle }); // x, y, width, height
+		node = rc.rectangle(10*scale, 60*scale, 50*scale, 50*scale, { roughness: rness, fillWeight: fillW, stroke: strokeColor, fill: fillColor, fillStyle: fStyle }); // x, y, width, height
 		svg.appendChild(node);
-		node = rc.rectangle(60*scale, 60*scale, 50*scale, 50*scale, { roughness: rness, fill: 'red', fillStyle: fStyle }); // x, y, width, height
+		node = rc.rectangle(60*scale, 60*scale, 50*scale, 50*scale, { roughness: rness, fillWeight: fillW, stroke: strokeColor, fill: fillColor, fillStyle: fStyle }); // x, y, width, height
 		svg.appendChild(node);
-		node = rc.rectangle(110*scale, 60*scale, 50*scale, 50*scale, { roughness: rness, fill: 'red', fillStyle: fStyle }); // x, y, width, height
+		node = rc.rectangle(110*scale, 60*scale, 50*scale, 50*scale, { roughness: rness, fillWeight: fillW, stroke: strokeColor, fill: fillColor, fillStyle: fStyle }); // x, y, width, height
 		svg.appendChild(node);
-		node = rc.rectangle(160*scale, 60*scale, 50*scale, 50*scale, { roughness: rness, fill: 'red', fillStyle: fStyle }); // x, y, width, height
+		node = rc.rectangle(160*scale, 60*scale, 50*scale, 50*scale, { roughness: rness, fillWeight: fillW, stroke: strokeColor, fill: fillColor, fillStyle: fStyle }); // x, y, width, height
 		svg.appendChild(node);
 		node = rc.rectangle(210*scale, 60*scale, 150*scale, 50*scale, { roughness: rness, fill: 'white' }); // x, y, width, height
 		
 		
-		node = rc.rectangle(10*scale, 110*scale, 50*scale, 50*scale, { roughness: rness, fill: 'red', fillStyle: fStyle }); // x, y, width, height
+		node = rc.rectangle(10*scale, 110*scale, 50*scale, 50*scale, { roughness: rness, fillWeight: fillW, stroke: strokeColor, fill: fillColor, fillStyle: fStyle }); // x, y, width, height
 		svg.appendChild(node);
-		node = rc.rectangle(60*scale, 110*scale, 100*scale, 50*scale, { roughness: rness, fill: 'red', fillStyle: fStyle }); // x, y, width, height
+		node = rc.rectangle(60*scale, 110*scale, 100*scale, 50*scale, { roughness: rness, fillWeight: fillW, stroke: strokeColor, fill: fillColor, fillStyle: fStyle }); // x, y, width, height
 		svg.appendChild(node);
 		node = rc.rectangle(160*scale, 110*scale, 200*scale, 50*scale, { roughness: rness, fill: 'white' }); // x, y, width, height
 		
 		
-		node = rc.rectangle(10*scale, 160*scale, 50*scale, 50*scale, { roughness: rness, fill: 'red', fillStyle: fStyle }); // x, y, width, height
+		node = rc.rectangle(10*scale, 160*scale, 50*scale, 50*scale, { roughness: rness, fillWeight: fillW, stroke: strokeColor, fill: fillColor, fillStyle: fStyle }); // x, y, width, height
 		svg.appendChild(node);
-		node = rc.rectangle(60*scale, 160*scale, 100*scale, 50*scale, { roughness: rness, fill: 'red', fillStyle: fStyle }); // x, y, width, height
+		node = rc.rectangle(60*scale, 160*scale, 100*scale, 50*scale, { roughness: rness, fillWeight: fillW, stroke: strokeColor, fill: fillColor, fillStyle: fStyle }); // x, y, width, height
 		svg.appendChild(node);
-		node = rc.rectangle(160*scale, 160*scale, 50*scale, 50*scale, { roughness: rness, fill: 'red', fillStyle: fStyle }); // x, y, width, height
+		node = rc.rectangle(160*scale, 160*scale, 50*scale, 50*scale, { roughness: rness, fillWeight: fillW, stroke: strokeColor, fill: fillColor, fillStyle: fStyle }); // x, y, width, height
 		svg.appendChild(node);
 		node = rc.rectangle(210*scale, 160*scale, 150*scale, 50*scale, { roughness: rness, fill: 'white' }); // x, y, width, height
 		
 		
-		node = rc.rectangle(10*scale, 210*scale, 100*scale, 50*scale, { roughness: rness, fill: 'red', fillStyle: fStyle }); // x, y, width, height
+		node = rc.rectangle(10*scale, 210*scale, 100*scale, 50*scale, { roughness: rness, fillWeight: fillW, stroke: strokeColor, fill: fillColor, fillStyle: fStyle }); // x, y, width, height
 		svg.appendChild(node);
 		node = rc.rectangle(110*scale, 210*scale, 250*scale, 50*scale, { roughness: rness, fill: 'white' }); // x, y, width, height
 		
 		
-		node = rc.rectangle(10*scale, 260*scale, 100*scale, 50*scale, { roughness: rness, fill: 'red', fillStyle: fStyle }); // x, y, width, height
+		node = rc.rectangle(10*scale, 260*scale, 100*scale, 50*scale, { roughness: rness, fillWeight: fillW, stroke: strokeColor, fill: fillColor, fillStyle: fStyle }); // x, y, width, height
 		svg.appendChild(node);
-		node = rc.rectangle(110*scale, 260*scale, 50*scale, 50*scale, { roughness: rness, fill: 'red', fillStyle: fStyle }); // x, y, width, height
+		node = rc.rectangle(110*scale, 260*scale, 50*scale, 50*scale, { roughness: rness, fillWeight: fillW, stroke: strokeColor, fill: fillColor, fillStyle: fStyle }); // x, y, width, height
 		svg.appendChild(node);
-		node = rc.rectangle(160*scale, 260*scale, 50*scale, 50*scale, { roughness: rness, fill: 'red', fillStyle: fStyle }); // x, y, width, height
+		node = rc.rectangle(160*scale, 260*scale, 50*scale, 50*scale, { roughness: rness, fillWeight: fillW, stroke: strokeColor, fill: fillColor, fillStyle: fStyle }); // x, y, width, height
 		svg.appendChild(node);
 		node = rc.rectangle(210*scale, 260*scale, 150*scale, 50*scale, { roughness: rness, fill: 'white' }); // x, y, width, height
 		
 		
-		node = rc.rectangle(10*scale, 310*scale, 100*scale, 50*scale, { roughness: rness, fill: 'red', fillStyle: fStyle }); // x, y, width, height
+		node = rc.rectangle(10*scale, 310*scale, 100*scale, 50*scale, { roughness: rness, fillWeight: fillW, stroke: strokeColor, fill: fillColor, fillStyle: fStyle }); // x, y, width, height
 		svg.appendChild(node);
-		node = rc.rectangle(110*scale, 310*scale, 50*scale, 50*scale, { roughness: rness, fill: 'red', fillStyle: fStyle }); // x, y, width, height
+		node = rc.rectangle(110*scale, 310*scale, 50*scale, 50*scale, { roughness: rness, fillWeight: fillW, stroke: strokeColor, fill: fillColor, fillStyle: fStyle }); // x, y, width, height
 		svg.appendChild(node);
 		node = rc.rectangle(160*scale, 310*scale, 200*scale, 50*scale, { roughness: rness, fill: 'white' }); // x, y, width, height
 		
