@@ -185,15 +185,15 @@ a.pure-button-primary {
 .splash-head {
     font-size: 1rem;
     font-weight: bold;
-    background-color: rgba(0,0,0,.75);
+    background-color: rgba(0,0,0,.67);
     margin-top:5.2rem;
     height: 12.2rem;
     color: white;
     border: 3px solid white;
-    padding: .3rem .8rem;
+    padding: 1rem .8rem;
     font-weight: 100;
     border-radius: 5px;
-    line-height: 4.6rem;
+    line-height: 5.1rem;
 }
 
 /* This is the subheading that appears on the blue section */
