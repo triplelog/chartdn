@@ -555,7 +555,9 @@ function convertDataToFull(dataStr,nHeaders) {
 	var t3 = performance.now();
 	var vmresult = vm.run(script);
 	var t4 = performance.now();
-	console.log(t1,t2,t3,t4);
+	var vmresult2 = Math.random();
+	var t5 = performance.now();
+	console.log(t1,t2,t3,t4,t5);
 	//Run filters
 
 	var filteredArray = rawArray;
