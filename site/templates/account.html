@@ -39,13 +39,19 @@
 				<center>{{ name }}</center>
 				<div id="profile" class="pure-g">
 					<div class="l-box pure-u-1">
-						<center>{{ username }}</center>
-						Website
+						<div class="box-header">{{ username }}<span class="box-buttons"></span></div>
+						<div class="box-form">
+							Website<br />
+							Name
+						</div>
 					</div>
 					<div class="l-box pure-u-1">
-						<center>Activity</center>
-						Forks<br />
-						Calendar
+						<div class="box-header">Activity<span class="box-buttons"></span></div>
+						<div class="box-form">
+							Forks<br />
+							Calendar
+						</div>
+						
 					</div>
 					<div class="l-box pure-u-1">
 						<center></center>
@@ -63,7 +69,7 @@
 						<li class="pure-menu-item" onclick="chgTab('settings')" id="tabsettings"><a href="#" class="pure-menu-link">Settings</a></li>
 					</ul>
 				</div>
-				<div id="created">
+				<div id="created" class="box-form">
 					{% for chart in charts %}
 						<chartdn-chart src="{{ chart }}" data-style="plotly"></chartdn-chart>
 					{% else %}
