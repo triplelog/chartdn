@@ -420,6 +420,112 @@ drake.on('remove', function (el, target, source) {
 });
 
 
+//Dragula with column choices
+
+var drakeF = dragula([document.getElementById('disabledFilters'), document.getElementById('enabledFilters'), document.getElementById('favoriteFilters')], {
+  copy: function (el, source) {
+    return source === document.getElementById('favoriteFilters');
+  },
+  accepts: function (el, target, source) {
+  	if (target === document.getElementById('favoriteFilters')) {return false;}
+  	else {return true;}
+  	/*
+  	for (var yid in yColsVals){
+  		if ('colId'+yColsVals[yid] == el.id){return false;}
+  	}*/
+  	return true;
+    
+  },
+  removeOnSpill: function (el, source) {
+    return source !== document.getElementById('allColumns');
+  }
+});
+
+drakeF.on('drop', function (el, target, source, sibling) { 
+	if (target.id == 'xColumn') {
+		target.innerHTML = ''; target.appendChild(el);
+		document.getElementById('xColVal').value = el.id.substring(5);
+		columnsChg();
+	}
+	else if (target.id == 'yColumns') {
+		var elid = el.id.substring(5);
+		if (!sibling){
+			
+			var ycvStr = '';
+			var oldId = -1;
+			for (var yid in yColsVals){
+				if (elid != yColsVals[yid]){
+					ycvStr += yColsVals[yid]+', ';
+				}
+				else {
+					oldId = yid;
+				}
+			}
+			if (oldId != -1){yColsVals.splice(oldId,1);}
+			else {createLineDiv(elid);}
+			
+			yColsVals.push(elid);
+			ycvStr += elid+', ';
+			document.getElementById('yColsVal').value = ycvStr.substring(0,ycvStr.length-2);
+			columnsChg();
+		}
+		else {
+			var sibid = sibling.id.substring(5);
+			var ycvStr = '';
+			var oldId = -1;
+			for (var yid in yColsVals){
+				if (elid == yColsVals[yid]){
+					oldId = yid;
+				}
+			}
+			if (oldId != -1){yColsVals.splice(oldId,1);}
+			else {createLineDiv(elid);}
+			
+			for (var yid in yColsVals){
+				if (sibid == yColsVals[yid]) {
+					newId = yid;
+					ycvStr += elid+', ';
+					ycvStr += yColsVals[yid]+', ';
+				}
+				else {
+					ycvStr += yColsVals[yid]+', ';
+				}
+			}
+			yColsVals.splice(newId,0,elid);
+			document.getElementById('yColsVal').value = ycvStr.substring(0,ycvStr.length-2);
+			columnsChg();
+		}
+		
+	}
+});
+drakeF.on('remove', function (el, target, source) { 
+	if (source.id == 'xColumn') {
+		document.getElementById('xColVal').value = '';
+		columnsChg();
+	}
+	else if (source.id == 'yColumns') {
+		console.log(el.id);
+		for( var i = 0; i < yColsVals.length; i++){ 
+		   if ( yColsVals[i] == parseInt(el.id.substring(5))) {
+			 yColsVals.splice(i, 1);
+			 break;
+		   }
+		}
+		if (yColsVals.length > 0) {
+			var ycvStr = '';
+			for (var yid in yColsVals){
+				ycvStr += yColsVals[yid]+', ';
+			}
+			document.getElementById('yColsVal').value = ycvStr.substring(0,ycvStr.length-2);
+		}
+		else {
+			document.getElementById('yColsVal').value = '';
+		}
+		columnsChg();
+	}
+});
+
+
 // Minimize and Maximize elements
 function minimizeBox(boxid){
 	if (boxid == 'dataSource' && dataSourceSize == 'large'){

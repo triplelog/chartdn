@@ -159,34 +159,31 @@ div.l-box {
 							<div class="box-header2">
 								Disabled
 							</div>
-							<div class="box-form" style="min-height: 5rem; max-height: 20rem; overflow: auto;">
+							<div class="box-form" id="disabledFilters" style="min-height: 5rem; max-height: 20rem; overflow: auto;">
 							</div>
 						</div>
 						<div class="l-box pure-u-1-3">
 							<div class="box-header2">
 								Enabled
 							</div>
-							<div class="box-form" style="min-height: 5rem; max-height: 20rem; overflow: auto;">
-								<span>Columns w/ column head/index and data type: number (format), date, percent</span>
+							<div class="box-form" id="enabledFilters" style="min-height: 5rem; max-height: 20rem; overflow: auto;">
 							</div>
 							
 						</div>
 						<div class="l-box pure-u-1-3">
 							<div class="box-header2">
-								Create New
+								Favorites
 							</div>
-							<div class="box-form" style="min-height: 5rem; max-height: 20rem; overflow: auto;">
+							<div class="box-form" id="favoriteFilters" style="min-height: 5rem; max-height: 20rem; overflow: auto;">
+								<div>Skip Blanks</div>
+								<div>Blanks = 0</div>
+								<div>X Axis Log</div>
+								<div>Y Axis Log</div>
+								<div>Just Max</div>
 							</div>
 						</div>
 					
 					</div>
-					<!--<div class="row">
-						Blank cells: Skip or 0
-						x-scale: linear, log, seq
-						y-scale: linear, log
-						Filter only max, etc. Drag/drop filters to use.
-						<input type="checkbox" name="filter" id="test" onchange="filterChg()">Test</input>
-					</div>-->
 				</form>
 			</div>
 					  
@@ -244,19 +241,19 @@ div.l-box {
 					<chartdn-chart data-style="chartJS"></chartdn-chart>
 				</div>
 			</div>
-			<div class="l-box pure-u-1-2" style="border: 1px solid black;">
+			<div class="l-box pure-u-1-2">
 				<div class="box-header">Plotly<span class="box-buttons"><i class="fas fa-compress-alt"></i></span></div>
 				<div class='box-form'>
 					<chartdn-chart data-style="plotly"></chartdn-chart>
 				</div>
 			</div>
-			<div class="l-box pure-u-1-2" style="border: 1px solid black;">
+			<div class="l-box pure-u-1-2">
 				<div class="box-header">XKCD<span class="box-buttons"><i class="fas fa-compress-alt"></i></span></div>
 				<div class='box-form'>
 					<chartdn-chart data-style="XKCD"></chartdn-chart>
 				</div>
 			</div>
-			<div class="l-box pure-u-1-2" style="border: 1px solid black;">
+			<div class="l-box pure-u-1-2">
 				<div class="box-header">Google<span class="box-buttons"><i class="fas fa-compress-alt"></i></span></div>
 				<div class='box-form'>
 					<chartdn-chart data-style="google"></chartdn-chart>
