@@ -353,6 +353,7 @@ a.pure-button-primary {
 .avatar {
 	border: 1px solid black;
 	width: 75%;
+	margin-left: 12.5%;
 	border-radius: 1rem;
 }
 
