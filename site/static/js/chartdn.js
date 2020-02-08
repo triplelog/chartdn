@@ -417,6 +417,18 @@ drake.on('remove', function (el, target, source) {
 });
 
 
+// Minimize and Maximize elements
+function minimizeBox(boxid){
+	if (boxid == 'dataSource'){
+		var el = document.getElementById('dataSourceBox');
+		el.classList.add('pure-u-1-24');
+		el.classList.remove('pure-u-1-4');
+		var otherEl = document.getElementById('dataTableBox');
+		otherEl.classList.add('pure-u-23-24');
+		otherEl.classList.remove('pure-u-3-4');
+	}
+}
+
 
 
 
