@@ -34,7 +34,8 @@ class chartdnChart extends HTMLElement {
   }
   makePlotly(chartJSON) {
   	this.querySelector('#plotlyDiv').style.display = 'block';
-	Plotly.newPlot(this.querySelector('#plotlyDiv'), chartJSON.data, chartJSON.options);
+  	this.querySelector('#plotlyDiv').style.height = '20vh';
+	Plotly.newPlot(this.querySelector('#plotlyDiv'), chartJSON.data, chartJSON.options, {responsive: true});
   }
   
   
