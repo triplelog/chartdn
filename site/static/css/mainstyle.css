@@ -394,6 +394,10 @@ a.pure-button-primary {
 	background: rgb(210,210,210);
 	color: rgb(0,0,20);
 }
+.box-buttons {
+	float: right;
+	margin-right: .5rem;
+}
 .box-form {
 	border: 1px solid black;
 	padding: .5rem;

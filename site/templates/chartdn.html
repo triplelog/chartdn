@@ -55,7 +55,7 @@ div.l-box {
     <div class="content">
     	<div class="pure-g">
 			<div class="l-box pure-u-1-4 sectionpart">
-				<div class="box-header">Data Source</div>
+				<div class="box-header">Data Source<span class="box-buttons"><i class="fas fa-compress-alt"></i></span></div>
 				<form class="pure-form-stacked box-form">
 						<label>
 							<input type="radio" name="dataSourceType" onchange="dst()" value="File" checked>Upload File (csv or Excel)
@@ -85,7 +85,7 @@ div.l-box {
 				</form>
 			</div>
 			<div class="l-box pure-u-3-4 sectionpart">
-				<div class="box-header">Data Table <span>X</span></div>
+				<div class="box-header">Data Table<span class="box-buttons"><i class="fas fa-compress-alt"></i><i class="fas fa-expand-alt"></i></span></div>
 				<div class="box-form">
 					<div id="dataTableHolder" class="flex-center flex-column">
 						<table id="dataTable" class="striped hoverable"></table>
@@ -93,7 +93,8 @@ div.l-box {
 				</div>
 			</div>
 			<div class="l-box pure-u-1-2 sectionpart">
-				<form class="pure-form">
+				<div class="box-header">Data Source<span class="box-buttons"><i class="fas fa-compress-alt"></i></span></div>
+				<form class="pure-form box-form">
 					<fieldset>
 						<b>Create Chart</b>
 						<div class="row">
