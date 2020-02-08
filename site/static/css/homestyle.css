@@ -186,14 +186,15 @@ a.pure-button-primary {
     font-size: 1rem;
     font-weight: bold;
     background-color: rgba(0,0,0,.67);
+    background: linear-gradient(0deg, rgba(255,255,255,.67) 0%, rgba(102,204,204,.67) 100%);
     margin-top:5.2rem;
-    height: 12.2rem;
+    height: 11.2rem;
     color: white;
     border: 3px solid white;
     padding: 1rem .8rem;
     font-weight: 100;
     border-radius: 5px;
-    line-height: 5.1rem;
+    line-height: 4.6rem;
 }
 
 /* This is the subheading that appears on the blue section */
