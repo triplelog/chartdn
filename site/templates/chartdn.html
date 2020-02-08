@@ -55,34 +55,34 @@
     <div class="content">
     	<div class="pure-g">
 			<div class="l-box pure-u-1-4 sectionpart">
-					<b>Data Source</b>
-					<form class="pure-form-stacked">
-							<label>
-								<input type="radio" name="dataSourceType" onchange="dst()" value="File" checked>Upload File (csv or Excel)
-							</label>
-							<label>
-								<input type="radio" name="dataSourceType" onchange="dst()" value="Copy">Copy/Paste
-							</label>
-							<label>
-								<input type="radio" name="dataSourceType" onchange="dst()" value="Url">URL
-							</label>
-							<div class="l-box pure-u-1">
-					
-								<input type="file" name="dataFile" id="dataFile"></input>
-								<div id="dropArea">
-
-								</div>
-								<textarea rows="7" name="dataCopy" id="dataCopy" oninput="dataChg()" onchange="dataChg()">{{ dataAreaText }}</textarea>
-								<input type="text" name="dataUrl" id="dataUrl" onchange="urlChg()"></input>
+				<div class="box-header">Data Source</div>
+				<form class="pure-form-stacked box-form">
+						<label>
+							<input type="radio" name="dataSourceType" onchange="dst()" value="File" checked>Upload File (csv or Excel)
+						</label>
+						<label>
+							<input type="radio" name="dataSourceType" onchange="dst()" value="Copy">Copy/Paste
+						</label>
+						<label>
+							<input type="radio" name="dataSourceType" onchange="dst()" value="Url">URL
+						</label>
+						<div class="l-box pure-u-1">
+				
+							<input type="file" name="dataFile" id="dataFile"></input>
+							<div id="dropArea">
 
 							</div>
-							<label for="nHeaders">Header Rows
-								<input type="number" value="{{ nHeaders | default(1) }}" name="nHeaders" id="nHeaders" onchange="headerChg()">
-							</label>
-							<label for="delimiter">Delimiter
-								<input type="text" value="," name="delimiter" id="delimiter" onchange="delimiterChg()">
-							</label>
-					</form>
+							<textarea rows="7" name="dataCopy" id="dataCopy" oninput="dataChg()" onchange="dataChg()">{{ dataAreaText }}</textarea>
+							<input type="text" name="dataUrl" id="dataUrl" onchange="urlChg()"></input>
+
+						</div>
+						<label for="nHeaders">Header Rows
+							<input type="number" value="{{ nHeaders | default(1) }}" name="nHeaders" id="nHeaders" onchange="headerChg()">
+						</label>
+						<label for="delimiter">Delimiter
+							<input type="text" value="," name="delimiter" id="delimiter" onchange="delimiterChg()">
+						</label>
+				</form>
 			</div>
 			<div class="l-box pure-u-3-4 sectionpart">
 				<div id="dataTableHolder" class="flex-center flex-column">
