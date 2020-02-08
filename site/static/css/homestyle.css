@@ -363,14 +363,17 @@ a.pure-button-primary {
  * -- PRICING TABLE HEADER COLORS --
  * Choose a different color based on the type of pricing table.
  */
-.pricing-table-free .pricing-table-header {
-    background: var(--color-main);
-}
-
-.pricing-table-biz .pricing-table-header {
+.pricing-table-anon .pricing-table-header {
     background: rgb(0,0,80);
 }
 
+.pricing-table-free .pricing-table-header {
+    background: rgb(0,0,0);
+}
+
+.pricing-table-premium .pricing-table-header {
+    background: var(--color-main);
+}
 /*
  * -- PRICING TABLE HEADER --
  * By default, a header is black/white, and has some styles for its <h2> name.
