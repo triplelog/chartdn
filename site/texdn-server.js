@@ -108,8 +108,6 @@ function updateOptions(oldOptions, newOptions) {
 		}
 		else if (v && typeof v === 'object' && v.constructor === Object){
 			if (!oldOptions[k]){oldOptions[k]={};}
-			oldOptions[k]={};
-			console.log(k,v);
 			for (var key in v){
 				oldOptions[k][key] = v[key];
 			}
