@@ -34,7 +34,6 @@ class chartdnChart extends HTMLElement {
   }
   makePlotly(chartJSON) {
   	this.querySelector('#plotlyDiv').style.display = 'block';
-  	this.querySelector('#plotlyDiv').style.height = '40vh';
 	Plotly.newPlot(this.querySelector('#plotlyDiv'), chartJSON.data, chartJSON.options, {responsive: true});
   }
   
@@ -65,8 +64,10 @@ class chartdnChart extends HTMLElement {
 				</div>`;
   	}
   	else if (style == 'plotly') {
+  		var plotlyheight = '';
+  		if (this.getAttribute('height')) {plotlyheight = 'height: '+this.getAttribute('height')+';';}
   		this.innerHTML = `<div class="chart-container" style="position: relative;">
-					<div id="plotlyDiv" style="display: none;"></div>
+					<div id="plotlyDiv" style="display: none; `+plotlyheight+`"></div>
 				</div>`;
   	}
   	else if (style == 'chartJS') {
