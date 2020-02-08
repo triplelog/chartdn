@@ -2,6 +2,8 @@
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+    --color-main: #A62854;
+    --color-second: #EBBF67;
     --color1: #2d3e50;
     --color1-text: #aaa;
     --color2: #fff;
@@ -370,6 +372,8 @@ a.pure-button-primary {
 
 .tabbed-menu {
 	background: rgb(200,200,200);
+	border-left: 1px dotted black;
+	border-right: 1px dotted black;
 }
 .tabbed-menu .pure-menu-item:not(.pure-menu-selected) {
 	border-bottom: 0px solid black;
@@ -377,5 +381,6 @@ a.pure-button-primary {
 .tabbed-menu .pure-menu-item.pure-menu-selected {
 	border: 1px solid black;
 	border-bottom: 0px solid black;
-	background: rgb(150,150,150);
+	background: var(--color-main);
+	color: white;
 }
