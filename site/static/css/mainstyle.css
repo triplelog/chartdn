@@ -394,6 +394,11 @@ a.pure-button-primary {
 	background: rgb(210,210,210);
 	color: rgb(0,0,20);
 }
+.box-header2 {
+	text-align: center;
+	background: rgb(45,45,45);
+	color: rgb(255,255,235);
+}
 .box-form {
 	border: 1px solid black;
 	padding: .5rem;
