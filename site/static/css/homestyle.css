@@ -89,12 +89,14 @@ a.pure-button-primary {
  * -- MENU STYLES --
  * I want to customize how my .pure-menu looks at the top of the page
  */
-
+.header {
+	line-height: 1.4rem;
+}
 .header-logo {
 	padding: 0px;
 	display: inline-block;
 	vertical-align: middle;
-	height: 2.7rem;
+	height: 2rem;
 }
 .header-menu {
 	display: inline-block;
@@ -102,7 +104,7 @@ a.pure-button-primary {
 	height: 100%;
 }
 .home-menu {
-    padding: 0.5em;
+    padding: 0.3rem;
     text-align: center;
     box-shadow: 0 1px 1px rgba(0,0,0, 0.10);
 }
