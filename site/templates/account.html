@@ -65,8 +65,9 @@
 					<ul class="pure-menu-list tabbed-menu">
 						<li class="pure-menu-item" onclick="chgTab('created')" id="tabcreated"><a href="#" class="pure-menu-link">Created</a></li>
 						<li class="pure-menu-item" onclick="chgTab('favorites')" id="tabfavorites"><a href="#" class="pure-menu-link">Favorites</a></li>
-						<li class="pure-menu-item" onclick="chgTab('friends')" id="tabfriends"><a href="#" class="pure-menu-link">Friends</a></li>
+						<li class="pure-menu-item" onclick="chgTab('filters')" id="tabfilters"><a href="#" class="pure-menu-link">Filters</a></li>
 						<li class="pure-menu-item" onclick="chgTab('settings')" id="tabsettings"><a href="#" class="pure-menu-link">Settings</a></li>
+						<li class="pure-menu-item" onclick="chgTab('friends')" id="tabfriends"><a href="#" class="pure-menu-link">Friends</a></li>
 					</ul>
 				</div>
 				<div id="created" class="box-form">
@@ -75,9 +76,9 @@
 					{% else %}
 					{% endfor %}
 				</div>
-				<div id="favorites">
+				<div id="favorites" class="box-form">
 				</div>
-				<div id="settings">
+				<div id="settings" class="box-form">
 					<form class="pure-form pure-form-stacked" action="/settings" method="post">
 						<fieldset>
 							<label for="name">Name</label>
@@ -93,7 +94,9 @@
 					Change contact preferences?
 					Upgrade/downgrade premium?
 				</div>
-				<div id="friends">
+				<div id="friends" class="box-form">
+				</div>
+				<div id="filters" class="box-form">
 				</div>
 				
 			</div>
