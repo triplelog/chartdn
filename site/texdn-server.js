@@ -59,10 +59,7 @@ var chartSchema = new mongoose.Schema({
 	user: String,
 });
 var Chart = mongoose.model('Chart', chartSchema);
-function updateChart() {
-	return '';
 
-}
 
 const server = https.createServer(options, (req, res) => {
   res.writeHead(200);
@@ -137,7 +134,7 @@ wss.on('connection', function connection(ws) {
   			dataid = chartid;
   			var defaultOptions = {};
 			defaultOptions['nHeaders'] = 1;
-			defaultOptions['filters'] = [];
+			defaultOptions['filters'] = {'disabled':[],'enabled':[]};
 			defaultOptions['type'] = '';
 			defaultOptions['yColumns'] = [];
 			defaultOptions['xColumn'] = '';
@@ -206,7 +203,7 @@ wss.on('connection', function connection(ws) {
   			dataid = chartid;
   			var defaultOptions = {};
 			defaultOptions['nHeaders'] = 1;
-			defaultOptions['filters'] = [];
+			defaultOptions['filters'] = {'disabled':[],'enabled':[]};
 			defaultOptions['type'] = '';
 			defaultOptions['yColumns'] = [];
 			defaultOptions['xColumn'] = '';
@@ -525,110 +522,55 @@ const loginServer = https.createServer(options, loginApp);
 loginServer.listen(3000);
 
 
-function convertDataToFull(dataStr,nHeaders,usepapa=false) {
-	if (usepapa){
-
-		rawArray = [];
-		var currentRow = 0;
-		var t1 = performance.now();
-		for (var i in dataStr) {
-			var tempA = dataStr[i];
-			if (!tempA){break;}
-			if (currentRow >= nHeaders) {
-				for (var i=0;i<tempA.length;i++) {
-					var cell = tempA[i];
-					if (!isNaN(parseFloat(cell))){
-						if ((parseFloat(cell)%1)===0) {
-							tempA[i] = parseInt(cell);
-						}
-						else {
-							tempA[i] = parseFloat(cell);
-						}
+function convertDataToFull(dataStr,nHeaders) {
+	rawArray = [];
+	var currentRow = 0;
+	var t1 = performance.now();
+	for (var i in dataStr) {
+		var tempA = dataStr[i];
+		if (!tempA){break;}
+		if (currentRow >= nHeaders) {
+			for (var i=0;i<tempA.length;i++) {
+				var cell = tempA[i];
+				if (!isNaN(parseFloat(cell))){
+					if ((parseFloat(cell)%1)===0) {
+						tempA[i] = parseInt(cell);
+					}
+					else {
+						tempA[i] = parseFloat(cell);
 					}
 				}
 			}
-			currentRow++;
-			rawArray.push(tempA);
 		}
-
-
-		var filteredArray = rawArray;
-		retArray = [];
-		var cols = [];
-		for (var i=0;i<filteredArray.length;i++) {
-		
-			if (i == 0){
-				for (var ii=0;ii<filteredArray[i].length;ii++) {
-					cols.push([]);
-				}
-			}
-			if (i >= nHeaders) {
-				var tempA = [];
-				for (var ii=0;ii<filteredArray[i].length;ii++) {
-					var cell = filteredArray[i][ii];
-					cols[ii].push(cell);
-					tempA.push(cell);
-				}
-				retArray.push(tempA);
-			}
-		
-		}
-		return {'byrow':retArray,'bycol':cols};
+		currentRow++;
+		rawArray.push(tempA);
 	}
-	else {
-		var t0 = performance.now();
 	
-		const parser = parse(dataStr, {
-		  trim: true,
-		  skip_empty_lines: true
-		})
-		rawArray = [];
-		var currentRow = 0;
-		while (2 == 2) {
-			var tempA = parser.read();
-			if (!tempA){break;}
-			if (currentRow >= nHeaders) {
-				for (var i=0;i<tempA.length;i++) {
-					var cell = tempA[i];
-					if (!isNaN(parseFloat(cell))){
-						if ((parseFloat(cell)%1)===0) {
-							tempA[i] = parseInt(cell);
-						}
-						else {
-							tempA[i] = parseFloat(cell);
-						}
-					}
-				}
-			}
-			currentRow++;
-			rawArray.push(tempA);
-		}
+	//Run filters
 
-
-		var filteredArray = rawArray;
+	var filteredArray = rawArray;
+	retArray = [];
+	var cols = [];
+	for (var i=0;i<filteredArray.length;i++) {
 	
-		retArray = [];
-		var cols = [];
-		for (var i=0;i<filteredArray.length;i++) {
-		
-			if (i == 0){
-				for (var ii=0;ii<filteredArray[i].length;ii++) {
-					cols.push([]);
-				}
+		if (i == 0){
+			for (var ii=0;ii<filteredArray[i].length;ii++) {
+				cols.push([]);
 			}
-			if (i >= nHeaders) {
-				var tempA = [];
-				for (var ii=0;ii<filteredArray[i].length;ii++) {
-					var cell = filteredArray[i][ii];
-					cols[ii].push(cell);
-					tempA.push(cell);
-				}
-				retArray.push(tempA);
-			}
-		
 		}
-		return {'byrow':retArray,'bycol':cols};
+		if (i >= nHeaders) {
+			var tempA = [];
+			for (var ii=0;ii<filteredArray[i].length;ii++) {
+				var cell = filteredArray[i][ii];
+				cols[ii].push(cell);
+				tempA.push(cell);
+			}
+			retArray.push(tempA);
+		}
+	
 	}
+	return {'byrow':retArray,'bycol':cols};
+	
 }
 			
 function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
@@ -637,7 +579,7 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 		var results = Papa.parse(fileData, {
 			complete: function(results) {
 				var nHeaders = chartInfo.options.nHeaders || 1;
-				var data = convertDataToFull(results.data,nHeaders,true);
+				var data = convertDataToFull(results.data,nHeaders);
 				/*
 				if (chartStyle == 'all' || chartStyle == 'chartJS') {
 					var chartJSON = createChartjs.createChartjs(data,chartInfo.options);

@@ -40,7 +40,7 @@ function getOrdinal(n) {
 }
 // Set options like number of Header Rows
 var nHeaders = 1;
-var filters = [];
+var filters = {'disabled':[],'enabled':[]};
 var yColsVals = [];
 var headers = [];
 var lineId = 0;
@@ -218,11 +218,6 @@ function optionsChg(optionname) {
 	}
 }
 function filterChg() {
-	var isChecked = document.querySelectorAll('input[name="filter"]:checked');
-	filters = [];
-	for (var i=0;i<isChecked.length;i++){
-		filters.push(isChecked[i].id);
-	}
 	var jsonmessage = {'operation':'options','filters':filters};
 	ws.send(JSON.stringify(jsonmessage));
 }
@@ -437,91 +432,26 @@ var drakeF = dragula([document.getElementById('disabledFilters'), document.getEl
     
   },
   removeOnSpill: function (el, source) {
-    return source !== document.getElementById('allColumns');
+    return source !== document.getElementById('favoriteFilters');
   }
 });
 
 drakeF.on('drop', function (el, target, source, sibling) { 
-	if (target.id == 'xColumn') {
-		target.innerHTML = ''; target.appendChild(el);
-		document.getElementById('xColVal').value = el.id.substring(5);
-		columnsChg();
+	if (target.id == 'disabledFilters') {
+		filters['disabled'].push(el.getAttribute('data-id'));
+		filterChg();
 	}
-	else if (target.id == 'yColumns') {
-		var elid = el.id.substring(5);
-		if (!sibling){
-			
-			var ycvStr = '';
-			var oldId = -1;
-			for (var yid in yColsVals){
-				if (elid != yColsVals[yid]){
-					ycvStr += yColsVals[yid]+', ';
-				}
-				else {
-					oldId = yid;
-				}
-			}
-			if (oldId != -1){yColsVals.splice(oldId,1);}
-			else {createLineDiv(elid);}
-			
-			yColsVals.push(elid);
-			ycvStr += elid+', ';
-			document.getElementById('yColsVal').value = ycvStr.substring(0,ycvStr.length-2);
-			columnsChg();
-		}
-		else {
-			var sibid = sibling.id.substring(5);
-			var ycvStr = '';
-			var oldId = -1;
-			for (var yid in yColsVals){
-				if (elid == yColsVals[yid]){
-					oldId = yid;
-				}
-			}
-			if (oldId != -1){yColsVals.splice(oldId,1);}
-			else {createLineDiv(elid);}
-			
-			for (var yid in yColsVals){
-				if (sibid == yColsVals[yid]) {
-					newId = yid;
-					ycvStr += elid+', ';
-					ycvStr += yColsVals[yid]+', ';
-				}
-				else {
-					ycvStr += yColsVals[yid]+', ';
-				}
-			}
-			yColsVals.splice(newId,0,elid);
-			document.getElementById('yColsVal').value = ycvStr.substring(0,ycvStr.length-2);
-			columnsChg();
-		}
-		
+	else if (target.id == 'enabledFilters') {
+		filters['enabled'].push(el.getAttribute('data-id'));
+		filterChg();
 	}
 });
 drakeF.on('remove', function (el, target, source) { 
-	if (source.id == 'xColumn') {
-		document.getElementById('xColVal').value = '';
-		columnsChg();
+	if (source.id == 'disabledFilters') {
+	
 	}
-	else if (source.id == 'yColumns') {
-		console.log(el.id);
-		for( var i = 0; i < yColsVals.length; i++){ 
-		   if ( yColsVals[i] == parseInt(el.id.substring(5))) {
-			 yColsVals.splice(i, 1);
-			 break;
-		   }
-		}
-		if (yColsVals.length > 0) {
-			var ycvStr = '';
-			for (var yid in yColsVals){
-				ycvStr += yColsVals[yid]+', ';
-			}
-			document.getElementById('yColsVal').value = ycvStr.substring(0,ycvStr.length-2);
-		}
-		else {
-			document.getElementById('yColsVal').value = '';
-		}
-		columnsChg();
+	else if (source.id == 'enabledFilters') {
+	
 	}
 });
 
