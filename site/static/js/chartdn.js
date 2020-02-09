@@ -453,7 +453,7 @@ drakeF.on('drop', function (el, target, source, sibling) {
 			}
 		}
 		if (!reorder){
-			var id = Math.random().toString('hex').substr(2, 8);
+			var id = Math.random().toString(36).substr(2, 8);
 			oldObject = {'id':id,'type':el.getAttribute('data-id'),'options':{}};
 			el.id = id;
 		}
