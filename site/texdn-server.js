@@ -563,7 +563,7 @@ function convertDataToFull(dataStr,nHeaders) {
 	var t7 = performance.now();
 	eval("for (var i=0;i<1000000;i++) {var xxx = Math.random()+i;}");//6.5-41-613
 	var t8 = performance.now();
-	var wget = 'echo "hello world"';
+	var wget = 'expr 3 + 4';
 	
 	var child = exec(wget, function(err, stdout, stderr) {
 		console.log(stdout);
