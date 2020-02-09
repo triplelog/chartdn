@@ -222,9 +222,10 @@ function modifierChg() {
 	ws.send(JSON.stringify(jsonmessage));
 }
 function typeChg() {
-	var isChecked = document.querySelector('input[name="chartType"]:checked');
+	//var isChecked = document.querySelector('input[name="chartType"]:checked');
 
-	var jsonmessage = {'operation':'options','type':isChecked.value};
+	//var jsonmessage = {'operation':'options','type':isChecked.value};
+	var jsonmessage = {'operation':'options','type':'line'};
 	ws.send(JSON.stringify(jsonmessage));
 }
 function dataChg(initialData=false) {
@@ -301,6 +302,7 @@ function dataChg(initialData=false) {
 		}
 		chgLineTab();
 		document.getElementById('yColsVal').value = ycvStr.substring(0,ycvStr.length-2);
+		typeChg();
 		
 	}
 	
@@ -420,7 +422,8 @@ function clickModifier(evt){
 	var id = evt.target.id;
 	for (var i in modifiers['enabled']){
 		if (modifiers['enabled'][i].id==id){
-			modifiers['enabled'][i]['options']['x']=7;
+			//modifiers['enabled'][i]['options']['x']=7;
+			
 		}
 	}
 }
