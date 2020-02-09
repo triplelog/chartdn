@@ -426,7 +426,7 @@ function chgModify(mType=''){
 			document.getElementById(mType+'Modify').style.display = 'block';
 		}
 		else {
-			document.getElementById(mType+'Modify').style.display = 'none';
+			document.getElementById(allTypes[t]+'Modify').style.display = 'none';
 		}
 		
 	}
