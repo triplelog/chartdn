@@ -225,6 +225,7 @@ function typeChg() {
 	//var isChecked = document.querySelector('input[name="chartType"]:checked');
 
 	//var jsonmessage = {'operation':'options','type':isChecked.value};
+	console.log('type chg');
 	var jsonmessage = {'operation':'options','type':'line'};
 	ws.send(JSON.stringify(jsonmessage));
 }
@@ -302,7 +303,6 @@ function dataChg(initialData=false) {
 		}
 		chgLineTab();
 		document.getElementById('yColsVal').value = ycvStr.substring(0,ycvStr.length-2);
-		typeChg();
 		
 	}
 	
