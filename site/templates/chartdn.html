@@ -295,7 +295,7 @@ div.l-box {
     </div>	
       	
   </div>
-  <script>var modifiers = {{ JSON.stringify(modifiers) if modifiers else '{"disabled":[],"enabled":[]}' }}; var username = "{{ username }}"; var chartid = "{{ chartid }}"; var dataid = "{{ dataid }}"; var chartidtemp = "{{ chartidtemp }}";</script>
+  <script>var modifiers = {{ modifiers if modifiers else {"disabled":[],"enabled":[]} | dump | safe }}; var username = "{{ username }}"; var chartid = "{{ chartid }}"; var dataid = "{{ dataid }}"; var chartidtemp = "{{ chartidtemp }}";</script>
   <script src="https://unpkg.com/wasm-flate@0.1.11-alpha/dist/bootstrap.js"></script>
   <script src="../js/upload.js"></script>
   <script src="../js/dragula.min.js"></script>
