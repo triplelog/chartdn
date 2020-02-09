@@ -581,7 +581,7 @@ function convertDataToFull(dataStr,nHeaders) {
 	//Run filters*/
 	console.log(rawArray);
 	var t2 = performance.now();
-	var filteredArray = fsort.sort(rawArray).asc(u => u[0]);
+	var filteredArray = fsort(rawArray).asc(u => u[0]);
 	var t3 = performance.now();
 	console.log(t2,t3);
 	console.log(filteredArray);
