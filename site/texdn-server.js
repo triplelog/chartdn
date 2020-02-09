@@ -580,18 +580,12 @@ function convertDataToFull(dataStr,nHeaders) {
 	}
 	console.log(t2,t3,t4,t5,t6,t7,t8);
 	//Run filters*/
-	console.log(rawArray);
 	var t2 = performance.now();
 	var hArray = rawArray.slice(0,nHeaders);
-	var t3 = performance.now();
 	rawArray.splice(0,nHeaders);
-	var t4 = performance.now();
-	var filteredArray = fsort(rawArray).asc(u => u[1]);
-	var t5 = performance.now();
-	var filteredArray = hArray.concat(filteredArray);
+	var filteredArray = hArray.concat( fsort(rawArray).asc(u => u[1]) );
 	var t6 = performance.now();
-	console.log(t2,t3,t4,t5,t6);
-	console.log(filteredArray);
+	console.log(t2,t6);
 	//var filteredArray = rawArray;
 	retArray = [];
 	var cols = [];
