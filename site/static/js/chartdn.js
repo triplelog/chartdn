@@ -40,7 +40,6 @@ function getOrdinal(n) {
 }
 // Set options like number of Header Rows
 var nHeaders = 1;
-var modifiers = {'disabled':[],'enabled':[]};
 var yColsVals = [];
 var headers = [];
 var lineId = 0;
