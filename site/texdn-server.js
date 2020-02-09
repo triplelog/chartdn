@@ -557,18 +557,18 @@ function convertDataToFull(dataStr,nHeaders) {
 	var t4 = performance.now();
 	var vmresult = vm.run(script);//20-220
 	var t5 = performance.now();
-	for (var i=0;i<1000000;i++) {var xx = Math.random()+i;};//.7-5.5
+	for (var i=0;i<1000000;i++) {var xx = Math.random()+i;};//.7-5.5-53
 	var t6 = performance.now();
-	let vmresult3 = vm.run("for (var i=0;i<1000000;i++) {var xxx = Math.random()+i;}");//30-220
+	let vmresult3 = vm.run("for (var i=0;i<1000000;i++) {var xxx = Math.random()+i;}");//30-220-2106
 	var t7 = performance.now();
-	eval("for (var i=0;i<1000000;i++) {var xxx = Math.random()+i;}");//6.5-41
+	eval("for (var i=0;i<1000000;i++) {var xxx = Math.random()+i;}");//6.5-41-613
 	var t8 = performance.now();
-	var wget = 'node speed-test.js';
+	var wget = 'echo "hello world"';
 	
 	var child = exec(wget, function(err, stdout, stderr) {
 		console.log(stdout);
 		var t9 = performance.now();
-		console.log(t8,t9);
+		console.log(t8,t9);//76-94
 	});
 	console.log(t2,t3,t4,t5,t6,t7,t8);
 	//Run filters
