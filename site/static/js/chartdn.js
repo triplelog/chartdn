@@ -437,7 +437,7 @@ function createNewColumnBox() {
 	var varColumn = document.createElement('select');
 	varDiv.appendChild(varColumn);
 }
-<input type="text"> = <select ></select> of <select id=""></select> 
+createNewColumnBox();
 
 
 //Dragula with column choices
