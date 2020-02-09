@@ -139,7 +139,7 @@ wss.on('connection', function connection(ws) {
   			dataid = chartid;
   			var defaultOptions = {};
 			defaultOptions['nHeaders'] = 1;
-			defaultOptions['filters'] = {'disabled':[],'enabled':[]};
+			defaultOptions['modifiers'] = {'disabled':[],'enabled':[]};
 			defaultOptions['type'] = '';
 			defaultOptions['yColumns'] = [];
 			defaultOptions['xColumn'] = '';
@@ -208,7 +208,7 @@ wss.on('connection', function connection(ws) {
   			dataid = chartid;
   			var defaultOptions = {};
 			defaultOptions['nHeaders'] = 1;
-			defaultOptions['filters'] = {'disabled':[],'enabled':[]};
+			defaultOptions['modifiers'] = {'disabled':[],'enabled':[]};
 			defaultOptions['type'] = '';
 			defaultOptions['yColumns'] = [];
 			defaultOptions['xColumn'] = '';

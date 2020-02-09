@@ -40,7 +40,7 @@ function getOrdinal(n) {
 }
 // Set options like number of Header Rows
 var nHeaders = 1;
-var filters = {'disabled':[],'enabled':[]};
+var modifiers = {'disabled':[],'enabled':[]};
 var yColsVals = [];
 var headers = [];
 var lineId = 0;
@@ -217,8 +217,8 @@ function optionsChg(optionname) {
 		ws.send(JSON.stringify(jsonmessage));
 	}
 }
-function filterChg() {
-	var jsonmessage = {'operation':'options','filters':filters};
+function modifierChg() {
+	var jsonmessage = {'operation':'options','modifiers':modifiers};
 	ws.send(JSON.stringify(jsonmessage));
 }
 function typeChg() {
@@ -416,38 +416,40 @@ drake.on('remove', function (el, target, source) {
 
 
 //Dragula with column choices
-
-var drakeF = dragula([document.getElementById('disabledFilters'), document.getElementById('enabledFilters'), document.getElementById('favoriteFilters')], {
+function clickModifier(evt){
+	console.log(evt.target.id);
+}
+var drakeF = dragula([document.getElementById('disabledModifiers'), document.getElementById('enabledModifiers'), document.getElementById('favoriteModifiers')], {
   copy: function (el, source) {
-    return source === document.getElementById('favoriteFilters');
+    return source === document.getElementById('favoriteModifiers');
   },
   accepts: function (el, target, source) {
-  	if (target === document.getElementById('favoriteFilters')) {return false;}
+  	if (target === document.getElementById('favoriteModifiers')) {return false;}
   	else {return true;}
     
   },
   removeOnSpill: function (el, source) {
-    return source !== document.getElementById('favoriteFilters');
+    return source !== document.getElementById('favoriteModifiers');
   }
 });
 
 drakeF.on('drop', function (el, target, source, sibling) { 
 	//Need to reorder if not the end
-	if (target.id == 'disabledFilters' || target.id == 'enabledFilters') {
+	if (target.id == 'disabledModifiers' || target.id == 'enabledModifiers') {
 		var reorder = false;
 		var oldObject = {};
-		for (var i in filters['disabled']){
-			if (filters['disabled'][i].id==el.id){
-				oldObject = filters['disabled'][i];
-				filters['disabled'].splice(i,1);
+		for (var i in modifiers['disabled']){
+			if (modifiers['disabled'][i].id==el.id){
+				oldObject = modifiers['disabled'][i];
+				modifiers['disabled'].splice(i,1);
 				reorder = true;
 				break;
 			}
 		}
-		for (var i in filters['enabled']){
-			if (filters['enabled'][i].id==el.id){
-				oldObject = filters['enabled'][i];
-				filters['enabled'].splice(i,1);
+		for (var i in modifiers['enabled']){
+			if (modifiers['enabled'][i].id==el.id){
+				oldObject = modifiers['enabled'][i];
+				modifiers['enabled'].splice(i,1);
 				reorder = true;
 				break;
 			}
@@ -456,55 +458,56 @@ drakeF.on('drop', function (el, target, source, sibling) {
 			var id = Math.random().toString(36).substr(2, 8);
 			oldObject = {'id':id,'type':el.getAttribute('data-id'),'options':{}};
 			el.id = id;
+			el.addEventListener('onclick',clickModifier);
 		}
 		
-		if (target.id == 'disabledFilters'){
+		if (target.id == 'disabledModifiers'){
 			if (sibling){
-				for (var i in filters['disabled']){
-					if (filters['disabled'][i].id==sibling.id){
-						filters['disabled'].splice(i,0,oldObject);
+				for (var i in modifiers['disabled']){
+					if (modifiers['disabled'][i].id==sibling.id){
+						modifiers['disabled'].splice(i,0,oldObject);
 						break;
 					}
 				}
 			}
 			else {
-				filters['disabled'].push(oldObject);
+				modifiers['disabled'].push(oldObject);
 			}
 		}
 		else {
 			if (sibling){
-				for (var i in filters['enabled']){
-					if (filters['enabled'][i].id==sibling.id){
-						filters['enabled'].splice(i,0,oldObject);
+				for (var i in modifiers['enabled']){
+					if (modifiers['enabled'][i].id==sibling.id){
+						modifiers['enabled'].splice(i,0,oldObject);
 						break;
 					}
 				}
 			}
 			else {
-				filters['enabled'].push(oldObject);
+				modifiers['enabled'].push(oldObject);
 			}
 		}
 		
 		
-		filterChg();
+		modifierChg();
 	}
 });
 drakeF.on('remove', function (el, target, source) { 
-	if (source.id == 'disabledFilters') {
-		for (var i in filters['disabled']){
-			if (filters['disabled'][i].id==el.id){
-				filters['disabled'].splice(i,1);
+	if (source.id == 'disabledModifiers') {
+		for (var i in modifiers['disabled']){
+			if (modifiers['disabled'][i].id==el.id){
+				modifiers['disabled'].splice(i,1);
 			}
 		}
 	}
-	else if (source.id == 'enabledFilters') {
-		for (var i in filters['enabled']){
-			if (filters['enabled'][i].id==el.id){
-				filters['enabled'].splice(i,1);
+	else if (source.id == 'enabledModifiers') {
+		for (var i in modifiers['enabled']){
+			if (modifiers['enabled'][i].id==el.id){
+				modifiers['enabled'].splice(i,1);
 			}
 		}
 	}
-	filterChg();
+	modifierChg();
 });
 
 
