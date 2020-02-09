@@ -427,6 +427,13 @@ function createNewColumnBox() {
 	varDiv.appendChild(span1);
 	
 	var varValue = document.createElement('select');
+	var valueOptions = ['value','mean','median','max','min','stdev','sum'];
+	for (var i=0;i<valueOptions.length;i++){
+		var varOption = document.createElement('option');
+		varOption.value = valueOptions[i];
+		varOption.textContent = valueOptions[i];
+		varValue.appendChild(varOption);
+	}
 	varDiv.appendChild(varValue);
 	
 	var span2 = document.createElement('span');
@@ -434,6 +441,13 @@ function createNewColumnBox() {
 	varDiv.appendChild(span2);
 	
 	var varColumn = document.createElement('select');
+	var valueOptions = [0,1,2];
+	for (var i=0;i<valueOptions.length;i++){
+		var varOption = document.createElement('option');
+		varOption.value = valueOptions[i];
+		varOption.textContent = 'Column '+valueOptions[i];
+		varColumn.appendChild(varOption);
+	}
 	varDiv.appendChild(varColumn);
 }
 createNewColumnBox();
