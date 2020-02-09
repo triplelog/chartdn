@@ -566,7 +566,6 @@ function convertDataToFull(dataStr,nHeaders) {
 	var wget = 'expr 3 + 4';
 	
 	var child = exec(wget, function(err, stdout, stderr) {
-		console.log(stdout);
 		var t9 = performance.now();
 		console.log(t8,t9);//76-94
 	});
