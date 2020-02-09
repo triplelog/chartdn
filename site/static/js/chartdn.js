@@ -417,7 +417,12 @@ drake.on('remove', function (el, target, source) {
 
 //Dragula with column choices
 function clickModifier(evt){
-	console.log(evt.target.id);
+	var id = evt.target.id;
+	for (var i in modifiers['enabled']){
+		if (modifiers['enabled'][i].id==id){
+			modifiers['enabled'][i]['options']['x']=7;
+		}
+	}
 }
 var drakeF = dragula([document.getElementById('disabledModifiers'), document.getElementById('enabledModifiers'), document.getElementById('favoriteModifiers')], {
   copy: function (el, source) {
