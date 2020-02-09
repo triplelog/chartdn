@@ -95,29 +95,23 @@ div.l-box {
 			<div class="l-box pure-u-1-2 sectionpart">
 				<div class="box-header">Create Chart
 					<select onchange="typeChg();">
-						<option>Line</option>
-						<option>Bar</option>
+						<option value="line" {{ isChecked['line'] }}>Line</option>
+						<option value="bar" {{ isChecked['bar'] }}>Bar</option>
+						<option value="scatter" {{ isChecked['scatter'] }}>Scatter</option>
+						<option value="pie" {{ isChecked['pie'] }}>Pie</option>
+						<option value="bubble" {{ isChecked['bubble'] }}>Bubble</option>
+						<option value="histogram" {{ isChecked['histogram'] }}>Histogram</option>
+						<option value="heatmap" {{ isChecked['heatmap'] }}>Heatmap</option>
+						<option value="radar" {{ isChecked['radar'] }}>Radar</option>
+						<option value="box" {{ isChecked['box'] }}>Box</option>
+						<option value="choropleth" {{ isChecked['choropleth'] }}>Choropleth</option>
+						<option value="splom" {{ isChecked['splom'] }}>Splom</option>
+						<option value="diff" {{ isChecked['diff'] }}>Diff</option>
+						<option value="calendar" {{ isChecked['calendar'] }}>Calendar</option>
 					</select>
 					<span class="box-buttons"><i class="fas fa-compress-alt"></i></span>
 				</div>
 				<form class="pure-form box-form">
-					<div class="pure-g">
-						<div class="l-box pure-u-1-1" style="display:none;">
-								<input type="radio" name="chartType" onchange="typeChg()" value="line" {{ isChecked['line'] }}>Line</input>
-								<input type="radio" name="chartType" onchange="typeChg()" value="bar" {{ isChecked['bar'] }}>Bar</input>
-								<input type="radio" name="chartType" onchange="typeChg()" value="scatter" {{ isChecked['scatter'] }}>Scatter</input>
-								<input type="radio" name="chartType" onchange="typeChg()" value="pie" {{ isChecked['pie'] }}>Pie</input>
-								<input type="radio" name="chartType" onchange="typeChg()" value="bubble" {{ isChecked['bubble'] }}>Bubble</input>
-								<input type="radio" name="chartType" onchange="typeChg()" value="histogram" {{ isChecked['histogram'] }}>Histogram</input>
-								<input type="radio" name="chartType" onchange="typeChg()" value="heatmap" {{ isChecked['heatmap'] }}>Heatmap</input>
-								<input type="radio" name="chartType" onchange="typeChg()" value="radar" {{ isChecked['radar'] }}>Radar</input>
-								<input type="radio" name="chartType" onchange="typeChg()" value="box" {{ isChecked['box'] }}>Box</input>
-								<input type="radio" name="chartType" onchange="typeChg()" value="choropleth" {{ isChecked['choropleth'] }}>Choropleth</input>
-								<input type="radio" name="chartType" onchange="typeChg()" value="splom" {{ isChecked['splom'] }}>Splom</input>
-								<input type="radio" name="chartType" onchange="typeChg()" value="diff" {{ isChecked['diff'] }}>Diff</input>
-								<input type="radio" name="chartType" onchange="typeChg()" value="calendar" {{ isChecked['calendar'] }}>Calendar</input>
-						</div>
-					</div>
 					<div class="pure-g" id="lineOptions">
 						<div class="l-box pure-u-1-3">
 							<div class="box-header2">

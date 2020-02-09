@@ -448,6 +448,7 @@ loginApp.get('/edit/:chartid',
 									}
 									else {
 										savedData['type']='line';
+										chartType[savedData['type']]='checked';
 									}
 									res.write(nunjucks.render('chartdn.html',{
 										chartScript: '',
@@ -494,6 +495,7 @@ loginApp.get('/edit/:chartid',
 							}
 							else {
 								savedData['type']='line';
+								chartType[savedData['type']]='checked';
 							}
 							res.write(nunjucks.render('chartdn.html',{
 								chartScript: '',
