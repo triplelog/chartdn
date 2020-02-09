@@ -551,17 +551,17 @@ function convertDataToFull(dataStr,nHeaders) {
 		rawArray.push(tempA);
 	}
 	var t2 = performance.now();
-	const script = new VMScript("Math.random()");
+	const script = new VMScript("for (var i=0;i<10000;i++) {var x = Math.random()+i;}");
 	var t3 = performance.now();
 	var vmresult = vm.run(script);
 	var t4 = performance.now();
 	var vmresult = vm.run(script);
 	var t5 = performance.now();
-	var vmresult2 = Math.random();
+	for (var i=0;i<10000;i++) {var xx = Math.random()+i;};
 	var t6 = performance.now();
-	let vmresult3 = vm.run("Math.random()");
+	let vmresult3 = vm.run("for (var i=0;i<10000;i++) {var xxx = Math.random()+i;}");
 	var t7 = performance.now();
-	console.log(t1,t2,t3,t4,t5,t6,t7);
+	console.log(t2,t3,t4,t5,t6,t7);
 	//Run filters
 
 	var filteredArray = rawArray;
