@@ -563,10 +563,13 @@ function convertDataToFull(dataStr,nHeaders) {
 	var t7 = performance.now();
 	eval("for (var i=0;i<100000;i++) {var xxx = Math.random()+i;}");//6.5-41
 	var t8 = performance.now();
-	//var wget = '';
-	//var child = exec(wget, function(err, stdout, stderr) {
+	var wget = 'node speed-test.js';
 	
-	//});
+	var child = exec(wget, function(err, stdout, stderr) {
+		console.log(stdout);
+		var t9 = performance.now();
+		console.log(t8,t9);
+	});
 	console.log(t2,t3,t4,t5,t6,t7,t8);
 	//Run filters
 
