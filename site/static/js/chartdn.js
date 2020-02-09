@@ -424,11 +424,6 @@ var drakeF = dragula([document.getElementById('disabledFilters'), document.getEl
   accepts: function (el, target, source) {
   	if (target === document.getElementById('favoriteFilters')) {return false;}
   	else {return true;}
-  	/*
-  	for (var yid in yColsVals){
-  		if ('colId'+yColsVals[yid] == el.id){return false;}
-  	}*/
-  	return true;
     
   },
   removeOnSpill: function (el, source) {
@@ -437,22 +432,79 @@ var drakeF = dragula([document.getElementById('disabledFilters'), document.getEl
 });
 
 drakeF.on('drop', function (el, target, source, sibling) { 
-	if (target.id == 'disabledFilters') {
-		filters['disabled'].push(el.getAttribute('data-id'));
-		filterChg();
-	}
-	else if (target.id == 'enabledFilters') {
-		filters['enabled'].push(el.getAttribute('data-id'));
+	//Need to reorder if not the end
+	if (target.id == 'disabledFilters' || target.id == 'enabledFilters') {
+		var reorder = false;
+		var oldObject = {};
+		for (var i in filters['disabled']){
+			if (filters['disabled'][i].id==el.id){
+				oldObject = filters['disabled'][i];
+				filters['disabled'].splice(i,1);
+				reorder = true;
+				break;
+			}
+		}
+		for (var i in filters['enabled']){
+			if (filters['enabled'][i].id==el.id){
+				oldObject = filters['enabled'][i];
+				filters['enabled'].splice(i,1);
+				reorder = true;
+				break;
+			}
+		}
+		if (!reorder){
+			var id = Math.random().toString('hex').substr(2, 8);
+			oldObject = {'id':id,'type':el.getAttribute('data-id'),'options':{}};
+			el.id = id;
+		}
+		
+		if (target.id == 'disabledFilters'){
+			if (sibling){
+				for (var i in filters['disabled']){
+					if (filters['disabled'][i].id==sibling.id){
+						filters['disabled'].splice(i,0,oldObject);
+						break;
+					}
+				}
+			}
+			else {
+				filters['disabled'].push(oldObject);
+			}
+		}
+		else {
+			if (sibling){
+				for (var i in filters['enabled']){
+					if (filters['enabled'][i].id==sibling.id){
+						filters['enabled'].splice(i,0,oldObject);
+						break;
+					}
+				}
+			}
+			else {
+				filters['enabled'].push(oldObject);
+			}
+		}
+		
+		
 		filterChg();
 	}
 });
 drakeF.on('remove', function (el, target, source) { 
 	if (source.id == 'disabledFilters') {
-	
+		for (var i in filters['disabled']){
+			if (filters['disabled'][i].id==el.id){
+				filters['disabled'].splice(i,1);
+			}
+		}
 	}
 	else if (source.id == 'enabledFilters') {
-	
+		for (var i in filters['enabled']){
+			if (filters['enabled'][i].id==el.id){
+				filters['enabled'].splice(i,1);
+			}
+		}
 	}
+	filterChg();
 });
 
 

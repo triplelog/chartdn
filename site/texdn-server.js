@@ -550,6 +550,7 @@ function convertDataToFull(dataStr,nHeaders) {
 		currentRow++;
 		rawArray.push(tempA);
 	}
+	/*
 	var t2 = performance.now();
 	const script = new VMScript("for (var i=0;i<1000000;i++) {var x = Math.random()+i;}");
 	var t3 = performance.now();
@@ -579,7 +580,7 @@ function convertDataToFull(dataStr,nHeaders) {
 		});
 	}
 	console.log(t2,t3,t4,t5,t6,t7,t8);
-	//Run filters
+	//Run filters*/
 
 	var filteredArray = rawArray;
 	retArray = [];
