@@ -455,7 +455,6 @@ function chgModify(mType=''){
 }
 function clickModifier(evt){
 	var id = evt.target.id;
-	console.log(id);
 	for (var i in modifiers['enabled']){
 		if (modifiers['enabled'][i].id==id){
 			//modifiers['enabled'][i]['options']['x']=7;
@@ -515,7 +514,10 @@ drakeF.on('drop', function (el, target, source, sibling) {
 			oldObject = {'id':id,'type':el.getAttribute('data-id'),'options':{}};
 			el.id = id;
 			el.addEventListener('click',clickModifier);
+			
 		}
+		
+		chgModify(el.getAttribute('data-id'));
 		
 		if (target.id == 'disabledModifiers'){
 			if (sibling){
