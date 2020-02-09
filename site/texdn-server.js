@@ -444,11 +444,11 @@ loginApp.get('/edit/:chartid',
 									var savedData = myOptions;
 									var chartType = {'line':'','bar':'','scatter':'','pie':'','bubble':'','histogram':'','heatmap':'','radar':'','box':'','choropleth':'','splom':'','diff':'','calendar':''};
 									if (savedData['type'] && savedData['type'] != ''){
-										chartType[savedData['type']]='checked';
+										chartType[savedData['type']]='selected="selected"';
 									}
 									else {
 										savedData['type']='line';
-										chartType[savedData['type']]='checked';
+										chartType[savedData['type']]='selected="selected"';
 									}
 									res.write(nunjucks.render('chartdn.html',{
 										chartScript: '',
@@ -491,11 +491,11 @@ loginApp.get('/edit/:chartid',
 							var savedData = myOptions;
 							var chartType = {'line':'','bar':'','scatter':'','pie':'','bubble':'','histogram':'','heatmap':'','radar':'','box':'','choropleth':'','splom':'','diff':'','calendar':''};
 							if (savedData['type'] && savedData['type'] != ''){
-								chartType[savedData['type']]='checked';
+								chartType[savedData['type']]='selected="selected"';
 							}
 							else {
 								savedData['type']='line';
-								chartType[savedData['type']]='checked';
+								chartType[savedData['type']]='selected="selected"';
 							}
 							res.write(nunjucks.render('chartdn.html',{
 								chartScript: '',
