@@ -415,6 +415,30 @@ drake.on('remove', function (el, target, source) {
 	}
 });
 
+// New Columns stuff
+function createNewColumnBox() {
+	var el = document.getElementById('newModify');
+	var varDiv = el.querySelector('#newVariables');
+	var varName = document.createElement('input');
+	varName.setAttribute('type','text');
+	varDiv.appendChild(varName);
+	
+	var span1 = document.createElement('span');
+	span1.textContent = ' := ';
+	varDiv.appendChild(span1);
+	
+	var varValue = document.createElement('select');
+	varDiv.appendChild(varValue);
+	
+	var span2 = document.createElement('span');
+	span2.textContent = ' of ';
+	varDiv.appendChild(span2);
+	
+	var varColumn = document.createElement('select');
+	varDiv.appendChild(varColumn);
+}
+<input type="text"> = <select ></select> of <select id=""></select> 
+
 
 //Dragula with column choices
 function chgModify(mType=''){
