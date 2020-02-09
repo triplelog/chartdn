@@ -225,7 +225,7 @@ function typeChg() {
 	//var isChecked = document.querySelector('input[name="chartType"]:checked');
 
 	//var jsonmessage = {'operation':'options','type':isChecked.value};
-	console.log('type chg');
+
 	var jsonmessage = {'operation':'options','type':'line'};
 	ws.send(JSON.stringify(jsonmessage));
 }
@@ -302,6 +302,7 @@ function dataChg(initialData=false) {
 			document.getElementById('yColumns').appendChild(newColumn);
 		}
 		chgLineTab();
+		chgModify();
 		document.getElementById('yColsVal').value = ycvStr.substring(0,ycvStr.length-2);
 		
 	}
@@ -418,12 +419,26 @@ drake.on('remove', function (el, target, source) {
 
 
 //Dragula with column choices
+function chgModify(mType=''){
+	var allTypes = ['sort','pivot','new','scale','replace','ignore'];
+	for (var t in allTypes){
+		if (allTypes[t] == mType){
+			document.getElementById(mType+'Modify').style.display = 'block';
+		}
+		else {
+			document.getElementById(mType+'Modify').style.display = 'none';
+		}
+		
+	}
+}
 function clickModifier(evt){
 	var id = evt.target.id;
 	for (var i in modifiers['enabled']){
 		if (modifiers['enabled'][i].id==id){
 			//modifiers['enabled'][i]['options']['x']=7;
-			
+			var mType = modifiers['enabled'][i].type;
+			chgModify(mType);
+
 		}
 	}
 }
