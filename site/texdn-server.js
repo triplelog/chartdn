@@ -555,7 +555,12 @@ function convertDataToFull(dataStr,nHeaders) {
 	var t3 = performance.now();
 	var vmresult = vm.run(script);//30-230
 	var t4 = performance.now();
-	var vmresult = vm.run(script);//20-220
+	var fib = function(n) {
+	  if (n <= 1) { return 1; }
+	  return fib(n - 1) + fib(n - 2);
+	};
+
+	console.log(fib(20));
 	var t5 = performance.now();
 	for (var i=0;i<1000000;i++) {var xx = Math.random()+i;};//.7-5.5-53
 	var t6 = performance.now();
@@ -570,7 +575,7 @@ function convertDataToFull(dataStr,nHeaders) {
 		var child = exec(wget, function(err, stdout, stderr) {
 			console.log(stdout);
 			var t9 = performance.now();
-			console.log(t8,t9);//40-76-94
+			console.log(t8,t9);//40-76-94--650 for 10 fib(20) in js
 		});
 	}
 	console.log(t2,t3,t4,t5,t6,t7,t8);
