@@ -458,7 +458,7 @@ drakeF.on('drop', function (el, target, source, sibling) {
 			var id = Math.random().toString(36).substr(2, 8);
 			oldObject = {'id':id,'type':el.getAttribute('data-id'),'options':{}};
 			el.id = id;
-			el.addEventListener('onclick',clickModifier);
+			el.addEventListener('click',clickModifier);
 		}
 		
 		if (target.id == 'disabledModifiers'){
