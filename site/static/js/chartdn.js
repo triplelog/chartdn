@@ -438,6 +438,16 @@ function clickModifier(evt){
 			//modifiers['enabled'][i]['options']['x']=7;
 			var mType = modifiers['enabled'][i].type;
 			chgModify(mType);
+			return;
+
+		}
+	}
+	for (var i in modifiers['disabled']){
+		if (modifiers['disabled'][i].id==id){
+			//modifiers['enabled'][i]['options']['x']=7;
+			var mType = modifiers['disabled'][i].type;
+			chgModify(mType);
+			return;
 
 		}
 	}
