@@ -531,6 +531,7 @@ function convertDataToFull(dataStr,nHeaders) {
 	var t1 = performance.now();
 	for (var i in dataStr) {
 		var tempA = dataStr[i];
+		if (tempA.length == 1 && tempA[0] == ''){continue;}
 		if (!tempA){break;}
 		if (currentRow >= nHeaders) {
 			for (var i=0;i<tempA.length;i++) {
@@ -581,9 +582,15 @@ function convertDataToFull(dataStr,nHeaders) {
 	//Run filters*/
 	console.log(rawArray);
 	var t2 = performance.now();
-	var filteredArray = fsort(rawArray).asc(u => u[0]);
+	var hArray = rawArray.slice(0,nHeaders);
 	var t3 = performance.now();
-	console.log(t2,t3);
+	rawArray.splice(0,nHeaders);
+	var t4 = performance.now();
+	var filteredArray = fsort(rawArray).asc(u => u[1]);
+	var t5 = performance.now();
+	var filteredArray = hArray + filteredArray;
+	var t6 = performance.now();
+	console.log(t2,t3,t4,t5,t6);
 	console.log(filteredArray);
 	//var filteredArray = rawArray;
 	retArray = [];
