@@ -94,7 +94,7 @@ div.l-box {
 			</div>
 			<div class="l-box pure-u-1-2 sectionpart">
 				<div class="box-header">Create Chart
-					<select onchange="typeChg();">
+					<select onchange="typeChg();" id="chartTypeMenu">
 						<option value="line" {{ isChecked['line'] }}>Line</option>
 						<option value="bar" {{ isChecked['bar'] }}>Bar</option>
 						<option value="scatter" {{ isChecked['scatter'] }}>Scatter</option>

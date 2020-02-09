@@ -222,11 +222,9 @@ function modifierChg() {
 	ws.send(JSON.stringify(jsonmessage));
 }
 function typeChg() {
-	//var isChecked = document.querySelector('input[name="chartType"]:checked');
+	var isChecked = document.querySelector('#chartTypeMenu > option:checked');
 
-	//var jsonmessage = {'operation':'options','type':isChecked.value};
-
-	var jsonmessage = {'operation':'options','type':'line'};
+	var jsonmessage = {'operation':'options','type':isChecked.value};
 	ws.send(JSON.stringify(jsonmessage));
 }
 function dataChg(initialData=false) {
