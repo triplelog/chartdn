@@ -565,10 +565,12 @@ function convertDataToFull(dataStr,nHeaders) {
 	var t8 = performance.now();
 	var wget = 'expr 3 + 4';
 	
-	var child = exec(wget, function(err, stdout, stderr) {
-		var t9 = performance.now();
-		console.log(t8,t9);//76-94
-	});
+	for (var i=0;i<10;i++){
+		var child = exec(wget, function(err, stdout, stderr) {
+			var t9 = performance.now();
+			console.log(t8,t9);//40-76-94
+		});
+	}
 	console.log(t2,t3,t4,t5,t6,t7,t8);
 	//Run filters
 
