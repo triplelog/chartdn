@@ -442,7 +442,6 @@ createNewColumnBox();
 
 //Dragula with column choices
 function chgModify(mType=''){
-	console.log(mType);
 	var allTypes = ['sort','pivot','new','scale','replace','ignore'];
 	for (var t in allTypes){
 		if (allTypes[t] == mType){
@@ -456,6 +455,7 @@ function chgModify(mType=''){
 }
 function clickModifier(evt){
 	var id = evt.target.id;
+	console.log(id);
 	for (var i in modifiers['enabled']){
 		if (modifiers['enabled'][i].id==id){
 			//modifiers['enabled'][i]['options']['x']=7;
