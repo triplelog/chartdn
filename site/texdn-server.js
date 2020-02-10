@@ -558,8 +558,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers) {
 	var filteredArray = hArray.concat(modJS.toData(rawArray));
 	var t6 = performance.now();
 	console.log(t2,t6);
-	console.log(filteredArray);
-	//var filteredArray = rawArray;
+	//console.log(filteredArray);
 	retArray = [];
 	var cols = [];
 	for (var i=0;i<filteredArray.length;i++) {

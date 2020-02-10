@@ -467,7 +467,9 @@ function chgModify(mType=''){
 	}
 }
 function clickModifier(evt){
-	var id = evt.target.id;
+	var id = '';
+	if (evt.target){id = evt.target.id;}
+	else {id = evt;}
 	for (var i in modifiers){
 		if (modifiers[i].id==id){
 			//modifiers['enabled'][i]['options']['x']=7;
