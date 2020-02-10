@@ -18,6 +18,7 @@ var createPlotly = require('./createCharts/plotly-charts.js');
 var createXkcd = require('./createCharts/xkcd-charts.js');
 var createGoogle = require('./createCharts/google-charts.js');
 var createChartjs = require('./createCharts/chartjs-charts.js');
+var modJS = require('./modify.js');
 const options = {
   key: fs.readFileSync('/etc/letsencrypt/live/chartdn.com/privkey.pem'),
   cert: fs.readFileSync('/etc/letsencrypt/live/chartdn.com/fullchain.pem')
@@ -529,11 +530,6 @@ const loginServer = https.createServer(options, loginApp);
 loginServer.listen(3000);
 
 
-function newColumn(array,options) {
-	for (var i in array){
-		array[i].push(1);
-	}
-}
 
 function convertDataToFull(dataStr,nHeaders,modifiers) {
 	rawArray = [];
@@ -567,7 +563,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers) {
 	for (var i in modifiers){
 		if (!modifiers[i].enabled){continue;}
 		if (modifiers[i].type == 'new'){
-			newColumn(rawArray,modifiers[i].options);
+			modJS.newColumn(rawArray,modifiers[i].options);
 		}
 	}
 	var filteredArray = rawArray;
