@@ -189,11 +189,13 @@ exports.newColumn = function(array,options) {
 		for (var ii in vars){
 			rowmap[vars[ii]]=7;
 		}
+		console.log(bothparts, rowmap);
 		for (var ii in bothparts[0]){
 			if(rowmap[bothparts[0][ii]]){
 				bothparts[0][ii]=rowmap[bothparts[0][ii]];
 			}
 		}
+		console.log(bothparts);
 		array[i].push( solvePostfix(bothparts[0],bothparts[1]) );
 
 	}
