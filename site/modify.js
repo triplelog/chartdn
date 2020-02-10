@@ -186,7 +186,7 @@ function solvePostfix(intstr,expstr){
 }
 
 function toData(array){
-	var remidx = []];
+	var remidx = [];
 	for (var i in array) {
 		if (array[i].length == 1 && array[i][0] == ''){remidx.push(i); continue;}
 		
