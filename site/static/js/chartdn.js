@@ -482,7 +482,7 @@ function createNewModifier() {
 	var el = document.getElementById('createModifyMenu');
 	var ell = el.querySelector('option:checked');
 	var mType = '';
-	if (ell){
+	if (ell && ell.value != ''){
 		mType = ell.value;
 		var id = Math.random().toString(36).substr(2, 8);
 		var oldObject = {'id':id,'type':mType,'options':{},'enabled':true};
@@ -493,10 +493,10 @@ function createNewModifier() {
 		newEl.addEventListener('click',clickModifier);
 		newEl.id = id;
 		document.getElementById('allModifiers').appendChild(newEl);
-		
-		
-		
+		chgModify(mType);
+		modifierChg();
 	}
+	
 	
 }
 var drakeF = dragula([document.getElementById('allModifiers')], {
@@ -550,8 +550,6 @@ drakeF.on('drop', function (el, target, source, sibling) {
 			modifiers.push(oldObject);
 		}
 
-		
-		
 		modifierChg();
 	}
 });
