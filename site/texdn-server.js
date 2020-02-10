@@ -570,7 +570,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers) {
 	//var filteredArray = hArray.concat( fsort(rawArray).asc(u => u[1]) );
 	var t6 = performance.now();
 	console.log(t2,t6);
-	console.log(filteredArray);
+	//console.log(filteredArray);
 	//var filteredArray = rawArray;
 	retArray = [];
 	var cols = [];
