@@ -28,6 +28,7 @@ ws.onmessage = function(evt){
 				allCharts[i].makeChart(chartJSON);
 			}
 		}
+		updateModifiedTable(dm.mdata);
 	}
 }
 
@@ -226,6 +227,38 @@ function typeChg() {
 	var jsonmessage = {'operation':'options','type':isChecked.value};
 	ws.send(JSON.stringify(jsonmessage));
 }
+
+function updateModifiedTable(data) {
+	var dataTable = document.getElementById("dataTableModified");
+	dataTable.style.display = 'block';
+
+
+	dataTable.innerHTML = '';
+	headers = [];
+	var includeHeaders = false;
+	for (var i=0;i<data.length;i++){
+		var newrow = document.createElement('tr');
+		if (i < nHeaders) {
+			newrow.classList.add('headerrow');
+		}
+		for (var ii=0;ii<data[i].length;ii++){
+			var newcell = document.createElement('td');
+			newcell.textContent = data[i][ii];
+			newrow.appendChild(newcell);
+			if (i==0){
+				if (nHeaders > 0) {
+					headers.push(data[i][ii]);
+				}
+				else {
+					headers.push(getOrdinal(ii+1));
+				}
+			}
+		}
+		dataTable.appendChild(newrow);
+		
+	}
+}
+
 function dataChg(initialData=false) {
 	
 	var dataTable = document.getElementById("dataTable");

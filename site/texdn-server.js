@@ -579,7 +579,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers) {
 		}
 	
 	}
-	return {'byrow':retArray,'bycol':cols};
+	return {'byrow':retArray,'bycol':cols,'modified':filteredArray};
 	
 }
 			
@@ -616,6 +616,9 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 					var chartJSON = createPlotly.createPlotly(data,chartInfo.options);
 					if (!dm.loc){dm.loc = 0}
 					var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc,'style':'plotly'};
+					if (2==2){
+						jsonmessage['mdata']=data.modified;
+					}
 					ws.send(JSON.stringify(jsonmessage));
 				}
 				var t4 = performance.now();
