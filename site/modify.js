@@ -185,7 +185,7 @@ function solvePostfix(intstr,expstr){
 	}
 }
 
-function toData(array){
+exports.toData = function(array){
 	for (var i in array) {
 		if (array[i].length == 1 && array[i][0] == ''){continue;}
 		
@@ -202,6 +202,7 @@ function toData(array){
 		}
 	}
 }
+
 
 exports.newColumn = function(array,options) {
 	toData(array);
