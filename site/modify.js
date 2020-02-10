@@ -189,10 +189,9 @@ function toData(array){
 	for (var i in array) {
 		if (array[i].length == 1 && array[i][0] == ''){continue;}
 		
-		for (var ii=0;i<array[i].length;i++) {
+		for (var ii=0;ii<array[i].length;ii++) {
 			var cell = array[i][ii];
 			if (!isNaN(parseFloat(cell))){
-				
 				if ((parseFloat(cell)%1)===0) {
 					array[i][ii] = parseInt(cell);
 				}
@@ -200,18 +199,11 @@ function toData(array){
 					array[i][ii] = parseFloat(cell);
 				}
 			}
-			else {
-				console.log(cell);
-			}
 		}
 	}
-	console.log('ccc',array[5]);
-	return array;
 }
 exports.toData = function(array){
-	console.log('aaa',array[5]);
 	toData(array);
-	console.log('bbb',array[5]);
 	return array;
 }
 
