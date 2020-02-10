@@ -183,6 +183,7 @@ function solvePostfix(intstr,expstr){
 exports.newColumn = function(array,options) {
 	var formula = 'a+b+1';
 	var vars = options.variables;
+	console.log(options,vars);
 	var bothparts = postfixify(formula);
 	for (var i in array){
 		var rowmap = {};
