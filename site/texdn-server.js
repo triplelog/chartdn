@@ -529,7 +529,13 @@ const loginServer = https.createServer(options, loginApp);
 loginServer.listen(3000);
 
 
-function convertDataToFull(dataStr,nHeaders) {
+function newColumn(array,options) {
+	for (var i in array){
+		array[i].push(1);
+	}
+}
+
+function convertDataToFull(dataStr,nHeaders,modifiers) {
 	rawArray = [];
 	var currentRow = 0;
 	var t1 = performance.now();
@@ -553,43 +559,22 @@ function convertDataToFull(dataStr,nHeaders) {
 		currentRow++;
 		rawArray.push(tempA);
 	}
-	/*
-	var t2 = performance.now();
-	const script = new VMScript("for (var i=0;i<1000000;i++) {var x = Math.random()+i;}");
-	var t3 = performance.now();
-	var vmresult = vm.run(script);//30-230
-	var t4 = performance.now();
-	var fib = function(n) {
-	  if (n <= 1) { return 1; }
-	  return fib(n - 1) + fib(n - 2);
-	};
-
-	console.log(fib(20));
-	var t5 = performance.now();
-	for (var i=0;i<1000000;i++) {var xx = Math.random()+i;};//.7-5.5-53
-	var t6 = performance.now();
-	let vmresult3 = vm.run("for (var i=0;i<1000000;i++) {var xxx = Math.random()+i;}");//30-220-2106
-	var t7 = performance.now();
-	eval("for (var i=0;i<1000000;i++) {var xxx = Math.random()+i;}");//6.5-41-613
-	var t8 = performance.now();
 	
-	
-	for (var i=0;i<10;i++){
-		var wget = './a.out';
-		var child = exec(wget, function(err, stdout, stderr) {
-			console.log(stdout);
-			var t9 = performance.now();
-			console.log(t8,t9);//40-76-94--650 for 10 fib(20) in js
-		});
-	}
-	console.log(t2,t3,t4,t5,t6,t7,t8);
-	//Run filters*/
 	var t2 = performance.now();
 	var hArray = rawArray.slice(0,nHeaders);
 	rawArray.splice(0,nHeaders);
-	var filteredArray = hArray.concat( fsort(rawArray).asc(u => u[1]) );
+	
+	for (var i in modifiers){
+		if (!modifiers[i].enabled){continue;}
+		if (modifiers[i].type == 'new'){
+			newColumn(rawArray,modifiers[i].options);
+		}
+	}
+	var filteredArray = rawArray;
+	//var filteredArray = hArray.concat( fsort(rawArray).asc(u => u[1]) );
 	var t6 = performance.now();
 	console.log(t2,t6);
+	console.log(filteredArray);
 	//var filteredArray = rawArray;
 	retArray = [];
 	var cols = [];
@@ -621,7 +606,7 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 		var results = Papa.parse(fileData, {
 			complete: function(results) {
 				var nHeaders = chartInfo.options.nHeaders || 1;
-				var data = convertDataToFull(results.data,nHeaders);
+				var data = convertDataToFull(results.data,nHeaders,chartInfo.options.modifiers);
 				/*
 				if (chartStyle == 'all' || chartStyle == 'chartJS') {
 					var chartJSON = createChartjs.createChartjs(data,chartInfo.options);

@@ -485,7 +485,10 @@ function createNewModifier() {
 	if (ell && ell.value != ''){
 		mType = ell.value;
 		var id = Math.random().toString(36).substr(2, 8);
-		var oldObject = {'id':id,'type':mType,'options':{},'enabled':true};
+		var oldObject = {'id':id,'name':'','type':mType,'options':{},'enabled':true};
+		if (mType == 'new'){
+			oldObject.options = {'formula':'a+b','variables':[{'column':0,'type':'value','row':'0'}]};
+		}
 		modifiers.push(oldObject);
 		var newEl = document.createElement('div');
 		newEl.setAttribute('data-id',mType);
