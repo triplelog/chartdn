@@ -201,6 +201,8 @@ function toData(array){
 			}
 		}
 	}
+	console.log('ccc',array[5]);
+	return array;
 }
 exports.toData = function(array){
 	console.log('aaa',array[5]);
