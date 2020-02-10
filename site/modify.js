@@ -191,12 +191,16 @@ exports.newColumn = function(array,options) {
 		for (var ii in vars){
 			rowmap[ii.toUpperCase()]=parseInt(array[i][vars[ii].column]);
 		}
+		var intstr = [];
 		for (var ii in bothparts[0]){
 			if(rowmap[bothparts[0][ii]]){
-				bothparts[0][ii]=rowmap[bothparts[0][ii]];
+				intstr.push(rowmap[bothparts[0][ii]]);
+			}
+			else {
+				intstr.push(bothparts[0][ii]);
 			}
 		}
-		var answer = solvePostfix(bothparts[0],bothparts[1]);
+		var answer = solvePostfix(intstr,bothparts[1]);
 		array[i].push(answer);
 
 	}
