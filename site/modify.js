@@ -15,8 +15,8 @@ function makePost(infixexpr) {
 	prec["("] = -1
 	opStack = []
 	postfixList = []
-	intstr = ''
-	expstr = ''
+	intstr = []
+	expstr = []
 	tokenList = []
 	temptoken = ''
 	for (var i=0;i<infixexpr.length;i++){
@@ -64,17 +64,16 @@ function makePost(infixexpr) {
 	for (var i=0;i<postfixList.length;i++){
 		var ci = postfixList[i];
 		if ("*/+~><=![]&|".indexOf(ci) == -1){
-			intstr += ci + '_'
-			expstr += '#'
+			intstr.push(ci);
+			expstr.push('#');
 		}
 		else if (ci == '~'){
-			expstr += '-'
+			expstr.push('-');
 		}
 		else{
-			expstr += ci
+			expstr.push(ci);
 		}
 	}
-	intstr = intstr.substring(0,intstr.length-1)
 	return [intstr,expstr]
 
 }
@@ -135,7 +134,7 @@ function replaceNegatives(istr){
 	return istr
 }
 
-function postfixify(input_str,colInfo) {
+function postfixify(input_str) {
 	input_str = input_str.toUpperCase();
 	input_str = input_str.replace(/AND/g,'&');
 	input_str = input_str.replace(/OR/g,'|');
@@ -151,32 +150,51 @@ function postfixify(input_str,colInfo) {
 	input_str = input_str.replace(/--/g,'+');
 	input_str = replaceDecimals(input_str);
 	input_str = replaceNegatives(input_str);
-	var twoparts = makePost(input_str);
-	//Convert column names
-	console.log(twoparts[0]);
-	console.log(twoparts[1]);
-	var firstpart = twoparts[0].split("_");
-	for (var i=0;i<firstpart.length;i++){
-		if (parseInt(firstpart[i]).toString() != firstpart[i]){
-			for (var ii in colInfo) {
-				if (colInfo[ii].toUpperCase() == firstpart[i]) {
-					firstpart[i] = 'c'+ii;
-					break;
-				}
-			}
-		}
-		else {
-			firstpart[i] = firstpart[i]+'.1.I';
-		}
-	}
-	var fullstr = firstpart.join("_")+'@'+twoparts[1];
-	return fullstr;
+	return makePost(input_str);
 }
 
+function solvePostfix(intstr,expstr){
+	var resultStack = [];
+	for(var i = 0; i < expstr.length; i++) {
+		if(expstr[i]=='#') {
+			resultStack.push(intstr[i]);
+		} else {
+			var a = resultStack.pop();
+			var b = resultStack.pop();
+			if(postfix[i] === "+") {
+				resultStack.push(parseInt(a) + parseInt(b));
+			} else if(postfix[i] === "-") {
+				resultStack.push(parseInt(b) - parseInt(a));
+			} else if(postfix[i] === "*") {
+				resultStack.push(parseInt(a) * parseInt(b));
+			} else if(postfix[i] === "/") {
+				resultStack.push(parseInt(b) / parseInt(a));
+			} else if(postfix[i] === "^") {
+				resultStack.push(Math.pow(parseInt(b), parseInt(a)));
+			}
+		}
+	}
+	if(resultStack.length > 1) {
+		return "error";
+	} else {
+		return resultStack.pop();
+	}
+}
 exports.newColumn = function(array,options) {
+	var formula = 'a+b+1';
 	var vars = options.variables;
+	var bothparts = postfixify(formula);
 	for (var i in array){
-		
-		array[i].push(1);
+		var rowmap = {};
+		for (var ii in vars){
+			rowmap[vars[ii]]=7;
+		}
+		for (var ii in bothparts[0]){
+			if(rowmap[bothparts[0][ii]]){
+				bothparts[0][ii]=rowmap[bothparts[0][ii]];
+			}
+		}
+		array[i].push( solvePostfix(bothparts[0],bothparts[1]) );
+
 	}
 }
