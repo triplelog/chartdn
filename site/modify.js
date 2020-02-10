@@ -192,6 +192,7 @@ function toData(array){
 		for (var ii=0;i<array[i].length;i++) {
 			var cell = array[i][ii];
 			if (!isNaN(parseFloat(cell))){
+				console.log(cell);
 				if ((parseFloat(cell)%1)===0) {
 					array[i][ii] = parseInt(cell);
 				}
