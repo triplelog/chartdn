@@ -137,7 +137,7 @@ wss.on('connection', function connection(ws) {
   			dataid = chartid;
   			var defaultOptions = {};
 			defaultOptions['nHeaders'] = 1;
-			defaultOptions['modifiers'] = {'disabled':[],'enabled':[]};
+			defaultOptions['modifiers'] = [];
 			defaultOptions['type'] = '';
 			defaultOptions['yColumns'] = [];
 			defaultOptions['xColumn'] = '';
@@ -206,7 +206,7 @@ wss.on('connection', function connection(ws) {
   			dataid = chartid;
   			var defaultOptions = {};
 			defaultOptions['nHeaders'] = 1;
-			defaultOptions['modifiers'] = {'disabled':[],'enabled':[]};
+			defaultOptions['modifiers'] = [];
 			defaultOptions['type'] = '';
 			defaultOptions['yColumns'] = [];
 			defaultOptions['xColumn'] = '';
@@ -455,7 +455,7 @@ loginApp.get('/edit/:chartid',
 										dataAreaText: defaultData,
 										nHeaders: savedData.nHeaders || 1,
 										isChecked: chartType,
-										modifiers: savedData.modifiers || {'enabled':[],'disabled':[]},
+										modifiers: savedData.modifiers || [],
 										title: savedData.title || '',
 										xColumn: savedData.xColumn || '',
 										yColumns: savedData.yColumns || '',
@@ -503,7 +503,7 @@ loginApp.get('/edit/:chartid',
 								dataAreaText: defaultData,
 								nHeaders: savedData.nHeaders || 1,
 								isChecked: chartType,
-								modifiers: savedData.modifiers || {'enabled':[],'disabled':[]},
+								modifiers: savedData.modifiers || [],
 								title: savedData.title || '',
 								xColumn: savedData.xColumn || '',
 								yColumns: savedData.yColumns || '',

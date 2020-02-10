@@ -487,7 +487,6 @@ function createNewModifier() {
 		var id = Math.random().toString(36).substr(2, 8);
 		var oldObject = {'id':id,'type':mType,'options':{},'enabled':true};
 		modifiers.push(oldObject);
-		<div data-id="sort">Sort</div>
 		var newEl = document.createElement('div');
 		newEl.setAttribute('data-id',mType);
 		newEl.textContent = mType;
