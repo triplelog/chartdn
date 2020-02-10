@@ -189,7 +189,7 @@ exports.newColumn = function(array,options) {
 	for (var i in array){
 		var rowmap = {};
 		for (var ii in vars){
-			rowmap[ii.toUpperCase()]=7;
+			rowmap[ii.toUpperCase()]=parseInt(array[i][vars[ii].column]);
 		}
 		for (var ii in bothparts[0]){
 			if(rowmap[bothparts[0][ii]]){
