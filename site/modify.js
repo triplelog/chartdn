@@ -186,8 +186,9 @@ function solvePostfix(intstr,expstr){
 }
 
 function toData(array){
+	var remidx = []];
 	for (var i in array) {
-		if (array[i].length == 1 && array[i][0] == ''){continue;}
+		if (array[i].length == 1 && array[i][0] == ''){remidx.push(i); continue;}
 		
 		for (var ii=0;ii<array[i].length;ii++) {
 			var cell = array[i][ii];
@@ -200,6 +201,9 @@ function toData(array){
 				}
 			}
 		}
+	}
+	for (var i=0;i<remidx.length;i++){
+		array.splice(remidx[remidx.length-1-i],1);
 	}
 }
 exports.toData = function(array){

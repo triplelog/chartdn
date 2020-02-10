@@ -552,6 +552,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers) {
 			modJS.sort(rawArray,modifiers[i].options);
 		}
 		else if (modifiers[i].type == 'replace'){
+			console.log('aaa',rawArray[5]);
 			modJS.replace(rawArray,modifiers[i].options);
 		}
 	}
