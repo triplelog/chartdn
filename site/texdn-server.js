@@ -564,6 +564,9 @@ function convertDataToFull(dataStr,nHeaders,modifiers) {
 		if (!modifiers[i].enabled){continue;}
 		if (modifiers[i].type == 'new'){
 			modJS.newColumn(rawArray,modifiers[i].options);
+			if (hArray.length>0){
+				hArray[0].push(modifiers[i].name);
+			}
 		}
 		else if (modifiers[i].type == 'sort'){
 			modJS.sort(rawArray,modifiers[i].options);
