@@ -489,6 +489,9 @@ function createNewModifier() {
 		if (mType == 'new'){
 			oldObject.options = {'formula':'a+b','variables':{'a':{'column':1,'type':'value','row':'0'}, 'b':{'column':2,'type':'value','row':'0'}}};
 		}
+		else if (mType == 'sort'){
+			oldObject.options = {'column':1,'ascending':true};
+		}
 		modifiers.push(oldObject);
 		var newEl = document.createElement('div');
 		newEl.setAttribute('data-id',mType);

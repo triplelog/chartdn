@@ -24,7 +24,7 @@ const options = {
   cert: fs.readFileSync('/etc/letsencrypt/live/chartdn.com/fullchain.pem')
 };
 const { PerformanceObserver, performance } = require('perf_hooks');
-var fsort = require('fast-sort');
+
 
 
 
@@ -565,12 +565,14 @@ function convertDataToFull(dataStr,nHeaders,modifiers) {
 		if (modifiers[i].type == 'new'){
 			modJS.newColumn(rawArray,modifiers[i].options);
 		}
+		else if (modifiers[i].type == 'sort'){
+			modJS.sort(rawArray,modifiers[i].options);
+		}
 	}
-	var filteredArray = rawArray;
-	//var filteredArray = hArray.concat( fsort(rawArray).asc(u => u[1]) );
+	var filteredArray = hArray.concat(rawArray);
 	var t6 = performance.now();
 	console.log(t2,t6);
-	//console.log(filteredArray);
+	console.log(filteredArray);
 	//var filteredArray = rawArray;
 	retArray = [];
 	var cols = [];

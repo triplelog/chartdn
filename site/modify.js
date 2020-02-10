@@ -1,3 +1,5 @@
+var fsort = require('fast-sort');
+
 function makePost(infixexpr) {
 	prec = {}
 	prec["*"] = 4
@@ -182,14 +184,24 @@ function solvePostfix(intstr,expstr){
 		return resultStack.pop();
 	}
 }
+
 exports.newColumn = function(array,options) {
-	var formula = 'a+b+1';
+	var formula = options.formula;
 	var vars = options.variables;
 	var bothparts = postfixify(formula);
 	for (var i in array){
 		var rowmap = {};
 		for (var ii in vars){
-			rowmap[ii.toUpperCase()]=parseInt(array[i][vars[ii].column]);
+			if (vars[ii].type=='value'){
+				var row = i;
+				if (vars[ii].row.indexOf('$')==0){
+					row = parseInt(vars[ii].row.substring(1));
+				}
+				else {
+					row = i + parseInt(vars[ii].row);
+				}
+				rowmap[ii.toUpperCase()]=parseInt(array[row][vars[ii].column]);
+			}
 		}
 		var intstr = [];
 		for (var ii in bothparts[0]){
@@ -203,5 +215,14 @@ exports.newColumn = function(array,options) {
 		var answer = solvePostfix(intstr,bothparts[1]);
 		array[i].push(answer);
 
+	}
+}
+
+exports.sort = function(array,options) {
+	if (options.ascending){
+		fsort(array).asc(u => u[options.column]);
+	}
+	else {
+		fsort(array).desc(u => u[options.column]);
 	}
 }
