@@ -468,118 +468,95 @@ function chgModify(mType=''){
 }
 function clickModifier(evt){
 	var id = evt.target.id;
-	for (var i in modifiers['enabled']){
-		if (modifiers['enabled'][i].id==id){
+	for (var i in modifiers){
+		if (modifiers[i].id==id){
 			//modifiers['enabled'][i]['options']['x']=7;
-			var mType = modifiers['enabled'][i].type;
-			chgModify(mType);
-			return;
-
-		}
-	}
-	for (var i in modifiers['disabled']){
-		if (modifiers['disabled'][i].id==id){
-			//modifiers['enabled'][i]['options']['x']=7;
-			var mType = modifiers['disabled'][i].type;
+			var mType = modifiers[i].type;
 			chgModify(mType);
 			return;
 
 		}
 	}
 }
-var drakeF = dragula([document.getElementById('disabledModifiers'), document.getElementById('enabledModifiers'), document.getElementById('favoriteModifiers')], {
+function createNewModifier() {
+	var el = document.getElementById('createModifyMenu');
+	var ell = el.querySelector('option:checked');
+	var mType = '';
+	if (ell){
+		mType = ell.value;
+		var id = Math.random().toString(36).substr(2, 8);
+		var oldObject = {'id':id,'type':mType,'options':{},'enabled':true};
+		modifiers.push(oldObject);
+		<div data-id="sort">Sort</div>
+		var newEl = document.createElement('div');
+		newEl.setAttribute('data-id',mType);
+		newEl.textContent = mType;
+		newEl.addEventListener('click',clickModifier);
+		newEl.id = id;
+		document.getElementById('allModifiers').appendChild(newEl);
+		
+		
+		
+	}
+	
+}
+var drakeF = dragula([document.getElementById('allModifiers')], {
   copy: function (el, source) {
-    return source === document.getElementById('favoriteModifiers');
+    return false;
   },
   accepts: function (el, target, source) {
-  	if (target === document.getElementById('favoriteModifiers')) {return false;}
-  	else {return true;}
+  	if (target === document.getElementById('allModifiers')) {return true;}
+  	else {return false;}
     
   },
-  removeOnSpill: function (el, source) {
-    return source !== document.getElementById('favoriteModifiers');
+  revertOnSpill: function (el, source) {
+    return true;
   }
 });
 
 drakeF.on('drop', function (el, target, source, sibling) { 
 	//Need to reorder if not the end
-	if (target.id == 'disabledModifiers' || target.id == 'enabledModifiers') {
+	if (target.id == 'allModifiers') {
 		var reorder = false;
 		var oldObject = {};
-		for (var i in modifiers['disabled']){
-			if (modifiers['disabled'][i].id==el.id){
-				oldObject = modifiers['disabled'][i];
-				modifiers['disabled'].splice(i,1);
+		for (var i in modifiers){
+			if (modifiers[i].id==el.id){
+				oldObject = modifiers[i];
+				modifiers.splice(i,1);
 				reorder = true;
 				break;
 			}
 		}
-		for (var i in modifiers['enabled']){
-			if (modifiers['enabled'][i].id==el.id){
-				oldObject = modifiers['enabled'][i];
-				modifiers['enabled'].splice(i,1);
-				reorder = true;
-				break;
-			}
-		}
+		/*
 		if (!reorder){
 			var id = Math.random().toString(36).substr(2, 8);
-			oldObject = {'id':id,'type':el.getAttribute('data-id'),'options':{}};
+			oldObject = {'id':id,'type':el.getAttribute('data-id'),'options':{},'enabled':true};
 			el.id = id;
 			el.addEventListener('click',clickModifier);
 			
-		}
+		}*/
 		
 		chgModify(el.getAttribute('data-id'));
 		
-		if (target.id == 'disabledModifiers'){
-			if (sibling){
-				for (var i in modifiers['disabled']){
-					if (modifiers['disabled'][i].id==sibling.id){
-						modifiers['disabled'].splice(i,0,oldObject);
-						break;
-					}
+
+		if (sibling){
+			for (var i in modifiers){
+				if (modifiers[i].id==sibling.id){
+					modifiers.splice(i,0,oldObject);
+					break;
 				}
-			}
-			else {
-				modifiers['disabled'].push(oldObject);
 			}
 		}
 		else {
-			if (sibling){
-				for (var i in modifiers['enabled']){
-					if (modifiers['enabled'][i].id==sibling.id){
-						modifiers['enabled'].splice(i,0,oldObject);
-						break;
-					}
-				}
-			}
-			else {
-				modifiers['enabled'].push(oldObject);
-			}
+			modifiers.push(oldObject);
 		}
+
 		
 		
 		modifierChg();
 	}
 });
-drakeF.on('remove', function (el, target, source) { 
-	if (source.id == 'disabledModifiers') {
-		for (var i in modifiers['disabled']){
-			if (modifiers['disabled'][i].id==el.id){
-				modifiers['disabled'].splice(i,1);
-			}
-		}
-	}
-	else if (source.id == 'enabledModifiers') {
-		for (var i in modifiers['enabled']){
-			if (modifiers['enabled'][i].id==el.id){
-				modifiers['enabled'].splice(i,1);
-			}
-		}
-	}
-	modifierChg();
-});
+
 
 
 // Minimize and Maximize elements
