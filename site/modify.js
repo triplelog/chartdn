@@ -173,6 +173,7 @@ function solvePostfix(intstr,expstr){
 				resultStack.push(Math.pow(parseInt(b), parseInt(a)));
 			}
 		}
+		console.log(resultStack);
 	}
 	if(resultStack.length > 1) {
 		return "error";
@@ -183,7 +184,6 @@ function solvePostfix(intstr,expstr){
 exports.newColumn = function(array,options) {
 	var formula = 'a+b+1';
 	var vars = options.variables;
-	console.log(options,vars);
 	var bothparts = postfixify(formula);
 	for (var i in array){
 		var rowmap = {};
@@ -197,7 +197,9 @@ exports.newColumn = function(array,options) {
 			}
 		}
 		console.log(bothparts);
-		array[i].push( solvePostfix(bothparts[0],bothparts[1]) );
+		var answer = solvePostfix(bothparts[0],bothparts[1]);
+		console.log(answer);
+		array[i].push(answer);
 
 	}
 }
