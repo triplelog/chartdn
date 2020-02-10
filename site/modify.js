@@ -200,7 +200,6 @@ exports.newColumn = function(array,options) {
 				else {
 					row += parseInt(vars[ii].row);
 				}
-				console.log(row,i,vars[ii]);
 				rowmap[ii.toUpperCase()]=parseInt(array[row][vars[ii].column]);
 			}
 		}
