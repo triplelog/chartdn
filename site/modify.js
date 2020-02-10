@@ -155,9 +155,11 @@ function postfixify(input_str) {
 
 function solvePostfix(intstr,expstr){
 	var resultStack = [];
+	var idx = 0;
 	for(var i = 0; i < expstr.length; i++) {
 		if(expstr[i]=='#') {
-			resultStack.push(intstr[i]);
+			resultStack.push(intstr[idx]);
+			idx++;
 		} else {
 			var a = resultStack.pop();
 			var b = resultStack.pop();
@@ -173,7 +175,6 @@ function solvePostfix(intstr,expstr){
 				resultStack.push(Math.pow(parseInt(b), parseInt(a)));
 			}
 		}
-		console.log(resultStack);
 	}
 	if(resultStack.length > 1) {
 		return "error";
@@ -190,15 +191,12 @@ exports.newColumn = function(array,options) {
 		for (var ii in vars){
 			rowmap[ii.toUpperCase()]=7;
 		}
-		console.log(bothparts, rowmap);
 		for (var ii in bothparts[0]){
 			if(rowmap[bothparts[0][ii]]){
 				bothparts[0][ii]=rowmap[bothparts[0][ii]];
 			}
 		}
-		console.log(bothparts);
 		var answer = solvePostfix(bothparts[0],bothparts[1]);
-		console.log(answer);
 		array[i].push(answer);
 
 	}
