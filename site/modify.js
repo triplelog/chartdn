@@ -203,7 +203,10 @@ function toData(array){
 	}
 }
 exports.toData = function(array){
+	console.log('aaa',array[5]);
 	toData(array);
+	console.log('bbb',array[5]);
+	return array;
 }
 
 exports.newColumn = function(array,options) {
