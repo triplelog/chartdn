@@ -193,12 +193,12 @@ exports.newColumn = function(array,options) {
 		var rowmap = {};
 		for (var ii in vars){
 			if (vars[ii].type=='value'){
-				var row = i;
+				var row = parseInt(i);
 				if (vars[ii].row.indexOf('$')==0){
 					row = parseInt(vars[ii].row.substring(1));
 				}
 				else {
-					row = i + parseInt(vars[ii].row);
+					row += parseInt(vars[ii].row);
 				}
 				console.log(row,i,vars[ii]);
 				rowmap[ii.toUpperCase()]=parseInt(array[row][vars[ii].column]);
