@@ -495,6 +495,15 @@ function createNewModifier() {
 		else if (mType == 'replace'){
 			oldObject.options = {'column':1,'find':'7','replace':'8','regex':false,'full':false,'case':false,'numerical':false};
 		}
+		else if (mType == 'ignore'){
+			oldObject.options = {'expression':''};
+		}
+		else if (mType == 'scale'){
+			oldObject.options = {'column':0,'scale':''};
+		}
+		else if (mType == 'pivot'){
+			oldObject.options = {'pivot':0,'column':1,'type':'sum'};
+		}
 		modifiers.push(oldObject);
 		var newEl = document.createElement('div');
 		newEl.setAttribute('data-id',mType);

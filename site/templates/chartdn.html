@@ -85,7 +85,7 @@ div.l-box {
 				</form>
 			</div>
 			<div class="l-box pure-u-3-4 sectionpart" id="dataTableBox">
-				<div class="box-header">Data Table<span class="box-buttons"><i class="fas fa-compress-alt"></i><i class="fas fa-expand"></i></span></div>
+				<div class="box-header">Data Table<span class="box-buttons">Raw/Modified<i class="fas fa-compress-alt"></i><i class="fas fa-expand"></i></span></div>
 				<div class="box-form">
 					<div id="dataTableHolder" class="flex-center flex-column">
 						<table id="dataTable" class="striped hoverable"></table>
@@ -119,19 +119,52 @@ div.l-box {
 							
 						</div>
 						<div class="l-box pure-u-2-3" id="ignoreModify" style="display: none;">
-							Ignore row if: <textarea rows="1" cols="50"></textarea>
+							<div class="box-header2">
+								<input type="text" value="Ignore if ..."></input>
+							</div>
+							<div class="box-form">
+								Expression: <input type="text"></input>
+							</div>
 						</div>
 						<div class="l-box pure-u-2-3" id="sortModify" style="display: none;">
-							Sort by: <textarea rows="1" cols="50"></textarea>
+							<div class="box-header2">
+								<input type="text" value="Sort by ..."></input>
+							</div>
+							<div class="box-form">
+								Column: <input type="text"></input><br />
+								Descending:<input type="checkbox" />
+							</div>
 						</div>
 						<div class="l-box pure-u-2-3" id="replaceModify" style="display: none;">
-							Replace: <textarea rows="1" cols="50"></textarea>
+							<div class="box-header2">
+								<input type="text" value="Name of Modifier"></input>
+							</div>
+							<div class="box-form">
+								Find: <input type="text"></input><br />
+								Replace: <input type="text"></input><br />
+								Case:<input type="checkbox" />
+								Numerical:<input type="checkbox" />
+								Full cell:<input type="checkbox" />
+							</div>
 						</div>
 						<div class="l-box pure-u-2-3" id="scaleModify" style="display: none;">
-							Scale: <textarea rows="1" cols="50"></textarea>
+							<div class="box-header2">
+								<input type="text" value="Scale by ..."></input>
+							</div>
+							<div class="box-form">
+								Column: <input type="text"></input><br />
+								Scale:<input type="text"></input>
+							</div>
 						</div>
 						<div class="l-box pure-u-2-3" id="pivotModify" style="display: none;">
-							Pivot: <textarea rows="1" cols="50"></textarea>
+							<div class="box-header2">
+								<input type="text" value="Pivot"></input>
+							</div>
+							<div class="box-form">
+								Pivot Column: <input type="text"></input><br />
+								Column(s): <input type="text"></input><br />
+								Type:<input type="text"></input>
+							</div>
 						</div>
 						<div class="l-box pure-u-2-3" id="newModify" style="display: none;">
 							<div class="box-header2">
@@ -141,8 +174,6 @@ div.l-box {
 								Formula: <textarea rows="1" cols="40"></textarea><br />
 								<!--Katex of Formula-->
 								Variables: <div id="newVariables"></div>
-										
-								
 							</div>
 							
 						</div>

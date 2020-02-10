@@ -265,7 +265,14 @@ exports.replace = function(array,options) {
 		else { fstr = new RegExp(options.find,'g');}
 		
 		for (var i in array){
-			array[i][options.column] = array[i][options.column].toString().replace(fstr,options.replace);
+			if (options.column && array[i][options.column]){
+				array[i][options.column] = array[i][options.column].toString().replace(fstr,options.replace);
+			}
+			else if (!options.column) {
+				for (var ii in array[i]){
+					array[i][ii] = array[i][ii].toString().replace(fstr,options.replace);
+				}
+			}
 		}
 	}
 }
