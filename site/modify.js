@@ -187,7 +187,7 @@ exports.newColumn = function(array,options) {
 	for (var i in array){
 		var rowmap = {};
 		for (var ii in vars){
-			rowmap[vars[ii]]=7;
+			rowmap[ii.toUpperCase()]=7;
 		}
 		console.log(bothparts, rowmap);
 		for (var ii in bothparts[0]){
