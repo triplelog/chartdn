@@ -492,6 +492,9 @@ function createNewModifier() {
 		else if (mType == 'sort'){
 			oldObject.options = {'column':1,'ascending':true};
 		}
+		else if (mType == 'replace'){
+			oldObject.options = {'column':1,'find':'7','replace':'8','regex':false,'full':false,'case':false,'numerical':false};
+		}
 		modifiers.push(oldObject);
 		var newEl = document.createElement('div');
 		newEl.setAttribute('data-id',mType);

@@ -185,7 +185,26 @@ function solvePostfix(intstr,expstr){
 	}
 }
 
+function toData(array){
+	for (var i in array) {
+		if (array[i].length == 1 && array[i][0] == ''){continue;}
+		
+		for (var ii=0;i<array[i].length;i++) {
+			var cell = array[i][ii];
+			if (!isNaN(parseFloat(cell))){
+				if ((parseFloat(cell)%1)===0) {
+					array[i][ii] = parseInt(cell);
+				}
+				else {
+					array[i][ii] = parseFloat(cell);
+				}
+			}
+		}
+	}
+}
+
 exports.newColumn = function(array,options) {
+	toData(array);
 	var formula = options.formula;
 	var vars = options.variables;
 	var bothparts = postfixify(formula);
@@ -216,9 +235,51 @@ exports.newColumn = function(array,options) {
 		array[i].push(answer);
 
 	}
-}
+} // Improve postfix, get more values, error handling
 
 exports.sort = function(array,options) {
+	toData(array);
+	if (options.ascending){
+		fsort(array).asc(u => u[options.column]);
+	}
+	else {
+		fsort(array).desc(u => u[options.column]);
+	}
+} // Done?
+
+exports.replace = function(array,options) {
+	if (options.numerical){
+	
+	}
+	else {
+		var fstr;
+		if (!options.case) { fstr = new RegExp(options.find,'gi');}
+		else { fstr = new RegExp(options.find,'g');}
+		
+		for (var i in array){
+			array[i][options.column] = array[i][options.column].replace(fstr,options.replace);
+		}
+	}
+}
+
+exports.pivot = function(array,options) {
+	if (options.ascending){
+		fsort(array).asc(u => u[options.column]);
+	}
+	else {
+		fsort(array).desc(u => u[options.column]);
+	}
+}
+
+exports.ignore = function(array,options) {
+	if (options.ascending){
+		fsort(array).asc(u => u[options.column]);
+	}
+	else {
+		fsort(array).desc(u => u[options.column]);
+	}
+}
+exports.scale = function(array,options) {
 	if (options.ascending){
 		fsort(array).asc(u => u[options.column]);
 	}

@@ -532,29 +532,9 @@ loginServer.listen(3000);
 
 
 function convertDataToFull(dataStr,nHeaders,modifiers) {
-	rawArray = [];
-	var currentRow = 0;
+	rawArray = dataStr;
 	var t1 = performance.now();
-	for (var i in dataStr) {
-		var tempA = dataStr[i];
-		if (tempA.length == 1 && tempA[0] == ''){continue;}
-		if (!tempA){break;}
-		if (currentRow >= nHeaders) {
-			for (var i=0;i<tempA.length;i++) {
-				var cell = tempA[i];
-				if (!isNaN(parseFloat(cell))){
-					if ((parseFloat(cell)%1)===0) {
-						tempA[i] = parseInt(cell);
-					}
-					else {
-						tempA[i] = parseFloat(cell);
-					}
-				}
-			}
-		}
-		currentRow++;
-		rawArray.push(tempA);
-	}
+
 	
 	var t2 = performance.now();
 	var hArray = rawArray.slice(0,nHeaders);
@@ -571,8 +551,11 @@ function convertDataToFull(dataStr,nHeaders,modifiers) {
 		else if (modifiers[i].type == 'sort'){
 			modJS.sort(rawArray,modifiers[i].options);
 		}
+		else if (modifiers[i].type == 'replace'){
+			modJS.replace(rawArray,modifiers[i].options);
+		}
 	}
-	var filteredArray = hArray.concat(rawArray);
+	var filteredArray = hArray.concat(modJS.toData(rawArray));
 	var t6 = performance.now();
 	console.log(t2,t6);
 	//console.log(filteredArray);
