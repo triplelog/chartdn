@@ -427,7 +427,7 @@ function createNewColumnBox() {
 	varDiv.appendChild(span1);
 	
 	var varValue = document.createElement('select');
-	var valueOptions = ['value','mean','median','max','min','stdev','sum'];
+	var valueOptions = ['value','mean','median','max','min','sum','stdev','count'];
 	for (var i=0;i<valueOptions.length;i++){
 		var varOption = document.createElement('option');
 		varOption.value = valueOptions[i];
