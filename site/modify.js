@@ -161,15 +161,15 @@ function solvePostfix(intstr,expstr){
 		} else {
 			var a = resultStack.pop();
 			var b = resultStack.pop();
-			if(postfix[i] === "+") {
+			if(expstr[i] === "+") {
 				resultStack.push(parseInt(a) + parseInt(b));
-			} else if(postfix[i] === "-") {
+			} else if(expstr[i] === "-") {
 				resultStack.push(parseInt(b) - parseInt(a));
-			} else if(postfix[i] === "*") {
+			} else if(expstr[i] === "*") {
 				resultStack.push(parseInt(a) * parseInt(b));
-			} else if(postfix[i] === "/") {
+			} else if(expstr[i] === "/") {
 				resultStack.push(parseInt(b) / parseInt(a));
-			} else if(postfix[i] === "^") {
+			} else if(expstr[i] === "^") {
 				resultStack.push(Math.pow(parseInt(b), parseInt(a)));
 			}
 		}
