@@ -275,15 +275,59 @@ exports.replace = function(array,options) {
 			}
 		}
 	}
-}
+} // all options
 
-exports.pivot = function(array,options) {
-	if (options.ascending){
-		fsort(array).asc(u => u[options.column]);
+exports.pivot = function(array,options,hArray) {
+	toData(array);
+	var object = {};
+	for (var i in array){
+		if (options.pivot && array[i][options.pivot]){
+			var k = array[i][options.pivot];
+			if (!object[k]){
+				object[k]=[];
+				for (var ii in options.columns) {
+					object[k].push(array[i][options.columns[ii]]);
+				}
+			}
+			else {
+				for (var ii in options.columns) {
+					object[k][ii] += array[i][options.columns[ii]];
+				}
+			}
+			
+		}
 	}
-	else {
-		fsort(array).desc(u => u[options.column]);
+	
+	var arrayNew = [];
+	var idx = 0;
+	for (var i in object){
+		arrayNew.push([i]);
+		for (var ii in options.columns) {
+			if (object[i][ii]) {
+				arrayNew[idx].push(object[i][ii]);
+			}
+			else {
+				arrayNew[idx].push('');
+			}
+			
+		}
+		idx++;
 	}
+	
+	var hArrayNew = [];
+	for (var i in hArray){
+		hArrayNew.push([]);
+		if (options.pivot && hArray[i][options.pivot]){
+			hArrayNew[i].push(hArray[i][options.pivot]);
+		}
+		if (options.columns) {
+			for (var ii in options.columns) {
+				hArrayNew[i].push(hArray[i][options.columns[ii]]);
+			}
+		}
+	}
+	array = arrayNew;
+	hArray = hArrayNew;
 }
 
 exports.ignore = function(array,options) {

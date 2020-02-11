@@ -537,7 +537,7 @@ function createNewModifier() {
 			oldObject.options = {'column':0,'scale':''};
 		}
 		else if (mType == 'pivot'){
-			oldObject.options = {'pivot':0,'column':1,'type':'sum'};
+			oldObject.options = {'pivot':0,'columns':[1],'type':'sum'};
 		}
 		modifiers.push(oldObject);
 		var newEl = document.createElement('div');
