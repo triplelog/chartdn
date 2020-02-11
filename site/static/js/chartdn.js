@@ -497,6 +497,7 @@ function updateModifier(evt){
 			break;
 		}
 	}
+	console.log(modifiers);
 	modifierChg();
 }
 function chgModify(mObject={}){
