@@ -487,8 +487,9 @@ createNewColumnBox();
 
 
 //Dragula with column choices
-function updateModifier(){
-
+function updateModifier(evt){
+	var id = evt.target.parentNode.parentNode;
+	console.log(id);
 }
 function chgModify(mObject={}){
 
