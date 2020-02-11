@@ -300,18 +300,20 @@ exports.pivot = function(array,options,hArray) {
 	var arrayNew = [];
 	var idx = 0;
 	for (var i in object){
-		arrayNew.push([i]);
+		var iidx = 0;
 		for (var ii in options.columns) {
-			if (object[i][ii]) {
-				arrayNew[idx].push(object[i][ii]);
+			if (object[i][ii] || object[i][ii]==0) {
+				array[idx][iidx] = object[i][ii];
 			}
 			else {
-				arrayNew[idx].push('');
+				array[idx][iidx] = '';//Or maybe default to 0?
 			}
-			
+			iidx++;
 		}
+		if (iidx<array[idx].length){array[idx].splice(iidx,array[idx].length-iidx);}
 		idx++;
 	}
+	if (idx<array.length){array.splice(idx,array.length-idx);}
 	
 	var hArrayNew = [];
 	for (var i in hArray){
