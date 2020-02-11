@@ -297,7 +297,6 @@ exports.pivot = function(array,options,hArray) {
 			
 		}
 	}
-	console.log(object);
 	var arrayNew = [];
 	var idx = 0;
 	for (var i in object){
@@ -326,8 +325,6 @@ exports.pivot = function(array,options,hArray) {
 	}
 	array = arrayNew;
 	hArray = hArrayNew;
-	console.log(array);
-	console.log(hArray);
 }
 
 exports.ignore = function(array,options) {

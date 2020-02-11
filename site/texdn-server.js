@@ -556,6 +556,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers) {
 		}
 		else if (modifiers[i].type == 'pivot'){
 			modJS.pivot(rawArray,modifiers[i].options,hArray);
+			console.log(rawArray);
 		}
 	}
 	var filteredArray = hArray.concat(modJS.toData(rawArray));
