@@ -491,9 +491,9 @@ function updateModifier(evt){
 	var id = evt.target.parentNode.parentNode.id;
 	var pType = evt.target.querySelector('option:checked').value;
 	for (var i in modifiers){
-		var m = modifiers[i];
-		if ('edit'+m.id == id){
-			m.options.type == pType;
+		if ('edit'+modifiers[i].id == id){
+			console.log(pType,id);
+			modifiers[i].options.type == pType;
 			break;
 		}
 	}
