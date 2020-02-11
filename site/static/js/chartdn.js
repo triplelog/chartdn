@@ -489,13 +489,24 @@ createNewColumnBox();
 //Dragula with column choices
 function updateModifier(evt){
 	var id = evt.target.parentNode.parentNode.id;
-	var pType = evt.target.querySelector('option:checked').value;
 	for (var i in modifiers){
 		if ('edit'+modifiers[i].id == id){
-			modifiers[i].options.type = pType;
+			var mType = modifiers[i].type;
+			if (mType == 'pivot'){
+				if (evt.target.getAttribute('name')=='pType'){
+					modifiers[i].options.type = evt.target.querySelector('option:checked').value;
+				}
+				else if (evt.target.getAttribute('name')=='pivot'){
+					modifiers[i].options.pivot = parseInt(evt.target.value);
+				}
+				else if (evt.target.getAttribute('name')=='columns'){
+					modifiers[i].options.columns = [parseInt(evt.target.value)];
+				}
+			}
 			break;
 		}
 	}
+
 	modifierChg();
 }
 function chgModify(mObject={}){
@@ -546,11 +557,14 @@ function createPivot(obj) {
 	newB.classList.add('box-form');
 	newI = document.createElement('input');
 	newI.setAttribute('type','text');
+	newI.setAttribute('name','pivot');
 	newI.setAttribute('value','Pivot Column');
 	newB.appendChild(newI);
 	newI = document.createElement('input');
 	newI.setAttribute('type','text');
+	newI.setAttribute('name','columns');
 	newI.setAttribute('value','Column(s)');
+	newI.addEventListener('change',updateModifier);
 	newB.appendChild(newI);
 	newS = document.createElement('select');
 	newS.setAttribute('name','pType');
