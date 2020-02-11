@@ -219,6 +219,7 @@ function optionsChg(optionname) {
 }
 function modifierChg() {
 	var jsonmessage = {'operation':'options','modifiers':modifiers};
+	console.log(modifiers);
 	ws.send(JSON.stringify(jsonmessage));
 }
 function typeChg() {
@@ -611,7 +612,7 @@ function createNewModifier() {
 			oldObject.options = {'pivot':0,'columns':[],'type':'sum'};
 			document.getElementById('modifiersDiv').appendChild(createPivot(oldObject));
 		}
-		modifiers = [];
+		modifiers.splice(0,modifiers.length);
 		modifiers.push(oldObject);
 		var newEl = document.createElement('div');
 		newEl.setAttribute('data-id',mType);
