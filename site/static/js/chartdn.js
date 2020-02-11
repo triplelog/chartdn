@@ -491,16 +491,13 @@ function updateModifier(){
 
 }
 function chgModify(mObject={}){
-	var allTypes = ['sort','pivot','new','scale','replace','ignore'];
-	var mType = '';
-	if (mObject.type) {mType = mObject.type;}
 
-	for (var t in allTypes){
-		if (allTypes[t] == mType){
-			document.getElementById(mType+'Modify').style.display = 'block';
+	for (var m in modifiers){
+		if (m.id == mObject.id){
+			document.getElementById('edit'+m.id).style.display = 'block';
 		}
 		else {
-			document.getElementById(allTypes[t]+'Modify').style.display = 'none';
+			document.getElementById('edit'+m.id).style.display = 'none';
 		}
 		
 	}
@@ -518,6 +515,49 @@ function clickModifier(evt){
 
 		}
 	}
+}
+function createPivot(obj) {
+	var newM = document.createElement('div');
+	newM.classList.add('l-box');
+	newM.classList.add('pure-u-2-3');
+	newM.id = 'edit'+obj.id;
+	newM.style.display = 'none';
+	
+	var newH = document.createElement('div');
+	newH.classList.add('box-header2');
+	var newI = document.createElement('input');
+	newI.setAttribute('type','text');
+	newI.setAttribute('value','Pivot');
+	newH.appendChild(newI);
+	newM.appendChild(newH);
+	
+	
+	var newB = document.createElement('div');
+	newB.classList.add('box-form');
+	newI = document.createElement('input');
+	newI.setAttribute('type','text');
+	newI.setAttribute('value','Pivot Column');
+	newB.appendChild(newI);
+	newI = document.createElement('input');
+	newI.setAttribute('type','text');
+	newI.setAttribute('value','Column(s)');
+	newB.appendChild(newI);
+	newS = document.createElement('select');
+	newS.setAttribute('name','pType');
+	newS.addEventListener('change',updateModifier);
+	var pTypes = ['Sum','Max','Min','Mean','Count'];
+	for (var i=0;i<pTypes.length;i++){
+		var newO = document.createElement('option');
+		newO.setAttribute('value',pTypes[i].toLowerCase());
+		newO.textContent = pTypes[i];
+		if (pTypes[i].toLowerCase() == obj.options.type){
+			newO.setAttribute('selected','selected');
+		}
+		newS.appendChild(newO);
+	}
+	newB.appendChild(newS);
+	newM.appendChild(newB);
+	return newM;
 }
 function createNewModifier() {
 	var el = document.getElementById('createModifyMenu');
@@ -543,7 +583,8 @@ function createNewModifier() {
 			oldObject.options = {'column':0,'scale':''};
 		}
 		else if (mType == 'pivot'){
-			oldObject.options = {'pivot':0,'columns':[1],'type':'sum'};
+			oldObject.options = {'pivot':0,'columns':[],'type':'sum'};
+			document.getElementById('modifiersDiv').appendChild(createPivot(oldObject));
 		}
 		modifiers.push(oldObject);
 		var newEl = document.createElement('div');
@@ -553,46 +594,7 @@ function createNewModifier() {
 		newEl.id = id;
 		document.getElementById('allModifiers').appendChild(newEl);
 		
-		var newM = document.createElement('div');
-		newM.classList.add('l-box');
-		newM.classList.add('pure-u-2-3');
-		newM.id = 'edit'+id;
-		newM.style.display = 'none';
-		
-		var newH = document.createElement('div');
-		newH.classList.add('box-header2');
-		var newI = document.createElement('input');
-		newI.setAttribute('type','text');
-		newI.setAttribute('value','Pivot');
-		newH.appendChild(newI);
-		newM.appendChild(newH);
-		
-		
-		var newB = document.createElement('div');
-		newB.classList.add('box-form');
-		newI = document.createElement('input');
-		newI.setAttribute('type','text');
-		newI.setAttribute('value','Pivot Column');
-		newB.appendChild(newI);
-		newI = document.createElement('input');
-		newI.setAttribute('type','text');
-		newI.setAttribute('value','Column(s)');
-		newB.appendChild(newI);
-		newS = document.createElement('select');
-		newS.setAttribute('name','pType');
-		newS.addEventListener('change',updateModifier);
-		var pTypes = ['Sum','Max','Min','Mean','Count'];
-		for (var i=0;i<pTypes.length;i++){
-			var newO = document.createElement('option');
-			newO.setAttribute('value',pTypes[i].toLowerCase());
-			newO.textContent = pTypes[i];
-			newS.appendChild(newO);
-		}
-		newB.appendChild(newS);
-		newM.appendChild(newB);
-		
-		document.getElementById('modifiersDiv').appendChild(newM);
-						
+			
 						
 		chgModify(oldObject);
 		modifierChg();
