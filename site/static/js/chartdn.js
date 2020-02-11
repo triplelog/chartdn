@@ -549,6 +549,48 @@ function createNewModifier() {
 		newEl.addEventListener('click',clickModifier);
 		newEl.id = id;
 		document.getElementById('allModifiers').appendChild(newEl);
+		
+		var newM = document.createElement('div');
+		newM.classList.add('l-box');
+		newM.classList.add('pure-u-2-3');
+		newM.id = 'edit'+id;
+		newM.style.display = 'none';
+		
+		var newH = document.createElement('div');
+		newH.classList.add('box-header2');
+		var newI = document.createElement('input');
+		newI.setAttribute('type','text');
+		newI.setAttribute('value','Pivot');
+		newH.appendChild(newI);
+		newM.appendChild(newH);
+		
+		
+		var newB = document.createElement('div');
+		newB.classList.add('box-form');
+		newI = document.createElement('input');
+		newI.setAttribute('type','text');
+		newI.setAttribute('value','Pivot Column');
+		newB.appendChild(newI);
+		newI = document.createElement('input');
+		newI.setAttribute('type','text');
+		newI.setAttribute('value','Column(s)');
+		newB.appendChild(newI);
+		newS = document.createElement('select');
+		newS.setAttribute('name','pType');
+		newS.addEventListener('change',updateModifier);
+		var pTypes = ['Sum','Max','Min','Mean','Count'];
+		for (var i=0;i<pTypes.length;i++){
+			var newO = document.createElement('option');
+			newO.setAttribute('value',pTypes[i].toLowerCase());
+			newO.textContent = pTypes[i];
+			newS.appendChild(newO);
+		}
+		newB.appendChild(newS);
+		newM.appendChild(newB);
+		
+		document.getElementById('modifiersDiv').appendChild(newM);
+						
+						
 		chgModify(oldObject);
 		modifierChg();
 	}
