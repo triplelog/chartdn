@@ -218,7 +218,6 @@ function optionsChg(optionname) {
 	}
 }
 function modifierChg() {
-	console.log(modifiers);
 	var jsonmessage = {'operation':'options','modifiers':modifiers};
 	ws.send(JSON.stringify(jsonmessage));
 }
@@ -493,7 +492,9 @@ function updateModifier(evt){
 	var pType = evt.target.querySelector('option:checked').value;
 	for (var i in modifiers){
 		if ('edit'+modifiers[i].id == id){
+			console.log(modifiers);
 			modifiers[i].options.type == pType;
+			console.log(modifiers);
 			break;
 		}
 	}
