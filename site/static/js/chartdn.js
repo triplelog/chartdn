@@ -492,9 +492,7 @@ function updateModifier(evt){
 	for (var i in modifiers){
 		if ('edit'+modifiers[i].id == id){
 			var mType = modifiers[i].type;
-			console.log(mType);
 			if (mType == 'pivot'){
-				console.log(evt.target.getAttribute('name'));
 				if (evt.target.getAttribute('name')=='pType'){
 					modifiers[i].options.type = evt.target.querySelector('option:checked').value;
 				}
@@ -613,6 +611,7 @@ function createNewModifier() {
 			oldObject.options = {'pivot':0,'columns':[],'type':'sum'};
 			document.getElementById('modifiersDiv').appendChild(createPivot(oldObject));
 		}
+		modifiers = [];
 		modifiers.push(oldObject);
 		var newEl = document.createElement('div');
 		newEl.setAttribute('data-id',mType);
