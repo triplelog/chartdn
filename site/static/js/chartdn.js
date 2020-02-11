@@ -546,12 +546,13 @@ function clickModifier(evt){
 	}
 }
 function createPivot(obj) {
-	
+	console.log(obj);
 	var newEl = document.createElement('div');
 	newEl.setAttribute('data-id',obj.mType);
 	newEl.textContent = obj.mType;
 	newEl.addEventListener('click',clickModifier);
 	newEl.id = obj.id;
+	console.log(newEl);
 	document.getElementById('allModifiers').appendChild(newEl);
 		
 	var newM = document.createElement('div');
