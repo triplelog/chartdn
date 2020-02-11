@@ -279,12 +279,10 @@ exports.replace = function(array,options) {
 
 exports.pivot = function(array,options,hArray) {
 	toData(array);
-	console.log(options);
 	var object = {};
 	for (var i in array){
-		if (options.pivot && array[i][options.pivot]){
+		if (array[i][options.pivot]){
 			var k = array[i][options.pivot];
-			console.log(k);
 			if (!object[k]){
 				object[k]=[];
 				for (var ii in options.columns) {
@@ -319,14 +317,11 @@ exports.pivot = function(array,options,hArray) {
 	var hArrayNew = [];
 	for (var i in hArray){
 		hArrayNew.push([]);
-		if (options.pivot && hArray[i][options.pivot]){
+		if (hArray[i][options.pivot]){
 			hArrayNew[i].push(hArray[i][options.pivot]);
 		}
-		if (options.columns) {
-			for (var ii in options.columns) {
-				console.log(hArray[i][options.columns[ii]]);
-				hArrayNew[i].push(hArray[i][options.columns[ii]]);
-			}
+		for (var ii in options.columns) {
+			hArrayNew[i].push(hArray[i][options.columns[ii]]);
 		}
 	}
 	array = arrayNew;
