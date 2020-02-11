@@ -502,13 +502,20 @@ function updateModifier(evt){
 			var mType = modifiers[i].type;
 			if (mType == 'pivot'){
 				if (evt.target.getAttribute('name')=='pType'){
-					modifiers[i].options.type = evt.target.querySelector('option:checked').value;
+					//modifiers[i].options.type = evt.target.querySelector('option:checked').value;
 				}
 				else if (evt.target.getAttribute('name')=='pivot'){
 					modifiers[i].options.pivot = parseInt(evt.target.value);
 				}
 				else if (evt.target.getAttribute('name')=='columns'){
-					modifiers[i].options.columns = [parseInt(evt.target.value)];
+					//modifiers[i].options.columns = [parseInt(evt.target.value)];
+				}
+				else if (evt.target.getAttribute('name')=='add'){
+					var pType = evt.target.parentNode.querySelector('option:checked').value;
+					var column = parseInt(evt.target.parentNode.querySelector('input[name="column"]').value);
+					var obj = {};
+					obj[column]=pType;
+					modifiers[i].options.columns.push(obj);
 				}
 			}
 			break;
@@ -580,8 +587,8 @@ function createPivot(obj) {
 	newB.appendChild(newI);
 	newI = document.createElement('input');
 	newI.setAttribute('type','text');
-	newI.setAttribute('name','columns');
-	newI.setAttribute('value','Column(s)');
+	newI.setAttribute('name','column');
+	newI.setAttribute('value','Column');
 	newI.addEventListener('change',updateModifier);
 	newB.appendChild(newI);
 	newS = document.createElement('select');
@@ -597,6 +604,12 @@ function createPivot(obj) {
 		}
 		newS.appendChild(newO);
 	}
+	newB.appendChild(newS);
+	
+	newS = document.createElement('button');
+	newS.setAttribute('name','add');
+	newS.textContent = 'Add';
+	newS.addEventListener('click',updateModifier);
 	newB.appendChild(newS);
 	newM.appendChild(newB);
 	return newM;
@@ -625,7 +638,7 @@ function createNewModifier() {
 			oldObject.options = {'column':0,'scale':''};
 		}
 		else if (mType == 'pivot'){
-			oldObject.options = {'pivot':0,'columns':[],'type':'sum'};
+			oldObject.options = {'pivot':0,'columns':[]};
 			document.getElementById('modifiersDiv').appendChild(createPivot(oldObject));
 		}
 
