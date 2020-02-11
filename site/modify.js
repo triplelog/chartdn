@@ -243,7 +243,7 @@ exports.newColumn = function(array,options) {
 		array[i].push(answer);
 
 	}
-} // Improve postfix, get more values, error handling
+} // Improve postfix, get more values, error handling, add if col>0
 
 exports.sort = function(array,options) {
 	toData(array);
@@ -286,18 +286,38 @@ exports.pivot = function(array,options,hArray) {
 			if (!object[k]){
 				object[k]=[];
 				for (var ii in options.columns) {
-					object[k].push(array[i][options.columns[ii]]);
+					if (options.type=='count'){
+						object[k].push(1);
+					}
+					else{
+						object[k].push(array[i][options.columns[ii]]);
+					}
 				}
 			}
 			else {
 				for (var ii in options.columns) {
-					object[k][ii] += array[i][options.columns[ii]];
+					if (options.type=='count'){
+						object[k][ii] += 1;
+					}
+					else if (options.type=='max'){
+						if (array[i][options.columns[ii]] > object[k][ii]){
+							object[k][ii] = array[i][options.columns[ii]];
+						}
+					}
+					else if (options.type=='min'){
+						if (array[i][options.columns[ii]] < object[k][ii]){
+							object[k][ii] = array[i][options.columns[ii]];
+						}
+					}
+					else{
+						object[k][ii] += array[i][options.columns[ii]];
+					}
+					
 				}
 			}
 			
 		}
 	}
-	var arrayNew = [];
 	var idx = 0;
 	for (var i in object){
 		
@@ -340,7 +360,7 @@ exports.pivot = function(array,options,hArray) {
 	}
 	if (idx<hArray.length){hArray.splice(idx,hArray.length-idx);}
 
-}
+} //Add lots of features like max,min,countif,etc.
 
 exports.ignore = function(array,options) {
 	if (options.ascending){

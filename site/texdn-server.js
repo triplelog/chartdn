@@ -547,6 +547,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers) {
 			if (hArray.length>0){
 				hArray[0].push(modifiers[i].name);
 			}
+			//Update columns in create chart
 		}
 		else if (modifiers[i].type == 'sort'){
 			modJS.sort(rawArray,modifiers[i].options);
@@ -556,7 +557,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers) {
 		}
 		else if (modifiers[i].type == 'pivot'){
 			modJS.pivot(rawArray,modifiers[i].options,hArray);
-			console.log(rawArray);
+			//Update columns in create chart
 		}
 	}
 	var filteredArray = hArray.concat(modJS.toData(rawArray));

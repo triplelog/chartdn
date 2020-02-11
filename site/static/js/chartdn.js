@@ -487,8 +487,11 @@ createNewColumnBox();
 
 
 //Dragula with column choices
-function chgModify(mType=''){
+function chgModify(mObject={}){
 	var allTypes = ['sort','pivot','new','scale','replace','ignore'];
+	var mType = '';
+	if (mObject.type) {mType = mObject.type;}
+
 	for (var t in allTypes){
 		if (allTypes[t] == mType){
 			document.getElementById(mType+'Modify').style.display = 'block';
@@ -507,7 +510,7 @@ function clickModifier(evt){
 		if (modifiers[i].id==id){
 			//modifiers['enabled'][i]['options']['x']=7;
 			var mType = modifiers[i].type;
-			chgModify(mType);
+			chgModify(modifiers[i]);
 			return;
 
 		}
@@ -546,7 +549,7 @@ function createNewModifier() {
 		newEl.addEventListener('click',clickModifier);
 		newEl.id = id;
 		document.getElementById('allModifiers').appendChild(newEl);
-		chgModify(mType);
+		chgModify(oldObject);
 		modifierChg();
 	}
 	
@@ -579,16 +582,13 @@ drakeF.on('drop', function (el, target, source, sibling) {
 				break;
 			}
 		}
-		/*
-		if (!reorder){
-			var id = Math.random().toString(36).substr(2, 8);
-			oldObject = {'id':id,'type':el.getAttribute('data-id'),'options':{},'enabled':true};
-			el.id = id;
-			el.addEventListener('click',clickModifier);
-			
-		}*/
 		
-		chgModify(el.getAttribute('data-id'));
+		if (!reorder){
+			console.log("shouldn't be here")
+			
+		}
+		
+		chgModify(oldObject);
 		
 
 		if (sibling){
