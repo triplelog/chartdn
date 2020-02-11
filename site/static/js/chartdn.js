@@ -488,8 +488,9 @@ createNewColumnBox();
 
 //Dragula with column choices
 function updateModifier(evt){
-	var id = evt.target.parentNode.parentNode;
-	console.log(id);
+	var id = evt.target.parentNode.parentNode.id;
+	var pType = evt.target.querySelector('option:checked').value;
+	console.log(pType);
 }
 function chgModify(mObject={}){
 
