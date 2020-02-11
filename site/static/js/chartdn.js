@@ -471,8 +471,8 @@ drake.on('remove', function (el, target, source) {
 });
 
 // New Columns stuff
-function createNewColumnBox() {
-	var el = document.getElementById('newModify');
+function createNewColumnBox(id) {
+	var el = document.getElementById('edit'+id);
 	var varDiv = el.querySelector('#newVariables');
 	var varName = document.createElement('input');
 	varName.setAttribute('type','text');
@@ -506,7 +506,7 @@ function createNewColumnBox() {
 	}
 	varDiv.appendChild(varColumn);
 }
-createNewColumnBox();
+
 
 
 //Dragula with column choices
@@ -810,6 +810,7 @@ function createNew(obj) {
 	newB.appendChild(newD);
 	
 	newM.appendChild(newB);
+	createNewColumnBox(obj.id);
 	document.getElementById('modifiersDiv').appendChild(newM);
 }
 
