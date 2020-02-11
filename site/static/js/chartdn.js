@@ -493,6 +493,7 @@ function updateModifier(){
 function chgModify(mObject={}){
 
 	for (var m in modifiers){
+		if (!document.getElementById('edit'+m.id)) {continue;}
 		if (m.id == mObject.id){
 			document.getElementById('edit'+m.id).style.display = 'block';
 		}
