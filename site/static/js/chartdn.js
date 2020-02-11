@@ -859,18 +859,23 @@ function createNewModifier() {
 		var oldObject = {'id':id,'name':mType,'type':mType,'options':{},'enabled':true};
 		if (mType == 'new'){
 			oldObject.options = {'formula':'a+b','variables':{'a':{'column':1,'type':'value','row':'0'}, 'b':{'column':2,'type':'value','row':'0'}}};
+			createNew(oldObject);
 		}
 		else if (mType == 'sort'){
 			oldObject.options = {'column':1,'ascending':true};
+			createSort(oldObject);
 		}
 		else if (mType == 'replace'){
 			oldObject.options = {'column':1,'find':'7','replace':'8','regex':false,'full':false,'case':false,'numerical':false};
+			createReplace(oldObject);
 		}
 		else if (mType == 'ignore'){
 			oldObject.options = {'expression':''};
+			createIgnore(oldObject);
 		}
 		else if (mType == 'scale'){
 			oldObject.options = {'column':0,'scale':''};
+			createScale(oldObject);
 		}
 		else if (mType == 'pivot'){
 			oldObject.options = {'pivot':0,'columns':[]};
