@@ -284,6 +284,7 @@ exports.pivot = function(array,options,hArray) {
 	for (var i in array){
 		if (options.pivot && array[i][options.pivot]){
 			var k = array[i][options.pivot];
+			console.log(k);
 			if (!object[k]){
 				object[k]=[];
 				for (var ii in options.columns) {
@@ -323,6 +324,7 @@ exports.pivot = function(array,options,hArray) {
 		}
 		if (options.columns) {
 			for (var ii in options.columns) {
+				console.log(hArray[i][options.columns[ii]]);
 				hArrayNew[i].push(hArray[i][options.columns[ii]]);
 			}
 		}
