@@ -548,8 +548,8 @@ function clickModifier(evt){
 function createPivot(obj) {
 	console.log(obj);
 	var newEl = document.createElement('div');
-	newEl.setAttribute('data-id',obj.mType);
-	newEl.textContent = obj.mType;
+	newEl.setAttribute('data-id',obj.type);
+	newEl.textContent = obj.name;
 	newEl.addEventListener('click',clickModifier);
 	newEl.id = obj.id;
 	console.log(newEl);
@@ -608,7 +608,7 @@ function createNewModifier() {
 	if (ell && ell.value != ''){
 		mType = ell.value;
 		var id = Math.random().toString(36).substr(2, 8);
-		var oldObject = {'id':id,'name':'','type':mType,'options':{},'enabled':true};
+		var oldObject = {'id':id,'name':mType,'type':mType,'options':{},'enabled':true};
 		if (mType == 'new'){
 			oldObject.options = {'formula':'a+b','variables':{'a':{'column':1,'type':'value','row':'0'}, 'b':{'column':2,'type':'value','row':'0'}}};
 		}
