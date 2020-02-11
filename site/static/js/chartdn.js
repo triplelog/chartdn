@@ -268,6 +268,13 @@ function dataChg(initialData=false) {
 		var jsonmessage = {'operation':'upload','message':csv};
 		ws.send(JSON.stringify(jsonmessage));
 	}
+	else {
+		for (var i in modifiers){
+			if (modifiers[i].type == 'pivot'){
+				createPivot(modifiers[i]);
+			}
+		}
+	}
 	var data = Papa.parse(csv).data;
 	dataTable.innerHTML = '';
 	headers = [];
@@ -539,6 +546,14 @@ function clickModifier(evt){
 	}
 }
 function createPivot(obj) {
+	
+	var newEl = document.createElement('div');
+	newEl.setAttribute('data-id',obj.mType);
+	newEl.textContent = obj.mType;
+	newEl.addEventListener('click',clickModifier);
+	newEl.id = obj.id;
+	document.getElementById('allModifiers').appendChild(newEl);
+		
 	var newM = document.createElement('div');
 	newM.classList.add('l-box');
 	newM.classList.add('pure-u-2-3');
@@ -612,17 +627,9 @@ function createNewModifier() {
 			oldObject.options = {'pivot':0,'columns':[],'type':'sum'};
 			document.getElementById('modifiersDiv').appendChild(createPivot(oldObject));
 		}
-		modifiers.splice(0,modifiers.length);
+
 		modifiers.push(oldObject);
-		var newEl = document.createElement('div');
-		newEl.setAttribute('data-id',mType);
-		newEl.textContent = mType;
-		newEl.addEventListener('click',clickModifier);
-		newEl.id = id;
-		document.getElementById('allModifiers').appendChild(newEl);
 		
-			
-						
 		chgModify(oldObject);
 		modifierChg();
 	}

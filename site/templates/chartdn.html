@@ -112,10 +112,7 @@ div.l-box {
 								<span class="box-buttons"><a onclick="createNewModifier()"><i class="fas fa-plus-square"></i></a></span>
 							</div>
 							<div class="box-form" id="allModifiers" style="min-height: 5rem; max-height: 20rem; overflow: auto;">
-								{% for modifier in modifiers %}
-								  <div data-id="{{ modifier.type }}" class="" id="{{ modifier.id }}" onclick="clickModifier('{{ modifier.id }}');">{{ modifier.type }}</div>
-								{% else %}
-								{% endfor %}
+								
 							</div>
 							
 						</div>
