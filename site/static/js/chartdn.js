@@ -488,13 +488,12 @@ createNewColumnBox();
 
 //Dragula with column choices
 function updateModifier(evt){
+	modifiers = {};
 	var id = evt.target.parentNode.parentNode.id;
 	var pType = evt.target.querySelector('option:checked').value;
 	for (var i in modifiers){
 		if ('edit'+modifiers[i].id == id){
-			console.log(modifiers);
-			modifiers[i].options.type == pType;
-			console.log(modifiers);
+			modifiers[i].options.type = pType;
 			break;
 		}
 	}
