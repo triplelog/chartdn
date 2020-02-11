@@ -490,7 +490,14 @@ createNewColumnBox();
 function updateModifier(evt){
 	var id = evt.target.parentNode.parentNode.id;
 	var pType = evt.target.querySelector('option:checked').value;
-	console.log(pType);
+	for (var i in modifiers){
+		var m = modifiers[i];
+		if ('edit'+m.id == id){
+			m.options.type == pType;
+			break;
+		}
+	}
+	modifierChg();
 }
 function chgModify(mObject={}){
 
