@@ -810,8 +810,8 @@ function createNew(obj) {
 	newB.appendChild(newD);
 	
 	newM.appendChild(newB);
-	createNewColumnBox(obj.id);
 	document.getElementById('modifiersDiv').appendChild(newM);
+	createNewColumnBox(obj.id);
 }
 
 function createIgnore(obj) {
