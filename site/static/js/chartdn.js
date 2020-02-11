@@ -487,6 +487,9 @@ createNewColumnBox();
 
 
 //Dragula with column choices
+function updateModifier(){
+
+}
 function chgModify(mObject={}){
 	var allTypes = ['sort','pivot','new','scale','replace','ignore'];
 	var mType = '';
