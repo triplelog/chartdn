@@ -327,8 +327,19 @@ exports.pivot = function(array,options,hArray) {
 			hArrayNew[i].push(hArray[i][options.columns[ii]]);
 		}
 	}
-	array = arrayNew;
-	hArray = hArrayNew;
+	idx = 0;
+	for (var i in hArrayNew){
+		var iidx = 0;
+		for (var ii in hArrayNew[i]){
+			hArray[idx][iidx]=hArrayNew[i][ii];
+			iidx++;
+		}
+		
+		if (iidx<hArray[idx].length){hArray[idx].splice(iidx,hArray[idx].length-iidx);}
+		idx++;
+	}
+	if (idx<hArray.length){hArray.splice(idx,hArray.length-idx);}
+
 }
 
 exports.ignore = function(array,options) {
