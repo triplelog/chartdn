@@ -492,7 +492,9 @@ function updateModifier(evt){
 	for (var i in modifiers){
 		if ('edit'+modifiers[i].id == id){
 			var mType = modifiers[i].type;
+			console.log(mType);
 			if (mType == 'pivot'){
+				console.log(evt.target.getAttribute('name'));
 				if (evt.target.getAttribute('name')=='pType'){
 					modifiers[i].options.type = evt.target.querySelector('option:checked').value;
 				}
@@ -559,6 +561,7 @@ function createPivot(obj) {
 	newI.setAttribute('type','text');
 	newI.setAttribute('name','pivot');
 	newI.setAttribute('value','Pivot Column');
+	newI.addEventListener('change',updateModifier);
 	newB.appendChild(newI);
 	newI = document.createElement('input');
 	newI.setAttribute('type','text');
