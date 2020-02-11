@@ -554,7 +554,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers) {
 		else if (modifiers[i].type == 'replace'){
 			modJS.replace(rawArray,modifiers[i].options);
 		}
-		else if (modifiers[i].type == 'replace'){
+		else if (modifiers[i].type == 'pivot'){
 			modJS.pivot(rawArray,modifiers[i].options,hArray);
 		}
 	}
