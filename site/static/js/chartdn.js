@@ -272,6 +272,7 @@ function dataChg(initialData=false) {
 		for (var i in modifiers){
 			if (modifiers[i].type == 'pivot'){
 				createPivot(modifiers[i]);
+				
 			}
 		}
 	}
@@ -553,13 +554,12 @@ function clickModifier(evt){
 	}
 }
 function createPivot(obj) {
-	console.log(obj);
+
 	var newEl = document.createElement('div');
 	newEl.setAttribute('data-id',obj.type);
 	newEl.textContent = obj.name;
 	newEl.addEventListener('click',clickModifier);
 	newEl.id = obj.id;
-	console.log(newEl);
 	document.getElementById('allModifiers').appendChild(newEl);
 		
 	var newM = document.createElement('div');
@@ -606,13 +606,13 @@ function createPivot(obj) {
 	}
 	newB.appendChild(newS);
 	
-	newS = document.createElement('button');
+	newS = document.createElement('a');
 	newS.setAttribute('name','add');
 	newS.textContent = 'Add';
 	newS.addEventListener('click',updateModifier);
 	newB.appendChild(newS);
 	newM.appendChild(newB);
-	return newM;
+	document.getElementById('modifiersDiv').appendChild(newM);
 }
 function createNewModifier() {
 	var el = document.getElementById('createModifyMenu');
@@ -639,7 +639,7 @@ function createNewModifier() {
 		}
 		else if (mType == 'pivot'){
 			oldObject.options = {'pivot':0,'columns':[]};
-			document.getElementById('modifiersDiv').appendChild(createPivot(oldObject));
+			createPivot(oldObject);
 		}
 
 		modifiers.push(oldObject);
