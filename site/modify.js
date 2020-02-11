@@ -300,7 +300,9 @@ exports.pivot = function(array,options,hArray) {
 	var arrayNew = [];
 	var idx = 0;
 	for (var i in object){
-		var iidx = 0;
+		
+		array[idx][0] = i;
+		var iidx = 1;
 		for (var ii in options.columns) {
 			if (object[i][ii] || object[i][ii]==0) {
 				array[idx][iidx] = object[i][ii];
