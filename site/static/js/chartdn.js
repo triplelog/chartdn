@@ -517,6 +517,9 @@ function updateModifier(evt){
 					var obj = {};
 					obj[column]=pType;
 					modifiers[i].options.columns.push(obj);
+					var newEl = document.createElement('div');
+					newEl.textContent = pType + ' of ' + column;
+					evt.target.parentNode.querySelector('div.pivotColumns').appendChild(newEl);
 				}
 			}
 			break;
@@ -585,15 +588,18 @@ function createPivot(obj) {
 	newI.setAttribute('value','Pivot Column');
 	newI.addEventListener('change',updateModifier);
 	newB.appendChild(newI);
+	var newD = document.createElement('div');
+	newD.classList.add('pivotColumns');
+	newB.appendChild(newD);
 	newI = document.createElement('input');
 	newI.setAttribute('type','text');
 	newI.setAttribute('name','column');
 	newI.setAttribute('value','Column');
-	newI.addEventListener('change',updateModifier);
+	//newI.addEventListener('change',updateModifier);
 	newB.appendChild(newI);
 	newS = document.createElement('select');
 	newS.setAttribute('name','pType');
-	newS.addEventListener('change',updateModifier);
+	//newS.addEventListener('change',updateModifier);
 	var pTypes = ['Sum','Max','Min','Mean','Count'];
 	for (var i=0;i<pTypes.length;i++){
 		var newO = document.createElement('option');

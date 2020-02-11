@@ -286,33 +286,38 @@ exports.pivot = function(array,options,hArray) {
 			if (!object[k]){
 				object[k]=[];
 				for (var ii in options.columns) {
-					if (options.type=='count'){
+					var col = parseInt(ii);
+					var type = options.columns[ii];
+					if (type=='count'){
 						object[k].push(1);
 					}
 					else{
-						object[k].push(array[i][options.columns[ii]]);
+						object[k].push(array[i][col]);
 					}
 				}
 			}
 			else {
+				var iidx = 0;
 				for (var ii in options.columns) {
-					if (options.type=='count'){
-						object[k][ii] += 1;
+					var col = parseInt(ii);
+					var type = options.columns[ii];
+					if (type=='count'){
+						object[k][iidx] += 1;
 					}
-					else if (options.type=='max'){
-						if (array[i][options.columns[ii]] > object[k][ii]){
-							object[k][ii] = array[i][options.columns[ii]];
+					else if (type=='max'){
+						if (array[i][col] > object[k][iidx]){
+							object[k][iidx] = array[i][col];
 						}
 					}
-					else if (options.type=='min'){
-						if (array[i][options.columns[ii]] < object[k][ii]){
-							object[k][ii] = array[i][options.columns[ii]];
+					else if (type=='min'){
+						if (array[i][col] < object[k][iidx]){
+							object[k][iidx] = array[i][col];
 						}
 					}
 					else{
-						object[k][ii] += array[i][options.columns[ii]];
+						object[k][iidx] += array[i][col];
 					}
-					
+					iidx++;
 				}
 			}
 			
