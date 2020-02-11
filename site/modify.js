@@ -279,6 +279,7 @@ exports.replace = function(array,options) {
 
 exports.pivot = function(array,options,hArray) {
 	toData(array);
+	console.log(options);
 	var object = {};
 	for (var i in array){
 		if (options.pivot && array[i][options.pivot]){
@@ -297,7 +298,7 @@ exports.pivot = function(array,options,hArray) {
 			
 		}
 	}
-	
+	console.log(object);
 	var arrayNew = [];
 	var idx = 0;
 	for (var i in object){
