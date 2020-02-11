@@ -514,8 +514,7 @@ function updateModifier(evt){
 				else if (evt.target.getAttribute('name')=='add'){
 					var pType = evt.target.parentNode.querySelector('option:checked').value;
 					var column = parseInt(evt.target.parentNode.querySelector('input[name="column"]').value);
-					var obj = {};
-					obj[column]=pType;
+					var obj = {'column':column,'type':pType};
 					modifiers[i].options.columns.push(obj);
 					var newEl = document.createElement('div');
 					newEl.textContent = pType + ' of ' + column;

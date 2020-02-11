@@ -286,8 +286,8 @@ exports.pivot = function(array,options,hArray) {
 			if (!object[k]){
 				object[k]=[];
 				for (var ii in options.columns) {
-					var col = parseInt(ii);
-					var type = options.columns[ii];
+					var col = parseInt(options.columns[ii].column);
+					var type = options.columns[ii].type;
 					if (type=='count'){
 						object[k].push(1);
 					}
@@ -299,8 +299,8 @@ exports.pivot = function(array,options,hArray) {
 			else {
 				var iidx = 0;
 				for (var ii in options.columns) {
-					var col = parseInt(ii);
-					var type = options.columns[ii];
+					var col = parseInt(options.columns[ii].column);
+					var type = options.columns[ii].type;
 					if (type=='count'){
 						object[k][iidx] += 1;
 					}
