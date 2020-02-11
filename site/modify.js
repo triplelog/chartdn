@@ -275,7 +275,7 @@ exports.replace = function(array,options) {
 			}
 		}
 	}
-} // all options
+} // add all options
 
 exports.pivot = function(array,options,hArray) {
 	toData(array);
@@ -382,21 +382,21 @@ exports.pivot = function(array,options,hArray) {
 	}
 	if (idx<hArray.length){hArray.splice(idx,hArray.length-idx);}
 
-} //Add lots of features like max,min,countif,etc.
+} //Add countif? Add possibility to create buckets like weekly, etc. Error Handling
 
 exports.ignore = function(array,options) {
-	if (options.ascending){
-		fsort(array).asc(u => u[options.column]);
+	toData(array);
+	var skipRows = [];
+	for (var i in array){
+		if (!array[i]){ //Make this a function from options
+			skipRows.push(i);
+		}
 	}
-	else {
-		fsort(array).desc(u => u[options.column]);
+	for (var i=skipRows.length-1;i>=0;i--){
+		array.splice(skipRows[i],1);
 	}
-}
+} //Add expression logic
+
 exports.scale = function(array,options) {
-	if (options.ascending){
-		fsort(array).asc(u => u[options.column]);
-	}
-	else {
-		fsort(array).desc(u => u[options.column]);
-	}
-}
+
+} //Do everything

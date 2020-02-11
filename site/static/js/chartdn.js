@@ -272,7 +272,21 @@ function dataChg(initialData=false) {
 		for (var i in modifiers){
 			if (modifiers[i].type == 'pivot'){
 				createPivot(modifiers[i]);
-				
+			}
+			else if (modifiers[i].type == 'scale'){
+				createScale(modifiers[i]);
+			}
+			else if (modifiers[i].type == 'sort'){
+				createSort(modifiers[i]);
+			}
+			else if (modifiers[i].type == 'replace'){
+				createReplace(modifiers[i]);
+			}
+			else if (modifiers[i].type == 'new'){
+				createNew(modifiers[i]);
+			}
+			else if (modifiers[i].type == 'ignore'){
+				createIgnore(modifiers[i]);
 			}
 		}
 	}
@@ -619,6 +633,222 @@ function createPivot(obj) {
 	newM.appendChild(newB);
 	document.getElementById('modifiersDiv').appendChild(newM);
 }
+
+function createScale(obj) {
+
+	var newEl = document.createElement('div');
+	newEl.setAttribute('data-id',obj.type);
+	newEl.textContent = obj.name;
+	newEl.addEventListener('click',clickModifier);
+	newEl.id = obj.id;
+	document.getElementById('allModifiers').appendChild(newEl);
+		
+	var newM = document.createElement('div');
+	newM.classList.add('l-box');
+	newM.classList.add('pure-u-2-3');
+	newM.id = 'edit'+obj.id;
+	newM.style.display = 'none';
+	
+	var newH = document.createElement('div');
+	newH.classList.add('box-header2');
+	var newI = document.createElement('input');
+	newI.setAttribute('type','text');
+	newI.setAttribute('value','Scale by ...');
+	newH.appendChild(newI);
+	newM.appendChild(newH);
+	
+	var newB = document.createElement('div');
+	newB.classList.add('box-form');
+	newI = document.createElement('input');
+	newI.setAttribute('type','text');
+	newI.setAttribute('name','column');
+	newI.addEventListener('change',updateModifier);
+	newB.appendChild(newI);
+	newI = document.createElement('input');
+	newI.setAttribute('type','text');
+	newI.setAttribute('name','scale');
+	newI.addEventListener('change',updateModifier);
+	newB.appendChild(newI);
+	
+	newM.appendChild(newB);
+	document.getElementById('modifiersDiv').appendChild(newM);
+}
+
+function createReplace(obj) {
+
+	var newEl = document.createElement('div');
+	newEl.setAttribute('data-id',obj.type);
+	newEl.textContent = obj.name;
+	newEl.addEventListener('click',clickModifier);
+	newEl.id = obj.id;
+	document.getElementById('allModifiers').appendChild(newEl);
+		
+	var newM = document.createElement('div');
+	newM.classList.add('l-box');
+	newM.classList.add('pure-u-2-3');
+	newM.id = 'edit'+obj.id;
+	newM.style.display = 'none';
+	
+	var newH = document.createElement('div');
+	newH.classList.add('box-header2');
+	var newI = document.createElement('input');
+	newI.setAttribute('type','text');
+	newI.setAttribute('value','Name of Modifier');
+	newH.appendChild(newI);
+	newM.appendChild(newH);
+
+	var newB = document.createElement('div');
+	newB.classList.add('box-form');
+	newI = document.createElement('input');
+	newI.setAttribute('type','text');
+	newI.setAttribute('name','find');
+	newI.addEventListener('change',updateModifier);
+	newB.appendChild(newI);
+	newI = document.createElement('input');
+	newI.setAttribute('type','text');
+	newI.setAttribute('name','replace');
+	newI.addEventListener('change',updateModifier);
+	newB.appendChild(newI);
+	newI = document.createElement('input');
+	newI.setAttribute('type','checkbox');
+	newI.setAttribute('name','case');
+	newI.addEventListener('change',updateModifier);
+	newB.appendChild(newI);
+	newI = document.createElement('input');
+	newI.setAttribute('type','checkbox');
+	newI.setAttribute('name','numerical');
+	newI.addEventListener('change',updateModifier);
+	newB.appendChild(newI);
+	newI = document.createElement('input');
+	newI.setAttribute('type','checkbox');
+	newI.setAttribute('name','full');
+	newI.addEventListener('change',updateModifier);
+	newB.appendChild(newI);
+	newM.appendChild(newB);
+	document.getElementById('modifiersDiv').appendChild(newM);
+}
+
+function createSort(obj) {
+
+	var newEl = document.createElement('div');
+	newEl.setAttribute('data-id',obj.type);
+	newEl.textContent = obj.name;
+	newEl.addEventListener('click',clickModifier);
+	newEl.id = obj.id;
+	document.getElementById('allModifiers').appendChild(newEl);
+		
+	var newM = document.createElement('div');
+	newM.classList.add('l-box');
+	newM.classList.add('pure-u-2-3');
+	newM.id = 'edit'+obj.id;
+	newM.style.display = 'none';
+	
+	var newH = document.createElement('div');
+	newH.classList.add('box-header2');
+	var newI = document.createElement('input');
+	newI.setAttribute('type','text');
+	newI.setAttribute('value','Sort by ...');
+	newH.appendChild(newI);
+	newM.appendChild(newH);
+						
+	var newB = document.createElement('div');
+	newB.classList.add('box-form');
+	newI = document.createElement('input');
+	newI.setAttribute('type','text');
+	newI.setAttribute('name','column');
+	newI.addEventListener('change',updateModifier);
+	newB.appendChild(newI);
+	newI = document.createElement('input');
+	newI.setAttribute('type','checkbox');
+	newI.setAttribute('name','descending');
+	newI.addEventListener('change',updateModifier);
+	newB.appendChild(newI);
+	
+	newM.appendChild(newB);
+	document.getElementById('modifiersDiv').appendChild(newM);
+}
+
+function createNew(obj) {
+
+	var newEl = document.createElement('div');
+	newEl.setAttribute('data-id',obj.type);
+	newEl.textContent = obj.name;
+	newEl.addEventListener('click',clickModifier);
+	newEl.id = obj.id;
+	document.getElementById('allModifiers').appendChild(newEl);
+		
+	var newM = document.createElement('div');
+	newM.classList.add('l-box');
+	newM.classList.add('pure-u-2-3');
+	newM.id = 'edit'+obj.id;
+	newM.style.display = 'none';
+	
+	var newH = document.createElement('div');
+	newH.classList.add('box-header2');
+	var newI = document.createElement('input');
+	newI.setAttribute('type','text');
+	newI.setAttribute('value','Name of Column');
+	newH.appendChild(newI);
+	newM.appendChild(newH);
+	
+	var ideal = `<div class="box-form">
+		Formula: <textarea rows="1" cols="40"></textarea><br />
+		<!--Katex of Formula-->
+		Variables: <div id="newVariables"></div>
+	</div>`;
+
+						
+	var newB = document.createElement('div');
+	newB.classList.add('box-form');
+	newI = document.createElement('textarea');
+	newI.setAttribute('rows','1');
+	newI.setAttribute('cols','40');
+	newI.addEventListener('change',updateModifier);
+	newB.appendChild(newI);
+	var newD = document.createElement('div');
+	newD.id = 'newVariables';
+	newB.appendChild(newD);
+	
+	newM.appendChild(newB);
+	document.getElementById('modifiersDiv').appendChild(newM);
+}
+
+function createIgnore(obj) {
+
+	var newEl = document.createElement('div');
+	newEl.setAttribute('data-id',obj.type);
+	newEl.textContent = obj.name;
+	newEl.addEventListener('click',clickModifier);
+	newEl.id = obj.id;
+	document.getElementById('allModifiers').appendChild(newEl);
+						
+	var newM = document.createElement('div');
+	newM.classList.add('l-box');
+	newM.classList.add('pure-u-2-3');
+	newM.id = 'edit'+obj.id;
+	newM.style.display = 'none';
+	
+	var newH = document.createElement('div');
+	newH.classList.add('box-header2');
+	var newI = document.createElement('input');
+	newI.setAttribute('type','text');
+	newI.setAttribute('value','Ignore if ...');
+	newH.appendChild(newI);
+	newM.appendChild(newH);
+						
+	var newB = document.createElement('div');
+	newB.classList.add('box-form');
+	newI = document.createElement('input');
+	newI.setAttribute('type','text');
+	newI.setAttribute('name','expression');
+	newI.setAttribute('value','Expression');
+	newI.addEventListener('change',updateModifier);
+	newB.appendChild(newI);
+	
+	newM.appendChild(newB);
+	document.getElementById('modifiersDiv').appendChild(newM);
+}
+
 function createNewModifier() {
 	var el = document.getElementById('createModifyMenu');
 	var ell = el.querySelector('option:checked');
