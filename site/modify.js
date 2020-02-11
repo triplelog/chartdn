@@ -291,6 +291,9 @@ exports.pivot = function(array,options,hArray) {
 					if (type=='count'){
 						object[k].push(1);
 					}
+					else if (type=='mean'){
+						object[k].push({'sum':array[i][col],'n':1});
+					}
 					else{
 						object[k].push(array[i][col]);
 					}
@@ -314,6 +317,10 @@ exports.pivot = function(array,options,hArray) {
 							object[k][iidx] = array[i][col];
 						}
 					}
+					else if (type=='mean'){
+						object[k][iidx].sum += array[i][col];
+						object[k][iidx].n += 1;
+					}
 					else{
 						object[k][iidx] += array[i][col];
 					}
@@ -330,7 +337,17 @@ exports.pivot = function(array,options,hArray) {
 		var iidx = 1;
 		for (var ii in options.columns) {
 			if (object[i][ii] || object[i][ii]==0) {
-				array[idx][iidx] = object[i][ii];
+				if (options.columns[ii].type == 'mean'){
+					if (object[i][ii].n>0){
+						array[idx][iidx] = object[i][ii].sum/object[i][ii].n;
+					}
+					else {
+						array[idx][iidx] = 0;
+					}
+				}
+				else {
+					array[idx][iidx] = object[i][ii];
+				}
 			}
 			else {
 				array[idx][iidx] = '';//Or maybe default to 0?
