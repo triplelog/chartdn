@@ -511,7 +511,7 @@ function createNewColumnBox(id) {
 //Dragula with column choices
 function updateModifier(evt){
 	var id = evt.target.parentNode.parentNode.id;
-	console.log(id)
+	console.log(evt.target);
 	for (var i in modifiers){
 		if ('edit'+modifiers[i].id == id){
 			var mType = modifiers[i].type;
