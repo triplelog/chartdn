@@ -256,6 +256,8 @@ exports.sort = function(array,options) {
 } // Done?
 
 exports.replace = function(array,options) {
+	if (!options.find && options.find != 0){ return;}
+	if (!options.replace && options.replace != 0){ return;}
 	if (options.numerical){
 	
 	}
@@ -265,17 +267,17 @@ exports.replace = function(array,options) {
 		else { fstr = new RegExp(options.find,'g');}
 		
 		for (var i in array){
-			if (options.column && array[i][options.column]){
+			if (array[i][options.column]){
 				array[i][options.column] = array[i][options.column].toString().replace(fstr,options.replace);
 			}
-			else if (!options.column) {
+			else if (options.column == -1) {
 				for (var ii in array[i]){
 					array[i][ii] = array[i][ii].toString().replace(fstr,options.replace);
 				}
 			}
 		}
 	}
-} // add all options
+} // add full cell option, numerical replace, input as regex
 
 exports.pivot = function(array,options,hArray) {
 	toData(array);

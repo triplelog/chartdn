@@ -588,11 +588,13 @@ function updateModifier(evt){
 			}
 			else if (mType == 'replace'){
 				if (el.getAttribute('name')=='find'){
-					//modifiers[i].options.type = evt.target.querySelector('option:checked').value;
 					modifiers[i].options.find = el.value;
 				}
 				else if (el.getAttribute('name')=='replace'){
 					modifiers[i].options.replace = el.value;
+				}
+				else if (el.getAttribute('name')=='column'){
+					modifiers[i].options.column = parseInt(el.value);
 				}
 				else if (el.getAttribute('name')=='case'){
 					modifiers[i].options.case = el.checked;
@@ -815,6 +817,11 @@ function createReplace(obj) {
 	newI.setAttribute('name','full');
 	newI.addEventListener('change',updateModifier);
 	newB.appendChild(newI);
+	newI = document.createElement('input');
+	newI.setAttribute('type','text');
+	newI.setAttribute('name','column');
+	newI.addEventListener('change',updateModifier);
+	newB.appendChild(newI);
 	newM.appendChild(newB);
 	document.getElementById('modifiersDiv').appendChild(newM);
 }
@@ -962,7 +969,7 @@ function createNewModifier() {
 			createSort(oldObject);
 		}
 		else if (mType == 'replace'){
-			oldObject.options = {'column':1,'find':'7','replace':'8','regex':false,'full':false,'case':false,'numerical':false};
+			oldObject.options = {'column':-1,'regex':false,'full':false,'case':false,'numerical':false};
 			createReplace(oldObject);
 		}
 		else if (mType == 'ignore'){
