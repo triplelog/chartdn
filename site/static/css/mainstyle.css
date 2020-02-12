@@ -32,7 +32,7 @@ label {
 }
 
 .flex-column {
-	max-height: 25rem;
+	max-height: 20rem;
 	overflow: auto;
 }
 .striped tr:nth-child(even){
