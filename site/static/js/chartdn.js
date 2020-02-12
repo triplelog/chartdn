@@ -219,7 +219,6 @@ function optionsChg(optionname) {
 }
 function modifierChg() {
 	var jsonmessage = {'operation':'options','modifiers':modifiers};
-	console.log(modifiers);
 	ws.send(JSON.stringify(jsonmessage));
 }
 function typeChg() {
@@ -512,13 +511,15 @@ function createNewColumnBox(id) {
 //Dragula with column choices
 function updateModifier(evt){
 	var id = evt.target.parentNode.parentNode.id;
+	console.log(id)
 	for (var i in modifiers){
 		if ('edit'+modifiers[i].id == id){
 			var mType = modifiers[i].type;
+			console.log(evt.target);
 			if (evt.target.getAttribute('name')=='delete'){
 				modifiers.splice(i,1);
 				//delete from modifiers list
-				var listEl = document.getElementById(id);
+				var listEl = document.getElementById(modifiers[i].id);
 				document.getElementById('allModifiers').removeChild(listEl);
 				//delete edit element
 				var el = evt.target.parentNode.parentNode;
