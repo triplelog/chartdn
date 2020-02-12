@@ -577,6 +577,33 @@ function updateModifier(evt){
 					el.parentNode.querySelector('div.pivotColumns').appendChild(newEl);
 				}
 			}
+			else if (mType == 'sort'){
+				if (el.getAttribute('name')=='column'){
+					//modifiers[i].options.type = evt.target.querySelector('option:checked').value;
+					modifiers[i].options.column = parseInt(el.value);
+				}
+				else if (el.getAttribute('name')=='descending'){
+					modifiers[i].options.ascending = !el.checked;
+				}
+			}
+			else if (mType == 'replace'){
+				if (el.getAttribute('name')=='find'){
+					//modifiers[i].options.type = evt.target.querySelector('option:checked').value;
+					modifiers[i].options.find = el.value;
+				}
+				else if (el.getAttribute('name')=='replace'){
+					modifiers[i].options.replace = el.value;
+				}
+				else if (el.getAttribute('name')=='case'){
+					modifiers[i].options.case = el.checked;
+				}
+				else if (el.getAttribute('name')=='numerical'){
+					modifiers[i].options.numerical = el.checked;
+				}
+				else if (el.getAttribute('name')=='full'){
+					modifiers[i].options.full = el.checked;
+				}
+			}
 			break;
 		}
 	}
@@ -931,7 +958,7 @@ function createNewModifier() {
 			createNew(oldObject);
 		}
 		else if (mType == 'sort'){
-			oldObject.options = {'column':1,'ascending':true};
+			oldObject.options = {'column':0,'ascending':true};
 			createSort(oldObject);
 		}
 		else if (mType == 'replace'){
