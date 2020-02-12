@@ -533,6 +533,28 @@ function updateModifier(evt){
 				modifierChg();
 				return;
 			}
+			else if (el.getAttribute('name')=='disable'){
+				modifiers[i].enabled = false;
+				el.textContent = 'Enable';
+				el.setAttribute('name','enable');
+				
+				var listEl = document.getElementById(modifiers[i].id);
+				listEl.style.textDecoration = 'line-through';
+				modifierChg();
+				return;
+			}
+			else if (el.getAttribute('name')=='enable'){
+				modifiers[i].enabled = true;
+				el.textContent = 'Disable';
+				el.setAttribute('name','disable');
+				
+				var listEl = document.getElementById(modifiers[i].id);
+				listEl.style.textDecoration = 'none';
+				modifierChg();
+				return;
+			}
+			
+			
 			if (mType == 'pivot'){
 				if (el.getAttribute('name')=='pType'){
 					//modifiers[i].options.type = evt.target.querySelector('option:checked').value;
@@ -814,6 +836,12 @@ function createNew(obj) {
 	newIcon.classList.add('fas');
 	newIcon.classList.add('fa-trash');
 	newSpan.appendChild(newIcon);
+	newSpan.addEventListener('click',updateModifier);
+	newH.appendChild(newSpan);
+	newSpan = document.createElement('span');
+	newSpan.setAttribute('name','disable');
+	newSpan.classList.add('box-buttons');
+	newSpan.textContent = 'Disable';
 	newSpan.addEventListener('click',updateModifier);
 	newH.appendChild(newSpan);
 	newM.appendChild(newH);
