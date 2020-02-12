@@ -521,13 +521,15 @@ function updateModifier(evt){
 		if ('edit'+modifiers[i].id == id){
 			var mType = modifiers[i].type;
 			if (el.getAttribute('name')=='delete'){
-				modifiers.splice(i,1);
+				
 				//delete from modifiers list
 				var listEl = document.getElementById(modifiers[i].id);
 				document.getElementById('allModifiers').removeChild(listEl);
 				//delete edit element
 				var ell = el.parentNode.parentNode;
 				ell.parentNode.removeChild(ell);
+				//remove from database
+				modifiers.splice(i,1);
 				modifierChg();
 				return;
 			}
