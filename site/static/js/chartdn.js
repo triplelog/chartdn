@@ -515,6 +515,17 @@ function updateModifier(evt){
 	for (var i in modifiers){
 		if ('edit'+modifiers[i].id == id){
 			var mType = modifiers[i].type;
+			if (evt.target.getAttribute('name')=='delete'){
+				modifiers.splice(i,1);
+				//delete from modifiers list
+				var listEl = document.getElementById(id);
+				document.getElementById('allModifiers').removeChild(listEl);
+				//delete edit element
+				var el = evt.target.parentNode.parentNode;
+				el.parentNode.removeChild(el);
+				modifierChg();
+				return;
+			}
 			if (mType == 'pivot'){
 				if (evt.target.getAttribute('name')=='pType'){
 					//modifiers[i].options.type = evt.target.querySelector('option:checked').value;
@@ -789,6 +800,15 @@ function createNew(obj) {
 	newI.setAttribute('type','text');
 	newI.setAttribute('value','Name of Column');
 	newH.appendChild(newI);
+	var newSpan = document.createElement('span');
+	newSpan.setAttribute('name','delete');
+	newSpan.classList.add('box-buttons');
+	var newIcon = document.createElement('i');
+	newIcon.classList.add('fas');
+	newIcon.classList.add('fa-trash');
+	newSpan.appendChild(newIcon);
+	newSpan.addEventListener('click',updateModifier);
+	newH.appendChild(newSpan);
 	newM.appendChild(newH);
 	
 	var ideal = `<div class="box-form">
