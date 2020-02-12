@@ -540,6 +540,7 @@ function updateModifier(evt){
 				
 				var listEl = document.getElementById(modifiers[i].id);
 				listEl.style.textDecoration = 'line-through';
+				listEl.style.color = 'rgb(50,50,50)';
 				modifierChg();
 				return;
 			}
@@ -550,6 +551,7 @@ function updateModifier(evt){
 				
 				var listEl = document.getElementById(modifiers[i].id);
 				listEl.style.textDecoration = 'none';
+				listEl.style.color = 'inherit';
 				modifierChg();
 				return;
 			}
@@ -609,6 +611,25 @@ function clickModifier(evt){
 		}
 	}
 }
+
+function createMButtons(newH) {
+	var newSpan = document.createElement('span');
+	newSpan.setAttribute('name','delete');
+	newSpan.classList.add('box-buttons');
+	var newIcon = document.createElement('i');
+	newIcon.classList.add('fas');
+	newIcon.classList.add('fa-trash');
+	newSpan.appendChild(newIcon);
+	newSpan.addEventListener('click',updateModifier);
+	newH.appendChild(newSpan);
+	newSpan = document.createElement('span');
+	newSpan.setAttribute('name','disable');
+	newSpan.classList.add('box-buttons');
+	newSpan.textContent = 'Disable';
+	newSpan.addEventListener('click',updateModifier);
+	newH.appendChild(newSpan);
+}
+
 function createPivot(obj) {
 
 	var newEl = document.createElement('div');
@@ -630,6 +651,7 @@ function createPivot(obj) {
 	newI.setAttribute('type','text');
 	newI.setAttribute('value','Pivot');
 	newH.appendChild(newI);
+	createMButtons(newH);
 	newM.appendChild(newH);
 	
 	
@@ -695,6 +717,7 @@ function createScale(obj) {
 	newI.setAttribute('type','text');
 	newI.setAttribute('value','Scale by ...');
 	newH.appendChild(newI);
+	createMButtons(newH);
 	newM.appendChild(newH);
 	
 	var newB = document.createElement('div');
@@ -735,6 +758,7 @@ function createReplace(obj) {
 	newI.setAttribute('type','text');
 	newI.setAttribute('value','Name of Modifier');
 	newH.appendChild(newI);
+	createMButtons(newH);
 	newM.appendChild(newH);
 
 	var newB = document.createElement('div');
@@ -789,6 +813,7 @@ function createSort(obj) {
 	newI.setAttribute('type','text');
 	newI.setAttribute('value','Sort by ...');
 	newH.appendChild(newI);
+	createMButtons(newH);
 	newM.appendChild(newH);
 						
 	var newB = document.createElement('div');
@@ -829,21 +854,8 @@ function createNew(obj) {
 	newI.setAttribute('type','text');
 	newI.setAttribute('value','Name of Column');
 	newH.appendChild(newI);
-	var newSpan = document.createElement('span');
-	newSpan.setAttribute('name','delete');
-	newSpan.classList.add('box-buttons');
-	var newIcon = document.createElement('i');
-	newIcon.classList.add('fas');
-	newIcon.classList.add('fa-trash');
-	newSpan.appendChild(newIcon);
-	newSpan.addEventListener('click',updateModifier);
-	newH.appendChild(newSpan);
-	newSpan = document.createElement('span');
-	newSpan.setAttribute('name','disable');
-	newSpan.classList.add('box-buttons');
-	newSpan.textContent = 'Disable';
-	newSpan.addEventListener('click',updateModifier);
-	newH.appendChild(newSpan);
+	createMButtons(newH);
+	
 	newM.appendChild(newH);
 	
 	var ideal = `<div class="box-form">
@@ -890,6 +902,7 @@ function createIgnore(obj) {
 	newI.setAttribute('type','text');
 	newI.setAttribute('value','Ignore if ...');
 	newH.appendChild(newI);
+	createMButtons(newH);
 	newM.appendChild(newH);
 						
 	var newB = document.createElement('div');
