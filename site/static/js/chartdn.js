@@ -511,40 +511,44 @@ function createNewColumnBox(id) {
 //Dragula with column choices
 function updateModifier(evt){
 	var id = evt.target.parentNode.parentNode.id;
-	console.log(evt.target);
+	var el = evt.target;
+	if (!id){
+		id = evt.target.parentNode.parentNode.parentNode.id;
+		el = evt.target.parentNode;
+	}
+	console.log(id);
 	for (var i in modifiers){
 		if ('edit'+modifiers[i].id == id){
 			var mType = modifiers[i].type;
-			console.log(evt.target);
-			if (evt.target.getAttribute('name')=='delete'){
+			if (el.getAttribute('name')=='delete'){
 				modifiers.splice(i,1);
 				//delete from modifiers list
 				var listEl = document.getElementById(modifiers[i].id);
 				document.getElementById('allModifiers').removeChild(listEl);
 				//delete edit element
-				var el = evt.target.parentNode.parentNode;
-				el.parentNode.removeChild(el);
+				var ell = el.parentNode.parentNode;
+				ell.parentNode.removeChild(ell);
 				modifierChg();
 				return;
 			}
 			if (mType == 'pivot'){
-				if (evt.target.getAttribute('name')=='pType'){
+				if (el.getAttribute('name')=='pType'){
 					//modifiers[i].options.type = evt.target.querySelector('option:checked').value;
 				}
-				else if (evt.target.getAttribute('name')=='pivot'){
-					modifiers[i].options.pivot = parseInt(evt.target.value);
+				else if (el.getAttribute('name')=='pivot'){
+					modifiers[i].options.pivot = parseInt(el.value);
 				}
-				else if (evt.target.getAttribute('name')=='columns'){
+				else if (el.getAttribute('name')=='columns'){
 					//modifiers[i].options.columns = [parseInt(evt.target.value)];
 				}
-				else if (evt.target.getAttribute('name')=='add'){
-					var pType = evt.target.parentNode.querySelector('option:checked').value;
-					var column = parseInt(evt.target.parentNode.querySelector('input[name="column"]').value);
+				else if (el.getAttribute('name')=='add'){
+					var pType = el.parentNode.querySelector('option:checked').value;
+					var column = parseInt(el.parentNode.querySelector('input[name="column"]').value);
 					var obj = {'column':column,'type':pType};
 					modifiers[i].options.columns.push(obj);
 					var newEl = document.createElement('div');
 					newEl.textContent = pType + ' of ' + column;
-					evt.target.parentNode.querySelector('div.pivotColumns').appendChild(newEl);
+					el.parentNode.querySelector('div.pivotColumns').appendChild(newEl);
 				}
 			}
 			break;
