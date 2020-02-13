@@ -138,6 +138,7 @@ function replaceNegatives(istr){
 
 function postfixify(input_str) {
 	input_str = input_str.toUpperCase();
+	input_str = input_str.replace(/\s/g,'');
 	input_str = input_str.replace(/AND/g,'&');
 	input_str = input_str.replace(/OR/g,'|');
 	input_str = input_str.replace(/\[/g,'(');
