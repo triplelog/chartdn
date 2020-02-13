@@ -272,9 +272,6 @@ function dataChg(initialData=false) {
 			if (modifiers[i].type == 'pivot'){
 				createPivot(modifiers[i]);
 			}
-			else if (modifiers[i].type == 'scale'){
-				createScale(modifiers[i]);
-			}
 			else if (modifiers[i].type == 'sort'){
 				createSort(modifiers[i]);
 			}
@@ -628,6 +625,19 @@ function updateModifier(evt){
 					console.log(modifiers[i].options.variables);
 				}
 			}
+			else if (mType == 'ignore'){
+				if (el.getAttribute('name')=='formula'){
+					modifiers[i].options.formula = el.value;
+				}
+				else if (evt.target.getAttribute('name')=='add'){
+					var col = el.querySelector('select[name=column] > option:checked').value;
+					var type = el.querySelector('select[name=type] > option:checked').value;
+					var name = el.querySelector('input[name=name]').value;
+					var newVariable = {'column':parseInt(col),'type':type,'row':'0'};
+					modifiers[i].options.variables[name] = newVariable;
+					console.log(modifiers[i].options.variables);
+				}
+			}
 			break;
 		}
 	}
@@ -741,47 +751,6 @@ function createPivot(obj) {
 	newS.textContent = 'Add';
 	newS.addEventListener('click',updateModifier);
 	newB.appendChild(newS);
-	newM.appendChild(newB);
-	document.getElementById('modifiersDiv').appendChild(newM);
-}
-
-function createScale(obj) {
-
-	var newEl = document.createElement('div');
-	newEl.setAttribute('data-id',obj.type);
-	newEl.textContent = obj.name;
-	newEl.addEventListener('click',clickModifier);
-	newEl.id = obj.id;
-	document.getElementById('allModifiers').appendChild(newEl);
-		
-	var newM = document.createElement('div');
-	newM.classList.add('l-box');
-	newM.classList.add('pure-u-2-3');
-	newM.id = 'edit'+obj.id;
-	newM.style.display = 'none';
-	
-	var newH = document.createElement('div');
-	newH.classList.add('box-header2');
-	var newI = document.createElement('input');
-	newI.setAttribute('type','text');
-	newI.setAttribute('value','Scale by ...');
-	newH.appendChild(newI);
-	createMButtons(newH);
-	newM.appendChild(newH);
-	
-	var newB = document.createElement('div');
-	newB.classList.add('box-form');
-	newI = document.createElement('input');
-	newI.setAttribute('type','text');
-	newI.setAttribute('name','column');
-	newI.addEventListener('change',updateModifier);
-	newB.appendChild(newI);
-	newI = document.createElement('input');
-	newI.setAttribute('type','text');
-	newI.setAttribute('name','scale');
-	newI.addEventListener('change',updateModifier);
-	newB.appendChild(newI);
-	
 	newM.appendChild(newB);
 	document.getElementById('modifiersDiv').appendChild(newM);
 }
@@ -944,7 +913,7 @@ function createIgnore(obj) {
 	newEl.addEventListener('click',clickModifier);
 	newEl.id = obj.id;
 	document.getElementById('allModifiers').appendChild(newEl);
-						
+		
 	var newM = document.createElement('div');
 	newM.classList.add('l-box');
 	newM.classList.add('pure-u-2-3');
@@ -958,19 +927,24 @@ function createIgnore(obj) {
 	newI.setAttribute('value','Ignore if ...');
 	newH.appendChild(newI);
 	createMButtons(newH);
+	
 	newM.appendChild(newH);
-						
+					
 	var newB = document.createElement('div');
 	newB.classList.add('box-form');
-	newI = document.createElement('input');
-	newI.setAttribute('type','text');
-	newI.setAttribute('name','expression');
-	newI.setAttribute('value','Expression');
+	newI = document.createElement('textarea');
+	newI.setAttribute('rows','1');
+	newI.setAttribute('cols','40');
+	newI.setAttribute('name','formula')
 	newI.addEventListener('change',updateModifier);
 	newB.appendChild(newI);
+	var newD = document.createElement('div');
+	newD.id = 'newVariables';
+	newB.appendChild(newD);
 	
 	newM.appendChild(newB);
 	document.getElementById('modifiersDiv').appendChild(newM);
+	createNewColumnBox(obj.id);
 }
 
 function createNewModifier(show=false) {
@@ -1000,12 +974,8 @@ function createNewModifier(show=false) {
 			createReplace(oldObject);
 		}
 		else if (mType == 'ignore'){
-			oldObject.options = {'expression':''};
+			oldObject.options = {'formula':'','variables':{}};
 			createIgnore(oldObject);
-		}
-		else if (mType == 'scale'){
-			oldObject.options = {'column':0,'scale':''};
-			createScale(oldObject);
 		}
 		else if (mType == 'pivot'){
 			oldObject.options = {'pivot':0,'columns':[]};
@@ -1054,7 +1024,6 @@ drakeF.on('drop', function (el, target, source, sibling) {
 			
 		}
 
-		
 
 		if (sibling){
 			for (var i in modifiers){

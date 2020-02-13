@@ -451,6 +451,3 @@ exports.ignore = function(array,options) {
 	}
 } //Add expression logic
 
-exports.scale = function(array,options) {
-
-} //Do everything
