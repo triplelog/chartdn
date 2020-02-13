@@ -628,7 +628,6 @@ function updateModifier(evt){
 					var newVariable = {'column':col,'type':type,'row':0};
 					modifiers[i].options.variables[name] = newVariable;
 					console.log(modifiers[i].options.variables);
-					*/
 				}
 			}
 			break;
