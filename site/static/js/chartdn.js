@@ -505,6 +505,23 @@ function createNewColumnBox(id) {
 		varColumn.appendChild(varOption);
 	}
 	varDiv.appendChild(varColumn);
+	
+	var varRL = document.createElement('label');
+	varRL.textContent = 'C Row';
+		var varR = document.createElement('input');
+		varR.setAttribute('type','radio');
+		varR.setAttribute('name','row');
+	varRL.appendChild(varR);
+	varDiv.appendChild(varRL);
+	
+	var varRL = document.createElement('label');
+	varRL.textContent = 'P Row';
+		var varR = document.createElement('input');
+		varR.setAttribute('type','radio');
+		varR.setAttribute('name','row');
+	varRL.appendChild(varR);
+	varDiv.appendChild(varRL);
+	
 	var varB = document.createElement('a');
 	varB.setAttribute('name','add');
 	varB.textContent = 'Add';
