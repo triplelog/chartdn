@@ -626,6 +626,7 @@ function updateModifier(evt){
 				}
 				else if (el.getAttribute('name')=='name'){
 					modifiers[i].name = el.value;
+					el.parentNode.parentNode.parentNode.parentNode.querySelector('span[name=title]').textContent = 'New Column: '+el.value;
 				}
 				else if (evt.target.getAttribute('name')=='add'){
 					var ell = el.parentNode;
@@ -668,9 +669,11 @@ function chgModify(mObject={}){
 		if (!document.getElementById('edit'+m.id)) {continue;}
 		if (m.id == mObject.id){
 			document.getElementById('edit'+m.id).style.display = 'block';
+			document.getElementById(m.id).style.background = 'rgb(200,200,200)';
 		}
 		else {
 			document.getElementById('edit'+m.id).style.display = 'none';
+			document.getElementById(m.id).style.background = 'white';
 		}
 		
 	}
@@ -891,7 +894,8 @@ function createNew(obj) {
 	var newH = document.createElement('div');
 	newH.classList.add('box-header2');
 	var newT = document.createElement('span');
-	newT.textContent = 'Create ' + obj.name;
+	newT.textContent = 'New Column: ' + obj.name;
+	newT.setAttribute('name','title');
 	newH.appendChild(newT);
 	createMButtons(newH);
 	
