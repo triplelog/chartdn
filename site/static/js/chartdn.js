@@ -957,7 +957,7 @@ function createNewModifier(show=false) {
 	var ell = el.querySelector('option:checked');
 	if (show){
 		el.style.display = 'inline-block';
-		el.selectedIndex = 0;
+		el.value = '';
 		return;
 	}
 
@@ -991,7 +991,7 @@ function createNewModifier(show=false) {
 			createPivot(oldObject);
 		}
 		el.style.display = 'none';
-		el.selectedIndex = 0;
+		el.value = '';
 		modifiers.push(oldObject);
 		
 		chgModify(oldObject);
