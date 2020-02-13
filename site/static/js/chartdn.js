@@ -464,6 +464,10 @@ drake.on('remove', function (el, target, source) {
 		var qstring = 'option[value="'+el.id.substring(5)+'"]';
 		var ell = document.getElementById('lineStyleMenu').querySelector(qstring);
 		ell.parentNode.removeChild(ell);
+		
+		qstring = '#lineStyleDiv'+el.id.substring(5);
+		ell = document.getElementById("lineStyleDivs").querySelector(qstring);
+		ell.parentNode.removeChild(ell);
 	}
 });
 
