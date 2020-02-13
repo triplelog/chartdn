@@ -736,8 +736,14 @@ function chgModify(mObject={}){
 		var m = modifiers[i];
 		if (!document.getElementById('edit'+m.id)) {continue;}
 		if (m.id == mObject.id){
-			document.getElementById('edit'+m.id).style.display = 'block';
-			document.getElementById(m.id).style.background = 'rgb(200,200,200)';
+			if (document.getElementById(m.id).style.background != 'rgb(200,200,200)') {
+				document.getElementById('edit'+m.id).style.display = 'block';
+				document.getElementById(m.id).style.background = 'rgb(200,200,200)';
+			}
+			else {
+				document.getElementById('edit'+m.id).style.display = 'none';
+				document.getElementById(m.id).style.background = 'white';
+			}
 		}
 		else {
 			document.getElementById('edit'+m.id).style.display = 'none';
@@ -783,6 +789,7 @@ function createPivot(obj) {
 	newEl.setAttribute('data-id',obj.type);
 	newEl.textContent = obj.name;
 	newEl.addEventListener('click',clickModifier);
+	if (!obj.enabled){newEl.style.textDecoration = 'line-through';}
 	newEl.id = obj.id;
 	document.getElementById('allModifiers').appendChild(newEl);
 		
@@ -849,6 +856,7 @@ function createReplace(obj) {
 	newEl.setAttribute('data-id',obj.type);
 	newEl.textContent = obj.name;
 	newEl.addEventListener('click',clickModifier);
+	if (!obj.enabled){newEl.style.textDecoration = 'line-through';}
 	newEl.id = obj.id;
 	document.getElementById('allModifiers').appendChild(newEl);
 		
@@ -909,6 +917,7 @@ function createSort(obj) {
 	newEl.setAttribute('data-id',obj.type);
 	newEl.textContent = obj.name;
 	newEl.addEventListener('click',clickModifier);
+	if (!obj.enabled){newEl.style.textDecoration = 'line-through';}
 	newEl.id = obj.id;
 	document.getElementById('allModifiers').appendChild(newEl);
 		
@@ -950,6 +959,7 @@ function createNew(obj) {
 	newEl.setAttribute('data-id',obj.type);
 	newEl.textContent = obj.name;
 	newEl.addEventListener('click',clickModifier);
+	if (!obj.enabled){newEl.style.textDecoration = 'line-through';}
 	newEl.id = obj.id;
 	document.getElementById('allModifiers').appendChild(newEl);
 		
@@ -1040,6 +1050,7 @@ function createIgnore(obj) {
 	newEl.setAttribute('data-id',obj.type);
 	newEl.textContent = obj.name;
 	newEl.addEventListener('click',clickModifier);
+	if (!obj.enabled){newEl.style.textDecoration = 'line-through';}
 	newEl.id = obj.id;
 	document.getElementById('allModifiers').appendChild(newEl);
 		
