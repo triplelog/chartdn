@@ -629,14 +629,15 @@ function updateModifier(evt){
 					var elExists = false;
 					for (var ii in ellc){
 						if (ellc[ii].name == name){
-							ellc[ii].textContent = name + ' := ' + type + ' of ' + column;
+							ellc[ii].textContent = name + ' := ' + type + ' of ' + col;
 							elExists = true;
 							break;
 						}
 					}
 					if (!elExists){
-						var newEl = document.createElement('span');
-						newEl.textContent = name + ' := ' + type + ' of ' + column;
+						var newEl = document.createElement('div');
+						newEl.textContent = name + ' := ' + type + ' of ' + col;
+						newEl.setAttribute('name',name);
 						ell.appendChild(newEl);
 					}
 					
@@ -659,14 +660,15 @@ function updateModifier(evt){
 					var elExists = false;
 					for (var ii in ellc){
 						if (ellc[ii].name == name){
-							ellc[ii].textContent = name + ' := ' + type + ' of ' + column;
+							ellc[ii].textContent = name + ' := ' + type + ' of ' + col;
 							elExists = true;
 							break;
 						}
 					}
 					if (!elExists){
-						var newEl = document.createElement('span');
-						newEl.textContent = name + ' := ' + type + ' of ' + column;
+						var newEl = document.createElement('div');
+						newEl.textContent = name + ' := ' + type + ' of ' + col;
+						newEl.setAttribute('name',name);
 						ell.appendChild(newEl);
 					}
 				}
