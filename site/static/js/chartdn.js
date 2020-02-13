@@ -120,11 +120,12 @@ function updateHeaders(initialData,chg=false) {
 				colChg = true;
 			}
 		}
+		var skipRows = [];
 		if (document.getElementById('yColsVal').value != ''){
 			yColsVals = document.getElementById('yColsVal').value.split(',');
 			document.getElementById('yColumns').innerHTML = '';
 			var ycvStr = '';
-			var skipRows = [];
+			
 			for (var yid in yColsVals){
 			
 				yColsVals[yid] = parseInt(yColsVals[yid]);
@@ -138,6 +139,7 @@ function updateHeaders(initialData,chg=false) {
 				}
 				else {
 					colChg = true;
+					skipRows.push(yColsVals[yid]);
 				}
 			}
 			chgLineTab();
@@ -147,6 +149,15 @@ function updateHeaders(initialData,chg=false) {
 		}
 		if (colChg){
 			columnsChg();
+			for (var i in skipRows){
+				var qstring = 'option[value="'+i+'"]';
+				var ell = document.getElementById('lineStyleMenu').querySelector(qstring);
+				ell.parentNode.removeChild(ell);
+		
+				qstring = '#lineStyleDiv'+i;
+				ell = document.getElementById("lineStyleDivs").querySelector(qstring);
+				ell.parentNode.removeChild(ell);
+			}
 		}
 	}
 }
@@ -361,7 +372,7 @@ function updateModifiedTable(data) {
 		dataTable.appendChild(newrow);
 		
 	}
-	updateHeaders(false);
+	updateHeaders(false,true);
 }
 
 function dataChg(initialData=false) {
