@@ -536,22 +536,32 @@ function createNewColumnBox(id) {
 		newDiv.appendChild(varR);
 		newDiv.appendChild(varRL);
 		
+		
+		var varR = document.createElement('input');
+		varR.setAttribute('type','radio');
+		varR.setAttribute('name','row');
+		varR.setAttribute('value','next');
+		varR.id = 'nextRow';
+		
 		var varRL = document.createElement('label');
 		varRL.textContent = 'Next Row';
-			var varR = document.createElement('input');
-			varR.setAttribute('type','radio');
-			varR.setAttribute('name','row');
-			varR.setAttribute('value','next');
-		varRL.appendChild(varR);
+		varRL.setAttribute('for','nextRow');
+		
+		newDiv.appendChild(varR);
 		newDiv.appendChild(varRL);
+		
+		
+		var varR = document.createElement('input');
+		varR.setAttribute('type','radio');
+		varR.setAttribute('name','row');
+		varR.setAttribute('value','equal');
+		varR.id = 'equalRow';
 		
 		var varRL = document.createElement('label');
 		varRL.textContent = 'Row =';
-			var varR = document.createElement('input');
-			varR.setAttribute('type','radio');
-			varR.setAttribute('name','row');
-			varR.setAttribute('value','equal');
-		varRL.appendChild(varR);
+		varRL.setAttribute('for','equalRow');
+		
+		newDiv.appendChild(varR);
 		newDiv.appendChild(varRL);
 	varDiv.appendChild(newDiv);
 	
