@@ -619,10 +619,9 @@ function updateModifier(evt){
 				if (el.getAttribute('name')=='formula'){
 					modifiers[i].options.formula = el.value;
 				}
-				else if (el.getAttribute('name')=='add'){
-					var ell = el.parentNode;
-					console.log(ell);
-					var col = ell.querySelector('select[name=column]');
+				else if (evt.target.getAttribute('name')=='add'){
+					console.log(el);
+					var col = el.querySelector('select[name=column]');
 					console.log(col);
 					console.log(col.value);
 					/*
