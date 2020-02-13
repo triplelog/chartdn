@@ -517,7 +517,7 @@ function createNewColumnBox(id) {
 			
 		var varRL = document.createElement('label');
 		varRL.textContent = 'Current Row';
-		varR.setAttribute('for','currentRow');
+		varRL.setAttribute('for','currentRow');
 			
 		newDiv.appendChild(varR);
 		newDiv.appendChild(varRL);
@@ -531,7 +531,7 @@ function createNewColumnBox(id) {
 		
 		var varRL = document.createElement('label');
 		varRL.textContent = 'Previous Row';
-		varR.setAttribute('for','previousRow');
+		varRL.setAttribute('for','previousRow');
 		
 		newDiv.appendChild(varR);
 		newDiv.appendChild(varRL);
