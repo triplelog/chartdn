@@ -518,8 +518,16 @@ function createNewColumnBox(id) {
 function updateModifier(evt){
 	var id = evt.target.parentNode.parentNode.id;
 	var el = evt.target;
-	if (!id){
+	if (!id || id.substring(0,4) != 'edit'){
 		id = evt.target.parentNode.parentNode.parentNode.id;
+	}
+	if (!id || id.substring(0,4) != 'edit'){
+		id = evt.target.parentNode.parentNode.parentNode.parentNode.id;
+	}
+	if (!id || id.substring(0,4) != 'edit'){
+		id = evt.target.parentNode.parentNode.parentNode.parentNode.parentNode.id;
+	}
+	if (el.getAttribute('name') == null || el.getAttribute('name') == ''){
 		el = evt.target.parentNode;
 	}
 	console.log(id);
@@ -924,20 +932,36 @@ function createNew(obj) {
 						
 	var newB = document.createElement('div');
 	newB.classList.add('box-form');
+	var newBB = document.createElement('div');
+	newBB.classList.add('pure-g');
+	
+	var newBBB = document.createElement('div');
+	newBBB.classList.add('pure-u-1-2');
+	
+	
 	newI = document.createElement('textarea');
 	newI.setAttribute('rows','1');
 	newI.setAttribute('cols','40');
 	newI.setAttribute('name','formula')
 	newI.addEventListener('change',updateModifier);
-	newB.appendChild(newI);
+	newBBB.appendChild(newI);
+	newBB.appendChild(newBBB);
+	newB.appendChild(newBB);
+	
+	var newBB = document.createElement('div');
+	newBB.classList.add('pure-g');
+	
+	var newBBB = document.createElement('div');
+	newBBB.classList.add('pure-u-1-2');
 	var newD = document.createElement('div');
 	newD.id = 'allVariables';
-	newB.appendChild(newD);
-	newM.appendChild(newB);
+	newBBB.appendChild(newD);
 	
 	newD = document.createElement('div');
 	newD.id = 'newVariables';
-	newB.appendChild(newD);
+	newBBB.appendChild(newD);
+	newBB.appendChild(newBBB);
+	newB.appendChild(newBB);
 	newM.appendChild(newB);
 	
 	document.getElementById('modifiersDiv').appendChild(newM);
