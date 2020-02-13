@@ -462,10 +462,8 @@ drake.on('remove', function (el, target, source) {
 		}
 		columnsChg();
 		var qstring = 'option[value="'+el.id.substring(5)+'"]';
-		console.log(qstring);
 		var ell = document.getElementById('lineStyleMenu').querySelector(qstring);
-		console.log(ell);
-		ell.parentNode.removeElement(ell);
+		ell.parentNode.removeChild(ell);
 	}
 });
 
