@@ -307,6 +307,7 @@ function updateModifiedTable(data) {
 		dataTable.appendChild(newrow);
 		
 	}
+	updateHeaders();
 }
 
 function dataChg(initialData=false) {
