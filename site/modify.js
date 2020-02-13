@@ -441,6 +441,8 @@ exports.pivot = function(array,options,hArray) {
 		}
 	}
 	idx = 0;
+	console.log(hArray);
+	console.log(hArrayNew);
 	for (var i in hArrayNew){
 		var iidx = 0;
 		for (var ii in hArrayNew[i]){
@@ -451,7 +453,11 @@ exports.pivot = function(array,options,hArray) {
 		if (iidx<hArray[idx].length){hArray[idx].splice(iidx,hArray[idx].length-iidx);}
 		idx++;
 	}
+	console.log(hArray);
+	console.log(hArrayNew);
 	if (idx<hArray.length){hArray.splice(idx,hArray.length-idx);}
+	console.log(hArray);
+	console.log(hArrayNew);
 
 } //Add countif? Add possibility to create buckets like weekly, etc. Error Handling
 
