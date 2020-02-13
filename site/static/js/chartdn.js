@@ -658,12 +658,14 @@ function updateModifier(evt){
 					var ellc = ell.children;
 					var elExists = false;
 					console.log(ellc);
-					for (var ii in ellc){
-						console.log(ii, ellc[ii]);
-						if (ellc[ii].getAttribute('name') == name){
-							ellc[ii].textContent = name + ' := ' + type + ' of ' + col;
-							elExists = true;
-							break;
+					if (ellc.length > 0){
+						for (var ii in ellc){
+							console.log(ii, ellc[ii]);
+							if (ellc[ii].getAttribute('name') == name){
+								ellc[ii].textContent = name + ' := ' + type + ' of ' + col;
+								elExists = true;
+								break;
+							}
 						}
 					}
 					if (!elExists){
