@@ -653,12 +653,12 @@ function updateModifier(evt){
 					var name = el.querySelector('input[name=name]').value;
 					var newVariable = {'column':parseInt(col),'type':type,'row':'0'};
 					modifiers[i].options.variables[name] = newVariable;
-					console.log(modifiers[i].options.variables);
 					
 					var ell = el.parentNode.querySelector('#allVariables');
 					var ellc = ell.children;
 					var elExists = false;
 					for (var ii in ellc){
+						console.log(ellc[ii]);
 						if (ellc[ii].getAttribute('name') == name){
 							ellc[ii].textContent = name + ' := ' + type + ' of ' + col;
 							elExists = true;
