@@ -127,9 +127,10 @@ function updateHeaders(initialData,chg=false) {
 			var ycvStr = '';
 			
 			for (var yid in yColsVals){
-			
+				
 				yColsVals[yid] = parseInt(yColsVals[yid]);
 				if (yColsVals[yid]< headers.length){
+					createLineDiv(yColsVals[yid],true);
 					ycvStr += yColsVals[yid]+', ';
 					var newColumn = document.createElement('span');
 					newColumn.textContent = headers[yColsVals[yid]];
@@ -238,7 +239,14 @@ function headerChg() {
 	var jsonmessage = {'operation':'options','nHeaders':nHeaders};
 	ws.send(JSON.stringify(jsonmessage));
 }
-function createLineDiv(id) {
+function createLineDiv(id,chg=false) {
+	if (chg){
+		var el = document.getElementById('lineStyleMenu');
+		var qstring = 'option[value="'+id+'"]';
+		el.querySelector(qstring).textContent = headers[id];
+		chgLineTab();
+		return
+	}
 	var el = document.createElement('div');
 	el.id = "lineStyleDiv"+id;
 	el.innerHTML = `
