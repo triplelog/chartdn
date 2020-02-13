@@ -736,18 +736,18 @@ function chgModify(mObject={}){
 		var m = modifiers[i];
 		if (!document.getElementById('edit'+m.id)) {continue;}
 		if (m.id == mObject.id){
-			if (document.getElementById(m.id).style.background != 'rgb(200,200,200)') {
+			if (document.getElementById(m.id).style.backgroundColor != 'rgb(200,200,200)') {
 				document.getElementById('edit'+m.id).style.display = 'block';
-				document.getElementById(m.id).style.background = 'rgb(200,200,200)';
+				document.getElementById(m.id).style.backgroundColor = 'rgb(200,200,200)';
 			}
 			else {
 				document.getElementById('edit'+m.id).style.display = 'none';
-				document.getElementById(m.id).style.background = 'white';
+				document.getElementById(m.id).style.backgroundColor = 'white';
 			}
 		}
 		else {
 			document.getElementById('edit'+m.id).style.display = 'none';
-			document.getElementById(m.id).style.background = 'white';
+			document.getElementById(m.id).style.backgroundColor = 'white';
 		}
 		
 	}
@@ -765,7 +765,7 @@ function clickModifier(evt){
 	}
 }
 
-function createMButtons(newH) {
+function createMButtons(newH,enabled) {
 	var newSpan = document.createElement('span');
 	newSpan.setAttribute('name','delete');
 	newSpan.classList.add('box-buttons');
@@ -776,9 +776,16 @@ function createMButtons(newH) {
 	newSpan.addEventListener('click',updateModifier);
 	newH.appendChild(newSpan);
 	newSpan = document.createElement('span');
-	newSpan.setAttribute('name','disable');
-	newSpan.classList.add('box-buttons');
-	newSpan.textContent = 'Disable';
+	if (enabled){
+		newSpan.setAttribute('name','disable');
+		newSpan.classList.add('box-buttons');
+		newSpan.textContent = 'Disable';
+	}
+	else {
+		newSpan.setAttribute('name','enable');
+		newSpan.classList.add('box-buttons');
+		newSpan.textContent = 'Enable';
+	}
 	newSpan.addEventListener('click',updateModifier);
 	newH.appendChild(newSpan);
 }
@@ -805,7 +812,7 @@ function createPivot(obj) {
 	newI.setAttribute('type','text');
 	newI.setAttribute('value','Pivot');
 	newH.appendChild(newI);
-	createMButtons(newH);
+	createMButtons(newH,obj.enabled);
 	newM.appendChild(newH);
 	
 	
@@ -872,7 +879,7 @@ function createReplace(obj) {
 	newI.setAttribute('type','text');
 	newI.setAttribute('value','Name of Modifier');
 	newH.appendChild(newI);
-	createMButtons(newH);
+	createMButtons(newH,obj.enabled);
 	newM.appendChild(newH);
 
 	var newB = document.createElement('div');
@@ -933,7 +940,7 @@ function createSort(obj) {
 	newI.setAttribute('type','text');
 	newI.setAttribute('value','Sort by ...');
 	newH.appendChild(newI);
-	createMButtons(newH);
+	createMButtons(newH,obj.enabled);
 	newM.appendChild(newH);
 						
 	var newB = document.createElement('div');
@@ -975,7 +982,7 @@ function createNew(obj) {
 	newT.textContent = 'New Column: ' + obj.name;
 	newT.setAttribute('name','title');
 	newH.appendChild(newT);
-	createMButtons(newH);
+	createMButtons(newH,obj.enabled);
 	
 	newM.appendChild(newH);
 	
@@ -1066,7 +1073,7 @@ function createIgnore(obj) {
 	newI.setAttribute('type','text');
 	newI.setAttribute('value','Ignore if ...');
 	newH.appendChild(newI);
-	createMButtons(newH);
+	createMButtons(newH,obj.enabled);
 	
 	newM.appendChild(newH);
 					
