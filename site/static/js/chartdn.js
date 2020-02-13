@@ -736,6 +736,7 @@ function chgModify(mObject={}){
 		var m = modifiers[i];
 		if (!document.getElementById('edit'+m.id)) {continue;}
 		if (m.id == mObject.id){
+			console.log(document.getElementById(m.id).style.backgroundColor);
 			if (document.getElementById(m.id).style.backgroundColor != 'rgb(200,200,200)') {
 				document.getElementById('edit'+m.id).style.display = 'block';
 				document.getElementById(m.id).style.backgroundColor = 'rgb(200,200,200)';
