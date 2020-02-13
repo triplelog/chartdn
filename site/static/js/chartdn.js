@@ -140,7 +140,7 @@ function createLineDiv(id) {
 	
 	var newEl = document.createElement('option');
 	newEl.value = id;
-	newEl.textContent = id;
+	newEl.textContent = headers[id];
 	document.getElementById('lineStyleMenu').appendChild(newEl);
 	
 	chgLineTab();
@@ -386,6 +386,7 @@ drake.on('drop', function (el, target, source, sibling) {
 		
 		var ycvStr = '';
 		var oldId = -1;
+		var newId = -1
 		for (var yid in yColsVals){
 			if (elid == yColsVals[yid]){
 				oldId = yid;
@@ -394,18 +395,20 @@ drake.on('drop', function (el, target, source, sibling) {
 				ycvStr += yColsVals[yid]+', ';
 			}
 		}
-		if (oldId != -1){yColsVals.splice(oldId,1);}
+		if (oldId != -1){
+			yColsVals.splice(oldId,1);
+		}
 		else {
 			createLineDiv(elid);
 		}
-		document.getElementById('lineStyleMenu').value = elid;
-		chgLineTab();
+		
 		
 		if (!sibling){
 			
+			newId = yColsVals.length;
 			yColsVals.push(elid);
 			ycvStr += elid+', ';
-			
+
 		}
 		else {
 			
@@ -424,6 +427,9 @@ drake.on('drop', function (el, target, source, sibling) {
 		}
 		document.getElementById('yColsVal').value = ycvStr.substring(0,ycvStr.length-2);
 		columnsChg();
+		
+		document.getElementById('lineStyleMenu').value = newId;
+		chgLineTab();
 		
 	}
 });
