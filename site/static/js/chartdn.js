@@ -957,9 +957,7 @@ function createNewModifier(show=false) {
 	var ell = el.querySelector('option:checked');
 	if (show){
 		el.style.display = 'inline-block';
-		ell.checked = false;
-		var elll = el.querySelector('option[value=""]');
-		elll.checked = true;
+		el.selectedIndex = 0;
 		return;
 	}
 
@@ -993,9 +991,7 @@ function createNewModifier(show=false) {
 			createPivot(oldObject);
 		}
 		el.style.display = 'none';
-		ell.checked = false;
-		var elll = el.querySelector('option[value=""]');
-		elll.checked = true;
+		el.selectedIndex = 0;
 		modifiers.push(oldObject);
 		
 		chgModify(oldObject);
