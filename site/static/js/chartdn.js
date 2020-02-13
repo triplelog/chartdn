@@ -48,10 +48,14 @@ var dataSourceSize = 'large';
 
 // Change Tab of which line to style
 function chgLineTab(){
-
+	
+	/*
 	lineId = document.getElementById('lineStyleMenu').querySelector('*:checked').value;
 	if (lineId == -1){lineId = 0;}
 	var colid = yColsVals[lineId];
+	*/
+	var colid = document.getElementById('lineStyleMenu').querySelector('*:checked').value;
+
 	
 	var lineDivs = document.getElementById('lineStyleDivs').children;
 	for (var i=0;i<lineDivs.length;i++){
@@ -428,7 +432,7 @@ drake.on('drop', function (el, target, source, sibling) {
 		document.getElementById('yColsVal').value = ycvStr.substring(0,ycvStr.length-2);
 		columnsChg();
 		
-		document.getElementById('lineStyleMenu').value = newId;
+		document.getElementById('lineStyleMenu').value = elid;
 		chgLineTab();
 		
 	}
