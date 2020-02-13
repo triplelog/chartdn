@@ -158,7 +158,6 @@ function postfixify(input_str) {
 function solvePostfix(intstr,expstr){
 	var resultStack = [];
 	var idx = 0;
-	console.log(intstr,expstr);
 	for(var i = 0; i < expstr.length; i++) {
 		if(expstr[i]=='#') {
 			resultStack.push(intstr[idx]);
@@ -446,8 +445,9 @@ exports.ignore = function(array,options) {
 	var formula = options.formula;
 	if (!formula || formula == ''){return;}
 	var vars = options.variables;
+	console.log(formula);
 	var bothparts = postfixify(formula);
-	
+	console.log(bothparts);
 	var skipRows = [];
 	
 	var fullmap = {};
