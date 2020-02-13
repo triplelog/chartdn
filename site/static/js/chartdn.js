@@ -914,7 +914,7 @@ function createNew(obj) {
 	newBB.classList.add('pure-g');
 	
 	var newBBB = document.createElement('div');
-	newBBB.classList.add('pure-u-1-2');
+	newBBB.classList.add('pure-u-1-3');
 	
 	var newI = document.createElement('input');
 	newI.setAttribute('type','text');
@@ -926,6 +926,7 @@ function createNew(obj) {
 	newI = document.createElement('textarea');
 	newI.setAttribute('rows','1');
 	newI.setAttribute('cols','40');
+	newI.style.zIndex = '2';
 	newI.setAttribute('name','formula')
 	newI.addEventListener('change',updateModifier);
 	newBBB.appendChild(newI);
@@ -934,9 +935,16 @@ function createNew(obj) {
 
 	
 	newBBB = document.createElement('div');
-	newBBB.classList.add('pure-u-1-2');
+	newBBB.classList.add('pure-u-2-3');
 	var newD = document.createElement('div');
 	newD.id = 'allVariables';
+	for (var i in obj.options.variables){
+		var objVar = obj.options.variables[i];
+		var newEl = document.createElement('div');
+		newEl.textContent = objVar.name + ' := ' + objVar.type + ' of ' + objVar.col;
+		newEl.setAttribute('name',objVar.name);
+		newD.appendChild(newEl);
+	}
 	newBBB.appendChild(newD);
 	
 	newD = document.createElement('div');
