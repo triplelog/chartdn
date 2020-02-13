@@ -558,7 +558,10 @@ function createNewColumnBox(id) {
 		varR.id = 'equalRow'+id;
 		
 		var varRL = document.createElement('label');
+		var varRI = document.createElement('input');
+		varRI.setAttribute('type','text');
 		varRL.textContent = 'Row =';
+		varRL.appendChild(varRI);
 		varRL.setAttribute('for','equalRow'+id);
 		
 		newDiv.appendChild(varR);
