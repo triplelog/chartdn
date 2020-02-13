@@ -30,6 +30,10 @@ ws.onmessage = function(evt){
 		}
 		updateModifiedTable(dm.mdata);
 	}
+	else if (dm.operation == 'headers'){
+		headers = dm.message;
+		console.log(headers);
+	}
 }
 
 
