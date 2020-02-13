@@ -620,24 +620,25 @@ function updateModifier(evt){
 					modifiers[i].options.full = el.checked;
 				}
 			}
-			else if (mType == 'new'){
+			else if (mType == 'new' || mType == 'ignore'){
 				if (el.getAttribute('name')=='formula'){
 					modifiers[i].options.formula = el.value;
 				}
 				else if (evt.target.getAttribute('name')=='add'){
-					var col = el.querySelector('select[name=column] > option:checked').value;
-					var type = el.querySelector('select[name=type] > option:checked').value;
-					var name = el.querySelector('input[name=name]').value;
+					var ell = el.parentNode;
+					var col = ell.querySelector('select[name=column] > option:checked').value;
+					var type = ell.querySelector('select[name=type] > option:checked').value;
+					var name = ell.querySelector('input[name=name]').value;
 					var newVariable = {'column':parseInt(col),'type':type,'row':'0'};
 					modifiers[i].options.variables[name] = newVariable;
 					console.log(modifiers[i].options.variables);
 					
-					var ell = el.parentNode.querySelector('#allVariables');
-					var ellc = ell.children;
+					var elll = ell.parentNode.querySelector('#allVariables');
+					var elllc = elll.children;
 					var elExists = false;
-					for (var ii=0;ii<ellc.length;ii++){
-						if (ellc[ii].getAttribute('name') == name){
-							ellc[ii].textContent = name + ' := ' + type + ' of ' + col;
+					for (var ii=0;ii<elllc.length;ii++){
+						if (elllc[ii].getAttribute('name') == name){
+							elllc[ii].textContent = name + ' := ' + type + ' of ' + col;
 							elExists = true;
 							break;
 						}
@@ -646,38 +647,9 @@ function updateModifier(evt){
 						var newEl = document.createElement('div');
 						newEl.textContent = name + ' := ' + type + ' of ' + col;
 						newEl.setAttribute('name',name);
-						ell.appendChild(newEl);
+						elll.appendChild(newEl);
 					}
 					
-				}
-			}
-			else if (mType == 'ignore'){
-				if (el.getAttribute('name')=='formula'){
-					modifiers[i].options.formula = el.value;
-				}
-				else if (evt.target.getAttribute('name')=='add'){
-					var col = el.querySelector('select[name=column] > option:checked').value;
-					var type = el.querySelector('select[name=type] > option:checked').value;
-					var name = el.querySelector('input[name=name]').value;
-					var newVariable = {'column':parseInt(col),'type':type,'row':'0'};
-					modifiers[i].options.variables[name] = newVariable;
-					
-					var ell = el.parentNode.querySelector('#allVariables');
-					var ellc = ell.children;
-					var elExists = false;
-					for (var ii=0;ii<ellc.length;ii++){
-						if (ellc[ii].getAttribute('name') == name){
-							ellc[ii].textContent = name + ' := ' + type + ' of ' + col;
-							elExists = true;
-							break;
-						}
-					}
-					if (!elExists){
-						var newEl = document.createElement('div');
-						newEl.textContent = name + ' := ' + type + ' of ' + col;
-						newEl.setAttribute('name',name);
-						ell.appendChild(newEl);
-					}
 				}
 			}
 			break;
