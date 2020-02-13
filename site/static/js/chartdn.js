@@ -507,23 +507,33 @@ function createNewColumnBox(id) {
 	varDiv.appendChild(varColumn);
 	
 	var newDiv = document.createElement('div');
-	
+		
+		var varR = document.createElement('input');
+		varR.setAttribute('type','radio');
+		varR.setAttribute('name','row');
+		varR.setAttribute('checked','checked');
+		varR.setAttribute('value','current');
+		varR.id = 'currentRow';
+			
 		var varRL = document.createElement('label');
 		varRL.textContent = 'Current Row';
-			var varR = document.createElement('input');
-			varR.setAttribute('type','radio');
-			varR.setAttribute('name','row');
-			varR.setAttribute('value','current');
-		varRL.appendChild(varR);
+		varR.setAttribute('for','currentRow');
+			
+		newDiv.appendChild(varR);
 		newDiv.appendChild(varRL);
 	
+		
+		var varR = document.createElement('input');
+		varR.setAttribute('type','radio');
+		varR.setAttribute('name','row');
+		varR.setAttribute('value','previous');
+		varR.id = 'previousRow';
+		
 		var varRL = document.createElement('label');
 		varRL.textContent = 'Previous Row';
-			var varR = document.createElement('input');
-			varR.setAttribute('type','radio');
-			varR.setAttribute('name','row');
-			varR.setAttribute('value','previous');
-		varRL.appendChild(varR);
+		varR.setAttribute('for','previousRow');
+		
+		newDiv.appendChild(varR);
 		newDiv.appendChild(varRL);
 		
 		var varRL = document.createElement('label');
