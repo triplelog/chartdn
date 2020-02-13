@@ -956,7 +956,7 @@ function createNewModifier(show=false) {
 	var el = document.getElementById('createModifyMenu');
 	var ell = el.querySelector('option:checked');
 	if (show){
-		el.style.display = 'block';
+		el.style.display = 'inline-block';
 		ell.checked = false;
 		var elll = el.querySelector('option[value=""]');
 		elll.checked = true;
