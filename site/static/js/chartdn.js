@@ -475,6 +475,7 @@ function createNewColumnBox(id) {
 	var varDiv = el.querySelector('#newVariables');
 	var varName = document.createElement('input');
 	varName.setAttribute('type','text');
+	varName.setAttribute('name','name');
 	varDiv.appendChild(varName);
 	
 	var span1 = document.createElement('span');
@@ -482,6 +483,7 @@ function createNewColumnBox(id) {
 	varDiv.appendChild(span1);
 	
 	var varValue = document.createElement('select');
+	varValue.setAttribute('name','type');
 	var valueOptions = ['value','mean','median','max','min','sum','stdev','count'];
 	for (var i=0;i<valueOptions.length;i++){
 		var varOption = document.createElement('option');
@@ -496,6 +498,8 @@ function createNewColumnBox(id) {
 	varDiv.appendChild(span2);
 	
 	var varColumn = document.createElement('select');
+	varColumn.setAttribute('name','column');
+	
 	var valueOptions = [0,1,2];
 	for (var i=0;i<valueOptions.length;i++){
 		var varOption = document.createElement('option');
@@ -504,6 +508,11 @@ function createNewColumnBox(id) {
 		varColumn.appendChild(varOption);
 	}
 	varDiv.appendChild(varColumn);
+	var varB = document.createElement('a');
+	varB.setAttribute('name','add');
+	varB.textContent = 'Add';
+	varB.addEventListener('change',updateModifier);
+	varDiv.appendChild(varB);
 }
 
 
@@ -604,6 +613,21 @@ function updateModifier(evt){
 				}
 				else if (el.getAttribute('name')=='full'){
 					modifiers[i].options.full = el.checked;
+				}
+			}
+			else if (mType == 'new'){
+				if (el.getAttribute('name')=='formula'){
+					modifiers[i].options.formula = el.value;
+				}
+				else if (el.getAttribute('name')=='add'){
+					var ell = el.parentNode;
+					console.log(ell);
+					var col = ell.querySelector('select[name=column]').value;
+					var type = ell.querySelector('select[name=type]').value;
+					var name = ell.querySelector('select[name=name]').value;
+					var newVariable = {'column':col,'type':type,'row':0};
+					modifiers[i].options.variables[name] = newVariable;
+					console.log(modifiers[i].options.variables);
 				}
 			}
 			break;
@@ -902,6 +926,7 @@ function createNew(obj) {
 	newI = document.createElement('textarea');
 	newI.setAttribute('rows','1');
 	newI.setAttribute('cols','40');
+	newI.setAttribute('name','formula')
 	newI.addEventListener('change',updateModifier);
 	newB.appendChild(newI);
 	var newD = document.createElement('div');
