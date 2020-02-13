@@ -919,7 +919,7 @@ function createNew(obj) {
 	var newI = document.createElement('input');
 	newI.setAttribute('type','text');
 	newI.setAttribute('name','name');
-	newI.setAttribute('value','Name of Column');
+	newI.setAttribute('value',obj.name);
 	newI.addEventListener('change',updateModifier);
 	newBBB.appendChild(newI);
 	
@@ -927,8 +927,12 @@ function createNew(obj) {
 	newI.setAttribute('rows','1');
 	newI.setAttribute('cols','30');
 	newI.style.zIndex = '2';
-	newI.setAttribute('name','formula')
+	newI.setAttribute('name','formula');
+	newI.setAttribute('value',obj.formula);
 	newI.addEventListener('change',updateModifier);
+	newBBB.appendChild(newI);
+	newI = document.createElement('div');
+	newI.setAttribute('name','katex');
 	newBBB.appendChild(newI);
 	newBB.appendChild(newBBB);
 	
@@ -941,7 +945,7 @@ function createNew(obj) {
 	for (var i in obj.options.variables){
 		var objVar = obj.options.variables[i];
 		var newEl = document.createElement('div');
-		newEl.textContent = objVar.name + ' := ' + objVar.type + ' of ' + objVar.col;
+		newEl.textContent = i + ' := ' + objVar.type + ' of ' + objVar.column;
 		newEl.setAttribute('name',objVar.name);
 		newD.appendChild(newEl);
 	}
