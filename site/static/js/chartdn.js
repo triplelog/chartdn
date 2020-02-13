@@ -1058,7 +1058,7 @@ drakeF.on('drag', function (el, target, source, sibling) {
 		}
 		
 	}
-}
+});
 
 // Minimize and Maximize elements
 function minimizeBox(boxid){
