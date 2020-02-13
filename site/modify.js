@@ -282,7 +282,7 @@ exports.newColumn = function(array,options) {
 		var intstr = [];
 		for (var ii in bothparts[0]){
 			if(fullmap[bothparts[0][ii]]){
-				intstr.push(rowmap[bothparts[0][ii]]);
+				intstr.push(fullmap[bothparts[0][ii]]);
 			}
 			else if(rowmap[bothparts[0][ii]]){
 				intstr.push(rowmap[bothparts[0][ii]]);
