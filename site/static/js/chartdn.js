@@ -736,10 +736,9 @@ function chgModify(mObject={}){
 		var m = modifiers[i];
 		if (!document.getElementById('edit'+m.id)) {continue;}
 		if (m.id == mObject.id){
-			if (document.getElementById(m.id).style.backgroundColor.toString() != 'rgb(200,200,200)') {
-				console.log(document.getElementById(m.id).style.backgroundColor.toString());
+			if (document.getElementById(m.id).style.backgroundColor != 'rgb(200, 200, 200)') {
 				document.getElementById('edit'+m.id).style.display = 'block';
-				document.getElementById(m.id).style.backgroundColor = 'rgb(200,200,200)';
+				document.getElementById(m.id).style.backgroundColor = 'rgb(200, 200, 200)';
 			}
 			else {
 				document.getElementById('edit'+m.id).style.display = 'none';
