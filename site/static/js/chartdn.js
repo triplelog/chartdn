@@ -625,7 +625,7 @@ function updateModifier(evt){
 					console.log(modifiers[i].options.variables);
 					
 					var ell = el.parentNode.querySelector('#allVariables');
-					var ellc = el.children;
+					var ellc = ell.children;
 					var elExists = false;
 					for (var ii in ellc){
 						if (ellc[ii].getAttribute('name') == name){
@@ -656,7 +656,7 @@ function updateModifier(evt){
 					console.log(modifiers[i].options.variables);
 					
 					var ell = el.parentNode.querySelector('#allVariables');
-					var ellc = el.children;
+					var ellc = ell.children;
 					var elExists = false;
 					for (var ii in ellc){
 						if (ellc[ii].getAttribute('name') == name){
