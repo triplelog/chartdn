@@ -609,7 +609,6 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 						});
 						var jsonmessage = {'operation':'headers','message':data.headers};
 						ws.send(JSON.stringify(jsonmessage));
-						break;
 					}
 					else {
 						for (var i in data.headers){
