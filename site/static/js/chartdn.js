@@ -632,8 +632,6 @@ function clickModifier(evt){
 	else {id = evt;}
 	for (var i in modifiers){
 		if (modifiers[i].id==id){
-			//modifiers['enabled'][i]['options']['x']=7;
-			var mType = modifiers[i].type;
 			chgModify(modifiers[i]);
 			return;
 
@@ -1032,8 +1030,7 @@ drakeF.on('drop', function (el, target, source, sibling) {
 			console.log("shouldn't be here")
 			
 		}
-		
-		chgModify(oldObject);
+
 		
 
 		if (sibling){
@@ -1051,8 +1048,17 @@ drakeF.on('drop', function (el, target, source, sibling) {
 		modifierChg();
 	}
 });
-
-
+drakeF.on('drag', function (el, target, source, sibling) { 
+	if (target.id == 'allModifiers') {
+		for (var i in modifiers){
+			if (modifiers[i].id==el.id){
+				chgModify(modifiers[i]);
+				break;
+			}
+		}
+		
+	}
+}
 
 // Minimize and Maximize elements
 function minimizeBox(boxid){
