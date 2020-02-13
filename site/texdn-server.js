@@ -549,7 +549,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers) {
 			}
 			//Update columns in create chart
 		}
-		else if (modifiers[i].type == 'new'){
+		else if (modifiers[i].type == 'ignore'){
 			modJS.ignore(rawArray,modifiers[i].options);
 		}
 		else if (modifiers[i].type == 'sort'){
