@@ -623,7 +623,7 @@ function updateModifier(evt){
 					var col = el.querySelector('select[name=column] > option:checked').value;
 					var type = el.querySelector('select[name=type] > option:checked').value;
 					var name = el.querySelector('input[name=name]').value;
-					var newVariable = {'column':parseInt(col),'type':type,'row':0};
+					var newVariable = {'column':parseInt(col),'type':type,'row':'0'};
 					modifiers[i].options.variables[name] = newVariable;
 					console.log(modifiers[i].options.variables);
 				}
