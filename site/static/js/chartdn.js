@@ -616,19 +616,23 @@ function updateModifier(evt){
 				}
 			}
 			else if (mType == 'new'){
-				console.log(el);
 				if (el.getAttribute('name')=='formula'){
 					modifiers[i].options.formula = el.value;
 				}
 				else if (el.getAttribute('name')=='add'){
 					var ell = el.parentNode;
 					console.log(ell);
-					var col = ell.querySelector('select[name=column]').value;
+					var col = ell.querySelector('select[name=column]');
+					console.log(col);
+					console.log(col.value);
+					/*
+					.value;
 					var type = ell.querySelector('select[name=type]').value;
 					var name = ell.querySelector('select[name=name]').value;
 					var newVariable = {'column':col,'type':type,'row':0};
 					modifiers[i].options.variables[name] = newVariable;
 					console.log(modifiers[i].options.variables);
+					*/
 				}
 			}
 			break;
