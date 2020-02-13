@@ -510,14 +510,14 @@ function createNewColumnBox(id) {
 		
 		var varR = document.createElement('input');
 		varR.setAttribute('type','radio');
-		varR.setAttribute('name','row');
+		varR.setAttribute('name','row'+id);
 		varR.setAttribute('checked','checked');
 		varR.setAttribute('value','current');
-		varR.id = 'currentRow';
+		varR.id = 'currentRow'+id;
 			
 		var varRL = document.createElement('label');
 		varRL.textContent = 'Current Row';
-		varRL.setAttribute('for','currentRow');
+		varRL.setAttribute('for','currentRow'+id);
 			
 		newDiv.appendChild(varR);
 		newDiv.appendChild(varRL);
@@ -525,13 +525,13 @@ function createNewColumnBox(id) {
 		
 		var varR = document.createElement('input');
 		varR.setAttribute('type','radio');
-		varR.setAttribute('name','row');
+		varR.setAttribute('name','row'+id);
 		varR.setAttribute('value','previous');
-		varR.id = 'previousRow';
+		varR.id = 'previousRow'+id;
 		
 		var varRL = document.createElement('label');
 		varRL.textContent = 'Previous Row';
-		varRL.setAttribute('for','previousRow');
+		varRL.setAttribute('for','previousRow'+id);
 		
 		newDiv.appendChild(varR);
 		newDiv.appendChild(varRL);
@@ -539,13 +539,13 @@ function createNewColumnBox(id) {
 		
 		var varR = document.createElement('input');
 		varR.setAttribute('type','radio');
-		varR.setAttribute('name','row');
+		varR.setAttribute('name','row'+id);
 		varR.setAttribute('value','next');
-		varR.id = 'nextRow';
+		varR.id = 'nextRow'+id;
 		
 		var varRL = document.createElement('label');
 		varRL.textContent = 'Next Row';
-		varRL.setAttribute('for','nextRow');
+		varRL.setAttribute('for','nextRow'+id);
 		
 		newDiv.appendChild(varR);
 		newDiv.appendChild(varRL);
@@ -553,13 +553,13 @@ function createNewColumnBox(id) {
 		
 		var varR = document.createElement('input');
 		varR.setAttribute('type','radio');
-		varR.setAttribute('name','row');
+		varR.setAttribute('name','row'+id);
 		varR.setAttribute('value','equal');
-		varR.id = 'equalRow';
+		varR.id = 'equalRow'+id;
 		
 		var varRL = document.createElement('label');
 		varRL.textContent = 'Row =';
-		varRL.setAttribute('for','equalRow');
+		varRL.setAttribute('for','equalRow'+id);
 		
 		newDiv.appendChild(varR);
 		newDiv.appendChild(varRL);
