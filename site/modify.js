@@ -437,9 +437,8 @@ exports.pivot = function(array,options,hArray) {
 			hArrayNew[i].push(hArray[i][options.pivot]);
 		}
 		for (var ii in options.columns) {
-			hArrayNew[i].push(hArray[i][options.columns[ii]]);
+			hArrayNew[i].push(hArray[i][options.columns[ii].column]);
 		}
-		console.log(i,hArray[i],hArrayNew[i]);
 	}
 	idx = 0;
 	console.log(hArray);
@@ -454,8 +453,6 @@ exports.pivot = function(array,options,hArray) {
 		if (iidx<hArray[idx].length){hArray[idx].splice(iidx,hArray[idx].length-iidx);}
 		idx++;
 	}
-	console.log(hArray);
-	console.log(hArrayNew);
 	if (idx<hArray.length){hArray.splice(idx,hArray.length-idx);}
 	console.log(hArray);
 	console.log(hArrayNew);
