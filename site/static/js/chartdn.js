@@ -621,13 +621,10 @@ function updateModifier(evt){
 				}
 				else if (evt.target.getAttribute('name')=='add'){
 					console.log(el);
-					var col = el.querySelector('select[name=column]');
+					var col = el.querySelector('select[name=column] > option:checked').value;
 					console.log(col);
-					console.log(col.value);
-					/*
-					.value;
-					var type = ell.querySelector('select[name=type]').value;
-					var name = ell.querySelector('select[name=name]').value;
+					var type = el.querySelector('select[name=type] > option:checked').value;
+					var name = el.querySelector('select[name=name]').value;
 					var newVariable = {'column':col,'type':type,'row':0};
 					modifiers[i].options.variables[name] = newVariable;
 					console.log(modifiers[i].options.variables);
