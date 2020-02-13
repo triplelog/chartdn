@@ -946,12 +946,10 @@ function createNew(obj) {
 	newI.addEventListener('change',updateModifier);
 	newBBB.appendChild(newI);
 	newBB.appendChild(newBBB);
-	newB.appendChild(newBB);
 	
-	var newBB = document.createElement('div');
-	newBB.classList.add('pure-g');
+
 	
-	var newBBB = document.createElement('div');
+	newBBB = document.createElement('div');
 	newBBB.classList.add('pure-u-1-2');
 	var newD = document.createElement('div');
 	newD.id = 'allVariables';
@@ -961,6 +959,7 @@ function createNew(obj) {
 	newD.id = 'newVariables';
 	newBBB.appendChild(newD);
 	newBB.appendChild(newBBB);
+	
 	newB.appendChild(newBB);
 	newM.appendChild(newB);
 	
