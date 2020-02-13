@@ -933,6 +933,9 @@ function createNew(obj) {
 	newBBB.appendChild(newI);
 	newI = document.createElement('div');
 	newI.setAttribute('name','katex');
+	katex.render(obj.options.formula, newI, {
+		throwOnError: false
+	});
 	newBBB.appendChild(newI);
 	newBB.appendChild(newBBB);
 	
