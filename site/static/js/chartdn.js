@@ -32,7 +32,7 @@ ws.onmessage = function(evt){
 	}
 	else if (dm.operation == 'headers'){
 		headers = dm.message;
-		console.log(headers);
+		updateHeaders();
 	}
 }
 
@@ -49,6 +49,49 @@ var yColsVals = [];
 var headers = [];
 var lineId = 0;
 var dataSourceSize = 'large';
+
+//Update Headers
+function updateHeaders() {
+	var allColumns = document.getElementById('allColumns');
+	allColumns.innerHTML = '';
+	for (var i=0;i<headers.length;i++){
+		var newColumn = document.createElement('span');
+		newColumn.textContent = headers[i];
+		newColumn.id = 'colId'+i;
+		newColumn.style.display = 'block';
+		allColumns.appendChild(newColumn);
+	}
+	/*
+	if (document.getElementById('xColVal').value != ''){
+		var xcv = parseInt(document.getElementById('xColVal').value);
+		document.getElementById('xColumn').innerHTML = '';
+		var newColumn = document.createElement('span');
+		newColumn.textContent = headers[xcv];
+		newColumn.id = 'colId'+xcv;
+		newColumn.style.display = 'block';
+		document.getElementById('xColumn').appendChild(newColumn);
+	}
+	if (document.getElementById('yColsVal').value != ''){
+		yColsVals = document.getElementById('yColsVal').value.split(',');
+		document.getElementById('yColumns').innerHTML = '';
+		var ycvStr = '';
+		for (var yid in yColsVals){
+			createLineDiv(yColsVals[yid]);
+			
+			yColsVals[yid] = parseInt(yColsVals[yid]);
+			ycvStr += yColsVals[yid]+', ';
+			var newColumn = document.createElement('span');
+			newColumn.textContent = headers[yColsVals[yid]];
+			newColumn.id = 'colId'+yColsVals[yid];
+			newColumn.style.display = 'block';
+			document.getElementById('yColumns').appendChild(newColumn);
+		}
+		chgLineTab();
+		chgModify();
+		document.getElementById('yColsVal').value = ycvStr.substring(0,ycvStr.length-2);
+		
+	}*/
+}
 
 // Change Tab of which line to style
 function chgLineTab(){
