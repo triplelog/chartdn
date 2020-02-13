@@ -928,7 +928,7 @@ function createNew(obj) {
 	newI.setAttribute('cols','30');
 	newI.style.zIndex = '2';
 	newI.setAttribute('name','formula');
-	newI.setAttribute('value',obj.options.formula);
+	newI.value = obj.options.formula;
 	newI.addEventListener('change',updateModifier);
 	newBBB.appendChild(newI);
 	newI = document.createElement('div');
