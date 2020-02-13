@@ -628,7 +628,7 @@ function updateModifier(evt){
 					var ellc = el.children;
 					var elExists = false;
 					for (var ii in ellc){
-						if (ellc[ii].name == name){
+						if (ellc[ii].getAttribute('name') == name){
 							ellc[ii].textContent = name + ' := ' + type + ' of ' + col;
 							elExists = true;
 							break;
@@ -659,7 +659,7 @@ function updateModifier(evt){
 					var ellc = el.children;
 					var elExists = false;
 					for (var ii in ellc){
-						if (ellc[ii].name == name){
+						if (ellc[ii].getAttribute('name') == name){
 							ellc[ii].textContent = name + ' := ' + type + ' of ' + col;
 							elExists = true;
 							break;
