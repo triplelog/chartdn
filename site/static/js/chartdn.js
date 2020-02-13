@@ -988,7 +988,7 @@ function createNewModifier(show=false) {
 		var id = Math.random().toString(36).substr(2, 8);
 		var oldObject = {'id':id,'name':mType,'type':mType,'options':{},'enabled':true};
 		if (mType == 'new'){
-			oldObject.options = {'formula':'a+b','variables':{'a':{'column':1,'type':'value','row':'0'}, 'b':{'column':2,'type':'value','row':'0'}}};
+			oldObject.options = {'formula':'','variables':{}};
 			createNew(oldObject);
 		}
 		else if (mType == 'sort'){

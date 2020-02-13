@@ -214,8 +214,57 @@ exports.toData = function(array){
 exports.newColumn = function(array,options) {
 	toData(array);
 	var formula = options.formula;
+	if (!formula || formula == ''){return;}
 	var vars = options.variables;
 	var bothparts = postfixify(formula);
+	
+	var fullmap = {};
+	for (var ii in vars){
+		if (vars[ii].type=='mean'){
+			var sum = 0;
+			var n = 0;
+			for (var i in array){
+				sum += parseInt(array[i][vars[ii].column]);
+				n += 1;
+			}
+			if (n > 0){
+				fullmap[ii.toUpperCase()]=sum/n;
+			}
+		}
+		else if (vars[ii].type=='count'){
+			var n = 0;
+			for (var i in array){
+				n += 1;
+			}
+			fullmap[ii.toUpperCase()]=n;
+		}
+		else if (vars[ii].type=='sum'){
+			var sum = 0;
+			for (var i in array){
+				sum += parseInt(array[i][vars[ii].column]);
+			}
+			fullmap[ii.toUpperCase()]=sum;
+		}
+		else if (vars[ii].type=='max'){
+			var max = parseInt(array[0][vars[ii].column]);
+			for (var i in array){
+				if (parseInt(array[i][vars[ii].column]) > max){
+					max = parseInt(array[i][vars[ii].column]);
+				}
+			}
+			fullmap[ii.toUpperCase()]=max;
+		}
+		else if (vars[ii].type=='min'){
+			var min = parseInt(array[0][vars[ii].column]);
+			for (var i in array){
+				if (parseInt(array[i][vars[ii].column]) < min){
+					min = parseInt(array[i][vars[ii].column]);
+				}
+			}
+			fullmap[ii.toUpperCase()]=min;
+		}
+	}
+		
 	for (var i in array){
 		var rowmap = {};
 		for (var ii in vars){
@@ -232,7 +281,10 @@ exports.newColumn = function(array,options) {
 		}
 		var intstr = [];
 		for (var ii in bothparts[0]){
-			if(rowmap[bothparts[0][ii]]){
+			if(fullmap[bothparts[0][ii]]){
+				intstr.push(rowmap[bothparts[0][ii]]);
+			}
+			else if(rowmap[bothparts[0][ii]]){
 				intstr.push(rowmap[bothparts[0][ii]]);
 			}
 			else {
@@ -243,7 +295,7 @@ exports.newColumn = function(array,options) {
 		array[i].push(answer);
 
 	}
-} // Improve postfix, get more values, error handling, add if col>0
+} // Improve postfix, add median and stdev, get more values, data types, error handling, add if col>0
 
 exports.sort = function(array,options) {
 	toData(array);
