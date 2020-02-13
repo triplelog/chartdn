@@ -461,6 +461,10 @@ drake.on('remove', function (el, target, source) {
 			document.getElementById('yColsVal').value = '';
 		}
 		columnsChg();
+		
+		var ell = document.getElementById('lineStyleMenu').querySelector('option[value='+elid+']');
+		console.log(ell);
+		ell.parentNode.removeElement(ell);
 	}
 });
 
