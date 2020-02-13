@@ -925,7 +925,7 @@ function createNew(obj) {
 	
 	newI = document.createElement('textarea');
 	newI.setAttribute('rows','1');
-	newI.setAttribute('cols','40');
+	newI.setAttribute('cols','30');
 	newI.style.zIndex = '2';
 	newI.setAttribute('name','formula')
 	newI.addEventListener('change',updateModifier);
