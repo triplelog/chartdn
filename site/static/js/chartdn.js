@@ -104,7 +104,20 @@ function updateHeaders(initialData,chg=false) {
 		}
 	}
 	else {
-		console.log(chg);
+		if (document.getElementById('xColVal').value != ''){
+			var xcv = parseInt(document.getElementById('xColVal').value);
+			document.getElementById('xColumn').innerHTML = '';
+			if (chg[xcv] == headers[xcv]){
+				var newColumn = document.createElement('span');
+				newColumn.textContent = headers[xcv];
+				newColumn.id = 'colId'+xcv;
+				newColumn.style.display = 'block';
+				document.getElementById('xColumn').appendChild(newColumn);
+			}
+			else {
+				console.log('changed');
+			}
+		}
 	}
 }
 
