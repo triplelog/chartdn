@@ -177,6 +177,20 @@ function solvePostfix(intstr,expstr){
 				resultStack.push(Math.pow(parseInt(b), parseInt(a)));
 			} else if(expstr[i] === ">") {
 				resultStack.push(parseInt(b) > parseInt(a));
+			} else if(expstr[i] === "<") {
+				resultStack.push(parseInt(b) < parseInt(a));
+			} else if(expstr[i] === "]") {
+				resultStack.push(parseInt(b) >= parseInt(a));
+			} else if(expstr[i] === "[") {
+				resultStack.push(parseInt(b) <= parseInt(a));
+			} else if(expstr[i] === "=") {
+				resultStack.push(parseInt(b) == parseInt(a));
+			} else if(expstr[i] === "!") {
+				resultStack.push(parseInt(b) != parseInt(a));
+			} else if(expstr[i] === "&") {
+				resultStack.push(b && a);
+			} else if(expstr[i] === "|") {
+				resultStack.push(b || a);
 			}
 		}
 	}
@@ -445,9 +459,7 @@ exports.ignore = function(array,options) {
 	var formula = options.formula;
 	if (!formula || formula == ''){return;}
 	var vars = options.variables;
-	console.log(formula);
 	var bothparts = postfixify(formula);
-	console.log(bothparts);
 	var skipRows = [];
 	
 	var fullmap = {};
