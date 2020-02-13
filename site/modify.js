@@ -175,6 +175,8 @@ function solvePostfix(intstr,expstr){
 				resultStack.push(parseInt(b) / parseInt(a));
 			} else if(expstr[i] === "^") {
 				resultStack.push(Math.pow(parseInt(b), parseInt(a)));
+			} else if(expstr[i] === ">") {
+				resultStack.push(parseInt(b) > parseInt(a));
 			}
 		}
 	}
@@ -440,12 +442,95 @@ exports.pivot = function(array,options,hArray) {
 
 exports.ignore = function(array,options) {
 	toData(array);
+	var formula = options.formula;
+	if (!formula || formula == ''){return;}
+	var vars = options.variables;
+	var bothparts = postfixify(formula);
+	
 	var skipRows = [];
-	for (var i in array){
-		if (!array[i]){ //Make this a function from options
-			skipRows.push(i);
+	
+	var fullmap = {};
+	for (var ii in vars){
+		if (vars[ii].type=='mean'){
+			var sum = 0;
+			var n = 0;
+			for (var i in array){
+				sum += parseInt(array[i][vars[ii].column]);
+				n += 1;
+			}
+			if (n > 0){
+				fullmap[ii.toUpperCase()]=sum/n;
+			}
+		}
+		else if (vars[ii].type=='count'){
+			var n = 0;
+			for (var i in array){
+				n += 1;
+			}
+			fullmap[ii.toUpperCase()]=n;
+		}
+		else if (vars[ii].type=='sum'){
+			var sum = 0;
+			for (var i in array){
+				sum += parseInt(array[i][vars[ii].column]);
+			}
+			fullmap[ii.toUpperCase()]=sum;
+		}
+		else if (vars[ii].type=='max'){
+			var max = parseInt(array[0][vars[ii].column]);
+			for (var i in array){
+				if (parseInt(array[i][vars[ii].column]) > max){
+					max = parseInt(array[i][vars[ii].column]);
+				}
+			}
+			fullmap[ii.toUpperCase()]=max;
+		}
+		else if (vars[ii].type=='min'){
+			var min = parseInt(array[0][vars[ii].column]);
+			for (var i in array){
+				if (parseInt(array[i][vars[ii].column]) < min){
+					min = parseInt(array[i][vars[ii].column]);
+				}
+			}
+			fullmap[ii.toUpperCase()]=min;
 		}
 	}
+		
+	for (var i in array){
+		var rowmap = {};
+		for (var ii in vars){
+			if (vars[ii].type=='value'){
+				var row = parseInt(i);
+				if (vars[ii].row.indexOf('$')==0){
+					row = parseInt(vars[ii].row.substring(1));
+				}
+				else {
+					row += parseInt(vars[ii].row);
+				}
+				rowmap[ii.toUpperCase()]=parseInt(array[row][vars[ii].column]);
+			}
+		}
+		var intstr = [];
+		for (var ii in bothparts[0]){
+			if(fullmap[bothparts[0][ii]]){
+				intstr.push(fullmap[bothparts[0][ii]]);
+			}
+			else if(rowmap[bothparts[0][ii]]){
+				intstr.push(rowmap[bothparts[0][ii]]);
+			}
+			else {
+				intstr.push(bothparts[0][ii]);
+			}
+		}
+		var answer = solvePostfix(intstr,bothparts[1]);
+
+		if (answer){
+			skipRows.push(i);
+		}
+
+	}
+	
+	console.log(skipRows);
 	for (var i=skipRows.length-1;i>=0;i--){
 		array.splice(skipRows[i],1);
 	}
