@@ -624,6 +624,9 @@ function updateModifier(evt){
 				if (el.getAttribute('name')=='formula'){
 					modifiers[i].options.formula = el.value;
 				}
+				else if (el.getAttribute('name')=='name'){
+					modifiers[i].name = el.value;
+				}
 				else if (evt.target.getAttribute('name')=='add'){
 					var ell = el.parentNode;
 					var col = ell.querySelector('select[name=column] > option:checked').value;
@@ -887,10 +890,9 @@ function createNew(obj) {
 	
 	var newH = document.createElement('div');
 	newH.classList.add('box-header2');
-	var newI = document.createElement('input');
-	newI.setAttribute('type','text');
-	newI.setAttribute('value','Name of Column');
-	newH.appendChild(newI);
+	var newT = document.createElement('span');
+	newT.textContent = 'Create ' + obj.name;
+	newH.appendChild(newT);
 	createMButtons(newH);
 	
 	newM.appendChild(newH);
@@ -910,6 +912,12 @@ function createNew(obj) {
 	var newBBB = document.createElement('div');
 	newBBB.classList.add('pure-u-1-2');
 	
+	var newI = document.createElement('input');
+	newI.setAttribute('type','text');
+	newI.setAttribute('name','name');
+	newI.setAttribute('value','Name of Column');
+	newI.addEventListener('change',updateModifier);
+	newBBB.appendChild(newI);
 	
 	newI = document.createElement('textarea');
 	newI.setAttribute('rows','1');
