@@ -627,7 +627,7 @@ function updateModifier(evt){
 					var ell = el.parentNode.querySelector('#allVariables');
 					var ellc = ell.children;
 					var elExists = false;
-					for (var ii in ellc){
+					for (var ii=0;ii<ellc.length;ii++){
 						if (ellc[ii].getAttribute('name') == name){
 							ellc[ii].textContent = name + ' := ' + type + ' of ' + col;
 							elExists = true;
@@ -657,10 +657,7 @@ function updateModifier(evt){
 					var ell = el.parentNode.querySelector('#allVariables');
 					var ellc = ell.children;
 					var elExists = false;
-					console.log(ellc.length);
 					for (var ii=0;ii<ellc.length;ii++){
-						console.log(ii, ellc[ii]);
-						console.log(ellc[ii].getAttribute('name'));
 						if (ellc[ii].getAttribute('name') == name){
 							ellc[ii].textContent = name + ' := ' + type + ' of ' + col;
 							elExists = true;
