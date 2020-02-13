@@ -601,18 +601,28 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 				var nSteps = -1;
 				var data = convertDataToFull(results.data,nHeaders,chartInfo.options.modifiers);
 				if (nSteps == -1){
-					for (var i in data.headers){
-						if (!chartInfo.headers || data.headers[i] != chartInfo.headers[i]){
-							chartInfo.headers = data.headers;
-							//update database
-							chartInfo.save(function (err, chart) {
-								if (err) return console.error(err);
-								console.log('saved');
-							});
-							//send message
-							var jsonmessage = {'operation':'headers','message':data.headers};
-							ws.send(JSON.stringify(jsonmessage));
-							break;
+					if (data.headers.length != chartInfo.headers.length){
+						chartInfo.headers = data.headers;
+						chartInfo.save(function (err, chart) {
+							if (err) return console.error(err);
+							console.log('saved');
+						});
+						var jsonmessage = {'operation':'headers','message':data.headers};
+						ws.send(JSON.stringify(jsonmessage));
+						break;
+					}
+					else {
+						for (var i in data.headers){
+							if (!chartInfo.headers || data.headers[i] != chartInfo.headers[i]){
+								chartInfo.headers = data.headers;
+								chartInfo.save(function (err, chart) {
+									if (err) return console.error(err);
+									console.log('saved');
+								});
+								var jsonmessage = {'operation':'headers','message':data.headers};
+								ws.send(JSON.stringify(jsonmessage));
+								break;
+							}
 						}
 					}
 				}
