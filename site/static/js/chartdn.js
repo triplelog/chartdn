@@ -506,21 +506,44 @@ function createNewColumnBox(id) {
 	}
 	varDiv.appendChild(varColumn);
 	
-	var varRL = document.createElement('label');
-	varRL.textContent = 'C Row';
-		var varR = document.createElement('input');
-		varR.setAttribute('type','radio');
-		varR.setAttribute('name','row');
-	varRL.appendChild(varR);
-	varDiv.appendChild(varRL);
+	var newDiv = document.createElement('div');
 	
-	var varRL = document.createElement('label');
-	varRL.textContent = 'P Row';
-		var varR = document.createElement('input');
-		varR.setAttribute('type','radio');
-		varR.setAttribute('name','row');
-	varRL.appendChild(varR);
-	varDiv.appendChild(varRL);
+		var varRL = document.createElement('label');
+		varRL.textContent = 'Current Row';
+			var varR = document.createElement('input');
+			varR.setAttribute('type','radio');
+			varR.setAttribute('name','row');
+			varR.setAttribute('value','current');
+		varRL.appendChild(varR);
+		newDiv.appendChild(varRL);
+	
+		var varRL = document.createElement('label');
+		varRL.textContent = 'Previous Row';
+			var varR = document.createElement('input');
+			varR.setAttribute('type','radio');
+			varR.setAttribute('name','row');
+			varR.setAttribute('value','previous');
+		varRL.appendChild(varR);
+		newDiv.appendChild(varRL);
+		
+		var varRL = document.createElement('label');
+		varRL.textContent = 'Next Row';
+			var varR = document.createElement('input');
+			varR.setAttribute('type','radio');
+			varR.setAttribute('name','row');
+			varR.setAttribute('value','next');
+		varRL.appendChild(varR);
+		newDiv.appendChild(varRL);
+		
+		var varRL = document.createElement('label');
+		varRL.textContent = 'Row =';
+			var varR = document.createElement('input');
+			varR.setAttribute('type','radio');
+			varR.setAttribute('name','row');
+			varR.setAttribute('value','equal');
+		varRL.appendChild(varR);
+		newDiv.appendChild(varRL);
+	varDiv.appendChild(newDiv);
 	
 	var varB = document.createElement('a');
 	varB.setAttribute('name','add');
