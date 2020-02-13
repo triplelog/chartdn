@@ -623,6 +623,23 @@ function updateModifier(evt){
 					var newVariable = {'column':parseInt(col),'type':type,'row':'0'};
 					modifiers[i].options.variables[name] = newVariable;
 					console.log(modifiers[i].options.variables);
+					
+					var ell = el.parentNode.querySelector('#allVariables');
+					var ellc = el.children;
+					var elExists = false;
+					for (var ii in ellc){
+						if (ellc[ii].name == name){
+							ellc[ii].textContent = name + ' := ' + type + ' of ' + column;
+							elExists = true;
+							break;
+						}
+					}
+					if (!elExists){
+						var newEl = document.createElement('span');
+						newEl.textContent = name + ' := ' + type + ' of ' + column;
+						ell.appendChild(newEl);
+					}
+					
 				}
 			}
 			else if (mType == 'ignore'){
@@ -636,6 +653,22 @@ function updateModifier(evt){
 					var newVariable = {'column':parseInt(col),'type':type,'row':'0'};
 					modifiers[i].options.variables[name] = newVariable;
 					console.log(modifiers[i].options.variables);
+					
+					var ell = el.parentNode.querySelector('#allVariables');
+					var ellc = el.children;
+					var elExists = false;
+					for (var ii in ellc){
+						if (ellc[ii].name == name){
+							ellc[ii].textContent = name + ' := ' + type + ' of ' + column;
+							elExists = true;
+							break;
+						}
+					}
+					if (!elExists){
+						var newEl = document.createElement('span');
+						newEl.textContent = name + ' := ' + type + ' of ' + column;
+						ell.appendChild(newEl);
+					}
 				}
 			}
 			break;
@@ -897,10 +930,15 @@ function createNew(obj) {
 	newI.addEventListener('change',updateModifier);
 	newB.appendChild(newI);
 	var newD = document.createElement('div');
+	newD.id = 'allVariables';
+	newB.appendChild(newD);
+	newM.appendChild(newB);
+	
+	newD = document.createElement('div');
 	newD.id = 'newVariables';
 	newB.appendChild(newD);
-	
 	newM.appendChild(newB);
+	
 	document.getElementById('modifiersDiv').appendChild(newM);
 	createNewColumnBox(obj.id);
 }
@@ -939,10 +977,15 @@ function createIgnore(obj) {
 	newI.addEventListener('change',updateModifier);
 	newB.appendChild(newI);
 	var newD = document.createElement('div');
+	newD.id = 'allVariables';
+	newB.appendChild(newD);
+	newM.appendChild(newB);
+	
+	newD = document.createElement('div');
 	newD.id = 'newVariables';
 	newB.appendChild(newD);
-	
 	newM.appendChild(newB);
+	
 	document.getElementById('modifiersDiv').appendChild(newM);
 	createNewColumnBox(obj.id);
 }

@@ -544,7 +544,6 @@ exports.ignore = function(array,options) {
 
 	}
 	
-	console.log(skipRows);
 	for (var i=skipRows.length-1;i>=0;i--){
 		array.splice(skipRows[i],1);
 	}
