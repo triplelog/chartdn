@@ -108,7 +108,6 @@ function updateHeaders(initialData,chg=false) {
 		if (document.getElementById('xColVal').value != ''){
 			var xcv = parseInt(document.getElementById('xColVal').value);
 			document.getElementById('xColumn').innerHTML = '';
-			console.log(xcv,headers);
 			if (xcv < headers.length){
 				var newColumn = document.createElement('span');
 				newColumn.textContent = headers[xcv];
@@ -127,7 +126,6 @@ function updateHeaders(initialData,chg=false) {
 			var ycvStr = '';
 			var skipRows = [];
 			for (var yid in yColsVals){
-				createLineDiv(yColsVals[yid]);
 			
 				yColsVals[yid] = parseInt(yColsVals[yid]);
 				if (yColsVals[yid]< headers.length){
