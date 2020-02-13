@@ -439,6 +439,7 @@ exports.pivot = function(array,options,hArray) {
 		for (var ii in options.columns) {
 			hArrayNew[i].push(hArray[i][options.columns[ii]]);
 		}
+		console.log(i,hArray[i],hArrayNew[i]);
 	}
 	idx = 0;
 	console.log(hArray);
