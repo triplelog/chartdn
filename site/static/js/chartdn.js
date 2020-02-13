@@ -137,6 +137,12 @@ function createLineDiv(id) {
 		<input type="radio" name="dash`+id+`" onchange="optionsChg('dash')" value="dot">Dot</input>
 		<input type="radio" name="dash`+id+`" onchange="optionsChg('dash')" value="dashdot">DashDot</input>`;
 	document.getElementById("lineStyleDivs").appendChild(el);
+	
+	var newEl = document.createElement('option');
+	newEl.value = id;
+	newEl.textContent = id;
+	document.getElementById('lineStyleMenu').appendChild(newEl);
+	
 	chgLineTab();
 }
 function columnsChg() {
@@ -149,7 +155,6 @@ function columnsChg() {
 	var noNames = false;
 	
 	var yCols = yColsStr.split(',');
-	var menu = document.getElementById('lineStyleMenu');
 	for (var i=0;i<yCols.length;i++){
 		if (!isNaN(parseInt(yCols[i]))){ 
 			yColumns.push(parseInt(yCols[i]));
@@ -159,12 +164,6 @@ function columnsChg() {
 			else {
 				noNames = true;
 			}
-		}
-		if (i >= menu.children.length - 1){
-			var el = document.createElement('option');
-			el.value = i;
-			el.textContent = i;
-			menu.appendChild(el);
 		}
 		
 	}
@@ -332,15 +331,8 @@ function dataChg(initialData=false) {
 		yColsVals = document.getElementById('yColsVal').value.split(',');
 		document.getElementById('yColumns').innerHTML = '';
 		var ycvStr = '';
-		var menu = document.getElementById('lineStyleMenu');
 		for (var yid in yColsVals){
 			createLineDiv(yColsVals[yid]);
-			if (yid >= menu.children.length - 1){
-				var el = document.createElement('option');
-				el.value = yid;
-				el.textContent = yid;
-				menu.appendChild(el);
-			}
 			
 			yColsVals[yid] = parseInt(yColsVals[yid]);
 			ycvStr += yColsVals[yid]+', ';
@@ -390,38 +382,34 @@ drake.on('drop', function (el, target, source, sibling) {
 	}
 	else if (target.id == 'yColumns') {
 		var elid = el.id.substring(5);
-		if (!sibling){
-			
-			var ycvStr = '';
-			var oldId = -1;
-			for (var yid in yColsVals){
-				if (elid != yColsVals[yid]){
-					ycvStr += yColsVals[yid]+', ';
-				}
-				else {
-					oldId = yid;
-				}
+		
+		
+		var ycvStr = '';
+		var oldId = -1;
+		for (var yid in yColsVals){
+			if (elid == yColsVals[yid]){
+				oldId = yid;
 			}
-			if (oldId != -1){yColsVals.splice(oldId,1);}
-			else {createLineDiv(elid);}
+			else if (!sibling){
+				ycvStr += yColsVals[yid]+', ';
+			}
+		}
+		if (oldId != -1){yColsVals.splice(oldId,1);}
+		else {
+			createLineDiv(elid);
+		}
+		document.getElementById('lineStyleMenu').value = elid;
+		chgLineTab();
+		
+		if (!sibling){
 			
 			yColsVals.push(elid);
 			ycvStr += elid+', ';
-			document.getElementById('yColsVal').value = ycvStr.substring(0,ycvStr.length-2);
-			columnsChg();
+			
 		}
 		else {
-			var sibid = sibling.id.substring(5);
-			var ycvStr = '';
-			var oldId = -1;
-			for (var yid in yColsVals){
-				if (elid == yColsVals[yid]){
-					oldId = yid;
-				}
-			}
-			if (oldId != -1){yColsVals.splice(oldId,1);}
-			else {createLineDiv(elid);}
 			
+			var sibid = sibling.id.substring(5);
 			for (var yid in yColsVals){
 				if (sibid == yColsVals[yid]) {
 					newId = yid;
@@ -433,9 +421,9 @@ drake.on('drop', function (el, target, source, sibling) {
 				}
 			}
 			yColsVals.splice(newId,0,elid);
-			document.getElementById('yColsVal').value = ycvStr.substring(0,ycvStr.length-2);
-			columnsChg();
 		}
+		document.getElementById('yColsVal').value = ycvStr.substring(0,ycvStr.length-2);
+		columnsChg();
 		
 	}
 });
