@@ -952,9 +952,15 @@ function createIgnore(obj) {
 	document.getElementById('modifiersDiv').appendChild(newM);
 }
 
-function createNewModifier() {
+function createNewModifier(show=false) {
 	var el = document.getElementById('createModifyMenu');
 	var ell = el.querySelector('option:checked');
+	if (show){
+		el.style.display = 'block';
+		ell.checked = false;
+		return;
+	}
+
 	var mType = '';
 	if (ell && ell.value != ''){
 		mType = ell.value;
@@ -984,7 +990,8 @@ function createNewModifier() {
 			oldObject.options = {'pivot':0,'columns':[]};
 			createPivot(oldObject);
 		}
-
+		el.style.display = 'none';
+		ell.checked = false;
 		modifiers.push(oldObject);
 		
 		chgModify(oldObject);
