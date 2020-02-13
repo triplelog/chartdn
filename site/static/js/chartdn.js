@@ -511,7 +511,7 @@ function createNewColumnBox(id) {
 	var varB = document.createElement('a');
 	varB.setAttribute('name','add');
 	varB.textContent = 'Add';
-	varB.addEventListener('change',updateModifier);
+	varB.addEventListener('click',updateModifier);
 	varDiv.appendChild(varB);
 }
 
@@ -616,6 +616,7 @@ function updateModifier(evt){
 				}
 			}
 			else if (mType == 'new'){
+				console.log(el);
 				if (el.getAttribute('name')=='formula'){
 					modifiers[i].options.formula = el.value;
 				}
