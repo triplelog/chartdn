@@ -657,8 +657,9 @@ function updateModifier(evt){
 					var ell = el.parentNode.querySelector('#allVariables');
 					var ellc = ell.children;
 					var elExists = false;
+					console.log(ellc);
 					for (var ii in ellc){
-						console.log(ellc[ii]);
+						console.log(ii, ellc[ii]);
 						if (ellc[ii].getAttribute('name') == name){
 							ellc[ii].textContent = name + ' := ' + type + ' of ' + col;
 							elExists = true;
