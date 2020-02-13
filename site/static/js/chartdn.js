@@ -958,6 +958,8 @@ function createNewModifier(show=false) {
 	if (show){
 		el.style.display = 'block';
 		ell.checked = false;
+		var elll = el.querySelector('option[value=""]');
+		elll.checked = true;
 		return;
 	}
 
@@ -992,6 +994,8 @@ function createNewModifier(show=false) {
 		}
 		el.style.display = 'none';
 		ell.checked = false;
+		var elll = el.querySelector('option[value=""]');
+		elll.checked = true;
 		modifiers.push(oldObject);
 		
 		chgModify(oldObject);
