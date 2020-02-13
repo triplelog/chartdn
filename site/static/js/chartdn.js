@@ -946,7 +946,7 @@ function createNew(obj) {
 		var objVar = obj.options.variables[i];
 		var newEl = document.createElement('div');
 		newEl.textContent = i + ' := ' + objVar.type + ' of ' + objVar.column;
-		newEl.setAttribute('name',objVar.name);
+		newEl.setAttribute('name',i);
 		newD.appendChild(newEl);
 	}
 	newBBB.appendChild(newD);
