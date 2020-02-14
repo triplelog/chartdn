@@ -59,7 +59,7 @@ function fullCompression(to_compress) {
 		console.log("Compressing")
 	
 		var mybase64 = this.result;
-		console.log(mybase64);
+		console.log(mybase64.replace('data:text/csv',''));
 		var compbase64 = flate.deflate_encode(mybase64);
 		var decompbase64 = flate.deflate_decode(compbase64);
 		//console.log(btoa(decompbase64));
