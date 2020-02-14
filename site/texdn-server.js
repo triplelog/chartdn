@@ -176,8 +176,9 @@ wss.on('connection', function connection(ws) {
   		}
   		//write data.csv
   		if (chartid == dataid){
-  			var arr = toUint8Array(dm.message);
-  			var binData = new Uint8Array(arr);
+  			var strData = atob(dm.message);
+  			var charData = strData.split('').map(function(x){return x.charCodeAt(0);});
+  			var binData = new Uint8Array(charData);
   			console.log(binData);
   			var fstr = pako.inflate(binData);
   			console.log(fstr);
