@@ -627,6 +627,7 @@ function createNewColumnBox(id) {
 		var varRN = document.createElement('input');
 		varRN.setAttribute('type','number');
 		varRN.setAttribute('name','prevn');
+		varRN.setAttribute('value','1');
 		varRN.style.width = '4rem';
 		varRL.appendChild(varRN);
 		var varRS = document.createElement('span');
@@ -649,6 +650,7 @@ function createNewColumnBox(id) {
 		var varRN = document.createElement('input');
 		varRN.setAttribute('type','number');
 		varRN.setAttribute('name','aftern');
+		varRN.setAttribute('value','1');
 		varRN.style.width = '4rem';
 		varRL.appendChild(varRN);
 		var varRS = document.createElement('span');
@@ -806,6 +808,8 @@ function updateModifier(evt){
 					var ell = el.parentNode;
 					var col = ell.querySelector('select[name=column] > option:checked').value;
 					var type = ell.querySelector('select[name=type] > option:checked').value;
+					var rowtype = ell.querySelector('input[name=row'+modifiers[i].id+']').value;
+					console.log(rowtype);
 					var name = ell.querySelector('input[name=name]').value;
 					var newVariable = {'column':parseInt(col),'type':type,'row':'0'};
 					modifiers[i].options.variables[name] = newVariable;
