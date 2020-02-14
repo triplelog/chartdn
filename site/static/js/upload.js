@@ -43,7 +43,7 @@ document.querySelector('#dataFile').addEventListener('change', function(inp) {
 	var ffile = this.files[0];
 	syncWorker.postMessage(ffile);
 	syncWorker.onmessage = function(e) {
-		ctypestr = toTable(e.data.result,e.data.ctypestr);
+		//ctypestr = toTable(e.data.result,e.data.ctypestr);
 		//if (filen != ""){createConfirmForm();}
 		setTimeout(fullCompression,1000,ffile);
 	};
@@ -63,6 +63,7 @@ function fullCompression(to_compress) {
 		var original_size = array.length
 
 		var array = flate.deflate_encode_raw(array)
+		document.getElementById('dataCopy').value = array;
 		var compressed_size = array.length
 		dataChg();
 
