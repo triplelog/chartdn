@@ -51,7 +51,7 @@ function getOrdinal(n) {
 var nHeaders = 1;
 var yColsVals = [];
 var headers = [];
-var lineId = 0;
+var colid = -1;
 var dataSourceSize = 'large';
 
 //Update Headers
@@ -166,8 +166,7 @@ function updateHeaders(initialData,chg=false) {
 // Change Tab of which line to style
 function chgLineTab(){
 	
-
-	var colid = document.getElementById('lineStyleMenu').querySelector('*:checked').value;
+	colid = document.getElementById('lineStyleMenu').querySelector('*:checked').value;
 
 	
 	var lineDivs = document.getElementById('lineStyleDivs').children;
@@ -265,7 +264,12 @@ function createLineDiv(id,chg=false) {
 	var newEl = document.createElement('option');
 	newEl.value = id;
 	newEl.textContent = headers[id];
+	
 	document.getElementById('lineStyleMenu').appendChild(newEl);
+	if (document.getElementById("lineStyleDivs").children.length == 2){
+		document.getElementById('lineStyleMenu').value = id;
+	}
+	
 	
 	chgLineTab();
 }
@@ -315,8 +319,7 @@ function optionsChg(optionname) {
 		ws.send(JSON.stringify(jsonmessage));
 	}
 	else if (optionname == 'shape' || optionname == 'dash' || optionname == 'lineName'){
-		console.log(lineId);
-		var colid = yColsVals[lineId];
+		console.log(colid);
 		var parentEl = document.querySelector("#lineStyleDiv"+colid);
 		
 		var el = parentEl.querySelector('input[name='+optionname+']:checked');
