@@ -14,6 +14,7 @@ var Papa = require('papaparse');
 var nunjucks = require('nunjucks');
 var crypto = require("crypto");
 const pako = require('pako');
+const atob = require('atob');
 var createPlotly = require('./createCharts/plotly-charts.js');
 var createXkcd = require('./createCharts/xkcd-charts.js');
 var createGoogle = require('./createCharts/google-charts.js');
@@ -175,8 +176,9 @@ wss.on('connection', function connection(ws) {
   		//write data.csv
   		if (chartid == dataid){
   			console.log(dm.message);
-  			var fstr = pako.inflate(dm.message);
-  			console.log(fstr);
+  			var strData = atob(dm.message);
+  			console.log(strData)
+  			var fstr = pako.inflate(strData);
   			
 			fs.writeFile("saved/"+chartid+".csv", fstr, function (err) {
 				Chart.findOne({ id: chartid }, function(err, result) {
