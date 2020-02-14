@@ -59,7 +59,7 @@ function fullCompression(to_compress) {
 	
 		var mybase64 = this.result;
 		
-		document.getElementById('dataCopy').value = btoa(mybase64);
+		document.getElementById('dataCopy').value = mybase64;
 		//if (this.fileName.indexOf('.csv')> -1){
 		if (2 == 3){
 			dataChg();
