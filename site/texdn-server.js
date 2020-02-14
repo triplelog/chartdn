@@ -532,7 +532,7 @@ loginServer.listen(3000);
 
 
 
-function convertDataToFull(dataStr,nHeaders,modifiers) {
+function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
 	rawArray = dataStr;
 	var t1 = performance.now();
 
@@ -541,27 +541,33 @@ function convertDataToFull(dataStr,nHeaders,modifiers) {
 	var hArray = rawArray.slice(0,nHeaders);
 	rawArray.splice(0,nHeaders);
 	
-	for (var i in modifiers){
-		if (!modifiers[i].enabled){continue;}
-		if (modifiers[i].type == 'new'){
-			modJS.newColumn(rawArray,modifiers[i].options);
-			if (hArray.length>0){
-				hArray[0].push(modifiers[i].name);
+	var idx = 0;
+	if (nsteps !== 0){
+		for (var i in modifiers){
+			if (!modifiers[i].enabled){continue;}
+			if (nsteps && idx >= nsteps){break;}
+			else {idx++;}
+			
+			if (modifiers[i].type == 'new'){
+				modJS.newColumn(rawArray,modifiers[i].options);
+				if (hArray.length>0){
+					hArray[0].push(modifiers[i].name);
+				}
+				//Update columns in create chart
 			}
-			//Update columns in create chart
-		}
-		else if (modifiers[i].type == 'ignore'){
-			modJS.ignore(rawArray,modifiers[i].options);
-		}
-		else if (modifiers[i].type == 'sort'){
-			modJS.sort(rawArray,modifiers[i].options);
-		}
-		else if (modifiers[i].type == 'replace'){
-			modJS.replace(rawArray,modifiers[i].options);
-		}
-		else if (modifiers[i].type == 'pivot'){
-			modJS.pivot(rawArray,modifiers[i].options,hArray);
-			//Update columns in create chart
+			else if (modifiers[i].type == 'ignore'){
+				modJS.ignore(rawArray,modifiers[i].options);
+			}
+			else if (modifiers[i].type == 'sort'){
+				modJS.sort(rawArray,modifiers[i].options);
+			}
+			else if (modifiers[i].type == 'replace'){
+				modJS.replace(rawArray,modifiers[i].options);
+			}
+			else if (modifiers[i].type == 'pivot'){
+				modJS.pivot(rawArray,modifiers[i].options,hArray);
+				//Update columns in create chart
+			}
 		}
 	}
 	var filteredArray = hArray.concat(modJS.toData(rawArray));
@@ -599,7 +605,7 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 			complete: function(results) {
 				var nHeaders = chartInfo.options.nHeaders || 1;
 				var nSteps = -1;
-				var data = convertDataToFull(results.data,nHeaders,chartInfo.options.modifiers);
+				var data = convertDataToFull(results.data,nHeaders,chartInfo.options.modifiers,options.nsteps);
 				if (nSteps == -1){
 					if (data.headers.length != chartInfo.headers.length){
 						chartInfo.headers = data.headers;
