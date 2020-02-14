@@ -808,8 +808,9 @@ function updateModifier(evt){
 					var ell = el.parentNode;
 					var col = ell.querySelector('select[name=column] > option:checked').value;
 					var type = ell.querySelector('select[name=type] > option:checked').value;
-					var rowtype = ell.querySelector('input[name=row'+modifiers[i].id+']').value;
+					var rowtype = ell.querySelector('input[name=row'+modifiers[i].id+']:checked').value;
 					var row = '0';
+					console.log(rowtype);
 					if (rowtype == 'previous'){
 						console.log(ell.querySelector('input[name=prevn]').value);
 						row = '-'+parseInt(ell.querySelector('input[name=prevn]').value).toString();
