@@ -151,9 +151,11 @@ wss.on('connection', function connection(ws) {
 				defaultOptions[k] = myOptions[k];
 			}
 			var chart = new Chart({id:chartid,data:dataid+'.csv',options:defaultOptions,user:username,headers:[]});
+			console.log('saving', chart);
 			chart.save(function (err, chart) {
 				if (err) return console.error(err);
-				console.log('saved');
+				
+				console.log('saved', chart);
 			});
 			if (username != '') {
 				User.findOne({username: username}, function(err, result) {
