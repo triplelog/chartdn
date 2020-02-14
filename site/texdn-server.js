@@ -186,17 +186,20 @@ wss.on('connection', function connection(ws) {
 				var pakores = pako.inflate(binData,{to:'string'});
 				var fstr = atob(pakores);
   			}
-  			var strData = atob(dm.message);
-  			strData = strData.substring(37);
-  			var strData2 = strData.split('').map(function(x){return x.charCodeAt(0);});
-  			var strData3 = String.fromCharCode.apply(null, new Uint16Array(strData2));
-  			var fstr = atob(strData3);
+  			
+  			var strData = dm.message.substring(37);
+  			//var strData2 = strData.split('').map(function(x){return x.charCodeAt(0);});
+  			//var strData3 = String.fromCharCode.apply(null, new Uint16Array(strData2));
+  			//var fstr = atob(strData3);
   			
   			var d = new Date(); var n = d.getTime(); console.log('time4: ', n);
   			
   			if (dm.type == 'xls'){
+  				console.log(strData);
   				console.log(chartid);
-  				fs.writeFile("saved/"+chartid+".xls", fstr, function (err) {
+  				fs.writeFile('saved/file1.xls', strData, {encoding: 'base64'}, function(err) {
+
+  				//fs.writeFile("saved/"+chartid+".xls", fstr, function (err) {
   					var wget = 'in2csv saved/'+chartid+".xls > "+chartid+".csv";
 					console.log('wget:  ',wget);
 					var child = exec(wget, function(err, stdout, stderr) {
