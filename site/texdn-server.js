@@ -190,7 +190,7 @@ wss.on('connection', function connection(ws) {
   			strData = strData.substring(37);
   			var strData2 = strData.split('').map(function(x){return x.charCodeAt(0);});
   			var strData3 = String.fromCharCode.apply(null, new Uint16Array(strData2));
-  			var fstr = atob(strData3));
+  			var fstr = atob(strData3);
   			
   			var d = new Date(); var n = d.getTime(); console.log('time4: ', n);
   			
