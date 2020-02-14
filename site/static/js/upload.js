@@ -63,7 +63,7 @@ function fullCompression(to_compress) {
 		mybase64 = mybase64.substring(index+7);
 		var compbase64 = pako.deflate(mybase64);
 		var decompbase64 = pako.inflate(compbase64,{to:'string'});
-		console.log(decompbase64);
+		console.log(compbase64);
 		document.getElementById('dataCopy').value = compbase64;
 		dataChg();
 
