@@ -971,7 +971,8 @@ function chgModify(mObject={}){
 			if (document.getElementById(m.id).style.backgroundColor != 'rgb(200, 200, 200)') {
 				document.getElementById('edit'+m.id).style.display = 'block';
 				document.getElementById(m.id).style.backgroundColor = 'rgb(200, 200, 200)';
-				document.getElementById('rawModified').querySelector('a[name='+idx+']').style.color='yellow';
+				var qstring = 'a[name="'+idx+'"]';
+				document.getElementById('rawModified').querySelector(qstring).style.color='yellow';
 			}
 			else {
 				document.getElementById('edit'+m.id).style.display = 'none';
@@ -983,7 +984,8 @@ function chgModify(mObject={}){
 			document.getElementById(m.id).style.backgroundColor = 'white';
 		}
 		if (m.enabled){idx++;}
-		document.getElementById('rawModified').querySelector('a[name='+idx+']').style.color='white';
+		var qstring = 'a[name="'+idx+'"]';
+		document.getElementById('rawModified').querySelector(qstring).style.color='white';
 		
 		
 		
