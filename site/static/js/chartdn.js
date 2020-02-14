@@ -1411,7 +1411,6 @@ function createNewModifier(show=false) {
 		el.value = '';
 		return;
 	}
-	console.log(el);
 	var mType = '';
 	if (ell && ell.value != ''){
 		mType = ell.value;
@@ -1440,7 +1439,7 @@ function createNewModifier(show=false) {
 		el.style.display = 'none';
 		el.value = '';
 		modifiers.push(oldObject);
-		
+		console.log(modifiers);
 		chgModify(oldObject);
 		modifierChg();
 	}
