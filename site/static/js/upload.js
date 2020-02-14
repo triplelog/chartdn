@@ -80,7 +80,7 @@ function fullCompression(to_compress) {
 		
 	}
 	
-	readerF.readAsDataURL(to_compress);
+	readerF.readAsText(to_compress);
 }
 
 
