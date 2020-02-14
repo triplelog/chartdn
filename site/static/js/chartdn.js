@@ -627,9 +627,10 @@ function createNewColumnBox(id) {
 		var varRN = document.createElement('input');
 		varRN.setAttribute('type','number');
 		varRN.setAttribute('name','prevn');
+		varRN.style.width = '4rem';
 		varRL.appendChild(varRN);
 		var varRS = document.createElement('span');
-		varRS.textContent = 'Previous Row';
+		varRS.textContent = ' Row Before';
 		varRL.appendChild(varRS);
 		varRL.setAttribute('for','previousRow'+id);
 		
@@ -645,7 +646,14 @@ function createNewColumnBox(id) {
 		varR.id = 'nextRow'+id;
 		
 		var varRL = document.createElement('label');
-		varRL.textContent = 'Next Row';
+		var varRN = document.createElement('input');
+		varRN.setAttribute('type','number');
+		varRN.setAttribute('name','aftern');
+		varRN.style.width = '4rem';
+		varRL.appendChild(varRN);
+		var varRS = document.createElement('span');
+		varRS.textContent = ' Row After';
+		varRL.appendChild(varRS);
 		varRL.setAttribute('for','nextRow'+id);
 		
 		newDiv.appendChild(varR);
@@ -662,7 +670,8 @@ function createNewColumnBox(id) {
 		var varRL = document.createElement('label');
 		var varRI = document.createElement('input');
 		varRI.setAttribute('type','text');
-		varRL.textContent = 'Row =';
+		varRI.setAttribute('name','equalrow');
+		varRL.textContent = 'Row = ';
 		varRL.appendChild(varRI);
 		varRL.setAttribute('for','equalRow'+id);
 		
