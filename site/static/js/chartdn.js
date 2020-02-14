@@ -738,11 +738,25 @@ function updateModifier(evt){
 					var ell = el.parentNode;
 					var col = ell.querySelector('select[name=column] > option:checked').value;
 					var type = ell.querySelector('select[name=type] > option:checked').value;
-					var rowtype = ell.querySelector('input[name=row'+modifiers[i].id+']:checked').value;
 					var row = '0';
-					if (rowtype == 'previous'){row = '-'+parseInt(ell.querySelector('input[name=prevn]').value).toString();}
-					else if (rowtype == 'next'){row = ell.querySelector('input[name=aftern]').value.toString();}
-					else if (rowtype == 'equal'){row = '$'+parseInt(ell.querySelector('input[name=equalrow]').value).toString();}
+					if (type =='value'){
+						var rowtype = ell.querySelector('input[name=row'+modifiers[i].id+']:checked').value;
+						if (rowtype == 'previous'){row = '-'+parseInt(ell.querySelector('input[name=prevn]').value).toString();}
+						else if (rowtype == 'next'){row = ell.querySelector('input[name=aftern]').value.toString();}
+						else if (rowtype == 'equal'){row = '$'+parseInt(ell.querySelector('input[name=equalrow]').value).toString();}
+					}
+					else {
+						var rowtype = ell.querySelector('input[name=rowstart'+modifiers[i].id+']:checked').value;
+						if (rowtype == 'previous'){row = '-'+parseInt(ell.querySelector('input[name=prevnstart]').value).toString();}
+						else if (rowtype == 'next'){row = ell.querySelector('input[name=afternstart]').value.toString();}
+						else if (rowtype == 'equal'){row = '$'+parseInt(ell.querySelector('input[name=equalrowstart]').value).toString();}
+						
+						rowtype = ell.querySelector('input[name=rowend'+modifiers[i].id+']:checked').value;
+						if (rowtype == 'previous'){row += ',-'+parseInt(ell.querySelector('input[name=prevnend]').value).toString();}
+						else if (rowtype == 'next'){row += ','+ell.querySelector('input[name=afternend]').value.toString();}
+						else if (rowtype == 'equal'){row += ',$'+parseInt(ell.querySelector('input[name=equalrowend]').value).toString();}
+					}
+					console.log(row);
 					var newVariable = {'column':parseInt(col),'type':type,'row':row};
 					var name = ell.querySelector('input[name=name]').value;
 					modifiers[i].options.variables[name] = newVariable;
@@ -1164,7 +1178,7 @@ function createNewColumnBox(id) {
 		var varRL = document.createElement('label');
 		var varRI = document.createElement('input');
 		varRI.setAttribute('type','text');
-		varRI.setAttribute('name','equalrow');
+		varRI.setAttribute('name','equalrowstart');
 		varRI.setAttribute('value','0');
 		varRL.textContent = 'From Row = ';
 		varRL.appendChild(varRI);
@@ -1183,7 +1197,7 @@ function createNewColumnBox(id) {
 		var varRL = document.createElement('label');
 		var varRN = document.createElement('input');
 		varRN.setAttribute('type','number');
-		varRN.setAttribute('name','prevn');
+		varRN.setAttribute('name','prevnstart');
 		varRN.setAttribute('value','1');
 		varRN.style.width = '4rem';
 		varRL.appendChild(varRN);
@@ -1206,8 +1220,8 @@ function createNewColumnBox(id) {
 		var varRL = document.createElement('label');
 		var varRN = document.createElement('input');
 		varRN.setAttribute('type','number');
-		varRN.setAttribute('name','aftern');
-		varRN.setAttribute('value','1');
+		varRN.setAttribute('name','afternstart');
+		varRN.setAttribute('value','0');
 		varRN.style.width = '4rem';
 		varRL.appendChild(varRN);
 		var varRS = document.createElement('span');
@@ -1231,7 +1245,7 @@ function createNewColumnBox(id) {
 		var varRL = document.createElement('label');
 		var varRI = document.createElement('input');
 		varRI.setAttribute('type','text');
-		varRI.setAttribute('name','equalrow');
+		varRI.setAttribute('name','equalrowend');
 		varRI.setAttribute('value','0');
 		varRL.textContent = 'To Row = ';
 		varRL.appendChild(varRI);
@@ -1250,7 +1264,7 @@ function createNewColumnBox(id) {
 		var varRL = document.createElement('label');
 		var varRN = document.createElement('input');
 		varRN.setAttribute('type','number');
-		varRN.setAttribute('name','prevn');
+		varRN.setAttribute('name','prevnend');
 		varRN.setAttribute('value','1');
 		varRN.style.width = '4rem';
 		varRL.appendChild(varRN);
@@ -1273,8 +1287,8 @@ function createNewColumnBox(id) {
 		var varRL = document.createElement('label');
 		var varRN = document.createElement('input');
 		varRN.setAttribute('type','number');
-		varRN.setAttribute('name','aftern');
-		varRN.setAttribute('value','1');
+		varRN.setAttribute('name','afternend');
+		varRN.setAttribute('value','0');
 		varRN.style.width = '4rem';
 		varRL.appendChild(varRN);
 		var varRS = document.createElement('span');

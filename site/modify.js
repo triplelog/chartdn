@@ -237,10 +237,31 @@ exports.newColumn = function(array,options) {
 	
 	var fullmap = {};
 	for (var ii in vars){
+		var rows = vars[ii].row.split(',');
+		var rowStart; var rowEnd;
+		if (rows[0].indexOf('$')==0 && rows[1].indexOf('$')==0){
+			rowStart = parseInt(rows[0].substring(1));
+			rowEnd = parseInt(rows[1].substring(1));
+			if (rowEnd < 0){
+				rowEnd = array.length + rowEnd;
+			}
+			if (rowEnd > array.length-1){
+				rowEnd = array.length - 1;
+			}
+			if (rowStart < 0){
+				rowStart = array.length + rowStart;
+			}
+			rowEnd = rowEnd - options.nHeaders;
+			rowStart = rowStart - options.nHeaders;
+		}
+		else {
+			continue;
+		}
+		
 		if (vars[ii].type=='mean'){
 			var sum = 0;
 			var n = 0;
-			for (var i in array){
+			for (var i=rowStart;i<=rowEnd;i++){
 				sum += parseInt(array[i][vars[ii].column]);
 				n += 1;
 			}
@@ -250,21 +271,21 @@ exports.newColumn = function(array,options) {
 		}
 		else if (vars[ii].type=='count'){
 			var n = 0;
-			for (var i in array){
+			for (var i=rowStart;i<=rowEnd;i++){
 				n += 1;
 			}
 			fullmap[ii.toUpperCase()]=n;
 		}
 		else if (vars[ii].type=='sum'){
 			var sum = 0;
-			for (var i in array){
+			for (var i=rowStart;i<=rowEnd;i++){
 				sum += parseInt(array[i][vars[ii].column]);
 			}
 			fullmap[ii.toUpperCase()]=sum;
 		}
 		else if (vars[ii].type=='max'){
 			var max = parseInt(array[0][vars[ii].column]);
-			for (var i in array){
+			for (var i=rowStart;i<=rowEnd;i++){
 				if (parseInt(array[i][vars[ii].column]) > max){
 					max = parseInt(array[i][vars[ii].column]);
 				}
@@ -273,7 +294,7 @@ exports.newColumn = function(array,options) {
 		}
 		else if (vars[ii].type=='min'){
 			var min = parseInt(array[0][vars[ii].column]);
-			for (var i in array){
+			for (var i=rowStart;i<=rowEnd;i++){
 				if (parseInt(array[i][vars[ii].column]) < min){
 					min = parseInt(array[i][vars[ii].column]);
 				}
@@ -289,7 +310,7 @@ exports.newColumn = function(array,options) {
 			if (vars[ii].type=='value'){
 				var row = parseInt(i);
 				if (vars[ii].row.indexOf('$')==0){
-					row = parseInt(vars[ii].row.substring(1))+options.nHeaders;
+					row = parseInt(vars[ii].row.substring(1))-options.nHeaders;
 				}
 				else {
 					row += parseInt(vars[ii].row);
@@ -301,7 +322,30 @@ exports.newColumn = function(array,options) {
 				else {
 					rowmap[ii.toUpperCase()]=parseInt(array[row][vars[ii].column]);
 				}
-				
+			}
+			else {
+				var rows = vars[ii].row.split(',');
+				var rowStart; var rowEnd;
+				if (rows[0].indexOf('$')==0 && rows[1].indexOf('$')==0){
+					continue;
+				}
+				else {
+					/*
+					rowStart = parseInt(rows[0].substring(1));
+					rowEnd = parseInt(rows[1].substring(1));
+					if (rowEnd < 0){
+						rowEnd = array.length + rowEnd;
+					}
+					if (rowEnd > array.length-1){
+						rowEnd = array.length - 1;
+					}
+					if (rowStart < 0){
+						rowStart = array.length + rowStart;
+					}
+					rowEnd = rowEnd - options.nHeaders;
+					rowStart = rowStart - options.nHeaders;
+					*/
+				}
 			}
 		}
 		if (skipi){array[i].push(''); continue;}
