@@ -23,7 +23,7 @@ var Module = {
 Module.setStatus('Downloading...');
 //importScripts('datatype.js');
 importScripts('../js/papaparse.min.js');
-
+importScripts('https://unpkg.com/wasm-flate@0.1.11-alpha/dist/bootstrap.js');
 self.addEventListener('message', function(e) {
     var data=e.data;
     
