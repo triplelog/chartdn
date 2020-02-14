@@ -966,9 +966,11 @@ function chgModify(mObject={}){
 	var idx = -1;
 	for (var i in modifiers){
 		var m = modifiers[i];
-		if (m.enabled){idx++;}
-		var qstring = 'a[name="'+idx+'"]';
-		document.getElementById('rawModified').querySelector(qstring).style.color='white';
+		if (m.enabled){
+			idx++;
+			var qstring = 'a[name="'+idx+'"]';
+			document.getElementById('rawModified').querySelector(qstring).style.color='white';
+		}
 		
 		if (!document.getElementById('edit'+m.id)) {continue;}
 		if (m.id == mObject.id){
