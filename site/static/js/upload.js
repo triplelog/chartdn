@@ -60,6 +60,7 @@ function fullCompression(to_compress) {
 		console.log("Compressing")
 	
 		var mybase64 = this.result;
+		console.log(this);
 		if (2 == 2){
 		
 			var index = mybase64.indexOf('base64,');
