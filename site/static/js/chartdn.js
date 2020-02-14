@@ -964,12 +964,15 @@ function updateModifier(evt){
 }
 function chgModify(mObject={}){
 	var idx = -1;
+	var iidx = -1;
 	for (var i in modifiers){
 		var m = modifiers[i];
 		if (m.enabled){
 			idx++;
-			var qstring = 'a[name="'+idx+'"]';
-			document.getElementById('rawModified').querySelector(qstring).style.color='white';
+			if (idx != iidx){
+				var qstring = 'a[name="'+idx+'"]';
+				document.getElementById('rawModified').querySelector(qstring).style.color='white';
+			}
 		}
 		
 		if (!document.getElementById('edit'+m.id)) {continue;}
@@ -978,10 +981,9 @@ function chgModify(mObject={}){
 				document.getElementById('edit'+m.id).style.display = 'block';
 				document.getElementById(m.id).style.backgroundColor = 'rgb(200, 200, 200)';
 				var q = idx;
-				if (!m.enabled){q = idx+1;}
-				console.log(q);
+				iidx = idx;
+				if (!m.enabled){q = idx+1; iidx = idx+1;}
 				var qstring = 'a[name="'+q+'"]';
-				console.log(qstring);
 				document.getElementById('rawModified').querySelector(qstring).style.color='yellow';
 			}
 			else {
