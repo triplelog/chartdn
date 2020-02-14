@@ -59,12 +59,21 @@ function fullCompression(to_compress) {
 		console.log("Compressing")
 	
 		var mybase64 = this.result;
+		console.log(this.fileName);
+		
+		
 		var index = mybase64.indexOf('base64,');
 		mybase64 = mybase64.substring(index+7);
 		var compbase64 = pako.deflate(mybase64,{to:'string'});
 		
 		document.getElementById('dataCopy').value = btoa(compbase64);
-		dataChg();
+		if (this.fileName.indexOf('.csv')> -1){
+			dataChg();
+		}
+		else {
+			dataChg(false,'xls');
+		}
+		
 
 		
 	}

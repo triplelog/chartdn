@@ -424,7 +424,7 @@ function updateModifiedTable(data) {
 	updateHeaders(false,true);
 }
 
-function dataChg(initialData=false) {
+function dataChg(initialData=false,dataType='csv') {
 	
 	var dataTable = document.getElementById("dataTable");
 	var csv = dataCopy.value;
@@ -433,6 +433,9 @@ function dataChg(initialData=false) {
 		if (delimiter.toLowerCase() == 'auto'){delimiter = '';}
 		var d = new Date(); var n = d.getTime(); console.log('time: ', n);
 		var jsonmessage = {'operation':'upload','message':csv,'delimiter':delimiter};
+		if (dataType != 'csv'){
+			jsonmessage.type = dataType;
+		}
 		ws.send(JSON.stringify(jsonmessage));
 	}
 	else {
