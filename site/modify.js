@@ -284,6 +284,7 @@ exports.newColumn = function(array,options) {
 		
 	for (var i in array){
 		var rowmap = {};
+		var skipi = false;
 		for (var ii in vars){
 			if (vars[ii].type=='value'){
 				var row = parseInt(i);
@@ -293,15 +294,24 @@ exports.newColumn = function(array,options) {
 				else {
 					row += parseInt(vars[ii].row);
 				}
-				rowmap[ii.toUpperCase()]=parseInt(array[row][vars[ii].column]);
+				if (row < 0 || row >= array.length){
+					skip1 = true;
+					break;
+				}
+				else {
+					rowmap[ii.toUpperCase()]=parseInt(array[row][vars[ii].column]);
+				}
+				
 			}
 		}
+		if (skipi){array[i].push(''); continue;}
 		var intstr = [];
 		for (var ii in bothparts[0]){
 			if(fullmap[bothparts[0][ii]]){
 				intstr.push(fullmap[bothparts[0][ii]]);
 			}
 			else if(rowmap[bothparts[0][ii]]){
+				
 				intstr.push(rowmap[bothparts[0][ii]]);
 			}
 			else {
