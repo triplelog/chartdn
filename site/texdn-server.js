@@ -150,7 +150,7 @@ wss.on('connection', function connection(ws) {
 			for(var k in myOptions){
 				defaultOptions[k] = myOptions[k];
 			}
-			var chart = new Chart({id:chartid,data:dataid+'.csv',options:defaultOptions,user:username});
+			var chart = new Chart({id:chartid,data:dataid+'.csv',options:defaultOptions,user:username,headers:[]});
 			chart.save(function (err, chart) {
 				if (err) return console.error(err);
 				console.log('saved');
@@ -216,10 +216,11 @@ wss.on('connection', function connection(ws) {
 			defaultOptions['stepSize'] = {};
 			defaultOptions['labels'] = {};
 			defaultOptions['title'] = '';
+			defaultOptions['delimiter'] = dm.delimiter || ',';
 			for(var k in myOptions){
 				defaultOptions[k] = myOptions[k];
 			}
-			var chart = new Chart({id:chartid,data:chartid+'.csv',options:defaultOptions,user:username});
+			var chart = new Chart({id:chartid,data:chartid+'.csv',options:defaultOptions,user:username,headers:[]});
 			chart.save(function (err, chart) {
 				if (err) return console.error(err);
 				console.log('saved');
