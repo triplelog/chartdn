@@ -196,6 +196,7 @@ wss.on('connection', function connection(ws) {
   			if (dm.type == 'xls'){
   				fs.writeFile("saved/"+chartid+".xls", fstr, {encoding: 'base64'}, function(err) {
   					var wget = 'in2csv saved/'+chartid+".xls > "+chartid+".csv";
+  					console.log(wget);
 					var child = exec(wget, function(err, stdout, stderr) {
 						if (err) throw err;
 						else {
