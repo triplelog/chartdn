@@ -616,6 +616,12 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 				
 				if (nSteps == -1){
 					if (data.headers.length != chartInfo.headers.length){
+						console.log('bbbbb',chartInfo);
+						for (var i in data.headers){
+							chartInfo.headers[i] = data.headers[i];
+						}
+						chartInfo.markModified('headers');
+						console.log('aaaaaa',chartInfo);
 						chartInfo.updateOne({headers:data.headers});
 						var jsonmessage = {'operation':'headers','message':data.headers};
 						ws.send(JSON.stringify(jsonmessage));
@@ -623,7 +629,12 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 					else {
 						for (var i in data.headers){
 							if (!chartInfo.headers || data.headers[i] != chartInfo.headers[i]){
-								chartInfo.updateOne({headers:data.headers});
+								chartInfo.headers = data.headers;
+								chartInfo.markModified('headers');
+								chartInfo.update(function (err, chart) {
+									if (err) return console.error(err);
+									console.log('saved');
+								});
 								var jsonmessage = {'operation':'headers','message':data.headers};
 								ws.send(JSON.stringify(jsonmessage));
 								break;
