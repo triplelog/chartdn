@@ -176,7 +176,7 @@ wss.on('connection', function connection(ws) {
   		}
   		//write data.csv
   		if (chartid == dataid){
-  			var strData = atob(dm.message);
+  			console.log(dm.message);
   			var charData = strData.split('').map(function(x){return x.charCodeAt(0);});
   			var binData = new Uint8Array(charData);
   			console.log(binData);
