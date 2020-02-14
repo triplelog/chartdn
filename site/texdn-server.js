@@ -545,6 +545,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
 	if (nsteps !== 0){
 		for (var i in modifiers){
 			if (!modifiers[i].enabled){continue;}
+			console.log(nsteps,idx);
 			if (nsteps && idx >= nsteps){break;}
 			else {idx++;}
 			
