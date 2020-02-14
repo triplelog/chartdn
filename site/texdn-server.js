@@ -179,7 +179,9 @@ wss.on('connection', function connection(ws) {
   			var strData = atob(dm.message);
   			var charData = strData.split('').map(function(x){return x.charCodeAt(0);});
   			var binData = new Uint8Array(charData);
-  			var fstr = atob(pako.inflate(binData));
+  			var pakores = pako.inflate(binData);
+  			var strData2 = String.fromCharCode.apply(null, new Uint16Array(pakores));
+  			var fstr = atob(strData2);
 			fs.writeFile("saved/"+chartid+".csv", fstr, function (err) {
 				Chart.findOne({ id: chartid }, function(err, result) {
 				  if (err) {
