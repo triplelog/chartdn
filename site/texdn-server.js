@@ -619,11 +619,11 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 						console.log('bbbbb',chartInfo);
 						chartInfo.headers = data.headers;
 						chartInfo.markModified('headers');
-						console.log('aaaaaa',chartInfo);/*
+						console.log('aaaaaa',chartInfo);
 						chartInfo.save(function (err, chart) {
 							if (err) return console.error(err);
 							console.log('saved');
-						});*/
+						});
 						var jsonmessage = {'operation':'headers','message':data.headers};
 						ws.send(JSON.stringify(jsonmessage));
 					}
