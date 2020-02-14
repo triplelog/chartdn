@@ -362,7 +362,6 @@ function modifierChg(initial=false) {
 	el.innerHTML = '';
 	var addedRaw = false;
 	var idx = 1;
-	console.log(el);
 	for (var i in modifiers){
 		if (modifiers[i].enabled){
 			if (!addedRaw){
@@ -385,7 +384,6 @@ function modifierChg(initial=false) {
 		var jsonmessage = {'operation':'options','modifiers':modifiers};
 		ws.send(JSON.stringify(jsonmessage));
 	}
-	console.log(el);
 }
 function typeChg() {
 	var isChecked = document.querySelector('#chartTypeMenu > option:checked');
@@ -1413,7 +1411,7 @@ function createNewModifier(show=false) {
 		el.value = '';
 		return;
 	}
-
+	console.log(el);
 	var mType = '';
 	if (ell && ell.value != ''){
 		mType = ell.value;
