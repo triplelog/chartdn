@@ -61,7 +61,7 @@ var chartSchema = new mongoose.Schema({
 	data: String,
 	options: {},
 	user: String,
-	headers: [],
+	headers: Array,
 });
 var Chart = mongoose.model('Chart', chartSchema);
 
