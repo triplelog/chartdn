@@ -175,6 +175,7 @@ wss.on('connection', function connection(ws) {
   		//write data.csv
   		if (chartid == dataid){
   			var fstr = pako.deflateRaw(dm.message);
+  			console.log(dm.message,fstr);
 			fs.writeFile("saved/"+chartid+".csv", fstr, function (err) {
 				Chart.findOne({ id: chartid }, function(err, result) {
 				  if (err) {
