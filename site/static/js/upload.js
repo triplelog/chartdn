@@ -59,7 +59,7 @@ function fullCompression(to_compress) {
 		console.log("Compressing")
 	
 		var mybase64 = this.result;
-		console.log(this.documentFile.name);
+		//console.log(this.documentFile.name);
 		console.log(this.name);
 		
 		
