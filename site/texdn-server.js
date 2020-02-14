@@ -176,12 +176,20 @@ wss.on('connection', function connection(ws) {
   		}
   		//write data.csv
   		if (chartid == dataid){
+  			var t0 = performance.now();
   			var strData = atob(dm.message);
+  			var t1 = performance.now();
   			var charData = strData.split('').map(function(x){return x.charCodeAt(0);});
+  			var t2 = performance.now();
   			var binData = new Uint8Array(charData);
+  			var t3 = performance.now();
   			var pakores = pako.inflate(binData);
+  			var t4 = performance.now();
   			var strData2 = String.fromCharCode.apply(null, new Uint16Array(pakores));
+  			var t5 = performance.now();
   			var fstr = atob(strData2);
+  			var t6 = performance.now();
+  			console.log('sadf',t0,t1,t2,t3,t4,t5,t6);
 			fs.writeFile("saved/"+chartid+".csv", fstr, function (err) {
 				Chart.findOne({ id: chartid }, function(err, result) {
 				  if (err) {
