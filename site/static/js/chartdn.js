@@ -963,9 +963,13 @@ function updateModifier(evt){
 	modifierChg();
 }
 function chgModify(mObject={}){
-	var idx = 0;
+	var idx = -1;
 	for (var i in modifiers){
 		var m = modifiers[i];
+		if (m.enabled){idx++;}
+		var qstring = 'a[name="'+idx+'"]';
+		document.getElementById('rawModified').querySelector(qstring).style.color='white';
+		
 		if (!document.getElementById('edit'+m.id)) {continue;}
 		if (m.id == mObject.id){
 			if (document.getElementById(m.id).style.backgroundColor != 'rgb(200, 200, 200)') {
@@ -983,9 +987,7 @@ function chgModify(mObject={}){
 			document.getElementById('edit'+m.id).style.display = 'none';
 			document.getElementById(m.id).style.backgroundColor = 'white';
 		}
-		if (m.enabled){idx++;}
-		var qstring = 'a[name="'+idx+'"]';
-		document.getElementById('rawModified').querySelector(qstring).style.color='white';
+		
 		
 		
 		
