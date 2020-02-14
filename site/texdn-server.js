@@ -606,7 +606,7 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 			complete: function(results) {
 				var nHeaders = chartInfo.options.nHeaders || 1;
 				var nSteps = -1;
-				var data = convertDataToFull(results.data,nHeaders,chartInfo.options.modifiers,options.nsteps);
+				var data = convertDataToFull(results.data,nHeaders,chartInfo.options.modifiers,chartInfo.options.nsteps);
 				if (nSteps == -1){
 					if (data.headers.length != chartInfo.headers.length){
 						chartInfo.headers = data.headers;
