@@ -57,17 +57,26 @@ function fullCompression(to_compress) {
 	var readerF = new FileReader();
 	readerF.onload = function() {
 		console.log("Compressing")
-	
+		var d = new Date();
+		var n = d.getTime();
+		console.log(n);
 		var mybase64 = this.result;
+		d = new Date();n = d.getTime();console.log(n);
 		var index = mybase64.indexOf('base64,');
+		d = new Date();n = d.getTime();console.log(n);
 		mybase64 = mybase64.substring(index+7);
+		d = new Date();n = d.getTime();console.log(n);
 		var compbase64 = pako.deflate(mybase64,{to:'string'});
-		
+		d = new Date();n = d.getTime();console.log(n);
 		document.getElementById('dataCopy').value = btoa(compbase64);
+		d = new Date();n = d.getTime();console.log(n);
 		dataChg();
-
+		d = new Date();n = d.getTime();console.log(n);
 		
 	}
+	var d = new Date();
+	var n = d.getTime();
+	console.log(n);
 	readerF.readAsDataURL(to_compress);
 }
 
