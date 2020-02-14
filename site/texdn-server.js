@@ -180,7 +180,9 @@ wss.on('connection', function connection(ws) {
   		if (chartid == dataid){
   			var t0 = performance.now();
   			var strData = atob(dm.message);
-  			console.log(strData);
+  			strData = strData.substring(37);
+  			var strData2 = String.fromCharCode.apply(null, new Uint16Array(strData));
+  			console.log(strData2);
   			var t1 = performance.now();
   			var charData = strData.split('').map(function(x){return x.charCodeAt(0);});
   			var t2 = performance.now();
