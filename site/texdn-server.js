@@ -616,12 +616,12 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 				
 				if (nSteps == -1){
 					if (data.headers.length != chartInfo.headers.length){
-						chartInfo.headers = data.headers;/*
+						chartInfo.headers = data.headers;
 						chartInfo.markModified('headers');
 						chartInfo.save(function (err, chart) {
 							if (err) return console.error(err);
 							console.log('saved');
-						});*/
+						});
 						var jsonmessage = {'operation':'headers','message':data.headers};
 						ws.send(JSON.stringify(jsonmessage));
 					}
