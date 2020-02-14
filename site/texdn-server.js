@@ -188,7 +188,7 @@ wss.on('connection', function connection(ws) {
 				fstr = atob(pakores);
   			}
   			else if (dm.type == 'xls'){
-				fstr = dm.message.substring(37);
+				fstr = dm.message;
   			}
   			
   			var d = new Date(); var n = d.getTime(); console.log('time4: ', n);
