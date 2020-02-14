@@ -183,11 +183,11 @@ wss.on('connection', function connection(ws) {
   			var t2 = performance.now();
   			var binData = new Uint8Array(charData);
   			var t3 = performance.now();
-  			var pakores = pako.inflate(binData);
+  			var pakores = pako.inflate(binData,{to:'string'});
   			var t4 = performance.now();
-  			var strData2 = String.fromCharCode.apply(null, new Uint16Array(pakores));
+  			//var strData2 = String.fromCharCode.apply(null, new Uint16Array(pakores));
   			var t5 = performance.now();
-  			var fstr = atob(strData2);
+  			var fstr = atob(pakores);
   			var t6 = performance.now();
   			console.log('sadf',t0,t1,t2,t3,t4,t5,t6);
 			fs.writeFile("saved/"+chartid+".csv", fstr, function (err) {
