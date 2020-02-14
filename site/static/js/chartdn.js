@@ -979,7 +979,9 @@ function chgModify(mObject={}){
 				document.getElementById(m.id).style.backgroundColor = 'rgb(200, 200, 200)';
 				var q = idx;
 				if (!m.enabled){q = idx+1;}
+				console.log(q);
 				var qstring = 'a[name="'+q+'"]';
+				console.log(qstring);
 				document.getElementById('rawModified').querySelector(qstring).style.color='yellow';
 			}
 			else {
