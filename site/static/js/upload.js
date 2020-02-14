@@ -59,11 +59,11 @@ function fullCompression(to_compress) {
 		console.log("Compressing")
 	
 		var mybase64 = this.result
-
-		var compbase64 = flate.deflate_decode(mybase64);
+		console.log(mybase64);
+		var compbase64 = flate.deflate_encode(mybase64);
 		console.log(compbase64);
 		
-		var decompbase64 = flate.deflate_encode(compbase64);
+		var decompbase64 = flate.deflate_decode(compbase64);
 		console.log(decompbase64);
 		
 		document.getElementById('dataCopy').value = compbase64;
