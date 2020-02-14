@@ -423,7 +423,8 @@ function dataChg(initialData=false) {
 	var dataTable = document.getElementById("dataTable");
 	var csv = dataCopy.value;
 	if (!initialData){
-		var jsonmessage = {'operation':'upload','message':csv};
+		var delimiter = document.getElementById('delimiter').value;
+		var jsonmessage = {'operation':'upload','message':csv,'delimiter':delimiter};
 		ws.send(JSON.stringify(jsonmessage));
 	}
 	else {

@@ -13,7 +13,7 @@ var parse = require('csv-parse');
 var Papa = require('papaparse');
 var nunjucks = require('nunjucks');
 var crypto = require("crypto");
-//const flate = require('wasm-flate');
+const flate = require('wasm-flate');
 var createPlotly = require('./createCharts/plotly-charts.js');
 var createXkcd = require('./createCharts/xkcd-charts.js');
 var createGoogle = require('./createCharts/google-charts.js');
@@ -146,6 +146,7 @@ wss.on('connection', function connection(ws) {
 			defaultOptions['stepSize'] = {};
 			defaultOptions['labels'] = {};
 			defaultOptions['title'] = '';
+			defaultOptions['delimiter'] = dm.delimiter || ',';
 			for(var k in myOptions){
 				defaultOptions[k] = myOptions[k];
 			}

@@ -20,7 +20,7 @@ function handleDrop(e) {
 	syncWorker.postMessage(ffile);
 	syncWorker.onmessage = function(e) {
 		ctypestr = toTable(e.data.result,e.data.ctypestr);
-		//if (filen != ""){createConfirmForm();}
+
 		setTimeout(fullCompression,1000,ffile);
 	};
 }
@@ -64,35 +64,14 @@ function fullCompression(to_compress) {
 
 		var array = flate.deflate_encode_raw(array)
 		var compressed_size = array.length
-		//console.log(original_size, compressed_size)
 		dataChg();
-		/*
-		var xmlHttp = new XMLHttpRequest();
-		xmlHttp.open("POST", "/uploadfile", false); // false for synchronous request
-		xmlHttp.send(array);
-		filen = xmlHttp.responseText;
-		if (ctypestr != ""){createConfirmForm();}
-		*/
+
 		
 	}
 	readerF.readAsArrayBuffer(to_compress);
 }
 
-/*
-function createConfirmForm(){
-	var form = document.createElement("form");
-	form.setAttribute("action","/savefile?n="+filen);
-	form.setAttribute("method","post");
-		var input = document.createElement("input");
-		input.setAttribute("type","text");
-		input.setAttribute("name","ctypes");
-		input.value = ctypestr;
-		form.appendChild(input);
-		var button = document.createElement("button");
-		button.textContent = "Submit";
-		form.appendChild(button);
-	document.getElementById("formholder").appendChild(form);
-}*/
+
 function toTable(input_str,ctypestr){
 	
 	var data = Papa.parse(input_str);
