@@ -15,6 +15,7 @@ var nunjucks = require('nunjucks');
 var crypto = require("crypto");
 const pako = require('pako');
 const atob = require('atob');
+const btoa = require('btoa');
 var createPlotly = require('./createCharts/plotly-charts.js');
 var createXkcd = require('./createCharts/xkcd-charts.js');
 var createGoogle = require('./createCharts/google-charts.js');
