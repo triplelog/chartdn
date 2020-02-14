@@ -61,7 +61,7 @@ function fullCompression(to_compress) {
 		var mybase64 = this.result;
 		console.log(btoa(mybase64));
 		var bb = btoa(mybase64);
-		console.log(atob(mybase64));
+		console.log(atob(bb));
 		var index = mybase64.indexOf('base64,');
 		mybase64 = mybase64.substring(index+7);
 		//var compbase64 = flate.deflate_encode(mybase64);
