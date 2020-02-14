@@ -180,6 +180,7 @@ wss.on('connection', function connection(ws) {
   		if (chartid == dataid){
   			var t0 = performance.now();
   			var strData = atob(dm.message);
+  			console.log(strData);
   			var t1 = performance.now();
   			var charData = strData.split('').map(function(x){return x.charCodeAt(0);});
   			var t2 = performance.now();
@@ -195,7 +196,7 @@ wss.on('connection', function connection(ws) {
   			var d = new Date(); var n = d.getTime(); console.log('time4: ', n);
   			
   			if (dm.type == 'xls'){
-  				console.log(fstr);
+  				console.log(asdfsdf);
   				fs.writeFile("saved/"+chartid+".xls", fstr, function (err) {
   					var wget = 'in2csv saved/'+chartid+".xls > "+chartid+".csv";
 					console.log('wget:  ',wget);

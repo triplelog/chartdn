@@ -58,17 +58,8 @@ function fullCompression(to_compress) {
 		console.log("Compressing")
 	
 		var mybase64 = this.result;
-		//console.log(this.documentFile.name);
-		console.log(this.name);
 		
-		console.log(mybase64);
-		console.log(btoa(mybase64));
-		console.log(atob(mybase64));
-		var index = mybase64.indexOf('base64,');
-		mybase64 = mybase64.substring(index+7);
-		var compbase64 = pako.deflate(mybase64,{to:'string'});
-		
-		document.getElementById('dataCopy').value = btoa(compbase64);
+		document.getElementById('dataCopy').value = btoa(mybase64);
 		//if (this.fileName.indexOf('.csv')> -1){
 		if (2 == 3){
 			dataChg();
@@ -81,7 +72,7 @@ function fullCompression(to_compress) {
 		
 	}
 	
-	readerF.readAsBinaryString(to_compress);
+	readerF.readAsDataURL(to_compress);
 }
 
 function fullCompressionCSV(to_compress) {
