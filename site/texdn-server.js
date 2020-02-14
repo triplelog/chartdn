@@ -616,7 +616,7 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 				
 				if (nSteps == -1){
 					if (data.headers.length != chartInfo.headers.length){
-						console.log('aa',data.headers);
+						console.log('aa',data.headers,chartInfo.id);
 						Chart.updateOne({id:chartInfo.id},{headers:data.headers});
 						var jsonmessage = {'operation':'headers','message':data.headers};
 						ws.send(JSON.stringify(jsonmessage));
