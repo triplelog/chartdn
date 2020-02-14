@@ -151,11 +151,11 @@ wss.on('connection', function connection(ws) {
 				defaultOptions[k] = myOptions[k];
 			}
 			var chart = new Chart({id:chartid,data:dataid+'.csv',options:defaultOptions,user:username,headers:[]});
-			console.log('saving', chart);
+
 			chart.save(function (err, chart) {
 				if (err) return console.error(err);
 				
-				console.log('saved', chart);
+				console.log('saved');
 			});
 			if (username != '') {
 				User.findOne({username: username}, function(err, result) {
@@ -606,9 +606,9 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
 function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 	var t0 = performance.now();
 	fs.readFile('saved/'+chartInfo.data, 'utf8', function(err, fileData) {
-		console.log('file',fileData);
 		var results = Papa.parse(fileData, {
 			complete: function(results) {
+				console.log('results',results);
 				var nHeaders = chartInfo.options.nHeaders || 1;
 				var nSteps = -1;
 				var data = convertDataToFull(results.data,nHeaders,chartInfo.options.modifiers,chartInfo.options.nsteps);
