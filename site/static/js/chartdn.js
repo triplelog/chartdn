@@ -319,12 +319,12 @@ function optionsChg(optionname) {
 		ws.send(JSON.stringify(jsonmessage));
 	}
 	else if (optionname == 'shape' || optionname == 'dash' || optionname == 'lineName'){
-		console.log(colid);
+
 		var parentEl = document.querySelector("#lineStyleDiv"+colid);
 		
-		var el = parentEl.querySelector('input[name='+optionname+']:checked');
+		var el = parentEl.querySelector('input[name='+optionname+colid+']:checked');
 		if (optionname == 'lineName'){
-			el = parentEl.querySelector('input[name='+optionname+']')
+			el = parentEl.querySelector('input[name='+optionname+colid+']')
 		}
 		var newoption = el.value;
 		var jsonmessage = {'operation':'options','lines':[{'id':colid}]};
