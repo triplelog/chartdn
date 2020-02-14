@@ -62,7 +62,7 @@ function fullCompression(to_compress) {
 		var compbase64 = flate.deflate_encode(mybase64);
 		
 		
-		document.getElementById('dataCopy').value = compbase64;
+		document.getElementById('dataCopy').value = btoa(compbase64);
 		dataChg();
 
 		
