@@ -54,6 +54,7 @@ var headers = [];
 var colid = -1;
 var dataSourceSize = 'large';
 
+
 //Update Headers
 function updateHeaders(initialData,chg=false) {
 	var allColumns = document.getElementById('allColumns');
@@ -344,10 +345,13 @@ function optionsChg(optionname) {
 		ws.send(JSON.stringify(jsonmessage));
 	}
 }
-function chgStep() {
-
+function chgStep(evt) {
+	var el = evt.target;
+	var nsteps = parseInt(el.getAttribute('name'));
+	var jsonmessage = {'operation':'options','nsteps':nsteps};
+	ws.send(JSON.stringify(jsonmessage));
 }
-function modifierChg() {
+function modifierChg(initial=false) {
 	var el = document.getElementById('rawModified');
 	el.innerHTML = '';
 	var addedRaw = false;
@@ -360,16 +364,20 @@ function modifierChg() {
 				newEl.setAttribute('name',0);
 				newEl.addEventListener('click',chgStep);
 				el.appendChild(newEl);
+				addedRaw = true;
 			}
 			var newEl = document.createElement('a');
 			newEl.textContent = idx;
 			newEl.setAttribute('name',idx);
 			newEl.addEventListener('click',chgStep);
 			el.appendChild(newEl);
+			idx++;
 		}
 	}
-	var jsonmessage = {'operation':'options','modifiers':modifiers};
-	ws.send(JSON.stringify(jsonmessage));
+	if (!initial){
+		var jsonmessage = {'operation':'options','modifiers':modifiers};
+		ws.send(JSON.stringify(jsonmessage));
+	}
 }
 function typeChg() {
 	var isChecked = document.querySelector('#chartTypeMenu > option:checked');
@@ -462,6 +470,7 @@ function dataChg(initialData=false) {
 		dataTable.appendChild(newrow);
 		
 	}
+	modifierChg(initialData);
 	updateHeaders(initialData);
 	
 	
