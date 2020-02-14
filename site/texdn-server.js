@@ -613,6 +613,7 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 				var nSteps = -1;
 				var data = convertDataToFull(results.data,nHeaders,chartInfo.options.modifiers,chartInfo.options.nsteps);
 				console.log('headers',chartInfo.headers);
+				/*
 				if (nSteps == -1){
 					if (data.headers.length != chartInfo.headers.length){
 						chartInfo.headers = data.headers;
@@ -639,7 +640,7 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 							}
 						}
 					}
-				}
+				}*/
 				/*
 				if (chartStyle == 'all' || chartStyle == 'chartJS') {
 					var chartJSON = createChartjs.createChartjs(data,chartInfo.options);
