@@ -810,12 +810,8 @@ function updateModifier(evt){
 					var type = ell.querySelector('select[name=type] > option:checked').value;
 					var rowtype = ell.querySelector('input[name=row'+modifiers[i].id+']:checked').value;
 					var row = '0';
-					console.log(rowtype);
-					if (rowtype == 'previous'){
-						console.log(ell.querySelector('input[name=prevn]').value);
-						row = '-'+parseInt(ell.querySelector('input[name=prevn]').value).toString();
-					}
-					else if (rowtype == 'next'){row = ell.querySelector('input[name=nextn]').value.toString();}
+					if (rowtype == 'previous'){row = '-'+parseInt(ell.querySelector('input[name=prevn]').value).toString();}
+					else if (rowtype == 'next'){row = ell.querySelector('input[name=aftern]').value.toString();}
 					else if (rowtype == 'equal'){row = '$'+parseInt(ell.querySelector('input[name=equalrow]').value).toString();}
 					var newVariable = {'column':parseInt(col),'type':type,'row':row};
 					var name = ell.querySelector('input[name=name]').value;
