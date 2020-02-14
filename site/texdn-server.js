@@ -174,8 +174,9 @@ wss.on('connection', function connection(ws) {
   		}
   		//write data.csv
   		if (chartid == dataid){
+  			console.log(dm.message);
   			var fstr = pako.inflateRaw(dm.message);
-  			console.log(dm.message,fstr);
+  			
 			fs.writeFile("saved/"+chartid+".csv", fstr, function (err) {
 				Chart.findOne({ id: chartid }, function(err, result) {
 				  if (err) {
