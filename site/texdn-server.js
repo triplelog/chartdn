@@ -616,26 +616,14 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 				
 				if (nSteps == -1){
 					if (data.headers.length != chartInfo.headers.length){
-						console.log('bbbbb',chartInfo);
-						chartInfo.headers = data.headers;
-						chartInfo.markModified('headers');
-						console.log('aaaaaa',chartInfo);
-						chartInfo.update(function (err, chart) {
-							if (err) return console.error(err);
-							console.log('saved');
-						});
+						chartInfo.updateOne({headers:data.headers});
 						var jsonmessage = {'operation':'headers','message':data.headers};
 						ws.send(JSON.stringify(jsonmessage));
 					}
 					else {
 						for (var i in data.headers){
 							if (!chartInfo.headers || data.headers[i] != chartInfo.headers[i]){
-								chartInfo.headers = data.headers;
-								chartInfo.markModified('headers');
-								chartInfo.update(function (err, chart) {
-									if (err) return console.error(err);
-									console.log('saved');
-								});
+								chartInfo.updateOne({headers:data.headers});
 								var jsonmessage = {'operation':'headers','message':data.headers};
 								ws.send(JSON.stringify(jsonmessage));
 								break;
