@@ -978,7 +978,7 @@ function chgModify(mObject={}){
 				document.getElementById('edit'+m.id).style.display = 'block';
 				document.getElementById(m.id).style.backgroundColor = 'rgb(200, 200, 200)';
 				var qstring = 'a[name="'+idx+'"]';
-				if (!m.enabled){qstring = 'a[name="'+(idx+1)+'"]';}
+				if (!m.enabled){qstring = 'a[name="'+(idx+1).toString()+'"]';}
 				document.getElementById('rawModified').querySelector(qstring).style.color='yellow';
 			}
 			else {
