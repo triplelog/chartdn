@@ -12,6 +12,7 @@ ws.onopen = function(evt) {
 	ws.send(JSON.stringify(jsonmessage));
 }
 ws.onmessage = function(evt){
+	var d = new Date(); var n = d.getTime(); console.log('time6: ', n);
 	var dm = JSON.parse(evt.data);
 	if (dm.operation == 'downloaded'){
 		document.getElementById('dataCopy').value = dm.message;
@@ -21,6 +22,7 @@ ws.onmessage = function(evt){
 		chartid = dm.message;
 	}
 	else if (dm.operation == 'chart'){
+		var d = new Date(); var n = d.getTime(); console.log('time7: ', n);
 		var chartJSON = dm.message;
 		var allCharts = document.querySelectorAll('chartdn-chart');
 		for (var i=0;i< allCharts.length;i++){
@@ -28,7 +30,9 @@ ws.onmessage = function(evt){
 				allCharts[i].makeChart(chartJSON);
 			}
 		}
+		var d = new Date(); var n = d.getTime(); console.log('time8: ', n);
 		updateModifiedTable(dm.mdata);
+		var d = new Date(); var n = d.getTime(); console.log('time9: ', n);
 	}
 	else if (dm.operation == 'headers'){
 		var oldHeaders = [];
