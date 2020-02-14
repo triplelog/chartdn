@@ -179,7 +179,8 @@ wss.on('connection', function connection(ws) {
 				  if (err) {
 			
 				  } else {
-					makeAllCharts(ws,dm,result,'all');
+				  	console.log('wrote');
+					//makeAllCharts(ws,dm,result,'all');
 				  }
 				});
 			});
