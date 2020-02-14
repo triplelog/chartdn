@@ -257,7 +257,7 @@ exports.newColumn = function(array,options) {
 		else {
 			continue;
 		}
-		
+		console.log(rowStart,rowEnd);
 		if (vars[ii].type=='mean'){
 			var sum = 0;
 			var n = 0;
