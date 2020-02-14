@@ -612,6 +612,7 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 				if (nSteps == -1){
 					if (data.headers.length != chartInfo.headers.length){
 						chartInfo.headers = data.headers;
+						chartInfo.markModified('headers');
 						chartInfo.save(function (err, chart) {
 							if (err) return console.error(err);
 							console.log('saved');
@@ -623,6 +624,7 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 						for (var i in data.headers){
 							if (!chartInfo.headers || data.headers[i] != chartInfo.headers[i]){
 								chartInfo.headers = data.headers;
+								chartInfo.markModified('headers');
 								chartInfo.save(function (err, chart) {
 									if (err) return console.error(err);
 									console.log('saved');
