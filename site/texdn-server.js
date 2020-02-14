@@ -177,6 +177,8 @@ wss.on('connection', function connection(ws) {
   		if (chartid == dataid){
   			console.log(dm.message.toString());
   			
+  			console.log(atob(dm.message.toString()));
+  			
   			var fstr = pako.inflate(dm.message,{to:'string'});
   			console.log(fstr);
 			fs.writeFile("saved/"+chartid+".csv", fstr, function (err) {
