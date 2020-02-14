@@ -176,9 +176,10 @@ wss.on('connection', function connection(ws) {
   		}
   		//write data.csv
   		if (chartid == dataid){
-  			var arr = toUint8Array(dm.message)
-  			console.log(arr);
-  			var fstr = pako.inflate(arr,{to:'string'});
+  			var arr = toUint8Array(dm.message);
+  			var binData = new Uint8Array(arr);
+  			console.log(binData);
+  			var fstr = pako.inflate(binData,{to:'string'});
   			console.log(fstr);
   			console.log(atob(fstr));
 			fs.writeFile("saved/"+chartid+".csv", fstr, function (err) {
