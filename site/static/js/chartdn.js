@@ -809,9 +809,12 @@ function updateModifier(evt){
 					var col = ell.querySelector('select[name=column] > option:checked').value;
 					var type = ell.querySelector('select[name=type] > option:checked').value;
 					var rowtype = ell.querySelector('input[name=row'+modifiers[i].id+']').value;
-					console.log(rowtype);
+					var row = '0';
+					if (rowtype == 'previous'){row = '-'+parseInt(ell.querySelector('input[name=prevn]').value).toString();}
+					else if (rowtype == 'next'){row = ell.querySelector('input[name=nextn]').value.toString();}
+					else if (rowtype == 'equal'){row = '$'+parseInt(ell.querySelector('input[name=equalrow]').value).toString();}
+					var newVariable = {'column':parseInt(col),'type':type,'row':row};
 					var name = ell.querySelector('input[name=name]').value;
-					var newVariable = {'column':parseInt(col),'type':type,'row':'0'};
 					modifiers[i].options.variables[name] = newVariable;
 					console.log(modifiers[i].options.variables);
 					
