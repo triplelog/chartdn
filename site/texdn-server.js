@@ -608,10 +608,11 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 	fs.readFile('saved/'+chartInfo.data, 'utf8', function(err, fileData) {
 		var results = Papa.parse(fileData, {
 			complete: function(results) {
-				console.log('results',results);
+				
 				var nHeaders = chartInfo.options.nHeaders || 1;
 				var nSteps = -1;
 				var data = convertDataToFull(results.data,nHeaders,chartInfo.options.modifiers,chartInfo.options.nsteps);
+				console.log('headers',chartInfo.headers);
 				if (nSteps == -1){
 					if (data.headers.length != chartInfo.headers.length){
 						chartInfo.headers = data.headers;
