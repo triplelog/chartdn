@@ -579,7 +579,6 @@ loginServer.listen(3000);
 
 function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
 	rawArray = dataStr;
-	console.log(rawArray);
 	var t1 = performance.now();
 
 	
@@ -648,6 +647,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
 function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 	var t0 = performance.now();
 	fs.readFile('saved/'+chartInfo.data, 'utf8', function(err, fileData) {
+		console.log(chartInfo.data,fileData);
 		var results = Papa.parse(fileData, {
 			//delimiter: chartInfo.options.delimiter || "",
 			complete: function(results) {
