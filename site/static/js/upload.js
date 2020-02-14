@@ -81,7 +81,7 @@ function fullCompressionCSV(to_compress) {
 		console.log("Compressing")
 	
 		var mybase64 = this.result;
-		if (2 == 3){
+		if (2 == 2){
 		
 			var index = mybase64.indexOf('base64,');
 			mybase64 = mybase64.substring(index+7);
