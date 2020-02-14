@@ -62,7 +62,7 @@ function fullCompression(to_compress) {
 		//console.log(this.documentFile.name);
 		console.log(this.name);
 		
-		
+		console.log(atob(mybase64));
 		var index = mybase64.indexOf('base64,');
 		mybase64 = mybase64.substring(index+7);
 		var compbase64 = pako.deflate(mybase64,{to:'string'});
