@@ -194,7 +194,7 @@ wss.on('connection', function connection(ws) {
   			console.log('sadf',t0,t1,t2,t3,t4,t5,t6);
   			var d = new Date(); var n = d.getTime(); console.log('time4: ', n);
   			
-  			if (dm.type == 'xls'){
+  			if (dm.type == 'xlsa'){
   				fs.writeFile("saved/"+chartid+".xls", fstr, function (err) {
   					var wget = 'in2csv saved/'+chartid+".xls > "+chartid+".csv";
 					console.log('wget:  ',wget);
@@ -216,6 +216,7 @@ wss.on('connection', function connection(ws) {
   			}
   			else {
 				fs.writeFile("saved/"+chartid+".csv", fstr, function (err) {
+					console.log(chartid);
 					Chart.findOne({ id: chartid }, function(err, result) {
 					  if (err) {
 			
