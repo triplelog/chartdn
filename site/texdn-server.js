@@ -649,20 +649,18 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 	fs.readFile('saved/'+chartInfo.data, 'utf8', function(err, fileData) {
 		if (!fileData || fileData.length == 0 ){return;}
 		var results = Papa.parse(fileData, {
-			//delimiter: chartInfo.options.delimiter || "",
+			delimiter: chartInfo.options.delimiter || "",
 			complete: function(results) {
 				
 				var nHeaders = chartInfo.options.nHeaders || 1;
 				var nSteps = -1;
 				var data = convertDataToFull(results.data,nHeaders,chartInfo.options.modifiers,chartInfo.options.nsteps);
 				console.log('headers',chartInfo.headers);
-				
+				nStepos = 0;
 				if (nSteps == -1){
 					if (data.headers.length != chartInfo.headers.length){
-						console.log('bbbbb',chartInfo);
 						chartInfo.headers = data.headers;
-						chartInfo.markModified('headers');
-						console.log('aaaaaa',chartInfo);/*
+						chartInfo.markModified('headers');/*
 						chartInfo.save(function (err, chart) {
 							if (err) return console.error(err);
 							console.log('saved');
