@@ -52,30 +52,9 @@ document.querySelector('#dataFile').addEventListener('change', function(inp) {
 
 }, false);
 
+
+
 function fullCompression(to_compress) {
-	var readerF = new FileReader();
-	readerF.onload = function() {
-		console.log("Compressing")
-	
-		var mybase64 = this.result;
-		
-		document.getElementById('dataCopy').value = mybase64;
-		//if (this.fileName.indexOf('.csv')> -1){
-		if (2 == 3){
-			dataChg();
-		}
-		else {
-			dataChg(false,'xls');
-		}
-		
-
-		
-	}
-	
-	readerF.readAsDataURL(to_compress);
-}
-
-function fullCompressionCSV(to_compress) {
 	var readerF = new FileReader();
 	readerF.onload = function() {
 		console.log("Compressing")
