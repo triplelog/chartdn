@@ -289,7 +289,7 @@ exports.newColumn = function(array,options) {
 			if (vars[ii].type=='value'){
 				var row = parseInt(i);
 				if (vars[ii].row.indexOf('$')==0){
-					row = parseInt(vars[ii].row.substring(1));
+					row = parseInt(vars[ii].row.substring(1))+options.nHeaders;
 				}
 				else {
 					row += parseInt(vars[ii].row);

@@ -600,6 +600,8 @@ function createNewColumnBox(id) {
 	}
 	varDiv.appendChild(varColumn);
 	
+	var valueDiv = document.createElement('div');
+	valueDiv.id = 'value'+id;
 	var newDiv = document.createElement('div');
 		
 		var varR = document.createElement('input');
@@ -615,7 +617,7 @@ function createNewColumnBox(id) {
 			
 		newDiv.appendChild(varR);
 		newDiv.appendChild(varRL);
-	varDiv.appendChild(newDiv);
+	valueDiv.appendChild(newDiv);
 	newDiv = document.createElement('div');
 		var varR = document.createElement('input');
 		varR.setAttribute('type','radio');
@@ -637,7 +639,7 @@ function createNewColumnBox(id) {
 		
 		newDiv.appendChild(varR);
 		newDiv.appendChild(varRL);
-	varDiv.appendChild(newDiv);
+	valueDiv.appendChild(newDiv);
 	newDiv = document.createElement('div');
 		
 		var varR = document.createElement('input');
@@ -660,7 +662,7 @@ function createNewColumnBox(id) {
 		
 		newDiv.appendChild(varR);
 		newDiv.appendChild(varRL);
-	varDiv.appendChild(newDiv);
+	valueDiv.appendChild(newDiv);
 	newDiv = document.createElement('div');
 		
 		var varR = document.createElement('input');
@@ -679,7 +681,92 @@ function createNewColumnBox(id) {
 		
 		newDiv.appendChild(varR);
 		newDiv.appendChild(varRL);
-	varDiv.appendChild(newDiv);
+	valueDiv.appendChild(newDiv);
+	varDiv.appendChild(valueDiv);
+	
+	var groupDiv = document.createElement('div');
+	groupDiv.id = 'value'+id;
+	var newDiv = document.createElement('div');
+		
+		var varR = document.createElement('input');
+		varR.setAttribute('type','radio');
+		varR.setAttribute('name','rowg'+id);
+		varR.setAttribute('checked','checked');
+		varR.setAttribute('value','all');
+		varR.id = 'allRow'+id;
+			
+		var varRL = document.createElement('label');
+		varRL.textContent = 'All Rows';
+		varRL.setAttribute('for','allRow'+id);
+			
+		newDiv.appendChild(varR);
+		newDiv.appendChild(varRL);
+	groupDiv.appendChild(newDiv);
+	newDiv = document.createElement('div');
+		var varR = document.createElement('input');
+		varR.setAttribute('type','radio');
+		varR.setAttribute('name','rowg'+id);
+		varR.setAttribute('value','previous');
+		varR.id = 'previousRow'+id;
+		
+		var varRL = document.createElement('label');
+		var varRN = document.createElement('input');
+		varRN.setAttribute('type','number');
+		varRN.setAttribute('name','prevn');
+		varRN.setAttribute('value','1');
+		varRN.style.width = '4rem';
+		varRL.appendChild(varRN);
+		var varRS = document.createElement('span');
+		varRS.textContent = ' Row Before';
+		varRL.appendChild(varRS);
+		varRL.setAttribute('for','previousRow'+id);
+		
+		newDiv.appendChild(varR);
+		newDiv.appendChild(varRL);
+	groupDiv.appendChild(newDiv);
+	newDiv = document.createElement('div');
+		
+		var varR = document.createElement('input');
+		varR.setAttribute('type','radio');
+		varR.setAttribute('name','rowg'+id);
+		varR.setAttribute('value','next');
+		varR.id = 'nextRow'+id;
+		
+		var varRL = document.createElement('label');
+		var varRN = document.createElement('input');
+		varRN.setAttribute('type','number');
+		varRN.setAttribute('name','aftern');
+		varRN.setAttribute('value','1');
+		varRN.style.width = '4rem';
+		varRL.appendChild(varRN);
+		var varRS = document.createElement('span');
+		varRS.textContent = ' Row After';
+		varRL.appendChild(varRS);
+		varRL.setAttribute('for','nextRow'+id);
+		
+		newDiv.appendChild(varR);
+		newDiv.appendChild(varRL);
+	groupDiv.appendChild(newDiv);
+	newDiv = document.createElement('div');
+		
+		var varR = document.createElement('input');
+		varR.setAttribute('type','radio');
+		varR.setAttribute('name','rowg'+id);
+		varR.setAttribute('value','equal');
+		varR.id = 'equalRow'+id;
+		
+		var varRL = document.createElement('label');
+		var varRI = document.createElement('input');
+		varRI.setAttribute('type','text');
+		varRI.setAttribute('name','equalrow');
+		varRL.textContent = 'Row = ';
+		varRL.appendChild(varRI);
+		varRL.setAttribute('for','equalRow'+id);
+		
+		newDiv.appendChild(varR);
+		newDiv.appendChild(varRL);
+	groupDiv.appendChild(newDiv);
+	varDiv.appendChild(groupDiv);
 	
 	var varB = document.createElement('a');
 	varB.setAttribute('name','add');
