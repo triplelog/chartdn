@@ -358,10 +358,12 @@ function chgStep(evt) {
 	ws.send(JSON.stringify(jsonmessage));
 }
 function modifierChg(initial=false) {
+	console.log(modifiers);
 	var el = document.getElementById('rawModified');
 	el.innerHTML = '';
 	var addedRaw = false;
 	var idx = 1;
+	console.log(modifiers);
 	for (var i in modifiers){
 		if (modifiers[i].enabled){
 			if (!addedRaw){
@@ -380,6 +382,7 @@ function modifierChg(initial=false) {
 			idx++;
 		}
 	}
+	console.log(modifiers);
 	if (!initial){
 		var jsonmessage = {'operation':'options','modifiers':modifiers};
 		ws.send(JSON.stringify(jsonmessage));
@@ -1439,7 +1442,6 @@ function createNewModifier(show=false) {
 		el.style.display = 'none';
 		el.value = '';
 		modifiers.push(oldObject);
-		console.log(modifiers);
 		chgModify(oldObject);
 		modifierChg();
 	}
