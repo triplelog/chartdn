@@ -1269,30 +1269,73 @@ function createIgnore(obj) {
 	
 	var newH = document.createElement('div');
 	newH.classList.add('box-header2');
-	var newI = document.createElement('input');
-	newI.setAttribute('type','text');
-	newI.setAttribute('value','Ignore if ...');
-	newH.appendChild(newI);
+	var newT = document.createElement('span');
+	newT.textContent = 'Ignore: ' + obj.name;
+	newT.setAttribute('name','title');
+	newH.appendChild(newT);
 	createMButtons(newH,obj.enabled);
 	
 	newM.appendChild(newH);
-					
+	
+	var ideal = `<div class="box-form">
+		Formula: <textarea rows="1" cols="40"></textarea><br />
+		<!--Katex of Formula-->
+		Variables: <div id="newVariables"></div>
+	</div>`;
+
+						
 	var newB = document.createElement('div');
 	newB.classList.add('box-form');
+	var newBB = document.createElement('div');
+	newBB.classList.add('pure-g');
+	
+	var newBBB = document.createElement('div');
+	newBBB.classList.add('pure-u-1-3');
+	
+	var newI = document.createElement('input');
+	newI.setAttribute('type','text');
+	newI.setAttribute('name','name');
+	newI.setAttribute('value',obj.name);
+	newI.addEventListener('change',updateModifier);
+	newBBB.appendChild(newI);
+	
 	newI = document.createElement('textarea');
 	newI.setAttribute('rows','1');
-	newI.setAttribute('cols','40');
-	newI.setAttribute('name','formula')
+	newI.setAttribute('cols','30');
+	newI.style.zIndex = '2';
+	newI.setAttribute('name','formula');
+	newI.value = obj.options.formula;
 	newI.addEventListener('change',updateModifier);
-	newB.appendChild(newI);
+	newBBB.appendChild(newI);
+	newI = document.createElement('div');
+	newI.setAttribute('name','katex');
+	katex.render(obj.options.formula, newI, {
+		throwOnError: false
+	});
+	newBBB.appendChild(newI);
+	newBB.appendChild(newBBB);
+	
+
+	
+	newBBB = document.createElement('div');
+	newBBB.classList.add('pure-u-2-3');
 	var newD = document.createElement('div');
 	newD.id = 'allVariables';
-	newB.appendChild(newD);
-	newM.appendChild(newB);
+	for (var i in obj.options.variables){
+		var objVar = obj.options.variables[i];
+		var newEl = document.createElement('div');
+		newEl.textContent = i + ' := ' + objVar.type + ' of ' + objVar.column;
+		newEl.setAttribute('name',i);
+		newD.appendChild(newEl);
+	}
+	newBBB.appendChild(newD);
 	
 	newD = document.createElement('div');
 	newD.id = 'newVariables';
-	newB.appendChild(newD);
+	newBBB.appendChild(newD);
+	newBB.appendChild(newBBB);
+	
+	newB.appendChild(newBB);
 	newM.appendChild(newB);
 	
 	document.getElementById('modifiersDiv').appendChild(newM);
