@@ -179,8 +179,7 @@ wss.on('connection', function connection(ws) {
 				  if (err) {
 			
 				  } else {
-				  	console.log(result);
-					//makeAllCharts(ws,dm,result,'all');
+				  	makeAllCharts(ws,dm,result,'all');
 				  }
 				});
 			});
@@ -607,6 +606,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
 function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 	var t0 = performance.now();
 	fs.readFile('saved/'+chartInfo.data, 'utf8', function(err, fileData) {
+		console.log('file',fileData);
 		var results = Papa.parse(fileData, {
 			complete: function(results) {
 				var nHeaders = chartInfo.options.nHeaders || 1;
