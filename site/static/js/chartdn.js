@@ -191,7 +191,9 @@ function chgLineTab(){
 //Download from url
 function urlChg(url) {
 	var url = document.getElementById('dataUrl').value;
-	var jsonmessage = {'operation':'download','message':url};
+	var delimiter = document.getElementById('delimiter').value;
+	if (delimiter.toLowerCase() == 'auto'){delimiter = '';}
+	var jsonmessage = {'operation':'download','message':url,'delimiter':delimiter};
 	ws.send(JSON.stringify(jsonmessage));
 }
 
@@ -428,6 +430,7 @@ function dataChg(initialData=false) {
 	var csv = dataCopy.value;
 	if (!initialData){
 		var delimiter = document.getElementById('delimiter').value;
+		if (delimiter.toLowerCase() == 'auto'){delimiter = '';}
 		var d = new Date(); var n = d.getTime(); console.log('time: ', n);
 		var jsonmessage = {'operation':'upload','message':csv,'delimiter':delimiter};
 		ws.send(JSON.stringify(jsonmessage));
