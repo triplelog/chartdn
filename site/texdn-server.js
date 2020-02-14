@@ -236,10 +236,52 @@ wss.on('connection', function connection(ws) {
 					if (err) return console.error('sajdhfkasdhjfkjsahdfkjsadhfs\n',err);
 					console.log('saved new dataname');
 				});
-				var fstr = pako.deflateRaw(dm.message);
-				fs.writeFile("saved/"+chartid+".csv", fstr, function (err) {
-					makeAllCharts(ws,dm,result,'all');
-				});
+				
+				var t0 = performance.now();
+				var fstr = '';
+				if (!dm.type || dm.type == 'csv'){
+					var strData = atob(dm.message);
+					var charData = strData.split('').map(function(x){return x.charCodeAt(0);});
+					var binData = new Uint8Array(charData);
+					var pakores = pako.inflate(binData,{to:'string'});
+					fstr = atob(pakores);
+				}
+				else if (dm.type == 'xls'){
+					fstr = dm.message;
+				}
+			
+				var d = new Date(); var n = d.getTime(); console.log('time4: ', n);
+			
+				if (dm.type == 'xls'){
+					fs.writeFile("saved/"+chartid+".xls", fstr, {encoding: 'base64'}, function(err) {
+						var wget = 'in2csv saved/'+chartid+".xls > saved/"+chartid+".csv";
+						var child = exec(wget, function(err, stdout, stderr) {
+							if (err) throw err;
+							else {
+								Chart.findOne({ id: chartid }, function(err, result) {
+								  if (err) {
+		
+								  } else {
+									var d = new Date(); var n = d.getTime(); console.log('time5: ', n);
+									makeAllCharts(ws,dm,result,'all');
+								  }
+								});
+							}
+						});
+					});
+				}
+				else {
+					fs.writeFile("saved/"+chartid+".csv", fstr, function (err) {
+						Chart.findOne({ id: chartid }, function(err, result) {
+						  if (err) {
+			
+						  } else {
+							var d = new Date(); var n = d.getTime(); console.log('time5: ', n);
+							makeAllCharts(ws,dm,result,'all');
+						  }
+						});
+					});
+				}
 			  }
 			});
 			
