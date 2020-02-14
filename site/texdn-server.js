@@ -613,34 +613,34 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 				var nSteps = -1;
 				var data = convertDataToFull(results.data,nHeaders,chartInfo.options.modifiers,chartInfo.options.nsteps);
 				console.log('headers',chartInfo.headers);
-				/*
+				
 				if (nSteps == -1){
 					if (data.headers.length != chartInfo.headers.length){
-						chartInfo.headers = data.headers;
+						chartInfo.headers = data.headers;/*
 						chartInfo.markModified('headers');
 						chartInfo.save(function (err, chart) {
 							if (err) return console.error(err);
 							console.log('saved');
-						});
+						});*/
 						var jsonmessage = {'operation':'headers','message':data.headers};
 						ws.send(JSON.stringify(jsonmessage));
 					}
 					else {
 						for (var i in data.headers){
 							if (!chartInfo.headers || data.headers[i] != chartInfo.headers[i]){
-								chartInfo.headers = data.headers;
+								chartInfo.headers = data.headers;/*
 								chartInfo.markModified('headers');
 								chartInfo.save(function (err, chart) {
 									if (err) return console.error(err);
 									console.log('saved');
-								});
+								});*/
 								var jsonmessage = {'operation':'headers','message':data.headers};
 								ws.send(JSON.stringify(jsonmessage));
 								break;
 							}
 						}
 					}
-				}*/
+				}
 				/*
 				if (chartStyle == 'all' || chartStyle == 'chartJS') {
 					var chartJSON = createChartjs.createChartjs(data,chartInfo.options);
