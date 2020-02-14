@@ -617,7 +617,8 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 				if (nSteps == -1){
 					if (data.headers.length != chartInfo.headers.length){
 						chartInfo.headers = data.headers;
-						chartInfo.markModified('headers');/*
+						chartInfo.markModified('headers');
+						console.log('aaaaaa',chartInfo);/*
 						chartInfo.save(function (err, chart) {
 							if (err) return console.error(err);
 							console.log('saved');
