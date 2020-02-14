@@ -179,7 +179,7 @@ wss.on('connection', function connection(ws) {
 				  if (err) {
 			
 				  } else {
-				  	console.log('wrote');
+				  	console.log(result);
 					//makeAllCharts(ws,dm,result,'all');
 				  }
 				});
