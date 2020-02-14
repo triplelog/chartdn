@@ -15,6 +15,7 @@ var nunjucks = require('nunjucks');
 var crypto = require("crypto");
 const pako = require('pako');
 const atob = require('atob');
+var toUint8Array = require('base64-to-uint8array')
 var createPlotly = require('./createCharts/plotly-charts.js');
 var createXkcd = require('./createCharts/xkcd-charts.js');
 var createGoogle = require('./createCharts/google-charts.js');
@@ -175,9 +176,9 @@ wss.on('connection', function connection(ws) {
   		}
   		//write data.csv
   		if (chartid == dataid){
+  			var arr = toUint8Array(dm.message)
   			
-  			
-  			var fstr = pako.inflate(dm.message,{to:'string'});
+  			var fstr = pako.inflate(arr,{to:'string'});
   			console.log(fstr);
   			console.log(atob(fstr));
 			fs.writeFile("saved/"+chartid+".csv", fstr, function (err) {
