@@ -63,7 +63,7 @@ function fullCompression(to_compress) {
 		var original_size = array.length
 
 		var array = flate.deflate_encode_raw(array)
-		document.getElementById('dataCopy').value = array;
+		document.getElementById('dataCopy').value = new TextDecoder("utf-8").decode(array);
 		var compressed_size = array.length
 		dataChg();
 
