@@ -149,7 +149,7 @@ wss.on('connection', function connection(ws) {
 			defaultOptions['stepSize'] = {};
 			defaultOptions['labels'] = {};
 			defaultOptions['title'] = '';
-			defaultOptions['delimiter'] = dm.delimiter || ',';
+			defaultOptions['delimiter'] = dm.delimiter || '';
 			for(var k in myOptions){
 				defaultOptions[k] = myOptions[k];
 			}
@@ -193,16 +193,39 @@ wss.on('connection', function connection(ws) {
   			var t6 = performance.now();
   			console.log('sadf',t0,t1,t2,t3,t4,t5,t6);
   			var d = new Date(); var n = d.getTime(); console.log('time4: ', n);
-			fs.writeFile("saved/"+chartid+".csv", fstr, function (err) {
-				Chart.findOne({ id: chartid }, function(err, result) {
-				  if (err) {
-			
-				  } else {
-				  	var d = new Date(); var n = d.getTime(); console.log('time5: ', n);
-				  	makeAllCharts(ws,dm,result,'all');
-				  }
+  			
+  			if (dm.type == 'xls'){
+  				fs.writeFile("saved/"+chartid+".xls", fstr, function (err) {
+  					var wget = 'in2csv saved/'+chartid+".xls > "+chartid+".csv";
+
+					var child = exec(wget, function(err, stdout, stderr) {
+						if (err) throw err;
+						else {
+							Chart.findOne({ id: chartid }, function(err, result) {
+							  if (err) {
+		
+							  } else {
+								console.log(chartid);
+								var d = new Date(); var n = d.getTime(); console.log('time5: ', n);
+								makeAllCharts(ws,dm,result,'all');
+							  }
+							});
+						}
+					}
 				});
-			});
+  			}
+  			else {
+				fs.writeFile("saved/"+chartid+".csv", fstr, function (err) {
+					Chart.findOne({ id: chartid }, function(err, result) {
+					  if (err) {
+			
+					  } else {
+						var d = new Date(); var n = d.getTime(); console.log('time5: ', n);
+						makeAllCharts(ws,dm,result,'all');
+					  }
+					});
+				});
+			}
 		}
 		else {
 			Chart.findOne({ id: chartid }, function(err, result) {
@@ -239,7 +262,7 @@ wss.on('connection', function connection(ws) {
 			defaultOptions['stepSize'] = {};
 			defaultOptions['labels'] = {};
 			defaultOptions['title'] = '';
-			defaultOptions['delimiter'] = dm.delimiter || ',';
+			defaultOptions['delimiter'] = dm.delimiter || '';
 			for(var k in myOptions){
 				defaultOptions[k] = myOptions[k];
 			}
