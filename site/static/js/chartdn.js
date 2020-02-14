@@ -344,7 +344,30 @@ function optionsChg(optionname) {
 		ws.send(JSON.stringify(jsonmessage));
 	}
 }
+function chgStep() {
+
+}
 function modifierChg() {
+	var el = document.getElementById('rawModified');
+	el.innerHTML = '';
+	var addedRaw = false;
+	var idx = 1;
+	for (var i in modifiers){
+		if (modifiers[i].enabled){
+			if (!addedRaw){
+				var newEl = document.createElement('a');
+				newEl.textContent = 'R';
+				newEl.setAttribute('name',0);
+				newEl.addEventListenter('click',chgStep);
+				el.appendChild(newEl);
+			}
+			var newEl = document.createElement('a');
+			newEl.textContent = idx;
+			newEl.setAttribute('name',idx);
+			newEl.addEventListenter('click',chgStep);
+			el.appendChild(newEl);
+		}
+	}
 	var jsonmessage = {'operation':'options','modifiers':modifiers};
 	ws.send(JSON.stringify(jsonmessage));
 }
@@ -949,6 +972,8 @@ function chgModify(mObject={}){
 			document.getElementById('edit'+m.id).style.display = 'none';
 			document.getElementById(m.id).style.backgroundColor = 'white';
 		}
+		
+		
 		
 	}
 }
