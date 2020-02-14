@@ -620,7 +620,7 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 						chartInfo.headers = data.headers;
 						chartInfo.markModified('headers');
 						console.log('aaaaaa',chartInfo);
-						chartInfo.save(function (err, chart) {
+						chartInfo.update(function (err, chart) {
 							if (err) return console.error(err);
 							console.log('saved');
 						});
@@ -630,12 +630,12 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 					else {
 						for (var i in data.headers){
 							if (!chartInfo.headers || data.headers[i] != chartInfo.headers[i]){
-								chartInfo.headers = data.headers;/*
+								chartInfo.headers = data.headers;
 								chartInfo.markModified('headers');
-								chartInfo.save(function (err, chart) {
+								chartInfo.update(function (err, chart) {
 									if (err) return console.error(err);
 									console.log('saved');
-								});*/
+								});
 								var jsonmessage = {'operation':'headers','message':data.headers};
 								ws.send(JSON.stringify(jsonmessage));
 								break;
