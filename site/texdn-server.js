@@ -648,7 +648,7 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 	var t0 = performance.now();
 	fs.readFile('saved/'+chartInfo.data, 'utf8', function(err, fileData) {
 		var results = Papa.parse(fileData, {
-			delimiter: chartInfo.options.delimiter || "",
+			//delimiter: chartInfo.options.delimiter || "",
 			complete: function(results) {
 				
 				var nHeaders = chartInfo.options.nHeaders || 1;
