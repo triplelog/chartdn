@@ -1158,12 +1158,14 @@ function createNewColumnBox(id) {
 		varR.setAttribute('type','radio');
 		varR.setAttribute('name','rowstart'+id);
 		varR.setAttribute('value','equal');
+		varR.setAttribute('checked','checked');
 		varR.id = 'equalRowstart'+id;
 		
 		var varRL = document.createElement('label');
 		var varRI = document.createElement('input');
 		varRI.setAttribute('type','text');
 		varRI.setAttribute('name','equalrow');
+		varRI.setAttribute('value','0');
 		varRL.textContent = 'From Row = ';
 		varRL.appendChild(varRI);
 		varRL.setAttribute('for','equalRow'+id);
@@ -1223,12 +1225,14 @@ function createNewColumnBox(id) {
 		varR.setAttribute('type','radio');
 		varR.setAttribute('name','rowend'+id);
 		varR.setAttribute('value','equal');
+		varR.setAttribute('checked','checked');
 		varR.id = 'equalRowend'+id;
 		
 		var varRL = document.createElement('label');
 		var varRI = document.createElement('input');
 		varRI.setAttribute('type','text');
 		varRI.setAttribute('name','equalrow');
+		varRI.setAttribute('value','0');
 		varRL.textContent = 'To Row = ';
 		varRL.appendChild(varRI);
 		varRL.setAttribute('for','equalRow'+id);
