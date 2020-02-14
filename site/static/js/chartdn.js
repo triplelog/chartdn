@@ -358,13 +358,13 @@ function modifierChg() {
 				var newEl = document.createElement('a');
 				newEl.textContent = 'R';
 				newEl.setAttribute('name',0);
-				newEl.addEventListenter('click',chgStep);
+				newEl.addEventListener('click',chgStep);
 				el.appendChild(newEl);
 			}
 			var newEl = document.createElement('a');
 			newEl.textContent = idx;
 			newEl.setAttribute('name',idx);
-			newEl.addEventListenter('click',chgStep);
+			newEl.addEventListener('click',chgStep);
 			el.appendChild(newEl);
 		}
 	}
