@@ -136,6 +136,7 @@ wss.on('connection', function connection(ws) {
   ws.on('message', function incoming(message) {
   	var dm = JSON.parse(message);
   	if (dm.operation == 'upload'){
+  		var d = new Date(); var n = d.getTime(); console.log('time2: ', n);
   		if (chartid == ''){
   			chartid = chartidtemp;
   			dataid = chartid;
@@ -175,6 +176,7 @@ wss.on('connection', function connection(ws) {
 			}
   		}
   		//write data.csv
+  		var d = new Date(); var n = d.getTime(); console.log('time3: ', n);
   		if (chartid == dataid){
   			var t0 = performance.now();
   			var strData = atob(dm.message);
@@ -190,11 +192,13 @@ wss.on('connection', function connection(ws) {
   			var fstr = atob(pakores);
   			var t6 = performance.now();
   			console.log('sadf',t0,t1,t2,t3,t4,t5,t6);
+  			var d = new Date(); var n = d.getTime(); console.log('time4: ', n);
 			fs.writeFile("saved/"+chartid+".csv", fstr, function (err) {
 				Chart.findOne({ id: chartid }, function(err, result) {
 				  if (err) {
 			
 				  } else {
+				  	var d = new Date(); var n = d.getTime(); console.log('time5: ', n);
 				  	makeAllCharts(ws,dm,result,'all');
 				  }
 				});

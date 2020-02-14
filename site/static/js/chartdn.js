@@ -424,6 +424,7 @@ function dataChg(initialData=false) {
 	var csv = dataCopy.value;
 	if (!initialData){
 		var delimiter = document.getElementById('delimiter').value;
+		var d = new Date(); var n = d.getTime(); console.log('time: ', n);
 		var jsonmessage = {'operation':'upload','message':csv,'delimiter':delimiter};
 		ws.send(JSON.stringify(jsonmessage));
 	}
