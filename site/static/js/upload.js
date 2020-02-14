@@ -58,18 +58,15 @@ function fullCompression(to_compress) {
 	readerF.onload = function() {
 		console.log("Compressing")
 	
-		var arrayBuffer = this.result,
-			array = new Uint8Array(arrayBuffer)
-		var original_size = array.length
+		var mybase64 = this.result
 
-		var array = flate.deflate_encode_raw(array)
-		document.getElementById('dataCopy').value = new TextDecoder("utf-8").decode(array);
-		var compressed_size = array.length
+		var compbase64 = flate.deflate_encode(mybase64);
+		document.getElementById('dataCopy').value = compbase64;
 		dataChg();
 
 		
 	}
-	readerF.readAsArrayBuffer(to_compress);
+	readerF.readAsDataURL(to_compress);
 }
 
 

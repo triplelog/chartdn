@@ -175,9 +175,7 @@ wss.on('connection', function connection(ws) {
   		//write data.csv
   		if (chartid == dataid){
   			console.log(dm.message);
-  			var partBufferH = new TextEncoder("utf-8").encode(dm.message);
-  			console.log(partBufferH);
-  			var fstr = pako.inflateRaw(partBufferH);
+  			var fstr = pako.inflate(dm.message);
   			console.log(fstr);
   			
 			fs.writeFile("saved/"+chartid+".csv", fstr, function (err) {
