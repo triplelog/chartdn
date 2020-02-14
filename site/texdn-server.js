@@ -179,7 +179,7 @@ wss.on('connection', function connection(ws) {
   			var arr = toUint8Array(dm.message);
   			var binData = new Uint8Array(arr);
   			console.log(binData);
-  			var fstr = pako.inflate(binData,{to:'string'});
+  			var fstr = pako.inflate(binData);
   			console.log(fstr);
   			console.log(atob(fstr));
 			fs.writeFile("saved/"+chartid+".csv", fstr, function (err) {
