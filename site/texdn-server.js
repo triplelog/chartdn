@@ -177,9 +177,8 @@ wss.on('connection', function connection(ws) {
   		if (chartid == dataid){
   			console.log(dm.message);
   			console.log('\n--------\n');
-  			console.log(dm.message.toString());
+  			console.log(atob(dm.message));
   			
-  			console.log(btoa(dm.message));
   			
   			var fstr = pako.inflate(dm.message,{to:'string'});
   			console.log(fstr);
