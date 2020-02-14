@@ -81,21 +81,20 @@ function fullCompressionCSV(to_compress) {
 		console.log("Compressing")
 	
 		var mybase64 = this.result;
-		//console.log(this.documentFile.name);
-		console.log(this.name);
-		
-		var index = mybase64.indexOf('base64,');
-		mybase64 = mybase64.substring(index+7);
-		var compbase64 = pako.deflate(mybase64,{to:'string'});
-		
-		document.getElementById('dataCopy').value = btoa(compbase64);
-		//if (this.fileName.indexOf('.csv')> -1){
 		if (2 == 3){
+		
+			var index = mybase64.indexOf('base64,');
+			mybase64 = mybase64.substring(index+7);
+			var compbase64 = pako.deflate(mybase64,{to:'string'});
+		
+			document.getElementById('dataCopy').value = btoa(compbase64);
 			dataChg();
 		}
 		else {
+			document.getElementById('dataCopy').value = mybase64;
 			dataChg(false,'xls');
 		}
+
 		
 
 		

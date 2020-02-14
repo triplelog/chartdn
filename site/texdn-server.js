@@ -179,29 +179,23 @@ wss.on('connection', function connection(ws) {
   		var d = new Date(); var n = d.getTime(); console.log('time3: ', n);
   		if (chartid == dataid){
   			var t0 = performance.now();
-  			if (2 == 3){
+  			var fstr = '';
+  			if (!dm.type || dm.type == 'csv'){
 				var strData = atob(dm.message);
 				var charData = strData.split('').map(function(x){return x.charCodeAt(0);});
 				var binData = new Uint8Array(charData);
 				var pakores = pako.inflate(binData,{to:'string'});
-				var fstr = atob(pakores);
+				fstr = atob(pakores);
   			}
-  			
-  			var strData = dm.message.substring(37);
-  			//var strData2 = strData.split('').map(function(x){return x.charCodeAt(0);});
-  			//var strData3 = String.fromCharCode.apply(null, new Uint16Array(strData2));
-  			//var fstr = atob(strData3);
+  			else if (dm.type == 'xls'){
+				fstr = dm.message.substring(37);
+  			}
   			
   			var d = new Date(); var n = d.getTime(); console.log('time4: ', n);
   			
   			if (dm.type == 'xls'){
-  				console.log(strData);
-  				console.log(chartid);
-  				fs.writeFile('saved/file1.xls', strData, {encoding: 'base64'}, function(err) {
-
-  				//fs.writeFile("saved/"+chartid+".xls", fstr, function (err) {
+  				fs.writeFile("saved/"+chartid+".xls", fstr, {encoding: 'base64'}, function(err) {
   					var wget = 'in2csv saved/'+chartid+".xls > "+chartid+".csv";
-					console.log('wget:  ',wget);
 					var child = exec(wget, function(err, stdout, stderr) {
 						if (err) throw err;
 						else {
@@ -209,7 +203,6 @@ wss.on('connection', function connection(ws) {
 							  if (err) {
 		
 							  } else {
-								console.log(chartid);
 								var d = new Date(); var n = d.getTime(); console.log('time5: ', n);
 								makeAllCharts(ws,dm,result,'all');
 							  }
