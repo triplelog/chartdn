@@ -647,8 +647,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
 function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 	var t0 = performance.now();
 	fs.readFile('saved/'+chartInfo.data, 'utf8', function(err, fileData) {
-		if (err){console.log(err);}
-		console.log(chartInfo.data,fileData);
+		if (!fileData || fileData.length == 0 ){return;}
 		var results = Papa.parse(fileData, {
 			//delimiter: chartInfo.options.delimiter || "",
 			complete: function(results) {
