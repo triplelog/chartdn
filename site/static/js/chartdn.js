@@ -615,8 +615,8 @@ function createNewColumnBox(id) {
 			
 		newDiv.appendChild(varR);
 		newDiv.appendChild(varRL);
-	
-		
+	varDiv.appendChild(newDiv);
+	newDiv = document.createElement('div');
 		var varR = document.createElement('input');
 		varR.setAttribute('type','radio');
 		varR.setAttribute('name','row'+id);
@@ -629,7 +629,8 @@ function createNewColumnBox(id) {
 		
 		newDiv.appendChild(varR);
 		newDiv.appendChild(varRL);
-		
+	varDiv.appendChild(newDiv);
+	newDiv = document.createElement('div');
 		
 		var varR = document.createElement('input');
 		varR.setAttribute('type','radio');
@@ -643,7 +644,8 @@ function createNewColumnBox(id) {
 		
 		newDiv.appendChild(varR);
 		newDiv.appendChild(varRL);
-		
+	varDiv.appendChild(newDiv);
+	newDiv = document.createElement('div');
 		
 		var varR = document.createElement('input');
 		varR.setAttribute('type','radio');
