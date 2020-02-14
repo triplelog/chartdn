@@ -52,7 +52,6 @@ document.querySelector('#dataFile').addEventListener('change', function(inp) {
 
 }, false);
 
-
 function fullCompression(to_compress) {
 	var readerF = new FileReader();
 	readerF.onload = function() {
@@ -63,6 +62,8 @@ function fullCompression(to_compress) {
 		console.log(this.name);
 		
 		console.log(mybase64);
+		console.log(btoa(mybase64));
+		console.log(atob(mybase64));
 		var index = mybase64.indexOf('base64,');
 		mybase64 = mybase64.substring(index+7);
 		var compbase64 = pako.deflate(mybase64,{to:'string'});
@@ -80,7 +81,36 @@ function fullCompression(to_compress) {
 		
 	}
 	
-	readerF.readAsText(to_compress);
+	readerF.readAsBinaryString(to_compress);
+}
+
+function fullCompressionCSV(to_compress) {
+	var readerF = new FileReader();
+	readerF.onload = function() {
+		console.log("Compressing")
+	
+		var mybase64 = this.result;
+		//console.log(this.documentFile.name);
+		console.log(this.name);
+		
+		var index = mybase64.indexOf('base64,');
+		mybase64 = mybase64.substring(index+7);
+		var compbase64 = pako.deflate(mybase64,{to:'string'});
+		
+		document.getElementById('dataCopy').value = btoa(compbase64);
+		//if (this.fileName.indexOf('.csv')> -1){
+		if (2 == 3){
+			dataChg();
+		}
+		else {
+			dataChg(false,'xls');
+		}
+		
+
+		
+	}
+	
+	readerF.readAsDataURL(to_compress);
 }
 
 
