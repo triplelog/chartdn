@@ -178,8 +178,8 @@ wss.on('connection', function connection(ws) {
   			var partBufferH = dm.message;
   			console.log(partBufferH);
 			var partarrayH = new Uint8Array(partBufferH);
-			console.log(partArrayH);
-  			var fstr = pako.inflateRaw(dm.message);
+			console.log(partarrayH);
+  			var fstr = pako.inflateRaw(partarrayH);
   			console.log(fstr);
   			
 			fs.writeFile("saved/"+chartid+".csv", fstr, function (err) {
