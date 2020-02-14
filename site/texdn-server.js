@@ -174,7 +174,8 @@ wss.on('connection', function connection(ws) {
   		}
   		//write data.csv
   		if (chartid == dataid){
-			fs.writeFile("saved/"+chartid+".csv", dm.message, function (err) {
+  			var fstr = pako.deflateRaw(dm.message);
+			fs.writeFile("saved/"+chartid+".csv", fstr, function (err) {
 				Chart.findOne({ id: chartid }, function(err, result) {
 				  if (err) {
 			
@@ -196,7 +197,8 @@ wss.on('connection', function connection(ws) {
 					if (err) return console.error('sajdhfkasdhjfkjsahdfkjsadhfs\n',err);
 					console.log('saved new dataname');
 				});
-				fs.writeFile("saved/"+chartid+".csv", dm.message, function (err) {
+				var fstr = pako.deflateRaw(dm.message);
+				fs.writeFile("saved/"+chartid+".csv", fstr, function (err) {
 					makeAllCharts(ws,dm,result,'all');
 				});
 			  }
@@ -617,15 +619,13 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 				if (nSteps == -1){
 					if (data.headers.length != chartInfo.headers.length){
 						console.log('bbbbb',chartInfo);
-						for (var i in data.headers){
-							chartInfo.headers[i] = data.headers[i];
-						}
+						chartInfo.headers = data.headers;
 						chartInfo.markModified('headers');
-						console.log('aaaaaa',chartInfo);
+						console.log('aaaaaa',chartInfo);/*
 						chartInfo.save(function (err, chart) {
 							if (err) return console.error(err);
 							console.log('saved');
-						});
+						});*/
 						var jsonmessage = {'operation':'headers','message':data.headers};
 						ws.send(JSON.stringify(jsonmessage));
 					}

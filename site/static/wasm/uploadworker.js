@@ -38,7 +38,14 @@ self.addEventListener('message', function(e) {
 			
 			var partBufferH = this.result,
 				partarrayH = new Uint8Array(partBufferH)
-			var fullstr = new TextDecoder("utf-8").decode(partarrayH);
+				
+				
+			//var arrayBuffer = this.result,
+			//array = new Uint8Array(arrayBuffer)
+
+			var fullstr = flate.deflate_encode_raw(partarrayH)
+		
+			//var fullstr = new TextDecoder("utf-8").decode(partarrayH);
 			
 
 			var parsedstr = Papa.parse(fullstr);
