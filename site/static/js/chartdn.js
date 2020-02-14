@@ -315,6 +315,7 @@ function optionsChg(optionname) {
 		ws.send(JSON.stringify(jsonmessage));
 	}
 	else if (optionname == 'shape' || optionname == 'dash' || optionname == 'lineName'){
+		console.log(lineId);
 		var colid = yColsVals[lineId];
 		var parentEl = document.querySelector("#lineStyleDiv"+colid);
 		

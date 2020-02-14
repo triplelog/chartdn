@@ -6,12 +6,21 @@ exports.createPlotly = function(data,options) {
 	for (var i=0;i<options['yColumns'].length;i++){
 		dataObject = {};
 		var myStyle = {};
+		var allStyles = {};
 		if (options.type == 'line'){
 			if (options.lines) {
 				for (var k in options.lines){
 					if (options.lines[k].id == options['yColumns'][i] ){
 						myStyle = options.lines[k];
 					}
+					else if (options.lines[k].id == -1 ){
+						allStyles = options.lines[k];
+					}
+				}
+			}
+			for (var ii in allStyles){
+				if (ii != 'id'){
+					myStyle[ii] = allStyles[ii];
 				}
 			}
 			if (myStyle.dots === false){dataObject['mode']='lines';}
