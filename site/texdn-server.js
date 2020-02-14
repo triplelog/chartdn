@@ -616,14 +616,14 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 				
 				if (nSteps == -1){
 					if (data.headers.length != chartInfo.headers.length){
-						chartInfo.updateOne({headers:data.headers});
+						Chart.updateOne({id:chartInfo.id},{headers:data.headers});
 						var jsonmessage = {'operation':'headers','message':data.headers};
 						ws.send(JSON.stringify(jsonmessage));
 					}
 					else {
 						for (var i in data.headers){
 							if (!chartInfo.headers || data.headers[i] != chartInfo.headers[i]){
-								chartInfo.updateOne({headers:data.headers});
+								Chart.updateOne({id:chartInfo.id},{headers:data.headers});
 								var jsonmessage = {'operation':'headers','message':data.headers};
 								ws.send(JSON.stringify(jsonmessage));
 								break;
