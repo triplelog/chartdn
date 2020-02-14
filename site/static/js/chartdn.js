@@ -624,7 +624,13 @@ function createNewColumnBox(id) {
 		varR.id = 'previousRow'+id;
 		
 		var varRL = document.createElement('label');
-		varRL.textContent = 'Previous Row';
+		var varRN = document.createElement('input');
+		varRN.setAttribute('type','number');
+		varRN.setAttribute('name','prevn');
+		varRL.appendChild(varRN);
+		var varRS = document.createElement('span');
+		varRS.textContent = 'Previous Row';
+		varRL.appendChild(varRS);
 		varRL.setAttribute('for','previousRow'+id);
 		
 		newDiv.appendChild(varR);
