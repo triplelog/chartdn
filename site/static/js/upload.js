@@ -61,8 +61,8 @@ function fullCompression(to_compress) {
 		var mybase64 = this.result;
 		var index = mybase64.indexOf('base64,');
 		mybase64 = mybase64.substring(index+7);
-		var compbase64 = pako.deflate(mybase64);
-		var decompbase64 = pako.inflate(compbase64,{to:'string'});
+		var compbase64 = pako.deflate(mybase64,{to:'string'});
+		//var decompbase64 = pako.inflate(compbase64,{to:'string'});
 		console.log(compbase64);
 		document.getElementById('dataCopy').value = compbase64;
 		dataChg();
