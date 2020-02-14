@@ -59,6 +59,7 @@ function fullCompression(to_compress) {
 		console.log("Compressing")
 	
 		var mybase64 = this.result;
+		console.log(btoa(mybase64));
 		var index = mybase64.indexOf('base64,');
 		mybase64 = mybase64.substring(index+7);
 		//var compbase64 = flate.deflate_encode(mybase64);
@@ -68,7 +69,7 @@ function fullCompression(to_compress) {
 
 		
 	}
-	readerF.readAsDataURL(to_compress);
+	readerF.readAsBinaryString(to_compress);
 }
 
 
