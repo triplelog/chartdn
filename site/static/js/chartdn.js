@@ -617,15 +617,13 @@ function updateColumns() {
 		if (modifiers[i].type == 'new'){
 			var el = document.getElementById('newcolVar'+modifiers[i].id);
 			console.log(allHeaders,el.value);
-			el.innerHTMl = '';
+			el.innerHTML = '';
 			var cols = allHeaders[modifiers[i].id];
-			console.log(el, cols);
 			for (var ii in cols){
 				var varOption = document.createElement('option');
 				varOption.value = parseInt(ii);
 				varOption.textContent = cols[parseInt(ii)];
 				el.appendChild(varOption);
-				console.log(el);
 			}
 			
 		}
