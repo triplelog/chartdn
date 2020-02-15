@@ -799,7 +799,7 @@ function updateModifier(evt){
 							//update row stuff
 							if (modifiers[i].options.variables[ii].type == 'value'){
 								if ( modifiers[i].options.variables[ii].row == '0'){
-									var qstring = '#currentRow'+id;
+									var qstring = '#currentRow'+modifiers[i].id;
 									ell.querySelector(qstring).checked = true;
 								}
 							}
