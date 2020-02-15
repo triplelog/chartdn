@@ -732,7 +732,7 @@ function updateModifier(evt){
 					//modifiers[i].options.columns = [parseInt(evt.target.value)];
 				}
 				else if (el.getAttribute('name')=='add'){
-					var pType = el.parentNode.querySelector('option:checked').value;
+					var pType = el.parentNode.querySelector('select[name=pType] > option:checked').value;
 					var column = parseInt(el.parentNode.querySelector('input[name="column"]').value);
 					var obj = {'column':column,'type':pType};
 					modifiers[i].options.columns.push(obj);
