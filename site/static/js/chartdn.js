@@ -661,6 +661,20 @@ function updateColumns() {
 				el.appendChild(varOption);
 				
 			}
+			el = document.getElementById('colcol'+modifiers[i].id);
+			var elval = el.val;
+			el.innerHTML = '';
+			var cols = allHeaders[modifiers[i].id];
+			for (var ii in cols){
+				var varOption = document.createElement('option');
+				varOption.value = parseInt(ii);
+				varOption.textContent = cols[parseInt(ii)];
+				if (parseInt(ii) == parseInt(elval)){
+					varOption.setAttribute('selected','selected');
+				}
+				el.appendChild(varOption);
+				
+			}
 		}
 	}
 }
@@ -733,7 +747,7 @@ function updateModifier(evt){
 				}
 				else if (el.getAttribute('name')=='add'){
 					var pType = el.parentNode.querySelector('select[name=pType] > option:checked').value;
-					var column = parseInt(el.parentNode.querySelector('input[name="column"]').value);
+					var column = parseInt(el.parentNode.querySelector('select[name="column"]').value);
 					var obj = {'column':column,'type':pType};
 					modifiers[i].options.columns.push(obj);
 					var newEl = document.createElement('div');
@@ -961,10 +975,9 @@ function createPivot(obj) {
 	}
 	
 	newB.appendChild(newD);
-	newI = document.createElement('input');
-	newI.setAttribute('type','text');
+	newI = document.createElement('select');
+	newI.id = 'colcol'+obj.id;
 	newI.setAttribute('name','column');
-	newI.setAttribute('value','Column');
 	//newI.addEventListener('change',updateModifier);
 	newB.appendChild(newI);
 	newS = document.createElement('select');
