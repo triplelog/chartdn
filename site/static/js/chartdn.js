@@ -624,7 +624,7 @@ function updateColumns() {
 				varOption.value = parseInt(ii);
 				varOption.textContent = cols[parseInt(ii)];
 				if (parseInt(ii) == parseInt(elval)){
-					varOption.setAttribute('checked','checked');
+					varOption.setAttribute('selected','selected');
 				}
 				el.appendChild(varOption);
 			}
@@ -632,10 +632,9 @@ function updateColumns() {
 		}
 		else if (modifiers[i].type == 'sort'){
 			var el = document.getElementById('sortcol'+modifiers[i].id);
-			var elval = el.value;
+			var elval = modifiers[i].options.column;
 			el.innerHTML = '';
 			var cols = allHeaders[modifiers[i].id];
-			console.log(elval);
 			for (var ii in cols){
 				var varOption = document.createElement('option');
 				varOption.value = parseInt(ii);
