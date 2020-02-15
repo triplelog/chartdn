@@ -615,7 +615,7 @@ drake.on('remove', function (el, target, source) {
 function updateColumns() {
 	for (var i in modifiers){
 		if (modifiers[i].type == 'new'){
-			var el = document.getElementById('newcolVar')+modifiers[i].id;
+			var el = document.getElementById('newcolVar'+modifiers[i].id);
 			console.log(allHeaders,el.value);
 			el.innerHTMl = '';
 			var cols = allHeaders[modifiers[i].id];
