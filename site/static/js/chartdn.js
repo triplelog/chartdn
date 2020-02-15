@@ -645,7 +645,22 @@ function updateColumns() {
 				el.appendChild(varOption);
 				
 			}
-			
+		}
+		else if (modifiers[i].type == 'pivot'){
+			var el = document.getElementById('pivotcol'+modifiers[i].id);
+			var elval = modifiers[i].options.pivot;
+			el.innerHTML = '';
+			var cols = allHeaders[modifiers[i].id];
+			for (var ii in cols){
+				var varOption = document.createElement('option');
+				varOption.value = parseInt(ii);
+				varOption.textContent = cols[parseInt(ii)];
+				if (parseInt(ii) == parseInt(elval)){
+					varOption.setAttribute('selected','selected');
+				}
+				el.appendChild(varOption);
+				
+			}
 		}
 	}
 }
@@ -923,9 +938,8 @@ function createPivot(obj) {
 	
 	var newH = document.createElement('div');
 	newH.classList.add('box-header2');
-	var newI = document.createElement('input');
-	newI.setAttribute('type','text');
-	newI.setAttribute('value','Pivot');
+	var newI = document.createElement('select');
+	newI.id = 'pivotcol'+obj.id;
 	newH.appendChild(newI);
 	createMButtons(newH,obj.enabled);
 	newM.appendChild(newH);
