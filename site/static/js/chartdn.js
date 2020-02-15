@@ -1073,6 +1073,9 @@ function createSort(obj) {
 	newB.appendChild(newI);
 	newI = document.createElement('input');
 	newI.setAttribute('type','checkbox');
+	if (!obj.options.ascending){
+		newI.setAttribute('checked','checked');
+	}
 	newI.setAttribute('name','descending');
 	newI.addEventListener('change',updateModifier);
 	newB.appendChild(newI);
