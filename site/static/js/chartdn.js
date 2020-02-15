@@ -938,18 +938,18 @@ function createPivot(obj) {
 	
 	var newH = document.createElement('div');
 	newH.classList.add('box-header2');
-	var newI = document.createElement('select');
-	newI.id = 'pivotcol'+obj.id;
+	var newI = document.createElement('input');
+	newI.setAttribute('type','text');
+	newI.setAttribute('value','Pivot');
 	newH.appendChild(newI);
 	createMButtons(newH,obj.enabled);
 	newM.appendChild(newH);
 	
 	var newB = document.createElement('div');
 	newB.classList.add('box-form');
-	newI = document.createElement('input');
-	newI.setAttribute('type','text');
+	newI = document.createElement('select');
+	newI.id = 'pivotcol'+obj.id;
 	newI.setAttribute('name','pivot');
-	newI.setAttribute('value','Pivot Column');
 	newI.addEventListener('change',updateModifier);
 	newB.appendChild(newI);
 	var newD = document.createElement('div');
