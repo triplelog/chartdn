@@ -33,6 +33,8 @@ ws.onmessage = function(evt){
 		var d = new Date(); var n = d.getTime(); console.log('time8: ', n);
 		updateModifiedTable(dm.mdata);
 		var d = new Date(); var n = d.getTime(); console.log('time9: ', n);
+		allHeaders = dm.allHeaders;
+		updateColumns();
 	}
 	else if (dm.operation == 'headers'){
 		var oldHeaders = [];
@@ -55,6 +57,7 @@ function getOrdinal(n) {
 var nHeaders = 1;
 var yColsVals = [];
 var headers = [];
+var allHeaders = {};
 var colid = -1;
 var dataSourceSize = 'large';
 
@@ -609,6 +612,24 @@ drake.on('remove', function (el, target, source) {
 
 
 //Dragula with column choices
+function updateColumns() {
+	for (var i in modifiers){
+		if (modifiers[i].type == 'new'){
+			var el = document.getElementById('newcolVar')+modifiers[i].id;
+			console.log(allHeaders,el.value);
+			el.innerHTMl = '';
+			var cols = allHeaders[modifiers[i].id];
+			for (var ii in cols){
+				var varOption = document.createElement('option');
+				varOption.value = parseInt(ii);
+				varOption.textContent = cols[ii];
+				el.appendChild(varOption);
+			}
+			
+		}
+	}
+}
+
 function updateModifier(evt){
 	var id = evt.target.parentNode.parentNode.id;
 	var el = evt.target;
@@ -1070,6 +1091,7 @@ function createNewColumnBox(id) {
 	
 	var varColumn = document.createElement('select');
 	varColumn.setAttribute('name','column');
+	varColumn.id = 'newcolVar'+id;
 	
 	var valueOptions = [0,1,2];
 	for (var i=0;i<valueOptions.length;i++){

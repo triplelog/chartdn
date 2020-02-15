@@ -260,7 +260,6 @@ exports.newColumn = function(array,options,nHeaders) {
 		else {
 			continue;
 		}
-		console.log(rowStart,rowEnd);
 		if (vars[ii].type=='mean'){
 			var sum = 0;
 			var n = 0;
@@ -287,7 +286,7 @@ exports.newColumn = function(array,options,nHeaders) {
 			fullmap[ii.toUpperCase()]=sum;
 		}
 		else if (vars[ii].type=='max'){
-			var max = parseInt(array[0][vars[ii].column]);
+			var max = parseInt(array[rowStart][vars[ii].column]);
 			for (var i=rowStart;i<=rowEnd;i++){
 				if (parseInt(array[i][vars[ii].column]) > max){
 					max = parseInt(array[i][vars[ii].column]);
@@ -296,7 +295,7 @@ exports.newColumn = function(array,options,nHeaders) {
 			fullmap[ii.toUpperCase()]=max;
 		}
 		else if (vars[ii].type=='min'){
-			var min = parseInt(array[0][vars[ii].column]);
+			var min = parseInt(array[rowStart][vars[ii].column]);
 			for (var i=rowStart;i<=rowEnd;i++){
 				if (parseInt(array[i][vars[ii].column]) < min){
 					min = parseInt(array[i][vars[ii].column]);
@@ -333,9 +332,18 @@ exports.newColumn = function(array,options,nHeaders) {
 					continue;
 				}
 				else {
-					/*
-					rowStart = parseInt(rows[0].substring(1));
-					rowEnd = parseInt(rows[1].substring(1));
+					if (rows[0].indexOf('$')==0){
+						rowStart = parseInt(rows[0].substring(1));
+					}
+					else {
+						rowStart = parseInt(rows[0])+parseInt(i);
+					}
+					if (rows[1].indexOf('$')==0){
+						rowEnd = parseInt(rows[1].substring(1));
+					}
+					else {
+						rowEnd = parseInt(rows[1])+parseInt(i);
+					}
 					if (rowEnd < 0){
 						rowEnd = array.length + rowEnd;
 					}
@@ -345,9 +353,54 @@ exports.newColumn = function(array,options,nHeaders) {
 					if (rowStart < 0){
 						rowStart = array.length + rowStart;
 					}
-					rowEnd = rowEnd - options.nHeaders;
-					rowStart = rowStart - options.nHeaders;
-					*/
+					rowEnd = rowEnd - nHeaders;
+					rowStart = rowStart - nHeaders;
+					if (rowStart < 0){
+						rowStart = 0;
+					}
+					if (vars[ii].type=='mean'){
+						var sum = 0;
+						var n = 0;
+						for (var i=rowStart;i<=rowEnd;i++){
+							sum += parseInt(array[i][vars[ii].column]);
+							n += 1;
+						}
+						if (n > 0){
+							rowmap[ii.toUpperCase()]=sum/n;
+						}
+					}
+					else if (vars[ii].type=='count'){
+						var n = 0;
+						for (var i=rowStart;i<=rowEnd;i++){
+							n += 1;
+						}
+						rowmap[ii.toUpperCase()]=n;
+					}
+					else if (vars[ii].type=='sum'){
+						var sum = 0;
+						for (var i=rowStart;i<=rowEnd;i++){
+							sum += parseInt(array[i][vars[ii].column]);
+						}
+						rowmap[ii.toUpperCase()]=sum;
+					}
+					else if (vars[ii].type=='max'){
+						var max = parseInt(array[rowStart][vars[ii].column]);
+						for (var i=rowStart;i<=rowEnd;i++){
+							if (parseInt(array[i][vars[ii].column]) > max){
+								max = parseInt(array[i][vars[ii].column]);
+							}
+						}
+						rowmap[ii.toUpperCase()]=max;
+					}
+					else if (vars[ii].type=='min'){
+						var min = parseInt(array[rowStart][vars[ii].column]);
+						for (var i=rowStart;i<=rowEnd;i++){
+							if (parseInt(array[i][vars[ii].column]) < min){
+								min = parseInt(array[i][vars[ii].column]);
+							}
+						}
+						rowmap[ii.toUpperCase()]=min;
+					}
 				}
 			}
 		}

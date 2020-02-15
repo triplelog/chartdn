@@ -629,8 +629,13 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
 	rawArray.splice(0,nHeaders);
 	
 	var idx = 0;
+	var allHeaders = {};
 	if (nsteps !== 0){
 		for (var i in modifiers){
+			allHeaders[modifiers[i].id]=[];
+			for (var ii in hArray[0]){
+				allHeaders[modifiers[i].id].push(hArray[0][i]);
+			}
 			if (!modifiers[i].enabled){continue;}
 			console.log(nsteps,idx);
 			if (nsteps && idx >= nsteps){break;}
@@ -657,6 +662,10 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
 				//Update columns in create chart
 			}
 		}
+		allHeaders['current']=[];
+		for (var ii in hArray[0]){
+			allHeaders['current'].push(hArray[0][i]);
+		}
 	}
 	var filteredArray = hArray.concat(modJS.toData(rawArray));
 	var t6 = performance.now();
@@ -682,7 +691,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
 		}
 	
 	}
-	return {'byrow':retArray,'bycol':cols,'modified':filteredArray,'headers':hArray[0]};
+	return {'byrow':retArray,'bycol':cols,'modified':filteredArray,'headers':allHeaders};
 	
 }
 			
@@ -697,29 +706,29 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 				var nHeaders = chartInfo.options.nHeaders || 1;
 				var nSteps = -1;
 				var data = convertDataToFull(results.data,nHeaders,chartInfo.options.modifiers,chartInfo.options.nsteps);
-				console.log('headers',chartInfo.headers);
-				nStepos = 0;
+				console.log('headers',chartInfo.headers.current);
+				nSteps = 0;
 				if (nSteps == -1){
-					if (data.headers.length != chartInfo.headers.length){
-						chartInfo.headers = data.headers;
+					if (data.headers.current.length != chartInfo.headers.length){
+						chartInfo.headers = data.headers.current;
 						chartInfo.markModified('headers');/*
 						chartInfo.save(function (err, chart) {
 							if (err) return console.error(err);
 							console.log('saved');
 						});*/
-						var jsonmessage = {'operation':'headers','message':data.headers};
+						var jsonmessage = {'operation':'headers','message':data.headers.current};
 						ws.send(JSON.stringify(jsonmessage));
 					}
 					else {
-						for (var i in data.headers){
-							if (!chartInfo.headers || data.headers[i] != chartInfo.headers[i]){
-								chartInfo.headers = data.headers;/*
+						for (var i in data.headers.current){
+							if (!chartInfo.headers || data.headers.current[i] != chartInfo.headers[i]){
+								chartInfo.headers = data.headers.current;/*
 								chartInfo.markModified('headers');
 								chartInfo.save(function (err, chart) {
 									if (err) return console.error(err);
 									console.log('saved');
 								});*/
-								var jsonmessage = {'operation':'headers','message':data.headers};
+								var jsonmessage = {'operation':'headers','message':data.headers.current};
 								ws.send(JSON.stringify(jsonmessage));
 								break;
 							}
@@ -751,7 +760,7 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 				if (chartStyle == 'all' || chartStyle == 'plotly') {
 					var chartJSON = createPlotly.createPlotly(data,chartInfo.options);
 					if (!dm.loc){dm.loc = 0}
-					var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc,'style':'plotly'};
+					var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc,'style':'plotly','allHeaders':data.headers};
 					if (2==2){
 						jsonmessage['mdata']=data.modified;
 					}
