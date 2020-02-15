@@ -641,7 +641,7 @@ function updateColumns() {
 				varOption.value = parseInt(ii);
 				varOption.textContent = cols[parseInt(ii)];
 				if (parseInt(ii) == parseInt(elval)){
-					varOption.setAttribute('checked','checked');
+					varOption.setAttribute('selected','selected');
 				}
 				el.appendChild(varOption);
 				
