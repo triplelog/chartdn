@@ -635,6 +635,7 @@ function updateColumns() {
 			var elval = el.value;
 			el.innerHTML = '';
 			var cols = allHeaders[modifiers[i].id];
+			console.log(elval);
 			for (var ii in cols){
 				var varOption = document.createElement('option');
 				varOption.value = parseInt(ii);
