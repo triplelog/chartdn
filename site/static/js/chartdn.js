@@ -616,7 +616,18 @@ function updateColumns() {
 	for (var i in modifiers){
 		if (modifiers[i].type == 'new'){
 			var el = document.getElementById('newcolVar'+modifiers[i].id);
-			console.log(allHeaders,el.value);
+			el.innerHTML = '';
+			var cols = allHeaders[modifiers[i].id];
+			for (var ii in cols){
+				var varOption = document.createElement('option');
+				varOption.value = parseInt(ii);
+				varOption.textContent = cols[parseInt(ii)];
+				el.appendChild(varOption);
+			}
+			
+		}
+		else if (modifiers[i].type == 'sort'){
+			var el = document.getElementById('sortcol'+modifiers[i].id);
 			el.innerHTML = '';
 			var cols = allHeaders[modifiers[i].id];
 			for (var ii in cols){
@@ -1045,9 +1056,9 @@ function createSort(obj) {
 						
 	var newB = document.createElement('div');
 	newB.classList.add('box-form');
-	newI = document.createElement('input');
-	newI.setAttribute('type','text');
+	newI = document.createElement('select');
 	newI.setAttribute('name','column');
+	newI.id = 'sortcol'+obj.id;
 	newI.addEventListener('change',updateModifier);
 	newB.appendChild(newI);
 	newI = document.createElement('input');
@@ -1552,6 +1563,7 @@ function createNewModifier(show=false) {
 		
 		modifierChg();
 		chgModify(oldObject);
+		updateColumns();
 	}
 	
 	
