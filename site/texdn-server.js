@@ -637,14 +637,14 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
 			else {idx++;}
 			
 			if (modifiers[i].type == 'new'){
-				modJS.newColumn(rawArray,modifiers[i].options);
+				modJS.newColumn(rawArray,modifiers[i].options,nHeaders);
 				if (hArray.length>0){
 					hArray[0].push(modifiers[i].name);
 				}
 				//Update columns in create chart
 			}
 			else if (modifiers[i].type == 'ignore'){
-				modJS.ignore(rawArray,modifiers[i].options);
+				modJS.ignore(rawArray,modifiers[i].options,nHeaders);
 			}
 			else if (modifiers[i].type == 'sort'){
 				modJS.sort(rawArray,modifiers[i].options);

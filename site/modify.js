@@ -228,7 +228,7 @@ exports.toData = function(array){
 	return array;
 }
 
-exports.newColumn = function(array,options) {
+exports.newColumn = function(array,options,nHeaders) {
 	toData(array);
 	var formula = options.formula;
 	if (!formula || formula == ''){return;}
@@ -239,25 +239,20 @@ exports.newColumn = function(array,options) {
 	for (var ii in vars){
 		var rows = vars[ii].row.split(',');
 		var rowStart; var rowEnd;
-		console.log('aa',rows);
 		if (rows[0].indexOf('$')==0 && rows[1].indexOf('$')==0){
 			rowStart = parseInt(rows[0].substring(1));
 			rowEnd = parseInt(rows[1].substring(1));
-			console.log('a',rowEnd);
 			if (rowEnd < 0){
 				rowEnd = array.length + rowEnd;
 			}
-			console.log('b',rowEnd);
 			if (rowEnd > array.length-1){
 				rowEnd = array.length - 1;
 			}
-			console.log('c',rowEnd);
 			if (rowStart < 0){
 				rowStart = array.length + rowStart;
 			}
-			rowEnd = rowEnd - options.nHeaders;
-			console.log('d',rowEnd);
-			rowStart = rowStart - options.nHeaders;
+			rowEnd = rowEnd - nHeaders;
+			rowStart = rowStart - nHeaders;
 		}
 		else {
 			continue;
@@ -315,7 +310,7 @@ exports.newColumn = function(array,options) {
 			if (vars[ii].type=='value'){
 				var row = parseInt(i);
 				if (vars[ii].row.indexOf('$')==0){
-					row = parseInt(vars[ii].row.substring(1))-options.nHeaders;
+					row = parseInt(vars[ii].row.substring(1))-nHeaders;
 				}
 				else {
 					row += parseInt(vars[ii].row);
@@ -514,7 +509,7 @@ exports.pivot = function(array,options,hArray) {
 
 } //Add countif? Add possibility to create buckets like weekly, etc. Error Handling
 
-exports.ignore = function(array,options) {
+exports.ignore = function(array,options,nHeaders) {
 	toData(array);
 	var formula = options.formula;
 	if (!formula || formula == ''){return;}
