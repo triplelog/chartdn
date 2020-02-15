@@ -242,16 +242,20 @@ exports.newColumn = function(array,options) {
 		if (rows[0].indexOf('$')==0 && rows[1].indexOf('$')==0){
 			rowStart = parseInt(rows[0].substring(1));
 			rowEnd = parseInt(rows[1].substring(1));
+			console.log(rowEnd);
 			if (rowEnd < 0){
 				rowEnd = array.length + rowEnd;
 			}
+			console.log(rowEnd);
 			if (rowEnd > array.length-1){
 				rowEnd = array.length - 1;
 			}
+			console.log(rowEnd);
 			if (rowStart < 0){
 				rowStart = array.length + rowStart;
 			}
 			rowEnd = rowEnd - options.nHeaders;
+			console.log(rowEnd);
 			rowStart = rowStart - options.nHeaders;
 		}
 		else {
