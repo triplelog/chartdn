@@ -619,11 +619,13 @@ function updateColumns() {
 			console.log(allHeaders,el.value);
 			el.innerHTMl = '';
 			var cols = allHeaders[modifiers[i].id];
+			console.log(el, cols);
 			for (var ii in cols){
 				var varOption = document.createElement('option');
 				varOption.value = parseInt(ii);
-				varOption.textContent = cols[ii];
+				varOption.textContent = cols[parseInt(ii)];
 				el.appendChild(varOption);
+				console.log(el);
 			}
 			
 		}
