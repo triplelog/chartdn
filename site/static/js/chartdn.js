@@ -788,6 +788,19 @@ function updateModifier(evt){
 				if (el.getAttribute('name')=='formula'){
 					modifiers[i].options.formula = el.value;
 				}
+				else if (el.getAttribute('data-type')=='showVar'){
+					var varName = el.getAttribute('name');
+					var ell = el.parentNode.querySelector('#newVariables');
+					for (var ii in modifiers[i].options.variables){
+						if (ii == varName){
+							ell.querySelector('input[name=name]').value = varName;
+							ell.querySelector('select[name=typr]').value = modifiers[i].options.variables[ii].type;
+							ell.querySelector('select[name=column]').value = modifiers[i].options.variables[ii].column;
+							//update row stuff
+							break;
+						}
+					}
+				}
 				else if (el.getAttribute('name')=='type'){
 					if (el.value != 'value') {
 						document.getElementById('group'+modifiers[i].id).style.display = 'block';
@@ -846,6 +859,8 @@ function updateModifier(evt){
 						var newEl = document.createElement('div');
 						newEl.textContent = name + ' := ' + type + ' of ' + col;
 						newEl.setAttribute('name',name);
+						newEl.setAttribute('data-type','showVar');
+						newEl.addEventListener('click',updateModifier);
 						elll.appendChild(newEl);
 					}
 					
@@ -1456,6 +1471,8 @@ function createNew(obj) {
 		var newEl = document.createElement('div');
 		newEl.textContent = i + ' := ' + objVar.type + ' of ' + objVar.column;
 		newEl.setAttribute('name',i);
+		newEl.setAttribute('data-type','showVar');
+		newEl.addEventListener('click',updateModifier);
 		newD.appendChild(newEl);
 	}
 	newBBB.appendChild(newD);
