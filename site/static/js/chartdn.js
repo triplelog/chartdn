@@ -798,10 +798,20 @@ function updateModifier(evt){
 							ell.querySelector('select[name=column]').value = modifiers[i].options.variables[ii].column;
 							//update row stuff
 							if (modifiers[i].options.variables[ii].type == 'value'){
-								if ( modifiers[i].options.variables[ii].row == '0'){
-									var qstring = '#currentRow'+modifiers[i].id;
-									ell.querySelector(qstring).checked = true;
+								var qstring = '#currentRow'+modifiers[i].id;
+								if ( modifiers[i].options.variables[ii].row.indexOf('$') == 0){
+									qstring = '#equalRow'+modifiers[i].id;
+									ell.querySelector('input[name=equalrow]').value = modifiers[i].options.variables[ii].row.substring(1);
 								}
+								else if ( modifiers[i].options.variables[ii].row.indexOf('-') == 0){
+									qstring = '#previousRow'+modifiers[i].id;
+									ell.querySelector('input[name=prevn]').value = modifiers[i].options.variables[ii].row.substring(1);
+								}
+								else if ( modifiers[i].options.variables[ii].row != '0'){
+									qstring = '#nextRow'+modifiers[i].id;
+									ell.querySelector('input[name=aftern]').value = modifiers[i].options.variables[ii].row;
+								}
+								ell.querySelector(qstring).checked = true;
 							}
 							
 							break;
