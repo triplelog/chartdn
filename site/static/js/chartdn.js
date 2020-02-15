@@ -794,9 +794,16 @@ function updateModifier(evt){
 					for (var ii in modifiers[i].options.variables){
 						if (ii == varName){
 							ell.querySelector('input[name=name]').value = varName;
-							ell.querySelector('select[name=typr]').value = modifiers[i].options.variables[ii].type;
+							ell.querySelector('select[name=type]').value = modifiers[i].options.variables[ii].type;
 							ell.querySelector('select[name=column]').value = modifiers[i].options.variables[ii].column;
 							//update row stuff
+							if (modifiers[i].options.variables[ii].type == 'value'){
+								if ( modifiers[i].options.variables[ii].row == '0'){
+									var qstring = 'input[#currentRow'+id+']';
+									ell.querySelector(qstring).checked = true;
+								}
+							}
+							
 							break;
 						}
 					}
