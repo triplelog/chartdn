@@ -634,7 +634,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
 		for (var i in modifiers){
 			allHeaders[modifiers[i].id]=[];
 			for (var ii in hArray[0]){
-				allHeaders[modifiers[i].id].push(hArray[0][i]);
+				allHeaders[modifiers[i].id].push(hArray[0][ii]);
 			}
 			if (!modifiers[i].enabled){continue;}
 			console.log(nsteps,idx);
