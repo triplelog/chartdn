@@ -253,6 +253,9 @@ exports.newColumn = function(array,options,nHeaders) {
 			}
 			rowEnd = rowEnd - nHeaders;
 			rowStart = rowStart - nHeaders;
+			if (rowStart < 0){
+				rowStart = 0;
+			}
 		}
 		else {
 			continue;
