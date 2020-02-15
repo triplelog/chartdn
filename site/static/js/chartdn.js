@@ -790,7 +790,7 @@ function updateModifier(evt){
 				}
 				else if (el.getAttribute('data-type')=='showVar'){
 					var varName = el.getAttribute('name');
-					var ell = el.parentNode.querySelector('#newVariables');
+					var ell = el.parentNode.parentNode.querySelector('#newVariables');
 					for (var ii in modifiers[i].options.variables){
 						if (ii == varName){
 							ell.querySelector('input[name=name]').value = varName;
