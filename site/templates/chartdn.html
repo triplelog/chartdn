@@ -205,6 +205,24 @@
 							</div>
 							<div class="box-form" id="yColumns" style="min-height: 5rem; max-height: 20rem; overflow: auto;">
 							</div>
+								<div class="box-header2">Format
+									<select id="lineStyleMenu" onchange="chgLineTab()">
+										<option value="-1" selected>All</option>
+									</select>
+								</div>
+								<div class="box-form" style="max-height: 50rem; overflow: auto;" id="lineStyleDivs">
+									<div id="lineStyleDiv-1">
+										Line Colors: <input type="text" name="lineColor" onchange="optionsChg('lineColor')" placeholder="default"/>
+										Dot Color(s): <select><option>Match Line</option><option>None</option><option>Custom</option></select><input type="text" name="dotColor" placeholder="default"/>
+										<input type="radio" name="shape-1" onchange="optionsChg('shape')" value="default" checked>Default</input>
+										<input type="radio" name="shape-1" onchange="optionsChg('shape')" value="spline">Smooth</input>
+										<input type="radio" name="shape-1" onchange="optionsChg('shape')" value="linear">Linear</input><br />
+										<input type="radio" name="dash-1" onchange="optionsChg('dash')" value="solid" checked>Solid</input>
+										<input type="radio" name="dash-1" onchange="optionsChg('dash')" value="dash">Dash</input>
+										<input type="radio" name="dash-1" onchange="optionsChg('dash')" value="dot">Dot</input>
+										<input type="radio" name="dash-1" onchange="optionsChg('dash')" value="dashdot">DashDot</input>
+									</div>
+								</div>
 						</div>
 						<div style="display: none;">
 							<input type="number" name="xColumn" id="xColVal" value="{{ xColumn }}"></input>
@@ -243,7 +261,7 @@
 									X-axis Format:Y-axis Format
 								</div>
 							</div>
-							<div class="l-box pure-u-1-2">
+							<!--<div class="l-box pure-u-1-2">
 								<div class="box-header2">Data
 									<select id="lineStyleMenu" onchange="chgLineTab()">
 										<option value="-1" selected>All</option>
@@ -262,7 +280,7 @@
 										<input type="radio" name="dash-1" onchange="optionsChg('dash')" value="dashdot">DashDot</input>
 									</div>
 								</div>
-							</div>
+							</div>-->
 							
 							<!--<div class="pure-u-1">
 										<input type="radio" name="shareChart" onchange="shareChg()" value="Svg" checked>SVG</input>
