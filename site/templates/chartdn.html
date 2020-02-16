@@ -281,26 +281,35 @@
 					<chartdn-chart data-style="chartJS"></chartdn-chart>
 				</div>
 			</div>
-			<div class="l-box-half pure-u-1-2">
-				<div class="box-header">Plotly<span class="box-buttons"><i class="fas fa-compress-alt"></i></span></div>
+			<div class="l-box-half pure-u-1-2" id="plotlyBox">
+				<div class="box-header">Plotly<span class="box-buttons"><a onclick="minimizeBox('plotly',true)"><i class="fas fa-expand"></i></a><a onclick="minimizeBox('plotly')"><i class="fas fa-compress-alt"></i></a></span></div>
 				<div class='box-form'>
 					<chartdn-chart data-style="plotly"></chartdn-chart>
 				</div>
 			</div>
-			<div class="l-box-half pure-u-1-2">
-				<div class="box-header">XKCD<span class="box-buttons"><i class="fas fa-compress-alt"></i></span></div>
+			<div class="l-box-half pure-u-1-2" id="xkcdBox">
+				<div class="box-header">XKCD<span class="box-buttons"><a onclick="minimizeBox('xkcd',true)"><i class="fas fa-expand"></i></a><a onclick="minimizeBox('xkcd')"><i class="fas fa-compress-alt"></i></a></span></div>
 				<div class='box-form'>
 					<chartdn-chart data-style="XKCD"></chartdn-chart>
 				</div>
 			</div>
-			<div class="l-box-half pure-u-1-2">
-				<div class="box-header">Google<span class="box-buttons"><i class="fas fa-compress-alt"></i></span></div>
+			<div class="l-box-half pure-u-1-2" id="googleBox">
+				<div class="box-header">Google<span class="box-buttons"><a onclick="minimizeBox('google',true)"><i class="fas fa-expand"></i></a><a onclick="minimizeBox('google')"><i class="fas fa-compress-alt"></i></a></span></div>
 				<div class='box-form'>
 					<chartdn-chart data-style="google"></chartdn-chart>
 				</div>
 			</div>
 			<div class="l-box-half pure-u-1-4" id="chartjsNone" style="display: none;">
-				<div class="box-header">ChartJS<span class="box-buttons"><a onclick="minimizeBox('chartjs',true)"><i class="fas fa-expand"></i></a><a onclick="minimizeBox('chartjs')"><i class="fas fa-compress-alt"></i></a></span></div>
+				<div class="box-header">ChartJS<span class="box-buttons"><a onclick="minimizeBox('chartjs',true)"><i class="fas fa-expand"></i></a><a onclick="minimizeBox('chartjs')"><i class="fas fa-expand-alt"></i></a></span></div>
+			</div>
+			<div class="l-box-half pure-u-1-4" id="plotlyNone" style="display: none;">
+				<div class="box-header">Plotly<span class="box-buttons"><a onclick="minimizeBox('plotly',true)"><i class="fas fa-expand"></i></a><a onclick="minimizeBox('plotly')"><i class="fas fa-expand-alt"></i></a></span></div>
+			</div>
+			<div class="l-box-half pure-u-1-4" id="xkcdNone" style="display: none;">
+				<div class="box-header">XKCD<span class="box-buttons"><a onclick="minimizeBox('xkcd',true)"><i class="fas fa-expand"></i></a><a onclick="minimizeBox('xkcd')"><i class="fas fa-expand-alt"></i></a></span></div>
+			</div>
+			<div class="l-box-half pure-u-1-4" id="googleNone" style="display: none;">
+				<div class="box-header">Google<span class="box-buttons"><a onclick="minimizeBox('google',true)"><i class="fas fa-expand"></i></a><a onclick="minimizeBox('google')"><i class="fas fa-expand-alt"></i></a></span></div>
 			</div>
 			<!--<div class="l-box pure-u-1-2" style="border: 1px solid black;">
 				Pgfplots

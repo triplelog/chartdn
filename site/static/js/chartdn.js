@@ -1828,7 +1828,7 @@ function minimizeBox(boxid,full=false){
 			ell.classList.remove('fa-expand-alt');
 		}
 	}
-	else if (boxid == 'chartjs'){
+	else if (boxid == 'chartjs' || boxid == 'plotly' || boxid == 'xkcd' || boxid == 'google'){
 		if (full){
 			var el = document.getElementById(boxid+'Box');
 			el.classList.add('pure-u-1-1');
