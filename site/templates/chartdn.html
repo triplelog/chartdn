@@ -221,10 +221,10 @@
 						</div>
 						
 						<div class="l-box pure-u-1-3">
-							<div class="box-header2">
-								Y Axis
+							<div class="box-header2" id="yAxisBoxH">
+								Y Axis<span class="box-buttons"><a onclick="minimizeBox('yAxis')"><i class="fas fa-compress-alt"></i></a></span>
 							</div>
-							<div class="box-form">
+							<div class="box-form" id="yAxisBox">
 								Title: <input type="text" name="yaxistitle" onchange="optionsChg('yaxistitle')" placeholder="notitle"/>
 								Format: <input type="text" name="format`+id+`" onchange="optionsChg('format')" value="" placeholder="default" />
 								Step Size: <input type="text" name="stepSizeY" onchange="optionsChg('stepSizeY')" placeholder="default">
@@ -241,7 +241,7 @@
 								<input type="radio" name="dash-1" onchange="optionsChg('dash')" value="dashdot">DashDot</input>
 							</div>
 							<div class="box-header2">
-								Data
+								Data<span class="box-buttons"><a onclick="minimizeBox('yAxisData')"><i class="fas fa-compress-alt"></i></a></span>
 							</div>
 							<div class="box-form" id="yColumns" style="min-height: 5rem; max-height: 20rem; overflow: auto;">
 							</div>
@@ -249,10 +249,12 @@
 								<select id="yColumnSelect">
 								</select><a onclick="addColumn('y')">Add</a>
 							</div>
-							<div class="box-header2">Format
+							<div class="box-header2">
+								Format
 								<select id="lineStyleMenu" onchange="chgLineTab()">
 									<option value="-1" selected>All</option>
 								</select>
+								<span class="box-buttons"><a onclick="minimizeBox('yAxisFormat')"><i class="fas fa-compress-alt"></i></a></span>
 							</div>
 							<div class="box-form" style="max-height: 50rem; overflow: auto;" id="lineStyleDivs">
 								<!--<div id="lineStyleDiv-1">

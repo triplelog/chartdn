@@ -65,6 +65,7 @@ minimizedBoxes.dataTable = 'large';
 minimizedBoxes.modifyData = 'large';
 minimizedBoxes.createChart = 'large';
 minimizedBoxes.customChart = 'large';
+minimizedBoxes.yAxis = 'large';
 minimizedBoxes.chartjs = 'half';
 minimizedBoxes.plotly = 'half';
 minimizedBoxes.xkcd = 'half';
@@ -1867,6 +1868,25 @@ function minimizeBox(boxid,full=false){
 			minimizedBoxes[boxid] = 'half';
 			var el2 = document.getElementById(boxid+'None');
 			el2.style.display = 'none';
+		}
+	}
+	else if (boxid == 'yAxis'){
+		if (minimizedBoxes[boxid] == 'large'){
+			var el = document.getElementById(boxid+'Box');
+			el.style.display = 'none';
+			minimizedBoxes[boxid] = 'small';
+			var ell = document.getElementById(boxid+'BoxH').querySelector('i.fa-compress-alt');
+			ell.classList.remove('fa-compress-alt');
+			ell.classList.add('fa-expand-alt');
+			
+		}
+		else {
+			var el = document.getElementById(boxid+'Box');
+			el.style.display = 'block';
+			minimizedBoxes[boxid] = 'large';
+			var ell = document.getElementById(boxid+'BoxH').querySelector('i.fa-compress-alt');
+			ell.classList.add('fa-compress-alt');
+			ell.classList.remove('fa-expand-alt');
 		}
 	}
 }
