@@ -860,7 +860,6 @@ function updateModifier(evt){
 					var newVariable = {'column':parseInt(col),'type':type,'row':row};
 					var name = ell.querySelector('input[name=name]').value;
 					modifiers[i].options.variables[name] = newVariable;
-					console.log(modifiers[i].options.variables);
 					
 					var elll = ell.parentNode.querySelector('#allVariables');
 					var elllc = elll.children;
@@ -868,6 +867,7 @@ function updateModifier(evt){
 					for (var ii=0;ii<elllc.length;ii++){
 						if (elllc[ii].getAttribute('name') == name){
 							elllc[ii].textContent = name + ' := ' + type + ' of ' + col;
+							elllc[ii].textContent += toRowStr(modifiers[i].options.variables[name]);
 							elExists = true;
 							break;
 						}
@@ -875,6 +875,7 @@ function updateModifier(evt){
 					if (!elExists){
 						var newEl = document.createElement('div');
 						newEl.textContent = name + ' := ' + type + ' of ' + col;
+						newEl.textContent += toRowStr(modifiers[i].options.variables[name]);
 						newEl.setAttribute('name',name);
 						newEl.setAttribute('data-type','showVar');
 						newEl.addEventListener('click',updateModifier);
@@ -1413,6 +1414,26 @@ function createNewColumnBox(id) {
 	varDiv.appendChild(varB);
 }
 
+function toRowStr(objVar) {
+	var rowStr = '';
+	if (objVar.type == 'value' && objVar.row != '0'){
+		if (objVar.row.indexOf('$') == 0){rowStr += ', Row '+objVar.row.substring(1);}
+		else if (parseInt(objVar.row) < 0){rowStr += ', '+parseInt(objVar.row)*-1 + ' Row Before';}
+		else {rowStr += ', '+parseInt(objVar.row)+' Row After';}
+	}
+	if (objVar.type != 'value' && objVar.row != '0,-1'){
+		var rows = objVar.row.split(',');
+		if (rows[0].indexOf('$') == 0){rowStr += ', Row '+rows[0].substring(1);}
+		else if (parseInt(rows[0]) < 0){rowStr += ', '+parseInt(rows[0])*-1 + ' Row Before';}
+		else if (parseInt(rows[0]) == 0){rowStr += ', Current Row';}
+		else {rowStr += ', '+parseInt(rows[0])+' Row After';}
+		
+		if (rows[1].indexOf('$') == 0){rowStr += ' to Row '+rows[1].substring(1);}
+		else if (parseInt(rows[1]) < 0){rowStr += ' to '+parseInt(rows[1])*-1 + ' Row Before';}
+		else if (parseInt(rows[1]) == 0){rowStr += ' to Current Row';}
+		else {rowStr += ' to '+parseInt(rows[1])+' Row After';}
+	}
+}
 function createNew(obj) {
 
 	var newEl = document.createElement('div');
@@ -1487,6 +1508,9 @@ function createNew(obj) {
 		var objVar = obj.options.variables[i];
 		var newEl = document.createElement('div');
 		newEl.textContent = i + ' := ' + objVar.type + ' of ' + objVar.column;
+		var rowStr = toRowStr();
+		newEl.textContent += rowStr;
+		
 		newEl.setAttribute('name',i);
 		newEl.setAttribute('data-type','showVar');
 		newEl.addEventListener('click',updateModifier);
