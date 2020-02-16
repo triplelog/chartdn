@@ -16,7 +16,7 @@ ws.onmessage = function(evt){
 	var dm = JSON.parse(evt.data);
 	if (dm.operation == 'downloaded'){
 		document.getElementById('dataCopy').value = dm.message;
-		dataChg();
+		dataChg(true);
 	}
 	else if (dm.operation == 'id'){
 		chartid = dm.message;
