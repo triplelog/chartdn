@@ -326,6 +326,7 @@ wss.on('connection', function connection(ws) {
 			}
   		}
   		//write data.csv
+  		console.log(chartid, dataid, dm);
   		if (chartid == dataid){
   			if (!dm.type || dm.type != 'csv') {
 			  var wget = 'wget -O saved/'+chartid+'.csv "' + dm.message + '" && echo "done"';
@@ -351,7 +352,7 @@ wss.on('connection', function connection(ws) {
 			  
 			  var wget = 'wget -O saved/'+chartid+'.'+dm.type+' "' + dm.message + '" && in2csv saved/'+chartid+'.'+dm.type+' > saved/'+chartid+'.csv';
 			  // excute wget using child_process' exec function
-			  console.log(wget);
+			  console.log('wget:::  ',wget);
 			  var child = exec(wget, function(err, stdout, stderr) {
 				if (err) throw err;
 				else {
