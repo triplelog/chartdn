@@ -95,8 +95,8 @@ div.l-box {
 				</form>
 			</div>-->
 			<div class="l-box pure-u-1-1 sectionpart">
-				<div class="box-header"><span class="box-buttons-left"><a onclick="minimizeBox('dataSource')" id="editSource">Edit</a></span>Data Table<span class="box-buttons"><span id="rawModified"></span><i class="fas fa-compress-alt"></i><i class="fas fa-expand"></i></span></div>
-				<div class="box-form">
+				<div class="box-header"><span class="box-buttons-left"><a onclick="minimizeBox('dataSource')" id="editSource" style="display: none;">Edit</a></span>Data Table<span class="box-buttons"><span id="rawModified"></span><a onclick="minimizeBox('dataTable')"><i class="fas fa-compress-alt"></i></a><i class="fas fa-expand"></i></span></div>
+				<div class="box-form" id="dataTableBox">
 					<div class="pure-g">
 						<div class="l-box pure-u-1-4 sectionpart" id="dataSourceBox">
 							<div class="box-header2">Data Source<span class="box-buttons"><a onclick="minimizeBox('dataSource')"><i class="fas fa-compress-alt"></i></a></span></div>
@@ -136,8 +136,8 @@ div.l-box {
 				</div>
 			</div>
 			<div class="l-box pure-u-1-1 sectionpart">
-				<div class="box-header">Modify Data<span class="box-buttons"><i class="fas fa-compress-alt"></i></span></div>
-				<form class="pure-form box-form">
+				<div class="box-header">Modify Data<span class="box-buttons"><a onclick="minimizeBox('modifyData')"><i class="fas fa-compress-alt"></i></a></span></div>
+				<form class="pure-form box-form" id="modifyDataBox">
 					<div class="pure-g" id="modifiersDiv">
 						<div class="l-box pure-u-1-3">
 							<div class="box-header2">
@@ -183,9 +183,9 @@ div.l-box {
 						<option value="diff" {{ isChecked['diff'] }}>Diff</option>
 						<option value="calendar" {{ isChecked['calendar'] }}>Calendar</option>
 					</select>
-					<span class="box-buttons"><i class="fas fa-compress-alt"></i></span>
+					<span class="box-buttons"><a onclick="minimizeBox('createChart')"><i class="fas fa-compress-alt"></i></a></span>
 				</div>
-				<form class="pure-form box-form">
+				<form class="pure-form box-form" id="createChartBox">
 					<div class="pure-g" id="lineOptions">
 						<div class="l-box pure-u-1-3">
 							<div class="box-header2">

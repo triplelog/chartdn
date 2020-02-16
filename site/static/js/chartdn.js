@@ -59,8 +59,11 @@ var yColsVals = [];
 var headers = [];
 var allHeaders = {};
 var colid = -1;
-var dataSourceSize = 'large';
-
+var minimizedBoxes = {};
+minimizedBoxes.dataSource = 'large';
+minimizedBoxes.dataTable = 'large';
+minimizedBoxes.modifyData = 'large';
+minimizedBoxes.createChart = 'large';
 
 //Update Headers
 function updateHeaders(initialData,chg=false) {
@@ -1777,23 +1780,35 @@ drakeF.on('drag', function (el, target, source, sibling) {
 
 // Minimize and Maximize elements
 function minimizeBox(boxid){
-	if (boxid == 'dataSource' && dataSourceSize == 'large'){
+	if (boxid == 'dataSource' && minimizedBoxes[boxid] == 'large'){
 		var el = document.getElementById('dataSourceBox');
 		el.style.display = 'none';
 		var otherEl = document.getElementById('dataTableHolder');
 		otherEl.classList.add('pure-u-1-1');
 		otherEl.classList.remove('pure-u-3-4');
-		dataSourceSize = 'small';
+		minimizedBoxes[boxid] = 'small';
 		document.getElementById('editSource').style.display = 'inline';
 	}
-	else if (boxid == 'dataSource' && dataSourceSize == 'small'){
+	else if (boxid == 'dataSource' && minimizedBoxes[boxid]== 'small'){
 		var el = document.getElementById('dataSourceBox');
 		el.style.display = 'block';
 		var otherEl = document.getElementById('dataTableHolder');
 		otherEl.classList.remove('pure-u-1-1');
 		otherEl.classList.add('pure-u-3-4');
-		dataSourceSize = 'large';
+		minimizedBoxes[boxid] = 'large';
 		document.getElementById('editSource').style.display = 'none';
+	}
+	if (boxid == 'dataTable' || boxid == 'modifyData' || boxid == 'createChart'){
+		if (minimizedBoxes[boxid] == 'large'){
+			var el = document.getElementById(boxid+'Box');
+			el.style.display = 'none';
+			minimizedBoxes[boxid] = 'small';
+		}
+		else {
+			var el = document.getElementById(boxid+'Box');
+			el.style.display = 'none';
+			minimizedBoxes[boxid] = 'large';
+		}
 	}
 }
 
