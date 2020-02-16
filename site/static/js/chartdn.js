@@ -634,7 +634,7 @@ function updateColumns(id='all') {
 					var objVar = modifiers[i].options.variables[ii];
 					var qstring = 'div[name='+ii+']';
 					var newEl = allVars.querySelector(qstring);
-					newEl.textContent = i + ' := ' + objVar.type + ' of ' + cols[objVar.column];
+					newEl.textContent = ii + ' := ' + objVar.type + ' of ' + cols[objVar.column];
 					var rowStr = toRowStr(objVar);
 					newEl.textContent += rowStr;
 				}
