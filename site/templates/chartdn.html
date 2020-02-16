@@ -173,22 +173,27 @@
 								Options
 							</div>
 							<div class="box-form">
-								<select onchange="typeChg();" id="chartTypeMenu">
-									<option value="line" {{ isChecked['line'] }}>Line</option>
-									<option value="bar" {{ isChecked['bar'] }}>Bar</option>
-									<option value="scatter" {{ isChecked['scatter'] }}>Scatter</option>
-									<option value="pie" {{ isChecked['pie'] }}>Pie</option>
-									<option value="bubble" {{ isChecked['bubble'] }}>Bubble</option>
-									<option value="histogram" {{ isChecked['histogram'] }}>Histogram</option>
-									<option value="heatmap" {{ isChecked['heatmap'] }}>Heatmap</option>
-									<option value="radar" {{ isChecked['radar'] }}>Radar</option>
-									<option value="box" {{ isChecked['box'] }}>Box</option>
-									<option value="choropleth" {{ isChecked['choropleth'] }}>Choropleth</option>
-									<option value="splom" {{ isChecked['splom'] }}>Splom</option>
-									<option value="diff" {{ isChecked['diff'] }}>Diff</option>
-									<option value="calendar" {{ isChecked['calendar'] }}>Calendar</option>
-								</select>
-								Title: <input type="text" name="title" onchange="optionsChg('title')" placeholder="notitle" value="{{ title }}"/>
+								<div>
+									Type: <select onchange="typeChg();" id="chartTypeMenu">
+										<option value=""></option>
+										<option value="line" {{ isChecked['line'] }}>Line</option>
+										<option value="bar" {{ isChecked['bar'] }}>Bar</option>
+										<option value="scatter" {{ isChecked['scatter'] }}>Scatter</option>
+										<option value="pie" {{ isChecked['pie'] }}>Pie</option>
+										<option value="bubble" {{ isChecked['bubble'] }}>Bubble</option>
+										<option value="histogram" {{ isChecked['histogram'] }}>Histogram</option>
+										<option value="heatmap" {{ isChecked['heatmap'] }}>Heatmap</option>
+										<option value="radar" {{ isChecked['radar'] }}>Radar</option>
+										<option value="box" {{ isChecked['box'] }}>Box</option>
+										<option value="choropleth" {{ isChecked['choropleth'] }}>Choropleth</option>
+										<option value="splom" {{ isChecked['splom'] }}>Splom</option>
+										<option value="diff" {{ isChecked['diff'] }}>Diff</option>
+										<option value="calendar" {{ isChecked['calendar'] }}>Calendar</option>
+									</select>
+								</div>
+								<div>
+									Title: <input type="text" name="title" onchange="optionsChg('title')" placeholder="notitle" value="{{ title }}"/>
+								</div>
 								<div>
 									<input type="radio" name="shareChart" onchange="shareChg()" value="Svg" checked>SVG</input>
 									<input type="radio" name="shareChart" onchange="shareChg()" value="Code">Code</input>
@@ -210,6 +215,10 @@
 								Data
 							</div>
 							<div class="box-form" id="xColumn" style="min-height: 5rem; max-height: 20rem; overflow: auto;">
+							</div>
+							<div class="box-form">
+								<select id="xColumnSelect">
+								</select>
 							</div>
 							<div class="box-header2">
 								Formatting
@@ -233,6 +242,10 @@
 								Data
 							</div>
 							<div class="box-form" id="yColumns" style="min-height: 5rem; max-height: 20rem; overflow: auto;">
+							</div>
+							<div class="box-form">
+								<select id="yColumnSelect">
+								</select>
 							</div>
 							<div class="box-header2">Format
 								<select id="lineStyleMenu" onchange="chgLineTab()">

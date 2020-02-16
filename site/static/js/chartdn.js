@@ -72,10 +72,12 @@ minimizedBoxes.google = 'half';
 
 //Update Headers
 function updateHeaders(initialData,chg=false) {
-	var allColumns = document.getElementById('allColumns');
-	allColumns.innerHTML = '';
+	var xCo = document.getElementById('xColumnSelect');
+	xCo.innerHTML = '';
+	var yCo = document.getElementById('yColumnSelect');
+	yCo.innerHTML = '';
 	for (var i=0;i<headers.length;i++){
-		var newColumn = document.createElement('span');
+		var newColumn = document.createElement('option');
 		if (headers[i] == ''){
 			var ii = i+1;
 			newColumn.textContent = 'Col '+ii;
@@ -84,9 +86,9 @@ function updateHeaders(initialData,chg=false) {
 			newColumn.textContent = headers[i];
 		}
 		
-		newColumn.id = 'colId'+i;
-		newColumn.style.display = 'block';
-		allColumns.appendChild(newColumn);
+		newColumn.value = i;
+		xCo.appendChild(newColumn);
+		yCo.appendChild(newColumn);
 	}
 	if (!chg){
 		if (initialData && document.getElementById('xColVal').value != ''){
@@ -217,8 +219,6 @@ function urlChg(url) {
 
 
 //Set columns in Create Chart
-var allColumns = document.getElementById('allColumns');
-allColumns.innerHTML = '';
 document.getElementById('xColumn').innerHTML = '';
 document.getElementById('yColumns').innerHTML = '';
 
@@ -515,12 +515,11 @@ function dataChg(initialData=false,dataType='csv') {
 
 //Dragula with column choices
 
-var drake = dragula([document.getElementById('allColumns'), document.getElementById('xColumn'), document.getElementById('yColumns')], {
+var drake = dragula([document.getElementById('xColumn'), document.getElementById('yColumns')], {
   copy: function (el, source) {
-    return source === document.getElementById('allColumns');
+    return false;
   },
   accepts: function (el, target, source) {
-  	if (target === document.getElementById('allColumns')) {return false;}
   	if (target === source || target.id === 'xColumn'){return true;}
   	for (var yid in yColsVals){
   		if ('colId'+yColsVals[yid] == el.id){return false;}
@@ -529,7 +528,7 @@ var drake = dragula([document.getElementById('allColumns'), document.getElementB
     
   },
   removeOnSpill: function (el, source) {
-    return source !== document.getElementById('allColumns');
+    return true;
   }
 });
 
