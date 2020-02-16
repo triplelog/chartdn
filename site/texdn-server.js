@@ -327,24 +327,48 @@ wss.on('connection', function connection(ws) {
   		}
   		//write data.csv
   		if (chartid == dataid){
-		  var wget = 'wget -O saved/'+chartid+'.csv "' + dm.message + '" && echo "done"';
-		  // excute wget using child_process' exec function
-		  var child = exec(wget, function(err, stdout, stderr) {
-			if (err) throw err;
-			else {
-				fs.readFile('saved/'+chartid+'.csv', 'utf8', function(err, fileData) {
-					var jsonmessage = {'operation':'downloaded','message':fileData};
-					ws.send(JSON.stringify(jsonmessage));
-					Chart.findOne({ id: chartid }, function(err, result) {
-					  if (err) {
+  			if (!dm.type || dm.type != 'csv') {
+			  var wget = 'wget -O saved/'+chartid+'.csv "' + dm.message + '" && echo "done"';
+			  // excute wget using child_process' exec function
+			  var child = exec(wget, function(err, stdout, stderr) {
+				if (err) throw err;
+				else {
+					fs.readFile('saved/'+chartid+'.csv', 'utf8', function(err, fileData) {
+						var jsonmessage = {'operation':'downloaded','message':fileData};
+						ws.send(JSON.stringify(jsonmessage));
+						Chart.findOne({ id: chartid }, function(err, result) {
+						  if (err) {
 				
-					  } else {
-					  	makeAllCharts(ws,dm,result,'all');
-					  }
+						  } else {
+							makeAllCharts(ws,dm,result,'all');
+						  }
+						});
 					});
-				});
+				}
+			  });
 			}
-		  });
+			else {
+			  
+			  var wget = 'wget -O saved/'+chartid+'.'+dm.type+' "' + dm.message + '" && in2csv saved/'+chartid+'.'+dm.type+' > saved/'+chartid+'.csv';
+			  // excute wget using child_process' exec function
+			  console.log(wget);
+			  var child = exec(wget, function(err, stdout, stderr) {
+				if (err) throw err;
+				else {
+					fs.readFile('saved/'+chartid+'.csv', 'utf8', function(err, fileData) {
+						var jsonmessage = {'operation':'downloaded','message':fileData};
+						ws.send(JSON.stringify(jsonmessage));
+						Chart.findOne({ id: chartid }, function(err, result) {
+						  if (err) {
+				
+						  } else {
+							makeAllCharts(ws,dm,result,'all');
+						  }
+						});
+					});
+				}
+			  });
+			}
 		}
 		else {
 			Chart.findOne({ id: chartid }, function(err, result) {

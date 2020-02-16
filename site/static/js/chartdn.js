@@ -204,7 +204,14 @@ function urlChg(url) {
 	var url = document.getElementById('dataUrl').value;
 	var delimiter = document.getElementById('delimiter').value;
 	if (delimiter.toLowerCase() == 'auto'){delimiter = '';}
+	
 	var jsonmessage = {'operation':'download','message':url,'delimiter':delimiter};
+	if (url.indexOf('.csv') == url.length-4){
+	
+	}
+	else {
+		jsonmessage.type = 'xls';
+	}
 	ws.send(JSON.stringify(jsonmessage));
 }
 
