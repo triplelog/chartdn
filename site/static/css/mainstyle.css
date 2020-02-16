@@ -69,7 +69,8 @@ table.striped tr.headerrow {
 }
 .l-box-thin {
     padding: 0rem .5rem;
-    border: 1px solid white;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
 }
 
 .l-box-lrg {
