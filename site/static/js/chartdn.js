@@ -659,6 +659,23 @@ function updateColumns(id='all') {
 				
 			
 			}
+			else if (modifiers[i].type == 'replace'){
+				var el = document.getElementById('replaceCol'+modifiers[i].id);
+				var elval = el.value;
+				el.innerHTML = '';
+				var cols = allHeaders[modifiers[i].id];
+				for (var ii in cols){
+					var varOption = document.createElement('option');
+					varOption.value = parseInt(ii);
+					varOption.textContent = cols[parseInt(ii)];
+					if (parseInt(ii) == parseInt(elval)){
+						varOption.setAttribute('selected','selected');
+					}
+					el.appendChild(varOption);
+				}
+				
+			
+			}
 			else if (modifiers[i].type == 'sort'){
 				var el = document.getElementById('sortcol'+modifiers[i].id);
 				var elval = modifiers[i].options.column;
@@ -1151,9 +1168,9 @@ function createReplace(obj) {
 	newI.setAttribute('name','full');
 	newI.addEventListener('change',updateModifier);
 	newB.appendChild(newI);
-	newI = document.createElement('input');
-	newI.setAttribute('type','text');
+	newI = document.createElement('select');
 	newI.setAttribute('name','column');
+	newI.id = 'replaceCol'+obj.id;
 	newI.addEventListener('change',updateModifier);
 	newB.appendChild(newI);
 	newM.appendChild(newB);
