@@ -1784,7 +1784,7 @@ function minimizeBox(boxid){
 		el.querySelector('form').style.display = 'none';
 		el.querySelector('i').classList.remove('fa-compress-alt');
 		el.querySelector('i').classList.add('fa-expand-alt');
-		var otherEl = document.getElementById('dataTableBox');
+		var otherEl = document.getElementById('dataTableHolder');
 		otherEl.classList.add('pure-u-1-1');
 		otherEl.classList.remove('pure-u-3-4');
 		dataSourceSize = 'small';
@@ -1796,7 +1796,7 @@ function minimizeBox(boxid){
 		el.querySelector('form').style.display = 'block';
 		el.querySelector('i').classList.add('fa-compress-alt');
 		el.querySelector('i').classList.remove('fa-expand-alt');
-		var otherEl = document.getElementById('dataTableBox');
+		var otherEl = document.getElementById('dataTableHolder');
 		otherEl.classList.remove('pure-u-1-1');
 		otherEl.classList.add('pure-u-3-4');
 		dataSourceSize = 'large';

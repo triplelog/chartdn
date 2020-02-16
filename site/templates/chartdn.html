@@ -64,7 +64,7 @@ div.l-box {
   <div class="content-wrapper">
     <div class="content">
     	<div class="pure-g">
-			<div class="l-box pure-u-1-4 sectionpart" id="dataSourceBox">
+			<!--<div class="l-box pure-u-1-4 sectionpart" id="dataSourceBox">
 				<div class="box-header">Data Source<span class="box-buttons"><a onclick="minimizeBox('dataSource')"><i class="fas fa-compress-alt"></i></a></span></div>
 				<form class="pure-form-stacked box-form">
 						<label>
@@ -93,13 +93,45 @@ div.l-box {
 							<input type="text" value="" name="delimiter" id="delimiter" onchange="delimiterChg()" placeholder="auto">
 						</label>
 				</form>
-			</div>
-			<div class="l-box pure-u-3-4 sectionpart" id="dataTableBox">
-				<div class="box-header">Data Table<span class="box-buttons"><span id="rawModified"></span><i class="fas fa-compress-alt"></i><i class="fas fa-expand"></i></span></div>
+			</div>-->
+			<div class="l-box pure-u-1-1 sectionpart">
+				<div class="box-header"><span class="box-buttons-left">Edit</span>Data Table<span class="box-buttons"><span id="rawModified"></span><i class="fas fa-compress-alt"></i><i class="fas fa-expand"></i></span></div>
 				<div class="box-form">
-					<div id="dataTableHolder" class="flex-center flex-column">
-						<table id="dataTable" class="striped hoverable" style="display: none;"></table>
-						<table id="dataTableModified" class="striped hoverable" style="display: none;"></table>
+					<div class="pure-g">
+						<div class="l-box pure-u-1-4 sectionpart" id="dataSourceBox">
+							<div class="box-header2">Data Source<span class="box-buttons"><a onclick="minimizeBox('dataSource')"><i class="fas fa-compress-alt"></i></a></span></div>
+							<form class="pure-form-stacked box-form">
+								<label>
+									<input type="radio" name="dataSourceType" onchange="dst()" value="File" checked>Upload File (csv or Excel)
+								</label>
+								<label>
+									<input type="radio" name="dataSourceType" onchange="dst()" value="Copy">Copy/Paste
+								</label>
+								<label>
+									<input type="radio" name="dataSourceType" onchange="dst()" value="Url">URL
+								</label>
+								<div class="l-box pure-u-1">
+				
+									<input type="file" name="dataFile" id="dataFile"></input>
+									<div id="dropArea">
+
+									</div>
+									<textarea rows="7" name="dataCopy" id="dataCopy" oninput="dataChg()" onchange="dataChg()">{{ dataAreaText }}</textarea>
+									<input type="text" name="dataUrl" id="dataUrl" onchange="urlChg()"></input>
+
+								</div>
+								<label for="nHeaders">Header Rows
+									<input type="number" value="{{ nHeaders | default(1) }}" name="nHeaders" id="nHeaders" onchange="headerChg()">
+								</label>
+								<label for="delimiter">Delimiter
+									<input type="text" value="" name="delimiter" id="delimiter" onchange="delimiterChg()" placeholder="auto">
+								</label>
+						</form>
+						</div>
+						<div class="l-box pure-u-3-4 sectionpart" id="dataTableHolder" class="flex-center flex-column">
+							<table id="dataTable" class="striped hoverable" style="display: none;"></table>
+							<table id="dataTableModified" class="striped hoverable" style="display: none;"></table>
+						</div>
 					</div>
 				</div>
 			</div>
