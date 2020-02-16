@@ -828,6 +828,12 @@ function updateModifier(evt){
 									ell.querySelector('input[name=aftern]').value = modifiers[i].options.variables[ii].row;
 								}
 								ell.querySelector(qstring).checked = true;
+								ell.querySelector('#value'+id).style.display = 'block';
+								ell.querySelector('#group'+id).style.display = 'none';
+							}
+							else {
+								ell.querySelector('#value'+id).style.display = 'none';
+								ell.querySelector('#group'+id).style.display = 'block';
 							}
 							
 							break;
@@ -897,8 +903,15 @@ function updateModifier(evt){
 				}
 				else if (evt.target.getAttribute('name')=='clear'){
 					var ell = el.parentNode;
-					var name = ell.querySelector('input[name=name]').value;
+					var nameEl = ell.querySelector('input[name=name]');
+					var name = nameEl.value;
+					nameEl.value = '';
+					ell.querySelector('select[name=type]').value = 'value';
 					var id = modifiers[i].id;
+					ell.querySelector('select[name=newcolVar'+id+']').value = '0';
+					ell.querySelector('#value'+id).style.display = 'block';
+					ell.querySelector('#group'+id).style.display = 'none';
+					ell.querySelector('input[name=row'+id+']').value = 'current';
 					delete modifiers[i].options.variables[name];
 					
 					var elll = ell.parentNode.querySelector('#allVariables');
