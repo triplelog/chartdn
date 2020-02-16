@@ -633,7 +633,7 @@ drake.on('remove', function (el, target, source) {
 function updateColumns(id='all') {
 	for (var i in modifiers){
 		if (id=='all' || modifiers[i].id == id){
-			if (modifiers[i].type == 'new'){
+			if (modifiers[i].type == 'new' || modifiers[i].type == 'ignore'){
 				var el = document.getElementById('newcolVar'+modifiers[i].id);
 				var elval = el.value;
 				el.innerHTML = '';
