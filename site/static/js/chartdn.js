@@ -64,6 +64,7 @@ minimizedBoxes.dataSource = 'large';
 minimizedBoxes.dataTable = 'large';
 minimizedBoxes.modifyData = 'large';
 minimizedBoxes.createChart = 'large';
+minimizedBoxes.customChart = 'large';
 
 //Update Headers
 function updateHeaders(initialData,chg=false) {

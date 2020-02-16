@@ -31,8 +31,11 @@ label {
     color: #34495e;
 }
 
-.flex-column table{
+#dataTableHolder {
 	max-height: 20rem;
+}
+.flex-column table{
+	max-height: calc(100% - .5rem);
 	overflow: auto;
 }
 .striped tr:nth-child(even){
