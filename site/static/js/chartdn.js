@@ -638,6 +638,7 @@ function updateColumns(id='all') {
 					var rowStr = toRowStr(objVar);
 					newEl.textContent += rowStr;
 				}
+				
 			
 			}
 			else if (modifiers[i].type == 'sort'){
@@ -798,6 +799,10 @@ function updateModifier(evt){
 			else if (mType == 'new' || mType == 'ignore'){
 				if (el.getAttribute('name')=='formula'){
 					modifiers[i].options.formula = el.value;
+					var ell = el.parentNode.querySelector('div[name=katex]');
+					katex.render(modifiers[i].options.formula, ell, {
+						throwOnError: false
+					});
 				}
 				else if (el.getAttribute('data-type')=='showVar'){
 					var varName = el.getAttribute('name');
