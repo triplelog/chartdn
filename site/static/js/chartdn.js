@@ -73,7 +73,7 @@ minimizedBoxes.google = 'half';
 //Update Headers
 function updateHeaders(initialData,chg=false) {
 	var xCo = document.getElementById('xColumnSelect');
-	xCo.innerHTML = '';
+	xCo.innerHTML = '<option value="-1"></option>';
 	var yCo = document.getElementById('yColumnSelect');
 	yCo.innerHTML = '';
 	for (var i=0;i<headers.length;i++){

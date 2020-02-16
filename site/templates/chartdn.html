@@ -209,25 +209,14 @@
 								X Axis
 							</div>
 							<div class="box-form">
+								Data: <select id="xColumnSelect" onchange="addColumn('x')"></select>
 								Title: <input type="text" name="xaxistitle" onchange="optionsChg('xaxistitle')" placeholder="notitle"/>
-							</div>
-							<div class="box-header2">
-								Data
-							</div>
-							<div class="box-form" id="xColumn" style="min-height: 5rem; max-height: 20rem; overflow: auto;">
-							</div>
-							<div class="box-form">
-								<select id="xColumnSelect">
-								</select><a onclick="addColumn('x')">Add</a>
-							</div>
-							<div class="box-header2">
-								Formatting
-							</div>
-							<div class="box-form" style="max-height: 50rem; overflow: auto;">
+								Scale: <input type="text" name="scaleX" onchange="optionsChg('scaleX')" placeholder="default"/>
+								Data Type: <select></select>
 								Step Size:<input type="text" name="stepSizeX" onchange="optionsChg('stepSizeX')" placeholder="default"/>
 								Domain:<input type="text" name="domain" onchange="optionsChg('domain')" placeholder="default"/>
 								Format:<input type="text" name="format" onchange="optionsChg('format')" placeholder="default"/>
-								Scale: <input type="text" name="scaleX" onchange="optionsChg('scaleX')" placeholder="default"/>
+								
 							</div>
 						</div>
 						
