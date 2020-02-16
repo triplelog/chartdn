@@ -65,6 +65,10 @@ minimizedBoxes.dataTable = 'large';
 minimizedBoxes.modifyData = 'large';
 minimizedBoxes.createChart = 'large';
 minimizedBoxes.customChart = 'large';
+minimizedBoxes.chartjs = 'half';
+minimizedBoxes.plotly = 'half';
+minimizedBoxes.xkcd = 'half';
+minimizedBoxes.google = 'half';
 
 //Update Headers
 function updateHeaders(initialData,chg=false) {
@@ -1829,10 +1833,33 @@ function minimizeBox(boxid,full=false){
 			var el = document.getElementById(boxid+'Box');
 			el.classList.add('pure-u-1-1');
 			el.classList.remove('pure-u-1-2');
+			el.style.display = 'block';
+			minimizedBoxes[boxid] = 'full';
+			var el2 = document.getElementById(boxid+'None');
+			el2.style.display = 'none';
 		}
-		else {
+		else if (minimizedBoxes[boxid] == 'full') {
+			var el = document.getElementById(boxid+'Box');
+			el.classList.add('pure-u-1-2');
+			el.classList.remove('pure-u-1-1');
+			el.style.display = 'block';
+			minimizedBoxes[boxid] = 'half';
+		}
+		else if (minimizedBoxes[boxid] == 'half') {
 			var el = document.getElementById(boxid+'Box');
 			el.style.display = 'none';
+			var el2 = document.getElementById(boxid+'None');
+			el2.style.display = 'block';
+			minimizedBoxes[boxid] = 'none';
+		}
+		else if (minimizedBoxes[boxid] == 'none') {
+			var el = document.getElementById(boxid+'Box');
+			el.classList.add('pure-u-1-2');
+			el.classList.remove('pure-u-1-1');
+			el.style.display = 'block';
+			minimizedBoxes[boxid] = 'half';
+			var el2 = document.getElementById(boxid+'None');
+			el2.style.display = 'none';
 		}
 	}
 }
