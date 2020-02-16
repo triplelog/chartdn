@@ -125,13 +125,8 @@ function updateHeaders(initialData,chg=false) {
 		var colChg = false;
 		if (document.getElementById('xColVal').value != ''){
 			var xcv = parseInt(document.getElementById('xColVal').value);
-			document.getElementById('xColumn').innerHTML = '';
+			document.getElementById('xColumnSelect').value =  xcv;
 			if (xcv < headers.length){
-				var newColumn = document.createElement('span');
-				newColumn.textContent = headers[xcv];
-				newColumn.id = 'colId'+xcv;
-				newColumn.style.display = 'block';
-				document.getElementById('xColumn').appendChild(newColumn);
 			}
 			else {
 				document.getElementById('xColVal').value = '';
