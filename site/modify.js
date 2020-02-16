@@ -583,6 +583,7 @@ exports.pivot = function(array,options,hArray) {
 
 exports.ignore = function(array,options,nHeaders) {	
 	toData(array);
+	var skipRows = [];
 	var formula = options.formula;
 	if (!formula || formula == ''){return;}
 	var bothparts = postfixify(formula);
