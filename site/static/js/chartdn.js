@@ -87,7 +87,7 @@ function updateHeaders(initialData,chg=false) {
 		}
 		
 		newColumn.value = i;
-		xCo.appendChild(newColumn);
+		xCo.appendChild(newColumn.cloneNode(true));
 		yCo.appendChild(newColumn);
 	}
 	if (!chg){
