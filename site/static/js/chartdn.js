@@ -1806,7 +1806,7 @@ function minimizeBox(boxid){
 			minimizedBoxes[boxid] = 'small';
 			var elp = el.parentNode;
 			elp.classList.add('l-box-thin');
-			elp.classList.remove('l-box');
+			elp.classList.remove('l-box-half');
 			var ell = elp.querySelector('.box-header i.fa-compress-alt');
 			ell.classList.remove('fa-compress-alt');
 			ell.classList.add('fa-expand-alt');
@@ -1817,7 +1817,7 @@ function minimizeBox(boxid){
 			el.style.display = 'block';
 			minimizedBoxes[boxid] = 'large';
 			var elp = el.parentNode;
-			elp.classList.add('l-box');
+			elp.classList.add('l-box-half');
 			elp.classList.remove('l-box-thin');
 			var ell = elp.querySelector('.box-header i.fa-expand-alt');
 			ell.classList.add('fa-compress-alt');

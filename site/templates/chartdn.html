@@ -35,11 +35,7 @@
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.xkcd@1.1/dist/chart.xkcd.min.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<style>
-div.l-box {
-	padding: .5rem;
-}
-</style>
+
 
 </head>
 
@@ -94,7 +90,7 @@ div.l-box {
 						</label>
 				</form>
 			</div>-->
-			<div class="l-box pure-u-1-1 sectionpart">
+			<div class="l-box-half pure-u-1-1 sectionpart">
 				<div class="box-header"><span class="box-buttons-left"><a onclick="minimizeBox('dataSource')" id="editSource" style="display: none;">Edit</a></span>Data Table<span class="box-buttons"><span id="rawModified"></span><a onclick="minimizeBox('dataTable')"><i class="fas fa-compress-alt"></i></a><i class="fas fa-expand"></i></span></div>
 				<div class="box-form" id="dataTableBox">
 					<div class="pure-g">
@@ -135,7 +131,7 @@ div.l-box {
 					</div>
 				</div>
 			</div>
-			<div class="l-box pure-u-1-1 sectionpart">
+			<div class="l-box-half pure-u-1-1 sectionpart">
 				<div class="box-header">Modify Data<span class="box-buttons"><a onclick="minimizeBox('modifyData')"><i class="fas fa-compress-alt"></i></a></span></div>
 				<form class="pure-form box-form" id="modifyDataBox">
 					<div class="pure-g" id="modifiersDiv">
@@ -166,7 +162,7 @@ div.l-box {
 					</div>
 				</form>
 			</div>
-			<div class="l-box pure-u-1-1 sectionpart">
+			<div class="l-box-half pure-u-1-1 sectionpart">
 				<div class="box-header">Create Chart
 					<select onchange="typeChg();" id="chartTypeMenu">
 						<option value="line" {{ isChecked['line'] }}>Line</option>
@@ -220,7 +216,7 @@ div.l-box {
 					
 			</div>	
 				  
-			<div class="l-box pure-u-1 sectionpart">
+			<div class="l-box-half pure-u-1 sectionpart">
 				<div class="box-header">Customize Chart<span class="box-buttons"><a onclick="minimizeBox('customChart')"><i class="fas fa-compress-alt"></i></a></span></div>
 				<form class="pure-form-stacked box-form" id="customChartBox">
 						<div class="pure-g">
@@ -279,25 +275,25 @@ div.l-box {
 				</form>
 			</div>
 				
-			<div class="l-box pure-u-1-2">
+			<div class="l-box-half pure-u-1-2">
 				<div class="box-header">ChartJS<span class="box-buttons"><i class="fas fa-compress-alt"></i></span></div>
 				<div class='box-form'>
 					<chartdn-chart data-style="chartJS"></chartdn-chart>
 				</div>
 			</div>
-			<div class="l-box pure-u-1-2">
+			<div class="l-box-half pure-u-1-2">
 				<div class="box-header">Plotly<span class="box-buttons"><i class="fas fa-compress-alt"></i></span></div>
 				<div class='box-form'>
 					<chartdn-chart data-style="plotly"></chartdn-chart>
 				</div>
 			</div>
-			<div class="l-box pure-u-1-2">
+			<div class="l-box-half pure-u-1-2">
 				<div class="box-header">XKCD<span class="box-buttons"><i class="fas fa-compress-alt"></i></span></div>
 				<div class='box-form'>
 					<chartdn-chart data-style="XKCD"></chartdn-chart>
 				</div>
 			</div>
-			<div class="l-box pure-u-1-2">
+			<div class="l-box-half pure-u-1-2">
 				<div class="box-header">Google<span class="box-buttons"><i class="fas fa-compress-alt"></i></span></div>
 				<div class='box-form'>
 					<chartdn-chart data-style="google"></chartdn-chart>

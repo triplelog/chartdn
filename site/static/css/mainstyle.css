@@ -62,10 +62,13 @@ table.striped tr.headerrow {
  * These are some useful classes which I will need
  */
 .l-box {
-    padding: 1em;
+    padding: 1rem;
+}
+.l-box-half {
+    padding: .5rem;
 }
 .l-box-thin {
-    padding: 0em 1em;
+    padding: 0rem .5rem;
     border: 1px solid white;
 }
 
