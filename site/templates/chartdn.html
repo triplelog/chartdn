@@ -240,23 +240,23 @@
 								<input type="radio" name="dash-1" onchange="optionsChg('dash')" value="dot">Dot</input>
 								<input type="radio" name="dash-1" onchange="optionsChg('dash')" value="dashdot">DashDot</input>
 							</div>
-							<div class="box-header2">
+							<div class="box-header2" id="yAxisDataBoxH">
 								Data<span class="box-buttons"><a onclick="minimizeBox('yAxisData')"><i class="fas fa-compress-alt"></i></a></span>
 							</div>
-							<div class="box-form" id="yColumns" style="min-height: 5rem; max-height: 20rem; overflow: auto;">
+							<div class="box-form" id="yAxisDataBox" style="min-height: 5rem; max-height: 20rem; overflow: auto;">
 							</div>
 							<div class="box-form">
 								<select id="yColumnSelect">
 								</select><a onclick="addColumn('y')">Add</a>
 							</div>
-							<div class="box-header2">
+							<div class="box-header2" id="yAxisFormatBoxH">
 								Format
 								<select id="lineStyleMenu" onchange="chgLineTab()">
 									<option value="-1" selected>All</option>
 								</select>
 								<span class="box-buttons"><a onclick="minimizeBox('yAxisFormat')"><i class="fas fa-compress-alt"></i></a></span>
 							</div>
-							<div class="box-form" style="max-height: 50rem; overflow: auto;" id="lineStyleDivs">
+							<div class="box-form" id="yAxisFormatBox" style="max-height: 50rem; overflow: auto;" id="lineStyleDivs">
 								<!--<div id="lineStyleDiv-1">
 									Line Colors: <input type="text" name="lineColor" onchange="optionsChg('lineColor')" placeholder="default"/>
 									Dot Color(s): <select><option>Match Line</option><option>None</option><option>Custom</option></select><input type="text" name="dotColor" placeholder="default"/>

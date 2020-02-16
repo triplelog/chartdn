@@ -66,6 +66,8 @@ minimizedBoxes.modifyData = 'large';
 minimizedBoxes.createChart = 'large';
 minimizedBoxes.customChart = 'large';
 minimizedBoxes.yAxis = 'large';
+minimizedBoxes.yAxisData = 'large';
+minimizedBoxes.yAxisFormat = 'large';
 minimizedBoxes.chartjs = 'half';
 minimizedBoxes.plotly = 'half';
 minimizedBoxes.xkcd = 'half';
@@ -98,7 +100,7 @@ function updateHeaders(initialData,chg=false) {
 		}
 		if (initialData && document.getElementById('yColsVal').value != ''){
 			yColsVals = document.getElementById('yColsVal').value.split(',');
-			document.getElementById('yColumns').innerHTML = '';
+			document.getElementById('yAxisDataBox').innerHTML = '';
 			var ycvStr = '';
 			for (var yid in yColsVals){
 				createLineDiv(yColsVals[yid]);
@@ -109,7 +111,7 @@ function updateHeaders(initialData,chg=false) {
 				newColumn.textContent = headers[yColsVals[yid]];
 				newColumn.id = 'colId'+yColsVals[yid];
 				newColumn.style.display = 'block';
-				document.getElementById('yColumns').appendChild(newColumn);
+				document.getElementById('yAxisDataBox').appendChild(newColumn);
 			}
 			chgLineTab();
 			chgModify();
@@ -132,7 +134,7 @@ function updateHeaders(initialData,chg=false) {
 		var skipRows = [];
 		if (document.getElementById('yColsVal').value != ''){
 			yColsVals = document.getElementById('yColsVal').value.split(',');
-			document.getElementById('yColumns').innerHTML = '';
+			document.getElementById('yAxisDataBox').innerHTML = '';
 			var ycvStr = '';
 			
 			for (var yid in yColsVals){
@@ -145,7 +147,7 @@ function updateHeaders(initialData,chg=false) {
 					newColumn.textContent = headers[yColsVals[yid]];
 					newColumn.id = 'colId'+yColsVals[yid];
 					newColumn.style.display = 'block';
-					document.getElementById('yColumns').appendChild(newColumn);
+					document.getElementById('yAxisDataBox').appendChild(newColumn);
 				}
 				else {
 					colChg = true;
@@ -210,7 +212,7 @@ function urlChg(url) {
 
 
 //Set columns in Create Chart
-document.getElementById('yColumns').innerHTML = '';
+document.getElementById('yAxisDataBox').innerHTML = '';
 
 // Show table input type
 var dataFile = document.getElementById("dataFile");
@@ -522,7 +524,7 @@ function addColumn(t){
 		chgLineTab();
 	}
 }
-var drake = dragula([document.getElementById('yColumns')], {
+var drake = dragula([document.getElementById('yAxisDataBox')], {
   copy: function (el, source) {
     return false;
   },
@@ -540,7 +542,7 @@ var drake = dragula([document.getElementById('yColumns')], {
 });
 
 drake.on('drop', function (el, target, source, sibling) { 
-	if (target.id == 'yColumns') {
+	if (target.id == 'yAxisDataBox') {
 		var elid = el.id.substring(5);
 		
 		
@@ -594,7 +596,7 @@ drake.on('drop', function (el, target, source, sibling) {
 	}
 });
 drake.on('remove', function (el, target, source) { 
-	if (source.id == 'yColumns') {
+	if (source.id == 'yAxisDataBox') {
 		console.log(el.id);
 		for( var i = 0; i < yColsVals.length; i++){ 
 		   if ( yColsVals[i] == parseInt(el.id.substring(5))) {
@@ -1870,7 +1872,7 @@ function minimizeBox(boxid,full=false){
 			el2.style.display = 'none';
 		}
 	}
-	else if (boxid == 'yAxis'){
+	else if (boxid == 'yAxis' || boxid == 'yAxisData' || boxid == 'yAxisFormat'){
 		if (minimizedBoxes[boxid] == 'large'){
 			var el = document.getElementById(boxid+'Box');
 			el.style.display = 'none';
