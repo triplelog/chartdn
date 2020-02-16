@@ -326,9 +326,8 @@ wss.on('connection', function connection(ws) {
 			}
   		}
   		//write data.csv
-  		console.log(chartid, dataid, dm);
   		if (chartid == dataid){
-  			if (!dm.type || dm.type != 'csv') {
+  			if (!dm.type || dm.type == 'csv') {
 			  var wget = 'wget -O saved/'+chartid+'.csv "' + dm.message + '" && echo "done"';
 			  // excute wget using child_process' exec function
 			  var child = exec(wget, function(err, stdout, stderr) {
