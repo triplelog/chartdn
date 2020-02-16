@@ -397,7 +397,7 @@ function typeChg() {
 
 function updateModifiedTable(data) {
 	var dataTable = document.getElementById("dataTableModified");
-	dataTable.style.display = 'block';
+	dataTable.style.display = 'inline-block';
 
 
 	dataTable.innerHTML = '';
