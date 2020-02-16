@@ -1508,7 +1508,7 @@ function createNew(obj) {
 		var objVar = obj.options.variables[i];
 		var newEl = document.createElement('div');
 		newEl.textContent = i + ' := ' + objVar.type + ' of ' + objVar.column;
-		var rowStr = toRowStr();
+		var rowStr = toRowStr(objVar);
 		newEl.textContent += rowStr;
 		
 		newEl.setAttribute('name',i);
