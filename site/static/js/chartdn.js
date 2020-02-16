@@ -93,12 +93,7 @@ function updateHeaders(initialData,chg=false) {
 	if (!chg){
 		if (initialData && document.getElementById('xColVal').value != ''){
 			var xcv = parseInt(document.getElementById('xColVal').value);
-			document.getElementById('xColumn').innerHTML = '';
-			var newColumn = document.createElement('span');
-			newColumn.textContent = headers[xcv];
-			newColumn.id = 'colId'+xcv;
-			newColumn.style.display = 'block';
-			document.getElementById('xColumn').appendChild(newColumn);
+			document.getElementById('xColumnSelect').value =  xcv;
 		}
 		if (initialData && document.getElementById('yColsVal').value != ''){
 			yColsVals = document.getElementById('yColsVal').value.split(',');
