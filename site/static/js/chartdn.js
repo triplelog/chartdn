@@ -1804,15 +1804,22 @@ function minimizeBox(boxid){
 			var el = document.getElementById(boxid+'Box');
 			el.style.display = 'none';
 			minimizedBoxes[boxid] = 'small';
-			var ell = el.parentNode.querySelector('.box-header i.fa-compress-alt');
+			var elp = el.parentNode;
+			elp.classList.add('l-box-thin');
+			elp.classList.remove('l-box');
+			var ell = elp.querySelector('.box-header i.fa-compress-alt');
 			ell.classList.remove('fa-compress-alt');
 			ell.classList.add('fa-expand-alt');
+			
 		}
 		else {
 			var el = document.getElementById(boxid+'Box');
 			el.style.display = 'block';
 			minimizedBoxes[boxid] = 'large';
-			var ell = el.parentNode.querySelector('.box-header i.fa-expand-alt');
+			var elp = el.parentNode;
+			elp.classList.add('l-box');
+			elp.classList.remove('l-box-thin');
+			var ell = elp.querySelector('.box-header i.fa-expand-alt');
 			ell.classList.add('fa-compress-alt');
 			ell.classList.remove('fa-expand-alt');
 		}

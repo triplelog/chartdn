@@ -35,7 +35,7 @@ label {
 	max-height: 20rem;
 }
 .flex-column table{
-	max-height: calc(100% - .5rem);
+	max-height: 100%;
 	overflow: auto;
 }
 .striped tr:nth-child(even){
@@ -63,6 +63,10 @@ table.striped tr.headerrow {
  */
 .l-box {
     padding: 1em;
+}
+.l-box-thin {
+    padding: 0em 1em;
+    border: 1px solid white;
 }
 
 .l-box-lrg {
