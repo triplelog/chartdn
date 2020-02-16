@@ -867,7 +867,6 @@ function updateModifier(evt){
 						else if (rowtype == 'next'){row += ','+ell.querySelector('input[name=afternend]').value.toString();}
 						else if (rowtype == 'equal'){row += ',$'+parseInt(ell.querySelector('input[name=equalrowend]').value).toString();}
 					}
-					console.log(row);
 					var newVariable = {'column':parseInt(col),'type':type,'row':row};
 					var name = ell.querySelector('input[name=name]').value;
 					modifiers[i].options.variables[name] = newVariable;
@@ -889,6 +888,23 @@ function updateModifier(evt){
 						elll.appendChild(newEl);
 					}
 					updateColumns(modifiers[i].id);
+					
+				}
+				else if (evt.target.getAttribute('name')=='clear'){
+					var ell = el.parentNode;
+					var id = modifiers[i].id;
+					delete modifiers[i].options.variables[ii];
+					
+					var elll = ell.parentNode.querySelector('#allVariables');
+					var elllc = elll.children;
+					for (var ii=0;ii<elllc.length;ii++){
+						if (elllc[ii].getAttribute('name') == name){
+							elll.removeChild(elllc[ii])
+							break;
+						}
+					}
+					console.log(id);
+					updateColumns(id);
 					
 				}
 			}
@@ -1418,6 +1434,12 @@ function createNewColumnBox(id) {
 	var varB = document.createElement('a');
 	varB.setAttribute('name','add');
 	varB.textContent = 'Add';
+	varB.addEventListener('click',updateModifier);
+	varDiv.appendChild(varB);
+	
+	varB = document.createElement('a');
+	varB.setAttribute('name','clear');
+	varB.textContent = 'Clear';
 	varB.addEventListener('click',updateModifier);
 	varDiv.appendChild(varB);
 }

@@ -238,6 +238,7 @@ exports.newColumn = function(array,options,nHeaders) {
 	var fullmap = {};
 	for (var ii in vars){
 		var rows = vars[ii].row.split(',');
+		if (rows.length <2){continue;}
 		var rowStart; var rowEnd;
 		if (rows[0].indexOf('$')==0 && rows[1].indexOf('$')==0){
 			rowStart = parseInt(rows[0].substring(1));
