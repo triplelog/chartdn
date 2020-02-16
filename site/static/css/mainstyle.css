@@ -31,7 +31,7 @@ label {
     color: #34495e;
 }
 
-.flex-column {
+.flex-column table{
 	max-height: 20rem;
 	overflow: auto;
 }
