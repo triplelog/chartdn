@@ -1798,12 +1798,12 @@ function minimizeBox(boxid){
 		minimizedBoxes[boxid] = 'large';
 		document.getElementById('editSource').style.display = 'none';
 	}
-	if (boxid == 'dataTable' || boxid == 'modifyData' || boxid == 'createChart'){
+	if (boxid == 'dataTable' || boxid == 'modifyData' || boxid == 'createChart' || boxid == 'customChart'){
 		if (minimizedBoxes[boxid] == 'large'){
 			var el = document.getElementById(boxid+'Box');
 			el.style.display = 'none';
 			minimizedBoxes[boxid] = 'small';
-			var ell = el.parentNode.querySelector('.box-header i[.fa-compress-alt]');
+			var ell = el.parentNode.querySelector('.box-header i.fa-compress-alt');
 			ell.classList.remove('fa-compress-alt');
 			ell.classList.add('fa-expand-alt');
 		}
@@ -1811,7 +1811,7 @@ function minimizeBox(boxid){
 			var el = document.getElementById(boxid+'Box');
 			el.style.display = 'block';
 			minimizedBoxes[boxid] = 'large';
-			var ell = el.parentNode.querySelector('.box-header i[.fa-expand-alt]');
+			var ell = el.parentNode.querySelector('.box-header i.fa-expand-alt');
 			ell.classList.add('fa-compress-alt');
 			ell.classList.remove('fa-expand-alt');
 		}
