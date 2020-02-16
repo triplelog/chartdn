@@ -1877,6 +1877,10 @@ function minimizeBox(boxid,full=false){
 			var el = document.getElementById(boxid+'Box');
 			el.style.display = 'none';
 			minimizedBoxes[boxid] = 'small';
+			if (boxid == 'yAxisData'){
+				var el2 = document.getElementById(boxid+'Box2');
+				el2.style.display = 'none';
+			}
 			var ell = document.getElementById(boxid+'BoxH').querySelector('i.fa-compress-alt');
 			ell.classList.remove('fa-compress-alt');
 			ell.classList.add('fa-expand-alt');
@@ -1886,6 +1890,10 @@ function minimizeBox(boxid,full=false){
 			var el = document.getElementById(boxid+'Box');
 			el.style.display = 'block';
 			minimizedBoxes[boxid] = 'large';
+			if (boxid == 'yAxisData'){
+				var el2 = document.getElementById(boxid+'Box2');
+				el2.style.display = 'block';
+			}
 			var ell = document.getElementById(boxid+'BoxH').querySelector('i.fa-compress-alt');
 			ell.classList.add('fa-compress-alt');
 			ell.classList.remove('fa-expand-alt');
