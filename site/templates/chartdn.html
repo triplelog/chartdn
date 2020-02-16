@@ -164,26 +164,40 @@
 			</div>
 			<div class="l-box-half pure-u-1-1 sectionpart">
 				<div class="box-header">Create Chart
-					<select onchange="typeChg();" id="chartTypeMenu">
-						<option value="line" {{ isChecked['line'] }}>Line</option>
-						<option value="bar" {{ isChecked['bar'] }}>Bar</option>
-						<option value="scatter" {{ isChecked['scatter'] }}>Scatter</option>
-						<option value="pie" {{ isChecked['pie'] }}>Pie</option>
-						<option value="bubble" {{ isChecked['bubble'] }}>Bubble</option>
-						<option value="histogram" {{ isChecked['histogram'] }}>Histogram</option>
-						<option value="heatmap" {{ isChecked['heatmap'] }}>Heatmap</option>
-						<option value="radar" {{ isChecked['radar'] }}>Radar</option>
-						<option value="box" {{ isChecked['box'] }}>Box</option>
-						<option value="choropleth" {{ isChecked['choropleth'] }}>Choropleth</option>
-						<option value="splom" {{ isChecked['splom'] }}>Splom</option>
-						<option value="diff" {{ isChecked['diff'] }}>Diff</option>
-						<option value="calendar" {{ isChecked['calendar'] }}>Calendar</option>
-					</select>
-					Title: <input type="text" name="title" onchange="optionsChg('title')" placeholder="notitle" value="{{ title }}"/>
 					<span class="box-buttons"><a onclick="minimizeBox('createChart')"><i class="fas fa-compress-alt"></i></a></span>
 				</div>
 				<form class="pure-form box-form" id="createChartBox">
 					<div class="pure-g" id="lineOptions">
+						<div class="l-box pure-u-1-3">
+							<div class="box-header2">
+								Options
+							</div>
+							<div class="box-form">
+								<select onchange="typeChg();" id="chartTypeMenu">
+									<option value="line" {{ isChecked['line'] }}>Line</option>
+									<option value="bar" {{ isChecked['bar'] }}>Bar</option>
+									<option value="scatter" {{ isChecked['scatter'] }}>Scatter</option>
+									<option value="pie" {{ isChecked['pie'] }}>Pie</option>
+									<option value="bubble" {{ isChecked['bubble'] }}>Bubble</option>
+									<option value="histogram" {{ isChecked['histogram'] }}>Histogram</option>
+									<option value="heatmap" {{ isChecked['heatmap'] }}>Heatmap</option>
+									<option value="radar" {{ isChecked['radar'] }}>Radar</option>
+									<option value="box" {{ isChecked['box'] }}>Box</option>
+									<option value="choropleth" {{ isChecked['choropleth'] }}>Choropleth</option>
+									<option value="splom" {{ isChecked['splom'] }}>Splom</option>
+									<option value="diff" {{ isChecked['diff'] }}>Diff</option>
+									<option value="calendar" {{ isChecked['calendar'] }}>Calendar</option>
+								</select>
+								Title: <input type="text" name="title" onchange="optionsChg('title')" placeholder="notitle" value="{{ title }}"/>
+								<div>
+									<input type="radio" name="shareChart" onchange="shareChg()" value="Svg" checked>SVG</input>
+									<input type="radio" name="shareChart" onchange="shareChg()" value="Code">Code</input>
+									<input type="radio" name="shareChart" onchange="shareChg()" value="Url">URL</input>
+									<input type="radio" name="shareChart" onchange="shareChg()" value="Embed">Embed</input>
+								</div>
+							</div>
+							
+						</div>
 						<div class="l-box pure-u-1-3">
 							
 							<div class="box-header2">
@@ -207,15 +221,7 @@
 								Scale: <input type="text" name="scaleX" onchange="optionsChg('scaleX')" placeholder="default"/>
 							</div>
 						</div>
-						<div class="l-box pure-u-1-3">
-							<div class="box-header2">
-								Columns
-							</div>
-							<div class="box-form" id="allColumns" style="min-height: 5rem; max-height: 20rem; overflow: auto;">
-								<span>Columns w/ column head/index and data type: number (format), date, percent</span>
-							</div>
-							
-						</div>
+						
 						<div class="l-box pure-u-1-3">
 							<div class="box-header2">
 								Y Axis
@@ -251,64 +257,14 @@
 							<input type="number" name="xColumn" id="xColVal" value="{{ xColumn }}"></input>
 							<input type="text" name="yColumns" id="yColsVal" value="{{ yColumns }}"></input>
 						</div>
+						
 					
 					</div>
 				</form>
 					
 			</div>	
 				  
-			<!--<div class="l-box-half pure-u-1 sectionpart">
-				<div class="box-header">Customize Chart<span class="box-buttons"><a onclick="minimizeBox('customChart')"><i class="fas fa-compress-alt"></i></a></span></div>
-				<form class="pure-form-stacked box-form" id="customChartBox">
-						<div class="pure-g">
-							<div class="l-box pure-u-1-4">
-								<div class="box-header2">
-									Titles
-								</div>
-								<div class="box-form" style="max-height: 50rem; overflow: auto;">
-																	</div>
-							</div>
-							<div class="l-box pure-u-1-4">
-								<div class="box-header2">
-									Formatting
-								</div>
-								<div class="box-form" style="max-height: 50rem; overflow: auto;">
-									x:<input type="text" name="stepSizeX" onchange="optionsChg('stepSizeX')" placeholder="default"/>
-									Domain:<input type="text" name="domain" onchange="optionsChg('domain')" placeholder="default"/>
-									X-axis Format:
-								</div>
-							</div>
-							<div class="l-box pure-u-1-2">
-								<div class="box-header2">Data
-									<select id="lineStyleMenu" onchange="chgLineTab()">
-										<option value="-1" selected>All</option>
-									</select>
-								</div>
-								<div class="box-form" style="max-height: 50rem; overflow: auto;" id="lineStyleDivs">
-									<div id="lineStyleDiv-1">
-										Line Colors: <input type="text" name="lineColor" onchange="optionsChg('lineColor')" placeholder="default"/>
-										Dot Color(s): <select><option>Match Line</option><option>None</option><option>Custom</option></select><input type="text" name="dotColor" placeholder="default"/>
-										<input type="radio" name="shape-1" onchange="optionsChg('shape')" value="default" checked>Default</input>
-										<input type="radio" name="shape-1" onchange="optionsChg('shape')" value="spline">Smooth</input>
-										<input type="radio" name="shape-1" onchange="optionsChg('shape')" value="linear">Linear</input><br />
-										<input type="radio" name="dash-1" onchange="optionsChg('dash')" value="solid" checked>Solid</input>
-										<input type="radio" name="dash-1" onchange="optionsChg('dash')" value="dash">Dash</input>
-										<input type="radio" name="dash-1" onchange="optionsChg('dash')" value="dot">Dot</input>
-										<input type="radio" name="dash-1" onchange="optionsChg('dash')" value="dashdot">DashDot</input>
-									</div>
-								</div>
-							</div>
-							
-							<div class="pure-u-1">
-										<input type="radio" name="shareChart" onchange="shareChg()" value="Svg" checked>SVG</input>
-										<input type="radio" name="shareChart" onchange="shareChg()" value="Code">Code</input>
-										<input type="radio" name="shareChart" onchange="shareChg()" value="Url">URL</input>
-										<input type="radio" name="shareChart" onchange="shareChg()" value="Embed">Embed</input>
-
-							</div>
-						</div>
-				</form>
-			</div>-->
+			
 				
 			<div class="l-box-half pure-u-1-2" id="chartjsBox">
 				<div class="box-header">ChartJS<span class="box-buttons"><a onclick="minimizeBox('chartjs',true)"><i class="fas fa-expand"></i></a><a onclick="minimizeBox('chartjs')"><i class="fas fa-compress-alt"></i></a></span></div>
