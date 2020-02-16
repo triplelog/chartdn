@@ -912,7 +912,7 @@ function updateModifier(evt){
 					ell.querySelector('#newcolVar'+id).value = '0';
 					ell.querySelector('#value'+id).style.display = 'block';
 					ell.querySelector('#group'+id).style.display = 'none';
-					ell.querySelector('input[name=row'+id+']').value = 'current';
+					ell.querySelector('#currentRow'+id).checked = true;
 					delete modifiers[i].options.variables[name];
 					
 					var elll = ell.parentNode.querySelector('#allVariables');
