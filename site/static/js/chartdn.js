@@ -514,7 +514,28 @@ function dataChg(initialData=false,dataType='csv') {
 
 
 //Dragula with column choices
+function addColumn(t){
 
+	if (t == 'x'){
+		document.getElementById('xColVal').value = document.getElementById('xColumnSelect').value;
+		columnsChg();
+	}
+	else if (t == 'y'){
+		var id = document.getElementById('yColumnSelect').value;
+		var ycvStr = '';
+		for (var yid in yColsVals){
+			ycvStr += yColsVals[yid]+', ';
+		}
+		createLineDiv(id);
+		yColsVals.push(id);
+		ycvStr += id+', ';
+
+		document.getElementById('yColsVal').value = ycvStr.substring(0,ycvStr.length-2);
+		columnsChg();
+		document.getElementById('lineStyleMenu').value = id;
+		chgLineTab();
+	}
+}
 var drake = dragula([document.getElementById('xColumn'), document.getElementById('yColumns')], {
   copy: function (el, source) {
     return false;
