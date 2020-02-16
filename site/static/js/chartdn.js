@@ -167,7 +167,7 @@ function updateHeaders(initialData,chg=false) {
 				ell.parentNode.removeChild(ell);
 		
 				qstring = '#lineStyleDiv'+i;
-				ell = document.getElementById("lineStyleDivs").querySelector(qstring);
+				ell = document.getElementById("yAxisFormatBox").querySelector(qstring);
 				ell.parentNode.removeChild(ell);
 			}
 		}
@@ -180,7 +180,7 @@ function chgLineTab(){
 	colid = document.getElementById('lineStyleMenu').querySelector('*:checked').value;
 
 	
-	var lineDivs = document.getElementById('lineStyleDivs').children;
+	var lineDivs = document.getElementById('yAxisFormatBox').children;
 	for (var i=0;i<lineDivs.length;i++){
 		if (lineDivs[i].id != 'lineStyleDiv'+colid) {
 			lineDivs[i].style.display = 'none';
@@ -276,14 +276,14 @@ function createLineDiv(id,chg=false) {
 		<input type="radio" name="dash`+id+`" onchange="optionsChg('dash')" value="dash">Dash</input>
 		<input type="radio" name="dash`+id+`" onchange="optionsChg('dash')" value="dot">Dot</input>
 		<input type="radio" name="dash`+id+`" onchange="optionsChg('dash')" value="dashdot">DashDot</input>`;
-	document.getElementById("lineStyleDivs").appendChild(el);
+	document.getElementById("yAxisFormatBox").appendChild(el);
 	
 	var newEl = document.createElement('option');
 	newEl.value = id;
 	newEl.textContent = headers[id];
 	
 	document.getElementById('lineStyleMenu').appendChild(newEl);
-	if (document.getElementById("lineStyleDivs").children.length == 2){
+	if (document.getElementById("yAxisFormatBox").children.length == 2){
 		document.getElementById('lineStyleMenu').value = id;
 	}
 	
@@ -620,7 +620,7 @@ drake.on('remove', function (el, target, source) {
 		ell.parentNode.removeChild(ell);
 		
 		qstring = '#lineStyleDiv'+el.id.substring(5);
-		ell = document.getElementById("lineStyleDivs").querySelector(qstring);
+		ell = document.getElementById("yAxisFormatBox").querySelector(qstring);
 		ell.parentNode.removeChild(ell);
 	}
 });
