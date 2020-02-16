@@ -1780,7 +1780,7 @@ drakeF.on('drag', function (el, target, source, sibling) {
 });
 
 // Minimize and Maximize elements
-function minimizeBox(boxid){
+function minimizeBox(boxid,full=false){
 	if (boxid == 'dataSource' && minimizedBoxes[boxid] == 'large'){
 		var el = document.getElementById('dataSourceBox');
 		el.style.display = 'none';
@@ -1799,7 +1799,7 @@ function minimizeBox(boxid){
 		minimizedBoxes[boxid] = 'large';
 		document.getElementById('editSource').style.display = 'none';
 	}
-	if (boxid == 'dataTable' || boxid == 'modifyData' || boxid == 'createChart' || boxid == 'customChart'){
+	else if (boxid == 'dataTable' || boxid == 'modifyData' || boxid == 'createChart' || boxid == 'customChart'){
 		if (minimizedBoxes[boxid] == 'large'){
 			var el = document.getElementById(boxid+'Box');
 			el.style.display = 'none';
@@ -1822,6 +1822,17 @@ function minimizeBox(boxid){
 			var ell = elp.querySelector('.box-header i.fa-expand-alt');
 			ell.classList.add('fa-compress-alt');
 			ell.classList.remove('fa-expand-alt');
+		}
+	}
+	else if (boxid == 'chartjs'){
+		if (full){
+			var el = document.getElementById(boxid+'Box');
+			el.classList.add('pure-u-1-1');
+			el.classList.remove('pure-u-1-2');
+		}
+		else {
+			var el = document.getElementById(boxid+'Box');
+			el.style.display = 'none';
 		}
 	}
 }
