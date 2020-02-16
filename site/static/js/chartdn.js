@@ -272,11 +272,7 @@ function createLineDiv(id,chg=false) {
 		<input type="radio" name="dash`+id+`" onchange="optionsChg('dash')" value="solid" checked>Solid</input>
 		<input type="radio" name="dash`+id+`" onchange="optionsChg('dash')" value="dash">Dash</input>
 		<input type="radio" name="dash`+id+`" onchange="optionsChg('dash')" value="dot">Dot</input>
-		<input type="radio" name="dash`+id+`" onchange="optionsChg('dash')" value="dashdot">DashDot</input>
-		Format: <input type="text" name="format`+id+`" onchange="optionsChg('format')" value="" placeholder="default" />
-		Step Size: <input type="text" name="stepSizeY" onchange="optionsChg('stepSizeY')" placeholder="default">
-		Range: <input type="text" name="range" onchange="optionsChg('range')" placeholder="default">
-		Scale: <input type="text" name="scaleY" onchange="optionsChg('scaleY')" placeholder="default">`;
+		<input type="radio" name="dash`+id+`" onchange="optionsChg('dash')" value="dashdot">DashDot</input>`;
 	document.getElementById("lineStyleDivs").appendChild(el);
 	
 	var newEl = document.createElement('option');
