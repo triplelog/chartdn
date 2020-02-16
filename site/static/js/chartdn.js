@@ -219,7 +219,6 @@ function urlChg(url) {
 
 
 //Set columns in Create Chart
-document.getElementById('xColumn').innerHTML = '';
 document.getElementById('yColumns').innerHTML = '';
 
 // Show table input type
@@ -536,7 +535,7 @@ function addColumn(t){
 		chgLineTab();
 	}
 }
-var drake = dragula([document.getElementById('xColumn'), document.getElementById('yColumns')], {
+var drake = dragula([document.getElementById('yColumns')], {
   copy: function (el, source) {
     return false;
   },
@@ -554,12 +553,7 @@ var drake = dragula([document.getElementById('xColumn'), document.getElementById
 });
 
 drake.on('drop', function (el, target, source, sibling) { 
-	if (target.id == 'xColumn') {
-		target.innerHTML = ''; target.appendChild(el);
-		document.getElementById('xColVal').value = el.id.substring(5);
-		columnsChg();
-	}
-	else if (target.id == 'yColumns') {
+	if (target.id == 'yColumns') {
 		var elid = el.id.substring(5);
 		
 		
@@ -613,11 +607,7 @@ drake.on('drop', function (el, target, source, sibling) {
 	}
 });
 drake.on('remove', function (el, target, source) { 
-	if (source.id == 'xColumn') {
-		document.getElementById('xColVal').value = '';
-		columnsChg();
-	}
-	else if (source.id == 'yColumns') {
+	if (source.id == 'yColumns') {
 		console.log(el.id);
 		for( var i = 0; i < yColsVals.length; i++){ 
 		   if ( yColsVals[i] == parseInt(el.id.substring(5))) {
