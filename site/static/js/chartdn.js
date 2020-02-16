@@ -892,8 +892,9 @@ function updateModifier(evt){
 				}
 				else if (evt.target.getAttribute('name')=='clear'){
 					var ell = el.parentNode;
+					var name = ell.querySelector('input[name=name]').value;
 					var id = modifiers[i].id;
-					delete modifiers[i].options.variables[ii];
+					delete modifiers[i].options.variables[name];
 					
 					var elll = ell.parentNode.querySelector('#allVariables');
 					var elllc = elll.children;
