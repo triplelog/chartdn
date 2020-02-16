@@ -1413,7 +1413,7 @@ function createNewColumnBox(id) {
 		var varRI = document.createElement('input');
 		varRI.setAttribute('type','text');
 		varRI.setAttribute('name','equalrowend');
-		varRI.setAttribute('value','0');
+		varRI.setAttribute('value','-1');
 		varRL.textContent = 'To Row = ';
 		varRL.appendChild(varRI);
 		varRL.setAttribute('for','equalRow'+id);
@@ -1504,7 +1504,6 @@ function toRowStr(objVar) {
 	return rowStr;
 }
 function createNew(obj) {
-
 	var newEl = document.createElement('div');
 	newEl.setAttribute('data-id',obj.type);
 	newEl.textContent = obj.name;
@@ -1598,94 +1597,7 @@ function createNew(obj) {
 }
 
 function createIgnore(obj) {
-
-	var newEl = document.createElement('div');
-	newEl.setAttribute('data-id',obj.type);
-	newEl.textContent = obj.name;
-	newEl.addEventListener('click',clickModifier);
-	if (!obj.enabled){newEl.style.textDecoration = 'line-through';}
-	newEl.id = obj.id;
-	document.getElementById('allModifiers').appendChild(newEl);
-		
-	var newM = document.createElement('div');
-	newM.classList.add('l-box');
-	newM.classList.add('pure-u-2-3');
-	newM.id = 'edit'+obj.id;
-	newM.style.display = 'none';
-	
-	var newH = document.createElement('div');
-	newH.classList.add('box-header2');
-	var newT = document.createElement('span');
-	newT.textContent = 'Ignore: ' + obj.name;
-	newT.setAttribute('name','title');
-	newH.appendChild(newT);
-	createMButtons(newH,obj.enabled);
-	
-	newM.appendChild(newH);
-	
-	var ideal = `<div class="box-form">
-		Formula: <textarea rows="1" cols="40"></textarea><br />
-		<!--Katex of Formula-->
-		Variables: <div id="newVariables"></div>
-	</div>`;
-
-						
-	var newB = document.createElement('div');
-	newB.classList.add('box-form');
-	var newBB = document.createElement('div');
-	newBB.classList.add('pure-g');
-	
-	var newBBB = document.createElement('div');
-	newBBB.classList.add('pure-u-1-3');
-	
-	var newI = document.createElement('input');
-	newI.setAttribute('type','text');
-	newI.setAttribute('name','name');
-	newI.setAttribute('value',obj.name);
-	newI.addEventListener('change',updateModifier);
-	newBBB.appendChild(newI);
-	
-	newI = document.createElement('textarea');
-	newI.setAttribute('rows','1');
-	newI.setAttribute('cols','30');
-	newI.style.zIndex = '2';
-	newI.setAttribute('name','formula');
-	newI.value = obj.options.formula;
-	newI.addEventListener('change',updateModifier);
-	newBBB.appendChild(newI);
-	newI = document.createElement('div');
-	newI.setAttribute('name','katex');
-	katex.render(obj.options.formula, newI, {
-		throwOnError: false
-	});
-	newBBB.appendChild(newI);
-	newBB.appendChild(newBBB);
-	
-
-	
-	newBBB = document.createElement('div');
-	newBBB.classList.add('pure-u-2-3');
-	var newD = document.createElement('div');
-	newD.id = 'allVariables';
-	for (var i in obj.options.variables){
-		var objVar = obj.options.variables[i];
-		var newEl = document.createElement('div');
-		newEl.textContent = i + ' := ' + objVar.type + ' of ' + objVar.column;
-		newEl.setAttribute('name',i);
-		newD.appendChild(newEl);
-	}
-	newBBB.appendChild(newD);
-	
-	newD = document.createElement('div');
-	newD.id = 'newVariables';
-	newBBB.appendChild(newD);
-	newBB.appendChild(newBBB);
-	
-	newB.appendChild(newBB);
-	newM.appendChild(newB);
-	
-	document.getElementById('modifiersDiv').appendChild(newM);
-	createNewColumnBox(obj.id);
+	createNew(obj);
 }
 
 function createNewModifier(show=false) {

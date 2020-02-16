@@ -228,14 +228,10 @@ exports.toData = function(array){
 	return array;
 }
 
-exports.newColumn = function(array,options,nHeaders) {
-	toData(array);
-	var formula = options.formula;
-	if (!formula || formula == ''){return;}
-	var vars = options.variables;
-	var bothparts = postfixify(formula);
-	
+
+function makeFullMap(array,options,nHeaders){
 	var fullmap = {};
+	var vars = options.variables;
 	for (var ii in vars){
 		var rows = vars[ii].row.split(',');
 		if (rows.length <2){continue;}
@@ -305,107 +301,126 @@ exports.newColumn = function(array,options,nHeaders) {
 			fullmap[ii.toUpperCase()]=min;
 		}
 	}
-		
-	for (var i in array){
-		var rowmap = {};
-		var skipi = false;
-		for (var ii in vars){
-			if (vars[ii].type=='value'){
-				var row = parseInt(i);
-				if (vars[ii].row.indexOf('$')==0){
-					row = parseInt(vars[ii].row.substring(1))-nHeaders;
-				}
-				else {
-					row += parseInt(vars[ii].row);
-				}
-				if (row < 0 || row >= array.length){
-					skip1 = true;
-					break;
-				}
-				else {
-					rowmap[ii.toUpperCase()]=parseInt(array[row][vars[ii].column]);
-				}
+	return fullmap;
+}
+function makeRowMap(array,options,nHeaders,i){
+	var rowmap = {};
+	var vars = options.variables;
+	var skipi = false;
+	for (var ii in vars){
+		if (vars[ii].type=='value'){
+			var row = parseInt(i);
+			if (vars[ii].row.indexOf('$')==0){
+				row = parseInt(vars[ii].row.substring(1))-nHeaders;
 			}
 			else {
-				var rows = vars[ii].row.split(',');
-				var rowStart; var rowEnd;
-				if (rows[0].indexOf('$')==0 && rows[1].indexOf('$')==0){
-					continue;
+				row += parseInt(vars[ii].row);
+			}
+			if (row < 0 || row >= array.length){
+				skipi = true;
+				break;
+			}
+			else {
+				rowmap[ii.toUpperCase()]=parseInt(array[row][vars[ii].column]);
+			}
+		}
+		else {
+			var rows = vars[ii].row.split(',');
+			var rowStart; var rowEnd;
+			if (rows[0].indexOf('$')==0 && rows[1].indexOf('$')==0){
+				continue;
+			}
+			else {
+				if (rows[0].indexOf('$')==0){
+					rowStart = parseInt(rows[0].substring(1));
 				}
 				else {
-					if (rows[0].indexOf('$')==0){
-						rowStart = parseInt(rows[0].substring(1));
+					rowStart = parseInt(rows[0])+parseInt(i);
+				}
+				if (rows[1].indexOf('$')==0){
+					rowEnd = parseInt(rows[1].substring(1));
+				}
+				else {
+					rowEnd = parseInt(rows[1])+parseInt(i);
+				}
+				if (rowEnd < 0){
+					rowEnd = array.length + rowEnd;
+				}
+				if (rowEnd > array.length-1){
+					rowEnd = array.length - 1;
+				}
+				if (rowStart < 0){
+					rowStart = array.length + rowStart;
+				}
+				rowEnd = rowEnd - nHeaders;
+				rowStart = rowStart - nHeaders;
+				if (rowStart < 0){
+					rowStart = 0;
+				}
+				if (vars[ii].type=='mean'){
+					var sum = 0;
+					var n = 0;
+					for (var i=rowStart;i<=rowEnd;i++){
+						sum += parseInt(array[i][vars[ii].column]);
+						n += 1;
 					}
-					else {
-						rowStart = parseInt(rows[0])+parseInt(i);
+					if (n > 0){
+						rowmap[ii.toUpperCase()]=sum/n;
 					}
-					if (rows[1].indexOf('$')==0){
-						rowEnd = parseInt(rows[1].substring(1));
+				}
+				else if (vars[ii].type=='count'){
+					var n = 0;
+					for (var i=rowStart;i<=rowEnd;i++){
+						n += 1;
 					}
-					else {
-						rowEnd = parseInt(rows[1])+parseInt(i);
+					rowmap[ii.toUpperCase()]=n;
+				}
+				else if (vars[ii].type=='sum'){
+					var sum = 0;
+					for (var i=rowStart;i<=rowEnd;i++){
+						sum += parseInt(array[i][vars[ii].column]);
 					}
-					if (rowEnd < 0){
-						rowEnd = array.length + rowEnd;
-					}
-					if (rowEnd > array.length-1){
-						rowEnd = array.length - 1;
-					}
-					if (rowStart < 0){
-						rowStart = array.length + rowStart;
-					}
-					rowEnd = rowEnd - nHeaders;
-					rowStart = rowStart - nHeaders;
-					if (rowStart < 0){
-						rowStart = 0;
-					}
-					if (vars[ii].type=='mean'){
-						var sum = 0;
-						var n = 0;
-						for (var i=rowStart;i<=rowEnd;i++){
-							sum += parseInt(array[i][vars[ii].column]);
-							n += 1;
+					rowmap[ii.toUpperCase()]=sum;
+				}
+				else if (vars[ii].type=='max'){
+					var max = parseInt(array[rowStart][vars[ii].column]);
+					for (var i=rowStart;i<=rowEnd;i++){
+						if (parseInt(array[i][vars[ii].column]) > max){
+							max = parseInt(array[i][vars[ii].column]);
 						}
-						if (n > 0){
-							rowmap[ii.toUpperCase()]=sum/n;
+					}
+					rowmap[ii.toUpperCase()]=max;
+				}
+				else if (vars[ii].type=='min'){
+					var min = parseInt(array[rowStart][vars[ii].column]);
+					for (var i=rowStart;i<=rowEnd;i++){
+						if (parseInt(array[i][vars[ii].column]) < min){
+							min = parseInt(array[i][vars[ii].column]);
 						}
 					}
-					else if (vars[ii].type=='count'){
-						var n = 0;
-						for (var i=rowStart;i<=rowEnd;i++){
-							n += 1;
-						}
-						rowmap[ii.toUpperCase()]=n;
-					}
-					else if (vars[ii].type=='sum'){
-						var sum = 0;
-						for (var i=rowStart;i<=rowEnd;i++){
-							sum += parseInt(array[i][vars[ii].column]);
-						}
-						rowmap[ii.toUpperCase()]=sum;
-					}
-					else if (vars[ii].type=='max'){
-						var max = parseInt(array[rowStart][vars[ii].column]);
-						for (var i=rowStart;i<=rowEnd;i++){
-							if (parseInt(array[i][vars[ii].column]) > max){
-								max = parseInt(array[i][vars[ii].column]);
-							}
-						}
-						rowmap[ii.toUpperCase()]=max;
-					}
-					else if (vars[ii].type=='min'){
-						var min = parseInt(array[rowStart][vars[ii].column]);
-						for (var i=rowStart;i<=rowEnd;i++){
-							if (parseInt(array[i][vars[ii].column]) < min){
-								min = parseInt(array[i][vars[ii].column]);
-							}
-						}
-						rowmap[ii.toUpperCase()]=min;
-					}
+					rowmap[ii.toUpperCase()]=min;
 				}
 			}
 		}
-		if (skipi){array[i].push(''); continue;}
+	}
+	if (skipi){
+		return 'skip';
+	}
+	else {
+		return rowmap;
+	}
+}
+exports.newColumn = function(array,options,nHeaders) {
+	toData(array);
+	var formula = options.formula;
+	if (!formula || formula == ''){return;}
+	var bothparts = postfixify(formula);
+	
+	var fullmap = makeFullMap(array,options,nHeaders)
+		
+	for (var i in array){
+		var rowmap = makeRowMap(array,options,nHeaders,i);
+		if (rowmap === 'skip'){array[i].push(''); continue;}
 		var intstr = [];
 		for (var ii in bothparts[0]){
 			if(fullmap[bothparts[0][ii]]){
@@ -566,81 +581,24 @@ exports.pivot = function(array,options,hArray) {
 
 } //Add countif? Add possibility to create buckets like weekly, etc. Error Handling
 
-exports.ignore = function(array,options,nHeaders) {
+exports.ignore = function(array,options,nHeaders) {	
 	toData(array);
 	var formula = options.formula;
 	if (!formula || formula == ''){return;}
-	var vars = options.variables;
 	var bothparts = postfixify(formula);
-	var skipRows = [];
 	
-	var fullmap = {};
-	for (var ii in vars){
-		if (vars[ii].type=='mean'){
-			var sum = 0;
-			var n = 0;
-			for (var i in array){
-				sum += parseInt(array[i][vars[ii].column]);
-				n += 1;
-			}
-			if (n > 0){
-				fullmap[ii.toUpperCase()]=sum/n;
-			}
-		}
-		else if (vars[ii].type=='count'){
-			var n = 0;
-			for (var i in array){
-				n += 1;
-			}
-			fullmap[ii.toUpperCase()]=n;
-		}
-		else if (vars[ii].type=='sum'){
-			var sum = 0;
-			for (var i in array){
-				sum += parseInt(array[i][vars[ii].column]);
-			}
-			fullmap[ii.toUpperCase()]=sum;
-		}
-		else if (vars[ii].type=='max'){
-			var max = parseInt(array[0][vars[ii].column]);
-			for (var i in array){
-				if (parseInt(array[i][vars[ii].column]) > max){
-					max = parseInt(array[i][vars[ii].column]);
-				}
-			}
-			fullmap[ii.toUpperCase()]=max;
-		}
-		else if (vars[ii].type=='min'){
-			var min = parseInt(array[0][vars[ii].column]);
-			for (var i in array){
-				if (parseInt(array[i][vars[ii].column]) < min){
-					min = parseInt(array[i][vars[ii].column]);
-				}
-			}
-			fullmap[ii.toUpperCase()]=min;
-		}
-	}
+	var fullmap = makeFullMap(array,options,nHeaders)
 		
 	for (var i in array){
-		var rowmap = {};
-		for (var ii in vars){
-			if (vars[ii].type=='value'){
-				var row = parseInt(i);
-				if (vars[ii].row.indexOf('$')==0){
-					row = parseInt(vars[ii].row.substring(1));
-				}
-				else {
-					row += parseInt(vars[ii].row);
-				}
-				rowmap[ii.toUpperCase()]=parseInt(array[row][vars[ii].column]);
-			}
-		}
+		var rowmap = makeRowMap(array,options,nHeaders,i);
+		if (rowmap === 'skip'){array[i].push(''); continue;}
 		var intstr = [];
 		for (var ii in bothparts[0]){
 			if(fullmap[bothparts[0][ii]]){
 				intstr.push(fullmap[bothparts[0][ii]]);
 			}
 			else if(rowmap[bothparts[0][ii]]){
+				
 				intstr.push(rowmap[bothparts[0][ii]]);
 			}
 			else {
@@ -648,7 +606,6 @@ exports.ignore = function(array,options,nHeaders) {
 			}
 		}
 		var answer = solvePostfix(intstr,bothparts[1]);
-
 		if (answer){
 			skipRows.push(i);
 		}
