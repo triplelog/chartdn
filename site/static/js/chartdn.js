@@ -909,7 +909,7 @@ function updateModifier(evt){
 					nameEl.value = '';
 					ell.querySelector('select[name=type]').value = 'value';
 					var id = modifiers[i].id;
-					ell.querySelector('select[name=newcolVar'+id+']').value = '0';
+					ell.querySelector('#newcolVar'+id).value = '0';
 					ell.querySelector('#value'+id).style.display = 'block';
 					ell.querySelector('#group'+id).style.display = 'none';
 					ell.querySelector('input[name=row'+id+']').value = 'current';
