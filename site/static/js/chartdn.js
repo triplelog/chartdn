@@ -1803,11 +1803,17 @@ function minimizeBox(boxid){
 			var el = document.getElementById(boxid+'Box');
 			el.style.display = 'none';
 			minimizedBoxes[boxid] = 'small';
+			var ell = el.parentNode.querySelector('.box-header i[.fa-compress-alt]');
+			ell.classList.remove('fa-compress-alt');
+			ell.classList.add('fa-expand-alt');
 		}
 		else {
 			var el = document.getElementById(boxid+'Box');
-			el.style.display = 'none';
+			el.style.display = 'block';
 			minimizedBoxes[boxid] = 'large';
+			var ell = el.parentNode.querySelector('.box-header i[.fa-expand-alt]');
+			ell.classList.add('fa-compress-alt');
+			ell.classList.remove('fa-expand-alt');
 		}
 	}
 }
