@@ -612,41 +612,51 @@ drake.on('remove', function (el, target, source) {
 
 
 //Dragula with column choices
-function updateColumns() {
+function updateColumns(id='all') {
 	for (var i in modifiers){
-		if (modifiers[i].type == 'new'){
-			var el = document.getElementById('newcolVar'+modifiers[i].id);
-			var elval = el.value;
-			el.innerHTML = '';
-			var cols = allHeaders[modifiers[i].id];
-			for (var ii in cols){
-				var varOption = document.createElement('option');
-				varOption.value = parseInt(ii);
-				varOption.textContent = cols[parseInt(ii)];
-				if (parseInt(ii) == parseInt(elval)){
-					varOption.setAttribute('selected','selected');
+		if (id=='all' || modifiers[i].id == id){
+			if (modifiers[i].type == 'new'){
+				var el = document.getElementById('newcolVar'+modifiers[i].id);
+				var elval = el.value;
+				el.innerHTML = '';
+				var cols = allHeaders[modifiers[i].id];
+				for (var ii in cols){
+					var varOption = document.createElement('option');
+					varOption.value = parseInt(ii);
+					varOption.textContent = cols[parseInt(ii)];
+					if (parseInt(ii) == parseInt(elval)){
+						varOption.setAttribute('selected','selected');
+					}
+					el.appendChild(varOption);
 				}
-				el.appendChild(varOption);
-			}
+				var allVars = el.parentNode.parentNode.querySelector('#allVariables');
+				for (var ii in modifiers[i].options.variables){
+					var objVar = modifiers[i].options.variables[ii];
+					var qstring = 'div[name='+ii+']';
+					var newEl = allVars.querySelector(qstring);
+					newEl.textContent = i + ' := ' + objVar.type + ' of ' + cols[objVar.column];
+					var rowStr = toRowStr(objVar);
+					newEl.textContent += rowStr;
+				}
 			
-		}
-		else if (modifiers[i].type == 'sort'){
-			var el = document.getElementById('sortcol'+modifiers[i].id);
-			var elval = modifiers[i].options.column;
-			el.innerHTML = '';
-			var cols = allHeaders[modifiers[i].id];
-			for (var ii in cols){
-				var varOption = document.createElement('option');
-				varOption.value = parseInt(ii);
-				varOption.textContent = cols[parseInt(ii)];
-				if (parseInt(ii) == parseInt(elval)){
-					varOption.setAttribute('selected','selected');
-				}
-				el.appendChild(varOption);
-				
 			}
-		}
-		else if (modifiers[i].type == 'pivot'){
+			else if (modifiers[i].type == 'sort'){
+				var el = document.getElementById('sortcol'+modifiers[i].id);
+				var elval = modifiers[i].options.column;
+				el.innerHTML = '';
+				var cols = allHeaders[modifiers[i].id];
+				for (var ii in cols){
+					var varOption = document.createElement('option');
+					varOption.value = parseInt(ii);
+					varOption.textContent = cols[parseInt(ii)];
+					if (parseInt(ii) == parseInt(elval)){
+						varOption.setAttribute('selected','selected');
+					}
+					el.appendChild(varOption);
+				
+				}
+			}
+			else if (modifiers[i].type == 'pivot'){
 			var el = document.getElementById('pivotcol'+modifiers[i].id);
 			var elval = modifiers[i].options.pivot;
 			el.innerHTML = '';
@@ -675,6 +685,7 @@ function updateColumns() {
 				el.appendChild(varOption);
 				
 			}
+		}
 		}
 	}
 }
@@ -866,21 +877,18 @@ function updateModifier(evt){
 					var elExists = false;
 					for (var ii=0;ii<elllc.length;ii++){
 						if (elllc[ii].getAttribute('name') == name){
-							elllc[ii].textContent = name + ' := ' + type + ' of ' + col;
-							elllc[ii].textContent += toRowStr(modifiers[i].options.variables[name]);
 							elExists = true;
 							break;
 						}
 					}
 					if (!elExists){
 						var newEl = document.createElement('div');
-						newEl.textContent = name + ' := ' + type + ' of ' + col;
-						newEl.textContent += toRowStr(modifiers[i].options.variables[name]);
 						newEl.setAttribute('name',name);
 						newEl.setAttribute('data-type','showVar');
 						newEl.addEventListener('click',updateModifier);
 						elll.appendChild(newEl);
 					}
+					updateColumns(modifiers[i].id);
 					
 				}
 			}
@@ -1433,6 +1441,7 @@ function toRowStr(objVar) {
 		else if (parseInt(rows[1]) == 0){rowStr += ' to Current Row';}
 		else {rowStr += ' to '+parseInt(rows[1])+' Row After';}
 	}
+	return rowStr;
 }
 function createNew(obj) {
 
@@ -1507,9 +1516,7 @@ function createNew(obj) {
 	for (var i in obj.options.variables){
 		var objVar = obj.options.variables[i];
 		var newEl = document.createElement('div');
-		newEl.textContent = i + ' := ' + objVar.type + ' of ' + objVar.column;
-		var rowStr = toRowStr(objVar);
-		newEl.textContent += rowStr;
+		
 		
 		newEl.setAttribute('name',i);
 		newEl.setAttribute('data-type','showVar');
