@@ -1779,11 +1779,7 @@ drakeF.on('drag', function (el, target, source, sibling) {
 function minimizeBox(boxid){
 	if (boxid == 'dataSource' && dataSourceSize == 'large'){
 		var el = document.getElementById('dataSourceBox');
-		el.classList.add('pure-u-1-1');
-		el.classList.remove('pure-u-1-4');
-		el.querySelector('form').style.display = 'none';
-		el.querySelector('i').classList.remove('fa-compress-alt');
-		el.querySelector('i').classList.add('fa-expand-alt');
+		el.style.display = 'none';
 		var otherEl = document.getElementById('dataTableHolder');
 		otherEl.classList.add('pure-u-1-1');
 		otherEl.classList.remove('pure-u-3-4');
@@ -1791,11 +1787,7 @@ function minimizeBox(boxid){
 	}
 	else if (boxid == 'dataSource' && dataSourceSize == 'small'){
 		var el = document.getElementById('dataSourceBox');
-		el.classList.remove('pure-u-1-1');
-		el.classList.add('pure-u-1-4');
-		el.querySelector('form').style.display = 'block';
-		el.querySelector('i').classList.add('fa-compress-alt');
-		el.querySelector('i').classList.remove('fa-expand-alt');
+		el.style.display = 'block';
 		var otherEl = document.getElementById('dataTableHolder');
 		otherEl.classList.remove('pure-u-1-1');
 		otherEl.classList.add('pure-u-3-4');
