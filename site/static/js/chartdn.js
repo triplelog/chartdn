@@ -398,7 +398,7 @@ function typeChg() {
 function updateModifiedTable(data) {
 	var dataTable = document.getElementById("dataTableModified");
 	dataTable.style.display = 'inline-block';
-
+	dataTable.style.maxWidth = '100%';
 
 	dataTable.innerHTML = '';
 	headers = [];
@@ -1784,6 +1784,7 @@ function minimizeBox(boxid){
 		otherEl.classList.add('pure-u-1-1');
 		otherEl.classList.remove('pure-u-3-4');
 		dataSourceSize = 'small';
+		document.getElementById('editSource').style.display = 'inline';
 	}
 	else if (boxid == 'dataSource' && dataSourceSize == 'small'){
 		var el = document.getElementById('dataSourceBox');
@@ -1792,6 +1793,7 @@ function minimizeBox(boxid){
 		otherEl.classList.remove('pure-u-1-1');
 		otherEl.classList.add('pure-u-3-4');
 		dataSourceSize = 'large';
+		document.getElementById('editSource').style.display = 'none';
 	}
 }
 
