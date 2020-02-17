@@ -56,6 +56,7 @@ function getOrdinal(n) {
 // Set options like number of Header Rows
 var nHeaders = 1;
 var yColsVals = [];
+var xColumn = '';
 var headers = [];
 var allHeaders = {};
 var colid = -1;
@@ -332,7 +333,7 @@ function columnsChg() {
 	var xColStr = document.getElementById('xColVal').value;
 	
 	var yColumns = [];
-	var xColumn = '';
+	xColumn = '';
 	var lineNames = [];
 	var noNames = false;
 	
@@ -554,8 +555,11 @@ function updateModifiedTable(data) {
 				});
 				for (var iii=0;iii<yColsVals.length;iii++){
 					if (parseInt(yColsVals[iii]) == ii){ 
-						newcell.style.backgroundColor = 'green';
+						newcell.style.border = '1px solid green';
 					}
+				}
+				if (parseInt(xColumn) == ii){ 
+					newcell.style.border = '1px solid blue';
 				}
 				
 			}
