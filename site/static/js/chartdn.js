@@ -544,7 +544,8 @@ function updateModifiedTable(data) {
 		tippy(newcell, {
 		  content: tcr,
 		  trigger: 'click',
-		  interactive: true
+		  interactive: true,
+		  placement: left
 		});
 		newrow.appendChild(newcell);
 		
