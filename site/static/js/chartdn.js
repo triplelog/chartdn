@@ -868,6 +868,35 @@ function updateModifier(evt){
 								ell.querySelector('#group'+id).style.display = 'none';
 							}
 							else {
+								var qstring = '';
+								var rows = modifiers[i].options.variables[ii].row.split(',');
+								if (rows.length < 2){break;}
+								if ( rows[0].indexOf('$') == 0){
+									qstring = '#equalRowstart'+id;
+									ell.querySelector('input[name=equalrowstart]').value = rows[0].substring(1);
+								}
+								else if ( rows[0].indexOf('-') == 0){
+									qstring = '#previousRowstart'+id;
+									ell.querySelector('input[name=prevnstart]').value = rows[0].substring(1);
+								}
+								else {
+									qstring = '#nextRowstart'+id;
+									ell.querySelector('input[name=afternstart]').value = rows[0];
+								}
+								ell.querySelector(qstring).checked = true;
+								if ( rows[1].indexOf('$') == 0){
+									qstring = '#equalRowend'+id;
+									ell.querySelector('input[name=equalrowend]').value = rows[1].substring(1);
+								}
+								else if ( rows[1].indexOf('-') == 0){
+									qstring = '#previousRowend'+id;
+									ell.querySelector('input[name=prevnend]').value = rows[1].substring(1);
+								}
+								else {
+									qstring = '#nextRowend'+id;
+									ell.querySelector('input[name=afternend]').value = rows[1];
+								}
+								ell.querySelector(qstring).checked = true;
 								ell.querySelector('#value'+id).style.display = 'none';
 								ell.querySelector('#group'+id).style.display = 'block';
 							}
@@ -1366,7 +1395,7 @@ function createNewColumnBox(id) {
 		varRI.setAttribute('value','0');
 		varRL.textContent = 'From Row = ';
 		varRL.appendChild(varRI);
-		varRL.setAttribute('for','equalRow'+id);
+		varRL.setAttribute('for','equalRowstart'+id);
 		
 		newDiv.appendChild(varR);
 		newDiv.appendChild(varRL);
@@ -1388,7 +1417,7 @@ function createNewColumnBox(id) {
 		var varRS = document.createElement('span');
 		varRS.textContent = ' Row Before';
 		varRL.appendChild(varRS);
-		varRL.setAttribute('for','previousRow'+id);
+		varRL.setAttribute('for','previousRowstart'+id);
 		
 		newDiv.appendChild(varR);
 		newDiv.appendChild(varRL);
@@ -1411,7 +1440,7 @@ function createNewColumnBox(id) {
 		var varRS = document.createElement('span');
 		varRS.textContent = ' Row After';
 		varRL.appendChild(varRS);
-		varRL.setAttribute('for','nextRow'+id);
+		varRL.setAttribute('for','nextRowstart'+id);
 		
 		newDiv.appendChild(varR);
 		newDiv.appendChild(varRL);
@@ -1433,7 +1462,7 @@ function createNewColumnBox(id) {
 		varRI.setAttribute('value','-1');
 		varRL.textContent = 'To Row = ';
 		varRL.appendChild(varRI);
-		varRL.setAttribute('for','equalRow'+id);
+		varRL.setAttribute('for','equalRowend'+id);
 		
 		newDiv.appendChild(varR);
 		newDiv.appendChild(varRL);
@@ -1455,7 +1484,7 @@ function createNewColumnBox(id) {
 		var varRS = document.createElement('span');
 		varRS.textContent = ' Row Before';
 		varRL.appendChild(varRS);
-		varRL.setAttribute('for','previousRow'+id);
+		varRL.setAttribute('for','previousRowend'+id);
 		
 		newDiv.appendChild(varR);
 		newDiv.appendChild(varRL);
@@ -1478,7 +1507,7 @@ function createNewColumnBox(id) {
 		var varRS = document.createElement('span');
 		varRS.textContent = ' Row After';
 		varRL.appendChild(varRS);
-		varRL.setAttribute('for','nextRow'+id);
+		varRL.setAttribute('for','nextRowend'+id);
 		
 		newDiv.appendChild(varR);
 		newDiv.appendChild(varRL);
