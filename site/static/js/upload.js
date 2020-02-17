@@ -15,31 +15,20 @@ function handleDrop(e) {
   
   let dt = e.dataTransfer;
   let files = dt.files;
-  document.getElementById('dropArea').style.display = 'none';
+  //document.getElementById('dropArea').style.display = 'none';
   var ffile = files[0];
 	syncWorker.postMessage(ffile);
 	syncWorker.onmessage = function(e) {
-		ctypestr = toTable(e.data.result,e.data.ctypestr);
+		//ctypestr = toTable(e.data.result,e.data.ctypestr);
 
 		setTimeout(fullCompression,1000,ffile);
 	};
 }
 
-/*
-document.querySelector('#from-url').addEventListener('change', function() {
-	
-	//console.log(document.getElementById('from-url').value);
-	var xmlHttp = new XMLHttpRequest();
-		xmlHttp.open("POST", "/downloadfile", false); // false for synchronous request
-		xmlHttp.send(document.getElementById('from-url').value);
-		console.log(xmlHttp.responseText);
-
-}, false);
-*/
 
 document.querySelector('#dataFile').addEventListener('change', function(inp) {
 	
-	document.getElementById('dropArea').style.display = 'none';
+	//document.getElementById('dropArea').style.display = 'none';
 	var ffile = this.files[0];
 	syncWorker.postMessage(ffile);
 	syncWorker.onmessage = function(e) {
