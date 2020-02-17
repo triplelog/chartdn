@@ -491,12 +491,7 @@ function typeChg() {
 
 function clickTable(evt) {
 	console.log(evt.target);
-	let template = document.getElementById('clickColumn-template');
-	let tc = template.content.cloneNode(true);
-	let el = evt.target;
-	tippy(el, {
-	  content: tc
-	});
+	
 }
 
 function updateModifiedTable(data) {
@@ -530,7 +525,13 @@ function updateModifiedTable(data) {
 					headers.push(getOrdinal(ii+1));
 				}
 				newcell.setAttribute('data-col',ii);
-				newcell.addEventListener('click',clickTable);
+				let template = document.getElementById('clickColumn-template');
+				let tc = template.content;
+				let el = evt.target;
+				tippy(el, {
+				  content: tc,
+				  trigger: 'click'
+				});
 			}
 			newrow.appendChild(newcell);
 		}
