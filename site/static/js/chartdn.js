@@ -1676,7 +1676,7 @@ function createNew(obj) {
 	let template = document.getElementById('newColumn-template');
 	let newM = template.content;
 	let parentEl = document.getElementById('modifyDataBox');
-	parentEl.appendChild(newM);
+	parentEl.appendChild(newM.cloneNode(true));
 	console.log(parentEl);
 	parentEl.querySelector('#edit_id').id = 'edit'+obj.id;
 	
