@@ -285,10 +285,9 @@ function createLineDiv(id,chg=false) {
 	parentEl.appendChild(tc);
 	var newEl = parentEl.querySelector('#lineStyleDiv_id');
 	newEl.id = 'lineStyleDiv'+id;
-	newEl.querySelectorAll('input[name=shape_id]');
-	for (var i=0;i<newEl.length;i++){
-		console.log(newEl[i]);
-		newEl[i].setAttribute('name','shape'+id);
+	var shapeEls = newEl.querySelectorAll('input[name=shape_id]');
+	for (var i=0;i<shapeEls.length;i++){
+		shapeEls[i].setAttribute('name','shape'+id);
 	}
 	newEl.querySelector('select[name=dash_id]').setAttribute('name','dash'+id);
 
@@ -376,7 +375,7 @@ function optionsChg(optionname) {
 		ws.send(JSON.stringify(jsonmessage));
 	}
 	else if (optionname == 'shape' || optionname == 'dash' || optionname == 'lineName'){
-
+		console.log(colid);
 		var parentEl = document.querySelector("#lineStyleDiv"+colid);
 		
 		var el = parentEl.querySelector('input[name='+optionname+colid+']:checked');
