@@ -376,7 +376,10 @@
 									</div>
 									<div>
 										<label for="scaleX">Scale</label>
-										<input type="text" id="scaleX" name="scaleX" onchange="optionsChg('scaleX')" placeholder="default"/>
+										<select id="scaleX" name="scaleX" onchange="optionsChg('scaleX')">
+											<option value='linear' selected>Linear</option>
+											<option value='log'>Log</option>
+										</select>
 									</div>
 									<div>
 										<label for="dataType">Data Type</label>
