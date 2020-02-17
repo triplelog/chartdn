@@ -278,43 +278,26 @@ function createLineDiv(id,chg=false) {
 		chgLineTab();
 		return
 	}
-	var el = document.createElement('div');
-	el.id = "lineStyleDiv"+id;
-	el.innerHTML = `
-		<div>
-			<label>Name</label>
-			<input type="text" name="lineName" onchange="optionsChg('lineName')" placeholder="default"/>
-		</div>
-		<div>
-			<label>Line Color</label>
-			<input type="text" name="lineColor" onchange="optionsChg('lineColor')" placeholder="default"/>
-		</div>
-		<div>
-			<label>Dot Color</label>
-			<input type="text" name="dotColor" placeholder="default"/>
-		</div>
-		<div>
-			<label>Line Shape</label>
-			<input type="radio" name="shape`+id+`" onchange="optionsChg('shape')" value="linear" checked>Linear</input>
-			<input type="radio" name="shape`+id+`" onchange="optionsChg('shape')" value="spline">Smooth</input>
-		</div>
-		<div>
-			<label>Line Type</label>
-			<select name="dash`+id+`" onchange="optionsChg('dash')">
-				<option value="solid" checked>Solid</option>
-				<option value="dash">Dash</option>
-				<option value="dot">Dot</option>
-				<option value="dashdot">DashDot</option>
-			</select>
-		</div>`;
-	document.getElementById("yAxisFormatBox").appendChild(el);
+
+	let template = document.getElementById('yAxisFormat-template');
+	let tc = template.content.cloneNode(true);
+	let parentEl = document.getElementById('yAxisFormatBox');
+	parentEl.appendChild(tc);
+	var newEl = parentEl.querySelector('#lineStyleDiv_id');
+	newEl.id = 'lineStyleDiv'+id;
+	newEl.querySelectorAll('input[name=shape_id]');
+	for (var i=0;i<newEl.length;i++){
+		newEl[i].setAttribute('name','shape'+id);
+	}
+	newEl.querySelector('select[name=dash_id]').setAttribute('name','dash'+id);
+
 	
-	var newEl = document.createElement('option');
+	newEl = document.createElement('option');
 	newEl.value = id;
 	newEl.textContent = headers[id];
 	document.getElementById('lineStyleMenu').appendChild(newEl);
 	
-	if (document.getElementById("yAxisFormatBox").children.length == 2){
+	if (document.getElementById("yAxisFormatBox").children.length == 1){
 		document.getElementById('lineStyleMenu').value = id;
 	}
 	
