@@ -553,7 +553,7 @@ function updateModifiedTable(data) {
 				  interactive: true
 				});
 				for (var iii=0;iii<yColsVals.length;iii++){
-					if (parseInt(yCols[iii]) == ii){ 
+					if (parseInt(yColsVals[iii]) == ii){ 
 						newcell.style.backgroundColor = 'green';
 					}
 				}
