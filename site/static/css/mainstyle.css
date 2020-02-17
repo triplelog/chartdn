@@ -448,6 +448,6 @@ a.pure-button-primary {
 	cursor: pointer;
 	background: rgba(200,20,20,.2);
 }
-#allModifiers div {
+#allModifiers div, #yAxisDataBox span {
 	border: 1px solid white;
 }
