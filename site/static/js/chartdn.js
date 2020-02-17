@@ -111,6 +111,7 @@ function updateHeaders(initialData,chg=false) {
 				newColumn.textContent = headers[yColsVals[yid]];
 				newColumn.id = 'colId'+yColsVals[yid];
 				newColumn.style.display = 'block';
+				newColumn.addEventListener('click',clickLineData);
 				document.getElementById('yAxisDataBox').appendChild(newColumn);
 			}
 			chgLineTab();
@@ -283,7 +284,7 @@ function createLineDiv(id,chg=false) {
 	var newEl = document.createElement('option');
 	newEl.value = id;
 	newEl.textContent = headers[id];
-	newEl.addEventListener('click',clickLineData);
+	
 	
 	document.getElementById('lineStyleMenu').appendChild(newEl);
 	if (document.getElementById("yAxisFormatBox").children.length == 2){
