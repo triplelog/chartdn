@@ -444,6 +444,15 @@ a.pure-button-primary {
 	text-align: right;
 	display: inline-block;
 }
+.columnTooltip label {
+	width: 7rem;
+	text-align: right;
+	display: inline-block;
+	color: white;
+}
+.columnTooltip button {
+	width: 45%;
+}
 .hoverClick:hover {
 	cursor: pointer;
 	background: rgba(200,20,20,.2);
