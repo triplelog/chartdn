@@ -169,11 +169,11 @@ function updateHeaders(initialData,chg=false) {
 				var qstring = 'option[value="'+i+'"]';
 				console.log(qstring);
 				var ell = document.getElementById('lineStyleMenu').querySelector(qstring);
-				ell.parentNode.removeChild(ell);
+				ell.parentElement.removeChild(ell);
 		
 				qstring = '#lineStyleDiv'+i;
 				ell = document.getElementById("yAxisFormatBox").querySelector(qstring);
-				ell.parentNode.removeChild(ell);
+				ell.parentElement.removeChild(ell);
 			}
 		}
 	}
@@ -662,11 +662,11 @@ drake.on('remove', function (el, target, source) {
 		columnsChg();
 		var qstring = 'option[value="'+el.id.substring(5)+'"]';
 		var ell = document.getElementById('lineStyleMenu').querySelector(qstring);
-		ell.parentNode.removeChild(ell);
+		ell.parentElement.removeChild(ell);
 		
 		qstring = '#lineStyleDiv'+el.id.substring(5);
 		ell = document.getElementById("yAxisFormatBox").querySelector(qstring);
-		ell.parentNode.removeChild(ell);
+		ell.parentElement.removeChild(ell);
 	}
 });
 drake.on('drag', function (el, target, source) { 
@@ -703,7 +703,7 @@ function updateColumns(id='all') {
 					}
 					el.appendChild(varOption);
 				}
-				var allVars = el.parentNode.parentNode.querySelector('#allVariables');
+				var allVars = el.parentElement.parentElement.querySelector('#allVariables');
 				for (var ii in modifiers[i].options.variables){
 					var objVar = modifiers[i].options.variables[ii];
 					var qstring = 'div[name='+ii+']';
@@ -778,7 +778,7 @@ function updateColumns(id='all') {
 				}
 				el.appendChild(varOption);
 			}
-			var ell = el.parentNode.querySelector('.pivotColumns').children;
+			var ell = el.parentElement.querySelector('.pivotColumns').children;
 			for (var ii=0;ii<ell.length;ii++){
 				var col = parseInt(ell[ii].getAttribute('data-col'));
 				var type = ell[ii].getAttribute('data-type');
@@ -792,19 +792,19 @@ function updateColumns(id='all') {
 }
 
 function updateModifier(evt){
-	var id = evt.target.parentNode.parentNode.id;
+	var id = evt.target.parentElement.parentElement.id;
 	var el = evt.target;
 	if (!id || id.substring(0,4) != 'edit'){
-		id = evt.target.parentNode.parentNode.parentNode.id;
+		id = evt.target.parentElement.parentElement.parentElement.id;
 	}
 	if (!id || id.substring(0,4) != 'edit'){
-		id = evt.target.parentNode.parentNode.parentNode.parentNode.id;
+		id = evt.target.parentElement.parentElement.parentElement.parentElement.id;
 	}
 	if (!id || id.substring(0,4) != 'edit'){
-		id = evt.target.parentNode.parentNode.parentNode.parentNode.parentNode.id;
+		id = evt.target.parentElement.parentElement.parentElement.parentElement.parentElement.id;
 	}
 	if (el.getAttribute('name') == null || el.getAttribute('name') == ''){
-		el = evt.target.parentNode;
+		el = evt.target.parentElement;
 	}
 	console.log(id);
 	for (var i in modifiers){
@@ -816,8 +816,8 @@ function updateModifier(evt){
 				var listEl = document.getElementById(modifiers[i].id);
 				document.getElementById('allModifiers').removeChild(listEl);
 				//delete edit element
-				var ell = el.parentNode.parentNode;
-				ell.parentNode.removeChild(ell);
+				var ell = el.parentElement.parentElement;
+				ell.parentElement.removeChild(ell);
 				//remove from database
 				modifiers.splice(i,1);
 				modifierChg();
@@ -860,8 +860,8 @@ function updateModifier(evt){
 					//Do something?
 				}
 				else if (el.getAttribute('name')=='add'){
-					var pType = el.parentNode.querySelector('select[name=pType] > option:checked').value;
-					var column = parseInt(el.parentNode.querySelector('select[name="column"]').value);
+					var pType = el.parentElement.querySelector('select[name=pType] > option:checked').value;
+					var column = parseInt(el.parentElement.querySelector('select[name="column"]').value);
 					var obj = {'column':column,'type':pType};
 					modifiers[i].options.columns.push(obj);
 					var newEl = document.createElement('div');
@@ -874,7 +874,7 @@ function updateModifier(evt){
 					newEl.setAttribute('name','edit');
 					newEl.setAttribute('data-col',obj.column);
 					newEl.setAttribute('data-type',obj.type);
-					el.parentNode.querySelector('div.pivotColumns').appendChild(newEl);
+					el.parentElement.querySelector('div.pivotColumns').appendChild(newEl);
 				}
 			}
 			else if (mType == 'sort'){
@@ -909,14 +909,14 @@ function updateModifier(evt){
 			else if (mType == 'new' || mType == 'ignore'){
 				if (el.getAttribute('name')=='formula'){
 					modifiers[i].options.formula = el.value;
-					var ell = el.parentNode.querySelector('div[name=katex]');
+					var ell = el.parentElement.querySelector('div[name=katex]');
 					katex.render(modifiers[i].options.formula, ell, {
 						throwOnError: false
 					});
 				}
 				else if (el.getAttribute('data-type')=='showVar'){
 					var varName = el.getAttribute('name');
-					var ell = el.parentNode.parentNode.querySelector('#newVariables');
+					var ell = el.parentElement.parentElement.querySelector('#newVariables');
 					for (var ii in modifiers[i].options.variables){
 						if (ii == varName){
 							ell.querySelector('input[name=name]').value = varName;
@@ -994,10 +994,10 @@ function updateModifier(evt){
 				}
 				else if (el.getAttribute('name')=='name'){
 					modifiers[i].name = el.value;
-					el.parentNode.parentNode.parentNode.parentNode.querySelector('span[name=title]').textContent = 'New Column: '+el.value;
+					el.parentElement.parentElement.parentElement.parentElement.querySelector('span[name=title]').textContent = 'New Column: '+el.value;
 				}
 				else if (evt.target.getAttribute('name')=='add'){
-					var ell = el.parentNode;
+					var ell = el.parentElement;
 					var col = ell.querySelector('select[name=column] > option:checked').value;
 					var type = ell.querySelector('select[name=type] > option:checked').value;
 					var row = '0';
@@ -1022,7 +1022,7 @@ function updateModifier(evt){
 					var name = ell.querySelector('input[name=name]').value;
 					modifiers[i].options.variables[name] = newVariable;
 					
-					var elll = ell.parentNode.querySelector('#allVariables');
+					var elll = ell.parentElement.querySelector('#allVariables');
 					var elllc = elll.children;
 					var elExists = false;
 					for (var ii=0;ii<elllc.length;ii++){
@@ -1043,7 +1043,7 @@ function updateModifier(evt){
 					
 				}
 				else if (evt.target.getAttribute('name')=='clear'){
-					var ell = el.parentNode;
+					var ell = el.parentElement;
 					var nameEl = ell.querySelector('input[name=name]');
 					var name = nameEl.value;
 					nameEl.value = '';
@@ -1055,7 +1055,7 @@ function updateModifier(evt){
 					ell.querySelector('#currentRow'+id).checked = true;
 					delete modifiers[i].options.variables[name];
 					
-					var elll = ell.parentNode.querySelector('#allVariables');
+					var elll = ell.parentElement.querySelector('#allVariables');
 					var elllc = elll.children;
 					for (var ii=0;ii<elllc.length;ii++){
 						if (elllc[ii].getAttribute('name') == name){
@@ -1660,7 +1660,31 @@ function toRowStr(objVar) {
 	}
 	return rowStr;
 }
+
 function createNew(obj) {
+	var newEl = document.createElement('div');
+	newEl.setAttribute('data-id',obj.type);
+	newEl.textContent = obj.name;
+	newEl.addEventListener('click',clickModifier);
+	newEl.classList.add('hoverClick');
+	if (!obj.enabled){newEl.style.textDecoration = 'line-through';}
+	newEl.id = obj.id;
+	document.getElementById('allModifiers').appendChild(newEl);
+		
+	let template = document.getElementById('newColumn-template');
+	let newM = template.content;
+	newM.id = 'edit'+obj.id;
+	
+	//Update Names
+	//Add EventListeners
+
+	newM.appendChild(newB);
+	
+	document.getElementById('modifyDataBox').appendChild(newM);
+	//createNewColumnBox(obj.id);
+}
+
+function createNew-Old(obj) {
 	var newEl = document.createElement('div');
 	newEl.setAttribute('data-id',obj.type);
 	newEl.textContent = obj.name;
@@ -1889,7 +1913,7 @@ function minimizeBox(boxid,full=false){
 			var el = document.getElementById(boxid+'Box');
 			el.style.display = 'none';
 			minimizedBoxes[boxid] = 'small';
-			var elp = el.parentNode;
+			var elp = el.parentElement;
 			elp.classList.add('l-box-thin');
 			elp.classList.remove('l-box-half');
 			var ell = elp.querySelector('.box-header i.fa-compress-alt');
@@ -1901,7 +1925,7 @@ function minimizeBox(boxid,full=false){
 			var el = document.getElementById(boxid+'Box');
 			el.style.display = 'block';
 			minimizedBoxes[boxid] = 'large';
-			var elp = el.parentNode;
+			var elp = el.parentElement;
 			elp.classList.add('l-box-half');
 			elp.classList.remove('l-box-thin');
 			var ell = elp.querySelector('.box-header i.fa-expand-alt');
@@ -1975,13 +1999,13 @@ function showMoreOptions(collapse=false) {
 	var el = document.getElementById('showMoreOptions');
 	if (collapse){
 		el.style.display = 'none';
-		el.parentNode.querySelector('button[name=showMore]').textContent = 'Show More Options';
-		el.parentNode.querySelector('button[name=showMore]').setAttribute('onclick','showMoreOptions(false)');
+		el.parentElement.querySelector('button[name=showMore]').textContent = 'Show More Options';
+		el.parentElement.querySelector('button[name=showMore]').setAttribute('onclick','showMoreOptions(false)');
 	}
 	else {
 		el.style.display = 'block';
-		el.parentNode.querySelector('button[name=showMore]').textContent = 'Hide Options';
-		el.parentNode.querySelector('button[name=showMore]').setAttribute('onclick','showMoreOptions(true)');
+		el.parentElement.querySelector('button[name=showMore]').textContent = 'Hide Options';
+		el.parentElement.querySelector('button[name=showMore]').setAttribute('onclick','showMoreOptions(true)');
 	}
 }
 
