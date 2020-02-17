@@ -1682,7 +1682,9 @@ function fillNew(obj) {
 	
 	//formula
 	el.querySelector('textarea[name=formula]').value = obj.options.formula;
-	//dk: Katex it
+	katex.render(obj.options.formula, el.querySelector('div[name=katex]'), {
+		throwOnError: false
+	});
 	
 	//Place blank allVariables
 	var allV = el.querySelector('#allVariables');
@@ -1713,6 +1715,9 @@ function createNew(obj) {
 	parentEl.appendChild(tc);
 	var newM = parentEl.querySelector('#edit_id');
 	newM.id = 'edit'+obj.id;
+	if (obj.type == 'ignore'){
+		newM.querySelector('span[name=description]').textContent = 'Ignore Row if: ';
+	}
 	
 	
 	//Update Names
@@ -1853,7 +1858,7 @@ function createNew_Old(obj) {
 }
 
 function createIgnore(obj) {
-	createNew_Old(obj);
+	createNew(obj);
 }
 
 function createNewModifier(show=false) {
