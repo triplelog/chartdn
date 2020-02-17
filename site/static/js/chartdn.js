@@ -1000,7 +1000,7 @@ function updateModifier(evt){
 				if (el.getAttribute('name')=='column'){
 					//modifiers[i].options.type = evt.target.querySelector('option:checked').value;
 					modifiers[i].options.column = parseInt(el.value);
-					modifiers[i].name = 'Sort by ' + el.querySelector('option:selected').textContent;
+					modifiers[i].name = 'Sort by ' + el.querySelector('option:checked').textContent;
 				}
 				else if (el.getAttribute('name')=='descending'){
 					modifiers[i].options.ascending = !el.checked;
