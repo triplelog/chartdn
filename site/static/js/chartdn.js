@@ -385,11 +385,22 @@ function optionsChg(optionname) {
 
 		ws.send(JSON.stringify(jsonmessage));
 	}
-	else if (optionname == 'shapeOne' || optionname == 'dashOne'){
+	else if (optionname == 'shapeOne'){
+		var parentEl = document.querySelector("#lineStyleDiv"+colid);
+		
+		var el = parentEl.querySelector('input[name=shape'+colid+']:checked');
+		var newoption = el.value;
+		var jsonmessage = {'operation':'options','lines':[{'id':colid}]};
+
+		jsonmessage['lines'][0][optionpart]=newoption;
+
+		ws.send(JSON.stringify(jsonmessage));
+	}
+	else if (optionname == 'dashOne'){
 		optionpart = optionname.substring(0,optionname.indexOf('One'));
 		var parentEl = document.querySelector("#lineStyleDiv"+colid);
 		
-		var el = parentEl.querySelector('input[name='+optionpart+colid+']:checked');
+		var el = parentEl.querySelector('select[name=dash'+colid+']');
 		var newoption = el.value;
 		var jsonmessage = {'operation':'options','lines':[{'id':colid}]};
 
