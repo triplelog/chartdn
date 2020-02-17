@@ -185,6 +185,7 @@ function chgLineTab(){
 	colid = document.getElementById('lineStyleMenu').querySelector('*:checked').value;
 
 	var el = document.getElementById('colId'+colid);
+	console.log(colid);
 	if (el){
 		el.style.borderColor = 'rgb(200, 200, 200)';
 	}
@@ -193,13 +194,13 @@ function chgLineTab(){
 	for (var i=0;i<lineDivs.length;i++){
 		if (lineDivs[i].id != 'lineStyleDiv'+colid) {
 			lineDivs[i].style.display = 'none';
-		}
-		else {
-			lineDivs[i].style.display = 'block';
 			var ell = document.getElementById('colId'+lineDivs[i].id.substring(12));
 			if (ell){
 				ell.style.borderColor = 'white';
 			}
+		}
+		else {
+			lineDivs[i].style.display = 'block';
 		}
 		
 	}
