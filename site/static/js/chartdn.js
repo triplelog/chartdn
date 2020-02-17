@@ -374,23 +374,27 @@ function optionsChg(optionname) {
 		else if (optionname == 'stepSizeY') {jsonmessage['stepSize']['y']=newoption;}
 		ws.send(JSON.stringify(jsonmessage));
 	}
-	else if (optionname == 'shape' || optionname == 'dash' || optionname == 'lineName'){
-		console.log(colid);
+	else if (optionname == 'lineName'){
 		var parentEl = document.querySelector("#lineStyleDiv"+colid);
-		
-		var el = parentEl.querySelector('input[name='+optionname+colid+']:checked');
-		if (optionname == 'lineName'){
-			el = parentEl.querySelector('input[name='+optionname+colid+']')
-		}
+
+		var el = parentEl.querySelector('input[name='+optionname+']')
 		var newoption = el.value;
 		var jsonmessage = {'operation':'options','lines':[{'id':colid}]};
 
-		if (optionname != 'lineName'){
-			jsonmessage['lines'][0][optionname]=newoption;
-		}
-		else {
-			jsonmessage['lines'][0]['name']=newoption;
-		}
+		jsonmessage['lines'][0]['name']=newoption;
+
+		ws.send(JSON.stringify(jsonmessage));
+	}
+	else if (optionname == 'shapeOne' || optionname == 'dashOne'){
+		optionpart = optionname.substring(0,optionname.indexOf('One'));
+		var parentEl = document.querySelector("#lineStyleDiv"+colid);
+		
+		var el = parentEl.querySelector('input[name='+optionpart+colid+']:checked');
+		var newoption = el.value;
+		var jsonmessage = {'operation':'options','lines':[{'id':colid}]};
+
+		jsonmessage['lines'][0][optionpart]=newoption;
+
 		ws.send(JSON.stringify(jsonmessage));
 	}
 	else {
