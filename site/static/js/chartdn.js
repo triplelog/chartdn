@@ -531,6 +531,17 @@ function updateModifiedTable(data) {
 		var newcell = document.createElement('td');
 		if (i < nHeaders){newcell.textContent = 'Row';}
 		else {newcell.textContent = i - nHeaders;}
+		newcell.setAttribute('data-row',i - nHeaders);
+		let templateR = document.getElementById('clickRow-template');
+		let tcr = templateR.content.cloneNode(true).firstElementChild;
+		tcr.setAttribute('data-row',i - nHeaders);
+		tcr.querySelector('button[name=ignoreButton]').addEventListener('click',clickRow);
+		tcr.querySelector('button[name=matchButton]').addEventListener('click',clickRow);
+		tippy(newcell, {
+		  content: tcr,
+		  trigger: 'click',
+		  interactive: true
+		});
 		newrow.appendChild(newcell);
 		
 		for (var ii=0;ii<data[i].length;ii++){
