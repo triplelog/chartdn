@@ -57,6 +57,9 @@ function getOrdinal(n) {
 var nHeaders = 1;
 var yColsVals = [];
 var xColumn = '';
+if (options.xColumn){
+	xColumn = options.xColumn;
+}
 var headers = [];
 var allHeaders = {};
 var colid = -1;
@@ -356,7 +359,6 @@ function columnsChg() {
 	
 	if (!isNaN(parseInt(xColStr))){ 
 		xColumn = parseInt(xColStr);
-		el.querySelector('td[data-col="'+xColumn+'"]').style.backgroundColor = 'blue';
 	}
 	
 	
@@ -555,11 +557,11 @@ function updateModifiedTable(data) {
 				});
 				for (var iii=0;iii<yColsVals.length;iii++){
 					if (parseInt(yColsVals[iii]) == ii){ 
-						newcell.style.border = '1px solid green';
+						newcell.style.border = '2px solid green';
 					}
 				}
 				if (parseInt(xColumn) == ii){ 
-					newcell.style.border = '1px solid blue';
+					newcell.style.border = '2px solid blue';
 				}
 				
 			}
