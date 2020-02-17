@@ -147,6 +147,7 @@ wss.on('connection', function connection(ws) {
 			defaultOptions['yColumns'] = [];
 			defaultOptions['xColumn'] = '';
 			defaultOptions['stepSize'] = {};
+			defaultOptions['scale'] = {};
 			defaultOptions['labels'] = {};
 			defaultOptions['title'] = '';
 			defaultOptions['delimiter'] = dm.delimiter || '';
@@ -299,6 +300,7 @@ wss.on('connection', function connection(ws) {
 			defaultOptions['yColumns'] = [];
 			defaultOptions['xColumn'] = '';
 			defaultOptions['stepSize'] = {};
+			defaultOptions['scale'] = {};
 			defaultOptions['labels'] = {};
 			defaultOptions['title'] = '';
 			defaultOptions['delimiter'] = dm.delimiter || '';

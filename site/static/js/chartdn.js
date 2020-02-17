@@ -359,6 +359,13 @@ function optionsChg(optionname) {
 		else if (optionname == 'yaxistitle') {jsonmessage['labels']['y']=newoption;}
 		ws.send(JSON.stringify(jsonmessage));
 	}
+	else if (optionname == 'scaleX' || optionname == 'scaleY'){
+		var newoption = document.querySelector('input[name='+optionname+']').value;
+		var jsonmessage = {'operation':'options','scale':{}};
+		if (optionname == 'scaleX') {jsonmessage['scale']['x']=newoption;}
+		else if (optionname == 'scaleY') {jsonmessage['scale']['y']=newoption;}
+		ws.send(JSON.stringify(jsonmessage));
+	}
 	else if (optionname == 'stepSizeX' || optionname == 'stepSizeY'){
 		var newoption = document.querySelector('input[name='+optionname+']').value;
 		var jsonmessage = {'operation':'options','stepSize':{}};
