@@ -1674,10 +1674,9 @@ function createNew(obj) {
 	document.getElementById('allModifiers').appendChild(newEl);
 		
 	let template = document.getElementById('newColumn-template');
-	let newM = template.content;
+	let newM = template.content.cloneNode(true);
 	let parentEl = document.getElementById('modifyDataBox');
-	parentEl.appendChild(newM.cloneNode(true));
-	console.log(parentEl);
+	parentEl.appendChild(newM);
 	parentEl.querySelector('#edit_id').id = 'edit'+obj.id;
 	
 	//Update Names
@@ -1685,33 +1684,33 @@ function createNew(obj) {
 	var ids = ['newcolVar','value','group'];
 	var idfors = ['currentRow','previousRow','nextRow','equalRow'];
 	for (var i=0;i<names.length;i++){
-		var els = parentEl.querySelectorAll('input[name='+names[i]+'_id]');
+		var els = newM.querySelectorAll('input[name='+names[i]+'_id]');
 		for (var ii=0;ii<els.length;ii++){
 			els[ii].setAttribute('name',names[i]+obj.id);
 		}
 		
 	}
 	for (var i=0;i<ids.length;i++){
-		parentEl.querySelector('#'+ids[i]+'_id').id=ids[i]+obj.id;
+		newM.querySelector('#'+ids[i]+'_id').id=ids[i]+obj.id;
 	}
 	for (var i=0;i<idfors.length;i++){
-		parentEl.querySelector('#'+idfors[i]+'_id').id=idfors[i]+obj.id;
-		parentEl.querySelector('label[for='+idfors[i]+'_id]').setAttribute('for',idfors[i]+obj.id);
+		newM.querySelector('#'+idfors[i]+'_id').id=idfors[i]+obj.id;
+		newM.querySelector('label[for='+idfors[i]+'_id]').setAttribute('for',idfors[i]+obj.id);
 		if (idfors[i] != 'currentRow'){
-			parentEl.querySelector('#'+idfors[i]+'start_id').id=idfors[i]+'start'+obj.id;
-			parentEl.querySelector('label[for='+idfors[i]+'start_id]').setAttribute('for',idfors[i]+'start'+obj.id);
-			parentEl.querySelector('#'+idfors[i]+'end_id').id=idfors[i]+'end'+obj.id;
-			parentEl.querySelector('label[for='+idfors[i]+'end_id]').setAttribute('for',idfors[i]+'end'+obj.id);
+			newM.querySelector('#'+idfors[i]+'start_id').id=idfors[i]+'start'+obj.id;
+			newM.querySelector('label[for='+idfors[i]+'start_id]').setAttribute('for',idfors[i]+'start'+obj.id);
+			newM.querySelector('#'+idfors[i]+'end_id').id=idfors[i]+'end'+obj.id;
+			newM.querySelector('label[for='+idfors[i]+'end_id]').setAttribute('for',idfors[i]+'end'+obj.id);
 		}
 	}
 	//Add EventListeners
 	names = ['name','formula','type'];
-	parentEl.querySelector('input[name=name]').addEventListener('change',updateModifier);
-	parentEl.querySelector('textarea[name=formula]').addEventListener('change',updateModifier);
-	parentEl.querySelector('select[name=type]').addEventListener('change',updateModifier);
+	newM.querySelector('input[name=name]').addEventListener('change',updateModifier);
+	newM.querySelector('textarea[name=formula]').addEventListener('change',updateModifier);
+	newM.querySelector('select[name=type]').addEventListener('change',updateModifier);
 	
-	parentEl.querySelector('button[name=add]').addEventListener('click',updateModifier);
-	parentEl.querySelector('button[name=clear]').addEventListener('click',updateModifier);
+	newM.querySelector('button[name=add]').addEventListener('click',updateModifier);
+	newM.querySelector('button[name=clear]').addEventListener('click',updateModifier);
 	
 	
 	
