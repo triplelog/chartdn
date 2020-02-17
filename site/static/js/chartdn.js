@@ -1218,7 +1218,7 @@ function createPivot(obj) {
 	newS.addEventListener('click',updateModifier);
 	newB.appendChild(newS);
 	newM.appendChild(newB);
-	document.getElementById('modifiersDiv').appendChild(newM);
+	document.getElementById('modifyDataBox').appendChild(newM);
 }
 
 function createReplace(obj) {
@@ -1279,7 +1279,7 @@ function createReplace(obj) {
 	newI.addEventListener('change',updateModifier);
 	newB.appendChild(newI);
 	newM.appendChild(newB);
-	document.getElementById('modifiersDiv').appendChild(newM);
+	document.getElementById('modifyDataBox').appendChild(newM);
 }
 
 function createSort(obj) {
@@ -1324,7 +1324,7 @@ function createSort(obj) {
 	newB.appendChild(newI);
 	
 	newM.appendChild(newB);
-	document.getElementById('modifiersDiv').appendChild(newM);
+	document.getElementById('modifyDataBox').appendChild(newM);
 }
 
 // New Columns stuff
@@ -1714,7 +1714,7 @@ function createNew(obj) {
 	newB.appendChild(newBB);
 	newM.appendChild(newB);
 	
-	document.getElementById('modifiersDiv').appendChild(newM);
+	document.getElementById('modifyDataBox').appendChild(newM);
 	createNewColumnBox(obj.id);
 }
 

@@ -132,35 +132,31 @@
 				</div>
 			</div>
 			<div class="l-box-half pure-u-1-1 sectionpart">
-				<div class="box-header">Modify Data<span class="box-buttons"><a onclick="minimizeBox('modifyData')"><i class="fas fa-compress-alt"></i></a></span></div>
-				<form class="pure-form box-form" id="modifyDataBox">
-					<div class="pure-g" id="modifiersDiv">
-						<div class="l-box pure-u-1-3">
-							<div class="box-header2">
-								Modifiers
-							</div>
-							<div class="box-form">
-								<div id="allModifiers" style="max-height: 20rem; overflow: auto;">
-								</div>
-								<div>
-									<a onclick="createNewModifier(true)" class="pure-button pure-button-primary button-small"><i class="fas fa-plus-square"></i> New</a>
-									<select onchange="createNewModifier();" id="createModifyMenu" style="display:none;">
-										<option value=""></option>
-										<option value="new">New Column</option>
-										<option value="sort">Sort</option>
-										<option value="replace">Replace</option>
-										<option value="ignore">Ignore</option>
-										<option value="pivot">Pivot</option>
-									</select>
-								</div>
-								
-							</div>
-							
+				<div class="box-header">
+					Modify Data<span class="box-buttons"><a onclick="minimizeBox('modifyData')"><i class="fas fa-compress-alt"></i></a></span>
+				</div>
+				<div class="pure-g" id="modifyDataBox">
+					<div class="l-box pure-u-1-3">
+						<div class="box-header2">
+							Modifiers
 						</div>
-						
-					
+						<div class="box-form">
+							<div id="allModifiers" style="max-height: 20rem; overflow: auto;">
+							</div>
+							<div>
+								<button onclick="createNewModifier(true)" class="pure-button pure-button-primary button-small"><i class="fas fa-plus-square"></i> New</button>
+								<select onchange="createNewModifier();" id="createModifyMenu" style="display:none;">
+									<option value=""></option>
+									<option value="new">New Column</option>
+									<option value="sort">Sort</option>
+									<option value="replace">Replace</option>
+									<option value="ignore">Ignore</option>
+									<option value="pivot">Pivot</option>
+								</select>
+							</div>
+						</div>
 					</div>
-				</form>
+				</div>
 			</div>
 			<div class="l-box-half pure-u-1-1 sectionpart">
 				<div class="box-header">Create Chart
