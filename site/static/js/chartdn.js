@@ -385,6 +385,17 @@ function optionsChg(optionname) {
 
 		ws.send(JSON.stringify(jsonmessage));
 	}
+	else if (optionname == 'lineColor' || optionname == 'dotColor'){
+		var parentEl = document.querySelector("#lineStyleDiv"+colid);
+
+		var el = parentEl.querySelector('input[name='+optionname+']')
+		var newoption = el.value;
+		var jsonmessage = {'operation':'options','lines':[{'id':colid}]};
+
+		jsonmessage['lines'][0][optionname]=newoption;
+
+		ws.send(JSON.stringify(jsonmessage));
+	}
 	else if (optionname == 'shapeOne'){
 		var parentEl = document.querySelector("#lineStyleDiv"+colid);
 		
