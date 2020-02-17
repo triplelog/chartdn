@@ -526,7 +526,8 @@ function updateModifiedTable(data) {
 				}
 				newcell.setAttribute('data-col',ii);
 				let template = document.getElementById('clickColumn-template');
-				let tc = template.content.cloneNode(true).outerHTML;
+				let tc = template.content.cloneNode(true);
+				console.log(tc);
 				tippy(newcell, {
 				  content: tc,
 				  trigger: 'click'
