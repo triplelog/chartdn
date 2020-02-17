@@ -290,12 +290,24 @@ function createLineDiv(id,chg=false) {
 		shapeEls[i].setAttribute('name','shape'+id);
 	}
 	newEl.querySelector('select[name=dash_id]').setAttribute('name','dash'+id);
-	console.log(options.lines,id);
+
 	if (options.lines) {
 		for (var i=0;i<options.lines.length;i++){
 			if (options.lines[i].id == id){
 				if (options.lines[i].name){
 					newEl.querySelector('input[name=lineName]').value = options.lines[i].name;
+				}
+				if (options.lines[i].lineColor){
+					newEl.querySelector('input[name=lineColor]').value = options.lines[i].lineColor;
+				}
+				if (options.lines[i].dotColor){
+					newEl.querySelector('input[name=dotColor]').value = options.lines[i].dotColor;
+				}
+				if (options.lines[i].shape){
+					newEl.querySelector('input[value='+options.lines[i].shape+']').checked = true;
+				}
+				if (options.lines[i].dash){
+					newEl.querySelector('select[name=dash'+id+']').value = options.lines[i].dash;
 				}
 			}
 		}
