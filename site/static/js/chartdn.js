@@ -489,8 +489,8 @@ function typeChg() {
 	ws.send(JSON.stringify(jsonmessage));
 }
 
-function clickTable() {
-	
+function clickTable(evt) {
+	console.log(evt.target);
 }
 
 function updateModifiedTable(data) {
@@ -527,6 +527,8 @@ function updateModifiedTable(data) {
 				let template = document.getElementById('clickColumn-template');
 				let tc = template.content.cloneNode(true).firstElementChild;
 				tc.setAttribute('data-col',ii);
+				tc.querySelector('button[name=xButton]').addEventListener('click',clickTable);
+				tc.querySelector('button[name=yButton]').addEventListener('click',clickTable);
 				tippy(newcell, {
 				  content: tc,
 				  trigger: 'click',
