@@ -609,12 +609,15 @@ loginApp.get('/edit/:chartid',
 							if (savedData.scale && savedData.scale.x){xaxis.scale[savedData.scale.x] = 'selected="selected"';}
 							if (savedData.stepSize && savedData.stepSize.x){xaxis.stepSize = savedData.stepSize.x;}
 							if (savedData.domain){xaxis.domain = savedData.domain;}
-							var yaxis = {'scale':{}};
+							var yaxis = {'scale':{},'dots':{},'shape':{},'dash':{}};
 							if (savedData.labels && savedData.labels.y){yaxis.title = savedData.labels.y;}
 							if (savedData.scale && savedData.scale.y){yaxis.scale[savedData.scale.y] = 'selected="selected"';}
 							if (savedData.stepSize && savedData.stepSize.y){yaxis.stepSize = savedData.stepSize.y;}
 							if (savedData.range){yaxis.range = savedData.range;}
 							if (savedData.lineColors){yaxis.lineColors = savedData.lineColors;}
+							if (savedData.dots){yaxis.dots[savedData.dots] = 'checked="checked"';}
+							if (savedData.shape){yaxis.shape[savedData.shape] = 'checked="checked"';}
+							if (savedData.dash){yaxis.dash[savedData.dash] = 'selected="selected"';}
 							res.write(nunjucks.render('chartdn.html',{
 								chartScript: '',
 								dataAreaText: defaultData,

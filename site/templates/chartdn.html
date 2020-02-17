@@ -440,11 +440,11 @@
 								<div>
 									<label>Line Shape</label>
 									<input type="radio" name="shape" onchange="optionsChg('shape')" value="linear" {{ yaxis.shape.linear }}>Linear</input>
-									<input type="radio" name="shape" onchange="optionsChg('shape')" value="spline" {{ yaxis.shape.smooth }}>Smooth</input>
+									<input type="radio" name="shape" onchange="optionsChg('shape')" value="spline" {{ yaxis.shape.spline }}>Smooth</input>
 								</div>	
 								<div>
 									<label>Line Type</label>
-									<select onchange="optionsChg('dash')">
+									<select name="dash" onchange="optionsChg('dash')">
 										<option value="solid" {{ yaxis.dash.solid }}>Solid</option>
 										<option value="dash" {{ yaxis.dash.dash }}>Dash</option>
 										<option value="dot" {{ yaxis.dash.dot }}>Dot</option>
