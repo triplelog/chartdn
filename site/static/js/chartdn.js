@@ -352,6 +352,7 @@ function columnsChg() {
 				noNames = true;
 			}
 			var qstring = 'td[data-col="'+yCols[i]+'"]';
+			console.log(qstring);
 			el.querySelector(qstring).style.backgroundColor = 'green';
 			
 		}
