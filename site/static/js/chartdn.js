@@ -545,7 +545,7 @@ function updateModifiedTable(data) {
 		  content: tcr,
 		  trigger: 'click',
 		  interactive: true,
-		  placement: left
+		  placement: "left"
 		});
 		newrow.appendChild(newcell);
 		
