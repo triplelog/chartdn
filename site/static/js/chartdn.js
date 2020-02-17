@@ -291,6 +291,17 @@ function createLineDiv(id,chg=false) {
 	}
 	newEl.querySelector('select[name=dash_id]').setAttribute('name','dash'+id);
 
+	if (options.lines) {
+		for (var i=0;i<options.lines.length;i++){
+			if (options.lines[i].id == id){
+				if (options.lines[i].name){
+					newEl.querySelector('input[name=lineName]').value = options.lines[i].name;
+				}
+			}
+		}
+	}
+	
+	
 	
 	newEl = document.createElement('option');
 	newEl.value = id;

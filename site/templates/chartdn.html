@@ -560,7 +560,10 @@
     </div>	
       	
   </div>
-  <script>var modifiers = {{ modifiers | dump | safe if modifiers else '[]'  }}; var username = "{{ username }}"; var chartid = "{{ chartid }}"; var dataid = "{{ dataid }}"; var chartidtemp = "{{ chartidtemp }}";</script>
+  <script>
+  	var options = {{ options | dump | safe if options else '{}'  }};
+  	var modifiers = options.modifiers || [];
+  	var username = "{{ username }}"; var chartid = "{{ chartid }}"; var dataid = "{{ dataid }}"; var chartidtemp = "{{ chartidtemp }}";</script>
   <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
   <script src="../js/upload.js"></script>
   <script src="../js/dragula.min.js"></script>
