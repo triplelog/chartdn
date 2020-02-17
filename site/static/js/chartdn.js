@@ -1678,7 +1678,6 @@ function createNew(obj) {
 	//Update Names
 	//Add EventListeners
 
-	newM.appendChild(newB);
 	
 	document.getElementById('modifyDataBox').appendChild(newM);
 	//createNewColumnBox(obj.id);
