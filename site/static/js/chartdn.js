@@ -1684,7 +1684,7 @@ function createNew(obj) {
 	//createNewColumnBox(obj.id);
 }
 
-function createNew-Old(obj) {
+function createNew_Old(obj) {
 	var newEl = document.createElement('div');
 	newEl.setAttribute('data-id',obj.type);
 	newEl.textContent = obj.name;
