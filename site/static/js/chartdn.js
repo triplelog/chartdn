@@ -1678,9 +1678,6 @@ function createNew(obj) {
 	parentEl.querySelector('#edit_id').id = 'edit'+obj.id;
 	
 	//Update Names
-	name=row_id,rowstart_id,rowend_id
-	id=newcolVar_id,value_id,group_id
-	id,for =currentRow,previousRow,nextRow,equalRow -- start, end (not current)
 	var names = ['row','rowstart','rowend'];
 	var ids = ['newcolVar','value','group'];
 	var idfors = ['currentRow','previousRow','nextRow','equalRow'];
