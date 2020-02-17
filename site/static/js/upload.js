@@ -54,6 +54,7 @@ function fullCompression(to_compress) {
 		var mybase64 = this.result;
 		var index = mybase64.indexOf('base64,');
 		var csvindex = mybase64.substring(0,index).indexOf('text/csv');
+		console.log(mybase64.substring(0,index));
 		mybase64 = mybase64.substring(index+7);
 		if (csvindex>-1){
 

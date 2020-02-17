@@ -219,11 +219,19 @@ function urlChg(url) {
 	if (delimiter.toLowerCase() == 'auto'){delimiter = '';}
 	
 	var jsonmessage = {'operation':'download','message':url,'delimiter':delimiter};
-	if (url.indexOf('.csv') == url.length-4){
+	if (url.indexOf('.csv') == url.length-4 || url.indexOf('.tsv') == url.length-4){
 	
 	}
-	else {
+	else if (url.indexOf('.xls') == url.length-4){
 		jsonmessage.type = 'xls';
+	}
+	else if (url.indexOf('.xlsx') == url.length-5){
+		jsonmessage.type = 'xlsx';
+	}
+	else {
+		alert('URL must be csv, tsv, xls, or xlsx');
+		return;
+		
 	}
 	ws.send(JSON.stringify(jsonmessage));
 }

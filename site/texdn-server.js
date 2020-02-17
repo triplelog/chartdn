@@ -188,15 +188,15 @@ wss.on('connection', function connection(ws) {
 				var pakores = pako.inflate(binData,{to:'string'});
 				fstr = atob(pakores);
   			}
-  			else if (dm.type == 'xls'){
+  			else if (dm.type == 'xls' || dm.type == 'xlsx'){
 				fstr = dm.message;
   			}
   			
   			var d = new Date(); var n = d.getTime(); console.log('time4: ', n);
   			
-  			if (dm.type == 'xls'){
-  				fs.writeFile("saved/"+chartid+".xls", fstr, {encoding: 'base64'}, function(err) {
-  					var wget = 'in2csv saved/'+chartid+".xls > saved/"+chartid+".csv";
+  			if (dm.type == 'xls' || dm.type == 'xlsx'){
+  				fs.writeFile("saved/"+chartid+"."+dm.type, fstr, {encoding: 'base64'}, function(err) {
+  					var wget = 'in2csv saved/'+chartid+"."+dm.type+" > saved/"+chartid+".csv";
 					var child = exec(wget, function(err, stdout, stderr) {
 						if (err) throw err;
 						else {
@@ -247,15 +247,15 @@ wss.on('connection', function connection(ws) {
 					var pakores = pako.inflate(binData,{to:'string'});
 					fstr = atob(pakores);
 				}
-				else if (dm.type == 'xls'){
+				else if (dm.type == 'xls' || dm.type == 'xlsx'){
 					fstr = dm.message;
 				}
 			
 				var d = new Date(); var n = d.getTime(); console.log('time4: ', n);
 			
-				if (dm.type == 'xls'){
-					fs.writeFile("saved/"+chartid+".xls", fstr, {encoding: 'base64'}, function(err) {
-						var wget = 'in2csv saved/'+chartid+".xls > saved/"+chartid+".csv";
+				if (dm.type == 'xls' || dm.type == 'xlsx'){
+					fs.writeFile("saved/"+chartid+"."+dm.type, fstr, {encoding: 'base64'}, function(err) {
+						var wget = 'in2csv saved/'+chartid+"."+dm.type+" > saved/"+chartid+".csv";
 						var child = exec(wget, function(err, stdout, stderr) {
 							if (err) throw err;
 							else {
