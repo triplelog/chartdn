@@ -338,10 +338,7 @@ function columnsChg() {
 	
 	var yCols = yColsStr.split(',');
 	var el = document.getElementById('dataTableModified');
-	var ell = el.querySelectorAll('td[data-col]');
-	for (var i=0;i<ell.length;i++) {
-		ell[i].style.backgroundColor = 'inherit';
-	}
+
 	for (var i=0;i<yCols.length;i++){
 		if (!isNaN(parseInt(yCols[i]))){ 
 			yColumns.push(parseInt(yCols[i]));
@@ -351,9 +348,6 @@ function columnsChg() {
 			else {
 				noNames = true;
 			}
-			var qstring = 'td[data-col="'+parseInt(yCols[i])+'"]';
-			console.log(qstring);
-			el.querySelector(qstring).style.backgroundColor = 'green';
 			
 		}
 		
@@ -558,6 +552,12 @@ function updateModifiedTable(data) {
 				  trigger: 'click',
 				  interactive: true
 				});
+				for (var iii=0;iii<yCols.length;iii++){
+					if (parseInt(yCols[iii]) == ii){ 
+						newcell.style.backgroundColor = 'green';
+					}
+				}
+				
 			}
 			newrow.appendChild(newcell);
 		}
