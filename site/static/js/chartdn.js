@@ -1690,7 +1690,7 @@ function createNew(obj) {
 	for (var i=0;i<idfors.length;i++){
 		parentEl.querySelector('#'+idfors[i]+'_id').id=idfors[i]+obj.id;
 		parentEl.querySelector('label[for='+idfors[i]+'_id]').setAttribute('for',idfors[i]+obj.id);
-		if (idfors[i] != 'current'){
+		if (idfors[i] != 'currentRow'){
 			parentEl.querySelector('#'+idfors[i]+'start_id').id=idfors[i]+'start'+obj.id;
 			parentEl.querySelector('label[for='+idfors[i]+'start_id]').setAttribute('for',idfors[i]+'start'+obj.id);
 			parentEl.querySelector('#'+idfors[i]+'end_id').id=idfors[i]+'end'+obj.id;
