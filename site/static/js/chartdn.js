@@ -257,6 +257,7 @@ function headerChg() {
 	ws.send(JSON.stringify(jsonmessage));
 }
 function createLineDiv(id,chg=false) {
+
 	if (chg){
 		var el = document.getElementById('lineStyleMenu');
 		var qstring = 'option[value="'+id+'"]';
@@ -282,6 +283,7 @@ function createLineDiv(id,chg=false) {
 	var newEl = document.createElement('option');
 	newEl.value = id;
 	newEl.textContent = headers[id];
+	newEl.addEventListener('click',clickLineData);
 	
 	document.getElementById('lineStyleMenu').appendChild(newEl);
 	if (document.getElementById("yAxisFormatBox").children.length == 2){
@@ -523,6 +525,7 @@ function addColumn(t){
 		columnsChg();
 		document.getElementById('lineStyleMenu').value = id;
 		chgLineTab();
+		
 	}
 }
 var drake = dragula([document.getElementById('yAxisDataBox')], {
@@ -625,7 +628,16 @@ drake.on('remove', function (el, target, source) {
 		ell.parentNode.removeChild(ell);
 	}
 });
-
+drake.on('drag', function (el, target, source) { 
+	var elval = el.id.substring(5);
+	document.getElementById('lineStyleMenu').value = elval;
+	chgLineTab();
+});
+function clickLineData(evt) {
+	var elval = evt.target.id.substring(5);
+	document.getElementById('lineStyleMenu').value = elval;
+	chgLineTab();
+}
 
 
 
@@ -1145,6 +1157,14 @@ function createPivot(obj) {
 	  removeOnSpill: function (el, source) {
 		return true;
 	  }
+	});
+	drakeP.on('drop', function (el, target, source, sibling) { 
+		var type = el.getAttribute('data-type');
+		var col = el.getAttribute('data-col');
+	});
+	drakeP.on('remove', function (el, target, source, sibling) { 
+		var type = el.getAttribute('data-type');
+		var col = el.getAttribute('data-col');
 	});
 	
 	newB.appendChild(newD);
