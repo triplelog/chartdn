@@ -489,8 +489,7 @@ function typeChg() {
 	ws.send(JSON.stringify(jsonmessage));
 }
 
-function clickTable(evt) {
-	console.log(evt.target);
+function clickTable() {
 	
 }
 
