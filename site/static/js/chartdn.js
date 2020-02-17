@@ -1283,12 +1283,29 @@ function createReplace(obj) {
 		newM.querySelector('span[name=disable]').textContent = 'Disable';
 	}
 	
-	newM.querySelector('input[name=find]').addEventListener('change',updateModifier);
-	newM.querySelector('input[name=replace]').addEventListener('change',updateModifier);
-	newM.querySelector('input[name=case]').addEventListener('change',updateModifier);
-	newM.querySelector('input[name=numerical]').addEventListener('change',updateModifier);
-	newM.querySelector('input[name=full]').addEventListener('change',updateModifier);
-	newM.querySelector('select[name=column]').addEventListener('change',updateModifier);
+	var newMM = newM.querySelector('input[name=find]');
+	if (obj.options.find) {newMM.value = obj.options.find;}
+	newMM.addEventListener('change',updateModifier);
+	
+	newMM = newM.querySelector('input[name=replace]');
+	if (obj.options.replace) {newMM.value = obj.options.replace;}
+	newMM.addEventListener('change',updateModifier);
+	
+	newMM = newM.querySelector('input[name=case]');
+	if (obj.options.case) {newMM.checked = true;}
+	newMM.addEventListener('change',updateModifier);
+	
+	newMM = newM.querySelector('input[name=numerical]');
+	if (obj.options.numerical) {newMM.checked = true;}
+	newMM.addEventListener('change',updateModifier);
+	
+	newMM = newM.querySelector('input[name=full]');
+	if (obj.options.full) {newMM.checked = true;}
+	newMM.addEventListener('change',updateModifier);
+	
+	newMM = newM.querySelector('select[name=column]');
+	if (obj.options.column) {newMM.value = obj.options.column;}
+	newMM.addEventListener('change',updateModifier);
 	
 	
 
