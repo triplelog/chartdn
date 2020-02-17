@@ -708,7 +708,7 @@ function updateColumns(id='all') {
 					var objVar = modifiers[i].options.variables[ii];
 					var qstring = 'div[name='+ii+']';
 					var newEl = allVars.querySelector(qstring);
-					if (cols){
+					if (cols && objVar){
 						newEl.textContent = ii + ' := ' + objVar.type + ' of ' + cols[objVar.column];
 					}
 					var rowStr = toRowStr(objVar);
@@ -996,7 +996,7 @@ function updateModifier(evt){
 				}
 				else if (el.getAttribute('name')=='name'){
 					modifiers[i].name = el.value;
-					el.parentElement.parentElement.parentElement.parentElement.querySelector('span[name=title]').textContent = 'New Column: '+el.value;
+					el.parentElement.parentElement.parentElement.parentElement.querySelector('span[name=title]').textContent = el.value;
 				}
 				else if (evt.target.getAttribute('name')=='add'){
 					var ell = el.parentElement;
@@ -1663,13 +1663,47 @@ function toRowStr(objVar) {
 	return rowStr;
 }
 
+function fillNew(obj) {
+	var selectorEl = document.getElementById(obj.id);
+	var el = document.getElementById('edit'+obj.id);
+	selectorEl.textContent = obj.name;
+	if (!obj.enabled){
+		selectorEl.style.textDecoration = 'line-through';
+		el.querySelector('span[name=disable]').textContent = 'Enable';
+	}
+	else {
+		selectorEl.style.textDecoration = 'none';
+		el.querySelector('span[name=disable]').textContent = 'Disable';
+	}
+	
+	
+	el.querySelector('span[name=title]').textContent = obj.name;
+	el.querySelector('span[name=name]').value = obj.name;
+	
+	//formula
+	el.querySelector('textarea[name=formula]').value = obj.options.formula;
+	//dk: Katex it
+	
+	//Place blank allVariables
+	var allV = el.querySelector('#allVariables');
+	if (allV.children.length == 0){
+		for (var i in obj.options.variables){
+			var objVar = obj.options.variables[i];
+			var newEl = document.createElement('div');
+			newEl.setAttribute('name',i);
+			newEl.setAttribute('data-type','showVar');
+			newEl.addEventListener('click',updateModifier);
+			newEl.classList.add('hoverClick');
+			allV.appendChild(newEl);
+		}
+	}
+	
+}
 function createNew(obj) {
 	var newEl = document.createElement('div');
 	newEl.setAttribute('data-id',obj.type);
-	newEl.textContent = obj.name;
 	newEl.addEventListener('click',clickModifier);
 	newEl.classList.add('hoverClick');
-	if (!obj.enabled){newEl.style.textDecoration = 'line-through';}
 	newEl.id = obj.id;
 	document.getElementById('allModifiers').appendChild(newEl);
 		
@@ -1713,10 +1747,14 @@ function createNew(obj) {
 	
 	newM.querySelector('button[name=add]').addEventListener('click',updateModifier);
 	newM.querySelector('button[name=clear]').addEventListener('click',updateModifier);
-	
+	newM.querySelector('*[name=delete]').addEventListener('click',updateModifier);
+	newM.querySelector('*[name=disable]').addEventListener('click',updateModifier);
+	//Prefill variables, etc.
+	//Add event listener to header buttons
 	
 	
 	//createNewColumnBox(obj.id);
+	fillNew(obj);
 }
 
 function createNew_Old(obj) {
