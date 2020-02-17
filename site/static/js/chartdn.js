@@ -654,6 +654,7 @@ function updateColumns(id='all') {
 				var elval = el.value;
 				el.innerHTML = '';
 				var cols = allHeaders[modifiers[i].id];
+				console.log(cols);
 				for (var ii in cols){
 					var varOption = document.createElement('option');
 					varOption.value = parseInt(ii);
@@ -668,6 +669,7 @@ function updateColumns(id='all') {
 					var objVar = modifiers[i].options.variables[ii];
 					var qstring = 'div[name='+ii+']';
 					var newEl = allVars.querySelector(qstring);
+					console.log(objVar);
 					newEl.textContent = ii + ' := ' + objVar.type + ' of ' + cols[objVar.column];
 					var rowStr = toRowStr(objVar);
 					newEl.textContent += rowStr;
