@@ -635,6 +635,7 @@ drake.on('drag', function (el, target, source) {
 });
 function clickLineData(evt) {
 	var elval = evt.target.id.substring(5);
+	console.log(elval);
 	document.getElementById('lineStyleMenu').value = elval;
 	chgLineTab();
 }
