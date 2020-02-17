@@ -163,6 +163,7 @@ function updateHeaders(initialData,chg=false) {
 			columnsChg();
 			for (var i in skipRows){
 				var qstring = 'option[value="'+i+'"]';
+				console.log(qstring);
 				var ell = document.getElementById('lineStyleMenu').querySelector(qstring);
 				ell.parentNode.removeChild(ell);
 		
