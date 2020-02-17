@@ -848,6 +848,7 @@ function updateModifier(evt){
 						newEl.textContent = pType + ' of ' + allHeaders[modifiers[i].id][parseInt(column)];
 					}
 					newEl.addEventListener('click',updateModifier);
+					newEl.classList.add('hoverClick');
 					newEl.setAttribute('name','edit');
 					newEl.setAttribute('data-col',obj.column);
 					newEl.setAttribute('data-type',obj.type);
@@ -1013,6 +1014,7 @@ function updateModifier(evt){
 						newEl.setAttribute('name',name);
 						newEl.setAttribute('data-type','showVar');
 						newEl.addEventListener('click',updateModifier);
+						newEl.classList.add('hoverClick');
 						elll.appendChild(newEl);
 					}
 					updateColumns(modifiers[i].id);
@@ -1133,6 +1135,7 @@ function createPivot(obj) {
 	newEl.setAttribute('data-id',obj.type);
 	newEl.textContent = obj.name;
 	newEl.addEventListener('click',clickModifier);
+	newEl.classList.add('hoverClick');
 	if (!obj.enabled){newEl.style.textDecoration = 'line-through';}
 	newEl.id = obj.id;
 	document.getElementById('allModifiers').appendChild(newEl);
@@ -1167,6 +1170,7 @@ function createPivot(obj) {
 		var nDiv = document.createElement('div');
 		nDiv.textContent = obj.options.columns[i].type + ' of ' + i;
 		nDiv.addEventListener('click',updateModifier);
+		nDiv.classList.add('hoverClick');
 		nDiv.setAttribute('data-col',obj.options.columns[i].column);
 		nDiv.setAttribute('data-type',obj.options.columns[i].type );
 		nDiv.setAttribute('name','edit');
@@ -1213,10 +1217,12 @@ function createPivot(obj) {
 	}
 	newB.appendChild(newS);
 	
-	newS = document.createElement('a');
+	newS = document.createElement('button');
 	newS.setAttribute('name','add');
 	newS.textContent = 'Add';
 	newS.addEventListener('click',updateModifier);
+	newS.classList.add('pure-button');
+	newS.classList.add('pure-button-primary');
 	newB.appendChild(newS);
 	newM.appendChild(newB);
 	document.getElementById('modifyDataBox').appendChild(newM);
@@ -1228,6 +1234,7 @@ function createReplace(obj) {
 	newEl.setAttribute('data-id',obj.type);
 	newEl.textContent = obj.name;
 	newEl.addEventListener('click',clickModifier);
+	newEl.classList.add('hoverClick');
 	if (!obj.enabled){newEl.style.textDecoration = 'line-through';}
 	newEl.id = obj.id;
 	document.getElementById('allModifiers').appendChild(newEl);
@@ -1289,6 +1296,7 @@ function createSort(obj) {
 	newEl.setAttribute('data-id',obj.type);
 	newEl.textContent = obj.name;
 	newEl.addEventListener('click',clickModifier);
+	newEl.classList.add('hoverClick');
 	if (!obj.enabled){newEl.style.textDecoration = 'line-through';}
 	newEl.id = obj.id;
 	document.getElementById('allModifiers').appendChild(newEl);
@@ -1592,16 +1600,20 @@ function createNewColumnBox(id) {
 	groupDiv.style.display = 'none';
 	varDiv.appendChild(groupDiv);
 	
-	var varB = document.createElement('a');
+	var varB = document.createElement('button');
 	varB.setAttribute('name','add');
 	varB.textContent = 'Add';
 	varB.addEventListener('click',updateModifier);
+	varB.classList.add('pure-button');
+	varB.classList.add('pure-button-primary');
 	varDiv.appendChild(varB);
 	
-	varB = document.createElement('a');
+	varB = document.createElement('button');
 	varB.setAttribute('name','clear');
 	varB.textContent = 'Clear';
 	varB.addEventListener('click',updateModifier);
+	varB.classList.add('pure-button');
+	varB.classList.add('pure-button-primary');
 	varDiv.appendChild(varB);
 }
 
@@ -1631,6 +1643,7 @@ function createNew(obj) {
 	newEl.setAttribute('data-id',obj.type);
 	newEl.textContent = obj.name;
 	newEl.addEventListener('click',clickModifier);
+	newEl.classList.add('hoverClick');
 	if (!obj.enabled){newEl.style.textDecoration = 'line-through';}
 	newEl.id = obj.id;
 	document.getElementById('allModifiers').appendChild(newEl);
@@ -1703,6 +1716,7 @@ function createNew(obj) {
 		newEl.setAttribute('name',i);
 		newEl.setAttribute('data-type','showVar');
 		newEl.addEventListener('click',updateModifier);
+		newEl.classList.add('hoverClick');
 		newD.appendChild(newEl);
 	}
 	newBBB.appendChild(newD);
