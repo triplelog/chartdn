@@ -112,6 +112,7 @@ function updateHeaders(initialData,chg=false) {
 				newColumn.id = 'colId'+yColsVals[yid];
 				newColumn.style.display = 'block';
 				newColumn.addEventListener('click',clickLineData);
+				newColumn.classList.add('hoverClick');
 				document.getElementById('yAxisDataBox').appendChild(newColumn);
 			}
 			chgLineTab();
@@ -149,6 +150,7 @@ function updateHeaders(initialData,chg=false) {
 					newColumn.id = 'colId'+yColsVals[yid];
 					newColumn.style.display = 'block';
 					newColumn.addEventListener('click',clickLineData);
+					newColumn.classList.add('hoverClick');
 					document.getElementById('yAxisDataBox').appendChild(newColumn);
 				}
 				else {
@@ -301,9 +303,8 @@ function createLineDiv(id,chg=false) {
 	var newEl = document.createElement('option');
 	newEl.value = id;
 	newEl.textContent = headers[id];
-	
-	
 	document.getElementById('lineStyleMenu').appendChild(newEl);
+	
 	if (document.getElementById("yAxisFormatBox").children.length == 2){
 		document.getElementById('lineStyleMenu').value = id;
 	}
@@ -1938,13 +1939,13 @@ function showMoreOptions(collapse=false) {
 	var el = document.getElementById('showMoreOptions');
 	if (collapse){
 		el.style.display = 'none';
-		el.parentNode.querySelector('a[name=showMore]').textContent = 'Show More Options';
-		el.parentNode.querySelector('a[name=showMore]').setAttribute('onclick','showMoreOptions(false)');
+		el.parentNode.querySelector('button[name=showMore]').textContent = 'Show More Options';
+		el.parentNode.querySelector('button[name=showMore]').setAttribute('onclick','showMoreOptions(false)');
 	}
 	else {
 		el.style.display = 'block';
-		el.parentNode.querySelector('a[name=showMore]').textContent = 'Hide More Options';
-		el.parentNode.querySelector('a[name=showMore]').setAttribute('onclick','showMoreOptions(true)');
+		el.parentNode.querySelector('button[name=showMore]').textContent = 'Hide Options';
+		el.parentNode.querySelector('button[name=showMore]').setAttribute('onclick','showMoreOptions(true)');
 	}
 }
 

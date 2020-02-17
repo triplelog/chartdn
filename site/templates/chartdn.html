@@ -144,7 +144,7 @@
 							<div id="allModifiers" style="max-height: 20rem; overflow: auto;">
 							</div>
 							<div>
-								<button onclick="createNewModifier(true)" class="pure-button pure-button-primary button-small"><i class="fas fa-plus-square"></i> New</button>
+								<button onclick="createNewModifier(true)" class="pure-button pure-button-primary"><i class="fas fa-plus-square"></i> New</button>
 								<select onchange="createNewModifier();" id="createModifyMenu" style="display:none;">
 									<option value=""></option>
 									<option value="new">New Column</option>
@@ -206,7 +206,7 @@
 							</div>
 							<div class="box-form">
 								Data: <select id="xColumnSelect" onchange="addColumn('x')"></select>
-								<div><button onclick="showMoreOptions()" class="pure-button pure-button-primary button-small" name="showMore">Show More Options</button></div>
+								<div><button onclick="showMoreOptions()" class="pure-button pure-button-secondary" name="showMore">Show More Options</button></div>
 								<div id="showMoreOptions" style="display: none;">
 									<div>
 										<label for="xaxistitle">Title</label>
@@ -292,7 +292,7 @@
 							</div>
 							<div class="box-form" id="yAxisDataBox2">
 								Add Column: <select id="yColumnSelect">
-								</select><button onclick="addColumn('y')" class="pure-button pure-button-primary button-small"><i class="fas fa-plus-square"></i>Submit</button>
+								</select> <button onclick="addColumn('y')" class="pure-button pure-button-primary">Submit</button>
 							</div>
 							<div class="box-header2" id="yAxisFormatBoxH">
 								Format
