@@ -160,8 +160,8 @@
 						<div class="l-box pure-u-2-3" id="edit_id" style="display: block;">
 							<div class="box-header2">
 								<span name="description">New Column: </span><span name='title'>ignore</span>
-								<span name="delete" class="box-buttons"><i class="fas fa-trash"></i></span>
-								<span name="disable" class="box-buttons">Disable</span>
+								<span name="delete" class="box-buttons hoverClick"><i class="fas fa-trash"></i></span>
+								<span name="disable" class="box-buttons hoverClick">Disable</span>
 							</div>
 							<div class="box-form">
 								<div class="pure-g">
@@ -187,7 +187,6 @@
 											</select>
 											<span> of </span>
 											<select name="column" id="newcolVar_id">
-												<option value="0" selected="selected">0.0</option>
 											</select>
 											<div id="value_id">
 												<div>
@@ -258,6 +257,19 @@
 										</div>
 									</div>
 								</div>
+							</div>
+						</div>
+					</template>
+					<template id="sort-template">
+						<div class="l-box pure-u-2-3" id="edit_id" style="display: block;">
+							<div class="box-header2"><input type="text" value="Sort by ...">
+								<span name="delete" class="box-buttons"><i class="fas fa-trash"></i></span>
+								<span name="disable" class="box-buttons">Disable</span>
+							</div>
+							<div class="box-form">
+								<select name="column" id="sortcol_id">
+								</select>
+								<input type="checkbox" name="descending">
 							</div>
 						</div>
 					</template>

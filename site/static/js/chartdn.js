@@ -1314,8 +1314,8 @@ function createReplace(obj) {
 	document.getElementById('modifyDataBox').appendChild(newM);
 }
 
-function createSort(obj) {
 
+function createSort(obj) {
 	var newEl = document.createElement('div');
 	newEl.setAttribute('data-id',obj.type);
 	newEl.textContent = obj.name;
@@ -1325,321 +1325,35 @@ function createSort(obj) {
 	newEl.id = obj.id;
 	document.getElementById('allModifiers').appendChild(newEl);
 		
-	var newM = document.createElement('div');
-	newM.classList.add('l-box');
-	newM.classList.add('pure-u-2-3');
+	let template = document.getElementById('sort-template');
+	let tc = template.content.cloneNode(true);
+	let parentEl = document.getElementById('modifyDataBox');
+	parentEl.appendChild(tc);
+	var newM = parentEl.querySelector('#edit_id');
 	newM.id = 'edit'+obj.id;
-	newM.style.display = 'none';
 	
-	var newH = document.createElement('div');
-	newH.classList.add('box-header2');
-	var newI = document.createElement('input');
-	newI.setAttribute('type','text');
-	newI.setAttribute('value','Sort by ...');
-	newH.appendChild(newI);
-	createMButtons(newH,obj.enabled);
-	newM.appendChild(newH);
-						
-	var newB = document.createElement('div');
-	newB.classList.add('box-form');
-	newI = document.createElement('select');
-	newI.setAttribute('name','column');
+	var newI = newM.querySelector('#sortcol_id');
 	newI.id = 'sortcol'+obj.id;
 	newI.addEventListener('change',updateModifier);
-	newB.appendChild(newI);
-	newI = document.createElement('input');
-	newI.setAttribute('type','checkbox');
+	
+	newI = newM.querySelector('input[name=descending]');
+	newI.addEventListener('change',updateModifier);
 	if (!obj.options.ascending){
 		newI.setAttribute('checked','checked');
 	}
-	newI.setAttribute('name','descending');
-	newI.addEventListener('change',updateModifier);
-	newB.appendChild(newI);
 	
-	newM.appendChild(newB);
-	document.getElementById('modifyDataBox').appendChild(newM);
+	newM.querySelector('*[name=delete]').addEventListener('click',updateModifier);
+	newM.querySelector('*[name=disable]').addEventListener('click',updateModifier);
+	
+	if (!obj.enabled){
+		newM.querySelector('span[name=disable]').textContent = 'Enable';
+	}
+	else {
+		newM.querySelector('span[name=disable]').textContent = 'Disable';
+	}
+
 }
 
-// New Columns stuff
-function createNewColumnBox(id) {
-	var el = document.getElementById('edit'+id);
-	var varDiv = el.querySelector('#newVariables');
-	var varName = document.createElement('input');
-	varName.setAttribute('type','text');
-	varName.setAttribute('name','name');
-	varDiv.appendChild(varName);
-	
-	var span1 = document.createElement('span');
-	span1.textContent = ' := ';
-	varDiv.appendChild(span1);
-	
-	var varValue = document.createElement('select');
-	varValue.setAttribute('name','type');
-	var valueOptions = ['value','mean','median','max','min','sum','stdev','count'];
-	for (var i=0;i<valueOptions.length;i++){
-		var varOption = document.createElement('option');
-		varOption.value = valueOptions[i];
-		varOption.textContent = valueOptions[i];
-		varValue.appendChild(varOption);
-	}
-	varValue.addEventListener('change',updateModifier);
-	varDiv.appendChild(varValue);
-	
-	var span2 = document.createElement('span');
-	span2.textContent = ' of ';
-	varDiv.appendChild(span2);
-	
-	var varColumn = document.createElement('select');
-	varColumn.setAttribute('name','column');
-	varColumn.id = 'newcolVar'+id;
-	
-	var valueOptions = [0,1,2];
-	for (var i=0;i<valueOptions.length;i++){
-		var varOption = document.createElement('option');
-		varOption.value = valueOptions[i];
-		varOption.textContent = 'Column '+valueOptions[i];
-		varColumn.appendChild(varOption);
-	}
-	varDiv.appendChild(varColumn);
-	
-	var valueDiv = document.createElement('div');
-	valueDiv.id = 'value'+id;
-	var newDiv = document.createElement('div');
-		
-		var varR = document.createElement('input');
-		varR.setAttribute('type','radio');
-		varR.setAttribute('name','row'+id);
-		varR.setAttribute('checked','checked');
-		varR.setAttribute('value','current');
-		varR.id = 'currentRow'+id;
-			
-		var varRL = document.createElement('label');
-		varRL.textContent = 'Current Row';
-		varRL.setAttribute('for','currentRow'+id);
-			
-		newDiv.appendChild(varR);
-		newDiv.appendChild(varRL);
-	valueDiv.appendChild(newDiv);
-	newDiv = document.createElement('div');
-		var varR = document.createElement('input');
-		varR.setAttribute('type','radio');
-		varR.setAttribute('name','row'+id);
-		varR.setAttribute('value','previous');
-		varR.id = 'previousRow'+id;
-		
-		var varRL = document.createElement('label');
-		var varRN = document.createElement('input');
-		varRN.setAttribute('type','number');
-		varRN.setAttribute('name','prevn');
-		varRN.setAttribute('value','1');
-		varRN.style.width = '4rem';
-		varRL.appendChild(varRN);
-		var varRS = document.createElement('span');
-		varRS.textContent = ' Row Before';
-		varRL.appendChild(varRS);
-		varRL.setAttribute('for','previousRow'+id);
-		
-		newDiv.appendChild(varR);
-		newDiv.appendChild(varRL);
-	valueDiv.appendChild(newDiv);
-	newDiv = document.createElement('div');
-		
-		var varR = document.createElement('input');
-		varR.setAttribute('type','radio');
-		varR.setAttribute('name','row'+id);
-		varR.setAttribute('value','next');
-		varR.id = 'nextRow'+id;
-		
-		var varRL = document.createElement('label');
-		var varRN = document.createElement('input');
-		varRN.setAttribute('type','number');
-		varRN.setAttribute('name','aftern');
-		varRN.setAttribute('value','1');
-		varRN.style.width = '4rem';
-		varRL.appendChild(varRN);
-		var varRS = document.createElement('span');
-		varRS.textContent = ' Row After';
-		varRL.appendChild(varRS);
-		varRL.setAttribute('for','nextRow'+id);
-		
-		newDiv.appendChild(varR);
-		newDiv.appendChild(varRL);
-	valueDiv.appendChild(newDiv);
-	newDiv = document.createElement('div');
-		
-		var varR = document.createElement('input');
-		varR.setAttribute('type','radio');
-		varR.setAttribute('name','row'+id);
-		varR.setAttribute('value','equal');
-		varR.id = 'equalRow'+id;
-		
-		var varRL = document.createElement('label');
-		var varRI = document.createElement('input');
-		varRI.setAttribute('type','text');
-		varRI.setAttribute('name','equalrow');
-		varRL.textContent = 'Row = ';
-		varRL.appendChild(varRI);
-		varRL.setAttribute('for','equalRow'+id);
-		
-		newDiv.appendChild(varR);
-		newDiv.appendChild(varRL);
-	valueDiv.appendChild(newDiv);
-	varDiv.appendChild(valueDiv);
-	
-	var groupDiv = document.createElement('div');
-	groupDiv.id = 'group'+id;
-	var newDiv = document.createElement('div');
-		
-		var varR = document.createElement('input');
-		varR.setAttribute('type','radio');
-		varR.setAttribute('name','rowstart'+id);
-		varR.setAttribute('value','equal');
-		varR.setAttribute('checked','checked');
-		varR.id = 'equalRowstart'+id;
-		
-		var varRL = document.createElement('label');
-		var varRI = document.createElement('input');
-		varRI.setAttribute('type','text');
-		varRI.setAttribute('name','equalrowstart');
-		varRI.setAttribute('value','0');
-		varRL.textContent = 'From Row = ';
-		varRL.appendChild(varRI);
-		varRL.setAttribute('for','equalRowstart'+id);
-		
-		newDiv.appendChild(varR);
-		newDiv.appendChild(varRL);
-	groupDiv.appendChild(newDiv);
-	newDiv = document.createElement('div');
-		var varR = document.createElement('input');
-		varR.setAttribute('type','radio');
-		varR.setAttribute('name','rowstart'+id);
-		varR.setAttribute('value','previous');
-		varR.id = 'previousRowstart'+id;
-		
-		var varRL = document.createElement('label');
-		var varRN = document.createElement('input');
-		varRN.setAttribute('type','number');
-		varRN.setAttribute('name','prevnstart');
-		varRN.setAttribute('value','1');
-		varRN.style.width = '4rem';
-		varRL.appendChild(varRN);
-		var varRS = document.createElement('span');
-		varRS.textContent = ' Row Before';
-		varRL.appendChild(varRS);
-		varRL.setAttribute('for','previousRowstart'+id);
-		
-		newDiv.appendChild(varR);
-		newDiv.appendChild(varRL);
-	groupDiv.appendChild(newDiv);
-	newDiv = document.createElement('div');
-		
-		var varR = document.createElement('input');
-		varR.setAttribute('type','radio');
-		varR.setAttribute('name','rowstart'+id);
-		varR.setAttribute('value','next');
-		varR.id = 'nextRowstart'+id;
-		
-		var varRL = document.createElement('label');
-		var varRN = document.createElement('input');
-		varRN.setAttribute('type','number');
-		varRN.setAttribute('name','afternstart');
-		varRN.setAttribute('value','0');
-		varRN.style.width = '4rem';
-		varRL.appendChild(varRN);
-		var varRS = document.createElement('span');
-		varRS.textContent = ' Row After';
-		varRL.appendChild(varRS);
-		varRL.setAttribute('for','nextRowstart'+id);
-		
-		newDiv.appendChild(varR);
-		newDiv.appendChild(varRL);
-	groupDiv.appendChild(newDiv);
-	
-	newDiv = document.createElement('div');
-		
-		var varR = document.createElement('input');
-		varR.setAttribute('type','radio');
-		varR.setAttribute('name','rowend'+id);
-		varR.setAttribute('value','equal');
-		varR.setAttribute('checked','checked');
-		varR.id = 'equalRowend'+id;
-		
-		var varRL = document.createElement('label');
-		var varRI = document.createElement('input');
-		varRI.setAttribute('type','text');
-		varRI.setAttribute('name','equalrowend');
-		varRI.setAttribute('value','-1');
-		varRL.textContent = 'To Row = ';
-		varRL.appendChild(varRI);
-		varRL.setAttribute('for','equalRowend'+id);
-		
-		newDiv.appendChild(varR);
-		newDiv.appendChild(varRL);
-	groupDiv.appendChild(newDiv);
-	newDiv = document.createElement('div');
-		var varR = document.createElement('input');
-		varR.setAttribute('type','radio');
-		varR.setAttribute('name','rowend'+id);
-		varR.setAttribute('value','previous');
-		varR.id = 'previousRowend'+id;
-		
-		var varRL = document.createElement('label');
-		var varRN = document.createElement('input');
-		varRN.setAttribute('type','number');
-		varRN.setAttribute('name','prevnend');
-		varRN.setAttribute('value','1');
-		varRN.style.width = '4rem';
-		varRL.appendChild(varRN);
-		var varRS = document.createElement('span');
-		varRS.textContent = ' Row Before';
-		varRL.appendChild(varRS);
-		varRL.setAttribute('for','previousRowend'+id);
-		
-		newDiv.appendChild(varR);
-		newDiv.appendChild(varRL);
-	groupDiv.appendChild(newDiv);
-	newDiv = document.createElement('div');
-		
-		var varR = document.createElement('input');
-		varR.setAttribute('type','radio');
-		varR.setAttribute('name','rowend'+id);
-		varR.setAttribute('value','next');
-		varR.id = 'nextRowend'+id;
-		
-		var varRL = document.createElement('label');
-		var varRN = document.createElement('input');
-		varRN.setAttribute('type','number');
-		varRN.setAttribute('name','afternend');
-		varRN.setAttribute('value','0');
-		varRN.style.width = '4rem';
-		varRL.appendChild(varRN);
-		var varRS = document.createElement('span');
-		varRS.textContent = ' Row After';
-		varRL.appendChild(varRS);
-		varRL.setAttribute('for','nextRowend'+id);
-		
-		newDiv.appendChild(varR);
-		newDiv.appendChild(varRL);
-	groupDiv.appendChild(newDiv);
-	groupDiv.style.display = 'none';
-	varDiv.appendChild(groupDiv);
-	
-	var varB = document.createElement('button');
-	varB.setAttribute('name','add');
-	varB.textContent = 'Add';
-	varB.addEventListener('click',updateModifier);
-	varB.classList.add('pure-button');
-	varB.classList.add('pure-button-primary');
-	varDiv.appendChild(varB);
-	
-	varB = document.createElement('button');
-	varB.setAttribute('name','clear');
-	varB.textContent = 'Clear';
-	varB.addEventListener('click',updateModifier);
-	varB.classList.add('pure-button');
-	varB.classList.add('pure-button-primary');
-	varDiv.appendChild(varB);
-}
 
 function toRowStr(objVar) {
 	var rowStr = '';
@@ -1761,102 +1475,6 @@ function createNew(obj) {
 	//createNewColumnBox(obj.id);
 	fillNew(obj);
 }
-
-function createNew_Old(obj) {
-	var newEl = document.createElement('div');
-	newEl.setAttribute('data-id',obj.type);
-	newEl.textContent = obj.name;
-	newEl.addEventListener('click',clickModifier);
-	newEl.classList.add('hoverClick');
-	if (!obj.enabled){newEl.style.textDecoration = 'line-through';}
-	newEl.id = obj.id;
-	document.getElementById('allModifiers').appendChild(newEl);
-		
-	var newM = document.createElement('div');
-	newM.classList.add('l-box');
-	newM.classList.add('pure-u-2-3');
-	newM.id = 'edit'+obj.id;
-	newM.style.display = 'none';
-	
-	var newH = document.createElement('div');
-	newH.classList.add('box-header2');
-	var newT = document.createElement('span');
-	newT.textContent = 'New Column: ' + obj.name;
-	newT.setAttribute('name','title');
-	newH.appendChild(newT);
-	createMButtons(newH,obj.enabled);
-	
-	newM.appendChild(newH);
-	
-	var ideal = `<div class="box-form">
-		Formula: <textarea rows="1" cols="40"></textarea><br />
-		<!--Katex of Formula-->
-		Variables: <div id="newVariables"></div>
-	</div>`;
-
-						
-	var newB = document.createElement('div');
-	newB.classList.add('box-form');
-	var newBB = document.createElement('div');
-	newBB.classList.add('pure-g');
-	
-	var newBBB = document.createElement('div');
-	newBBB.classList.add('pure-u-1-3');
-	
-	var newI = document.createElement('input');
-	newI.setAttribute('type','text');
-	newI.setAttribute('name','name');
-	newI.setAttribute('value',obj.name);
-	newI.addEventListener('change',updateModifier);
-	newBBB.appendChild(newI);
-	
-	newI = document.createElement('textarea');
-	newI.setAttribute('rows','1');
-	newI.setAttribute('cols','30');
-	newI.style.zIndex = '2';
-	newI.setAttribute('name','formula');
-	newI.value = obj.options.formula;
-	newI.addEventListener('change',updateModifier);
-	newBBB.appendChild(newI);
-	newI = document.createElement('div');
-	newI.setAttribute('name','katex');
-	katex.render(obj.options.formula, newI, {
-		throwOnError: false
-	});
-	newBBB.appendChild(newI);
-	newBB.appendChild(newBBB);
-	
-
-	
-	newBBB = document.createElement('div');
-	newBBB.classList.add('pure-u-2-3');
-	var newD = document.createElement('div');
-	newD.id = 'allVariables';
-	for (var i in obj.options.variables){
-		var objVar = obj.options.variables[i];
-		var newEl = document.createElement('div');
-		
-		
-		newEl.setAttribute('name',i);
-		newEl.setAttribute('data-type','showVar');
-		newEl.addEventListener('click',updateModifier);
-		newEl.classList.add('hoverClick');
-		newD.appendChild(newEl);
-	}
-	newBBB.appendChild(newD);
-	
-	newD = document.createElement('div');
-	newD.id = 'newVariables';
-	newBBB.appendChild(newD);
-	newBB.appendChild(newBBB);
-	
-	newB.appendChild(newBB);
-	newM.appendChild(newB);
-	
-	document.getElementById('modifyDataBox').appendChild(newM);
-	createNewColumnBox(obj.id);
-}
-
 function createIgnore(obj) {
 	createNew(obj);
 }
