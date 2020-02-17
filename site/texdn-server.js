@@ -517,7 +517,7 @@ loginApp.get('/edit/:chartid',
 							if (err){
 							
 							}
-							else {
+							else { //Fork chart data and options
 								dataname = result.data;
 								myOptions = result.options;
 								var newchart = new Chart({id:chartid,data:result.data,options:result.options,user:username});
@@ -551,6 +551,10 @@ loginApp.get('/edit/:chartid',
 										savedData['type']='line';
 										chartType[savedData['type']]='selected="selected"';
 									}
+									var xaxis = {};
+									if (savedData.labels && savedData.labels.x){
+										xaxis.title = savedData.labels.x;
+									}
 									res.write(nunjucks.render('chartdn.html',{
 										chartScript: '',
 										dataAreaText: defaultData,
@@ -558,6 +562,7 @@ loginApp.get('/edit/:chartid',
 										isChecked: chartType,
 										modifiers: savedData.modifiers || [],
 										title: savedData.title || '',
+										xaxis: xaxis, 
 										xColumn: savedData.xColumn || '',
 										yColumns: savedData.yColumns || '',
 										username: username || '',
@@ -583,7 +588,7 @@ loginApp.get('/edit/:chartid',
 						return 0;
 					}
 				  } 
-				  else {
+				  else { //Load chart data and options
 					dataname = result.data;
 					myOptions = result.options;
 					if (result.user == '' || result.user == username){
@@ -599,6 +604,10 @@ loginApp.get('/edit/:chartid',
 								savedData['type']='line';
 								chartType[savedData['type']]='selected="selected"';
 							}
+							var xaxis = {};
+							if (savedData.labels && savedData.labels.x){
+								xaxis.title = savedData.labels.x;
+							}
 							res.write(nunjucks.render('chartdn.html',{
 								chartScript: '',
 								dataAreaText: defaultData,
@@ -606,6 +615,7 @@ loginApp.get('/edit/:chartid',
 								isChecked: chartType,
 								modifiers: savedData.modifiers || [],
 								title: savedData.title || '',
+								xaxis: xaxis,
 								xColumn: savedData.xColumn || '',
 								yColumns: savedData.yColumns || '',
 								username: username || '',
