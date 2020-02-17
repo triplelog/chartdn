@@ -351,15 +351,18 @@ function columnsChg() {
 			else {
 				noNames = true;
 			}
-			var qstring = 'td[data-col="'+yCols[i]+'"]';
+			var qstring = 'td[data-col="'+parseInt(yCols[i])+'"]';
 			console.log(qstring);
 			el.querySelector(qstring).style.backgroundColor = 'green';
 			
 		}
 		
 	}
-	el.querySelector('td[data-col='+xColumn+']').style.backgroundColor = 'blue';
-	if (!isNaN(parseInt(xColStr))){ xColumn = parseInt(xColStr);}
+	
+	if (!isNaN(parseInt(xColStr))){ 
+		xColumn = parseInt(xColStr);
+		el.querySelector('td[data-col="'+xColumn+'"]').style.backgroundColor = 'blue';
+	}
 	
 	
 	var jsonmessage = {'operation':'options','yColumns':yColumns,'xColumn':xColumn};
