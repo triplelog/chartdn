@@ -211,18 +211,23 @@
 							<div class="box-form">
 								Data: <select id="xColumnSelect" onchange="addColumn('x')"></select>
 								<div><a onclick="showMoreOptions()">Show More Options</a></div>
-								<form class="pure-form pure-form-aligned" id="showMoreOptions">
-									<label for="xaxistitle">Title</label>
-									<input type="text" id="xaxistitle" name="xaxistitle" onchange="optionsChg('xaxistitle')" placeholder="notitle"/>
-									
-									<label for="scaleX">Scale</label>
-									<input type="text" id="scaleX" name="scaleX" onchange="optionsChg('scaleX')" placeholder="default"/>
-									
-									<label for="dataType">Data Type</label><select id="dataType"></select>
+								<div id="showMoreOptions">
+									<div>
+										<label for="xaxistitle">Title</label>
+										<input type="text" id="xaxistitle" name="xaxistitle" onchange="optionsChg('xaxistitle')" placeholder="notitle"/>
+									</div>
+									<div>
+										<label for="scaleX">Scale</label>
+										<input type="text" id="scaleX" name="scaleX" onchange="optionsChg('scaleX')" placeholder="default"/>
+									</div>
+									<div>
+										<label for="dataType">Data Type</label>
+										<select id="dataType"></select>
+									</div>
 									Step Size:<input type="text" name="stepSizeX" onchange="optionsChg('stepSizeX')" placeholder="default"/>
 									Domain:<input type="text" name="domain" onchange="optionsChg('domain')" placeholder="default"/>
 									Format:<input type="text" name="format" onchange="optionsChg('format')" placeholder="default"/>
-								</form>
+								</div>
 							</div>
 						</div>
 						
