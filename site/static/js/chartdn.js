@@ -1272,13 +1272,6 @@ function createReplace(obj) {
 	
 	var newI = newM.querySelector('#replace_id');
 	newI.id = 'replace'+obj.id;
-	newI.addEventListener('change',updateModifier);
-	
-	newI = newM.querySelector('input[name=descending]');
-	newI.addEventListener('change',updateModifier);
-	if (!obj.options.ascending){
-		newI.setAttribute('checked','checked');
-	}
 	
 	newM.querySelector('*[name=delete]').addEventListener('click',updateModifier);
 	newM.querySelector('*[name=disable]').addEventListener('click',updateModifier);
