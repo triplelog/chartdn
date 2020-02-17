@@ -433,6 +433,10 @@ function typeChg() {
 	ws.send(JSON.stringify(jsonmessage));
 }
 
+function clickTable() {
+
+}
+
 function updateModifiedTable(data) {
 	var dataTable = document.getElementById("dataTableModified");
 	dataTable.style.display = 'inline-block';
@@ -446,10 +450,16 @@ function updateModifiedTable(data) {
 		if (i < nHeaders) {
 			newrow.classList.add('headerrow');
 		}
+		
+		var newcell = document.createElement('td');
+		if (i < nHeaders){newcell.textContent = 'Row';}
+		else {newcell.textContent = i - nHeaders;}
+		newrow.appendChild(newcell);
+		
 		for (var ii=0;ii<data[i].length;ii++){
 			var newcell = document.createElement('td');
 			newcell.textContent = data[i][ii];
-			newrow.appendChild(newcell);
+			
 			if (i==0){
 				if (nHeaders > 0) {
 					headers.push(data[i][ii]);
@@ -457,7 +467,10 @@ function updateModifiedTable(data) {
 				else {
 					headers.push(getOrdinal(ii+1));
 				}
+				newcell.setAttribute('data-col',ii);
+				newcell.addEventListener('click',clickTable);
 			}
+			newrow.appendChild(newcell);
 		}
 		dataTable.appendChild(newrow);
 		
