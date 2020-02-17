@@ -1699,13 +1699,12 @@ function createNew(obj) {
 	}
 	//Add EventListeners
 	names = ['name','formula','type'];
-	for (var i=0;i<names.length;i++){
-		parentEl.querySelector('*[name='+names[i]+'').addEventListener('change',updateModifier);
-	}
-	names = ['add','clear'];
-	for (var i=0;i<names.length;i++){
-		parentEl.querySelector('*[name='+names[i]+'').addEventListener('click',updateModifier);
-	}
+	parentEl.querySelector('input[name=name]').addEventListener('change',updateModifier);
+	parentEl.querySelector('input[name=formula]').addEventListener('change',updateModifier);
+	parentEl.querySelector('select[name=type]').addEventListener('change',updateModifier);
+	
+	parentEl.querySelector('button[name=add]').addEventListener('click',updateModifier);
+	parentEl.querySelector('button[name=clear]').addEventListener('click',updateModifier);
 	
 	
 	
