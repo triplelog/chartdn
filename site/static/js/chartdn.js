@@ -1270,8 +1270,8 @@ function createReplace(obj) {
 	var newM = parentEl.querySelector('#edit_id');
 	newM.id = 'edit'+obj.id;
 	
-	var newI = newM.querySelector('#replace_id');
-	newI.id = 'replace'+obj.id;
+	var newI = newM.querySelector('#replaceCol_id');
+	newI.id = 'replaceCol'+obj.id;
 	
 	newM.querySelector('*[name=delete]').addEventListener('click',updateModifier);
 	newM.querySelector('*[name=disable]').addEventListener('click',updateModifier);
