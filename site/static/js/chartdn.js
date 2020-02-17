@@ -796,8 +796,9 @@ function updateModifier(evt){
 					modifiers[i].options.pivot = parseInt(el.value);
 				}
 				else if (el.getAttribute('name')=='edit'){
-					console.log(el.getAttribute('data-col'));
-					console.log(el.getAttribute('data-type'));
+					var col = el.getAttribute('data-col');
+					var type = el.getAttribute('data-type');
+					//Do something?
 				}
 				else if (el.getAttribute('name')=='add'){
 					var pType = el.parentNode.querySelector('select[name=pType] > option:checked').value;
@@ -1132,6 +1133,17 @@ function createPivot(obj) {
 		nDiv.setAttribute('name','edit');
 		newD.appendChild(nDiv);
 	}
+	var drakeP = dragula([newD], {
+	  copy: function (el, source) {
+		return false;
+	  },
+	  accepts: function (el, target, source) {
+		return true;
+	  },
+	  removeOnSpill: function (el, source) {
+		return true;
+	  }
+	});
 	
 	newB.appendChild(newD);
 	newI = document.createElement('select');
