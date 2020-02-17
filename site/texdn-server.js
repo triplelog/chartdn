@@ -608,6 +608,9 @@ loginApp.get('/edit/:chartid',
 							if (savedData.labels && savedData.labels.x){
 								xaxis.title = savedData.labels.x;
 							}
+							if (savedData.scale && savedData.scale.x){
+								xaxis.scale = savedData.scale.x;
+							}
 							res.write(nunjucks.render('chartdn.html',{
 								chartScript: '',
 								dataAreaText: defaultData,

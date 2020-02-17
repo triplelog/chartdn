@@ -376,9 +376,9 @@
 									</div>
 									<div>
 										<label for="scaleX">Scale</label>
-										<select id="scaleX" name="scaleX" onchange="optionsChg('scaleX')">
-											<option value='linear' {{ xaxis.scale.linear }}>Linear</option>
-											<option value='log' {{ xaxis.scale.log }}>Log</option>
+										<select id="scaleX" name="scaleX" onchange="optionsChg('scaleX')" value="{{ xaxis.scale }}">
+											<option value='linear'>Linear</option>
+											<option value='log'>Log</option>
 										</select>
 									</div>
 									<!--<div>
