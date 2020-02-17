@@ -434,21 +434,21 @@
 								</div>
 								<div>
 									<label>Dots</label>
-									<input type="radio" name="dots" onchange="optionsChg('dots')" value="y" checked>Yes</input>
-									<input type="radio" name="dots" onchange="optionsChg('dots')" value="n">No</input>
+									<input type="radio" name="dots" onchange="optionsChg('dots')" value="y" {{ yaxis.dots.y }}>Yes</input>
+									<input type="radio" name="dots" onchange="optionsChg('dots')" value="n" {{ yaxis.dots.n }}>No</input>
 								</div>
 								<div>
 									<label>Line Shape</label>
-									<input type="radio" name="shape-1" onchange="optionsChg('shape')" value="linear" checked>Linear</input>
-									<input type="radio" name="shape-1" onchange="optionsChg('shape')" value="spline">Smooth</input>
+									<input type="radio" name="shape" onchange="optionsChg('shape')" value="linear" {{ yaxis.shape.linear }}>Linear</input>
+									<input type="radio" name="shape" onchange="optionsChg('shape')" value="spline" {{ yaxis.shape.smooth }}>Smooth</input>
 								</div>	
 								<div>
 									<label>Line Type</label>
 									<select onchange="optionsChg('dash')">
-										<option value="solid" checked>Solid</option>
-										<option value="dash">Dash</option>
-										<option value="dot">Dot</option>
-										<option value="dashdot">DashDot</option>
+										<option value="solid" {{ yaxis.dash.solid }}>Solid</option>
+										<option value="dash" {{ yaxis.dash.dash }}>Dash</option>
+										<option value="dot" {{ yaxis.dash.dot }}>Dot</option>
+										<option value="dashdot" {{ yaxis.dash.dashdot }}>DashDot</option>
 									</select>
 								</div>						
 							</div>

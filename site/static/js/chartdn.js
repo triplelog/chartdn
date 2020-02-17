@@ -366,6 +366,18 @@ function optionsChg(optionname) {
 		else if (optionname == 'scaleY') {jsonmessage['scale']['y']=newoption;}
 		ws.send(JSON.stringify(jsonmessage));
 	}
+	else if (optionname == 'dash'){
+		var newoption = document.querySelector('select[name='+optionname+']').value;
+		var jsonmessage = {'operation':'options'};
+		jsonmessage[optionname]=newoption;
+		ws.send(JSON.stringify(jsonmessage));
+	}
+	else if (optionname == 'dots' || optionname == 'shape'){
+		var newoption = document.querySelector('input[name='+optionname+']:checked').value;
+		var jsonmessage = {'operation':'options'};
+		jsonmessage[optionname]=newoption;
+		ws.send(JSON.stringify(jsonmessage));
+	}
 	else if (optionname == 'domain' || optionname == 'range' || optionname == 'lineColors'){
 		var newoption = document.querySelector('input[name='+optionname+']').value;
 		var jsonmessage = {'operation':'options'};
