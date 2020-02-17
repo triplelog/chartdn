@@ -439,3 +439,7 @@ a.pure-button-primary {
 	height: 3rem;
 	border: 1px solid black;
 }
+#showMoreOptions label {
+	width: 20rem;
+	text-align: right;
+}
