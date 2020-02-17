@@ -1675,10 +1675,31 @@ function createNew(obj) {
 	let newM = template.content;
 	let parentEl = document.getElementById('modifyDataBox');
 	parentEl.appendChild(newM);
-	//console.log(newM)
 	parentEl.querySelector('#edit_id').id = 'edit'+obj.id;
 	
 	//Update Names
+	name=row_id,rowstart_id,rowend_id
+	id=newcolVar_id,value_id,group_id
+	id,for =currentRow,previousRow,nextRow,equalRow -- start, end (not current)
+	var names = ['row','rowstart','rowend'];
+	var ids = ['newcolVar','value','group'];
+	var idfors = ['currentRow','previousRow','nextRow','equalRow'];
+	for (var i=0;i<names.length;i++){
+		parentEl.querySelector('input[name='+names[i]+'_id]').setAttribute('name',names[i]+obj.id);
+	}
+	for (var i=0;i<ids.length;i++){
+		parentEl.querySelector('#'+ids[i]+'_id').id=ids[i]+obj.id;
+	}
+	for (var i=0;i<idfors.length;i++){
+		parentEl.querySelector('#'+ids[i]+'_id').id=ids[i]+obj.id;
+		parentEl.querySelector('input[for='+idfors[i]+'_id]').setAttribute('for',idfors[i]+obj.id);
+		if (idfors[i] != 'current'){
+			parentEl.querySelector('#'+ids[i]+'start_id').id=ids[i]+'start'+obj.id;
+			parentEl.querySelector('input[for='+idfors[i]+'start_id]').setAttribute('for',idfors[i]+'start'+obj.id);
+			parentEl.querySelector('#'+ids[i]+'end_id').id=ids[i]+'end'+obj.id;
+			parentEl.querySelector('input[for='+idfors[i]+'end_id]').setAttribute('for',idfors[i]+'end'+obj.id);
+		}
+	}
 	//Add EventListeners
 
 	
