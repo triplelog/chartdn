@@ -1673,7 +1673,7 @@ function createNew(obj) {
 		
 	let template = document.getElementById('newColumn-template');
 	let newM = template.content;
-	newM.id = 'edit'+obj.id;
+	newM.querySelector('#edit_id').id = 'edit'+obj.id;
 	
 	//Update Names
 	//Add EventListeners
