@@ -372,13 +372,13 @@
 								<div id="showMoreOptions" style="display: none;">
 									<div>
 										<label for="xaxistitle">Title</label>
-										<input type="text" id="xaxistitle" name="xaxistitle" onchange="optionsChg('xaxistitle')" placeholder="notitle"/>
+										<input type="text" id="xaxistitle" name="xaxistitle" onchange="optionsChg('xaxistitle')" placeholder="notitle" value="{{ xaxis.title }}"/>
 									</div>
 									<div>
 										<label for="scaleX">Scale</label>
 										<select id="scaleX" name="scaleX" onchange="optionsChg('scaleX')">
-											<option value='linear' selected>Linear</option>
-											<option value='log'>Log</option>
+											<option value='linear' {{ xaxis.scale.linear }}>Linear</option>
+											<option value='log' {{ xaxis.scale.log }}>Log</option>
 										</select>
 									</div>
 									<!--<div>
