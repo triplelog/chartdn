@@ -340,7 +340,7 @@ function columnsChg() {
 	var el = document.getElementById('dataTableModified');
 	var ell = el.querySelectorAll('td[data-col]');
 	for (var i=0;i<ell.length;i++) {
-		ell[i].style.backgroundColor = 'red';
+		ell[i].style.backgroundColor = 'inherit';
 	}
 	for (var i=0;i<yCols.length;i++){
 		if (!isNaN(parseInt(yCols[i]))){ 
@@ -351,7 +351,8 @@ function columnsChg() {
 			else {
 				noNames = true;
 			}
-			el.querySelector('td[data-col='+yCols[i]+']').style.backgroundColor = 'green';
+			var qstring = 'td[data-col="'+yCols[i]+'"]';
+			el.querySelector(qstring).style.backgroundColor = 'green';
 			
 		}
 		
