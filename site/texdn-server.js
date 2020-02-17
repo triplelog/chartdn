@@ -605,18 +605,16 @@ loginApp.get('/edit/:chartid',
 								chartType[savedData['type']]='selected="selected"';
 							}
 							var xaxis = {'scale':{}};
-							if (savedData.labels && savedData.labels.x){
-								xaxis.title = savedData.labels.x;
-							}
-							if (savedData.scale && savedData.scale.x){
-								xaxis.scale[savedData.scale.x] = 'selected="selected"';
-							}
-							if (savedData.stepSize && savedData.stepSize.x){
-								xaxis.stepSize = savedData.stepSize.x;
-							}
-							if (savedData.domain){
-								xaxis.domain = savedData.domain;
-							}
+							if (savedData.labels && savedData.labels.x){xaxis.title = savedData.labels.x;}
+							if (savedData.scale && savedData.scale.x){xaxis.scale[savedData.scale.x] = 'selected="selected"';}
+							if (savedData.stepSize && savedData.stepSize.x){xaxis.stepSize = savedData.stepSize.x;}
+							if (savedData.domain){xaxis.domain = savedData.domain;}
+							var yaxis = {'scale':{}};
+							if (savedData.labels && savedData.labels.y){yaxis.title = savedData.labels.y;}
+							if (savedData.scale && savedData.scale.y){yaxis.scale[savedData.scale.y] = 'selected="selected"';}
+							if (savedData.stepSize && savedData.stepSize.y){yaxis.stepSize = savedData.stepSize.y;}
+							if (savedData.range){yaxis.range = savedData.range;}
+							if (savedData.lineColors){yaxis.lineColors = savedData.lineColors;}
 							res.write(nunjucks.render('chartdn.html',{
 								chartScript: '',
 								dataAreaText: defaultData,
@@ -625,6 +623,7 @@ loginApp.get('/edit/:chartid',
 								modifiers: savedData.modifiers || [],
 								title: savedData.title || '',
 								xaxis: xaxis,
+								yaxis: yaxis,
 								xColumn: savedData.xColumn || '',
 								yColumns: savedData.yColumns || '',
 								username: username || '',

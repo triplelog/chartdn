@@ -411,27 +411,26 @@
 							<div class="box-form" id="yAxisBox">
 								<div>
 									<label for="yaxistitle">Title</label>
-									<input type="text" id="yaxistitle" name="yaxistitle" onchange="optionsChg('yaxistitle')" placeholder="notitle"/>
-								</div>
-								<div>
-									<label for="formatY">Format</label>
-									<input type="text" id="formatY" name="format" onchange="optionsChg('format')" value="" placeholder="default" />
+									<input type="text" id="yaxistitle" name="yaxistitle" onchange="optionsChg('yaxistitle')" placeholder="notitle" value="{{ yaxis.title }}"/>
 								</div>
 								<div>
 									<label for="stepSizeY">Step Size</label>
-									<input type="text" id="stepSizeY" name="stepSizeY" onchange="optionsChg('stepSizeY')" placeholder="default">
+									<input type="text" id="stepSizeY" name="stepSizeY" onchange="optionsChg('stepSizeY')" placeholder="default" value="{{ yaxis.stepSize }}">
 								</div>
 								<div>
 									<label for="range">Range</label>
-									<input type="text" id="range" name="range" onchange="optionsChg('range')" placeholder="default">
+									<input type="text" id="range" name="range" onchange="optionsChg('range')" placeholder="default" value="{{ yaxis.range }}">
 								</div>
 								<div>
 									<label for="scaleY">Scale</label>
-									<input type="text" id="scaleY" name="scaleY" onchange="optionsChg('scaleY')" placeholder="default">
+									<select id="scaleY" name="scaleY" onchange="optionsChg('scaleY')">
+											<option value='linear' {{ xaxis.scale.linear }}>Linear</option>
+											<option value='log' {{ xaxis.scale.log }}>Log</option>
+										</select>
 								</div>
 								<div>
 									<label>Line Colors</label>
-									<input type="text" name="lineColor" onchange="optionsChg('lineColor')" placeholder="default"/>
+									<input type="text" name="lineColor" onchange="optionsChg('lineColor')" placeholder="default" value="{{ yaxis.lineColors }}"/>
 								</div>
 								<div>
 									<label>Dots</label>
