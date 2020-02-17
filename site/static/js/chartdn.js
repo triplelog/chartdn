@@ -290,7 +290,7 @@ function createLineDiv(id,chg=false) {
 		shapeEls[i].setAttribute('name','shape'+id);
 	}
 	newEl.querySelector('select[name=dash_id]').setAttribute('name','dash'+id);
-
+	console.log(options.lines,id);
 	if (options.lines) {
 		for (var i=0;i<options.lines.length;i++){
 			if (options.lines[i].id == id){
