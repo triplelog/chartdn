@@ -498,6 +498,10 @@ function typeChg() {
 	ws.send(JSON.stringify(jsonmessage));
 }
 
+function clickRow(evt) {
+	var row = evt.target.parentElement.parentElement.getAttribute('data-row');
+	
+}
 function clickTable(evt) {
 	var col = evt.target.parentElement.parentElement.getAttribute('data-col');
 	if (evt.target.getAttribute('name')=='xButton'){
