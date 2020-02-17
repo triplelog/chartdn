@@ -368,7 +368,8 @@ function optionsChg(optionname) {
 	}
 	else if (optionname == 'domain' || optionname == 'range' || optionname == 'lineColors'){
 		var newoption = document.querySelector('input[name='+optionname+']').value;
-		var jsonmessage = {'operation':'options',optionname:newoption};
+		var jsonmessage = {'operation':'options'};
+		jsnomessage[optionname]=newoption;
 		ws.send(JSON.stringify(jsonmessage));
 	}
 	else if (optionname == 'stepSizeX' || optionname == 'stepSizeY'){
