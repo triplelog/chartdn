@@ -291,14 +291,17 @@
 					<template id="sort-template">
 						<div class="l-box pure-u-2-3" id="edit_id" style="display: block;">
 							<div class="box-header2">
-								<span name="description">Sort by: </span>
+								<span name="description">Sort</span>
 								<span name="delete" class="box-buttons"><i class="fas fa-trash"></i></span>
 								<span name="disable" class="box-buttons">Disable</span>
 							</div>
 							<div class="box-form">
-								<select name="column" id="sortcol_id">
-								</select>
-								<input type="checkbox" name="descending">
+								<div>
+									Sort by column: <select name="column" id="sortcol_id"></select>
+								</div>
+								<div>
+									<span name="descendingDescription">Descending: </span><input type="checkbox" name="descending">
+								</div>
 							</div>
 						</div>
 					</template>
