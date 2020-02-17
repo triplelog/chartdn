@@ -367,7 +367,7 @@ function optionsChg(optionname) {
 		ws.send(JSON.stringify(jsonmessage));
 	}
 	else if (optionname == 'domain'){
-		var newoption = document.querySelector('select[name='+optionname+']').value;
+		var newoption = document.querySelector('input[name='+optionname+']').value;
 		var jsonmessage = {'operation':'options','domain':newoption};
 		ws.send(JSON.stringify(jsonmessage));
 	}
