@@ -270,16 +270,32 @@ function createLineDiv(id,chg=false) {
 	var el = document.createElement('div');
 	el.id = "lineStyleDiv"+id;
 	el.innerHTML = `
-		Name: <input type="text" name="lineName" onchange="optionsChg('lineName')" placeholder="default"/>
-		Line Color(s): <input type="text" name="lineColor" onchange="optionsChg('lineColor')" placeholder="default"/>
-		Dot Color(s): <select><option>Match Line</option><option>None</option><option>Custom</option></select><input type="text" name="dotColor" placeholder="default"/>
-		<input type="radio" name="shape`+id+`" onchange="optionsChg('shape')" value="default" checked>Default</input>
-		<input type="radio" name="shape`+id+`" onchange="optionsChg('shape')" value="spline">Smooth</input>
-		<input type="radio" name="shape`+id+`" onchange="optionsChg('shape')" value="linear">Linear</input><br />
-		<input type="radio" name="dash`+id+`" onchange="optionsChg('dash')" value="solid" checked>Solid</input>
-		<input type="radio" name="dash`+id+`" onchange="optionsChg('dash')" value="dash">Dash</input>
-		<input type="radio" name="dash`+id+`" onchange="optionsChg('dash')" value="dot">Dot</input>
-		<input type="radio" name="dash`+id+`" onchange="optionsChg('dash')" value="dashdot">DashDot</input>`;
+		<div>
+			<label>Name</label>
+			<input type="text" name="lineName" onchange="optionsChg('lineName')" placeholder="default"/>
+		</div>
+		<div>
+			<label>Line Color</label>
+			<input type="text" name="lineColor" onchange="optionsChg('lineColor')" placeholder="default"/>
+		</div>
+		<div>
+			<label>Dot Color</label>
+			<select><option>Match Line</option><option>None</option><option>Custom</option></select><input type="text" name="dotColor" placeholder="default"/>
+		</div>
+		<div>
+			<label>Line Shape</label>
+			<input type="radio" name="shape`+id+`" onchange="optionsChg('shape')" value="linear" checked>Linear</input>
+			<input type="radio" name="shape`+id+`" onchange="optionsChg('shape')" value="spline">Smooth</input>
+		</div>
+		<div>
+			<label>Line Type</label>
+			<select name="dash`+id+`" onchange="optionsChg('dash')">
+				<option value="solid" checked>Solid</option>
+				<option value="dash">Dash</option>
+				<option value="dot">Dot</option>
+				<option value="dashdot">DashDot</option>
+			</select>
+		</div>`;
 	document.getElementById("yAxisFormatBox").appendChild(el);
 	
 	var newEl = document.createElement('option');
