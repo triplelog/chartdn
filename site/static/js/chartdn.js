@@ -280,7 +280,7 @@ function createLineDiv(id,chg=false) {
 		</div>
 		<div>
 			<label>Dot Color</label>
-			<select><option>Match Line</option><option>None</option><option>Custom</option></select><input type="text" name="dotColor" placeholder="default"/>
+			<input type="text" name="dotColor" placeholder="default"/>
 		</div>
 		<div>
 			<label>Line Shape</label>
