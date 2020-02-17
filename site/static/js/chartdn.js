@@ -392,19 +392,18 @@ function optionsChg(optionname) {
 		var newoption = el.value;
 		var jsonmessage = {'operation':'options','lines':[{'id':colid}]};
 
-		jsonmessage['lines'][0][optionpart]=newoption;
+		jsonmessage['lines'][0]['shape']=newoption;
 
 		ws.send(JSON.stringify(jsonmessage));
 	}
 	else if (optionname == 'dashOne'){
-		optionpart = optionname.substring(0,optionname.indexOf('One'));
 		var parentEl = document.querySelector("#lineStyleDiv"+colid);
 		
 		var el = parentEl.querySelector('select[name=dash'+colid+']');
 		var newoption = el.value;
 		var jsonmessage = {'operation':'options','lines':[{'id':colid}]};
 
-		jsonmessage['lines'][0][optionpart]=newoption;
+		jsonmessage['lines'][0]['dash']=newoption;
 
 		ws.send(JSON.stringify(jsonmessage));
 	}
