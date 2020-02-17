@@ -919,7 +919,7 @@ function updateModifier(evt){
 					var ell = el.parentElement.parentElement.querySelector('#newVariables');
 					for (var ii in modifiers[i].options.variables){
 						if (ii == varName){
-							ell.querySelector('input[name=name]').value = varName;
+							ell.querySelector('input[name=varname]').value = varName;
 							ell.querySelector('select[name=type]').value = modifiers[i].options.variables[ii].type;
 							ell.querySelector('select[name=column]').value = modifiers[i].options.variables[ii].column;
 							//update row stuff
@@ -1019,7 +1019,7 @@ function updateModifier(evt){
 						else if (rowtype == 'equal'){row += ',$'+parseInt(ell.querySelector('input[name=equalrowend]').value).toString();}
 					}
 					var newVariable = {'column':parseInt(col),'type':type,'row':row};
-					var name = ell.querySelector('input[name=name]').value;
+					var name = ell.querySelector('input[name=varname]').value;
 					modifiers[i].options.variables[name] = newVariable;
 					
 					var elll = ell.parentElement.querySelector('#allVariables');
@@ -1044,7 +1044,7 @@ function updateModifier(evt){
 				}
 				else if (evt.target.getAttribute('name')=='clear'){
 					var ell = el.parentElement;
-					var nameEl = ell.querySelector('input[name=name]');
+					var nameEl = ell.querySelector('input[name=varname]');
 					var name = nameEl.value;
 					nameEl.value = '';
 					ell.querySelector('select[name=type]').value = 'value';
@@ -1698,7 +1698,15 @@ function createNew(obj) {
 		}
 	}
 	//Add EventListeners
-
+	names = ['name','formula','type'];
+	for (var i=0;i<names.length;i++){
+		parentEl.querySelector('*[name='+names[i]+'').addEventListener('change',updateModifier);
+	}
+	names = ['add','clear'];
+	for (var i=0;i<names.length;i++){
+		parentEl.querySelector('*[name='+names[i]+'').addEventListener('click',updateModifier);
+	}
+	
 	
 	
 	//createNewColumnBox(obj.id);
