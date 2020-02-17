@@ -1852,7 +1852,7 @@ function createNewModifier(show=false) {
 		el.style.display = 'none';
 		el.value = '';
 		modifiers.push(oldObject);
-		
+		console.log(modifiers);
 		modifierChg();
 		chgModify(oldObject);
 		updateColumns();
