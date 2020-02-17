@@ -1124,6 +1124,8 @@ function createPivot(obj) {
 	newB.appendChild(newI);
 	var newD = document.createElement('div');
 	newD.classList.add('pivotColumns');
+	newD.style.paddingTop = '1rem';
+	newD.style.paddingBottom = '1rem';
 	for (var i in obj.options.columns){
 		var nDiv = document.createElement('div');
 		nDiv.textContent = obj.options.columns[i].type + ' of ' + i;
