@@ -1700,7 +1700,7 @@ function createNew(obj) {
 	//Add EventListeners
 	names = ['name','formula','type'];
 	parentEl.querySelector('input[name=name]').addEventListener('change',updateModifier);
-	parentEl.querySelector('input[name=formula]').addEventListener('change',updateModifier);
+	parentEl.querySelector('textarea[name=formula]').addEventListener('change',updateModifier);
 	parentEl.querySelector('select[name=type]').addEventListener('change',updateModifier);
 	
 	parentEl.querySelector('button[name=add]').addEventListener('click',updateModifier);
