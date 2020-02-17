@@ -1675,6 +1675,7 @@ function createNew(obj) {
 	let newM = template.content;
 	var el = document.getElementById('modifyDataBox');
 	el.appendChild(newM);
+	console.log(el);
 	el.querySelector('#edit_id').id = 'edit'+obj.id;
 	
 	//Update Names
