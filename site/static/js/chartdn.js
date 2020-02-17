@@ -1678,7 +1678,7 @@ function fillNew(obj) {
 	
 	
 	el.querySelector('span[name=title]').textContent = obj.name;
-	el.querySelector('span[name=name]').value = obj.name;
+	el.querySelector('input[name=name]').value = obj.name;
 	
 	//formula
 	el.querySelector('textarea[name=formula]').value = obj.options.formula;
