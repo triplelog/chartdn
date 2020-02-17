@@ -228,7 +228,7 @@ function dst() {
 	var radioChecked = document.querySelector("input[name=dataSourceType]:checked").value;
 	if (radioChecked == 'File'){
 		dataFile.style.display = 'inline-block';
-		dropArea.style.display = 'inline-block';
+		dropArea.style.display = 'block';
 		dataCopy.style.display = 'none';
 		dataUrl.style.display = 'none';
 	}
