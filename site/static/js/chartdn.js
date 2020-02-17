@@ -720,7 +720,12 @@ function updateColumns(id='all') {
 					varOption.setAttribute('selected','selected');
 				}
 				el.appendChild(varOption);
-				
+			}
+			var ell = el.parentNode.querySelector('.pivotColumns').children;
+			for (var ii=0;ii<ell.length;ii++){
+				var col = parseInt(ell[ii].getAttribute('data-col'));
+				var type = ell[ii].getAttribute('data-type');
+				ell[ii].textContent = type + ' of ' + cols[col];
 			}
 		}
 		}
