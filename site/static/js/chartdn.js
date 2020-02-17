@@ -1674,10 +1674,12 @@ function createNew(obj) {
 	document.getElementById('allModifiers').appendChild(newEl);
 		
 	let template = document.getElementById('newColumn-template');
-	let newM = template.content.cloneNode(true);
+	let tc = template.content.cloneNode(true);
 	let parentEl = document.getElementById('modifyDataBox');
-	parentEl.appendChild(newM);
-	parentEl.querySelector('#edit_id').id = 'edit'+obj.id;
+	parentEl.appendChild(tc);
+	var newM = parentEl.querySelector('#edit_id');
+	newM.id = 'edit'+obj.id;
+	
 	
 	//Update Names
 	var names = ['row','rowstart','rowend'];
