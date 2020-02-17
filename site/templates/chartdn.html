@@ -127,7 +127,11 @@
 						<div class="l-box pure-u-3-4 sectionpart flex-center flex-column" id="dataTableHolder">
 							<table id="dataTable" class="striped hoverable" style="display: none;"></table>
 							<table id="dataTableModified" class="striped hoverable" style="display: none;"></table>
+							<template id="clickColumn-template">
+								<div>Hello World</div>
+							</template>
 						</div>
+						
 					</div>
 				</div>
 			</div>
@@ -563,7 +567,10 @@
   <script>
   	var options = {{ options | dump | safe if options else '{}'  }};
   	var modifiers = options.modifiers || [];
-  	var username = "{{ username }}"; var chartid = "{{ chartid }}"; var dataid = "{{ dataid }}"; var chartidtemp = "{{ chartidtemp }}";</script>
+  	var username = "{{ username }}"; var chartid = "{{ chartid }}"; var dataid = "{{ dataid }}"; var chartidtemp = "{{ chartidtemp }}";
+  </script>
+  <script src="https://unpkg.com/popper.js@1"></script>
+  <script src="https://unpkg.com/tippy.js@5"></script>
   <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
   <script src="../js/upload.js"></script>
   <script src="../js/dragula.min.js"></script>

@@ -489,8 +489,14 @@ function typeChg() {
 	ws.send(JSON.stringify(jsonmessage));
 }
 
-function clickTable() {
-
+function clickTable(evt) {
+	console.log(evt.target);
+	let template = document.getElementById('clickColumn-template');
+	let tc = template.content.cloneNode(true);
+	let el = evt.target;
+	tippy(el, {
+	  content: tc
+	});
 }
 
 function updateModifiedTable(data) {
