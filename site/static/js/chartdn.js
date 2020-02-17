@@ -743,7 +743,9 @@ function updateColumns(id='all') {
 			for (var ii=0;ii<ell.length;ii++){
 				var col = parseInt(ell[ii].getAttribute('data-col'));
 				var type = ell[ii].getAttribute('data-type');
-				ell[ii].textContent = type + ' of ' + cols[col];
+				if (cols){
+					ell[ii].textContent = type + ' of ' + cols[col];
+				}
 			}
 		}
 		}
