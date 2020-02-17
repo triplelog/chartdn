@@ -1067,9 +1067,9 @@ function chgModify(mObject={}){
 		
 		if (!document.getElementById('edit'+m.id)) {continue;}
 		if (m.id == mObject.id){
-			if (document.getElementById(m.id).style.backgroundColor != 'rgb(200, 200, 200)') {
+			if (document.getElementById(m.id).style.borderColor != 'rgb(200, 200, 200)') {
 				document.getElementById('edit'+m.id).style.display = 'block';
-				document.getElementById(m.id).style.backgroundColor = 'rgb(200, 200, 200)';
+				document.getElementById(m.id).style.borderColor = 'rgb(200, 200, 200)';
 				var q = idx;
 				iidx = idx;
 				if (!m.enabled){q = idx+1; iidx = idx+1;}
@@ -1078,12 +1078,12 @@ function chgModify(mObject={}){
 			}
 			else {
 				document.getElementById('edit'+m.id).style.display = 'none';
-				document.getElementById(m.id).style.backgroundColor = 'white';
+				document.getElementById(m.id).style.borderColor = 'white';
 			}
 		}
 		else {
 			document.getElementById('edit'+m.id).style.display = 'none';
-			document.getElementById(m.id).style.backgroundColor = 'white';
+			document.getElementById(m.id).style.borderColor = 'white';
 		}
 		
 		

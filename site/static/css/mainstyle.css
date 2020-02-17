@@ -448,3 +448,6 @@ a.pure-button-primary {
 	cursor: pointer;
 	background: rgba(200,20,20,.2);
 }
+#allModifiers div {
+	border: 1px solid white;
+}
