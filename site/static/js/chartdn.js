@@ -1673,10 +1673,9 @@ function createNew(obj) {
 		
 	let template = document.getElementById('newColumn-template');
 	let newM = template.content;
-	var el = document.getElementById('modifyDataBox');
-	el.appendChild(newM);
-	console.log(el);
-	el.querySelector('#edit_id').id = 'edit'+obj.id;
+	document.getElementById('modifyDataBox').appendChild(newM);
+	//console.log(newM)
+	//newM.querySelector('#edit_id').id = 'edit'+obj.id;
 	
 	//Update Names
 	//Add EventListeners
