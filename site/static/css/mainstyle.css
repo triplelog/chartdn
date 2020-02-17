@@ -440,6 +440,7 @@ a.pure-button-primary {
 	border: 1px solid black;
 }
 #showMoreOptions label {
-	width: 20rem;
+	width: 7rem;
 	text-align: right;
+	display: inline-block;
 }

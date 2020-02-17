@@ -210,8 +210,8 @@
 							</div>
 							<div class="box-form">
 								Data: <select id="xColumnSelect" onchange="addColumn('x')"></select>
-								<div><a onclick="showMoreOptions()">Show More Options</a></div>
-								<div id="showMoreOptions">
+								<div><a onclick="showMoreOptions()" name="showMore">Show More Options</a></div>
+								<div id="showMoreOptions" style="display: none;">
 									<div>
 										<label for="xaxistitle">Title</label>
 										<input type="text" id="xaxistitle" name="xaxistitle" onchange="optionsChg('xaxistitle')" placeholder="notitle"/>
