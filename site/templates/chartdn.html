@@ -210,13 +210,19 @@
 							</div>
 							<div class="box-form">
 								Data: <select id="xColumnSelect" onchange="addColumn('x')"></select>
-								Title: <input type="text" name="xaxistitle" onchange="optionsChg('xaxistitle')" placeholder="notitle"/>
-								Scale: <input type="text" name="scaleX" onchange="optionsChg('scaleX')" placeholder="default"/>
-								Data Type: <select></select>
-								Step Size:<input type="text" name="stepSizeX" onchange="optionsChg('stepSizeX')" placeholder="default"/>
-								Domain:<input type="text" name="domain" onchange="optionsChg('domain')" placeholder="default"/>
-								Format:<input type="text" name="format" onchange="optionsChg('format')" placeholder="default"/>
-								
+								<a onclick="showMoreOptions()">Show More Options</a>
+								<div id="showMoreOptions">
+									<label>
+									Title: <input type="text" name="xaxistitle" onchange="optionsChg('xaxistitle')" placeholder="notitle"/>
+									</label>
+									<label>
+									Scale: <input type="text" name="scaleX" onchange="optionsChg('scaleX')" placeholder="default"/>
+									</label>
+									Data Type: <select></select>
+									Step Size:<input type="text" name="stepSizeX" onchange="optionsChg('stepSizeX')" placeholder="default"/>
+									Domain:<input type="text" name="domain" onchange="optionsChg('domain')" placeholder="default"/>
+									Format:<input type="text" name="format" onchange="optionsChg('format')" placeholder="default"/>
+								</div>
 							</div>
 						</div>
 						
