@@ -381,10 +381,17 @@
 											<option value='log'>Log</option>
 										</select>
 									</div>
-									<div>
-										<label for="dataType">Data Type</label>
-										<select id="dataType"></select>
-									</div>
+									<!--<div>
+										<label for="dataTypeX">Data Type</label>
+										<select id="dataTypeX" name="dataTypeX" onchange="optionsChg('dataTypeX')">
+											<option value='number' selected>Number</option>
+											<option value='integer'>Integer</option>
+											<option value='date'>Date</option>
+											<option value='percent'>Percent</option>
+											<option value='currency'>Currency</option>
+											<option value='string'>String</option>
+										</select>
+									</div>-->
 									<div>
 										<label for="stepSizeX">Step Size</label>
 										<input type="text" id="stepSizeX" name="stepSizeX" onchange="optionsChg('stepSizeX')" placeholder="default"/>
@@ -392,10 +399,6 @@
 									<div>
 										<label for="domain">Domain</label>
 										<input type="text" id="domain" name="domain" onchange="optionsChg('domain')" placeholder="default"/>
-									</div>
-									<div>
-										<label for="dataFormat">Data Format</label>
-										<input type="text" id="dataFormat" name="format" onchange="optionsChg('format')" placeholder="default"/>
 									</div>
 								</div>
 							</div>

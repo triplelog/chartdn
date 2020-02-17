@@ -366,6 +366,11 @@ function optionsChg(optionname) {
 		else if (optionname == 'scaleY') {jsonmessage['scale']['y']=newoption;}
 		ws.send(JSON.stringify(jsonmessage));
 	}
+	else if (optionname == 'domain'){
+		var newoption = document.querySelector('select[name='+optionname+']').value;
+		var jsonmessage = {'operation':'options','domain':newoption};
+		ws.send(JSON.stringify(jsonmessage));
+	}
 	else if (optionname == 'stepSizeX' || optionname == 'stepSizeY'){
 		var newoption = document.querySelector('input[name='+optionname+']').value;
 		var jsonmessage = {'operation':'options','stepSize':{}};
