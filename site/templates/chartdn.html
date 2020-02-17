@@ -210,8 +210,8 @@
 							</div>
 							<div class="box-form">
 								Data: <select id="xColumnSelect" onchange="addColumn('x')"></select>
-								<a onclick="showMoreOptions()">Show More Options</a>
-								<div id="showMoreOptions">
+								<div><a onclick="showMoreOptions()">Show More Options</a></div>
+								<form class="pure-form pure-form-aligned" id="showMoreOptions">
 									<label>
 									Title: <input type="text" name="xaxistitle" onchange="optionsChg('xaxistitle')" placeholder="notitle"/>
 									</label>
@@ -222,7 +222,7 @@
 									Step Size:<input type="text" name="stepSizeX" onchange="optionsChg('stepSizeX')" placeholder="default"/>
 									Domain:<input type="text" name="domain" onchange="optionsChg('domain')" placeholder="default"/>
 									Format:<input type="text" name="format" onchange="optionsChg('format')" placeholder="default"/>
-								</div>
+								</form>
 							</div>
 						</div>
 						
