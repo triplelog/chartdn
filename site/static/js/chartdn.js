@@ -1673,6 +1673,7 @@ function createNew(obj) {
 		
 	let template = document.getElementById('newColumn-template');
 	let newM = template.content;
+	document.getElementById('modifyDataBox').appendChild(newM);
 	console.log(newM);
 	newM.querySelector('#edit_id').id = 'edit'+obj.id;
 	
@@ -1680,7 +1681,7 @@ function createNew(obj) {
 	//Add EventListeners
 
 	
-	document.getElementById('modifyDataBox').appendChild(newM);
+	
 	//createNewColumnBox(obj.id);
 }
 
