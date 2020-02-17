@@ -444,3 +444,8 @@ a.pure-button-primary {
 	text-align: right;
 	display: inline-block;
 }
+.hoverClick:hover {
+	cursor: pointer;
+	background: var(--color-main);
+	background-opacity: .1;
+}
