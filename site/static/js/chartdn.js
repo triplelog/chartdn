@@ -907,6 +907,7 @@ function updateModifier(evt){
 				}
 			}
 			else if (mType == 'new' || mType == 'ignore'){
+				console.log('hello');
 				if (el.getAttribute('name')=='formula'){
 					modifiers[i].options.formula = el.value;
 					var ell = el.parentElement.querySelector('div[name=katex]');
@@ -981,6 +982,7 @@ function updateModifier(evt){
 					}
 				}
 				else if (el.getAttribute('name')=='type'){
+					console.log('world');
 					if (el.value != 'value') {
 						document.getElementById('group'+modifiers[i].id).style.display = 'block';
 						document.getElementById('value'+modifiers[i].id).style.display = 'none';
@@ -1682,7 +1684,11 @@ function createNew(obj) {
 	var ids = ['newcolVar','value','group'];
 	var idfors = ['currentRow','previousRow','nextRow','equalRow'];
 	for (var i=0;i<names.length;i++){
-		parentEl.querySelector('input[name='+names[i]+'_id]').setAttribute('name',names[i]+obj.id);
+		var els = parentEl.querySelectorAll('input[name='+names[i]+'_id]');
+		for (var ii=0;ii<els.length;ii++){
+			els[ii].setAttribute('name',names[i]+obj.id);
+		}
+		
 	}
 	for (var i=0;i<ids.length;i++){
 		parentEl.querySelector('#'+ids[i]+'_id').id=ids[i]+obj.id;
