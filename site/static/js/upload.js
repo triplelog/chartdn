@@ -20,8 +20,9 @@ function handleDrop(e) {
 	syncWorker.postMessage(ffile);
 	syncWorker.onmessage = function(e) {
 		//ctypestr = toTable(e.data.result,e.data.ctypestr);
-
-		setTimeout(fullCompression,1000,ffile);
+		document.getElementById('dataTableModified').innerHTML = '';
+		document.getElementById('dataTable').innerHTML = '';
+		setTimeout(fullCompression,10,ffile);
 	};
 }
 
@@ -34,7 +35,9 @@ document.querySelector('#dataFile').addEventListener('change', function(inp) {
 	syncWorker.onmessage = function(e) {
 		//ctypestr = toTable(e.data.result,e.data.ctypestr);
 		//if (filen != ""){createConfirmForm();}
-		setTimeout(fullCompression,1000,ffile);
+		document.getElementById('dataTableModified').innerHTML = '';
+		document.getElementById('dataTable').innerHTML = '';
+		setTimeout(fullCompression,10,ffile);
 	};
 	
 	
