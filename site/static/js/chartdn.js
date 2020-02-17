@@ -1688,12 +1688,12 @@ function createNew(obj) {
 		parentEl.querySelector('#'+ids[i]+'_id').id=ids[i]+obj.id;
 	}
 	for (var i=0;i<idfors.length;i++){
-		parentEl.querySelector('#'+ids[i]+'_id').id=ids[i]+obj.id;
+		parentEl.querySelector('#'+idfors[i]+'_id').id=idfors[i]+obj.id;
 		parentEl.querySelector('input[for='+idfors[i]+'_id]').setAttribute('for',idfors[i]+obj.id);
 		if (idfors[i] != 'current'){
-			parentEl.querySelector('#'+ids[i]+'start_id').id=ids[i]+'start'+obj.id;
+			parentEl.querySelector('#'+idfors[i]+'start_id').id=idfors[i]+'start'+obj.id;
 			parentEl.querySelector('input[for='+idfors[i]+'start_id]').setAttribute('for',idfors[i]+'start'+obj.id);
-			parentEl.querySelector('#'+ids[i]+'end_id').id=ids[i]+'end'+obj.id;
+			parentEl.querySelector('#'+idfors[i]+'end_id').id=idfors[i]+'end'+obj.id;
 			parentEl.querySelector('input[for='+idfors[i]+'end_id]').setAttribute('for',idfors[i]+'end'+obj.id);
 		}
 	}
