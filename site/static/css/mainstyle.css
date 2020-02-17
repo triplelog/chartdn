@@ -446,6 +446,5 @@ a.pure-button-primary {
 }
 .hoverClick:hover {
 	cursor: pointer;
-	background: var(--color-main);
-	background-opacity: .1;
+	background: rgba(200,20,20,.2);
 }
