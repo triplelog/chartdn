@@ -1253,7 +1253,7 @@ function createPivot(obj) {
 }
 
 function createReplace(obj) {
-
+	
 	var newEl = document.createElement('div');
 	newEl.setAttribute('data-id',obj.type);
 	newEl.textContent = obj.name;
@@ -1263,57 +1263,43 @@ function createReplace(obj) {
 	newEl.id = obj.id;
 	document.getElementById('allModifiers').appendChild(newEl);
 		
-	var newM = document.createElement('div');
-	newM.classList.add('l-box');
-	newM.classList.add('pure-u-2-3');
+	let template = document.getElementById('replace-template');
+	let tc = template.content.cloneNode(true);
+	let parentEl = document.getElementById('modifyDataBox');
+	parentEl.appendChild(tc);
+	var newM = parentEl.querySelector('#edit_id');
 	newM.id = 'edit'+obj.id;
-	newM.style.display = 'none';
 	
-	var newH = document.createElement('div');
-	newH.classList.add('box-header2');
-	var newI = document.createElement('input');
-	newI.setAttribute('type','text');
-	newI.setAttribute('value','Name of Modifier');
-	newH.appendChild(newI);
-	createMButtons(newH,obj.enabled);
-	newM.appendChild(newH);
+	var newI = newM.querySelector('#replace_id');
+	newI.id = 'replace'+obj.id;
+	newI.addEventListener('change',updateModifier);
+	
+	newI = newM.querySelector('input[name=descending]');
+	newI.addEventListener('change',updateModifier);
+	if (!obj.options.ascending){
+		newI.setAttribute('checked','checked');
+	}
+	
+	newM.querySelector('*[name=delete]').addEventListener('click',updateModifier);
+	newM.querySelector('*[name=disable]').addEventListener('click',updateModifier);
+	
+	if (!obj.enabled){
+		newM.querySelector('span[name=disable]').textContent = 'Enable';
+	}
+	else {
+		newM.querySelector('span[name=disable]').textContent = 'Disable';
+	}
+	
+	newM.querySelector('input[name=find]').addEventListener('change',updateModifier);
+	newM.querySelector('input[name=replace]').addEventListener('change',updateModifier);
+	newM.querySelector('input[name=case]').addEventListener('change',updateModifier);
+	newM.querySelector('input[name=numerical]').addEventListener('change',updateModifier);
+	newM.querySelector('input[name=full]').addEventListener('change',updateModifier);
+	newM.querySelector('select[name=column]').addEventListener('change',updateModifier);
+	
+	
 
-	var newB = document.createElement('div');
-	newB.classList.add('box-form');
-	newI = document.createElement('input');
-	newI.setAttribute('type','text');
-	newI.setAttribute('name','find');
-	newI.addEventListener('change',updateModifier);
-	newB.appendChild(newI);
-	newI = document.createElement('input');
-	newI.setAttribute('type','text');
-	newI.setAttribute('name','replace');
-	newI.addEventListener('change',updateModifier);
-	newB.appendChild(newI);
-	newI = document.createElement('input');
-	newI.setAttribute('type','checkbox');
-	newI.setAttribute('name','case');
-	newI.addEventListener('change',updateModifier);
-	newB.appendChild(newI);
-	newI = document.createElement('input');
-	newI.setAttribute('type','checkbox');
-	newI.setAttribute('name','numerical');
-	newI.addEventListener('change',updateModifier);
-	newB.appendChild(newI);
-	newI = document.createElement('input');
-	newI.setAttribute('type','checkbox');
-	newI.setAttribute('name','full');
-	newI.addEventListener('change',updateModifier);
-	newB.appendChild(newI);
-	newI = document.createElement('select');
-	newI.setAttribute('name','column');
-	newI.id = 'replaceCol'+obj.id;
-	newI.addEventListener('change',updateModifier);
-	newB.appendChild(newI);
-	newM.appendChild(newB);
-	document.getElementById('modifyDataBox').appendChild(newM);
 }
-
 
 function createSort(obj) {
 	var newEl = document.createElement('div');
@@ -1353,7 +1339,6 @@ function createSort(obj) {
 	}
 
 }
-
 
 function toRowStr(objVar) {
 	var rowStr = '';

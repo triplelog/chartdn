@@ -262,7 +262,8 @@
 					</template>
 					<template id="sort-template">
 						<div class="l-box pure-u-2-3" id="edit_id" style="display: block;">
-							<div class="box-header2"><input type="text" value="Sort by ...">
+							<div class="box-header2">
+								<span name="description">Sort by: </span>
 								<span name="delete" class="box-buttons"><i class="fas fa-trash"></i></span>
 								<span name="disable" class="box-buttons">Disable</span>
 							</div>
@@ -270,6 +271,24 @@
 								<select name="column" id="sortcol_id">
 								</select>
 								<input type="checkbox" name="descending">
+							</div>
+						</div>
+					</template>
+					<template id="replace-template">
+						<div class="l-box pure-u-2-3" id="edit_id" style="display: block;">
+							<div class="box-header2">
+								<input type="text" value="Name of Modifier">
+								<span name="delete" class="box-buttons"><i class="fas fa-trash"></i></span>
+								<span name="disable" class="box-buttons">Disable</span>
+							</div>
+							<div class="box-form">
+								<input type="text" name="find">
+								<input type="text" name="replace">
+								<input type="checkbox" name="case">
+								<input type="checkbox" name="numerical">
+								<input type="checkbox" name="full">
+								<select name="column" id="replace_id">
+								</select>
 							</div>
 						</div>
 					</template>
