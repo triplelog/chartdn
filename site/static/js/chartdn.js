@@ -490,7 +490,19 @@ function typeChg() {
 }
 
 function clickTable(evt) {
-	console.log(evt.target);
+	var col = evt.target.parentElement.parentElement.getAttribute('data-col');
+	if (evt.target.getAttribute('name')=='xButton'){
+		//set col as xCol
+		console.log('x',col);
+		document.getElementById('xColumnSelect').value = col;
+		addColumn('x');
+	}
+	else if (evt.target.getAttribute('name')=='yButton'){
+		//Add col to yCols
+		console.log('y',col);
+		document.getElementById('yColumnSelect').value = col;
+		addColumn('y');
+	}
 }
 
 function updateModifiedTable(data) {
