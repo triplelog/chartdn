@@ -529,7 +529,7 @@ function updateModifiedTable(data) {
 				let tc = template.content.cloneNode(true);
 				console.log(tc.toString());
 				tippy(newcell, {
-				  content: tc.innerHTML,
+				  content: '<div>Hello</div>',
 				  trigger: 'click'
 				});
 			}
