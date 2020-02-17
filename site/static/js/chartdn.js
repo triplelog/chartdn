@@ -1676,7 +1676,7 @@ function createNew(obj) {
 	let parentEl = document.getElementById('modifyDataBox');
 	parentEl.appendChild(newM);
 	//console.log(newM)
-	//newM.querySelector('#edit_id').id = 'edit'+obj.id;
+	parentEl.querySelector('#edit_id').id = 'edit'+obj.id;
 	
 	//Update Names
 	//Add EventListeners
@@ -1782,7 +1782,7 @@ function createNew_Old(obj) {
 }
 
 function createIgnore(obj) {
-	createNew(obj);
+	createNew_Old(obj);
 }
 
 function createNewModifier(show=false) {
