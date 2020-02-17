@@ -424,13 +424,13 @@
 								<div>
 									<label for="scaleY">Scale</label>
 									<select id="scaleY" name="scaleY" onchange="optionsChg('scaleY')">
-											<option value='linear' {{ xaxis.scale.linear }}>Linear</option>
-											<option value='log' {{ xaxis.scale.log }}>Log</option>
+											<option value='linear' {{ yaxis.scale.linear }}>Linear</option>
+											<option value='log' {{ yaxis.scale.log }}>Log</option>
 										</select>
 								</div>
 								<div>
 									<label>Line Colors</label>
-									<input type="text" name="lineColor" onchange="optionsChg('lineColor')" placeholder="default" value="{{ yaxis.lineColors }}"/>
+									<input type="text" name="lineColors" onchange="optionsChg('lineColors')" placeholder="default" value="{{ yaxis.lineColors }}"/>
 								</div>
 								<div>
 									<label>Dots</label>
