@@ -287,6 +287,7 @@ function createLineDiv(id,chg=false) {
 	newEl.id = 'lineStyleDiv'+id;
 	newEl.querySelectorAll('input[name=shape_id]');
 	for (var i=0;i<newEl.length;i++){
+		console.log(newEl[i]);
 		newEl[i].setAttribute('name','shape'+id);
 	}
 	newEl.querySelector('select[name=dash_id]').setAttribute('name','dash'+id);
