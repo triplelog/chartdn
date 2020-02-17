@@ -270,19 +270,23 @@
 									<input type="text" name="lineColor" onchange="optionsChg('lineColor')" placeholder="default"/>
 								</div>
 								<div>
-									<label>Dot Colors</label>
-									<select><option>Match Line</option><option>None</option><option>Custom</option></select><input type="text" name="dotColor" placeholder="default"/>
+									<label>Dots</label>
+									<input type="radio" name="dots" onchange="optionsChg('dots')" value="y">Yes</input>
+									<input type="radio" name="dots" onchange="optionsChg('dots')" value="n">No</input>
 								</div>
 								<div>
-									<input type="radio" name="shape-1" onchange="optionsChg('shape')" value="default" checked>Default</input>
+									<label>Line Shape</label>
+									<input type="radio" name="shape-1" onchange="optionsChg('shape')" value="linear" checked>Linear</input>
 									<input type="radio" name="shape-1" onchange="optionsChg('shape')" value="spline">Smooth</input>
-									<input type="radio" name="shape-1" onchange="optionsChg('shape')" value="linear">Linear</input><br />
 								</div>	
 								<div>
-									<input type="radio" name="dash-1" onchange="optionsChg('dash')" value="solid" checked>Solid</input>
-									<input type="radio" name="dash-1" onchange="optionsChg('dash')" value="dash">Dash</input>
-									<input type="radio" name="dash-1" onchange="optionsChg('dash')" value="dot">Dot</input>
-									<input type="radio" name="dash-1" onchange="optionsChg('dash')" value="dashdot">DashDot</input>
+									<label>Line Type</label>
+									<select onchange="optionsChg('dash')">
+										<option value="solid" checked>Solid</option>
+										<option value="dash">Dash</option>
+										<option value="dot">Dot</option>
+										<option value="dashdot">DashDot</option>
+									</select>
 								</div>						
 							</div>
 							<div class="box-header2" id="yAxisDataBoxH">
