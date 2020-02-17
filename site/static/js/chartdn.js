@@ -552,7 +552,7 @@ function updateModifiedTable(data) {
 				  trigger: 'click',
 				  interactive: true
 				});
-				for (var iii=0;iii<yCols.length;iii++){
+				for (var iii=0;iii<yColsVals.length;iii++){
 					if (parseInt(yCols[iii]) == ii){ 
 						newcell.style.backgroundColor = 'green';
 					}
