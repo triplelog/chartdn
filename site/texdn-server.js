@@ -604,12 +604,18 @@ loginApp.get('/edit/:chartid',
 								savedData['type']='line';
 								chartType[savedData['type']]='selected="selected"';
 							}
-							var xaxis = {};
+							var xaxis = {'scale':{}};
 							if (savedData.labels && savedData.labels.x){
 								xaxis.title = savedData.labels.x;
 							}
 							if (savedData.scale && savedData.scale.x){
-								xaxis.scale = savedData.scale.x;
+								xaxis.scale[savedData.scale.x] = 'selected="selected"';
+							}
+							if (savedData.stepSize && savedData.stepSize.x){
+								xaxis.stepSize = savedData.stepSize.x;
+							}
+							if (savedData.domain){
+								xaxis.domain = savedData.domain;
 							}
 							res.write(nunjucks.render('chartdn.html',{
 								chartScript: '',

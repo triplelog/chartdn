@@ -376,9 +376,9 @@
 									</div>
 									<div>
 										<label for="scaleX">Scale</label>
-										<select id="scaleX" name="scaleX" onchange="optionsChg('scaleX')" value="{{ xaxis.scale }}">
-											<option value='linear'>Linear</option>
-											<option value='log'>Log</option>
+										<select id="scaleX" name="scaleX" onchange="optionsChg('scaleX')">
+											<option value='linear' {{ xaxis.scale.linear }}>Linear</option>
+											<option value='log' {{ xaxis.scale.log }}>Log</option>
 										</select>
 									</div>
 									<!--<div>
@@ -394,11 +394,11 @@
 									</div>-->
 									<div>
 										<label for="stepSizeX">Step Size</label>
-										<input type="text" id="stepSizeX" name="stepSizeX" onchange="optionsChg('stepSizeX')" placeholder="default"/>
+										<input type="text" id="stepSizeX" name="stepSizeX" onchange="optionsChg('stepSizeX')" placeholder="default" value="{{ xaxis.scale }}"/>
 									</div>
 									<div>
 										<label for="domain">Domain</label>
-										<input type="text" id="domain" name="domain" onchange="optionsChg('domain')" placeholder="default"/>
+										<input type="text" id="domain" name="domain" onchange="optionsChg('domain')" placeholder="default" value="{{ xaxis.domain }}"/>
 									</div>
 								</div>
 							</div>
