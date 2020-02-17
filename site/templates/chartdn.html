@@ -292,6 +292,31 @@
 							</div>
 						</div>
 					</template>
+					<template>
+						<div class="l-box pure-u-2-3" id="edit_id" style="display: block;">
+							<div class="box-header2">
+								<input type="text" value="Pivot">
+								<span name="delete" class="box-buttons"><i class="fas fa-trash"></i></span>
+								<span name="disable" class="box-buttons">Disable</span>
+							</div>
+							<div class="box-form">
+								<select id="pivotcol_id" name="pivot">
+								</select>
+								<div class="pivotColumns" style="padding-top: 1rem; padding-bottom: 1rem;">
+								</div>
+								<select id="colcol_id" name="column">
+								</select>
+								<select name="pType">
+									<option value="sum">Sum</option>
+									<option value="max">Max</option>
+									<option value="min">Min</option>
+									<option value="mean">Mean</option>
+									<option value="count">Count</option>
+								</select>
+								<button name="add" class="pure-button pure-button-primary">Add</button>
+							</div>
+						</div>
+					</template>
 					
 				</div>
 			</div>

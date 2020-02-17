@@ -1154,7 +1154,8 @@ function createMButtons(newH,enabled) {
 }
 
 function createPivot(obj) {
-
+	
+	
 	var newEl = document.createElement('div');
 	newEl.setAttribute('data-id',obj.type);
 	newEl.textContent = obj.name;
@@ -1164,32 +1165,35 @@ function createPivot(obj) {
 	newEl.id = obj.id;
 	document.getElementById('allModifiers').appendChild(newEl);
 		
-	var newM = document.createElement('div');
-	newM.classList.add('l-box');
-	newM.classList.add('pure-u-2-3');
+	let template = document.getElementById('pivot-template');
+	let tc = template.content.cloneNode(true);
+	let parentEl = document.getElementById('modifyDataBox');
+	parentEl.appendChild(tc);
+	var newM = parentEl.querySelector('#edit_id');
 	newM.id = 'edit'+obj.id;
-	newM.style.display = 'none';
 	
-	var newH = document.createElement('div');
-	newH.classList.add('box-header2');
-	var newI = document.createElement('input');
-	newI.setAttribute('type','text');
-	newI.setAttribute('value','Pivot');
-	newH.appendChild(newI);
-	createMButtons(newH,obj.enabled);
-	newM.appendChild(newH);
-	
-	var newB = document.createElement('div');
-	newB.classList.add('box-form');
-	newI = document.createElement('select');
+	var newI = newM.querySelector('#colcol_id');
+	newI.id = 'colcol'+obj.id;
+	newI = newM.querySelector('#pivotcol_id');
 	newI.id = 'pivotcol'+obj.id;
-	newI.setAttribute('name','pivot');
-	newI.addEventListener('change',updateModifier);
-	newB.appendChild(newI);
-	var newD = document.createElement('div');
-	newD.classList.add('pivotColumns');
-	newD.style.paddingTop = '1rem';
-	newD.style.paddingBottom = '1rem';
+	
+	newM.querySelector('*[name=delete]').addEventListener('click',updateModifier);
+	newM.querySelector('*[name=disable]').addEventListener('click',updateModifier);
+	
+	if (!obj.enabled){
+		newM.querySelector('span[name=disable]').textContent = 'Enable';
+	}
+	else {
+		newM.querySelector('span[name=disable]').textContent = 'Disable';
+	}
+	
+	newMM = newM.querySelector('select[name=pivot]');
+	if (obj.options.column) {newMM.value = obj.options.pivot;}
+	newMM.addEventListener('change',updateModifier);
+	
+	newM.querySelector('button[name=add]').addEventListener('click',updateModifier);
+	
+	var newD = newM.querySelector('div.pivotColumns');
 	for (var i in obj.options.columns){
 		var nDiv = document.createElement('div');
 		nDiv.textContent = obj.options.columns[i].type + ' of ' + i;
@@ -1220,36 +1224,6 @@ function createPivot(obj) {
 		var col = el.getAttribute('data-col');
 	});
 	
-	newB.appendChild(newD);
-	newI = document.createElement('select');
-	newI.id = 'colcol'+obj.id;
-	newI.setAttribute('name','column');
-	//newI.addEventListener('change',updateModifier);
-	newB.appendChild(newI);
-	newS = document.createElement('select');
-	newS.setAttribute('name','pType');
-	//newS.addEventListener('change',updateModifier);
-	var pTypes = ['Sum','Max','Min','Mean','Count'];
-	for (var i=0;i<pTypes.length;i++){
-		var newO = document.createElement('option');
-		newO.setAttribute('value',pTypes[i].toLowerCase());
-		newO.textContent = pTypes[i];
-		if (pTypes[i].toLowerCase() == obj.options.type){
-			newO.setAttribute('selected','selected');
-		}
-		newS.appendChild(newO);
-	}
-	newB.appendChild(newS);
-	
-	newS = document.createElement('button');
-	newS.setAttribute('name','add');
-	newS.textContent = 'Add';
-	newS.addEventListener('click',updateModifier);
-	newS.classList.add('pure-button');
-	newS.classList.add('pure-button-primary');
-	newB.appendChild(newS);
-	newM.appendChild(newB);
-	document.getElementById('modifyDataBox').appendChild(newM);
 }
 
 function createReplace(obj) {
