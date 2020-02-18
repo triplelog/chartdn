@@ -740,6 +740,7 @@ function updateModifiedTable(data) {
 				var thisColumn = {};
 				thisColumn.title = headers[headers.length-1];
 				thisColumn.field = headers[headers.length-1].replace(/\./g,'_');
+				thisColumn.headerClick = function(e, column){console.log(column);}
 				thisColumn.editor = 'input';
 				tableColumns.push(thisColumn);
 				newcell.setAttribute('data-col',ii);
@@ -780,13 +781,12 @@ function updateModifiedTable(data) {
 		
 	}
 	dataTable.innerHTML = '';
-	console.log(tableData);
-	console.log(tableColumns);
 	var table = new Tabulator("#dataTableModified", {
 		data:tableData, //set initial table data
 		columns: tableColumns,
 		autoResize:true,
 		height:"15rem",
+		headerSort: false,
 	});
 	updateHeaders(false,true);
 }
