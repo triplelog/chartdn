@@ -1749,7 +1749,9 @@ function minimizeBox(boxid,full=false){
 			minimizedBoxes[boxid] = 'full';
 			var myStyle = 'plotly';
 			console.log(myStyle);
-			var jsonmessage = {'operation':'view','id':chartid,'loc':0,'style':myStyle}
+			console.log(chartid);
+			var jsonmessage = {'operation':'view','id':chartid,'loc':0,'style':myStyle};
+			console.log(jsonmessage);
 			ws.send(JSON.stringify(jsonmessage));
 			var el2 = document.getElementById(boxid+'None');
 			el2.style.display = 'none';
