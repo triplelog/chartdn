@@ -741,7 +741,7 @@ function updateModifiedTable(data) {
 				thisColumn.title = headers[headers.length-1];
 				thisColumn.field = headers[headers.length-1];
 				thisColumn.editor = 'input';
-				tableColumns.push();
+				tableColumns.push(thisColumn);
 				newcell.setAttribute('data-col',ii);
 				let template = document.getElementById('clickColumn-template');
 				let tc = template.content.cloneNode(true).firstElementChild;
