@@ -753,6 +753,7 @@ function updateModifiedTable(data) {
 						tc.querySelector('button[name=pivotButton]').addEventListener('click',clickTable);
 						tc.querySelector('button[name=ascButton]').addEventListener('click',clickTable);
 						tc.querySelector('button[name=descButton]').addEventListener('click',clickTable);
+						console.log(e.target);
 						let mytippy = tippy(e.target, {
 						  content: tc,
 						  trigger: 'click',
