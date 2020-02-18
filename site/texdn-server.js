@@ -591,6 +591,14 @@ loginApp.get('/edit/:chartid',
 				  else { //Load chart data and options
 					dataname = result.data;
 					myOptions = result.options;
+					if (result.options.nsteps){
+						delete result.options.nsteps;
+						result.markModified('options');
+						result.save(function (err, result) {
+							if (err) return console.error('sajdhfkasdhj\n',err);
+							console.log('deleted nsteps');
+						});
+					}
 					if (result.user == '' || result.user == username){
 						fs.readFile('saved/'+dataname, 'utf8', function(err, fileData) {
 							var defaultData = ''
@@ -680,7 +688,6 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
 			for (var ii=0;ii<rlen;ii++){
 				modifiedArray[ii+hlen] = rawArray[ii].slice();
 			}
-			console.log('aaa',modifiedArray[1]);
 			nsteps = false;
 		}
 		else {idx++;}
@@ -712,11 +719,9 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
 	}
 
 	var filteredArray = hArray.concat(modJS.toData(rawArray));
-	console.log('bb',modifiedArray[1]);
 	if (!modifiedArray || modifiedArray.length == 0){
 		modifiedArray = filteredArray;
 	}
-	console.log('c',modifiedArray[1]);
 	var t6 = performance.now();
 	console.log(t2,t6);
 	//console.log(filteredArray);
@@ -753,37 +758,34 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 			complete: function(results) {
 				
 				var nHeaders = chartInfo.options.nHeaders || 1;
-				var nSteps = -1;
 				var data = convertDataToFull(results.data,nHeaders,chartInfo.options.modifiers,chartInfo.options.nsteps);
 				console.log('headers',chartInfo.headers.current);
-				nSteps = 0;
-				if (nSteps == -1){
-					if (data.headers.current.length != chartInfo.headers.length){
-						chartInfo.headers = data.headers.current;
-						chartInfo.markModified('headers');/*
-						chartInfo.save(function (err, chart) {
-							if (err) return console.error(err);
-							console.log('saved');
-						});*/
-						var jsonmessage = {'operation':'headers','message':data.headers.current};
-						ws.send(JSON.stringify(jsonmessage));
-					}
-					else {
-						for (var i in data.headers.current){
-							if (!chartInfo.headers || data.headers.current[i] != chartInfo.headers[i]){
-								chartInfo.headers = data.headers.current;/*
-								chartInfo.markModified('headers');
-								chartInfo.save(function (err, chart) {
-									if (err) return console.error(err);
-									console.log('saved');
-								});*/
-								var jsonmessage = {'operation':'headers','message':data.headers.current};
-								ws.send(JSON.stringify(jsonmessage));
-								break;
-							}
+				if (data.headers.current.length != chartInfo.headers.length){
+					chartInfo.headers = data.headers.current;
+					chartInfo.markModified('headers');/*
+					chartInfo.save(function (err, chart) {
+						if (err) return console.error(err);
+						console.log('saved');
+					});*/
+					var jsonmessage = {'operation':'headers','message':data.headers.current};
+					ws.send(JSON.stringify(jsonmessage));
+				}
+				else {
+					for (var i in data.headers.current){
+						if (!chartInfo.headers || data.headers.current[i] != chartInfo.headers[i]){
+							chartInfo.headers = data.headers.current;/*
+							chartInfo.markModified('headers');
+							chartInfo.save(function (err, chart) {
+								if (err) return console.error(err);
+								console.log('saved');
+							});*/
+							var jsonmessage = {'operation':'headers','message':data.headers.current};
+							ws.send(JSON.stringify(jsonmessage));
+							break;
 						}
 					}
 				}
+				
 				/*
 				if (chartStyle == 'all' || chartStyle == 'chartJS') {
 					var chartJSON = createChartjs.createChartjs(data,chartInfo.options);
