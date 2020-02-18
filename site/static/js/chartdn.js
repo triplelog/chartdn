@@ -759,6 +759,7 @@ function updateModifiedTable(data) {
 						  trigger: 'manual',
 						  interactive: true,
 						  placement: 'bottom',
+						  onShow(instance) {console.log('hello');}
 						});
 						tippys[field] = mytippy;
 						mytippy.show();
