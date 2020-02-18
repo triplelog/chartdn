@@ -742,7 +742,7 @@ function updateModifiedTable(data) {
 				thisColumn.title = headers[headers.length-1];
 				thisColumn.field = headers[headers.length-1].replace(/\./g,'_');
 				thisColumn.headerClick = function(e, column){
-					console.log(column['_column']);
+					console.log(column['_column'].field);
 					console.log(e.target);
 					let template = document.getElementById('clickColumn-template');
 					let tc = template.content.cloneNode(true).firstElementChild;
@@ -758,7 +758,8 @@ function updateModifiedTable(data) {
 					  trigger: 'manual',
 					  interactive: true
 					});
-					tippys[ii] = mytippy;
+					tippys[column['_column'].field] = mytippy;
+					mytippy.show();
 					console.log(tippys);
 				}
 				
