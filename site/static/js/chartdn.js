@@ -742,25 +742,28 @@ function updateModifiedTable(data) {
 				thisColumn.title = headers[headers.length-1];
 				thisColumn.field = headers[headers.length-1].replace(/\./g,'_');
 				thisColumn.headerClick = function(e, column){
-					console.log(column['_column'].field);
-					console.log(e.target);
-					let template = document.getElementById('clickColumn-template');
-					let tc = template.content.cloneNode(true).firstElementChild;
-					tc.setAttribute('data-col',ii);
-					tc.setAttribute('data-name',headers[headers.length-1]);
-					tc.querySelector('button[name=xButton]').addEventListener('click',clickTable);
-					tc.querySelector('button[name=yButton]').addEventListener('click',clickTable);
-					tc.querySelector('button[name=pivotButton]').addEventListener('click',clickTable);
-					tc.querySelector('button[name=ascButton]').addEventListener('click',clickTable);
-					tc.querySelector('button[name=descButton]').addEventListener('click',clickTable);
-					let mytippy = tippy(e.target, {
-					  content: tc,
-					  trigger: 'manual',
-					  interactive: true
-					});
-					tippys[column['_column'].field] = mytippy;
-					mytippy.show();
-					console.log(tippys);
+					var field = column['_column'].field;
+					if (!tippys[field]){
+						let template = document.getElementById('clickColumn-template');
+						let tc = template.content.cloneNode(true).firstElementChild;
+						tc.setAttribute('data-col',ii);
+						tc.setAttribute('data-name',headers[headers.length-1]);
+						tc.querySelector('button[name=xButton]').addEventListener('click',clickTable);
+						tc.querySelector('button[name=yButton]').addEventListener('click',clickTable);
+						tc.querySelector('button[name=pivotButton]').addEventListener('click',clickTable);
+						tc.querySelector('button[name=ascButton]').addEventListener('click',clickTable);
+						tc.querySelector('button[name=descButton]').addEventListener('click',clickTable);
+						let mytippy = tippy(e.target, {
+						  content: tc,
+						  trigger: 'manual',
+						  interactive: true
+						});
+						tippys[field] = mytippy;
+					}
+					else {
+						console.log(field);
+						mytippy.show();
+					}
 				}
 				
 				thisColumn.editor = 'input';
