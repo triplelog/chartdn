@@ -757,7 +757,8 @@ function updateModifiedTable(data) {
 						let mytippy = tippy(document.getElementById('tabulator-header-'+ii), {
 						  content: tc,
 						  trigger: 'manual',
-						  interactive: true
+						  interactive: true,
+						  placement: 'bottom',
 						});
 						tippys[field] = mytippy;
 						mytippy.show();
