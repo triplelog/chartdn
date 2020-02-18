@@ -742,7 +742,7 @@ function updateModifiedTable(data) {
 				thisColumn.title = headers[headers.length-1];
 				thisColumn.field = headers[headers.length-1].replace(/\./g,'_');
 				thisColumn.headerClick = function(e, column){
-					console.log(Object.keys(column['_column']));
+					console.log(column['_column']);
 					console.log(e.target);
 					let template = document.getElementById('clickColumn-template');
 					let tc = template.content.cloneNode(true).firstElementChild;
