@@ -786,7 +786,7 @@ function updateTable(data) {
 	dataTable.innerHTML = '';
 	console.log(tableData);
 	console.log(tableColumns);
-	console.log(aaa);
+	
 	var table = new Tabulator("#dataTableModified", {
 		data:tableData, //set initial table data
 		columns: tableColumns,
@@ -794,6 +794,7 @@ function updateTable(data) {
 		height:"15rem",
 		headerSort: false,
 	});
+	console.log(aaa);
 	updateHeaders(false,true);
 }
 var syncWorker2 = new Worker('../wasm/datatypeworker.js');
