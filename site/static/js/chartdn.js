@@ -793,7 +793,7 @@ function updateTable(data) {
 	console.log(tableData);
 	console.log(tableColumns);
 	
-	var table = new Tabulator(el, {
+	var table = new Tabulator( '#dataTableModiified', {
 		data: tableData, //set initial table data
 		columns: tableColumns,
 		autoResize:true,
