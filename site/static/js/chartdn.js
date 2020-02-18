@@ -791,7 +791,7 @@ function updateModifiedTable(data) {
 			newrow.appendChild(newcell);
 		}
 		dataTable.appendChild(newrow);
-		if (newDataRow[headers[0].replace(/\./g,'_')]){
+		if (newDataRow['col0']){
 			tableData.push(newDataRow);
 		}
 		
