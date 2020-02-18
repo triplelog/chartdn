@@ -663,6 +663,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
 	
 	var idx = 0;
 	var allHeaders = {};
+	var modifiedArray = [];
 	if (nsteps !== 0){
 		for (var i in modifiers){
 			allHeaders[modifiers[i].id]=[];
@@ -671,7 +672,10 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
 			}
 			if (!modifiers[i].enabled){continue;}
 			console.log(nsteps,idx);
-			if (nsteps && idx >= nsteps){break;}
+			if (nsteps && idx >= nsteps){
+				modifiedArray = hArray.concat(modJS.toData(rawArray));
+				nsteps = false;
+			}
 			else {idx++;}
 			
 			if (modifiers[i].type == 'new'){
@@ -701,6 +705,9 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
 		}
 	}
 	var filteredArray = hArray.concat(modJS.toData(rawArray));
+	if (!modifiedArray || modifiedArray.length == 0){
+		modifiedArray = filteredArray;
+	}
 	var t6 = performance.now();
 	console.log(t2,t6);
 	//console.log(filteredArray);
@@ -724,7 +731,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
 		}
 	
 	}
-	return {'byrow':retArray,'bycol':cols,'modified':filteredArray,'headers':allHeaders};
+	return {'byrow':retArray,'bycol':cols,'modified':modifiedArray,'headers':allHeaders};
 	
 }
 			
