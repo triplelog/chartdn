@@ -742,7 +742,7 @@ function updateModifiedTable(data) {
 				thisColumn.title = headers[headers.length-1];
 				thisColumn.field = 'col'+ii;
 				thisColumn.headerClick = function(e, column){
-					var col = column['_column'].field;
+					var col = column['_column'].field.substring(3);
 					console.log(col);
 					if (!tippys[col]){
 						let template = document.getElementById('clickColumn-template');
