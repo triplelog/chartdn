@@ -630,6 +630,7 @@ function dataChg(initialData=false,dataType='csv') {
 		ws.send(JSON.stringify(jsonmessage));
 	}
 	else {
+		if (csv.length > 0){minimizeBox('dataSource');}
 		for (var i in modifiers){
 			if (modifiers[i].type == 'pivot'){
 				createPivot(modifiers[i]);
