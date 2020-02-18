@@ -581,6 +581,31 @@ function clickTable(evt) {
 		chgModify(newObject);
 		updateColumns();
 	}
+	else if (evt.target.getAttribute('name')=='pivotButton'){
+		//Add col to yCols
+		var id = Math.random().toString(36).substr(2, 8);
+		var idx = modifiers.length-1;
+		if (modifiers[idx].type == 'pivot'){
+			if (modifiers[idx].options.pivot == parseInt(col)){
+				//modifiers[idx].options.ascending = false;
+				modifierChg();
+				chgModify(modifiers[idx]);
+				updateColumns();
+				return;
+			}
+		}
+		var newObject = {'id':id,'name':'Pivot','type':'pivot','options':{},'enabled':true};
+		newObject.options.pivot = parseInt(col);
+		newObject.options.columns = [];
+		var el = document.getElementById('createModifyMenu');
+		el.style.display = 'none';
+		el.value = '';
+		createSort(newObject);
+		modifiers.push(newObject);
+		modifierChg();
+		chgModify(newObject);
+		updateColumns();
+	}
 	
 }
 
