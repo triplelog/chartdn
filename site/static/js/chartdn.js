@@ -751,7 +751,7 @@ function updateTable(data) {
 						
 						let mytippy = tippy(e.target, {
 						  content: tc,
-						  appendTo: document.getElementById('dataSourceBox'),
+						  appendTo: document.querySelector('.header'),
 						  trigger: 'manual',
 						  interactive: true,
 						  placement: 'bottom',
