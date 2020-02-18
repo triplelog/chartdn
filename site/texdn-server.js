@@ -808,6 +808,7 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 					ws.send(JSON.stringify(jsonmessage));
 				}*/
 				var t3 = performance.now();
+				console.log('b',chartStyle);
 				if (chartStyle == 'all' || chartStyle == 'plotly') {
 					var chartJSON = createPlotly.createPlotly(data,chartInfo.options);
 					if (!dm.loc){dm.loc = 0}
