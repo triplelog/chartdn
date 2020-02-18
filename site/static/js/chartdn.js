@@ -762,13 +762,12 @@ function updateModifiedTable(data) {
 						  onShow(instance) {console.log('hello');}
 						});
 						tippys[field] = mytippy;
-						mytippy.show();
-					}
-					else {
-						console.log(tippys[field]);
 						tippys[field].setProps({
 							appendTo: document.getElementById('dataSourceBox'),
 						});
+						mytippy.show();
+					}
+					else {
 						tippys[field].show();
 					}
 				}
