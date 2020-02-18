@@ -62,6 +62,7 @@ if (options.xColumn){
 }
 var headers = [];
 var tippys = {};
+var tippysR = {};
 var allHeaders = {};
 var colid = -1;
 var minimizedBoxes = {};
@@ -705,25 +706,33 @@ function updateTable(data,idx=0) {
 			thisColumn.title = 'Row';
 			thisColumn.field = 'colRow';
 			thisColumn.cellClick = function(e, cell){
-				console.log(cell.getRow()['_row'].data.colRow);
+				var row = cell.getRow()['_row'].data.colRow;
+				if (!tippysR[row]){
+					let templateR = document.getElementById('clickRow-template');
+					let tcr = templateR.content.cloneNode(true).firstElementChild;
+					tcr.setAttribute('data-row',row);
+					tcr.querySelector('button[name=ignoreButton]').addEventListener('click',clickRow);
+					tcr.querySelector('button[name=matchButton]').addEventListener('click',clickRow);
+						
+					let mytippy = tippy(e.target, {
+					  content: tcr,
+					  appendTo: document.querySelector('.header'),
+					  trigger: 'manual',
+					  interactive: true,
+					  placement: 'left',
+					});
+					tippysR[row] = mytippy;
+					mytippy.show();
+				}
+				else {
+					tippysR[row].show();
+				}
 			}
 			tableColumns[0] = thisColumn;
 		}
 		else {
 			newDataRow.colRow = i - nHeaders;
 		}
-		/*let templateR = document.getElementById('clickRow-template');
-		let tcr = templateR.content.cloneNode(true).firstElementChild;
-		tcr.setAttribute('data-row',i - nHeaders);
-		tcr.querySelector('button[name=ignoreButton]').addEventListener('click',clickRow);
-		tcr.querySelector('button[name=matchButton]').addEventListener('click',clickRow);
-		tippy(newcell, {
-		  content: tcr,
-		  trigger: 'click',
-		  interactive: true,
-		  placement: "left"
-		});*/
-		
 		
 		for (var ii=0;ii<data[i].length;ii++){
 			
@@ -739,7 +748,6 @@ function updateTable(data,idx=0) {
 				thisColumn.field = 'col'+ii;
 				thisColumn.headerClick = function(e, column){
 					var col = column['_column'].field.substring(3);
-					console.log(col);
 					if (!tippys[col]){
 						let template = document.getElementById('clickColumn-template');
 						let tc = template.content.cloneNode(true).firstElementChild;
@@ -757,7 +765,6 @@ function updateTable(data,idx=0) {
 						  trigger: 'manual',
 						  interactive: true,
 						  placement: 'bottom',
-						  onShow(instance) {console.log('hello');}
 						});
 						tippys[col] = mytippy;
 						mytippy.show();
