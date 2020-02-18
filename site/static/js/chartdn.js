@@ -740,24 +740,27 @@ function updateModifiedTable(data) {
 				var thisColumn = {};
 				thisColumn.title = headers[headers.length-1];
 				thisColumn.field = headers[headers.length-1].replace(/\./g,'_');
-				thisColumn.headerClick = function(e, column){console.log(column);}
+				thisColumn.headerClick = function(e, column){
+					console.log(column);
+					let template = document.getElementById('clickColumn-template');
+					let tc = template.content.cloneNode(true).firstElementChild;
+					tc.setAttribute('data-col',ii);
+					tc.setAttribute('data-name',headers[headers.length-1]);
+					tc.querySelector('button[name=xButton]').addEventListener('click',clickTable);
+					tc.querySelector('button[name=yButton]').addEventListener('click',clickTable);
+					tc.querySelector('button[name=pivotButton]').addEventListener('click',clickTable);
+					tc.querySelector('button[name=ascButton]').addEventListener('click',clickTable);
+					tc.querySelector('button[name=descButton]').addEventListener('click',clickTable);
+					tippy(e.target, {
+					  content: tc,
+					  trigger: 'click',
+					  interactive: true
+					});
+				}
 				thisColumn.editor = 'input';
 				tableColumns.push(thisColumn);
 				newcell.setAttribute('data-col',ii);
-				let template = document.getElementById('clickColumn-template');
-				let tc = template.content.cloneNode(true).firstElementChild;
-				tc.setAttribute('data-col',ii);
-				tc.setAttribute('data-name',headers[headers.length-1]);
-				tc.querySelector('button[name=xButton]').addEventListener('click',clickTable);
-				tc.querySelector('button[name=yButton]').addEventListener('click',clickTable);
-				tc.querySelector('button[name=pivotButton]').addEventListener('click',clickTable);
-				tc.querySelector('button[name=ascButton]').addEventListener('click',clickTable);
-				tc.querySelector('button[name=descButton]').addEventListener('click',clickTable);
-				tippy(newcell, {
-				  content: tc,
-				  trigger: 'click',
-				  interactive: true
-				});
+				
 				for (var iii=0;iii<yColsVals.length;iii++){
 					if (parseInt(yColsVals[iii]) == ii){ 
 						newcell.style.border = '2px solid green';
