@@ -702,6 +702,7 @@ function updateTable(data) {
 	var includeHeaders = false;
 	for (var i=0;i<data.length;i++){
 		var newDataRow = {id:i};
+		/*
 		if (i < nHeaders){
 			var thisColumn = {};
 			thisColumn.title = 'Row';
@@ -710,7 +711,7 @@ function updateTable(data) {
 		}
 		else {
 			newDataRow['colRow'] = ''+i-nHeaders;
-		}
+		}*/
 		
 		
 		/*newcell.setAttribute('data-row',i - nHeaders);
