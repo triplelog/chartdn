@@ -739,7 +739,7 @@ function updateModifiedTable(data) {
 				}
 				var thisColumn = {};
 				thisColumn.title = headers[headers.length-1];
-				thisColumn.field = headers[headers.length-1];
+				thisColumn.field = headers[headers.length-1].replace(/./g,'_');
 				thisColumn.editor = 'input';
 				tableColumns.push(thisColumn);
 				newcell.setAttribute('data-col',ii);
@@ -768,12 +768,12 @@ function updateModifiedTable(data) {
 				
 			}
 			else {
-				newDataRow[headers[ii]]=data[i][ii];
+				newDataRow[headers[ii].replace(/./g,'_')]=data[i][ii];
 			}
 			newrow.appendChild(newcell);
 		}
 		dataTable.appendChild(newrow);
-		if (newDataRow[headers[0]]){
+		if (newDataRow[headers[0].replace(/./g,'_')]){
 			tableData.push(newDataRow);
 		}
 		
