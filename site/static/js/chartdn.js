@@ -1748,6 +1748,7 @@ function minimizeBox(boxid,full=false){
 			el.style.display = 'block';
 			minimizedBoxes[boxid] = 'full';
 			var myStyle = el.querySelector('chartdn-chart').getAttribute('data-style');
+			console.log(myStyle);
 			var jsonmessage = {'operation':'view','id':chartid,'loc':0,'style':myStyle}
 			ws.send(JSON.stringify(jsonmessage));
 			var el2 = document.getElementById(boxid+'None');
