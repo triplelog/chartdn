@@ -350,7 +350,6 @@ function columnsChg() {
 	var noNames = false;
 	
 	var yCols = yColsStr.split(',');
-	var el = document.getElementById('dataTableModified');
 
 	for (var i=0;i<yCols.length;i++){
 		if (!isNaN(parseInt(yCols[i]))){ 
@@ -787,6 +786,7 @@ function updateTable(data) {
 	dataTable.innerHTML = '';
 	console.log(tableData);
 	console.log(tableColumns);
+	console.log(aaa);
 	var table = new Tabulator("#dataTableModified", {
 		data:tableData, //set initial table data
 		columns: tableColumns,
