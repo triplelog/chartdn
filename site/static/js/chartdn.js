@@ -700,7 +700,16 @@ function updateTable(data) {
 	
 	var includeHeaders = false;
 	for (var i=0;i<data.length;i++){
-		
+		var newDataRow = {id:i};
+		if (i < nHeaders){
+			var thisColumn = {};
+			thisColumn.title = 'Row';
+			thisColumn.field = 'colRow';
+			tableColumns[0] = thisColumn;
+		}
+		else {
+			newDataRow.colRow = i - nHeaders;
+		}
 		/*let templateR = document.getElementById('clickRow-template');
 		let tcr = templateR.content.cloneNode(true).firstElementChild;
 		tcr.setAttribute('data-row',i - nHeaders);
@@ -713,7 +722,7 @@ function updateTable(data) {
 		  placement: "left"
 		});*/
 		
-		var newDataRow = {id:i};
+		
 		for (var ii=0;ii<data[i].length;ii++){
 			
 			if (i==0){
