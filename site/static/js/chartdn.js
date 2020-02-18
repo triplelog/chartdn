@@ -800,7 +800,6 @@ function updateTable(data) {
 		height:"15rem",
 		headerSort: false,
 	});
-	console.log(aaa);
 	updateHeaders(false,true);
 }
 var syncWorker2 = new Worker('../wasm/datatypeworker.js');
