@@ -683,10 +683,14 @@ function updateModifiedTable(data) {
 	}
 	updateHeaders(false,true);
 }
-
+var syncWorker2 = new Worker('../wasm/datatypeworker.js');
 function dataChanged(initialData=false,dataType='csv') {
 	
 	var csv = dataCopy.value;
+	syncWorker2.postMessage(csv);
+	syncWorker2.onmessage = function(e) {
+		console.log(e);
+	};
 	if (!initialData){
 		var delimiter = document.getElementById('delimiter').value;
 		if (delimiter.toLowerCase() == 'auto'){delimiter = '';}
