@@ -756,13 +756,14 @@ function updateModifiedTable(data) {
 						console.log(e.target);
 						let mytippy = tippy(e.target.parentElement.parentElement, {
 						  content: tc,
-						  trigger: 'click',
+						  trigger: 'manual',
 						  interactive: true
 						});
 						tippys[field] = mytippy;
 					}
 					else {
 						console.log(field);
+						tippys[field].show();
 					}
 				}
 				
