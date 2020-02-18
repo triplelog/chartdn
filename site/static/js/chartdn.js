@@ -547,7 +547,7 @@ function clickTable(evt) {
 		//Add col to yCols
 		var id = Math.random().toString(36).substr(2, 8);
 		var idx = modifiers.length-1;
-		if (modifiers[idx].type == 'sort'){
+		if (modifiers[idx] && modifiers[idx].type == 'sort'){
 			if (modifiers[idx].options.column == parseInt(col)){
 				if (!modifiers[idx].options.ascending && evt.target.getAttribute('name')=='ascButton'){
 					modifiers[idx].options.ascending = true;
@@ -585,7 +585,7 @@ function clickTable(evt) {
 		//Add col to yCols
 		var id = Math.random().toString(36).substr(2, 8);
 		var idx = modifiers.length-1;
-		if (modifiers[idx].type == 'pivot'){
+		if (modifiers[idx] && modifiers[idx].type == 'pivot'){
 			if (modifiers[idx].options.pivot == parseInt(col)){
 				//modifiers[idx].options.ascending = false;
 				modifierChanged();
