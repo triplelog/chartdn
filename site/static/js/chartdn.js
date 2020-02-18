@@ -477,7 +477,7 @@ function chgStep(evt) {
 	var jsonmessage = {'operation':'options','nsteps':nsteps};
 	ws.send(JSON.stringify(jsonmessage));
 }
-function modifierChg(initial=false) {
+function modifierChanged(initial=false) {
 	var el = document.getElementById('rawModified');
 
 	var addedRaw = false;
@@ -551,13 +551,13 @@ function clickTable(evt) {
 			if (modifiers[idx].options.column == parseInt(col)){
 				if (!modifiers[idx].options.ascending && evt.target.getAttribute('name')=='ascButton'){
 					modifiers[idx].options.ascending = true;
-					modifierChg();
+					modifierChanged();
 					chgModify(modifiers[idx]);
 					updateColumns();
 				}
 				else if (modifiers[idx].options.ascending && evt.target.getAttribute('name')=='descButton'){
 					modifiers[idx].options.ascending = false;
-					modifierChg();
+					modifierChanged();
 					chgModify(modifiers[idx]);
 					updateColumns();
 				}
@@ -577,7 +577,7 @@ function clickTable(evt) {
 		el.value = '';
 		createSort(newObject);
 		modifiers.push(newObject);
-		modifierChg();
+		modifierChanged();
 		chgModify(newObject);
 		updateColumns();
 	}
@@ -588,7 +588,7 @@ function clickTable(evt) {
 		if (modifiers[idx].type == 'pivot'){
 			if (modifiers[idx].options.pivot == parseInt(col)){
 				//modifiers[idx].options.ascending = false;
-				modifierChg();
+				modifierChanged();
 				chgModify(modifiers[idx]);
 				updateColumns();
 				return;
@@ -602,7 +602,7 @@ function clickTable(evt) {
 		el.value = '';
 		createPivot(newObject);
 		modifiers.push(newObject);
-		modifierChg();
+		modifierChanged();
 		chgModify(newObject);
 		updateColumns();
 	}
@@ -743,7 +743,7 @@ function dataChg(initialData=false,dataType='csv') {
 		dataTable.appendChild(newrow);
 		
 	}
-	modifierChg(initialData);
+	modifierChanged(initialData);
 	updateHeaders(initialData);
 	
 	
@@ -1027,7 +1027,7 @@ function updateModifier(evt){
 				ell.parentElement.removeChild(ell);
 				//remove from database
 				modifiers.splice(i,1);
-				modifierChg();
+				modifierChanged();
 				return;
 			}
 			else if (el.getAttribute('name')=='disable'){
@@ -1038,7 +1038,7 @@ function updateModifier(evt){
 				var listEl = document.getElementById(modifiers[i].id);
 				listEl.style.textDecoration = 'line-through';
 				listEl.style.color = 'rgb(50,50,50)';
-				modifierChg();
+				modifierChanged();
 				return;
 			}
 			else if (el.getAttribute('name')=='enable'){
@@ -1049,7 +1049,7 @@ function updateModifier(evt){
 				var listEl = document.getElementById(modifiers[i].id);
 				listEl.style.textDecoration = 'none';
 				listEl.style.color = 'inherit';
-				modifierChg();
+				modifierChanged();
 				return;
 			}
 			
@@ -1283,7 +1283,7 @@ function updateModifier(evt){
 		}
 	}
 
-	modifierChg();
+	modifierChanged();
 }
 function chgModify(mObject={}){
 	var idx = -1;
@@ -1696,7 +1696,7 @@ function createNewModifier(show=false) {
 		el.value = '';
 		modifiers.push(oldObject);
 		console.log(modifiers);
-		modifierChg();
+		modifierChanged();
 		chgModify(oldObject);
 		updateColumns();
 	}
@@ -1749,7 +1749,7 @@ drakeF.on('drop', function (el, target, source, sibling) {
 			modifiers.push(oldObject);
 		}
 
-		modifierChg();
+		modifierChanged();
 	}
 });
 drakeF.on('drag', function (el, target, source, sibling) { 
