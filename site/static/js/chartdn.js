@@ -542,6 +542,27 @@ function clickTable(evt) {
 		document.getElementById('yColumnSelect').value = col;
 		addColumn('y');
 	}
+	else if (evt.target.getAttribute('name')=='ascButton' || evt.target.getAttribute('name')=='descButton'){
+		//Add col to yCols
+		var id = Math.random().toString(36).substr(2, 8);
+		var newObject = {'id':id,'name':'sort','type':'sort','options':{},'enabled':true};
+		newObject.options.column = parseInt(col);
+		if (evt.target.getAttribute('name')=='ascButton') {
+			newObject.options.ascending = true;
+		}
+		else {
+			newObject.options.ascending = false;
+		}
+		var el = document.getElementById('createModifyMenu');
+		el.style.display = 'none';
+		el.value = '';
+		createSort(newObject);
+		modifiers.push(newObject);
+		modifierChg();
+		chgModify(oldObject);
+		updateColumns();
+	}
+	
 }
 
 function updateModifiedTable(data) {
@@ -592,6 +613,9 @@ function updateModifiedTable(data) {
 				tc.setAttribute('data-col',ii);
 				tc.querySelector('button[name=xButton]').addEventListener('click',clickTable);
 				tc.querySelector('button[name=yButton]').addEventListener('click',clickTable);
+				tc.querySelector('button[name=pivotButton]').addEventListener('click',clickTable);
+				tc.querySelector('button[name=ascButton]').addEventListener('click',clickTable);
+				tc.querySelector('button[name=descButton]').addEventListener('click',clickTable);
 				tippy(newcell, {
 				  content: tc,
 				  trigger: 'click',
