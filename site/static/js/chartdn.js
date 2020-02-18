@@ -741,13 +741,14 @@ function updateModifiedTable(data) {
 				var thisColumn = {};
 				thisColumn.title = headers[headers.length-1];
 				thisColumn.field = headers[headers.length-1].replace(/\./g,'_');
+				thisColumn.id = ii;
 				thisColumn.headerClick = function(e, column){
-					var field = column['_column'].id;
-					console.log(field);
-					if (!tippys[field]){
+					var col = column['_column'].id;
+					console.log(col);
+					if (!tippys[col]){
 						let template = document.getElementById('clickColumn-template');
 						let tc = template.content.cloneNode(true).firstElementChild;
-						tc.setAttribute('data-col',ii);
+						tc.setAttribute('data-col',col);
 						tc.setAttribute('data-name',headers[headers.length-1]);
 						tc.querySelector('button[name=xButton]').addEventListener('click',clickTable);
 						tc.querySelector('button[name=yButton]').addEventListener('click',clickTable);
@@ -763,11 +764,11 @@ function updateModifiedTable(data) {
 						  placement: 'bottom',
 						  onShow(instance) {console.log('hello');}
 						});
-						tippys[field] = mytippy;
+						tippys[col] = mytippy;
 						mytippy.show();
 					}
 					else {
-						tippys[field].show();
+						tippys[col].show();
 					}
 				}
 				
