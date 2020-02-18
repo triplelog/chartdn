@@ -16,7 +16,7 @@ ws.onmessage = function(evt){
 	var dm = JSON.parse(evt.data);
 	if (dm.operation == 'downloaded'){
 		document.getElementById('dataCopy').value = dm.message;
-		dataChg(true);
+		dataChanged(true);
 	}
 	else if (dm.operation == 'id'){
 		chartid = dm.message;
@@ -272,7 +272,7 @@ function dst() {
 // Set table if already have data
 var oldData = document.getElementById('dataCopy').value;
 if (oldData.length > 0){
-	dataChg(true);
+	dataChanged(true);
 }
 		
 		
@@ -684,9 +684,8 @@ function updateModifiedTable(data) {
 	updateHeaders(false,true);
 }
 
-function dataChg(initialData=false,dataType='csv') {
+function dataChanged(initialData=false,dataType='csv') {
 	
-	var dataTable = document.getElementById("dataTable");
 	var csv = dataCopy.value;
 	if (!initialData){
 		var delimiter = document.getElementById('delimiter').value;
@@ -719,7 +718,6 @@ function dataChg(initialData=false,dataType='csv') {
 		}
 	}
 	var data = Papa.parse(csv).data;
-	dataTable.innerHTML = '';
 	headers = [];
 	var includeHeaders = false;
 	for (var i=0;i<data.length;i++){
@@ -740,7 +738,6 @@ function dataChg(initialData=false,dataType='csv') {
 				}
 			}
 		}
-		dataTable.appendChild(newrow);
 		
 	}
 	modifierChanged(initialData);

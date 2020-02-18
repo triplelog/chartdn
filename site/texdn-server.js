@@ -557,10 +557,6 @@ loginApp.get('/edit/:chartid',
 									if (savedData['type'] && savedData['type'] != ''){
 										chartType[savedData['type']]='selected="selected"';
 									}
-									else {
-										savedData['type']='line';
-										chartType[savedData['type']]='selected="selected"';
-									}
 									var xaxis = {};
 									if (savedData.labels && savedData.labels.x){
 										xaxis.title = savedData.labels.x;
@@ -616,10 +612,6 @@ loginApp.get('/edit/:chartid',
 							var savedData = myOptions;
 							var chartType = {'line':'','bar':'','scatter':'','pie':'','bubble':'','histogram':'','heatmap':'','radar':'','box':'','choropleth':'','splom':'','diff':'','calendar':''};
 							if (savedData['type'] && savedData['type'] != ''){
-								chartType[savedData['type']]='selected="selected"';
-							}
-							else {
-								savedData['type']='line';
 								chartType[savedData['type']]='selected="selected"';
 							}
 							var xaxis = {'scale':{}};

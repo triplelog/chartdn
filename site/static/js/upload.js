@@ -21,7 +21,6 @@ function handleDrop(e) {
 	syncWorker.onmessage = function(e) {
 		//ctypestr = toTable(e.data.result,e.data.ctypestr);
 		document.getElementById('dataTableModified').innerHTML = '';
-		document.getElementById('dataTable').innerHTML = '';
 		setTimeout(fullCompression,10,ffile);
 	};
 }
@@ -36,7 +35,6 @@ document.querySelector('#dataFile').addEventListener('change', function(inp) {
 		//ctypestr = toTable(e.data.result,e.data.ctypestr);
 		//if (filen != ""){createConfirmForm();}
 		document.getElementById('dataTableModified').innerHTML = '';
-		document.getElementById('dataTable').innerHTML = '';
 		setTimeout(fullCompression,10,ffile);
 	};
 	
