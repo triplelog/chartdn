@@ -699,6 +699,7 @@ function updateModifiedTable(data) {
 	dataTable.innerHTML = '';
 	headers = [];
 	var tableData = [];
+	var tableColumns = [];
 	
 	var includeHeaders = false;
 	for (var i=0;i<data.length;i++){
@@ -736,6 +737,11 @@ function updateModifiedTable(data) {
 				else {
 					headers.push(getOrdinal(ii+1));
 				}
+				var thisColumn = {};
+				thisColumn.title = headers[headers.length-1];
+				thisColumn.field = headers[headers.length-1];
+				thisColumn.editor = 'input';
+				tableColumns.push();
 				newcell.setAttribute('data-col',ii);
 				let template = document.getElementById('clickColumn-template');
 				let tc = template.content.cloneNode(true).firstElementChild;
@@ -771,13 +777,14 @@ function updateModifiedTable(data) {
 			tableData.push(newDataRow);
 		}
 		console.log(tableData);
+		console.log(tableColumns);
 		
 	}
 	dataTable.innerHTML = '';
 	
 	var table = new Tabulator("#dataTableModified", {
 		data:tableData, //set initial table data
-		autoColumns:true,
+		columns: tableColumns,
 	});
 	updateHeaders(false,true);
 }
