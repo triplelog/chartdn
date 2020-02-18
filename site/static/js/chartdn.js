@@ -468,32 +468,45 @@ function optionsChg(optionname) {
 function chgStep(evt) {
 	var el = evt.target;
 	var nsteps = parseInt(el.getAttribute('name'));
+	var ell = document.getElementById('rawModified');
+	var qel = ell.querySelectorAll('a[name]');
+	for (var i=0;i<qel.length;i++){
+		if (i != nspets){qel[i].classList.remove('selectedRaw');}
+		else {qel[i].classList.add('selectedRaw');}
+	}
 	var jsonmessage = {'operation':'options','nsteps':nsteps};
 	ws.send(JSON.stringify(jsonmessage));
 }
 function modifierChg(initial=false) {
 	var el = document.getElementById('rawModified');
-	el.innerHTML = '';
+
 	var addedRaw = false;
 	var idx = 1;
 	for (var i in modifiers){
 		if (modifiers[i].enabled){
 			if (!addedRaw){
-				var newEl = document.createElement('a');
-				newEl.textContent = 'R';
-				newEl.setAttribute('name',0);
-				newEl.addEventListener('click',chgStep);
-				el.appendChild(newEl);
+				var qel = el.querySelectorAll('a[name="0"]').length;
+				if (qel == 0){
+					var newEl = document.createElement('a');
+					newEl.textContent = 'R';
+					newEl.setAttribute('name',0);
+					newEl.addEventListener('click',chgStep);
+					el.appendChild(newEl);
+				}
 				addedRaw = true;
 			}
-			var newEl = document.createElement('a');
-			newEl.textContent = idx;
-			newEl.setAttribute('name',idx);
-			newEl.addEventListener('click',chgStep);
-			el.appendChild(newEl);
+			var qel = el.querySelectorAll('a[name="'+idx+'"]').length;
+			if (qel == 0){
+				var newEl = document.createElement('a');
+				newEl.textContent = idx;
+				newEl.setAttribute('name',idx);
+				newEl.addEventListener('click',chgStep);
+				el.appendChild(newEl);
+			}
 			idx++;
 		}
 	}
+	
 	if (!initial){
 		var jsonmessage = {'operation':'options','modifiers':modifiers};
 		ws.send(JSON.stringify(jsonmessage));
@@ -1211,7 +1224,8 @@ function chgModify(mObject={}){
 			idx++;
 			if (idx != iidx){
 				var qstring = 'a[name="'+idx+'"]';
-				document.getElementById('rawModified').querySelector(qstring).style.color='white';
+				var el = document.getElementById('rawModified').querySelector(qstring);
+				el.classList.remove('suggestedRaw');
 			}
 		}
 		
@@ -1224,7 +1238,8 @@ function chgModify(mObject={}){
 				iidx = idx;
 				if (!m.enabled){q = idx+1; iidx = idx+1;}
 				var qstring = 'a[name="'+q+'"]';
-				document.getElementById('rawModified').querySelector(qstring).style.color='yellow';
+				var el = document.getElementById('rawModified').querySelector(qstring);
+				el.classList.add('suggestedRaw');
 			}
 			else {
 				document.getElementById('edit'+m.id).style.display = 'none';

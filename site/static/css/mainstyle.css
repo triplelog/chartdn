@@ -460,3 +460,12 @@ a.pure-button-primary {
 #allModifiers div, #yAxisDataBox span {
 	border: 1px solid white;
 }
+.selectedRaw {
+	color: blue;
+}
+.suggestedRaw {
+	color: green;
+}
+.unselectedRaw:not(.suggestedRaw) {
+	color: yellow;
+}
