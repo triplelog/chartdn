@@ -204,9 +204,15 @@ wss.on('connection', function connection(ws) {
 							  } else {
 								var d = new Date(); var n = d.getTime(); console.log('time5: ', n);
 								makeAllCharts(ws,dm,result,'all');
+								fs.unlink("saved/"+chartid+"."+dm.type, (err) => {
+									if (err){
+										console.log('Did not delete xls file');
+									}
+								});
 							  }
 							});
 						}
+						
 					});
 				});
   			}
@@ -263,6 +269,11 @@ wss.on('connection', function connection(ws) {
 								  } else {
 									var d = new Date(); var n = d.getTime(); console.log('time5: ', n);
 									makeAllCharts(ws,dm,result,'all');
+									fs.unlink("saved/"+chartid+"."+dm.type, (err) => {
+										if (err){
+											console.log('Did not delete xls file');
+										}
+									});
 								  }
 								});
 							}
@@ -332,7 +343,7 @@ wss.on('connection', function connection(ws) {
   			
 			}
 			else {
-				wget = 'wget -O saved/'+chartid+'.'+dm.type+' "' + dm.message + '" && in2csv saved/'+chartid+'.'+dm.type+' > saved/'+chartid+'.csv';
+				wget = 'wget -O saved/'+chartid+'.'+dm.type+' "' + dm.message + '" && in2csv saved/'+chartid+'.'+dm.type+' > saved/'+chartid+'.csv && rm saved/'+chartid+'.'+dm.type;
 			}
 			var child = exec(wget, function(err, stdout, stderr) {
 				if (err) throw err;
@@ -368,7 +379,7 @@ wss.on('connection', function connection(ws) {
 		
 				}
 				else {
-					wget = 'wget -O saved/'+chartid+'.'+dm.type+' "' + dm.message + '" && in2csv saved/'+chartid+'.'+dm.type+' > saved/'+chartid+'.csv';
+					wget = 'wget -O saved/'+chartid+'.'+dm.type+' "' + dm.message + '" && in2csv saved/'+chartid+'.'+dm.type+' > saved/'+chartid+'.csv && rm saved/'+chartid+'.'+dm.type;
 				}
 				var child = exec(wget, function(err, stdout, stderr) {
 					if (err) throw err;
