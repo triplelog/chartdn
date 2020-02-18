@@ -766,7 +766,9 @@ function updateModifiedTable(data) {
 					}
 					else {
 						console.log(tippys[field]);
-						
+						tippys[field].setProps({
+							appendTo: document.getElementById('dataSourceBox'),
+						});
 						tippys[field].show();
 					}
 				}
