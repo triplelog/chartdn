@@ -691,7 +691,7 @@ function updateTableOld(data) {
 	}
 	updateHeaders(false,true);
 }
-function updateTable(data) {
+function updateTable(data,idx=0) {
 	
 	headers = [];
 	var tableData = [];
@@ -792,7 +792,9 @@ function updateTable(data) {
 		height:"15rem",
 		headerSort: false,
 	});
-	console.log(aaa);
+	if (idx == 0){
+		updateTable(data,1);
+	}
 	updateHeaders(false,true);
 }
 var syncWorker2 = new Worker('../wasm/datatypeworker.js');
