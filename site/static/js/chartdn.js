@@ -693,26 +693,14 @@ function updateTableOld(data) {
 	updateHeaders(false,true);
 }
 function updateTable(data) {
-	var dataTable = document.getElementById("dataTableModified");
-	dataTable.style.display = 'inline-block';
-	dataTable.style.maxWidth = '100%';
-
-	dataTable.innerHTML = '';
+	
 	headers = [];
 	var tableData = [];
 	var tableColumns = [];
 	
 	var includeHeaders = false;
 	for (var i=0;i<data.length;i++){
-		var newrow = document.createElement('tr');
-		if (i < nHeaders) {
-			newrow.classList.add('headerrow');
-		}
 		
-		var newcell = document.createElement('td');
-		if (i < nHeaders){newcell.textContent = 'Row';}
-		else {newcell.textContent = i - nHeaders;}
-		newcell.setAttribute('data-row',i - nHeaders);
 		let templateR = document.getElementById('clickRow-template');
 		let tcr = templateR.content.cloneNode(true).firstElementChild;
 		tcr.setAttribute('data-row',i - nHeaders);
@@ -724,12 +712,9 @@ function updateTable(data) {
 		  interactive: true,
 		  placement: "left"
 		});
-		newrow.appendChild(newcell);
 		
 		var newDataRow = {id:i};
 		for (var ii=0;ii<data[i].length;ii++){
-			var newcell = document.createElement('td');
-			newcell.textContent = data[i][ii];
 			
 			if (i==0){
 				if (nHeaders > 0) {
@@ -773,30 +758,23 @@ function updateTable(data) {
 				
 				thisColumn.editor = 'input';
 				tableColumns.push(thisColumn);
-				newcell.setAttribute('data-col',ii);
 				
-				for (var iii=0;iii<yColsVals.length;iii++){
-					if (parseInt(yColsVals[iii]) == ii){ 
-						newcell.style.border = '2px solid green';
-					}
-				}
-				if (parseInt(xColumn) == ii){ 
-					newcell.style.border = '2px solid blue';
-				}
 				
 			}
 			else {
 				newDataRow['col'+ii]=data[i][ii];
 			}
-			newrow.appendChild(newcell);
 		}
-		dataTable.appendChild(newrow);
 		if (newDataRow['col0']){
 			tableData.push(newDataRow);
 		}
 		
 		
 	}
+	var dataTable = document.getElementById("dataTableModified");
+	dataTable.style.display = 'inline-block';
+	dataTable.style.maxWidth = '100%';
+
 	dataTable.innerHTML = '';
 	console.log(tableData);
 	console.log(tableColumns);
