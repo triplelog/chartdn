@@ -131,8 +131,6 @@ wss.on('connection', function connection(ws) {
   var chartidtemp = '';
   var username = '';
   var myOptions = {};
-  var jsonmessage = {'operation':'id','message':chartid};
-  ws.send(JSON.stringify(jsonmessage));
   ws.on('message', function incoming(message) {
   	var dm = JSON.parse(message);
   	if (dm.operation == 'upload'){
