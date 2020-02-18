@@ -671,7 +671,8 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
 		}
 		if (!modifiers[i].enabled){continue;}
 		if (nsteps === 0 || (nsteps && idx >= nsteps)){
-			modifiedArray = Object.freeze(hArray.concat(modJS.toData(rawArray)));
+			modifiedArray = hArray.concat(modJS.toData(rawArray));
+			Object.freeze(modifiedArray)
 			nsteps = false;
 		}
 		else {idx++;}
