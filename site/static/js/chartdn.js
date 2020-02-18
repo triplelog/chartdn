@@ -248,7 +248,7 @@ var dataUrl = document.getElementById("dataUrl");
 dataCopy.style.display = 'none';
 dataUrl.style.display = 'none';
 function dst() {
-	var radioChecked = document.querySelector("input[name=dataSourceType]:checked").value;
+	var radioChecked = document.querySelector("select[name=dataSourceType]").value;
 	if (radioChecked == 'File'){
 		dataFile.style.display = 'inline-block';
 		dropArea.style.display = 'block';
@@ -721,14 +721,7 @@ function dataChanged(initialData=false,dataType='csv') {
 	headers = [];
 	var includeHeaders = false;
 	for (var i=0;i<data.length;i++){
-		var newrow = document.createElement('tr');
-		if (i < nHeaders) {
-			newrow.classList.add('headerrow');
-		}
 		for (var ii=0;ii<data[i].length;ii++){
-			var newcell = document.createElement('td');
-			newcell.textContent = data[i][ii];
-			newrow.appendChild(newcell);
 			if (i==0){
 				if (nHeaders > 0) {
 					headers.push(data[i][ii]);
@@ -742,9 +735,7 @@ function dataChanged(initialData=false,dataType='csv') {
 	}
 	modifierChanged(initialData);
 	updateHeaders(initialData);
-	
-	
-	
+
 }
 
 
