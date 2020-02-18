@@ -1747,7 +1747,7 @@ function minimizeBox(boxid,full=false){
 			el.classList.remove('pure-u-1-2');
 			el.style.display = 'block';
 			minimizedBoxes[boxid] = 'full';
-			var myStyle = el.querySelector('chartdn-chart').getAttribute('data-style');
+			var myStyle = 'plotly';
 			console.log(myStyle);
 			var jsonmessage = {'operation':'view','id':chartid,'loc':0,'style':myStyle}
 			ws.send(JSON.stringify(jsonmessage));
