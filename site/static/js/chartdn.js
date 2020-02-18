@@ -709,7 +709,7 @@ function updateTable(data) {
 			tableColumns[0] = thisColumn;
 		}
 		else {
-			newDataRow['colRow'] = i-nHeaders;
+			newDataRow['colRow'] = ''+i-nHeaders;
 		}
 		
 		
