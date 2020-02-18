@@ -734,7 +734,7 @@ function updateTable(data) {
 				var thisColumn = {};
 				thisColumn.title = headers[headers.length-1];
 				thisColumn.field = 'col'+ii;
-				thisColumn.headerClick = function(e, column){
+				/*thisColumn.headerClick = function(e, column){
 					var col = column['_column'].field.substring(3);
 					console.log(col);
 					if (!tippys[col]){
@@ -763,7 +763,7 @@ function updateTable(data) {
 						tippys[col].show();
 					}
 				}
-				
+				*/
 				thisColumn.editor = 'input';
 				tableColumns.push(thisColumn);
 				
@@ -788,7 +788,7 @@ function updateTable(data) {
 	console.log(tableColumns);
 	
 	var table = new Tabulator("#dataTableModified", {
-		data:tableData, //set initial table data
+		data: tableData, //set initial table data
 		columns: tableColumns,
 		autoResize:true,
 		height:"15rem",
