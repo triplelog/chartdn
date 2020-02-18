@@ -61,6 +61,7 @@ if (options.xColumn){
 	xColumn = options.xColumn;
 }
 var headers = [];
+var tippys = {};
 var allHeaders = {};
 var colid = -1;
 var minimizedBoxes = {};
@@ -741,7 +742,8 @@ function updateModifiedTable(data) {
 				thisColumn.title = headers[headers.length-1];
 				thisColumn.field = headers[headers.length-1].replace(/\./g,'_');
 				thisColumn.headerClick = function(e, column){
-					console.log(column);
+					console.log(Object.keys(column));
+					console.log(e.target);
 					let template = document.getElementById('clickColumn-template');
 					let tc = template.content.cloneNode(true).firstElementChild;
 					tc.setAttribute('data-col',ii);
@@ -751,12 +753,14 @@ function updateModifiedTable(data) {
 					tc.querySelector('button[name=pivotButton]').addEventListener('click',clickTable);
 					tc.querySelector('button[name=ascButton]').addEventListener('click',clickTable);
 					tc.querySelector('button[name=descButton]').addEventListener('click',clickTable);
-					tippy(e.target, {
+					let mytippy = tippy(e.target, {
 					  content: tc,
-					  trigger: 'click',
+					  trigger: 'manual',
 					  interactive: true
 					});
+					tippys[ii] = mytippy;
 				}
+				console.log(tippys);
 				thisColumn.editor = 'input';
 				tableColumns.push(thisColumn);
 				newcell.setAttribute('data-col',ii);
