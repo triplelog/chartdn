@@ -1,9 +1,9 @@
 importScripts('../js/papaparse.min.js');
 self.addEventListener('message', function(e) {
     var data=e.data;
-    getAllTypes(data);
+    var typeArray = getAllTypes(data);
     postMessage({
-		dataTypes: ''
+		dataTypes: typeArray,
 	});
 });
 
@@ -12,7 +12,9 @@ function getAllTypes(input_str){
 	var data = Papa.parse(input_str);
 	var datatypes = [];
 	var ncols = Math.max(data.data[0].length,data.data[1].length);
-	
+	for (var i=0;i<ncols;i++){
+		datatypes.push({});
+	}
 
 	var nHeaders = 1;
 	var headers = [];
@@ -20,13 +22,32 @@ function getAllTypes(input_str){
 		var cell = data.data[0][ii];
 		headers.push(cell);
 	}
+	var dataTypes = {};
 	for (var i=nHeaders;i<data.data.length-1;i++) {
 		for (var ii=0;ii<data.data[i].length;ii++) {
 			var cell = data.data[i][ii];
-			console.log(cell,getDataType(cell,headers[ii]));
+			var type = getDataType(cell,headers[ii]);
+			if (datatypes[ii][type]){
+				datatypes[ii][type]+=1;
+			}
+			else {
+				datatypes[ii][type]=1;
+			}	
 		}
-		//tbody.appendChild(tr2);
 	}
+	var typeArray = [];
+	for (var i=0;i<ncols;i++){
+		var maxValue = 0;
+		var maxType = '';
+		for (var ii in datatypes[i]){
+			if (datatypes[i][ii]>maxValue){
+				maxValue = datatypes[i][ii];
+				maxType = ii;
+			}
+		}
+		typeArray.push(maxType);
+	}
+	return typeArray;
 
 }
 
