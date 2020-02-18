@@ -701,7 +701,7 @@ function updateTable(data) {
 	var includeHeaders = false;
 	for (var i=0;i<data.length;i++){
 		
-		let templateR = document.getElementById('clickRow-template');
+		/*let templateR = document.getElementById('clickRow-template');
 		let tcr = templateR.content.cloneNode(true).firstElementChild;
 		tcr.setAttribute('data-row',i - nHeaders);
 		tcr.querySelector('button[name=ignoreButton]').addEventListener('click',clickRow);
@@ -711,7 +711,7 @@ function updateTable(data) {
 		  trigger: 'click',
 		  interactive: true,
 		  placement: "left"
-		});
+		});*/
 		
 		var newDataRow = {id:i};
 		for (var ii=0;ii<data[i].length;ii++){
