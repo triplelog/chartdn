@@ -671,8 +671,15 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
 		}
 		if (!modifiers[i].enabled){continue;}
 		if (nsteps === 0 || (nsteps && idx >= nsteps)){
-			modifiedArray = hArray.concat(modJS.toData(rawArray));
-			Object.freeze(modifiedArray);
+			modifiedArray = [];
+			var hlen = hArray.length;
+			var rlen = rawArray.length;
+			for (var ii=0;ii<hlen;ii++){
+				modifiedArray[ii] = hArray[ii].slice();
+			}
+			for (var ii=0;ii<rlen;ii++){
+				modifiedArray[ii+hlen] = rawArray[ii].slice();
+			}
 			console.log('aaa',modifiedArray[1]);
 			nsteps = false;
 		}
