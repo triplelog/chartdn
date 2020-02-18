@@ -499,9 +499,14 @@ function modifierChg(initial=false) {
 		ws.send(JSON.stringify(jsonmessage));
 	}
 }
+
+function showLineChartOptions() {
+	document.getElementById('xAxisHolder').style.display = 'block';
+	document.getElementById('yAxisHolder').style.display = 'block';
+}
 function typeChg() {
 	var isChecked = document.querySelector('#chartTypeMenu > option:checked');
-
+	if (isChecked.value == 'line'){showLineChartOptions();}
 	var jsonmessage = {'operation':'options','type':isChecked.value};
 	ws.send(JSON.stringify(jsonmessage));
 }
@@ -1001,6 +1006,7 @@ function updateModifier(evt){
 					//modifiers[i].options.type = evt.target.querySelector('option:checked').value;
 					modifiers[i].options.column = parseInt(el.value);
 					modifiers[i].name = 'Sort by ' + el.querySelector('option:checked').textContent;
+					document.getElementById(modifiers[i].id).textContent = 'Sort by ' + el.querySelector('option:checked').textContent;
 				}
 				else if (el.getAttribute('name')=='descending'){
 					modifiers[i].options.ascending = !el.checked;
@@ -1780,6 +1786,13 @@ function minimizeBox(boxid,full=false){
 		}
 	}
 }
+minimizeBox('modifyData');
+minimizeBox('yAxis');
+var chartType = document.getElementById('chartTypeMenu').querySelector('option:checked').value;
+if (chartType == 'line'){
+	showLineChartOptions();
+}
+
 function showMoreOptions(collapse=false) {
 	var el = document.getElementById('showMoreOptions');
 	if (collapse){
