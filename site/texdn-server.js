@@ -596,7 +596,7 @@ loginApp.get('/edit/:chartid',
 						result.markModified('options');
 						result.save(function (err, result) {
 							if (err) return console.error('sajdhfkasdhj\n',err);
-							console.log('deleted nsteps', results.options);
+							console.log('deleted nsteps', result.options);
 						});
 					}
 					if (result.user == '' || result.user == username){
