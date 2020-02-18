@@ -600,7 +600,7 @@ function clickTable(evt) {
 		var el = document.getElementById('createModifyMenu');
 		el.style.display = 'none';
 		el.value = '';
-		createSort(newObject);
+		createPivot(newObject);
 		modifiers.push(newObject);
 		modifierChg();
 		chgModify(newObject);
