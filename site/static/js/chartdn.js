@@ -1339,31 +1339,6 @@ function clickModifier(evt){
 	}
 }
 
-function createMButtons(newH,enabled) {
-	var newSpan = document.createElement('span');
-	newSpan.setAttribute('name','delete');
-	newSpan.classList.add('box-buttons');
-	var newIcon = document.createElement('i');
-	newIcon.classList.add('fas');
-	newIcon.classList.add('fa-trash');
-	newSpan.appendChild(newIcon);
-	newSpan.addEventListener('click',updateModifier);
-	newH.appendChild(newSpan);
-	newSpan = document.createElement('span');
-	if (enabled){
-		newSpan.setAttribute('name','disable');
-		newSpan.classList.add('box-buttons');
-		newSpan.textContent = 'Disable';
-	}
-	else {
-		newSpan.setAttribute('name','enable');
-		newSpan.classList.add('box-buttons');
-		newSpan.textContent = 'Enable';
-	}
-	newSpan.addEventListener('click',updateModifier);
-	newH.appendChild(newSpan);
-}
-
 function createPivot(obj) {
 	
 	
@@ -1393,6 +1368,7 @@ function createPivot(obj) {
 	
 	if (!obj.enabled){
 		newM.querySelector('span[name=disable]').textContent = 'Enable';
+		newM.querySelector('span[name=disable]').setAttribute('name','enable');
 	}
 	else {
 		newM.querySelector('span[name=disable]').textContent = 'Disable';
@@ -1463,6 +1439,7 @@ function createReplace(obj) {
 	
 	if (!obj.enabled){
 		newM.querySelector('span[name=disable]').textContent = 'Enable';
+		newM.querySelector('span[name=disable]').setAttribute('name','enable');
 	}
 	else {
 		newM.querySelector('span[name=disable]').textContent = 'Disable';
@@ -1528,6 +1505,7 @@ function createSort(obj) {
 	
 	if (!obj.enabled){
 		newM.querySelector('span[name=disable]').textContent = 'Enable';
+		newM.querySelector('span[name=disable]').setAttribute('name','enable');
 	}
 	else {
 		newM.querySelector('span[name=disable]').textContent = 'Disable';
@@ -1564,6 +1542,7 @@ function fillNew(obj) {
 	if (!obj.enabled){
 		selectorEl.style.textDecoration = 'line-through';
 		el.querySelector('span[name=disable]').textContent = 'Enable';
+		el.querySelector('span[name=disable]').setAttribute('name','enable');
 	}
 	else {
 		selectorEl.style.textDecoration = 'none';
