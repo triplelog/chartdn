@@ -545,7 +545,25 @@ function clickTable(evt) {
 	else if (evt.target.getAttribute('name')=='ascButton' || evt.target.getAttribute('name')=='descButton'){
 		//Add col to yCols
 		var id = Math.random().toString(36).substr(2, 8);
-		var newObject = {'id':id,'name':'sort','type':'sort','options':{},'enabled':true};
+		var idx = modifiers.length-1;
+		if (modifiers[idx].type == 'sort'){
+			if (modifiers[idx].options.column == parseInt(col)){
+				if (!modifiers[idx].options.ascending && evt.target.getAttribute('name')=='ascButton'){
+					modifiers[idx].options.ascending = true;
+					modifierChg();
+					chgModify(modifiers[idx]);
+					updateColumns();
+				}
+				else if (modifiers[idx].options.ascending && evt.target.getAttribute('name')=='descButton'){
+					modifiers[idx].options.ascending = false;
+					modifierChg();
+					chgModify(modifiers[idx]);
+					updateColumns();
+				}
+				return;
+			}
+		}
+		var newObject = {'id':id,'name':'Sort','type':'sort','options':{},'enabled':true};
 		newObject.options.column = parseInt(col);
 		if (evt.target.getAttribute('name')=='ascButton') {
 			newObject.options.ascending = true;
@@ -559,7 +577,7 @@ function clickTable(evt) {
 		createSort(newObject);
 		modifiers.push(newObject);
 		modifierChg();
-		chgModify(oldObject);
+		chgModify(newObject);
 		updateColumns();
 	}
 	
