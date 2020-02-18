@@ -672,7 +672,8 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
 		if (!modifiers[i].enabled){continue;}
 		if (nsteps === 0 || (nsteps && idx >= nsteps)){
 			modifiedArray = hArray.concat(modJS.toData(rawArray));
-			Object.freeze(modifiedArray)
+			Object.freeze(modifiedArray);
+			console.log('aaa',modifiedArray[1]);
 			nsteps = false;
 		}
 		else {idx++;}
@@ -704,9 +705,11 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
 	}
 
 	var filteredArray = hArray.concat(modJS.toData(rawArray));
+	console.log('bb',modifiedArray[1]);
 	if (!modifiedArray || modifiedArray.length == 0){
 		modifiedArray = filteredArray;
 	}
+	console.log('c',modifiedArray[1]);
 	var t6 = performance.now();
 	console.log(t2,t6);
 	//console.log(filteredArray);
