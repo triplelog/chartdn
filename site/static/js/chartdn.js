@@ -762,7 +762,8 @@ function updateModifiedTable(data) {
 						tippys[field] = mytippy;
 					}
 					else {
-						console.log(field);
+						console.log(tippys[field]);
+						
 						tippys[field].show();
 					}
 				}
