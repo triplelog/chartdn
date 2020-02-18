@@ -28,7 +28,6 @@ function getAllTypes(input_str){
 		//tbody.appendChild(tr2);
 	}
 
-	return ctypestr;
 }
 
 
