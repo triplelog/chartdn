@@ -760,6 +760,7 @@ function updateModifiedTable(data) {
 						  interactive: true
 						});
 						tippys[field] = mytippy;
+						mytippy.show();
 					}
 					else {
 						console.log(tippys[field]);
