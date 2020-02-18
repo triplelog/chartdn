@@ -1747,6 +1747,9 @@ function minimizeBox(boxid,full=false){
 			el.classList.remove('pure-u-1-2');
 			el.style.display = 'block';
 			minimizedBoxes[boxid] = 'full';
+			var myStyle = el.querySelector('chartdn-chart').getAttribute('data-style');
+			var jsonmessage = {'operation':'view','id':chartid,'loc':0,'style':myStyle}
+			ws.send(JSON.stringify(jsonmessage));
 			var el2 = document.getElementById(boxid+'None');
 			el2.style.display = 'none';
 		}
@@ -1755,6 +1758,9 @@ function minimizeBox(boxid,full=false){
 			el.classList.add('pure-u-1-2');
 			el.classList.remove('pure-u-1-1');
 			el.style.display = 'block';
+			var myStyle = el.querySelector('chartdn-chart').getAttribute('data-style');
+			var jsonmessage = {'operation':'view','id':chartid,'loc':0,'style':myStyle}
+			ws.send(JSON.stringify(jsonmessage));
 			minimizedBoxes[boxid] = 'half';
 		}
 		else if (minimizedBoxes[boxid] == 'half') {
@@ -1769,6 +1775,9 @@ function minimizeBox(boxid,full=false){
 			el.classList.add('pure-u-1-2');
 			el.classList.remove('pure-u-1-1');
 			el.style.display = 'block';
+			var myStyle = el.querySelector('chartdn-chart').getAttribute('data-style');
+			var jsonmessage = {'operation':'view','id':chartid,'loc':0,'style':myStyle}
+			ws.send(JSON.stringify(jsonmessage));
 			minimizedBoxes[boxid] = 'half';
 			var el2 = document.getElementById(boxid+'None');
 			el2.style.display = 'none';
