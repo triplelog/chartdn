@@ -753,8 +753,8 @@ function updateModifiedTable(data) {
 						tc.querySelector('button[name=pivotButton]').addEventListener('click',clickTable);
 						tc.querySelector('button[name=ascButton]').addEventListener('click',clickTable);
 						tc.querySelector('button[name=descButton]').addEventListener('click',clickTable);
-						e.target.id = 'tabulator-header-'+ii;
-						let mytippy = tippy(document.getElementById('tabulator-header-'+ii), {
+						
+						let mytippy = tippy(e.target, {
 						  content: tc,
 						  trigger: 'manual',
 						  interactive: true,
