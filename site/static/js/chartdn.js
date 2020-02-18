@@ -756,15 +756,13 @@ function updateModifiedTable(data) {
 						
 						let mytippy = tippy(e.target, {
 						  content: tc,
+						  appendTo: document.getElementById('dataSourceBox'),
 						  trigger: 'manual',
 						  interactive: true,
 						  placement: 'bottom',
 						  onShow(instance) {console.log('hello');}
 						});
 						tippys[field] = mytippy;
-						tippys[field].setProps({
-							appendTo: document.getElementById('dataSourceBox'),
-						});
 						mytippy.show();
 					}
 					else {
