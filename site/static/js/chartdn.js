@@ -1699,7 +1699,7 @@ function minimizeBox(boxid,full=false){
 		minimizedBoxes[boxid] = 'large';
 		document.getElementById('editSource').style.display = 'none';
 	}
-	else if (boxid == 'dataTable' || boxid == 'modifyData' || boxid == 'createChart' || boxid == 'customChart'){
+	else if (boxid == 'dataTable' || boxid == 'modifyData' || boxid == 'createChart'){
 		if (minimizedBoxes[boxid] == 'large'){
 			var el = document.getElementById(boxid+'Box');
 			el.style.display = 'none';
@@ -1714,7 +1714,7 @@ function minimizeBox(boxid,full=false){
 		}
 		else {
 			var el = document.getElementById(boxid+'Box');
-			el.style.display = 'block';
+			el.style.display = 'flex';
 			minimizedBoxes[boxid] = 'large';
 			var elp = el.parentElement;
 			elp.classList.add('l-box-half');
