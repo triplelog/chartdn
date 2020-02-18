@@ -776,12 +776,12 @@ function updateModifiedTable(data) {
 		if (newDataRow[headers[0]]){
 			tableData.push(newDataRow);
 		}
-		console.log(tableData);
-		console.log(tableColumns);
+		
 		
 	}
 	dataTable.innerHTML = '';
-	
+	console.log(tableData);
+	console.log(tableColumns);
 	var table = new Tabulator("#dataTableModified", {
 		data:tableData, //set initial table data
 		columns: tableColumns,
