@@ -748,7 +748,7 @@ function updateModifiedTable(data) {
 						let template = document.getElementById('clickColumn-template');
 						let tc = template.content.cloneNode(true).firstElementChild;
 						tc.setAttribute('data-col',col);
-						tc.setAttribute('data-name',headers[headers.length-1]);
+						tc.setAttribute('data-name',headers[parseInt(col)]);
 						tc.querySelector('button[name=xButton]').addEventListener('click',clickTable);
 						tc.querySelector('button[name=yButton]').addEventListener('click',clickTable);
 						tc.querySelector('button[name=pivotButton]').addEventListener('click',clickTable);
