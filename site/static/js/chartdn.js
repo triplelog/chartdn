@@ -755,14 +755,13 @@ function updateModifiedTable(data) {
 						tc.querySelector('button[name=descButton]').addEventListener('click',clickTable);
 						let mytippy = tippy(e.target, {
 						  content: tc,
-						  trigger: 'manual',
+						  trigger: 'click',
 						  interactive: true
 						});
 						tippys[field] = mytippy;
 					}
 					else {
 						console.log(field);
-						tippys[field].show();
 					}
 				}
 				
