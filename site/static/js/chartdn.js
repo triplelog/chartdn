@@ -742,7 +742,8 @@ function updateModifiedTable(data) {
 				thisColumn.title = headers[headers.length-1];
 				thisColumn.field = headers[headers.length-1].replace(/\./g,'_');
 				thisColumn.headerClick = function(e, column){
-					var field = column['_column'].field;
+					var field = column['_column'].id;
+					console.log(field);
 					if (!tippys[field]){
 						let template = document.getElementById('clickColumn-template');
 						let tc = template.content.cloneNode(true).firstElementChild;
