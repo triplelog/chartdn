@@ -471,7 +471,7 @@ function chgStep(evt) {
 	var ell = document.getElementById('rawModified');
 	var qel = ell.querySelectorAll('a[name]');
 	for (var i=0;i<qel.length;i++){
-		if (i != nspets){qel[i].classList.remove('selectedRaw');}
+		if (i != nsteps){qel[i].classList.remove('selectedRaw');}
 		else {qel[i].classList.add('selectedRaw');}
 	}
 	var jsonmessage = {'operation':'options','nsteps':nsteps};
