@@ -705,7 +705,7 @@ function updateTable(data,idx=0) {
 			thisColumn.title = 'Row';
 			thisColumn.field = 'colRow';
 			thisColumn.cellClick = function(e, cell){
-				console.log(cell.getRow());
+				console.log(cell.getRow()['_row']);
 			}
 			tableColumns[0] = thisColumn;
 		}
