@@ -785,6 +785,8 @@ function updateModifiedTable(data) {
 	var table = new Tabulator("#dataTableModified", {
 		data:tableData, //set initial table data
 		columns: tableColumns,
+		autoResize:true,
+		height:"15rem",
 	});
 	updateHeaders(false,true);
 }
