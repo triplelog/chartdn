@@ -10,6 +10,9 @@ self.addEventListener('message', function(e) {
 function getAllTypes(input_str){
 	
 	var data = Papa.parse(input_str);
+	if (data.data.length<2){
+		return [];
+	}
 	var datatypes = [];
 	var ncols = Math.max(data.data[0].length,data.data[1].length);
 	for (var i=0;i<ncols;i++){

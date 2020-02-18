@@ -506,7 +506,15 @@ function modifierChanged(initial=false) {
 			idx++;
 		}
 	}
-	
+	var qel = el.querySelectorAll('a[name]').length;
+	if (qel >= idx){
+		for (var i=idx;i<qel+1;i++){
+			var qell = el.querySelector('a[name="'+i+'"]');
+			if (qell){
+				qell.parentNode.removeChild(qell);
+			}
+		}
+	}
 	if (!initial){
 		var jsonmessage = {'operation':'options','modifiers':modifiers};
 		ws.send(JSON.stringify(jsonmessage));
