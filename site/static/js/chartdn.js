@@ -740,10 +740,9 @@ function updateModifiedTable(data) {
 				}
 				var thisColumn = {};
 				thisColumn.title = headers[headers.length-1];
-				thisColumn.field = headers[headers.length-1].replace(/\./g,'_');
-				thisColumn.cid = ii;
+				thisColumn.field = ii;
 				thisColumn.headerClick = function(e, column){
-					var col = column['_column'].cid;
+					var col = column['_column'].field;
 					console.log(col);
 					if (!tippys[col]){
 						let template = document.getElementById('clickColumn-template');
@@ -787,7 +786,7 @@ function updateModifiedTable(data) {
 				
 			}
 			else {
-				newDataRow[headers[ii].replace(/\./g,'_')]=data[i][ii];
+				newDataRow[ii]=data[i][ii];
 			}
 			newrow.appendChild(newcell);
 		}
