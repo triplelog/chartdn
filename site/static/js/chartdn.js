@@ -530,6 +530,7 @@ function clickRow(evt) {
 }
 function clickTable(evt) {
 	var col = evt.target.parentElement.parentElement.getAttribute('data-col');
+	var colName = evt.target.parentElement.parentElement.getAttribute('data-name');
 	if (evt.target.getAttribute('name')=='xButton'){
 		//set col as xCol
 		console.log('x',col);
@@ -563,7 +564,7 @@ function clickTable(evt) {
 				return;
 			}
 		}
-		var newObject = {'id':id,'name':'Sort','type':'sort','options':{},'enabled':true};
+		var newObject = {'id':id,'name':'Sort by '+colName,'type':'sort','options':{},'enabled':true};
 		newObject.options.column = parseInt(col);
 		if (evt.target.getAttribute('name')=='ascButton') {
 			newObject.options.ascending = true;
@@ -629,6 +630,7 @@ function updateModifiedTable(data) {
 				let template = document.getElementById('clickColumn-template');
 				let tc = template.content.cloneNode(true).firstElementChild;
 				tc.setAttribute('data-col',ii);
+				tc.setAttribute('data-name',headers[headers.length-1]);
 				tc.querySelector('button[name=xButton]').addEventListener('click',clickTable);
 				tc.querySelector('button[name=yButton]').addEventListener('click',clickTable);
 				tc.querySelector('button[name=pivotButton]').addEventListener('click',clickTable);
