@@ -725,7 +725,7 @@ function updateModifiedTable(data) {
 		});
 		newrow.appendChild(newcell);
 		
-		var newDataRow = {};
+		var newDataRow = {id:i};
 		for (var ii=0;ii<data[i].length;ii++){
 			var newcell = document.createElement('td');
 			newcell.textContent = data[i][ii];
