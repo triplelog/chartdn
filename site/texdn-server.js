@@ -591,7 +591,7 @@ loginApp.get('/edit/:chartid',
 				  else { //Load chart data and options
 					dataname = result.data;
 					myOptions = result.options;
-					if (result.options.nsteps){
+					if (result.options.nsteps || result.options.nsteps === 0){
 						delete result.options.nsteps;
 						result.markModified('options');
 						result.save(function (err, result) {
