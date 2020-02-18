@@ -704,6 +704,9 @@ function updateTable(data,idx=0) {
 			var thisColumn = {};
 			thisColumn.title = 'Row';
 			thisColumn.field = 'colRow';
+			thisColumn.cellClick = function(e, cell){
+				console.log(cell);
+			}
 			tableColumns[0] = thisColumn;
 		}
 		else {
