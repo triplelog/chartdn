@@ -733,6 +733,11 @@ function updateTable(data) {
 	}
 	var dataTable = document.getElementById("dataTableModified");
 	dataTable.innerHTML = '';
+	var finalColumn = {};
+	finalColumn.title = '';
+	finalColumn.field = '';
+	finalColumn.width = '18px';
+	tableColumns.push(finalColumn);
 	table = new Tabulator("#dataTableModified", {
 		columns: tableColumns,
 		autoResize:true,
