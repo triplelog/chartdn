@@ -1738,9 +1738,9 @@ function createFilter(obj) {
 	var ie = el.querySelector('#includeExclude');
 	ie.style.display = 'block';
 	if (obj.options.exclude){
-		ie.querySelector('option[name=exclude]').checked = true;
+		ie.querySelector('input[name=exclude]').checked = true;
 	}
-	ie.querySelector('option[name=exclude]').addEventListener('change',updateModifier);
+	ie.querySelector('input[name=exclude]').addEventListener('change',updateModifier);
 }
 
 function createNewModifier(show=false) {
