@@ -423,7 +423,7 @@ wss.on('connection', function connection(ws) {
 						
 					}
 					else {
-						console.log('used cached data', chartData);
+						console.log('used cached data', chartData.slice(0,10));
 						makeChartsWithData(ws,chartData,result2,'all',dm);
 					}
 				});
