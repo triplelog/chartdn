@@ -864,7 +864,7 @@ function makeChartsWithData(ws,rawdata,chartInfo,chartStyle,dm,reloadTable=true)
 		console.log('plotly created',performance.now());
 		if (!dm.loc){dm.loc = 0}
 		var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc,'style':'plotly','allHeaders':data.headers};
-		if (reloadData){
+		if (reloadTable){
 			jsonmessage['mdata']=data.modified;
 		}
 		ws.send(JSON.stringify(jsonmessage));
