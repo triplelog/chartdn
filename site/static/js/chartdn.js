@@ -1744,6 +1744,7 @@ function createFilter(obj) {
 		ie.querySelector('input[value=exclude]').checked = true;
 	}
 	ie.querySelector('input[value=exclude]').addEventListener('change',updateModifier);
+	ie.querySelector('input[value=include]').addEventListener('change',updateModifier);
 }
 
 function createNewModifier(show=false) {
