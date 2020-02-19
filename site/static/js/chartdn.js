@@ -1838,6 +1838,9 @@ function minimizeBox(boxid,full=false){
 			ell.classList.add('fa-compress-alt');
 			ell.classList.remove('fa-expand-alt');
 		}
+		if (boxid == 'dataTable'){
+			table.redraw();
+		}
 	}
 	else if (boxid == 'chartjs' || boxid == 'plotly' || boxid == 'xkcd' || boxid == 'google'){
 		if (full){
