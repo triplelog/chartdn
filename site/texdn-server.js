@@ -699,7 +699,7 @@ loginServer.listen(3000);
 
 
 function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
-	var maxColumns = 50;
+
 	rawArray = dataStr;
 	var t1 = performance.now();
 
@@ -713,7 +713,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
 	var modifiedArray = [];
 	for (var i in modifiers){
 		allHeaders[modifiers[i].id]=[];
-		for (var ii in hArray[0].slice(0,maxColumns)){
+		for (var ii in hArray[0]){
 			allHeaders[modifiers[i].id].push(hArray[0][ii]);
 		}
 		if (!modifiers[i].enabled){continue;}
@@ -722,10 +722,10 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
 			var hlen = hArray.length;
 			var rlen = rawArray.length;
 			for (var ii=0;ii<hlen;ii++){
-				modifiedArray[ii] = hArray[ii].slice(0,maxColumns);
+				modifiedArray[ii] = hArray[ii];
 			}
 			for (var ii=0;ii<rlen;ii++){
-				modifiedArray[ii+hlen] = rawArray[ii].slice(0,maxColumns);
+				modifiedArray[ii+hlen] = rawArray[ii];
 			}
 			nsteps = false;
 		}
@@ -753,7 +753,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
 		}
 	}
 	allHeaders['current']=[];
-	for (var ii in hArray[0].slice(0,maxColumns)){
+	for (var ii in hArray[0]){
 		allHeaders['current'].push(hArray[0][i]);
 	}
 
@@ -763,10 +763,10 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
 		var hlen = hArray.length;
 		var rlen = rawArray.length;
 		for (var ii=0;ii<hlen;ii++){
-			modifiedArray[ii] = hArray[ii].slice(0,maxColumns);
+			modifiedArray[ii] = hArray[ii];
 		}
 		for (var ii=0;ii<rlen;ii++){
-			modifiedArray[ii+hlen] = rawArray[ii].slice(0,maxColumns);
+			modifiedArray[ii+hlen] = rawArray[ii];
 		}
 	}
 	var t6 = performance.now();
@@ -796,9 +796,15 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
 	
 }
 function makeChartsWithData(ws,rawdata,chartInfo,chartStyle,dm) {
+	var maxColumns = 50;
+	var newData = [];
+	var rawLen = rawdata.length;
+	for (var i=0;i<rawLen;i++){
+		newData.push(rawdata[i].slice(0,maxColumns));
+	}
 	console.log('data converted',performance.now());
 	var nHeaders = chartInfo.options.nHeaders || 1;
-	var data = convertDataToFull(rawdata,nHeaders,chartInfo.options.modifiers,chartInfo.options.nsteps);
+	var data = convertDataToFull(newData,nHeaders,chartInfo.options.modifiers,chartInfo.options.nsteps);
 				
 	if (data.headers.current.length != chartInfo.headers.length){
 		chartInfo.headers = data.headers.current;
@@ -869,13 +875,8 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 				delimiter: chartInfo.options.delimiter || ""
 			});
 			console.log('parsed',performance.now());
-			var rawData = [];
-			var rawLen = results.data.length;
-			for (var i=0;i<rawLen;i++){
-				rawData.push(results.data[i].slice(0,50));
-			}
 			makeChartsWithData(ws,results.data,chartInfo,chartStyle,dm);
-			resolve(rawData);
+			resolve(results.data);
 		});
     });
 
