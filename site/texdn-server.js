@@ -761,6 +761,9 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
 }
 function makeChartsWithData(ws,data,chartInfo,chartStyle,dm) {
 	console.log('data converted',performance.now());
+	var nHeaders = chartInfo.options.nHeaders || 1;
+	var data = convertDataToFull(data,nHeaders,chartInfo.options.modifiers,chartInfo.options.nsteps);
+				
 	if (data.headers.current.length != chartInfo.headers.length){
 		chartInfo.headers = data.headers.current;
 		chartInfo.markModified('headers');/*
@@ -828,10 +831,8 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 			delimiter: chartInfo.options.delimiter || "",
 			complete: function(results) {
 				console.log('parsed',performance.now());
-				var nHeaders = chartInfo.options.nHeaders || 1;
-				var data = convertDataToFull(results.data,nHeaders,chartInfo.options.modifiers,chartInfo.options.nsteps);
-				makeChartsWithData(ws,data,chartInfo,chartStyle,dm);
-				return data;
+				makeChartsWithData(ws,results.data,chartInfo,chartStyle,dm);
+				return results.data;
 				
 			}
 		});
