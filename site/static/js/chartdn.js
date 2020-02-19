@@ -748,7 +748,7 @@ function updateTable(data) {
 			console.log(value);
 		},
 	});
-	table.addData(tableData.slice(0,10), false);
+	table.addData(tableData.slice(0,1000), false);
 	table.redraw(true);
 	headersChanged(false,true);
 }
