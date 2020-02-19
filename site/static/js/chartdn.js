@@ -735,6 +735,7 @@ function updateTable(data) {
 		autoResize:true,
 		height:"20rem",
 		headerSort: false,
+		layout:"fitColumns",
 	});
 	
 	table.addData(tableData, false);
