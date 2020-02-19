@@ -1101,6 +1101,7 @@ function updateModifier(evt){
 	for (var i in modifiers){
 		if ('edit'+modifiers[i].id == id){
 			var mType = modifiers[i].type;
+			console.log(mType);
 			if (el.getAttribute('name')=='delete'){
 				
 				//delete from modifiers list
