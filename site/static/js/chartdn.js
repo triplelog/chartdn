@@ -688,8 +688,8 @@ function updateTable(data) {
 						tc.querySelector('button[name=pivotButton]').addEventListener('click',clickTippy);
 						tc.querySelector('button[name=ascButton]').addEventListener('click',clickTippy);
 						tc.querySelector('button[name=descButton]').addEventListener('click',clickTippy);
-						
-						let mytippy = tippy(e.target, {
+						e.target.id = 'tippyCol'+col;
+						let mytippy = tippy('#'+e.target.id, {
 						  content: tc,
 						  appendTo: document.querySelector('.header'),
 						  trigger: 'manual',
@@ -700,6 +700,7 @@ function updateTable(data) {
 						mytippy.show();
 					}
 					else {
+						e.target.id = 'tippyCol'+col;
 						tippys[col].show();
 					}
 				}
