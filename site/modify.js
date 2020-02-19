@@ -138,9 +138,9 @@ function replaceNegatives(istr){
 
 function postfixify(input_str) {
 	input_str = input_str.toUpperCase();
+	input_str = input_str.replace(/\sAND\s/g,'&');
+	input_str = input_str.replace(/\sOR\s/g,'|');
 	input_str = input_str.replace(/\s/g,'');
-	input_str = input_str.replace(/AND/g,'&');
-	input_str = input_str.replace(/OR/g,'|');
 	input_str = input_str.replace(/\[/g,'(');
 	input_str = input_str.replace(/]/g,')');
 	input_str = input_str.replace(/{/g,'(');
@@ -607,7 +607,10 @@ exports.filter = function(array,options,nHeaders) {
 			}
 		}
 		var answer = solvePostfix(intstr,bothparts[1]);
-		if (answer){
+		if (answer && options.exclude){
+			skipRows.push(i);
+		}
+		else if (!answer && options.include) {
 			skipRows.push(i);
 		}
 
