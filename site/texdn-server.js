@@ -686,10 +686,10 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
 			var hlen = hArray.length;
 			var rlen = rawArray.length;
 			for (var ii=0;ii<hlen;ii++){
-				modifiedArray[ii] = hArray[ii].slice(0,50);
+				modifiedArray[ii] = hArray[ii].slice(0,maxColumns);
 			}
 			for (var ii=0;ii<rlen;ii++){
-				modifiedArray[ii+hlen] = rawArray[ii].slice(0,50);
+				modifiedArray[ii+hlen] = rawArray[ii].slice(0,maxColumns);
 			}
 			nsteps = false;
 		}
@@ -727,10 +727,10 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
 		var hlen = hArray.length;
 		var rlen = rawArray.length;
 		for (var ii=0;ii<hlen;ii++){
-			modifiedArray[ii] = hArray[ii].slice(0,50);
+			modifiedArray[ii] = hArray[ii].slice(0,maxColumns);
 		}
 		for (var ii=0;ii<rlen;ii++){
-			modifiedArray[ii+hlen] = rawArray[ii].slice(0,50);
+			modifiedArray[ii+hlen] = rawArray[ii].slice(0,maxColumns);
 		}
 	}
 	var t6 = performance.now();
