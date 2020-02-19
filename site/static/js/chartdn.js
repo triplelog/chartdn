@@ -854,6 +854,7 @@ var drake = dragula([document.getElementById('yAxisDataBox')], {
 });
 
 drake.on('drop', function (el, target, source, sibling) { 
+	var d = new Date(); var n = d.getTime(); console.log('timedrop1: ', n);
 	if (target.id == 'yAxisDataBox') {
 		var elid = el.id.substring(5);
 		
@@ -906,8 +907,10 @@ drake.on('drop', function (el, target, source, sibling) {
 		chgLineTab();
 		
 	}
+	var d = new Date(); var n = d.getTime(); console.log('timedrop2: ', n);
 });
 drake.on('remove', function (el, target, source) { 
+	var d = new Date(); var n = d.getTime(); console.log('timeremove1: ', n);
 	if (source.id == 'yAxisDataBox') {
 		console.log(el.id);
 		for( var i = 0; i < yColsVals.length; i++){ 
@@ -935,6 +938,7 @@ drake.on('remove', function (el, target, source) {
 		ell = document.getElementById("yAxisFormatBox").querySelector(qstring);
 		ell.parentElement.removeChild(ell);
 	}
+	var d = new Date(); var n = d.getTime(); console.log('timeremove2: ', n);
 });
 drake.on('drag', function (el, target, source) { 
 	var elval = el.id.substring(5);
