@@ -752,7 +752,7 @@ function updateTable(data) {
 			userDataChanges.push({'row':row,'col':col,'value':value});
 		},
 		renderComplete:function(){
-			console.log(this);
+			console.log(this.tableWidth);
     	},
 	});
 	table.addData(tableData.slice(0,1000), false);
