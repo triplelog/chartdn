@@ -1181,7 +1181,6 @@ function updateModifier(evt){
 			}
 			else if (mType == 'new' || mType == 'filter'){
 				saveModifier = false;
-				console.log(el.getAttribute('name'));
 				if (el.getAttribute('name')=='save'){
 					saveModifier = true;
 				}
