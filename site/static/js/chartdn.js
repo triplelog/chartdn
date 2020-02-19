@@ -1725,7 +1725,9 @@ function createNew(obj) {
 }
 function createFilter(obj) {
 	createNew(obj);
-	document.getElementById('edit'+obj.id);
+	var el = document.getElementById('edit'+obj.id);
+	var ie = el.querySelector('includeExclude');
+	ie.style.display = 'block';
 }
 
 function createNewModifier(show=false) {
