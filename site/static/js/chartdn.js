@@ -720,9 +720,7 @@ function updateTable(data) {
 		
 	}
 	var dataTable = document.getElementById("dataTableModified");
-
 	dataTable.innerHTML = '';
-	console.log(JSON.stringify(tableData));
 	var table = new Tabulator("#dataTableModified", {
 		columns: tableColumns,
 		autoResize:true,
@@ -731,18 +729,6 @@ function updateTable(data) {
 	});
 	
 	table.addData(tableData, false);
-	//var dataTable = document.getElementById("dataTableModified");
-
-	//dataTable.innerHTML = '';
-	/*console.log(JSON.stringify(tableData));
-	var table2 = new Tabulator("#dataTableModified", {
-		data: tableData, //set initial table data
-		columns: tableColumns,
-		autoResize:true,
-		height:"100%",
-		headerSort: false,
-	});*/
-
 	headersChanged(false,true);
 }
 var syncWorker2 = new Worker('../wasm/datatypeworker.js');
