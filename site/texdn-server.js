@@ -705,7 +705,7 @@ loginServer.listen(3000);
 
 
 function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
-	console.log(nsteps);
+
 	rawArray = dataStr;
 	var t1 = performance.now();
 
@@ -808,6 +808,7 @@ function makeChartsWithData(ws,rawdata,chartInfo,chartStyle,dm,reloadTable=true)
 	for (var i=0;i<rawLen;i++){
 		newData.push(rawdata[i].slice(0,maxColumns));
 	}
+	console.log(rawdata.slice(0,3));
 	console.log('data converted',performance.now());
 	var nHeaders = chartInfo.options.nHeaders || 1;
 	var data = convertDataToFull(newData,nHeaders,chartInfo.options.modifiers,chartInfo.options.nsteps);
