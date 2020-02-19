@@ -750,7 +750,7 @@ function updateTable(data) {
 		},
 	});
 	console.log(tableData);
-	//table.addData(tableData, false);
+	table.addData(tableData, false);
 	table.redraw(true);
 	headersChanged(false,true);
 }
