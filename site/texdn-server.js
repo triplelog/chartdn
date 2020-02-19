@@ -832,20 +832,22 @@ function makeChartsWithData(ws,data,chartInfo,chartStyle,dm) {
 	}
 }		
 function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
-	fs.readFile('saved/'+chartInfo.data, 'utf8', function(err, fileData) {
-		if (!fileData || fileData.length == 0 ){return;}
-		console.log('file read',performance.now());
-		var results = Papa.parse(fileData, {
-			delimiter: chartInfo.options.delimiter || "",
-			complete: function(results) {
-				console.log('parsed',performance.now());
-				makeChartsWithData(ws,results.data,chartInfo,chartStyle,dm);
-				return results.data;
+	var fs = Promise.promisifyAll(require('fs'));
+	return fs.readFile('saved/'+chartInfo.data, 'utf8', function(err, fileData) {
+			if (!fileData || fileData.length == 0 ){return;}
+			console.log('file read',performance.now());
+			var results = Papa.parse(fileData, {
+				delimiter: chartInfo.options.delimiter || "",
+				complete: function(results) {
+					console.log('parsed',performance.now());
+					makeChartsWithData(ws,results.data,chartInfo,chartStyle,dm);
+					return results.data;
 				
-			}
+				}
+			});
+			return 5;
 		});
-		return 5;
-	});
+
 	return 7;
 	
 }
