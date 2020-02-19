@@ -736,6 +736,7 @@ function updateTable(data) {
 	var finalColumn = {};
 	finalColumn.title = '';
 	finalColumn.field = '';
+	finalColumn.width = '1px';
 	tableColumns.push(finalColumn);
 	table = new Tabulator("#dataTableModified", {
 		columns: tableColumns,
