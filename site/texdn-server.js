@@ -718,6 +718,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
 	var allHeaders = {};
 	var modifiedArray = [];
 	for (var i in modifiers){
+		console.log(rawArray.slice(0,3));
 		allHeaders[modifiers[i].id]=[];
 		for (var ii in hArray[0]){
 			allHeaders[modifiers[i].id].push(hArray[0][ii]);
@@ -808,7 +809,6 @@ function makeChartsWithData(ws,rawdata,chartInfo,chartStyle,dm,reloadTable=true)
 	for (var i=0;i<rawLen;i++){
 		newData.push(rawdata[i].slice(0,maxColumns));
 	}
-	console.log(rawdata.slice(0,3));
 	console.log('data converted',performance.now());
 	var nHeaders = chartInfo.options.nHeaders || 1;
 	var data = convertDataToFull(newData,nHeaders,chartInfo.options.modifiers,chartInfo.options.nsteps);
