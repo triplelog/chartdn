@@ -533,10 +533,7 @@ function typeChg() {
 	ws.send(JSON.stringify(jsonmessage));
 }
 
-function clickRow(evt) {
-	var row = evt.target.parentElement.parentElement.getAttribute('data-row');
-	
-}
+
 function clickTippy(evt) {
 	var col = evt.target.parentElement.parentElement.getAttribute('data-col');
 	if (col){
@@ -644,8 +641,8 @@ function updateTable(data,idx=0) {
 					let templateR = document.getElementById('clickRow-template');
 					let tcr = templateR.content.cloneNode(true).firstElementChild;
 					tcr.setAttribute('data-row',row);
-					tcr.querySelector('button[name=ignoreButton]').addEventListener('click',clickRow);
-					tcr.querySelector('button[name=matchButton]').addEventListener('click',clickRow);
+					tcr.querySelector('button[name=ignoreButton]').addEventListener('click',clickTippy);
+					tcr.querySelector('button[name=matchButton]').addEventListener('click',clickTippy);
 						
 					let mytippy = tippy(e.target, {
 					  content: tcr,
@@ -686,11 +683,11 @@ function updateTable(data,idx=0) {
 						let tc = template.content.cloneNode(true).firstElementChild;
 						tc.setAttribute('data-col',col);
 						tc.setAttribute('data-name',headers[parseInt(col)]);
-						tc.querySelector('button[name=xButton]').addEventListener('click',clickTable);
-						tc.querySelector('button[name=yButton]').addEventListener('click',clickTable);
-						tc.querySelector('button[name=pivotButton]').addEventListener('click',clickTable);
-						tc.querySelector('button[name=ascButton]').addEventListener('click',clickTable);
-						tc.querySelector('button[name=descButton]').addEventListener('click',clickTable);
+						tc.querySelector('button[name=xButton]').addEventListener('click',clickTippy);
+						tc.querySelector('button[name=yButton]').addEventListener('click',clickTippy);
+						tc.querySelector('button[name=pivotButton]').addEventListener('click',clickTippy);
+						tc.querySelector('button[name=ascButton]').addEventListener('click',clickTippy);
+						tc.querySelector('button[name=descButton]').addEventListener('click',clickTippy);
 						
 						let mytippy = tippy(e.target, {
 						  content: tc,
