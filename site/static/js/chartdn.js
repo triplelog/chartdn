@@ -689,7 +689,7 @@ function updateTable(data) {
 						tc.querySelector('button[name=ascButton]').addEventListener('click',clickTippy);
 						tc.querySelector('button[name=descButton]').addEventListener('click',clickTippy);
 						e.target.id = 'tippyCol'+col;
-						let mytippy = tippy('#tippyCol'+col, {
+						let mytippy = tippy(document.getElementById('#tippyCol'+col), {
 						  content: tc,
 						  appendTo: document.querySelector('.header'),
 						  trigger: 'manual',
