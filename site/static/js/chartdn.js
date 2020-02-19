@@ -614,6 +614,7 @@ function clickTippy(evt) {
 			updateColumns();
 		}
 		tippys[col].destroy();
+		delete tippys[col];
 	}
 	else {
 		var row = evt.target.parentElement.parentElement.getAttribute('data-row');
@@ -678,6 +679,9 @@ function updateTable(data) {
 				thisColumn.field = 'col'+ii;
 				thisColumn.headerClick = function(e, column){
 					var col = column['_column'].field.substring(3);
+					if (tippys[col]){
+						tippys[col].destroy();
+					}
 					//if (!tippys[col]){
 						let template = document.getElementById('clickColumn-template');
 						let tc = template.content.cloneNode(true).firstElementChild;
