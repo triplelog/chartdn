@@ -729,15 +729,15 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
 			var hlen = hArray.length;
 			var rlen = rawArray.length;
 			for (var ii=0;ii<hlen;ii++){
-				modifiedArray[ii] = hArray[ii];
+				modifiedArray[ii] = hArray[ii].slice();
 			}
 			for (var ii=0;ii<rlen;ii++){
-				modifiedArray[ii+hlen] = rawArray[ii];
+				modifiedArray[ii+hlen] = rawArray[ii].slice();
 			}
 			nsteps = false;
 		}
 		else {idx++;}
-		console.log(modifiedArray.slice(0,3));
+		
 		if (modifiers[i].type == 'new'){
 			modJS.newColumn(rawArray,modifiers[i].options,nHeaders);
 			if (hArray.length>0){
@@ -770,10 +770,10 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
 		var hlen = hArray.length;
 		var rlen = rawArray.length;
 		for (var ii=0;ii<hlen;ii++){
-			modifiedArray[ii] = hArray[ii];
+			modifiedArray[ii] = hArray[ii].slice();
 		}
 		for (var ii=0;ii<rlen;ii++){
-			modifiedArray[ii+hlen] = rawArray[ii];
+			modifiedArray[ii+hlen] = rawArray[ii].slice();
 		}
 	}
 	var t6 = performance.now();
