@@ -411,20 +411,20 @@ wss.on('connection', function connection(ws) {
 				updateOptions(result.options, dm);
 				updateOptions(myOptions, dm);
 				result.markModified('options');
-				result.save(function (err, result) {
+				result.save(function (err, result2) {
 					if (err) return console.error('sajdhfkasdhjfkjsahdfkjsadhfs\n',err);
 					console.log('saved options', performance.now());
 					if (!chartData){
-						makeAllCharts(ws,dm,result,'all').then(function(result) {
-							chartData = result;
+						makeAllCharts(ws,dm,result2,'all').then(function(result3) {
+							chartData = result3;
 						}, function(err) {
 							console.log(err);
 						});
 						
 					}
 					else {
-						console.log('used cached data');
-						makeChartsWithData(ws,chartData,result,'all',dm);
+						console.log('used cached data', chartData);
+						makeChartsWithData(ws,chartData,result2,'all',dm);
 					}
 				});
 			  }
