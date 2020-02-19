@@ -839,6 +839,7 @@ function makeChartsWithData(ws,data,chartInfo,chartStyle,dm) {
 function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 	return new Promise(function(resolve, reject) {
         fs.readFile('saved/'+chartInfo.data, 'utf8', function(err, fileData) {
+        	if (err){reject(err);}
 			if (!fileData || fileData.length == 0 ){reject('nofile');}
 			console.log('file read',performance.now());
 			var results = Papa.parse(fileData, {
@@ -850,12 +851,10 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 				
 				}
 			});
-			resolve(5);
+			resolve(results);
 		});
     });
-		
 
-	return 7;
 	
 }
 
