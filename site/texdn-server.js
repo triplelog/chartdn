@@ -448,8 +448,9 @@ wss.on('connection', function connection(ws) {
 					}
 					else {
 						console.log('used cached data', performance.now());
+						console.log(dm);
 						if (dm.modifiers || dm.nsteps){
-							console.log('reload:', nsteps);
+							console.log('reload:', dm.nsteps);
 							makeChartsWithData(ws,chartData,result2,'all',dm,true);
 						}
 						else {
