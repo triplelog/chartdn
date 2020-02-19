@@ -613,7 +613,7 @@ function clickTippy(evt) {
 			chgModify(newObject);
 			updateColumns();
 		}
-		tippys[col].hide();
+		tippys[col].destroy();
 	}
 	else {
 		var row = evt.target.parentElement.parentElement.getAttribute('data-row');
