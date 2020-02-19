@@ -622,7 +622,7 @@ function clickTippy(evt) {
 	
 }
 
-function updateTable(data,idx=0) {
+function updateTable(data) {
 	
 	headers = [];
 	var tableData = [];
@@ -724,28 +724,25 @@ function updateTable(data,idx=0) {
 	dataTable.innerHTML = '';
 	console.log(JSON.stringify(tableData));
 	var table = new Tabulator("#dataTableModified", {
-		data: tableData, //set initial table data
 		columns: tableColumns,
 		autoResize:true,
 		height:"100%",
 		headerSort: false,
 	});
 	
+	table.addData(tableData, false);
 	//var dataTable = document.getElementById("dataTableModified");
 
 	//dataTable.innerHTML = '';
-	console.log(JSON.stringify(tableData));
+	/*console.log(JSON.stringify(tableData));
 	var table2 = new Tabulator("#dataTableModified", {
 		data: tableData, //set initial table data
 		columns: tableColumns,
 		autoResize:true,
 		height:"100%",
 		headerSort: false,
-	});
-	
-	//if (idx == 0){
-	//	updateTable(data,1);
-	//}
+	});*/
+
 	headersChanged(false,true);
 }
 var syncWorker2 = new Worker('../wasm/datatypeworker.js');
