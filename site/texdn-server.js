@@ -131,6 +131,7 @@ wss.on('connection', function connection(ws) {
   var chartidtemp = '';
   var username = '';
   var myOptions = {};
+  var chartData = false;
   ws.on('message', function incoming(message) {
   	var dm = JSON.parse(message);
   	if (dm.operation == 'upload'){
@@ -413,7 +414,12 @@ wss.on('connection', function connection(ws) {
 				result.save(function (err, result) {
 					if (err) return console.error('sajdhfkasdhjfkjsahdfkjsadhfs\n',err);
 					console.log('saved options', performance.now());
-					makeAllCharts(ws,dm,result,'all');
+					if (!chartData){
+						chartData = makeAllCharts(ws,dm,result,'all');
+					}
+					else {
+						makeChartsWithData(ws,chartData,result,'all',dm);
+					}
 				});
 			  }
 			});
