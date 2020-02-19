@@ -1726,7 +1726,7 @@ function createNew(obj) {
 function createFilter(obj) {
 	createNew(obj);
 	var el = document.getElementById('edit'+obj.id);
-	var ie = el.querySelector('includeExclude');
+	var ie = el.querySelector('#includeExclude');
 	ie.style.display = 'block';
 }
 
