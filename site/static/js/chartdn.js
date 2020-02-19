@@ -736,6 +736,7 @@ function updateTable(data) {
 		height:"20rem",
 		headerSort: false,
 		layout:"fitColumns",
+		layoutColumnsOnNewData:true,
 	});
 	
 	table.addData(tableData, false);
