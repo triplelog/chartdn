@@ -759,77 +759,79 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
 	return {'byrow':retArray,'bycol':cols,'modified':modifiedArray,'headers':allHeaders};
 	
 }
-			
+function makeChartsWithData(ws,data,chartInfo,chartStyle,dm) {
+	console.log('data converted',performance.now());
+	if (data.headers.current.length != chartInfo.headers.length){
+		chartInfo.headers = data.headers.current;
+		chartInfo.markModified('headers');/*
+		chartInfo.save(function (err, chart) {
+			if (err) return console.error(err);
+			console.log('saved');
+		});*/
+		var jsonmessage = {'operation':'headers','message':data.headers.current};
+		ws.send(JSON.stringify(jsonmessage));
+	}
+	else {
+		for (var i in data.headers.current){
+			if (!chartInfo.headers || data.headers.current[i] != chartInfo.headers[i]){
+				chartInfo.headers = data.headers.current;/*
+				chartInfo.markModified('headers');
+				chartInfo.save(function (err, chart) {
+					if (err) return console.error(err);
+					console.log('saved');
+				});*/
+				var jsonmessage = {'operation':'headers','message':data.headers.current};
+				ws.send(JSON.stringify(jsonmessage));
+				break;
+			}
+		}
+	}
+	
+	/*
+	if (chartStyle == 'all' || chartStyle == 'chartJS') {
+		var chartJSON = createChartjs.createChartjs(data,chartInfo.options);
+		if (!dm.loc){dm.loc = 0}
+		var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc,'style':'chartJS'};
+		ws.send(JSON.stringify(jsonmessage));
+	}
+	var t1 = performance.now();
+	if (chartStyle == 'all' || chartStyle == 'XKCD') {
+		var chartJSON = createXkcd.createXkcd(data,chartInfo.options);
+		if (!dm.loc){dm.loc = 0}
+		var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc,'style':'XKCD'};
+		ws.send(JSON.stringify(jsonmessage));
+	}
+	var t2 = performance.now();
+	if (chartStyle == 'all' || chartStyle == 'google') {
+		var chartJSON = createGoogle.createGoogle(data,chartInfo.options);
+		if (!dm.loc){dm.loc = 0}
+		var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc,'style':'google'};
+		ws.send(JSON.stringify(jsonmessage));
+	}*/
+	if (chartStyle == 'all' || chartStyle == 'plotly') {
+		var chartJSON = createPlotly.createPlotly(data,chartInfo.options);
+		console.log('plotly created',performance.now());
+		if (!dm.loc){dm.loc = 0}
+		var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc,'style':'plotly','allHeaders':data.headers};
+		if (2==2){
+			jsonmessage['mdata']=data.modified;
+		}
+		ws.send(JSON.stringify(jsonmessage));
+		console.log('message sent',performance.now());
+	}
+}		
 function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 	fs.readFile('saved/'+chartInfo.data, 'utf8', function(err, fileData) {
 		if (!fileData || fileData.length == 0 ){return;}
 		console.log('file read',performance.now());
-		
 		var results = Papa.parse(fileData, {
 			delimiter: chartInfo.options.delimiter || "",
 			complete: function(results) {
 				console.log('parsed',performance.now());
 				var nHeaders = chartInfo.options.nHeaders || 1;
 				var data = convertDataToFull(results.data,nHeaders,chartInfo.options.modifiers,chartInfo.options.nsteps);
-				console.log('data converted',performance.now());
-				if (data.headers.current.length != chartInfo.headers.length){
-					chartInfo.headers = data.headers.current;
-					chartInfo.markModified('headers');/*
-					chartInfo.save(function (err, chart) {
-						if (err) return console.error(err);
-						console.log('saved');
-					});*/
-					var jsonmessage = {'operation':'headers','message':data.headers.current};
-					ws.send(JSON.stringify(jsonmessage));
-				}
-				else {
-					for (var i in data.headers.current){
-						if (!chartInfo.headers || data.headers.current[i] != chartInfo.headers[i]){
-							chartInfo.headers = data.headers.current;/*
-							chartInfo.markModified('headers');
-							chartInfo.save(function (err, chart) {
-								if (err) return console.error(err);
-								console.log('saved');
-							});*/
-							var jsonmessage = {'operation':'headers','message':data.headers.current};
-							ws.send(JSON.stringify(jsonmessage));
-							break;
-						}
-					}
-				}
-				
-				/*
-				if (chartStyle == 'all' || chartStyle == 'chartJS') {
-					var chartJSON = createChartjs.createChartjs(data,chartInfo.options);
-					if (!dm.loc){dm.loc = 0}
-					var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc,'style':'chartJS'};
-					ws.send(JSON.stringify(jsonmessage));
-				}
-				var t1 = performance.now();
-				if (chartStyle == 'all' || chartStyle == 'XKCD') {
-					var chartJSON = createXkcd.createXkcd(data,chartInfo.options);
-					if (!dm.loc){dm.loc = 0}
-					var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc,'style':'XKCD'};
-					ws.send(JSON.stringify(jsonmessage));
-				}
-				var t2 = performance.now();
-				if (chartStyle == 'all' || chartStyle == 'google') {
-					var chartJSON = createGoogle.createGoogle(data,chartInfo.options);
-					if (!dm.loc){dm.loc = 0}
-					var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc,'style':'google'};
-					ws.send(JSON.stringify(jsonmessage));
-				}*/
-				if (chartStyle == 'all' || chartStyle == 'plotly') {
-					var chartJSON = createPlotly.createPlotly(data,chartInfo.options);
-					console.log('plotly created',performance.now());
-					if (!dm.loc){dm.loc = 0}
-					var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc,'style':'plotly','allHeaders':data.headers};
-					if (2==2){
-						jsonmessage['mdata']=data.modified;
-					}
-					ws.send(JSON.stringify(jsonmessage));
-					console.log('message sent',performance.now());
-				}
+				makeChartsWithData(ws,data,chartInfo,chartStyle,dm);
+				return data;
 				
 			}
 		});

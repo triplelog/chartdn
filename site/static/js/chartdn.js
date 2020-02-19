@@ -68,6 +68,7 @@ var colid = -1;
 var minimizedBoxes = {};
 var table = false;
 var nsteps;
+var useDataChanges = [];
 minimizedBoxes.dataSource = 'large';
 minimizedBoxes.dataTable = 'large';
 minimizedBoxes.modifyData = 'large';
@@ -743,9 +744,7 @@ function updateTable(data) {
 			var row = cell['_cell'].row.data.colRow;
 			var col = cell['_cell'].column.field;
 			var value = cell['_cell'].value;
-			console.log(row);
-			console.log(col);
-			console.log(value);
+			userDataChanges.push({'row':row,'col':col,'value':value});
 		},
 	});
 	table.addData(tableData.slice(0,1000), false);
