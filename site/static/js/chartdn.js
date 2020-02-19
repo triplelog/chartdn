@@ -66,6 +66,7 @@ var tippysR = {};
 var allHeaders = {};
 var colid = -1;
 var minimizedBoxes = {};
+var table;
 minimizedBoxes.dataSource = 'large';
 minimizedBoxes.dataTable = 'large';
 minimizedBoxes.modifyData = 'large';
@@ -622,7 +623,10 @@ function clickTippy(evt) {
 	}
 	else {
 		var row = evt.target.parentElement.parentElement.getAttribute('data-row');
-		tippysR[row].hide();
+		if(tippysR[row]){
+			tippysR[row].destroy();
+			delete tippysR[row];
+		}
 	}
 	
 }
@@ -726,7 +730,7 @@ function updateTable(data) {
 	}
 	var dataTable = document.getElementById("dataTableModified");
 	dataTable.innerHTML = '';
-	var table = new Tabulator("#dataTableModified", {
+	table = new Tabulator("#dataTableModified", {
 		columns: tableColumns,
 		autoResize:true,
 		height:"20rem",
@@ -1798,6 +1802,7 @@ function minimizeBox(boxid,full=false){
 		otherEl.classList.remove('pure-u-3-4');
 		minimizedBoxes[boxid] = 'small';
 		document.getElementById('editSource').style.display = 'inline';
+		table.redraw();
 	}
 	else if (boxid == 'dataSource' && minimizedBoxes[boxid]== 'small'){
 		var el = document.getElementById('dataSourceBox');
@@ -1807,6 +1812,7 @@ function minimizeBox(boxid,full=false){
 		otherEl.classList.add('pure-u-3-4');
 		minimizedBoxes[boxid] = 'large';
 		document.getElementById('editSource').style.display = 'none';
+		table.redraw();
 	}
 	else if (boxid == 'dataTable' || boxid == 'modifyData' || boxid == 'createChart'){
 		if (minimizedBoxes[boxid] == 'large'){
@@ -1910,6 +1916,7 @@ var chartType = document.getElementById('chartTypeMenu').querySelector('option:c
 if (chartType == 'line'){
 	showLineChartOptions();
 }
+
 
 function showMoreOptions(collapse=false) {
 	var el = document.getElementById('showMoreOptions');
