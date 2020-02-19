@@ -1802,7 +1802,7 @@ function minimizeBox(boxid,full=false){
 		otherEl.classList.remove('pure-u-3-4');
 		minimizedBoxes[boxid] = 'small';
 		document.getElementById('editSource').style.display = 'inline';
-		table.redraw();
+		//table.redraw();
 	}
 	else if (boxid == 'dataSource' && minimizedBoxes[boxid]== 'small'){
 		var el = document.getElementById('dataSourceBox');
@@ -1812,7 +1812,7 @@ function minimizeBox(boxid,full=false){
 		otherEl.classList.add('pure-u-3-4');
 		minimizedBoxes[boxid] = 'large';
 		document.getElementById('editSource').style.display = 'none';
-		table.redraw();
+		//table.redraw();
 	}
 	else if (boxid == 'dataTable' || boxid == 'modifyData' || boxid == 'createChart'){
 		if (minimizedBoxes[boxid] == 'large'){
