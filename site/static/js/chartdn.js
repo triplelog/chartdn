@@ -765,14 +765,6 @@ function updateTable(data) {
 				document.getElementById("dataTableModified").style.width = nWidth+'px';
 			}
     	},
-    	rowFormatter:function(row){
-			//row - row component
-			var cells = row.getCells();
-			for (var cell in cell){
-				//cell.style.height = "1.5rem";
-			}
-			row.getElement().style.height = "1.5rem";
-		},
 	});
 	table.addData(tableData.slice(0,1000), false);
 	dataTable.style.width = '';
