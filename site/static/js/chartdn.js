@@ -732,6 +732,7 @@ function updateTable(data) {
 	}
 	var dataTable = document.getElementById("dataTableModified");
 	dataTable.innerHTML = '';
+	console.log(tableColumns);
 	table = new Tabulator("#dataTableModified", {
 		columns: tableColumns,
 		autoResize:true,
@@ -748,8 +749,8 @@ function updateTable(data) {
 			console.log(value);
 		},
 	});
-	
-	table.addData(tableData, false);
+	console.log(tableData);
+	//table.addData(tableData, false);
 	table.redraw(true);
 	headersChanged(false,true);
 }
