@@ -42,7 +42,7 @@ ws.onmessage = function(evt){
 			oldHeaders.push(headers[i]);
 		}
 		headers = dm.message;
-		updateHeaders(true,oldHeaders);
+		headersChanged(true,oldHeaders);
 	}
 }
 
@@ -79,8 +79,8 @@ minimizedBoxes.plotly = 'half';
 minimizedBoxes.xkcd = 'half';
 minimizedBoxes.google = 'half';
 
-//Update Headers
-function updateHeaders(initialData,chg=false) {
+//Headers Changed
+function headersChanged(initialData,chg=false) {
 	var xCo = document.getElementById('xColumnSelect');
 	xCo.innerHTML = '<option value="-1"></option>';
 	var yCo = document.getElementById('yColumnSelect');
@@ -722,7 +722,7 @@ function updateTable(data,idx=0) {
 	var dataTable = document.getElementById("dataTableModified");
 
 	dataTable.innerHTML = '';
-	
+	console.log(tableData);
 	var table = new Tabulator("#dataTableModified", {
 		data: tableData, //set initial table data
 		columns: tableColumns,
@@ -733,7 +733,7 @@ function updateTable(data,idx=0) {
 	if (idx == 0){
 		updateTable(data,1);
 	}
-	updateHeaders(false,true);
+	headersChanged(false,true);
 }
 var syncWorker2 = new Worker('../wasm/datatypeworker.js');
 function dataChanged(initialData=false,dataType='csv') {
@@ -790,7 +790,7 @@ function dataChanged(initialData=false,dataType='csv') {
 		
 	}
 	modifierChanged(initialData);
-	updateHeaders(initialData);
+	headersChanged(initialData);
 
 }
 
