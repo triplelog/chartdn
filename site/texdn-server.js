@@ -705,7 +705,7 @@ loginServer.listen(3000);
 
 
 function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
-
+	console.log(nsteps);
 	rawArray = dataStr;
 	var t1 = performance.now();
 
