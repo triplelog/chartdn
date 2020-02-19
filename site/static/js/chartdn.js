@@ -733,7 +733,7 @@ function updateTable(data,idx=0) {
 	
 	//var dataTable = document.getElementById("dataTableModified");
 
-	dataTable.innerHTML = '';
+	/*dataTable.innerHTML = '';
 	console.log(JSON.stringify(tableData));
 	var table2 = new Tabulator("#dataTableModified", {
 		data: tableData, //set initial table data
@@ -741,7 +741,7 @@ function updateTable(data,idx=0) {
 		autoResize:true,
 		height:"100%",
 		headerSort: false,
-	});
+	});*/
 	
 	//if (idx == 0){
 	//	updateTable(data,1);
