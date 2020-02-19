@@ -907,7 +907,7 @@ drake.on('drop', function (el, target, source, sibling) {
 		chgLineTab();
 		
 	}
-	var d = new Date(); var n = d.getTime(); console.log('timedrop2: ', n);
+	d = new Date(); n = d.getTime(); console.log('timedrop2: ', n);
 });
 drake.on('remove', function (el, target, source) { 
 	var d = new Date(); var n = d.getTime(); console.log('timeremove1: ', n);
@@ -938,7 +938,7 @@ drake.on('remove', function (el, target, source) {
 		ell = document.getElementById("yAxisFormatBox").querySelector(qstring);
 		ell.parentElement.removeChild(ell);
 	}
-	var d = new Date(); var n = d.getTime(); console.log('timeremove2: ', n);
+	d = new Date(); n = d.getTime(); console.log('timeremove2: ', n);
 });
 drake.on('drag', function (el, target, source) { 
 	var elval = el.id.substring(5);
