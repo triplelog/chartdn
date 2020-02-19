@@ -738,7 +738,7 @@ function updateTable(data) {
 		autoResize:true,
 		height:"100%",
 		headerSort: false,
-		layout:"fitColumns",
+		layout:"fitData",
 		layoutColumnsOnNewData:true,
 		cellEdited:function(cell){
 			var row = cell['_cell'].row.data.colRow;
@@ -750,7 +750,7 @@ function updateTable(data) {
 		},
 	});
 	console.log(tableData);
-	table.addData(tableData, false);
+	table.addData(tableData.slice(0,10), false);
 	table.redraw(true);
 	headersChanged(false,true);
 }
