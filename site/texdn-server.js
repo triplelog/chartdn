@@ -744,8 +744,8 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
 			}
 			//Update columns in create chart
 		}
-		else if (modifiers[i].type == 'ignore'){
-			modJS.ignore(rawArray,modifiers[i].options,nHeaders);
+		else if (modifiers[i].type == 'filter'){
+			modJS.filter(rawArray,modifiers[i].options,nHeaders);
 		}
 		else if (modifiers[i].type == 'sort'){
 			modJS.sort(rawArray,modifiers[i].options);

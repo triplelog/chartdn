@@ -581,7 +581,7 @@ exports.pivot = function(array,options,hArray) {
 
 } //Add countif? Add possibility to create buckets like weekly, etc. Error Handling
 
-exports.ignore = function(array,options,nHeaders) {	
+exports.filter = function(array,options,nHeaders) {	
 	toData(array);
 	var skipRows = [];
 	var formula = options.formula;

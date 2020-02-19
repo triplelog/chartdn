@@ -481,7 +481,7 @@ function chgStep(evt) {
 	var jsonmessage = {'operation':'options','nsteps':nsteps};
 	ws.send(JSON.stringify(jsonmessage));
 }
-function modifierChanged(initial=false) {
+function modifierChanged(save=true) {
 	var el = document.getElementById('rawModified');
 
 	var addedRaw = false;
@@ -519,7 +519,7 @@ function modifierChanged(initial=false) {
 			}
 		}
 	}
-	if (!initial){
+	if (save){
 		var jsonmessage = {'operation':'options','modifiers':modifiers};
 		ws.send(JSON.stringify(jsonmessage));
 	}
@@ -598,7 +598,7 @@ function clickTippy(evt) {
 			if (modifiers[idx] && modifiers[idx].type == 'pivot'){
 				if (modifiers[idx].options.pivot == parseInt(col)){
 					//modifiers[idx].options.ascending = false;
-					modifierChanged();
+					modifierChanged(false);
 					chgModify(modifiers[idx]);
 					updateColumns();
 					tippys[col].destroy();
@@ -614,7 +614,7 @@ function clickTippy(evt) {
 			el.value = '';
 			createPivot(newObject);
 			modifiers.push(newObject);
-			modifierChanged();
+			modifierChanged(false);
 			chgModify(newObject);
 			updateColumns();
 		}
@@ -652,7 +652,7 @@ function updateTable(data) {
 					let templateR = document.getElementById('clickRow-template');
 					let tcr = templateR.content.cloneNode(true).firstElementChild;
 					tcr.setAttribute('data-row',row);
-					tcr.querySelector('button[name=ignoreButton]').addEventListener('click',clickTippy);
+					tcr.querySelector('button[name=filterButton]').addEventListener('click',clickTippy);
 					tcr.querySelector('button[name=matchButton]').addEventListener('click',clickTippy);
 						
 					let mytippy = tippy(e.target, {
@@ -784,8 +784,8 @@ function dataChanged(initialData=false,dataType='csv') {
 			else if (modifiers[i].type == 'new'){
 				createNew(modifiers[i]);
 			}
-			else if (modifiers[i].type == 'ignore'){
-				createIgnore(modifiers[i]);
+			else if (modifiers[i].type == 'filter'){
+				createFilter(modifiers[i]);
 			}
 		}
 	}
@@ -805,7 +805,7 @@ function dataChanged(initialData=false,dataType='csv') {
 		}
 		
 	}
-	modifierChanged(initialData);
+	modifierChanged(!initialData);
 	headersChanged(initialData);
 
 }
@@ -959,7 +959,7 @@ function clickLineData(evt) {
 function updateColumns(id='all') {
 	for (var i in modifiers){
 		if (id=='all' || modifiers[i].id == id){
-			if (modifiers[i].type == 'new' || modifiers[i].type == 'ignore'){
+			if (modifiers[i].type == 'new' || modifiers[i].type == 'filter'){
 				var el = document.getElementById('newcolVar'+modifiers[i].id);
 				var elval = el.value;
 				el.innerHTML = '';
@@ -1117,7 +1117,7 @@ function updateModifier(evt){
 				return;
 			}
 			
-			
+			var saveModifier = true;
 			if (mType == 'pivot'){
 				if (el.getAttribute('name')=='pType'){
 					//modifiers[i].options.type = evt.target.querySelector('option:checked').value;
@@ -1179,9 +1179,12 @@ function updateModifier(evt){
 					modifiers[i].options.full = el.checked;
 				}
 			}
-			else if (mType == 'new' || mType == 'ignore'){
-				console.log('hello');
-				if (el.getAttribute('name')=='formula'){
+			else if (mType == 'new' || mType == 'filter'){
+				saveModifier = false;
+				if (el.getAttribute('name')=='save'){
+					saveModifier = true;
+				}
+				else if (el.getAttribute('name')=='formula'){
 					modifiers[i].options.formula = el.value;
 					var ell = el.parentElement.querySelector('div[name=katex]');
 					katex.render(modifiers[i].options.formula, ell, {
@@ -1343,11 +1346,12 @@ function updateModifier(evt){
 					
 				}
 			}
+			modifierChanged(saveModifier);
 			break;
 		}
 	}
 
-	modifierChanged();
+	
 }
 function chgModify(mObject={}){
 	var idx = -1;
@@ -1652,8 +1656,8 @@ function createNew(obj) {
 	parentEl.appendChild(tc);
 	var newM = parentEl.querySelector('#edit_id');
 	newM.id = 'edit'+obj.id;
-	if (obj.type == 'ignore'){
-		newM.querySelector('span[name=description]').textContent = 'Ignore Row if: ';
+	if (obj.type == 'filter'){
+		newM.querySelector('span[name=description]').textContent = 'Filter: ';
 	}
 	
 	
@@ -1698,8 +1702,9 @@ function createNew(obj) {
 	//createNewColumnBox(obj.id);
 	fillNew(obj);
 }
-function createIgnore(obj) {
+function createFilter(obj) {
 	createNew(obj);
+	document.getElementById('edit'+obj.id);
 }
 
 function createNewModifier(show=false) {
@@ -1727,9 +1732,9 @@ function createNewModifier(show=false) {
 			oldObject.options = {'column':-1,'regex':false,'full':false,'case':false,'numerical':false};
 			createReplace(oldObject);
 		}
-		else if (mType == 'ignore'){
+		else if (mType == 'filter'){
 			oldObject.options = {'formula':'','variables':{}};
-			createIgnore(oldObject);
+			createFilter(oldObject);
 		}
 		else if (mType == 'pivot'){
 			oldObject.options = {'pivot':0,'columns':[]};
