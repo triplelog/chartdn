@@ -42,6 +42,7 @@ ws.onmessage = function(evt){
 			oldHeaders.push(headers[i]);
 		}
 		headers = dm.message;
+		console.log(headers);
 		headersChanged(true,oldHeaders);
 	}
 }
