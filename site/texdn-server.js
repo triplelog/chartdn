@@ -448,7 +448,13 @@ wss.on('connection', function connection(ws) {
 					}
 					else {
 						console.log('used cached data', performance.now());
-						makeChartsWithData(ws,chartData,result2,'all',dm);
+						if (dm.modifiers){
+							makeChartsWithData(ws,chartData,result2,'all',dm,true);
+						}
+						else {
+							makeChartsWithData(ws,chartData,result2,'all',dm,false);
+						}
+						
 					}
 				});
 			  }
@@ -795,7 +801,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
 	return {'byrow':retArray,'bycol':cols,'modified':modifiedArray,'headers':allHeaders};
 	
 }
-function makeChartsWithData(ws,rawdata,chartInfo,chartStyle,dm) {
+function makeChartsWithData(ws,rawdata,chartInfo,chartStyle,dm,reloadTable=true) {
 	var maxColumns = 50;
 	var newData = [];
 	var rawLen = rawdata.length;
@@ -858,7 +864,7 @@ function makeChartsWithData(ws,rawdata,chartInfo,chartStyle,dm) {
 		console.log('plotly created',performance.now());
 		if (!dm.loc){dm.loc = 0}
 		var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc,'style':'plotly','allHeaders':data.headers};
-		if (2==2){
+		if (reloadData){
 			jsonmessage['mdata']=data.modified;
 		}
 		ws.send(JSON.stringify(jsonmessage));
