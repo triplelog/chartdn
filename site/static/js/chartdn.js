@@ -722,7 +722,7 @@ function updateTable(data,idx=0) {
 	var dataTable = document.getElementById("dataTableModified");
 
 	dataTable.innerHTML = '';
-	console.log(tableData);
+	console.log(JSON.stringify(tableData);
 	var table = new Tabulator("#dataTableModified", {
 		data: tableData, //set initial table data
 		columns: tableColumns,
