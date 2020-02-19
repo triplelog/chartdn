@@ -727,7 +727,7 @@ function updateTable(data,idx=0) {
 		data: tableData, //set initial table data
 		columns: tableColumns,
 		autoResize:true,
-		height:"15rem",
+		height:"100%",
 		headerSort: false,
 	});
 	if (idx == 0){
