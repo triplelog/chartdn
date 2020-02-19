@@ -536,17 +536,15 @@ function typeChg() {
 
 function clickTippy(evt) {
 	var col = evt.target.parentElement.parentElement.getAttribute('data-col');
+	
 	if (col){
 		var colName = evt.target.parentElement.parentElement.getAttribute('data-name');
+		
 		if (evt.target.getAttribute('name')=='xButton'){
-			//set col as xCol
-			console.log('x',col);
 			document.getElementById('xColumnSelect').value = col;
 			addColumn('x');
 		}
 		else if (evt.target.getAttribute('name')=='yButton'){
-			//Add col to yCols
-			console.log('y',col);
 			document.getElementById('yColumnSelect').value = col;
 			addColumn('y');
 		}
@@ -568,6 +566,8 @@ function clickTippy(evt) {
 						chgModify(modifiers[idx]);
 						updateColumns();
 					}
+					tippys[col].destroy();
+					delete tippys[col];
 					return;
 				}
 			}
@@ -598,6 +598,8 @@ function clickTippy(evt) {
 					modifierChanged();
 					chgModify(modifiers[idx]);
 					updateColumns();
+					tippys[col].destroy();
+					delete tippys[col];
 					return;
 				}
 			}
@@ -613,8 +615,10 @@ function clickTippy(evt) {
 			chgModify(newObject);
 			updateColumns();
 		}
-		tippys[col].destroy();
-		delete tippys[col];
+		if(tippys[col]){
+			tippys[col].destroy();
+			delete tippys[col];
+		}
 	}
 	else {
 		var row = evt.target.parentElement.parentElement.getAttribute('data-row');
@@ -679,9 +683,6 @@ function updateTable(data) {
 				thisColumn.field = 'col'+ii;
 				thisColumn.headerClick = function(e, column){
 					var col = column['_column'].field.substring(3);
-					if (tippys[col]){
-						tippys[col].destroy();
-					}
 					//if (!tippys[col]){
 						let template = document.getElementById('clickColumn-template');
 						let tc = template.content.cloneNode(true).firstElementChild;
