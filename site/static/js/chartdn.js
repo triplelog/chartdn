@@ -67,6 +67,7 @@ var allHeaders = {};
 var colid = -1;
 var minimizedBoxes = {};
 var table = false;
+var nsteps;
 minimizedBoxes.dataSource = 'large';
 minimizedBoxes.dataTable = 'large';
 minimizedBoxes.modifyData = 'large';
@@ -469,7 +470,7 @@ function optionsChg(optionname) {
 }
 function chgStep(evt) {
 	var el = evt.target;
-	var nsteps = parseInt(el.getAttribute('name'));
+	nsteps = parseInt(el.getAttribute('name'));
 	var ell = document.getElementById('rawModified');
 	var qel = ell.querySelectorAll('a[name]');
 	for (var i=0;i<qel.length;i++){
@@ -712,8 +713,9 @@ function updateTable(data) {
 					//	tippys[col].show();
 					//}
 				}
-				
-				thisColumn.editor = 'input';
+				if (!modifiers || modifiers.length == 0 || nsteps == 0){
+					thisColumn.editor = 'input';
+				}
 				tableColumns.push(thisColumn);
 				
 				
