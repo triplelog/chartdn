@@ -730,9 +730,22 @@ function updateTable(data,idx=0) {
 		height:"100%",
 		headerSort: false,
 	});
-	if (idx == 0){
-		updateTable(data,1);
-	}
+	
+	//var dataTable = document.getElementById("dataTableModified");
+
+	dataTable.innerHTML = '';
+	console.log(JSON.stringify(tableData);
+	var table2 = new Tabulator("#dataTableModified", {
+		data: tableData, //set initial table data
+		columns: tableColumns,
+		autoResize:true,
+		height:"100%",
+		headerSort: false,
+	});
+	
+	//if (idx == 0){
+	//	updateTable(data,1);
+	//}
 	headersChanged(false,true);
 }
 var syncWorker2 = new Worker('../wasm/datatypeworker.js');
