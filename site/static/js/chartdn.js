@@ -739,6 +739,9 @@ function updateTable(data) {
 		headerSort: false,
 		layout:"fitColumns",
 		layoutColumnsOnNewData:true,
+		dataEdited:function(data){
+			console.log(data);
+		},
 	});
 	
 	table.addData(tableData, false);
