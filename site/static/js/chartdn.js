@@ -66,7 +66,7 @@ var tippysR = {};
 var allHeaders = {};
 var colid = -1;
 var minimizedBoxes = {};
-var table;
+var table = false;
 minimizedBoxes.dataSource = 'large';
 minimizedBoxes.dataTable = 'large';
 minimizedBoxes.modifyData = 'large';
@@ -1805,7 +1805,7 @@ function minimizeBox(boxid,full=false){
 		otherEl.classList.remove('pure-u-3-4');
 		minimizedBoxes[boxid] = 'small';
 		document.getElementById('editSource').style.display = 'inline';
-		//table.redraw();
+		if (table){table.redraw(true);}
 	}
 	else if (boxid == 'dataSource' && minimizedBoxes[boxid]== 'small'){
 		var el = document.getElementById('dataSourceBox');
@@ -1815,7 +1815,7 @@ function minimizeBox(boxid,full=false){
 		otherEl.classList.add('pure-u-3-4');
 		minimizedBoxes[boxid] = 'large';
 		document.getElementById('editSource').style.display = 'none';
-		//table.redraw();
+		if (table){table.redraw(true);}
 	}
 	else if (boxid == 'dataTable' || boxid == 'modifyData' || boxid == 'createChart'){
 		if (minimizedBoxes[boxid] == 'large'){
