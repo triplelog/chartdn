@@ -677,7 +677,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
 	var modifiedArray = [];
 	for (var i in modifiers){
 		allHeaders[modifiers[i].id]=[];
-		for (var ii in hArray[0]){
+		for (var ii in hArray[0].slice(0,maxColumns)){
 			allHeaders[modifiers[i].id].push(hArray[0][ii]);
 		}
 		if (!modifiers[i].enabled){continue;}
@@ -717,7 +717,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
 		}
 	}
 	allHeaders['current']=[];
-	for (var ii in hArray[0]){
+	for (var ii in hArray[0].slice(0,maxColumns)){
 		allHeaders['current'].push(hArray[0][i]);
 	}
 
