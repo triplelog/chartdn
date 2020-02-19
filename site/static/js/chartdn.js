@@ -30,11 +30,11 @@ ws.onmessage = function(evt){
 				allCharts[i].makeChart(chartJSON);
 			}
 		}
-		//var d = new Date(); var n = d.getTime(); console.log('time8: ', n);
-		updateTable(dm.mdata);
-		//var d = new Date(); var n = d.getTime(); console.log('time9: ', n);
-		allHeaders = dm.allHeaders;
-		updateColumns();
+		if (dm.mdata){
+			updateTable(dm.mdata);
+			allHeaders = dm.allHeaders;
+			updateColumns();
+		}
 	}
 	else if (dm.operation == 'headers'){
 		var oldHeaders = [];
