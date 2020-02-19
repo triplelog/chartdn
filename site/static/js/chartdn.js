@@ -678,7 +678,7 @@ function updateTable(data) {
 				thisColumn.field = 'col'+ii;
 				thisColumn.headerClick = function(e, column){
 					var col = column['_column'].field.substring(3);
-					if (!tippys[col]){
+					//if (!tippys[col]){
 						let template = document.getElementById('clickColumn-template');
 						let tc = template.content.cloneNode(true).firstElementChild;
 						tc.setAttribute('data-col',col);
@@ -688,8 +688,8 @@ function updateTable(data) {
 						tc.querySelector('button[name=pivotButton]').addEventListener('click',clickTippy);
 						tc.querySelector('button[name=ascButton]').addEventListener('click',clickTippy);
 						tc.querySelector('button[name=descButton]').addEventListener('click',clickTippy);
-						e.target.id = 'tippyCol'+col;
-						let mytippy = tippy(document.getElementById('#tippyCol'+col), {
+						
+						let mytippy = tippy(e.target, {
 						  content: tc,
 						  appendTo: document.querySelector('.header'),
 						  trigger: 'manual',
@@ -698,11 +698,10 @@ function updateTable(data) {
 						});
 						tippys[col] = mytippy;
 						mytippy.show();
-					}
-					else {
-						e.target.id = 'tippyCol'+col;
-						tippys[col].show();
-					}
+					//}
+					//else {
+					//	tippys[col].show();
+					//}
 				}
 				
 				thisColumn.editor = 'input';
