@@ -1696,6 +1696,7 @@ function createNew(obj) {
 	newM.querySelector('button[name=clear]').addEventListener('click',updateModifier);
 	newM.querySelector('*[name=delete]').addEventListener('click',updateModifier);
 	newM.querySelector('*[name=disable]').addEventListener('click',updateModifier);
+	newM.querySelector('*[name=save]').addEventListener('click',updateModifier);
 	//Prefill variables, etc.
 	//Add event listener to header buttons
 	
