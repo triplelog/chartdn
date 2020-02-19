@@ -769,7 +769,7 @@ function updateTable(data) {
 			//row - row component
 			var cells = row.getCells();
 			for (var cell in cell){
-				cell.style.height = "1.5rem";
+				//cell.style.height = "1.5rem";
 			}
 			row.getElement().style.height = "1.5rem";
 		},
