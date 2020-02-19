@@ -743,7 +743,7 @@ function updateTable(data) {
 		autoResize:true,
 		height:"100%",
 		headerSort: false,
-		layout:"fitDataStretch",
+		layout:"fitData",
 		layoutColumnsOnNewData:true,
 		cellEdited:function(cell){
 			var row = cell['_cell'].row.data.colRow;
@@ -753,6 +753,7 @@ function updateTable(data) {
 		},
 		renderComplete:function(){
 			console.log(this.tableWidth);
+			console.log(this.options);
     	},
 	});
 	table.addData(tableData.slice(0,1000), false);
