@@ -469,6 +469,11 @@ a.pure-button-primary {
 .unselectedRaw:not(.suggestedRaw) {
 	color: yellow;
 }
-.tabulator-row > .tabulator-cell {
-	height: 1.5rem !important;
+.tabulator-row {
+	line-height: 1.5rem;
+}
+.tabulator-row > div.tabulator-cell {
+	height: 1.5rem;
+	line-height: 1.5rem;
+	vertical-align: inherit;
 }
