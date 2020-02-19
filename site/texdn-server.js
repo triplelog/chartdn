@@ -418,6 +418,7 @@ wss.on('connection', function connection(ws) {
 						chartData = makeAllCharts(ws,dm,result,'all');
 					}
 					else {
+						console.log('used cached data');
 						makeChartsWithData(ws,chartData,result,'all',dm);
 					}
 				});
