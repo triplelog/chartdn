@@ -767,6 +767,7 @@ function updateTable(data) {
     	},
     	rowFormatter:function(row){
 			//row - row component
+			console.log(row);
 			row.getElement().style.height = "1.5rem";
 		},
 	});
