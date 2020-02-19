@@ -844,8 +844,9 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 				
 			}
 		});
+		return 5;
 	});
-
+	return 7;
 	
 }
 
