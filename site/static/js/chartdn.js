@@ -740,6 +740,7 @@ function updateTable(data) {
 	});
 	
 	table.addData(tableData, false);
+	table.redraw(true);
 	headersChanged(false,true);
 }
 var syncWorker2 = new Worker('../wasm/datatypeworker.js');
