@@ -767,7 +767,7 @@ function updateTable(data) {
     	},
 	});
 	table.addData(tableData.slice(0,1000), false);
-	dataTable.style.width = 'inherit';
+	dataTable.style.width = '';
 	table.redraw(true);
 	headersChanged(false,true);
 }
