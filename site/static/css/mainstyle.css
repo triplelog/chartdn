@@ -473,7 +473,7 @@ a.pure-button-primary {
 	line-height: 1.5rem;
 }
 .tabulator-row > div.tabulator-cell {
-	height: 1.5rem;
+	/*height: 1.5rem;*/
 	line-height: 1.5rem;
 	vertical-align: inherit;
 	padding: 0px 4px;
