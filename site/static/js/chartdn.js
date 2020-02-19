@@ -752,8 +752,9 @@ function updateTable(data) {
 			userDataChanges.push({'row':row,'col':col,'value':value});
 		},
 		renderComplete:function(){
-			console.log(this.tableWidth);
-			console.log(this.options);
+			if (this.tableWidth && this.options.layout == 'fitData'){
+				console.log(this.tableWidth);
+			}
     	},
 	});
 	table.addData(tableData.slice(0,1000), false);
