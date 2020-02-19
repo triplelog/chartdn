@@ -469,3 +469,6 @@ a.pure-button-primary {
 .unselectedRaw:not(.suggestedRaw) {
 	color: yellow;
 }
+.tabulator-row > .tabulator-cell {
+	height: 1.5rem !important;
+}
