@@ -753,7 +753,8 @@ function updateTable(data) {
 		},
 		renderComplete:function(){
 			if (this.tableWidth && this.options.layout == 'fitData'){
-				console.log(this.tableWidth);
+				var nWidth = this.tableWidth + 50;
+				document.getElementById("dataTableModified").style.width = nWidth+'px';
 			}
     	},
 	});
