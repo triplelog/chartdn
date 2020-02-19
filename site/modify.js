@@ -610,7 +610,7 @@ exports.filter = function(array,options,nHeaders) {
 		if (answer && options.exclude){
 			skipRows.push(i);
 		}
-		else if (!answer && options.include) {
+		else if (!answer && !options.exclude) {
 			skipRows.push(i);
 		}
 
