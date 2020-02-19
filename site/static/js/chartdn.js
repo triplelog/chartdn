@@ -724,7 +724,7 @@ function updateTable(data) {
 	var table = new Tabulator("#dataTableModified", {
 		columns: tableColumns,
 		autoResize:true,
-		height:"100%",
+		height:"20rem",
 		headerSort: false,
 	});
 	
