@@ -832,9 +832,9 @@ function makeChartsWithData(ws,data,chartInfo,chartStyle,dm) {
 	}
 }		
 function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
-	var fs = Promise.promisifyAll(require('fs'));
-	return fs.readFile('saved/'+chartInfo.data, 'utf8', function(err, fileData) {
-			if (!fileData || fileData.length == 0 ){return;}
+	return new Promise(function(resolve, reject) {
+        fs.readFile('saved/'+chartInfo.data, 'utf8', function(err, fileData) {
+			if (!fileData || fileData.length == 0 ){reject('nofile');}
 			console.log('file read',performance.now());
 			var results = Papa.parse(fileData, {
 				delimiter: chartInfo.options.delimiter || "",
@@ -845,8 +845,10 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 				
 				}
 			});
-			return 5;
+			resolve(5);
 		});
+    });
+		
 
 	return 7;
 	
