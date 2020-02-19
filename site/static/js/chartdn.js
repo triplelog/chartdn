@@ -765,12 +765,17 @@ function updateTable(data) {
 				document.getElementById("dataTableModified").style.width = nWidth+'px';
 			}
     	},
+    	rowFormatter:function(row){
+			//row - row component
+			row.getElement().style.height = "1.5rem";
+		},
 	});
 	table.addData(tableData.slice(0,1000), false);
 	dataTable.style.width = '';
 	table.redraw(true);
 	headersChanged(false,true);
 }
+
 var syncWorker2 = new Worker('../wasm/datatypeworker.js');
 function dataChanged(initialData=false,dataType='csv') {
 	
