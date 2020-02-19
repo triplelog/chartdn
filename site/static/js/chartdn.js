@@ -31,6 +31,7 @@ ws.onmessage = function(evt){
 			}
 		}
 		if (dm.mdata){
+			console.log('changing table');
 			updateTable(dm.mdata);
 			allHeaders = dm.allHeaders;
 			updateColumns();
@@ -478,6 +479,7 @@ function chgStep(evt) {
 		if (i != nsteps){qel[i].classList.remove('selectedRaw');}
 		else {qel[i].classList.add('selectedRaw');}
 	}
+	console.log('chg nsteps', nsteps);
 	var jsonmessage = {'operation':'options','nsteps':nsteps};
 	ws.send(JSON.stringify(jsonmessage));
 }
