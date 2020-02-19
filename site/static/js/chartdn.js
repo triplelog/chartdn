@@ -733,11 +733,11 @@ function updateTable(data) {
 	}
 	var dataTable = document.getElementById("dataTableModified");
 	dataTable.innerHTML = '';
-	var finalColumn = {};
+	/*var finalColumn = {};
 	finalColumn.title = '';
 	finalColumn.field = '';
 	finalColumn.width = '1px';
-	tableColumns.push(finalColumn);
+	tableColumns.push(finalColumn);*/
 	table = new Tabulator("#dataTableModified", {
 		columns: tableColumns,
 		autoResize:true,
@@ -751,6 +751,9 @@ function updateTable(data) {
 			var value = cell['_cell'].value;
 			userDataChanges.push({'row':row,'col':col,'value':value});
 		},
+		renderComplete:function(){
+			console.log(this);
+    	},
 	});
 	table.addData(tableData.slice(0,1000), false);
 	table.redraw(true);
