@@ -1211,6 +1211,15 @@ function updateModifier(evt){
 						throwOnError: false
 					});
 				}
+				else if (el.getAttribute('name')=='exclude'){
+					if (el.checked){
+						modifiers[i].options.exclude = true;
+					}
+					else {
+						modifiers[i].options.exclude = false;
+					}
+					
+				}
 				else if (el.getAttribute('data-type')=='showVar'){
 					var varName = el.getAttribute('name');
 					var ell = el.parentElement.parentElement.querySelector('#newVariables');
@@ -1728,6 +1737,10 @@ function createFilter(obj) {
 	var el = document.getElementById('edit'+obj.id);
 	var ie = el.querySelector('#includeExclude');
 	ie.style.display = 'block';
+	if (obj.options.exclude){
+		ie.querySelector('option[name=exclude]').checked = true;
+	}
+	ie.querySelector('option[name=exclude]').addEventListener('change',updateModifier);
 }
 
 function createNewModifier(show=false) {
@@ -1756,7 +1769,7 @@ function createNewModifier(show=false) {
 			createReplace(oldObject);
 		}
 		else if (mType == 'filter'){
-			oldObject.options = {'formula':'','variables':{}};
+			oldObject.options = {'formula':'','variables':{},'exclude':false};
 			createFilter(oldObject);
 		}
 		else if (mType == 'pivot'){
