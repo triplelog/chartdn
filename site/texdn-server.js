@@ -417,7 +417,6 @@ wss.on('connection', function connection(ws) {
 					if (!chartData){
 						makeAllCharts(ws,dm,result,'all').then(function(result) {
 							chartData = result;
-							console.log(chartData);
 						}, function(err) {
 							console.log(err);
 						});
@@ -843,15 +842,11 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 			if (!fileData || fileData.length == 0 ){reject('nofile');}
 			console.log('file read',performance.now());
 			var results = Papa.parse(fileData, {
-				delimiter: chartInfo.options.delimiter || "",
-				complete: function(results) {
-					console.log('parsed',performance.now());
-					makeChartsWithData(ws,results.data,chartInfo,chartStyle,dm);
-					return results.data;
-				
-				}
+				delimiter: chartInfo.options.delimiter || ""
 			});
-			resolve(results);
+			console.log('parsed',performance.now());
+			makeChartsWithData(ws,results.data,chartInfo,chartStyle,dm);
+			resolve(results.data);
 		});
     });
 
