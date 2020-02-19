@@ -718,7 +718,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
 	var allHeaders = {};
 	var modifiedArray = [];
 	for (var i in modifiers){
-		console.log(rawArray.slice(0,3));
+		
 		allHeaders[modifiers[i].id]=[];
 		for (var ii in hArray[0]){
 			allHeaders[modifiers[i].id].push(hArray[0][ii]);
@@ -737,7 +737,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
 			nsteps = false;
 		}
 		else {idx++;}
-		
+		console.log(modifiedArray.slice(0,3));
 		if (modifiers[i].type == 'new'){
 			modJS.newColumn(rawArray,modifiers[i].options,nHeaders);
 			if (hArray.length>0){
