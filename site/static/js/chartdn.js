@@ -732,6 +732,7 @@ function updateTable(data) {
 		
 	}
 	var dataTable = document.getElementById("dataTableModified");
+	
 	dataTable.innerHTML = '';
 	/*var finalColumn = {};
 	finalColumn.title = '';
@@ -754,13 +755,19 @@ function updateTable(data) {
 		renderComplete:function(){
 			if (this.tableWidth && this.options.layout == 'fitData'){
 				var el = document.querySelector('div.tabulator-tableHolder');
-				console.log(el.offsetWidth,el.clientWidth,el.innerWidth);
-				var nWidth = this.tableWidth + 17;
+				var scrollWidth = 17;
+				if (el.offsetWidth && el.clientWidth){
+					if (el.offsetWidth > el.clientWidth){
+						scrollWidth = parseInt(el.offsetWidth) - parseInt(el.clientWidth) + 2;
+					}
+				}
+				var nWidth = this.tableWidth + scrollWidth;
 				document.getElementById("dataTableModified").style.width = nWidth+'px';
 			}
     	},
 	});
 	table.addData(tableData.slice(0,1000), false);
+	dataTable.style.width = 'inherit';
 	table.redraw(true);
 	headersChanged(false,true);
 }
