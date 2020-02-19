@@ -845,8 +845,13 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 				delimiter: chartInfo.options.delimiter || ""
 			});
 			console.log('parsed',performance.now());
+			var rawData = [];
+			var rawLen = results.data.length;
+			for (var i=0;i<rawLen;i++){
+				rawData.push(results.data[i].slice(0,50));
+			}
 			makeChartsWithData(ws,results.data,chartInfo,chartStyle,dm);
-			resolve(results.data);
+			resolve(rawData);
 		});
     });
 
