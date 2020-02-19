@@ -42,7 +42,6 @@ ws.onmessage = function(evt){
 			oldHeaders.push(headers[i]);
 		}
 		headers = dm.message;
-		console.log(headers);
 		headersChanged(true,oldHeaders);
 	}
 }
@@ -85,7 +84,6 @@ minimizedBoxes.google = 'half';
 
 //Headers Changed
 function headersChanged(initialData,chg=false) {
-	console.log('Headers Changed',headers);
 	var xCo = document.getElementById('xColumnSelect');
 	xCo.innerHTML = '<option value="-1"></option>';
 	var yCo = document.getElementById('yColumnSelect');

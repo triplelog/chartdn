@@ -760,7 +760,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
 	}
 	allHeaders['current']=[];
 	for (var ii in hArray[0]){
-		allHeaders['current'].push(hArray[0][i]);
+		allHeaders['current'].push(hArray[0][ii]);
 	}
 
 	var filteredArray = hArray.concat(modJS.toData(rawArray));
@@ -798,7 +798,6 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
 		}
 	
 	}
-	console.log('allH: ',allHeaders);
 	return {'byrow':retArray,'bycol':cols,'modified':modifiedArray,'headers':allHeaders};
 	
 }
