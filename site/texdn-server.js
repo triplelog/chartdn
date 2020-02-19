@@ -663,6 +663,7 @@ loginServer.listen(3000);
 
 
 function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
+	var maxColumns = 50;
 	rawArray = dataStr;
 	var t1 = performance.now();
 
@@ -685,10 +686,10 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
 			var hlen = hArray.length;
 			var rlen = rawArray.length;
 			for (var ii=0;ii<hlen;ii++){
-				modifiedArray[ii] = hArray[ii].slice();
+				modifiedArray[ii] = hArray[ii].slice(0,50);
 			}
 			for (var ii=0;ii<rlen;ii++){
-				modifiedArray[ii+hlen] = rawArray[ii].slice();
+				modifiedArray[ii+hlen] = rawArray[ii].slice(0,50);
 			}
 			nsteps = false;
 		}
@@ -722,7 +723,15 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
 
 	var filteredArray = hArray.concat(modJS.toData(rawArray));
 	if (!modifiedArray || modifiedArray.length == 0){
-		modifiedArray = filteredArray;
+		modifiedArray = [];
+		var hlen = hArray.length;
+		var rlen = rawArray.length;
+		for (var ii=0;ii<hlen;ii++){
+			modifiedArray[ii] = hArray[ii].slice(0,50);
+		}
+		for (var ii=0;ii<rlen;ii++){
+			modifiedArray[ii+hlen] = rawArray[ii].slice(0,50);
+		}
 	}
 	var t6 = performance.now();
 	console.log(t2,t6);
