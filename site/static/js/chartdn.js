@@ -1839,7 +1839,7 @@ function minimizeBox(boxid,full=false){
 			ell.classList.remove('fa-expand-alt');
 		}
 		if (boxid == 'dataTable'){
-			table.redraw();
+			table.redraw(true);
 		}
 	}
 	else if (boxid == 'chartjs' || boxid == 'plotly' || boxid == 'xkcd' || boxid == 'google'){
