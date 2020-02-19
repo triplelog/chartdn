@@ -798,6 +798,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
 		}
 	
 	}
+	console.log('allH: ',allHeaders);
 	return {'byrow':retArray,'bycol':cols,'modified':modifiedArray,'headers':allHeaders};
 	
 }
