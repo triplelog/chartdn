@@ -740,7 +740,12 @@ function updateTable(data) {
 		layout:"fitColumns",
 		layoutColumnsOnNewData:true,
 		cellEdited:function(cell){
-			console.log(cell);
+			var row = cell['_cell'].row.data.colRow;
+			var col = cell['_cell'].column.field;
+			var value = cell['_cell'].value;
+			console.log(row);
+			console.log(col);
+			console.log(value);
 		},
 	});
 	
