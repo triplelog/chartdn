@@ -1101,7 +1101,6 @@ function updateModifier(evt){
 	for (var i in modifiers){
 		if ('edit'+modifiers[i].id == id){
 			var mType = modifiers[i].type;
-			console.log(mType);
 			if (el.getAttribute('name')=='delete'){
 				
 				//delete from modifiers list
@@ -1213,7 +1212,10 @@ function updateModifier(evt){
 					});
 				}
 				else if (el.getAttribute('name')=='exclude'){
-					if (el.checked){
+					if (el.checked && el.value == 'exclude'){
+						modifiers[i].options.exclude = true;
+					}
+					else if (!el.checked && el.value == 'include') {
 						modifiers[i].options.exclude = true;
 					}
 					else {
@@ -1739,9 +1741,9 @@ function createFilter(obj) {
 	var ie = el.querySelector('#includeExclude');
 	ie.style.display = 'block';
 	if (obj.options.exclude){
-		ie.querySelector('input[name=exclude]').checked = true;
+		ie.querySelector('input[value=exclude]').checked = true;
 	}
-	ie.querySelector('input[name=exclude]').addEventListener('change',updateModifier);
+	ie.querySelector('input[value=exclude]').addEventListener('change',updateModifier);
 }
 
 function createNewModifier(show=false) {
