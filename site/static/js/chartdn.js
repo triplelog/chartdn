@@ -537,161 +537,94 @@ function clickRow(evt) {
 	var row = evt.target.parentElement.parentElement.getAttribute('data-row');
 	
 }
-function clickTable(evt) {
+function clickTippy(evt) {
 	var col = evt.target.parentElement.parentElement.getAttribute('data-col');
-	var colName = evt.target.parentElement.parentElement.getAttribute('data-name');
-	if (evt.target.getAttribute('name')=='xButton'){
-		//set col as xCol
-		console.log('x',col);
-		document.getElementById('xColumnSelect').value = col;
-		addColumn('x');
-	}
-	else if (evt.target.getAttribute('name')=='yButton'){
-		//Add col to yCols
-		console.log('y',col);
-		document.getElementById('yColumnSelect').value = col;
-		addColumn('y');
-	}
-	else if (evt.target.getAttribute('name')=='ascButton' || evt.target.getAttribute('name')=='descButton'){
-		//Add col to yCols
-		var id = Math.random().toString(36).substr(2, 8);
-		var idx = modifiers.length-1;
-		if (modifiers[idx] && modifiers[idx].type == 'sort'){
-			if (modifiers[idx].options.column == parseInt(col)){
-				if (!modifiers[idx].options.ascending && evt.target.getAttribute('name')=='ascButton'){
-					modifiers[idx].options.ascending = true;
+	if (col){
+		var colName = evt.target.parentElement.parentElement.getAttribute('data-name');
+		if (evt.target.getAttribute('name')=='xButton'){
+			//set col as xCol
+			console.log('x',col);
+			document.getElementById('xColumnSelect').value = col;
+			addColumn('x');
+		}
+		else if (evt.target.getAttribute('name')=='yButton'){
+			//Add col to yCols
+			console.log('y',col);
+			document.getElementById('yColumnSelect').value = col;
+			addColumn('y');
+		}
+		else if (evt.target.getAttribute('name')=='ascButton' || evt.target.getAttribute('name')=='descButton'){
+			//Add col to yCols
+			var id = Math.random().toString(36).substr(2, 8);
+			var idx = modifiers.length-1;
+			if (modifiers[idx] && modifiers[idx].type == 'sort'){
+				if (modifiers[idx].options.column == parseInt(col)){
+					if (!modifiers[idx].options.ascending && evt.target.getAttribute('name')=='ascButton'){
+						modifiers[idx].options.ascending = true;
+						modifierChanged();
+						chgModify(modifiers[idx]);
+						updateColumns();
+					}
+					else if (modifiers[idx].options.ascending && evt.target.getAttribute('name')=='descButton'){
+						modifiers[idx].options.ascending = false;
+						modifierChanged();
+						chgModify(modifiers[idx]);
+						updateColumns();
+					}
+					return;
+				}
+			}
+			var newObject = {'id':id,'name':'Sort by '+colName,'type':'sort','options':{},'enabled':true};
+			newObject.options.column = parseInt(col);
+			if (evt.target.getAttribute('name')=='ascButton') {
+				newObject.options.ascending = true;
+			}
+			else {
+				newObject.options.ascending = false;
+			}
+			var el = document.getElementById('createModifyMenu');
+			el.style.display = 'none';
+			el.value = '';
+			createSort(newObject);
+			modifiers.push(newObject);
+			modifierChanged();
+			chgModify(newObject);
+			updateColumns();
+		}
+		else if (evt.target.getAttribute('name')=='pivotButton'){
+			//Add col to yCols
+			var id = Math.random().toString(36).substr(2, 8);
+			var idx = modifiers.length-1;
+			if (modifiers[idx] && modifiers[idx].type == 'pivot'){
+				if (modifiers[idx].options.pivot == parseInt(col)){
+					//modifiers[idx].options.ascending = false;
 					modifierChanged();
 					chgModify(modifiers[idx]);
 					updateColumns();
+					return;
 				}
-				else if (modifiers[idx].options.ascending && evt.target.getAttribute('name')=='descButton'){
-					modifiers[idx].options.ascending = false;
-					modifierChanged();
-					chgModify(modifiers[idx]);
-					updateColumns();
-				}
-				return;
 			}
+			var newObject = {'id':id,'name':'Pivot','type':'pivot','options':{},'enabled':true};
+			newObject.options.pivot = parseInt(col);
+			newObject.options.columns = [];
+			var el = document.getElementById('createModifyMenu');
+			el.style.display = 'none';
+			el.value = '';
+			createPivot(newObject);
+			modifiers.push(newObject);
+			modifierChanged();
+			chgModify(newObject);
+			updateColumns();
 		}
-		var newObject = {'id':id,'name':'Sort by '+colName,'type':'sort','options':{},'enabled':true};
-		newObject.options.column = parseInt(col);
-		if (evt.target.getAttribute('name')=='ascButton') {
-			newObject.options.ascending = true;
-		}
-		else {
-			newObject.options.ascending = false;
-		}
-		var el = document.getElementById('createModifyMenu');
-		el.style.display = 'none';
-		el.value = '';
-		createSort(newObject);
-		modifiers.push(newObject);
-		modifierChanged();
-		chgModify(newObject);
-		updateColumns();
+		tippys[col].hide();
 	}
-	else if (evt.target.getAttribute('name')=='pivotButton'){
-		//Add col to yCols
-		var id = Math.random().toString(36).substr(2, 8);
-		var idx = modifiers.length-1;
-		if (modifiers[idx] && modifiers[idx].type == 'pivot'){
-			if (modifiers[idx].options.pivot == parseInt(col)){
-				//modifiers[idx].options.ascending = false;
-				modifierChanged();
-				chgModify(modifiers[idx]);
-				updateColumns();
-				return;
-			}
-		}
-		var newObject = {'id':id,'name':'Pivot','type':'pivot','options':{},'enabled':true};
-		newObject.options.pivot = parseInt(col);
-		newObject.options.columns = [];
-		var el = document.getElementById('createModifyMenu');
-		el.style.display = 'none';
-		el.value = '';
-		createPivot(newObject);
-		modifiers.push(newObject);
-		modifierChanged();
-		chgModify(newObject);
-		updateColumns();
+	else {
+		var row = evt.target.parentElement.parentElement.getAttribute('data-row');
+		tippysR[row].hide();
 	}
 	
 }
 
-function updateTableOld(data) {
-	var dataTable = document.getElementById("dataTableModified");
-	dataTable.style.display = 'inline-block';
-	dataTable.style.maxWidth = '100%';
-
-	dataTable.innerHTML = '';
-	headers = [];
-	var includeHeaders = false;
-	for (var i=0;i<data.length;i++){
-		var newrow = document.createElement('tr');
-		if (i < nHeaders) {
-			newrow.classList.add('headerrow');
-		}
-		
-		var newcell = document.createElement('td');
-		if (i < nHeaders){newcell.textContent = 'Row';}
-		else {newcell.textContent = i - nHeaders;}
-		newcell.setAttribute('data-row',i - nHeaders);
-		let templateR = document.getElementById('clickRow-template');
-		let tcr = templateR.content.cloneNode(true).firstElementChild;
-		tcr.setAttribute('data-row',i - nHeaders);
-		tcr.querySelector('button[name=ignoreButton]').addEventListener('click',clickRow);
-		tcr.querySelector('button[name=matchButton]').addEventListener('click',clickRow);
-		tippy(newcell, {
-		  content: tcr,
-		  trigger: 'click',
-		  interactive: true,
-		  placement: "left"
-		});
-		newrow.appendChild(newcell);
-		
-		for (var ii=0;ii<data[i].length;ii++){
-			var newcell = document.createElement('td');
-			newcell.textContent = data[i][ii];
-			
-			if (i==0){
-				if (nHeaders > 0) {
-					headers.push(data[i][ii]);
-				}
-				else {
-					headers.push(getOrdinal(ii+1));
-				}
-				newcell.setAttribute('data-col',ii);
-				let template = document.getElementById('clickColumn-template');
-				let tc = template.content.cloneNode(true).firstElementChild;
-				tc.setAttribute('data-col',ii);
-				tc.setAttribute('data-name',headers[headers.length-1]);
-				tc.querySelector('button[name=xButton]').addEventListener('click',clickTable);
-				tc.querySelector('button[name=yButton]').addEventListener('click',clickTable);
-				tc.querySelector('button[name=pivotButton]').addEventListener('click',clickTable);
-				tc.querySelector('button[name=ascButton]').addEventListener('click',clickTable);
-				tc.querySelector('button[name=descButton]').addEventListener('click',clickTable);
-				tippy(newcell, {
-				  content: tc,
-				  trigger: 'click',
-				  interactive: true
-				});
-				for (var iii=0;iii<yColsVals.length;iii++){
-					if (parseInt(yColsVals[iii]) == ii){ 
-						newcell.style.border = '2px solid green';
-					}
-				}
-				if (parseInt(xColumn) == ii){ 
-					newcell.style.border = '2px solid blue';
-				}
-				
-			}
-			newrow.appendChild(newcell);
-		}
-		dataTable.appendChild(newrow);
-		
-	}
-	updateHeaders(false,true);
-}
 function updateTable(data,idx=0) {
 	
 	headers = [];
