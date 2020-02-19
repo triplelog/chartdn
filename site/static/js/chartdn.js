@@ -733,7 +733,7 @@ function updateTable(data) {
 	table = new Tabulator("#dataTableModified", {
 		columns: tableColumns,
 		autoResize:true,
-		height:"20rem",
+		height:"100%",
 		headerSort: false,
 		layout:"fitColumns",
 		layoutColumnsOnNewData:true,
