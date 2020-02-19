@@ -738,7 +738,7 @@ function updateTable(data) {
 		autoResize:true,
 		height:"100%",
 		headerSort: false,
-		layout:"fitDataStretch",
+		layout:"fitData",
 		layoutColumnsOnNewData:true,
 		cellEdited:function(cell){
 			var row = cell['_cell'].row.data.colRow;
