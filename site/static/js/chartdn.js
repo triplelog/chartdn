@@ -755,7 +755,7 @@ function updateTable(data) {
 			if (this.tableWidth && this.options.layout == 'fitData'){
 				var el = document.querySelector('div.tabulator-tableHolder');
 				console.log(el.offsetWidth,el.clientWidth,el.innerWidth);
-				var nWidth = this.tableWidth + 15;
+				var nWidth = this.tableWidth + 16;
 				document.getElementById("dataTableModified").style.width = nWidth+'px';
 			}
     	},
