@@ -415,8 +415,11 @@ wss.on('connection', function connection(ws) {
 					if (err) return console.error('sajdhfkasdhjfkjsahdfkjsadhfs\n',err);
 					console.log('saved options', performance.now());
 					if (!chartData){
-						chartData = makeAllCharts(ws,dm,result,'all');
-						console.log(chartData);
+						Promise(makeAllCharts(ws,dm,result,'all')).then(function (result) {
+							chartData = result;
+							console.log(chartData);
+						});
+						
 					}
 					else {
 						console.log('used cached data');
