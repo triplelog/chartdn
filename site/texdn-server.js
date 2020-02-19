@@ -771,10 +771,10 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
 	return {'byrow':retArray,'bycol':cols,'modified':modifiedArray,'headers':allHeaders};
 	
 }
-function makeChartsWithData(ws,data,chartInfo,chartStyle,dm) {
+function makeChartsWithData(ws,rawdata,chartInfo,chartStyle,dm) {
 	console.log('data converted',performance.now());
 	var nHeaders = chartInfo.options.nHeaders || 1;
-	var data = convertDataToFull(data,nHeaders,chartInfo.options.modifiers,chartInfo.options.nsteps);
+	var data = convertDataToFull(rawdata,nHeaders,chartInfo.options.modifiers,chartInfo.options.nsteps);
 				
 	if (data.headers.current.length != chartInfo.headers.length){
 		chartInfo.headers = data.headers.current;
