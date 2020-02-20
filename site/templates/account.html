@@ -81,10 +81,17 @@
 					</ul>
 				</div>
 				<div id="charts" class="box-form">
-					{% for chart in charts %}
-						<chartdn-chart src="{{ chart }}" data-style="plotly"></chartdn-chart>
-					{% else %}
-					{% endfor %}
+					<div class="pure-g">
+						{% if charts.created %}
+						<div class="pure-u-1-2">
+							<div class="box-header">Created</div>
+							<div class='box-form'>
+								<chartdn-chart src="{{ charts.created }}" data-style="plotly"></chartdn-chart>
+							</div>
+						</div>
+						{% endif %}
+					</div>
+					
 				</div>
 				<div id="favorites" class="box-form">
 				</div>

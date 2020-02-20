@@ -49,11 +49,13 @@ app2.get('/account',
 		res.end();
   	}
   	else {
+  		var charts = {created:[],edited:[],forked:[],viewed:[]};
+  		charts.created = req.user.charts || [];
   		res.write(nunjucks.render('account.html',{
   			username: req.user.username,
   			name: req.user.name || '',
   			robot: req.user.robot || 1,
-  			charts: req.user.charts || [],
+  			charts: req.user.charts || {},
   		}));
 		res.end();
   	}
