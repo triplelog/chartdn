@@ -287,10 +287,6 @@ wss.on('connection', function connection(ws) {
 						var child = exec(wget, function(err, stdout, stderr) {
 							if (err) throw err;
 							else {
-								Chart.findOne({ id: chartid }, function(err, result) {
-								  if (err) {
-		
-								  } else {
 									var d = new Date(); var n = d.getTime(); console.log('time5: ', n);
 									makeAllCharts(ws,dm,result,'all',true).then(function(result3) {
 										chartData = result3.data;
@@ -308,18 +304,12 @@ wss.on('connection', function connection(ws) {
 											console.log('Did not delete xls file');
 										}
 									});
-								  }
-								});
 							}
 						});
 					});
 				}
 				else {
 					fs.writeFile("saved/"+chartid+".csv", fstr, function (err) {
-						Chart.findOne({ id: chartid }, function(err, result) {
-						  if (err) {
-			
-						  } else {
 							var d = new Date(); var n = d.getTime(); console.log('time5: ', n);
 							makeAllCharts(ws,dm,result,'all',true).then(function(result3) {
 								chartData = result3.data;
@@ -332,8 +322,6 @@ wss.on('connection', function connection(ws) {
 							}, function(err) {
 								console.log(err);
 							});
-						  }
-						});
 					});
 				}
 			  }
