@@ -672,9 +672,15 @@ exports.pivot = function(array,options,hArray,types) {
 		typesNew.push(types[options.pivot]);
 	}
 	for (var ii in options.columns) {
-		typesNew.push(types[options.columns[ii]]);
+		typesNew.push(types[options.columns[ii].column]);
 	}
-	console.log('New types: ', typesNew);
+	idx = 0;
+	for (var i in typesNew){
+		types[idx]=typesNew[i];
+		idx++;
+	}
+	if (idx<types.length){types.splice(idx,types.length-idx);}
+	console.log('New types: ', types);
 	
 
 } //Add countif? Add possibility to create buckets like weekly, etc. Error Handling
