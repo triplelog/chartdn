@@ -239,7 +239,7 @@ wss.on('connection', function connection(ws) {
 						var d = new Date(); var n = d.getTime(); console.log('time5: ', n);
 						makeAllCharts(ws,dm,result,'all',true).then(function(result3) {
 							chartData = result3.data;
-							//result.types = result3.types;
+							result.types = result3.types;
 							//result.markModified('types');
 							result.save(function (err, chart) {
 								if (err) return console.error(err);
