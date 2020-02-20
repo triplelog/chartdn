@@ -463,14 +463,25 @@ exports.replace = function(array,options) {
 			var fstr;
 			if (!obj.case) { fstr = new RegExp(obj.find,'gi');}
 			else { fstr = new RegExp(obj.find,'g');}
-		
-			for (var i in array){
-				if (array[i][obj.column]){
-					array[i][obj.column] = array[i][obj.column].toString().replace(fstr,obj.replace);
+			if (obj.row >= 0){
+				if (array[obj.row][obj.column]){
+					array[obj.row][obj.column] = array[obj.row][obj.column].toString().replace(fstr,obj.replace);
 				}
 				else if (obj.column == -1) {
-					for (var ii in array[i]){
-						array[i][ii] = array[i][ii].toString().replace(fstr,obj.replace);
+					for (var ii in array[obj.row]){
+						array[obj.row][ii] = array[obj.row][ii].toString().replace(fstr,obj.replace);
+					}
+				}
+			}
+			else {
+				for (var i in array){
+					if (array[i][obj.column]){
+						array[i][obj.column] = array[i][obj.column].toString().replace(fstr,obj.replace);
+					}
+					else if (obj.column == -1) {
+						for (var ii in array[i]){
+							array[i][ii] = array[i][ii].toString().replace(fstr,obj.replace);
+						}
 					}
 				}
 			}
