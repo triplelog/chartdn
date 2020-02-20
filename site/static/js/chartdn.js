@@ -1560,8 +1560,10 @@ function createReplace(obj) {
 	
 
 	if (obj.options.column || obj.options.column === 0) {
-		newMM = newM.querySelector('select[name=column] > option[value="'+obj.options.column+'"]');
-		newMM.setAttribute('selected','selected');
+		var qstring = 'select[name=column] > option[value="'+obj.options.column+'"]';
+		console.log(qstring);
+		newMM = newM.querySelector(qstring);
+		if (newMM) {newMM.setAttribute('selected','selected');}
 	}
 	
 	newMM = newM.querySelector('input[name=row]');
