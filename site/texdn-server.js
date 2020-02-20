@@ -233,7 +233,7 @@ wss.on('connection', function connection(ws) {
   			}
   			else {
 				fs.writeFile("saved/"+chartid+".csv", fstr, function (err) {
-					const result = Chart.findOne({ id: chartid });
+					const result = loadChart(chartid);
 					
 					makeAllCharts(ws,dm,result,'all',true).then(function(result3) {
 						chartData = result3.data;
@@ -555,7 +555,11 @@ wss.on('connection', function connection(ws) {
   });
 });
 
-
+function loadChart(chartid){
+	Chart.findOne({ id: chartid }).then(function(result) {
+		return result;
+	});
+}
 
 loginApp.get('/browse',
 	function(req, res){
