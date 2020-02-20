@@ -297,7 +297,8 @@ function createLineDiv(id,chg=false) {
 	if (chg){
 		var el = document.getElementById('lineStyleMenu');
 		var qstring = 'option[value="'+id+'"]';
-		console.log(qstring);
+		console.log(qstring,headers.length);
+		console.log(headers[id]);
 		el.querySelector(qstring).textContent = headers[id];
 		chgLineTab();
 		return
