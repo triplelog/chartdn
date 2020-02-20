@@ -31,7 +31,7 @@ ws.onmessage = function(evt){
 			}
 		}
 		if (dm.mdata){
-			updateTable(dm.mdata);
+			updateTable(dm.mdata,dm.allHeaders);
 			allHeaders = dm.allHeaders;
 			updateColumns();
 		}
@@ -633,8 +633,8 @@ function clickTippy(evt) {
 	
 }
 
-function updateTable(data) {
-	
+function updateTable(data,sentHeaders) {
+	console.log(sentHeaders,nsteps);
 	headers = [];
 	var tableData = [];
 	var tableColumns = [];
