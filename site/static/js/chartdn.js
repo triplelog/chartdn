@@ -826,7 +826,12 @@ function dataChanged(initialData=false,dataType='csv') {
 		}
 		
 	}
-	modifierChanged(!initialData);
+	if (modifiers.length == 0){
+		modifierChanged(false);
+	}
+	else{
+		modifierChanged(!initialData);
+	}
 	headersChanged(initialData);
 
 }
