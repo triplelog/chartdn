@@ -852,33 +852,6 @@ function makeChartsWithData(ws,rawdata,chartInfo,chartStyle,dm,reloadTable=true)
 	var data = convertDataToFull(newData,nHeaders,chartInfo.modifiers,chartInfo.options.nsteps);
 	
 	/*
-	if (data.headers.current.length != chartInfo.headers.length){
-		chartInfo.headers = data.headers.current;
-		chartInfo.markModified('headers');
-		chartInfo.save(function (err, chart) {
-			if (err) return console.error(err);
-			console.log('saved');
-		});
-		var jsonmessage = {'operation':'headers','message':data.headers.current};
-		ws.send(JSON.stringify(jsonmessage));
-	}
-	else {
-		for (var i in data.headers.current){
-			if (!chartInfo.headers || data.headers.current[i] != chartInfo.headers[i]){
-				chartInfo.headers = data.headers.current;
-				chartInfo.markModified('headers');
-				chartInfo.save(function (err, chart) {
-					if (err) return console.error(err);
-					console.log('saved');
-				});
-				var jsonmessage = {'operation':'headers','message':data.headers.current};
-				ws.send(JSON.stringify(jsonmessage));
-				break;
-			}
-		}
-	}*/
-	
-	/*
 	if (chartStyle == 'all' || chartStyle == 'chartJS') {
 		var chartJSON = createChartjs.createChartjs(data,chartInfo.options);
 		if (!dm.loc){dm.loc = 0}
@@ -924,7 +897,12 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes=false) {
 			if (chgTypes){
 				var types = datatypes.makeTypes(results.data.slice(0,1000));
 				chartInfo.types = types;
-				console.log(chartInfo);
+				chartInfo.markModified('modifiers');
+				chartInfo.save(function (err, chart) {
+					if (err) return console.error(err);
+					console.log('saved',chart.modifiers);
+				});
+				console.log(chartInfo.modifiers);
 			}
 			console.log('parsed',performance.now());
 			makeChartsWithData(ws,results.data,chartInfo,chartStyle,dm);
