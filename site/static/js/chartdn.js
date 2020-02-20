@@ -373,7 +373,7 @@ function columnsChg() {
 		xColumn = parseInt(xColStr);
 	}
 	
-	
+	headersChanged(false,false);
 	var jsonmessage = {'operation':'options','yColumns':yColumns,'xColumn':xColumn};
 	if (!noNames){jsonmessage['lines']=lineNames}
 	ws.send(JSON.stringify(jsonmessage));

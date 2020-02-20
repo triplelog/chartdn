@@ -474,7 +474,6 @@ wss.on('connection', function connection(ws) {
 			  } else {
 			  	console.log('Chart Found',performance.now());
 			  	result.modifiers = dm.message;
-			  	console.log(result.modifiers);
 				result.markModified('modifiers');
 				result.save(function (err, result2) {
 					if (err) return console.error('sajdhfkasdhjfkjsahdfkjsadhfs\n',err);
