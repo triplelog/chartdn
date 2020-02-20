@@ -1187,9 +1187,10 @@ function updateModifier(evt){
 					var pel = el.parentElement.parentElement;
 					modifiers[i].options.find = pel.querySelector('*[name=find]').value;
 					modifiers[i].options.replace = pel.querySelector('*[name=replace]').value;
+					console.log(pel.querySelector('*[name=column]').value);
 					modifiers[i].options.column = parseInt(pel.querySelector('*[name=column]').value);
 					var row = pel.querySelector('*[name=row]').value;
-					console.log(row,parseInt(row));
+					if (isNaN(parseInt(row))){ row = -1;}
 					modifiers[i].options.row = parseInt(row);
 					modifiers[i].options.case = pel.querySelector('*[name=case]').checked;
 					modifiers[i].options.numerical = pel.querySelector('*[name=case]').checked;
@@ -1543,10 +1544,10 @@ function createReplace(obj) {
 	}
 	
 	var newMM = newM.querySelector('input[name=find]');
-	if (obj.options.find) {newMM.value = obj.options.find;}
+	if (obj.options.find || obj.options.find === 0) {newMM.value = obj.options.find;}
 	
 	newMM = newM.querySelector('input[name=replace]');
-	if (obj.options.replace) {newMM.value = obj.options.replace;}
+	if (obj.options.replace || obj.options.replace === 0) {newMM.value = obj.options.replace;}
 	
 	newMM = newM.querySelector('input[name=case]');
 	if (obj.options.case) {newMM.checked = true;}
@@ -1558,10 +1559,10 @@ function createReplace(obj) {
 	if (obj.options.full) {newMM.checked = true;}
 	
 	newMM = newM.querySelector('select[name=column]');
-	if (obj.options.column) {newMM.value = obj.options.column;}
+	if (obj.options.column || obj.options.column === 0) {newMM.value = obj.options.column;}
 	
 	newMM = newM.querySelector('select[name=row]');
-	if (obj.options.row) {newMM.value = obj.options.row;}
+	if (obj.options.row >= 0) {newMM.value = obj.options.row;}
 	
 	newMM = newM.querySelector('button[name=submit]');
 	newMM.addEventListener('click',updateModifier);
