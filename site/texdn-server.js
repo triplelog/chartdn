@@ -539,7 +539,7 @@ wss.on('connection', function connection(ws) {
 			  	if (err || result == null){
 			  	}
 			  	else {
-			  		console.log(JSON.stringify(result);
+			  		console.log(JSON.stringify(result));
 					if (dm.style){
 						makeAllCharts(ws,dm,result,dm.style);
 					}
