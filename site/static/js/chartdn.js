@@ -1185,18 +1185,25 @@ function updateModifier(evt){
 				saveModifier = false;
 				if (el.getAttribute('name')=='submit'){
 					saveModifier = true;
+					var newObj = {};
 					var pel = el.parentElement.parentElement;
-					modifiers[i].options.find = pel.querySelector('*[name=find]').value;
-					modifiers[i].options.replace = pel.querySelector('*[name=replace]').value;
+					newObj.find = pel.querySelector('*[name=find]').value;
+					newObj.replace = pel.querySelector('*[name=replace]').value;
 					var col = parseInt(pel.querySelector('*[name=column] > option:checked').value);
-					modifiers[i].options.column = col;
+					newObj.column = col;
 					pel.querySelector('*[name=column]').setAttribute('value',col);
 					var row = pel.querySelector('*[name=row]').value;
 					if (isNaN(parseInt(row))){ row = -1;}
-					modifiers[i].options.row = parseInt(row);
-					modifiers[i].options.case = pel.querySelector('*[name=case]').checked;
-					modifiers[i].options.numerical = pel.querySelector('*[name=numerical]').checked;
-					modifiers[i].options.full = pel.querySelector('*[name=full]').checked;
+					newObj.row = parseInt(row);
+					newObj.case = pel.querySelector('*[name=case]').checked;
+					newObj.numerical = pel.querySelector('*[name=numerical]').checked;
+					newObj.full = pel.querySelector('*[name=full]').checked;
+					modifiers[i].options.push(newObj);
+					
+					var newMM = pel.parentElement.querySelector('div[name=allReplacements]');
+					var newDiv = document.createElement('div');
+					newDiv.textContent = toReplaceStr(newObj);
+					newMM.appendChild(newDiv);
 				}
 			}
 			else if (mType == 'new' || mType == 'filter'){
@@ -1513,6 +1520,9 @@ function createPivot(obj) {
 	
 }
 
+function toReplaceStr(obj){
+	return 'Replace '+obj.find+' with '+obj.replace;
+}
 function createReplace(obj) {
 	
 	var newEl = document.createElement('div');
@@ -1545,6 +1555,21 @@ function createReplace(obj) {
 		newM.querySelector('span[name=disable]').textContent = 'Disable';
 	}
 	
+	if (obj.options){
+		for (var i=0;i<obj.options.length;i++){
+			var newMM = newM.querySelector('div[name=allReplacements]');
+			var newDiv = document.createElement('div');
+			newDiv.textContent = toReplaceStr(obj.options[i]);
+			newMM.appendChild(newDiv);
+		}
+	}
+	
+	/*
+	var lastObj;
+	if (obj.options){
+		lastObj = obj.options[obj.options.length-1];
+	}
+	
 	var newMM = newM.querySelector('input[name=find]');
 	if (obj.options.find || obj.options.find === 0) {newMM.value = obj.options.find;}
 	
@@ -1569,7 +1594,7 @@ function createReplace(obj) {
 	
 	newMM = newM.querySelector('input[name=row]');
 	if (obj.options.row && obj.options.row >= 0) {newMM.value = obj.options.row;}
-	if (obj.options.row === 0) {newMM.value = obj.options.row;}
+	if (obj.options.row === 0) {newMM.value = obj.options.row;}*/
 	
 	newMM = newM.querySelector('button[name=submit]');
 	newMM.addEventListener('click',updateModifier);
@@ -1774,7 +1799,8 @@ function createNewModifier(show=false) {
 			createSort(oldObject);
 		}
 		else if (mType == 'replace'){
-			oldObject.options = {'column':-1,'row':-1,'regex':false,'full':false,'case':false,'numerical':false};
+			//{'column':-1,'row':-1,'regex':false,'full':false,'case':false,'numerical':false}
+			oldObject.options = [];
 			createReplace(oldObject);
 		}
 		else if (mType == 'filter'){
