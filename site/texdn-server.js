@@ -901,6 +901,9 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes=false) {
 				chartInfo.update();
 				console.log(chartInfo.types);
 			}
+			else {
+				console.log(chartInfo.types);
+			}
 			console.log('parsed',performance.now());
 			makeChartsWithData(ws,results.data,chartInfo,chartStyle,dm);
 			resolve(results.data);
