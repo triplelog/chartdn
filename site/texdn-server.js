@@ -208,7 +208,13 @@ wss.on('connection', function connection(ws) {
 							  } else {
 								var d = new Date(); var n = d.getTime(); console.log('time5: ', n);
 								makeAllCharts(ws,dm,result,'all',true).then(function(result3) {
-									chartData = result3;
+									chartData = result3.data;
+									result.types = result3.types;
+									result.markModified('types');
+									result.update(function (err, chart) {
+										if (err) return console.error(err);
+										console.log('saved',chart.types);
+									});
 								}, function(err) {
 									console.log(err);
 								});
@@ -232,7 +238,13 @@ wss.on('connection', function connection(ws) {
 					  } else {
 						var d = new Date(); var n = d.getTime(); console.log('time5: ', n);
 						makeAllCharts(ws,dm,result,'all',true).then(function(result3) {
-							chartData = result3;
+							chartData = result3.data;
+							result.types = result3.types;
+							result.markModified('types');
+							result.update(function (err, chart) {
+								if (err) return console.error(err);
+								console.log('saved',chart.types);
+							});
 						}, function(err) {
 							console.log(err);
 						});
@@ -281,7 +293,13 @@ wss.on('connection', function connection(ws) {
 								  } else {
 									var d = new Date(); var n = d.getTime(); console.log('time5: ', n);
 									makeAllCharts(ws,dm,result,'all',true).then(function(result3) {
-										chartData = result3;
+										chartData = result3.data;
+										result.types = result3.types;
+										result.markModified('types');
+										result.update(function (err, chart) {
+											if (err) return console.error(err);
+											console.log('saved',chart.types);
+										});
 									}, function(err) {
 										console.log(err);
 									});
@@ -304,7 +322,13 @@ wss.on('connection', function connection(ws) {
 						  } else {
 							var d = new Date(); var n = d.getTime(); console.log('time5: ', n);
 							makeAllCharts(ws,dm,result,'all',true).then(function(result3) {
-								chartData = result3;
+								chartData = result3.data;
+								result.types = result3.types;
+								result.markModified('types');
+								result.update(function (err, chart) {
+									if (err) return console.error(err);
+									console.log('saved',chart.types);
+								});
 							}, function(err) {
 								console.log(err);
 							});
@@ -375,7 +399,13 @@ wss.on('connection', function connection(ws) {
 			
 						  } else {
 							makeAllCharts(ws,dm,result,'all',true).then(function(result3) {
-								chartData = result3;
+								chartData = result3.data;
+								result.types = result3.types;
+								result.markModified('types');
+								result.update(function (err, chart) {
+									if (err) return console.error(err);
+									console.log('saved',chart.types);
+								});
 							}, function(err) {
 								console.log(err);
 							});
@@ -411,7 +441,13 @@ wss.on('connection', function connection(ws) {
 							var jsonmessage = {'operation':'downloaded','message':fileData};
 							ws.send(JSON.stringify(jsonmessage));
 							makeAllCharts(ws,dm,result,'all',true).then(function(result3) {
-								chartData = result3;
+								chartData = result3.data;
+								result.types = result3.types;
+								result.markModified('types');
+								result.update(function (err, chart) {
+									if (err) return console.error(err);
+									console.log('saved',chart.types);
+								});
 							}, function(err) {
 								console.log(err);
 							});
@@ -442,7 +478,7 @@ wss.on('connection', function connection(ws) {
 					console.log('saved options', performance.now());
 					if (!chartData){
 						makeAllCharts(ws,dm,result2,'all').then(function(result3) {
-							chartData = result3;
+							chartData = result3.data;
 						}, function(err) {
 							console.log(err);
 						});
@@ -481,7 +517,7 @@ wss.on('connection', function connection(ws) {
 					console.log('saved modifiers', performance.now());
 					if (!chartData){
 						makeAllCharts(ws,dm,result2,'all').then(function(result3) {
-							chartData = result3;
+							chartData = result3.data;
 						}, function(err) {
 							console.log(err);
 						});
@@ -894,19 +930,17 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes=false) {
 			var results = Papa.parse(fileData, {
 				delimiter: chartInfo.options.delimiter || ""
 			});
+			var returnData = {};
 			if (chgTypes){
 				var types = datatypes.makeTypes(results.data.slice(0,1000));
-				chartInfo.types = types;
-				chartInfo.markModified('types');
-				chartInfo.update();
-				console.log(chartInfo.types);
-			}
-			else {
-				console.log(chartInfo.types);
+				returnData.types = types;
+				
+				console.log(types);
 			}
 			console.log('parsed',performance.now());
 			makeChartsWithData(ws,results.data,chartInfo,chartStyle,dm);
-			resolve(results.data);
+			returnData.data = results.data;
+			resolve(returnData);
 		});
     });
 
