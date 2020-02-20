@@ -1562,7 +1562,8 @@ function createReplace(obj) {
 	if (obj.options.column || obj.options.column === 0) {newMM.value = obj.options.column;}
 	
 	newMM = newM.querySelector('select[name=row]');
-	if (obj.options.row >= 0) {newMM.value = obj.options.row;}
+	if (obj.options.row && obj.options.row >= 0) {newMM.value = obj.options.row;}
+	if (obj.options.row === 0) {newMM.value = obj.options.row;}
 	
 	newMM = newM.querySelector('button[name=submit]');
 	newMM.addEventListener('click',updateModifier);
