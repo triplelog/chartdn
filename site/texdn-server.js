@@ -136,6 +136,7 @@ wss.on('connection', function connection(ws) {
   var username = '';
   var myOptions = {};
   var chartData = false;
+  var mongoChart = {};
   ws.on('message', function incoming(message) {
   	var dm = JSON.parse(message);
   	console.log(dm.operation);
@@ -265,9 +266,10 @@ wss.on('connection', function connection(ws) {
 			});
 			
 		}
-
+		delete mongoChart[chartid];
   	}
   	else if (dm.operation == 'download'){
+  		  
   		  if (chartid == ''){
   			chartid = chartidtemp;
   			dataid = chartid;
@@ -357,11 +359,41 @@ wss.on('connection', function connection(ws) {
 			});
 			
 		}
+		delete mongoChart[chartid];
   	}
   	else if (dm.operation == 'options'){
   		console.log('message rec',performance.now());
   		if (chartid == ''){
 			updateOptions(myOptions, dm);
+  		}
+  		else if (mongoChart[chartid]) {
+  				var result = mongoChart[chartid];
+  				console.log('Chart Found',performance.now());
+				updateOptions(result.options, dm);
+				updateOptions(myOptions, dm);
+				result.markModified('options');
+				result.save(function (err, result2) {
+					if (err) return console.error('sajdhfkasdhjfkjsahdfkjsadhfs\n',err);
+					console.log('saved options', performance.now());
+					if (!chartData){
+						makeAllCharts(ws,dm,result2,'all').then(function(result3) {
+							chartData = result3.data;
+						}, function(err) {
+							console.log(err);
+						});
+						
+					}
+					else {
+						console.log('used cached data', performance.now());
+						if (dm.nsteps || dm.nsteps === 0){
+							makeChartsWithData(ws,chartData,result2,'all',dm,true);
+						}
+						else {
+							makeChartsWithData(ws,chartData,result2,'all',dm,false);
+						}
+						
+					}
+				});
   		}
   		else {
   			Chart.findOne({ id: chartid }, function(err, result) {
@@ -375,6 +407,7 @@ wss.on('connection', function connection(ws) {
 				result.save(function (err, result2) {
 					if (err) return console.error('sajdhfkasdhjfkjsahdfkjsadhfs\n',err);
 					console.log('saved options', performance.now());
+					mongoChart[chartid] = result2;
 					if (!chartData){
 						makeAllCharts(ws,dm,result2,'all').then(function(result3) {
 							chartData = result3.data;
