@@ -1187,7 +1187,6 @@ function updateModifier(evt){
 					var pel = el.parentElement.parentElement;
 					modifiers[i].options.find = pel.querySelector('*[name=find]').value;
 					modifiers[i].options.replace = pel.querySelector('*[name=replace]').value;
-					console.log(pel.querySelector('*[name=column]').value);
 					modifiers[i].options.column = parseInt(pel.querySelector('*[name=column]').value);
 					var row = pel.querySelector('*[name=row]').value;
 					if (isNaN(parseInt(row))){ row = -1;}
@@ -1559,9 +1558,11 @@ function createReplace(obj) {
 	if (obj.options.full) {newMM.checked = true;}
 	
 	newMM = newM.querySelector('select[name=column]');
+	console.log(obj.options.column);
 	if (obj.options.column || obj.options.column === 0) {newMM.value = obj.options.column;}
+	console.log(newMM.value);
 	
-	newMM = newM.querySelector('select[name=row]');
+	newMM = newM.querySelector('input[name=row]');
 	if (obj.options.row && obj.options.row >= 0) {newMM.value = obj.options.row;}
 	if (obj.options.row === 0) {newMM.value = obj.options.row;}
 	
