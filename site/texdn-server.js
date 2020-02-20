@@ -376,24 +376,24 @@ wss.on('connection', function connection(ws) {
 					if (err) return console.error('sajdhfkasdhjfkjsahdfkjsadhfs\n',err);
 					console.log('saved options', performance.now());
 				});
-					if (!chartData){
-						makeAllCharts(ws,dm,result,'all').then(function(result3) {
-							chartData = result3.data;
-						}, function(err) {
-							console.log(err);
-						});
-						
+				if (!chartData){
+					makeAllCharts(ws,dm,result,'all').then(function(result3) {
+						chartData = result3.data;
+					}, function(err) {
+						console.log(err);
+					});
+					
+				}
+				else {
+					console.log('used cached data', performance.now());
+					if (dm.nsteps || dm.nsteps === 0){
+						makeChartsWithData(ws,chartData,result,'all',dm,true);
 					}
 					else {
-						console.log('used cached data', performance.now());
-						if (dm.nsteps || dm.nsteps === 0){
-							makeChartsWithData(ws,chartData,result,'all',dm,true);
-						}
-						else {
-							makeChartsWithData(ws,chartData,result,'all',dm,false);
-						}
-						
+						makeChartsWithData(ws,chartData,result,'all',dm,false);
 					}
+					
+				}
   		}
   		else {
   			Chart.findOne({ id: chartid }, function(err, result) {
@@ -408,25 +408,25 @@ wss.on('connection', function connection(ws) {
 					if (err) return console.error('sajdhfkasdhjfkjsahdfkjsadhfs\n',err);
 					console.log('saved options', performance.now());
 				});
-					mongoChart[chartid] = result;
-					if (!chartData){
-						makeAllCharts(ws,dm,result,'all').then(function(result3) {
-							chartData = result3.data;
-						}, function(err) {
-							console.log(err);
-						});
-						
+				mongoChart[chartid] = result;
+				if (!chartData){
+					makeAllCharts(ws,dm,result,'all').then(function(result3) {
+						chartData = result3.data;
+					}, function(err) {
+						console.log(err);
+					});
+					
+				}
+				else {
+					console.log('used cached data', performance.now());
+					if (dm.nsteps || dm.nsteps === 0){
+						makeChartsWithData(ws,chartData,result,'all',dm,true);
 					}
 					else {
-						console.log('used cached data', performance.now());
-						if (dm.nsteps || dm.nsteps === 0){
-							makeChartsWithData(ws,chartData,result,'all',dm,true);
-						}
-						else {
-							makeChartsWithData(ws,chartData,result,'all',dm,false);
-						}
-						
+						makeChartsWithData(ws,chartData,result,'all',dm,false);
 					}
+					
+				}
 				
 			  }
 			});
@@ -437,7 +437,31 @@ wss.on('connection', function connection(ws) {
   	}
   	else if (dm.operation == 'modifiers'){
   		console.log('message rec',performance.now());
-  		if (chartid != '') {
+  		if (chartid == '') {return;}
+  		if (mongoChart[chartid]) {
+  				var result = mongoChart[chartid];
+  				console.log('Chart Found',performance.now());
+			  	result.modifiers = dm.message;
+				result.markModified('modifiers');
+				result.save(function (err, result2) {
+					if (err) return console.error('sajdhfkasdhjfkjsahdfkjsadhfs\n',err);
+					console.log('saved modifiers', performance.now());
+				});
+				if (!chartData){
+					makeAllCharts(ws,dm,result,'all').then(function(result3) {
+						chartData = result3.data;
+					}, function(err) {
+						console.log(err);
+					});
+					
+				}
+				else {
+					console.log('used cached data', performance.now());
+					makeChartsWithData(ws,chartData,result,'all',dm,true);
+					
+				}
+  		}
+  		else {
   			Chart.findOne({ id: chartid }, function(err, result) {
 			  if (err) {
 				
@@ -448,20 +472,21 @@ wss.on('connection', function connection(ws) {
 				result.save(function (err, result2) {
 					if (err) return console.error('sajdhfkasdhjfkjsahdfkjsadhfs\n',err);
 					console.log('saved modifiers', performance.now());
-					if (!chartData){
-						makeAllCharts(ws,dm,result2,'all').then(function(result3) {
-							chartData = result3.data;
-						}, function(err) {
-							console.log(err);
-						});
-						
-					}
-					else {
-						console.log('used cached data', performance.now());
-						makeChartsWithData(ws,chartData,result2,'all',dm,true);
-						
-					}
 				});
+				mongoChart[chartid] = result;
+				if (!chartData){
+					makeAllCharts(ws,dm,result,'all').then(function(result3) {
+						chartData = result3.data;
+					}, function(err) {
+						console.log(err);
+					});
+					
+				}
+				else {
+					console.log('used cached data', performance.now());
+					makeChartsWithData(ws,chartData,result,'all',dm,true);
+					
+				}
 			  }
 			});
   		}
