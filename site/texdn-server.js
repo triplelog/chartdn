@@ -240,11 +240,7 @@ wss.on('connection', function connection(ws) {
 						makeAllCharts(ws,dm,result,'all',true).then(function(result3) {
 							chartData = result3.data;
 							result.types = result3.types;
-							//result.markModified('types');
-							result.save(function (err, chart) {
-								if (err) return console.error(err);
-								console.log('saved',chart.types);
-							});
+							Chart.updateOne({id:chartid},{types:result3.types});
 						}, function(err) {
 							console.log(err);
 						});
