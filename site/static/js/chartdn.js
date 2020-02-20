@@ -33,6 +33,7 @@ ws.onmessage = function(evt){
 		if (dm.mdata){
 			updateTable(dm.mdata,dm.allHeaders.modified);
 			allHeaders = dm.allHeaders;
+			headersChanged(false,true);
 			updateColumns();
 		}
 	}
@@ -84,6 +85,7 @@ minimizedBoxes.google = 'half';
 
 //Headers Changed
 function headersChanged(initialData,chg=false) {
+	headers = allHeaders.current;
 	var xCo = document.getElementById('xColumnSelect');
 	xCo.innerHTML = '<option value="-1"></option>';
 	var yCo = document.getElementById('yColumnSelect');
@@ -880,7 +882,7 @@ function updateTable(data,sentHeaders) {
 	table.addData(tableData.slice(0,1000), false);
 	dataTable.style.width = '';
 	table.redraw(true);
-	//headersChanged(false,true);
+	
 }
 
 var syncWorker2 = new Worker('../wasm/datatypeworker.js');
