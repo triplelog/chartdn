@@ -1559,7 +1559,7 @@ function createReplace(obj) {
 	
 	newMM = newM.querySelector('select[name=column]');
 	console.log(obj.options.column);
-	if (obj.options.column || obj.options.column === 0) {newMM.value = obj.options.column;}
+	if (obj.options.column || obj.options.column === 0) {newMM.value = ''+obj.options.column;}
 	console.log(newMM.value);
 	
 	newMM = newM.querySelector('input[name=row]');
