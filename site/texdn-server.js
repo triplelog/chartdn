@@ -79,9 +79,7 @@ const WebSocket = require('ws');
 //const wss = new WebSocket.Server({ port: 8080 , origin: 'http://tabdn.com'});
 const wss = new WebSocket.Server({ server });
 
-function updateModifiers(newM,oldM) {
-	oldM=newM;
-}
+
 function updateOptions(oldOptions, newOptions) {
 	for(var k in newOptions){
 		var v = newOptions[k];
@@ -475,11 +473,12 @@ wss.on('connection', function connection(ws) {
 				
 			  } else {
 			  	console.log('Chart Found',performance.now());
-				updateModifiers(dm.message,result.modifiers);
+			  	result.modifiers = dm.message;
+			  	console.log(result.modifiers);
 				result.markModified('modifiers');
 				result.save(function (err, result2) {
 					if (err) return console.error('sajdhfkasdhjfkjsahdfkjsadhfs\n',err);
-					console.log('saved options', performance.now());
+					console.log('saved modifiers', performance.now());
 					if (!chartData){
 						makeAllCharts(ws,dm,result2,'all').then(function(result3) {
 							chartData = result3;
@@ -902,7 +901,6 @@ function makeChartsWithData(ws,rawdata,chartInfo,chartStyle,dm,reloadTable=true)
 		var chartJSON = createPlotly.createPlotly(data,chartInfo.options);
 		console.log('plotly created',performance.now());
 		if (!dm.loc){dm.loc = 0}
-		console.log(data.headers);
 		var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc,'style':'plotly','allHeaders':data.headers};
 		if (reloadTable){
 			jsonmessage['mdata']=data.modified;
