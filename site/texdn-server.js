@@ -233,7 +233,7 @@ wss.on('connection', function connection(ws) {
   			}
   			else {
 				fs.writeFile("saved/"+chartid+".csv", fstr, function (err) {
-					const result = await Chart.findOne({ id: chartid });
+					const result = Chart.findOne({ id: chartid });
 					
 					makeAllCharts(ws,dm,result,'all',true).then(function(result3) {
 						chartData = result3.data;
