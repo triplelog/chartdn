@@ -91,6 +91,7 @@ function headersChanged(initialData,chg=false) {
 	else {
 		return;
 	}
+	console.log(headers);
 	var xCo = document.getElementById('xColumnSelect');
 	xCo.innerHTML = '<option value="-1"></option>';
 	var yCo = document.getElementById('yColumnSelect');
