@@ -85,7 +85,12 @@ minimizedBoxes.google = 'half';
 
 //Headers Changed
 function headersChanged(initialData,chg=false) {
-	headers = allHeaders.current;
+	if (allHeaders.current){
+		headers = allHeaders.current;
+	}
+	else {
+		return;
+	}
 	var xCo = document.getElementById('xColumnSelect');
 	xCo.innerHTML = '<option value="-1"></option>';
 	var yCo = document.getElementById('yColumnSelect');
