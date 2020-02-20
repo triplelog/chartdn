@@ -451,23 +451,27 @@ exports.sort = function(array,options) {
 } // Done?
 
 exports.replace = function(array,options) {
-	if (!options.find && options.find != 0){ return;}
-	if (!options.replace && options.replace != 0){ return;}
-	if (options.numerical){
+	if (!options || options.length == 0){ return;}
+	for (var idx=0;idx<options.length;idx++){
+		var obj = options[idx];
+		if (!obj.find && obj.find != 0){ continue}
+		if (!obj.replace && obj.replace != 0){ continue;}
+		if (obj.numerical){
 	
-	}
-	else {
-		var fstr;
-		if (!options.case) { fstr = new RegExp(options.find,'gi');}
-		else { fstr = new RegExp(options.find,'g');}
+		}
+		else {
+			var fstr;
+			if (!obj.case) { fstr = new RegExp(obj.find,'gi');}
+			else { fstr = new RegExp(obj.find,'g');}
 		
-		for (var i in array){
-			if (array[i][options.column]){
-				array[i][options.column] = array[i][options.column].toString().replace(fstr,options.replace);
-			}
-			else if (options.column == -1) {
-				for (var ii in array[i]){
-					array[i][ii] = array[i][ii].toString().replace(fstr,options.replace);
+			for (var i in array){
+				if (array[i][obj.column]){
+					array[i][obj.column] = array[i][obj.column].toString().replace(fstr,obj.replace);
+				}
+				else if (obj.column == -1) {
+					for (var ii in array[i]){
+						array[i][ii] = array[i][ii].toString().replace(fstr,obj.replace);
+					}
 				}
 			}
 		}
