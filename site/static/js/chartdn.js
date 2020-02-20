@@ -91,7 +91,6 @@ function headersChanged(initialData,chg=false) {
 	else {
 		return;
 	}
-	console.log(headers);
 	var xCo = document.getElementById('xColumnSelect');
 	xCo.innerHTML = '<option value="-1"></option>';
 	var yCo = document.getElementById('yColumnSelect');
@@ -294,7 +293,7 @@ function headerChg() {
 	ws.send(JSON.stringify(jsonmessage));
 }
 function createLineDiv(id,chg=false) {
-
+	console.log(headers);
 	if (chg){
 		var el = document.getElementById('lineStyleMenu');
 		var qstring = 'option[value="'+id+'"]';
