@@ -138,6 +138,7 @@ wss.on('connection', function connection(ws) {
   var chartData = false;
   ws.on('message', function incoming(message) {
   	var dm = JSON.parse(message);
+  	console.log(dm.operation);
   	if (dm.operation == 'upload'){
   		var d = new Date(); var n = d.getTime(); console.log('time2: ', n);
   		if (chartid == ''){
