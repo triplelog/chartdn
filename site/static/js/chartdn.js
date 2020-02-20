@@ -1181,7 +1181,11 @@ function updateModifier(evt){
 				}
 			}
 			else if (mType == 'replace'){
-				if (el.getAttribute('name')=='find'){
+				saveModifier = false;
+				if (el.getAttribute('name')=='submit'){
+					saveModifier = true;
+				}
+				else if (el.getAttribute('name')=='find'){
 					modifiers[i].options.find = el.value;
 				}
 				else if (el.getAttribute('name')=='replace'){
@@ -1189,6 +1193,11 @@ function updateModifier(evt){
 				}
 				else if (el.getAttribute('name')=='column'){
 					modifiers[i].options.column = parseInt(el.value);
+				}
+				else if (el.getAttribute('name')=='row'){
+					console.log(el.value);
+					modifiers[i].options.row = parseInt(el.value);
+					console.log(parseInt(el.value));
 				}
 				else if (el.getAttribute('name')=='case'){
 					modifiers[i].options.case = el.checked;
@@ -1548,27 +1557,27 @@ function createReplace(obj) {
 	
 	var newMM = newM.querySelector('input[name=find]');
 	if (obj.options.find) {newMM.value = obj.options.find;}
-	newMM.addEventListener('change',updateModifier);
 	
 	newMM = newM.querySelector('input[name=replace]');
 	if (obj.options.replace) {newMM.value = obj.options.replace;}
-	newMM.addEventListener('change',updateModifier);
 	
 	newMM = newM.querySelector('input[name=case]');
 	if (obj.options.case) {newMM.checked = true;}
-	newMM.addEventListener('change',updateModifier);
 	
 	newMM = newM.querySelector('input[name=numerical]');
 	if (obj.options.numerical) {newMM.checked = true;}
-	newMM.addEventListener('change',updateModifier);
 	
 	newMM = newM.querySelector('input[name=full]');
 	if (obj.options.full) {newMM.checked = true;}
-	newMM.addEventListener('change',updateModifier);
 	
 	newMM = newM.querySelector('select[name=column]');
 	if (obj.options.column) {newMM.value = obj.options.column;}
-	newMM.addEventListener('change',updateModifier);
+	
+	newMM = newM.querySelector('select[name=row]');
+	if (obj.options.row) {newMM.value = obj.options.row;}
+	
+	newMM = newM.querySelector('button[name=submit]');
+	newMM.addEventListener('click',updateModifier);
 	
 	
 
@@ -1770,7 +1779,7 @@ function createNewModifier(show=false) {
 			createSort(oldObject);
 		}
 		else if (mType == 'replace'){
-			oldObject.options = {'column':-1,'regex':false,'full':false,'case':false,'numerical':false};
+			oldObject.options = {'column':-1,'row':-1,'regex':false,'full':false,'case':false,'numerical':false};
 			createReplace(oldObject);
 		}
 		else if (mType == 'filter'){

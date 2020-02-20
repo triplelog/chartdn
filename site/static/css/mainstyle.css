@@ -439,8 +439,13 @@ a.pure-button-primary {
 	height: 3rem;
 	border: 1px solid black;
 }
-#showMoreOptions label, #yAxisBox label, #yAxisFormatBox label, div[name=createReplace] label {
+#showMoreOptions label, #yAxisBox label, #yAxisFormatBox label {
 	width: 7rem;
+	text-align: right;
+	display: inline-block;
+}
+div[name=createReplace] label {
+	width: 12rem;
 	text-align: right;
 	display: inline-block;
 }
