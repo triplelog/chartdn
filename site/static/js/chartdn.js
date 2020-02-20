@@ -1192,8 +1192,8 @@ function updateModifier(evt){
 					if (isNaN(parseInt(row))){ row = -1;}
 					modifiers[i].options.row = parseInt(row);
 					modifiers[i].options.case = pel.querySelector('*[name=case]').checked;
-					modifiers[i].options.numerical = pel.querySelector('*[name=case]').checked;
-					modifiers[i].options.full = pel.querySelector('*[name=case]').checked;
+					modifiers[i].options.numerical = pel.querySelector('*[name=numerical]').checked;
+					modifiers[i].options.full = pel.querySelector('*[name=full]').checked;
 				}
 			}
 			else if (mType == 'new' || mType == 'filter'){
@@ -1557,10 +1557,12 @@ function createReplace(obj) {
 	newMM = newM.querySelector('input[name=full]');
 	if (obj.options.full) {newMM.checked = true;}
 	
-	newMM = newM.querySelector('select[name=column]');
-	console.log(obj.options.column);
-	if (obj.options.column || obj.options.column === 0) {newMM.value = ''+obj.options.column;}
-	console.log(newMM.value);
+	
+
+	if (obj.options.column || obj.options.column === 0) {
+		newMM = newM.querySelector('select[name=column] > option[value="'+obj.options.column+'"]');
+		newMM.checked = true;
+	}
 	
 	newMM = newM.querySelector('input[name=row]');
 	if (obj.options.row && obj.options.row >= 0) {newMM.value = obj.options.row;}
