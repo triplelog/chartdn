@@ -203,29 +203,8 @@ wss.on('connection', function connection(ws) {
 					var child = exec(wget, function(err, stdout, stderr) {
 						if (err) throw err;
 						else {
-							Chart.findOne({ id: chartid }, function(err, result) {
-							  if (err) {
-		
-							  } else {
-								var d = new Date(); var n = d.getTime(); console.log('time5: ', n);
-								makeAllCharts(ws,dm,result,'all',true).then(function(result3) {
-									chartData = result3.data;
-									result.types = result3.types;
-									result.markModified('types');
-									result.save(function (err, chart) {
-										if (err) return console.error(err);
-										console.log('saved',chart.types);
-									});
-								}, function(err) {
-									console.log(err);
-								});
-								fs.unlink("saved/"+chartid+"."+dm.type, (err) => {
-									if (err){
-										console.log('Did not delete xls file');
-									}
-								});
-							  }
-							});
+							loadChart(chartid,ws,dm,chartData,true,false);
+							
 						}
 						
 					});
@@ -233,7 +212,7 @@ wss.on('connection', function connection(ws) {
   			}
   			else {
 				fs.writeFile("saved/"+chartid+".csv", fstr, function (err) {
-					loadChart(chartid,ws,dm,chartData);
+					loadChart(chartid,ws,dm,chartData,false,false);
 
 				});
 			}
@@ -272,40 +251,14 @@ wss.on('connection', function connection(ws) {
 						var child = exec(wget, function(err, stdout, stderr) {
 							if (err) throw err;
 							else {
-									var d = new Date(); var n = d.getTime(); console.log('time5: ', n);
-									makeAllCharts(ws,dm,result,'all',true).then(function(result3) {
-										chartData = result3.data;
-										result.types = result3.types;
-										result.markModified('types');
-										result.save(function (err, chart) {
-											if (err) return console.error(err);
-											console.log('saved',chart.types);
-										});
-									}, function(err) {
-										console.log(err);
-									});
-									fs.unlink("saved/"+chartid+"."+dm.type, (err) => {
-										if (err){
-											console.log('Did not delete xls file');
-										}
-									});
+								loadChart(chartid,ws,dm,chartData,true,result);
 							}
 						});
 					});
 				}
 				else {
 					fs.writeFile("saved/"+chartid+".csv", fstr, function (err) {
-							makeAllCharts(ws,dm,result,'all',true).then(function(result3) {
-								chartData = result3.data;
-								result.types = result3.types;
-								result.markModified('types');
-								result.save(function (err, chart) {
-									if (err) return console.error(err);
-									console.log('saved',chart.types);
-								});
-							}, function(err) {
-								console.log(err);
-							});
+						loadChart(chartid,ws,dm,chartData,false,result);
 					});
 				}
 			  }
@@ -366,23 +319,7 @@ wss.on('connection', function connection(ws) {
 					fs.readFile('saved/'+chartid+'.csv', 'utf8', function(err, fileData) {
 						var jsonmessage = {'operation':'downloaded','message':fileData};
 						ws.send(JSON.stringify(jsonmessage));
-						Chart.findOne({ id: chartid }, function(err, result) {
-						  if (err) {
-			
-						  } else {
-							makeAllCharts(ws,dm,result,'all',true).then(function(result3) {
-								chartData = result3.data;
-								result.types = result3.types;
-								result.markModified('types');
-								result.save(function (err, chart) {
-									if (err) return console.error(err);
-									console.log('saved',chart.types);
-								});
-							}, function(err) {
-								console.log(err);
-							});
-						  }
-						});
+						loadChart(chartid,ws,dm,chartData,false,false);
 					});
 				}
 			});
@@ -412,17 +349,7 @@ wss.on('connection', function connection(ws) {
 						fs.readFile('saved/'+chartid+'.csv', 'utf8', function(err, fileData) {
 							var jsonmessage = {'operation':'downloaded','message':fileData};
 							ws.send(JSON.stringify(jsonmessage));
-							makeAllCharts(ws,dm,result,'all',true).then(function(result3) {
-								chartData = result3.data;
-								result.types = result3.types;
-								result.markModified('types');
-								result.save(function (err, chart) {
-									if (err) return console.error(err);
-									console.log('saved',chart.types);
-								});
-							}, function(err) {
-								console.log(err);
-							});
+							loadChart(chartid,ws,dm,chartData,false,result);
 						});
 					}
 				});
@@ -543,14 +470,10 @@ wss.on('connection', function connection(ws) {
   });
 });
 
-function loadChart(chartid,ws,dm,chartData){
-	Chart.findOne({ id: chartid }, function(err, result) {
-	  if (err) {
-		
-	  } else {
+function loadChart(chartid,ws,dm,chartData,deletexls=false,result=false){
+	if (result){
 		makeAllCharts(ws,dm,result,'all',true).then(function(result3) {
 			chartData = result3.data;
-			console.log(chartData);
 			/*result.types = result3.types;
 			result.markModified('types');
 			result.save(function (err, chart) {
@@ -560,8 +483,34 @@ function loadChart(chartid,ws,dm,chartData){
 		}, function(err) {
 			console.log(err);
 		});
-	  }
-	});
+	}
+	else {
+		Chart.findOne({ id: chartid }, function(err, result2) {
+		  if (err) {
+		
+		  } else {
+			makeAllCharts(ws,dm,result2,'all',true).then(function(result3) {
+				chartData = result3.data;
+				/*result2.types = result3.types;
+				result2.markModified('types');
+				result2.save(function (err, chart) {
+					if (err) return console.error(err);
+					console.log('saved',chart.types);
+				});*/
+			}, function(err) {
+				console.log(err);
+			});
+			if (deletexls){
+				fs.unlink("saved/"+chartid+"."+dm.type, (err) => {
+					if (err){
+						console.log('Did not delete xls file');
+					}
+				});
+			}
+		  }
+		});
+	}
+	
 
 }
 
