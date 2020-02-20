@@ -1188,7 +1188,7 @@ function updateModifier(evt){
 					var pel = el.parentElement.parentElement;
 					modifiers[i].options.find = pel.querySelector('*[name=find]').value;
 					modifiers[i].options.replace = pel.querySelector('*[name=replace]').value;
-					var col = parseInt(pel.querySelector('*[name=column] > option:selected').value);
+					var col = parseInt(pel.querySelector('*[name=column] > option:checked').value);
 					modifiers[i].options.column = col;
 					pel.querySelector('*[name=column]').setAttribute('value',col);
 					var row = pel.querySelector('*[name=row]').value;
