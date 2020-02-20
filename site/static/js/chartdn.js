@@ -1188,7 +1188,9 @@ function updateModifier(evt){
 					var pel = el.parentElement.parentElement;
 					modifiers[i].options.find = pel.querySelector('*[name=find]').value;
 					modifiers[i].options.replace = pel.querySelector('*[name=replace]').value;
-					modifiers[i].options.column = parseInt(pel.querySelector('*[name=column]').value);
+					var col = parseInt(pel.querySelector('*[name=column] > option:selected').value);
+					modifiers[i].options.column = col;
+					pel.querySelector('*[name=column]').setAttribute('value',col);
 					var row = pel.querySelector('*[name=row]').value;
 					if (isNaN(parseInt(row))){ row = -1;}
 					modifiers[i].options.row = parseInt(row);
