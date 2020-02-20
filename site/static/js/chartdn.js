@@ -31,7 +31,7 @@ ws.onmessage = function(evt){
 			}
 		}
 		if (dm.mdata){
-			updateTable(dm.mdata,dm.allHeaders);
+			updateTable(dm.mdata,dm.allHeaders.modified);
 			allHeaders = dm.allHeaders;
 			updateColumns();
 		}
@@ -194,7 +194,6 @@ function chgLineTab(){
 	colid = document.getElementById('lineStyleMenu').querySelector('*:checked').value;
 
 	var el = document.getElementById('colId'+colid);
-	console.log(colid);
 	if (el){
 		el.style.borderColor = 'rgb(200, 200, 200)';
 	}
@@ -633,8 +632,8 @@ function clickTippy(evt) {
 	
 }
 
-function updateTable(data,sentHeaders) {
-	console.log(sentHeaders,nsteps);
+function updateTableOld(data,sentHeaders) {
+	console.log(sentHeaders);
 	headers = [];
 	var tableData = [];
 	var tableColumns = [];
@@ -766,6 +765,122 @@ function updateTable(data,sentHeaders) {
 	dataTable.style.width = '';
 	table.redraw(true);
 	headersChanged(false,true);
+}
+function updateTable(data,sentHeaders) {
+	console.log(sentHeaders);
+
+	var tableColumns = [];
+	
+	var rowColumn = {};
+	rowColumn.title = 'Row';
+	rowColumn.field = 'colRow';
+	rowColumn.align = 'right';
+	rowColumn.cellClick = function(e, cell){
+		var row = cell.getRow()['_row'].data.colRow;
+		if (!tippysR[row]){
+			let templateR = document.getElementById('clickRow-template');
+			let tcr = templateR.content.cloneNode(true).firstElementChild;
+			tcr.setAttribute('data-row',row);
+			tcr.querySelector('button[name=filterButton]').addEventListener('click',clickTippy);
+			tcr.querySelector('button[name=matchButton]').addEventListener('click',clickTippy);
+				
+			let mytippy = tippy(e.target, {
+			  content: tcr,
+			  appendTo: document.querySelector('.header'),
+			  trigger: 'manual',
+			  interactive: true,
+			  placement: 'left',
+			});
+			tippysR[row] = mytippy;
+			mytippy.show();
+		}
+		else {
+			tippysR[row].show();
+		}
+	}
+	tableColumns[0] = rowColumn;
+	
+	for (var i=0;i<sentHeaders.length;i++){
+
+		var thisColumn = {};
+		thisColumn.title = sentHeaders[i];
+		thisColumn.field = 'col'+i;
+		thisColumn.align = 'right';
+		thisColumn.headerClick = function(e, column){
+			var col = column['_column'].field.substring(3);
+			let template = document.getElementById('clickColumn-template');
+			let tc = template.content.cloneNode(true).firstElementChild;
+			tc.setAttribute('data-col',col);
+			tc.setAttribute('data-name',headers[parseInt(col)]);
+			tc.querySelector('button[name=xButton]').addEventListener('click',clickTippy);
+			tc.querySelector('button[name=yButton]').addEventListener('click',clickTippy);
+			tc.querySelector('button[name=pivotButton]').addEventListener('click',clickTippy);
+			tc.querySelector('button[name=ascButton]').addEventListener('click',clickTippy);
+			tc.querySelector('button[name=descButton]').addEventListener('click',clickTippy);
+			
+			let mytippy = tippy(e.target, {
+			  content: tc,
+			  appendTo: document.querySelector('.header'),
+			  trigger: 'manual',
+			  interactive: true,
+			  placement: 'bottom',
+			});
+			tippys[col] = mytippy;
+			mytippy.show();
+		}
+		if (!modifiers || modifiers.length == 0 || nsteps == 0){
+			thisColumn.editor = 'input';
+		}
+		tableColumns.push(thisColumn);
+	
+	}
+	var tableData = [];
+	var includeHeaders = false;
+	for (var i=0;i<data.length;i++){
+		var newDataRow = {id:i,colRow:i};
+		
+		for (var ii=0;ii<data[i].length;ii++){
+			newDataRow['col'+ii]=data[i][ii];
+		}
+		if (newDataRow['col0']){
+			tableData.push(newDataRow);
+		}
+		
+	}
+	var dataTable = document.getElementById("dataTableModified");
+	
+	dataTable.innerHTML = '';
+	table = new Tabulator("#dataTableModified", {
+		columns: tableColumns,
+		autoResize:true,
+		height:"100%",
+		headerSort: false,
+		layout:"fitData",
+		layoutColumnsOnNewData:true,
+		cellEdited:function(cell){
+			var row = cell['_cell'].row.data.colRow;
+			var col = cell['_cell'].column.field;
+			var value = cell['_cell'].value;
+			userDataChanges.push({'row':row,'col':col,'value':value});
+		},
+		renderComplete:function(){
+			if (this.tableWidth && this.options.layout == 'fitData'){
+				var el = document.querySelector('div.tabulator-tableHolder');
+				var scrollWidth = 17;
+				if (el.offsetWidth && el.clientWidth){
+					if (el.offsetWidth > el.clientWidth){
+						scrollWidth = parseInt(el.offsetWidth) - parseInt(el.clientWidth) + 2;
+					}
+				}
+				var nWidth = this.tableWidth + scrollWidth;
+				document.getElementById("dataTableModified").style.width = nWidth+'px';
+			}
+    	},
+	});
+	table.addData(tableData.slice(0,1000), false);
+	dataTable.style.width = '';
+	table.redraw(true);
+	//headersChanged(false,true);
 }
 
 var syncWorker2 = new Worker('../wasm/datatypeworker.js');

@@ -801,13 +801,14 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types) {
 		if (!modifiers[i].enabled){continue;}
 		if (nsteps === 0 || (nsteps && idx >= nsteps)){
 			modifiedArray = [];
-			var hlen = hArray.length;
+			allHeaders['modified']=hArray[0].slice();
+			//var hlen = hArray.length;
 			var rlen = rawArray.length;
-			for (var ii=0;ii<hlen;ii++){
-				modifiedArray[ii] = hArray[ii].slice();
-			}
+			/*for (var ii=0;ii<hlen;ii++){
+				allHeaders['modified'][ii] = hArray[ii].slice();
+			}*/
 			for (var ii=0;ii<rlen;ii++){
-				modifiedArray[ii+hlen] = rawArray[ii].slice();
+				modifiedArray[ii] = rawArray[ii].slice();
 			}
 			nsteps = false;
 		}
@@ -842,13 +843,14 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types) {
 	var filteredArray = hArray.concat(modJS.toData(rawArray));
 	if (!modifiedArray || modifiedArray.length == 0){
 		modifiedArray = [];
-		var hlen = hArray.length;
+		allHeaders['modified']=hArray[0].slice();
+		//var hlen = hArray.length;
 		var rlen = rawArray.length;
-		for (var ii=0;ii<hlen;ii++){
+		/*for (var ii=0;ii<hlen;ii++){
 			modifiedArray[ii] = hArray[ii].slice();
-		}
+		}*/
 		for (var ii=0;ii<rlen;ii++){
-			modifiedArray[ii+hlen] = rawArray[ii].slice();
+			modifiedArray[ii] = rawArray[ii].slice();
 		}
 	}
 	var t6 = performance.now();
