@@ -556,9 +556,10 @@ wss.on('connection', function connection(ws) {
 });
 
 function loadChart(chartid){
-	Chart.findOne({ id: chartid }).then(function(result) {
+	var x = Chart.findOne({ id: chartid }).then(function(result) {
 		return result;
 	});
+	console.log(x);
 }
 
 loginApp.get('/browse',
