@@ -814,12 +814,12 @@ function updateTable(data,sentHeaders) {
 		var thisColumn = {};
 		thisColumn.title = sentHeaders.headers[i];
 		thisColumn.field = 'col'+i;
-		if (sentHeaders.types[i] && sentHeaders.types[i] == 'Not'){
+		/*if (sentHeaders.types[i] && sentHeaders.types[i] == 'Not'){
 			thisColumn.align = 'left';
 		}
 		else {
 			thisColumn.align = 'right';
-		}
+		}*/
 		thisColumn.headerClick = function(e, column){
 			var col = column['_column'].field.substring(3);
 			let template = document.getElementById('clickColumn-template');
