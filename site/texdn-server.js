@@ -211,7 +211,7 @@ wss.on('connection', function connection(ws) {
 									chartData = result3.data;
 									result.types = result3.types;
 									result.markModified('types');
-									result.update(function (err, chart) {
+									result.save(function (err, chart) {
 										if (err) return console.error(err);
 										console.log('saved',chart.types);
 									});
@@ -241,7 +241,7 @@ wss.on('connection', function connection(ws) {
 							chartData = result3.data;
 							result.types = result3.types;
 							result.markModified('types');
-							result.update(function (err, chart) {
+							result.save(function (err, chart) {
 								if (err) return console.error(err);
 								console.log('saved',chart.types);
 							});
@@ -296,7 +296,7 @@ wss.on('connection', function connection(ws) {
 										chartData = result3.data;
 										result.types = result3.types;
 										result.markModified('types');
-										result.update(function (err, chart) {
+										result.save(function (err, chart) {
 											if (err) return console.error(err);
 											console.log('saved',chart.types);
 										});
@@ -325,7 +325,7 @@ wss.on('connection', function connection(ws) {
 								chartData = result3.data;
 								result.types = result3.types;
 								result.markModified('types');
-								result.update(function (err, chart) {
+								result.save(function (err, chart) {
 									if (err) return console.error(err);
 									console.log('saved',chart.types);
 								});
@@ -402,7 +402,7 @@ wss.on('connection', function connection(ws) {
 								chartData = result3.data;
 								result.types = result3.types;
 								result.markModified('types');
-								result.update(function (err, chart) {
+								result.save(function (err, chart) {
 									if (err) return console.error(err);
 									console.log('saved',chart.types);
 								});
@@ -444,7 +444,7 @@ wss.on('connection', function connection(ws) {
 								chartData = result3.data;
 								result.types = result3.types;
 								result.markModified('types');
-								result.update(function (err, chart) {
+								result.save(function (err, chart) {
 									if (err) return console.error(err);
 									console.log('saved',chart.types);
 								});
