@@ -520,7 +520,7 @@ function modifierChanged(save=true) {
 		}
 	}
 	if (save){
-		var jsonmessage = {'operation':'options','modifiers':modifiers};
+		var jsonmessage = {'operation':'modifiers','message':modifiers};
 		ws.send(JSON.stringify(jsonmessage));
 	}
 }
@@ -1524,6 +1524,7 @@ function toReplaceElement(obj){
 	var newDiv = document.createElement('div');
 	var newB = document.createElement('button');
 	newB.textContent = 'Edit';
+	//newB.addEventListener('click',);
 	newDiv.appendChild(newB);
 	var newSpan = document.createElement('span');
 	newSpan.textContent = 'Replace '+obj.find+' with '+obj.replace;

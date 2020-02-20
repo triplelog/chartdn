@@ -62,8 +62,10 @@ var chartSchema = new mongoose.Schema({
 	id: String,
 	data: String,
 	options: {},
-	user: String,
-	headers: Array,
+	modifiers: [],
+	users: [String],
+	types: Array,
+	
 });
 var Chart = mongoose.model('Chart', chartSchema);
 
@@ -77,10 +79,13 @@ const WebSocket = require('ws');
 //const wss = new WebSocket.Server({ port: 8080 , origin: 'http://tabdn.com'});
 const wss = new WebSocket.Server({ server });
 
+function updateModifiers(newM,oldM) {
+	oldM=newM;
+}
 function updateOptions(oldOptions, newOptions) {
 	for(var k in newOptions){
 		var v = newOptions[k];
-		if (k == 'yColumns' || k == 'modifiers'){
+		if (k == 'yColumns'){
 			oldOptions[k] = v;
 		}
 		else if (k == 'lines'){
@@ -141,7 +146,6 @@ wss.on('connection', function connection(ws) {
   			dataid = chartid;
   			var defaultOptions = {};
 			defaultOptions['nHeaders'] = 1;
-			defaultOptions['modifiers'] = [];
 			defaultOptions['type'] = '';
 			defaultOptions['yColumns'] = [];
 			defaultOptions['xColumn'] = '';
@@ -153,7 +157,7 @@ wss.on('connection', function connection(ws) {
 			for(var k in myOptions){
 				defaultOptions[k] = myOptions[k];
 			}
-			var chart = new Chart({id:chartid,data:dataid+'.csv',options:defaultOptions,user:username,headers:[]});
+			var chart = new Chart({id:chartid,data:dataid+'.csv',options:defaultOptions,users:[username],modfiers:[],types:[]});
 
 			chart.save(function (err, chart) {
 				if (err) return console.error(err);
@@ -321,7 +325,6 @@ wss.on('connection', function connection(ws) {
   			dataid = chartid;
   			var defaultOptions = {};
 			defaultOptions['nHeaders'] = 1;
-			defaultOptions['modifiers'] = [];
 			defaultOptions['type'] = '';
 			defaultOptions['yColumns'] = [];
 			defaultOptions['xColumn'] = '';
@@ -333,7 +336,7 @@ wss.on('connection', function connection(ws) {
 			for(var k in myOptions){
 				defaultOptions[k] = myOptions[k];
 			}
-			var chart = new Chart({id:chartid,data:chartid+'.csv',options:defaultOptions,user:username,headers:[]});
+			var chart = new Chart({id:chartid,data:chartid+'.csv',options:defaultOptions,users:[username],modfiers:[],types:[]});
 			chart.save(function (err, chart) {
 				if (err) return console.error(err);
 				console.log('saved');
@@ -448,12 +451,46 @@ wss.on('connection', function connection(ws) {
 					}
 					else {
 						console.log('used cached data', performance.now());
-						if (dm.modifiers || dm.nsteps || dm.nsteps === 0){
+						if (dm.nsteps || dm.nsteps === 0){
 							makeChartsWithData(ws,chartData,result2,'all',dm,true);
 						}
 						else {
 							makeChartsWithData(ws,chartData,result2,'all',dm,false);
 						}
+						
+					}
+				});
+			  }
+			});
+  		}
+  		
+  		
+  		
+  	}
+  	else if (dm.operation == 'modifiers'){
+  		console.log('message rec',performance.now());
+  		if (chartid != '') {
+  			Chart.findOne({ id: chartid }, function(err, result) {
+			  if (err) {
+				
+			  } else {
+			  	console.log('Chart Found',performance.now());
+				updateModifiers(dm.message,result.modifiers);
+				result.markModified('modifiers');
+				result.save(function (err, result2) {
+					if (err) return console.error('sajdhfkasdhjfkjsahdfkjsadhfs\n',err);
+					console.log('saved options', performance.now());
+					if (!chartData){
+						makeAllCharts(ws,dm,result2,'all').then(function(result3) {
+							chartData = result3;
+						}, function(err) {
+							console.log(err);
+						});
+						
+					}
+					else {
+						console.log('used cached data', performance.now());
+						makeChartsWithData(ws,chartData,result2,'all',dm,true);
 						
 					}
 				});
@@ -572,7 +609,7 @@ loginApp.get('/edit/:chartid',
 							else { //Fork chart data and options
 								dataname = result.data;
 								myOptions = result.options;
-								var newchart = new Chart({id:chartid,data:result.data,options:result.options,user:username});
+								var newchart = new Chart({id:chartid,data:result.data,options:result.options,users:[username],modfiers:result.modifiers,types:result.types});
 								newchart.save(function (err, newchart) {
 									if (err) return console.error(err);
 									console.log('saved');
@@ -647,7 +684,7 @@ loginApp.get('/edit/:chartid',
 							console.log('deleted nsteps');
 						});
 					}
-					if (result.user == '' || result.user == username){
+					if (result.users[0] == '' || result.users[0] == username){
 						fs.readFile('saved/'+dataname, 'utf8', function(err, fileData) {
 							var defaultData = ''
 							if (!err) {defaultData = fileData;}
@@ -811,33 +848,34 @@ function makeChartsWithData(ws,rawdata,chartInfo,chartStyle,dm,reloadTable=true)
 	}
 	console.log('data converted',performance.now());
 	var nHeaders = chartInfo.options.nHeaders || 1;
-	var data = convertDataToFull(newData,nHeaders,chartInfo.options.modifiers,chartInfo.options.nsteps);
-				
+	var data = convertDataToFull(newData,nHeaders,chartInfo.modifiers,chartInfo.options.nsteps);
+	
+	/*
 	if (data.headers.current.length != chartInfo.headers.length){
 		chartInfo.headers = data.headers.current;
-		chartInfo.markModified('headers');/*
+		chartInfo.markModified('headers');
 		chartInfo.save(function (err, chart) {
 			if (err) return console.error(err);
 			console.log('saved');
-		});*/
+		});
 		var jsonmessage = {'operation':'headers','message':data.headers.current};
 		ws.send(JSON.stringify(jsonmessage));
 	}
 	else {
 		for (var i in data.headers.current){
 			if (!chartInfo.headers || data.headers.current[i] != chartInfo.headers[i]){
-				chartInfo.headers = data.headers.current;/*
+				chartInfo.headers = data.headers.current;
 				chartInfo.markModified('headers');
 				chartInfo.save(function (err, chart) {
 					if (err) return console.error(err);
 					console.log('saved');
-				});*/
+				});
 				var jsonmessage = {'operation':'headers','message':data.headers.current};
 				ws.send(JSON.stringify(jsonmessage));
 				break;
 			}
 		}
-	}
+	}*/
 	
 	/*
 	if (chartStyle == 'all' || chartStyle == 'chartJS') {
