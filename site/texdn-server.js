@@ -21,6 +21,7 @@ var createXkcd = require('./createCharts/xkcd-charts.js');
 var createGoogle = require('./createCharts/google-charts.js');
 var createChartjs = require('./createCharts/chartjs-charts.js');
 var modJS = require('./modify.js');
+var datatypes = require('./datatypes.js');
 const options = {
   key: fs.readFileSync('/etc/letsencrypt/live/chartdn.com/privkey.pem'),
   cert: fs.readFileSync('/etc/letsencrypt/live/chartdn.com/fullchain.pem')
@@ -907,7 +908,8 @@ function makeChartsWithData(ws,rawdata,chartInfo,chartStyle,dm,reloadTable=true)
 		ws.send(JSON.stringify(jsonmessage));
 		console.log('message sent',performance.now());
 	}
-}		
+}
+
 function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 	return new Promise(function(resolve, reject) {
         fs.readFile('saved/'+chartInfo.data, 'utf8', function(err, fileData) {
@@ -917,6 +919,7 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 			var results = Papa.parse(fileData, {
 				delimiter: chartInfo.options.delimiter || ""
 			});
+			console.log(datatypes.makeTypes(results.data));
 			console.log('parsed',performance.now());
 			makeChartsWithData(ws,results.data,chartInfo,chartStyle,dm);
 			resolve(results.data);
