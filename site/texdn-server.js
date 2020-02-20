@@ -937,6 +937,9 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes=false) {
 				
 				console.log(types);
 			}
+			else {
+				console.log(chartInfo.types);
+			}
 			console.log('parsed',performance.now());
 			makeChartsWithData(ws,results.data,chartInfo,chartStyle,dm);
 			returnData.data = results.data;
