@@ -233,21 +233,19 @@ wss.on('connection', function connection(ws) {
   			}
   			else {
 				fs.writeFile("saved/"+chartid+".csv", fstr, function (err) {
-					Chart.findOne({ id: chartid }, function(err, result) {
-					  if (err) {
-			
-					  } else {
-						var d = new Date(); var n = d.getTime(); console.log('time5: ', n);
-						makeAllCharts(ws,dm,result,'all',true).then(function(result3) {
-							chartData = result3.data;
-							result.types = result3.types;
-							console.log(result3.types);
-							result.updateOne({types:result3.types});
-						}, function(err) {
-							console.log(err);
-						});
-					  }
+					const result = await Chart.findOne({ id: chartid });
+					
+					makeAllCharts(ws,dm,result,'all',true).then(function(result3) {
+						chartData = result3.data;
+						result.types = result3.types;
+						console.log(result3.types);
+						//result.markModified('types');
+						result.updateOne({types:result3.types});
+					}, function(err) {
+						console.log(err);
 					});
+
+					
 				});
 			}
 		}
