@@ -182,12 +182,12 @@ function headersChanged(initialData,chg=false) {
 		if (colChg){
 			columnsChg();
 			for (var i in skipRows){
-				var qstring = 'option[value="'+i+'"]';
+				var qstring = 'option[value="'+skipRows[i]+'"]';
 				console.log(qstring);
 				var ell = document.getElementById('lineStyleMenu').querySelector(qstring);
 				ell.parentElement.removeChild(ell);
 		
-				qstring = '#lineStyleDiv'+i;
+				qstring = '#lineStyleDiv'+skipRows[i];
 				ell = document.getElementById("yAxisFormatBox").querySelector(qstring);
 				ell.parentElement.removeChild(ell);
 			}
