@@ -410,7 +410,7 @@ function makeRowMap(array,options,nHeaders,i){
 		return rowmap;
 	}
 }
-exports.newColumn = function(array,options,nHeaders) {
+exports.newColumn = function(array,options,nHeaders,types) {
 	toData(array);
 	var formula = options.formula;
 	if (!formula || formula == ''){return;}
@@ -560,7 +560,7 @@ exports.replace = function(array,options) {
 	}
 } // add full cell option, numerical replace, input as regex
 
-exports.pivot = function(array,options,hArray) {
+exports.pivot = function(array,options,hArray,types) {
 	toData(array);
 	var object = {};
 	for (var i in array){
@@ -643,6 +643,7 @@ exports.pivot = function(array,options,hArray) {
 	if (idx<array.length){array.splice(idx,array.length-idx);}
 	
 	var hArrayNew = [];
+	
 	for (var i in hArray){
 		hArrayNew.push([]);
 		if (hArray[i][options.pivot]){
@@ -652,6 +653,7 @@ exports.pivot = function(array,options,hArray) {
 			hArrayNew[i].push(hArray[i][options.columns[ii].column]);
 		}
 	}
+	
 	idx = 0;
 	for (var i in hArrayNew){
 		var iidx = 0;
@@ -664,10 +666,20 @@ exports.pivot = function(array,options,hArray) {
 		idx++;
 	}
 	if (idx<hArray.length){hArray.splice(idx,hArray.length-idx);}
+	
+	var typesNew = [];
+	if (types[options.pivot]){
+		typesNew.push(types[options.pivot]);
+	}
+	for (var ii in options.columns) {
+		typesNew.push(types[options.columns[ii]]);
+	}
+	console.log('New types: ', typesNew);
+	
 
 } //Add countif? Add possibility to create buckets like weekly, etc. Error Handling
 
-exports.filter = function(array,options,nHeaders) {	
+exports.filter = function(array,options,nHeaders,types) {	
 	toData(array);
 	var skipRows = [];
 	var formula = options.formula;

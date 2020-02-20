@@ -801,7 +801,9 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types) {
 		if (!modifiers[i].enabled){continue;}
 		if (nsteps === 0 || (nsteps && idx >= nsteps)){
 			modifiedArray = [];
-			allHeaders['modified']=hArray[0].slice();
+			allHeaders['modified']={};
+			allHeaders['modified'].headers=hArray[0].slice();
+			allHeaders['modified'].types=types.slice();
 			//var hlen = hArray.length;
 			var rlen = rawArray.length;
 			/*for (var ii=0;ii<hlen;ii++){
@@ -815,7 +817,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types) {
 		else {idx++;}
 		
 		if (modifiers[i].type == 'new'){
-			modJS.newColumn(rawArray,modifiers[i].options,nHeaders);
+			modJS.newColumn(rawArray,modifiers[i].options,nHeaders,types);
 			if (hArray.length>0){
 				hArray[0].push(modifiers[i].name);
 			}
@@ -831,7 +833,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types) {
 			modJS.replace(rawArray,modifiers[i].options);
 		}
 		else if (modifiers[i].type == 'pivot'){
-			modJS.pivot(rawArray,modifiers[i].options,hArray);
+			modJS.pivot(rawArray,modifiers[i].options,hArray,types);
 			//Update columns in create chart
 		}
 	}
@@ -843,7 +845,9 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types) {
 	var filteredArray = hArray.concat(modJS.toData(rawArray));
 	if (!modifiedArray || modifiedArray.length == 0){
 		modifiedArray = [];
-		allHeaders['modified']=hArray[0].slice();
+		allHeaders['modified']={};
+		allHeaders['modified'].headers=hArray[0].slice();
+		allHeaders['modified'].types=types.slice();
 		//var hlen = hArray.length;
 		var rlen = rawArray.length;
 		/*for (var ii=0;ii<hlen;ii++){
@@ -888,7 +892,7 @@ function makeChartsWithData(ws,rawdata,chartInfo,chartStyle,dm,reloadTable=true)
 	}
 	console.log('data converted',performance.now());
 	var nHeaders = chartInfo.options.nHeaders || 1;
-	var data = convertDataToFull(newData,nHeaders,chartInfo.modifiers,chartInfo.options.nsteps,chartInfo.types);
+	var data = convertDataToFull(newData,nHeaders,chartInfo.modifiers,chartInfo.options.nsteps,chartInfo.types.slice(0,maxColumns));
 	
 	/*
 	if (chartStyle == 'all' || chartStyle == 'chartJS') {
