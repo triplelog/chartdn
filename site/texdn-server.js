@@ -207,7 +207,7 @@ wss.on('connection', function connection(ws) {
 		
 							  } else {
 								var d = new Date(); var n = d.getTime(); console.log('time5: ', n);
-								makeAllCharts(ws,dm,result,'all').then(function(result3) {
+								makeAllCharts(ws,dm,result,'all',true).then(function(result3) {
 									chartData = result3;
 								}, function(err) {
 									console.log(err);
@@ -231,7 +231,7 @@ wss.on('connection', function connection(ws) {
 			
 					  } else {
 						var d = new Date(); var n = d.getTime(); console.log('time5: ', n);
-						makeAllCharts(ws,dm,result,'all').then(function(result3) {
+						makeAllCharts(ws,dm,result,'all',true).then(function(result3) {
 							chartData = result3;
 						}, function(err) {
 							console.log(err);
@@ -280,7 +280,7 @@ wss.on('connection', function connection(ws) {
 		
 								  } else {
 									var d = new Date(); var n = d.getTime(); console.log('time5: ', n);
-									makeAllCharts(ws,dm,result,'all').then(function(result3) {
+									makeAllCharts(ws,dm,result,'all',true).then(function(result3) {
 										chartData = result3;
 									}, function(err) {
 										console.log(err);
@@ -303,7 +303,7 @@ wss.on('connection', function connection(ws) {
 			
 						  } else {
 							var d = new Date(); var n = d.getTime(); console.log('time5: ', n);
-							makeAllCharts(ws,dm,result,'all').then(function(result3) {
+							makeAllCharts(ws,dm,result,'all',true).then(function(result3) {
 								chartData = result3;
 							}, function(err) {
 								console.log(err);
@@ -374,7 +374,7 @@ wss.on('connection', function connection(ws) {
 						  if (err) {
 			
 						  } else {
-							makeAllCharts(ws,dm,result,'all').then(function(result3) {
+							makeAllCharts(ws,dm,result,'all',true).then(function(result3) {
 								chartData = result3;
 							}, function(err) {
 								console.log(err);
@@ -410,7 +410,7 @@ wss.on('connection', function connection(ws) {
 						fs.readFile('saved/'+chartid+'.csv', 'utf8', function(err, fileData) {
 							var jsonmessage = {'operation':'downloaded','message':fileData};
 							ws.send(JSON.stringify(jsonmessage));
-							makeAllCharts(ws,dm,result,'all').then(function(result3) {
+							makeAllCharts(ws,dm,result,'all',true).then(function(result3) {
 								chartData = result3;
 							}, function(err) {
 								console.log(err);
@@ -910,7 +910,7 @@ function makeChartsWithData(ws,rawdata,chartInfo,chartStyle,dm,reloadTable=true)
 	}
 }
 
-function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
+function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes=false) {
 	return new Promise(function(resolve, reject) {
         fs.readFile('saved/'+chartInfo.data, 'utf8', function(err, fileData) {
         	if (err){reject(err);}
@@ -919,7 +919,11 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all') {
 			var results = Papa.parse(fileData, {
 				delimiter: chartInfo.options.delimiter || ""
 			});
-			console.log(datatypes.makeTypes(results.data));
+			if (chgTypes){
+				var types = datatypes.makeTypes(results.data.slice(0,1000));
+				chartInfo.types = types;
+				console.log(chartInfo);
+			}
 			console.log('parsed',performance.now());
 			makeChartsWithData(ws,results.data,chartInfo,chartStyle,dm);
 			resolve(results.data);
