@@ -1012,6 +1012,7 @@ function updateColumns(id='all') {
 			else if (modifiers[i].type == 'replace'){
 				var el = document.getElementById('replaceCol'+modifiers[i].id);
 				var elval = el.value;
+				console.log(elval);
 				el.innerHTML = '';
 				var cols = allHeaders[modifiers[i].id];
 				for (var ii in cols){
@@ -1560,10 +1561,10 @@ function createReplace(obj) {
 	
 
 	if (obj.options.column || obj.options.column === 0) {
-		var qstring = 'select[name=column] > option[value="'+obj.options.column+'"]';
+		var qstring = 'select[name=column]';
 		console.log(qstring);
 		newMM = newM.querySelector(qstring);
-		if (newMM) {newMM.setAttribute('selected','selected');}
+		if (newMM) {newMM.setAttribute('value',obj.options.column);}
 	}
 	
 	newMM = newM.querySelector('input[name=row]');
