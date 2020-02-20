@@ -240,6 +240,7 @@ wss.on('connection', function connection(ws) {
 						makeAllCharts(ws,dm,result,'all',true).then(function(result3) {
 							chartData = result3.data;
 							result.types = result3.types;
+							console.log(result3.types);
 							Chart.updateOne({id:chartid},{types:result3.types});
 						}, function(err) {
 							console.log(err);
