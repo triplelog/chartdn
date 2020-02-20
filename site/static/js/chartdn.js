@@ -687,6 +687,7 @@ function updateTable(data) {
 				var thisColumn = {};
 				thisColumn.title = headers[headers.length-1];
 				thisColumn.field = 'col'+ii;
+				thisColumn.align = 'right';
 				thisColumn.headerClick = function(e, column){
 					var col = column['_column'].field.substring(3);
 					//if (!tippys[col]){
@@ -734,11 +735,6 @@ function updateTable(data) {
 	var dataTable = document.getElementById("dataTableModified");
 	
 	dataTable.innerHTML = '';
-	/*var finalColumn = {};
-	finalColumn.title = '';
-	finalColumn.field = '';
-	finalColumn.width = '1px';
-	tableColumns.push(finalColumn);*/
 	table = new Tabulator("#dataTableModified", {
 		columns: tableColumns,
 		autoResize:true,

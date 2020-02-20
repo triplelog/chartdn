@@ -779,7 +779,7 @@ loginServer.listen(3000);
 
 
 
-function convertDataToFull(dataStr,nHeaders,modifiers,nsteps) {
+function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types) {
 
 	rawArray = dataStr;
 	var t1 = performance.now();
@@ -886,7 +886,7 @@ function makeChartsWithData(ws,rawdata,chartInfo,chartStyle,dm,reloadTable=true)
 	}
 	console.log('data converted',performance.now());
 	var nHeaders = chartInfo.options.nHeaders || 1;
-	var data = convertDataToFull(newData,nHeaders,chartInfo.modifiers,chartInfo.options.nsteps);
+	var data = convertDataToFull(newData,nHeaders,chartInfo.modifiers,chartInfo.options.nsteps,chartInfo.types);
 	
 	/*
 	if (chartStyle == 'all' || chartStyle == 'chartJS') {
