@@ -457,31 +457,102 @@ exports.replace = function(array,options) {
 		if (!obj.find && obj.find != 0){ continue}
 		if (!obj.replace && obj.replace != 0){ continue;}
 		if (obj.numerical){
-	
+			toData(array);
+			if (obj.row >= 0){
+				if (obj.column == -1) {
+					for (var ii in array[obj.row]){
+						if (obj.find){//make expression evaluation
+							array[obj.row][ii] = obj.replace;
+						}
+					}
+				}
+				else if (array[obj.row][obj.column]){
+					if (obj.find){//make expression evaluation
+						array[obj.row][obj.column] = obj.replace;
+					}
+				}
+			}
+			else {
+				for (var i in array){
+					if (obj.column == -1) {
+						for (var ii in array[i]){
+							if (obj.find){//make expression evaluation
+								array[i][ii] = obj.replace;
+							}
+						}
+					}
+					else if (array[i][obj.column]){
+						if (obj.find){//make expression evaluation
+							array[i][obj.column] = obj.replace;
+						}
+					}
+				}
+			}
+		}
+		else if (obj.full) {
+			var fstr = obj.find;
+			if (obj.row >= 0){
+				if (obj.column == -1) {
+					for (var ii in array[obj.row]){
+						if (array[obj.row][ii].toString().toLowerCase() == fstr.toString().toLowerCase()){
+							if (!obj.case || array[obj.row][ii].toString() == fstr.toString()) {
+								array[obj.row][ii] = obj.replace;
+							}
+						}
+					}
+				}
+				else if (array[obj.row][obj.column]){
+					if (array[obj.row][obj.column].toString().toLowerCase() == fstr.toString().toLowerCase()){
+						if (!obj.case || array[obj.row][obj.column].toString() == fstr.toString()) {
+							array[obj.row][obj.column] = obj.replace;
+						}
+					}
+				}
+			}
+			else {
+				for (var i in array){
+					if (obj.column == -1) {
+						for (var ii in array[i]){
+							if (array[i][ii].toString().toLowerCase() == fstr.toString().toLowerCase()){
+								if (!obj.case || array[i][ii].toString() == fstr.toString()) {
+									array[i][ii] = obj.replace;
+								}
+							}
+						}
+					}
+					else if (array[i][obj.column]){
+						if (array[i][obj.column].toString().toLowerCase() == fstr.toString().toLowerCase()){
+							if (!obj.case || array[i][obj.column].toString() == fstr.toString()) {
+								array[i][obj.column] = obj.replace;
+							}
+						}
+					}
+				}
+			}
 		}
 		else {
 			var fstr;
 			if (!obj.case) { fstr = new RegExp(obj.find,'gi');}
 			else { fstr = new RegExp(obj.find,'g');}
 			if (obj.row >= 0){
-				if (array[obj.row][obj.column]){
-					array[obj.row][obj.column] = array[obj.row][obj.column].toString().replace(fstr,obj.replace);
-				}
-				else if (obj.column == -1) {
+				if (obj.column == -1) {
 					for (var ii in array[obj.row]){
 						array[obj.row][ii] = array[obj.row][ii].toString().replace(fstr,obj.replace);
 					}
 				}
+				else if (array[obj.row][obj.column]){
+					array[obj.row][obj.column] = array[obj.row][obj.column].toString().replace(fstr,obj.replace);
+				}
 			}
 			else {
 				for (var i in array){
-					if (array[i][obj.column]){
-						array[i][obj.column] = array[i][obj.column].toString().replace(fstr,obj.replace);
-					}
-					else if (obj.column == -1) {
+					if (obj.column == -1) {
 						for (var ii in array[i]){
 							array[i][ii] = array[i][ii].toString().replace(fstr,obj.replace);
 						}
+					}
+					else if (array[i][obj.column]){
+						array[i][obj.column] = array[i][obj.column].toString().replace(fstr,obj.replace);
 					}
 				}
 			}

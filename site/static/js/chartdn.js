@@ -1202,7 +1202,7 @@ function updateModifier(evt){
 					
 					var newMM = pel.parentElement.querySelector('div[name=allReplacements]');
 					var newDiv = document.createElement('div');
-					newDiv.textContent = toReplaceStr(newObj);
+					newDiv.textContent = toReplaceElement(newObj);
 					newMM.appendChild(newDiv);
 				}
 			}
@@ -1520,8 +1520,16 @@ function createPivot(obj) {
 	
 }
 
-function toReplaceStr(obj){
-	return 'Replace '+obj.find+' with '+obj.replace;
+function toReplaceElement(obj){
+	var newDiv = document.createElement('div');
+	var newB = document.createElement('button');
+	newB.textContent = 'Edit';
+	newDiv.appendChild(newB);
+	var newSpan = document.createElement('span');
+	newSpan.textContent = 'Replace '+obj.find+' with '+obj.replace;
+	newDiv.appendChild(newSpan);
+	
+	return newDiv;
 }
 function createReplace(obj) {
 	
@@ -1558,9 +1566,7 @@ function createReplace(obj) {
 	if (obj.options){
 		for (var i=0;i<obj.options.length;i++){
 			var newMM = newM.querySelector('div[name=allReplacements]');
-			var newDiv = document.createElement('div');
-			newDiv.textContent = toReplaceStr(obj.options[i]);
-			newMM.appendChild(newDiv);
+			newMM.appendChild(toReplaceElement(obj.options[i]));
 		}
 	}
 	
