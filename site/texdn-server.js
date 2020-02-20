@@ -233,19 +233,8 @@ wss.on('connection', function connection(ws) {
   			}
   			else {
 				fs.writeFile("saved/"+chartid+".csv", fstr, function (err) {
-					const result = loadChart(chartid);
-					
-					makeAllCharts(ws,dm,result,'all',true).then(function(result3) {
-						chartData = result3.data;
-						result.types = result3.types;
-						console.log(result3.types);
-						//result.markModified('types');
-						result.updateOne({types:result3.types});
-					}, function(err) {
-						console.log(err);
-					});
+					loadChart(chartid,ws,dm,chartData);
 
-					
 				});
 			}
 		}
@@ -306,7 +295,6 @@ wss.on('connection', function connection(ws) {
 				}
 				else {
 					fs.writeFile("saved/"+chartid+".csv", fstr, function (err) {
-							var d = new Date(); var n = d.getTime(); console.log('time5: ', n);
 							makeAllCharts(ws,dm,result,'all',true).then(function(result3) {
 								chartData = result3.data;
 								result.types = result3.types;
@@ -555,11 +543,26 @@ wss.on('connection', function connection(ws) {
   });
 });
 
-function loadChart(chartid){
-	var x = Chart.findOne({ id: chartid }).then(function(result) {
-		return result;
+function loadChart(chartid,ws,dm,chartData){
+	Chart.findOne({ id: chartid }, function(err, result) {
+	  if (err) {
+		
+	  } else {
+		makeAllCharts(ws,dm,result,'all',true).then(function(result3) {
+			chartData = result3.data;
+			console.log(chartData);
+			/*result.types = result3.types;
+			result.markModified('types');
+			result.save(function (err, chart) {
+				if (err) return console.error(err);
+				console.log('saved',chart.types);
+			});*/
+		}, function(err) {
+			console.log(err);
+		});
+	  }
 	});
-	console.log(x);
+
 }
 
 loginApp.get('/browse',
