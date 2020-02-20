@@ -1184,29 +1184,16 @@ function updateModifier(evt){
 				saveModifier = false;
 				if (el.getAttribute('name')=='submit'){
 					saveModifier = true;
-				}
-				else if (el.getAttribute('name')=='find'){
-					modifiers[i].options.find = el.value;
-				}
-				else if (el.getAttribute('name')=='replace'){
-					modifiers[i].options.replace = el.value;
-				}
-				else if (el.getAttribute('name')=='column'){
-					modifiers[i].options.column = parseInt(el.value);
-				}
-				else if (el.getAttribute('name')=='row'){
-					console.log(el.value);
-					modifiers[i].options.row = parseInt(el.value);
-					console.log(parseInt(el.value));
-				}
-				else if (el.getAttribute('name')=='case'){
-					modifiers[i].options.case = el.checked;
-				}
-				else if (el.getAttribute('name')=='numerical'){
-					modifiers[i].options.numerical = el.checked;
-				}
-				else if (el.getAttribute('name')=='full'){
-					modifiers[i].options.full = el.checked;
+					var pel = el.parentElement.parentElement;
+					modifiers[i].options.find = pel.querySelector('*[name=find]').value;
+					modifiers[i].options.replace = pel.querySelector('*[name=replace]').value;
+					modifiers[i].options.column = parseInt(pel.querySelector('*[name=column]').value);
+					var row = pel.querySelector('*[name=row]').value;
+					console.log(row,parseInt(row));
+					modifiers[i].options.row = parseInt(row);
+					modifiers[i].options.case = pel.querySelector('*[name=case]').checked;
+					modifiers[i].options.numerical = pel.querySelector('*[name=case]').checked;
+					modifiers[i].options.full = pel.querySelector('*[name=case]').checked;
 				}
 			}
 			else if (mType == 'new' || mType == 'filter'){
