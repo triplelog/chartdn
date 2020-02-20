@@ -897,12 +897,12 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes=false) {
 			if (chgTypes){
 				var types = datatypes.makeTypes(results.data.slice(0,1000));
 				chartInfo.types = types;
-				chartInfo.markModified('modifiers');
+				chartInfo.markModified('types');
 				chartInfo.save(function (err, chart) {
 					if (err) return console.error(err);
-					console.log('saved',chart.modifiers);
+					console.log('saved',chart.types);
 				});
-				console.log(chartInfo.modifiers);
+				console.log(chartInfo.types);
 			}
 			console.log('parsed',performance.now());
 			makeChartsWithData(ws,results.data,chartInfo,chartStyle,dm);
