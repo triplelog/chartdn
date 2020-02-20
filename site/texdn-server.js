@@ -494,11 +494,11 @@ function loadChart(chartid,ws,dm,chartData,deletexls=false,result=false){
 				chartData = result3.data;
 				result2.types = result3.types;
 				console.log(result2.types);
-				/*result2.markModified('types');
+				result2.markModified('types');
 				result2.save(function (err, chart) {
 					if (err) return console.error(err);
 					console.log('saved',chart.types);
-				});*/
+				});
 			}, function(err) {
 				console.log(err);
 			});
