@@ -325,13 +325,42 @@
 								<span name="disable" class="box-buttons hoverClick">Disable</span>
 							</div>
 							<div class="box-form">
-								<input type="text" name="find">
-								<input type="text" name="replace">
-								<input type="checkbox" name="case">
-								<input type="checkbox" name="numerical">
-								<input type="checkbox" name="full">
-								<select name="column" id="replaceCol_id">
-								</select>
+								<div name="allReplacements">
+								</div>
+								<div name="createReplace">
+									<div>
+										<label>Find</label>
+										<input type="text" name="find">
+									</div>
+									<div>
+										<label>Replace</label>
+										<input type="text" name="replace">
+									</div>
+									<div>
+										<label>Numerical?</label>
+										<input type="checkbox" name="numerical">
+									</div>
+									<div>
+										<label>Case Sensitive?</label>
+										<input type="checkbox" name="case">
+									</div>
+									<div>
+										<label>Match Entire Cell?</label>
+										<input type="checkbox" name="full">
+									</div>
+									<div>
+										<label>Column</label>
+										<select name="column" id="replaceCol_id">
+										</select>
+									</div>
+									<div>
+										<label>Row</label>
+										<input type="number" name="row" id="replaceRow_id">
+									</div>
+									<div>
+										<button class="pure-button pure-button-primary">Submit</button>
+									</div>
+								</div>
 							</div>
 						</div>
 					</template>
