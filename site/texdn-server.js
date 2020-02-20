@@ -474,12 +474,12 @@ function loadChart(chartid,ws,dm,chartData,deletexls=false,result=false){
 	if (result){
 		makeAllCharts(ws,dm,result,'all',true).then(function(result3) {
 			chartData = result3.data;
-			/*result.types = result3.types;
+			result.types = result3.types;
 			result.markModified('types');
 			result.save(function (err, chart) {
 				if (err) return console.error(err);
 				console.log('saved',chart.types);
-			});*/
+			});
 		}, function(err) {
 			console.log(err);
 		});
@@ -489,11 +489,9 @@ function loadChart(chartid,ws,dm,chartData,deletexls=false,result=false){
 		  if (err) {
 		
 		  } else {
-		  	console.log(result2.types);
 			makeAllCharts(ws,dm,result2,'all',true).then(function(result3) {
 				chartData = result3.data;
 				result2.types = result3.types;
-				console.log(result2.types);
 				result2.markModified('types');
 				result2.save(function (err, chart) {
 					if (err) return console.error(err);
