@@ -1011,7 +1011,7 @@ function updateColumns(id='all') {
 			}
 			else if (modifiers[i].type == 'replace'){
 				var el = document.getElementById('replaceCol'+modifiers[i].id);
-				var elval = el.value;
+				var elval = el.getAttribute('value');
 				console.log(elval);
 				el.innerHTML = '';
 				var cols = allHeaders[modifiers[i].id];
@@ -1561,9 +1561,7 @@ function createReplace(obj) {
 	
 
 	if (obj.options.column || obj.options.column === 0) {
-		var qstring = 'select[name=column]';
-		console.log(qstring);
-		newMM = newM.querySelector(qstring);
+		newMM = newM.querySelector('select[name=column]');
 		if (newMM) {newMM.setAttribute('value',obj.options.column);}
 	}
 	
