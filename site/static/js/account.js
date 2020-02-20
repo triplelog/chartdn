@@ -1,7 +1,7 @@
 hideAll();
-chgTab('created');
+chgTab('charts');
 function hideAll() {
-	var tabids = ['created','favorites','filters','settings','friends'];
+	var tabids = ['charts','favorites','settings','friends'];
 	for (var i=0;i<tabids.length;i++){
 		document.getElementById(tabids[i]).style.display = 'none';
 		document.getElementById('tab'+tabids[i]).classList.remove('pure-menu-selected');

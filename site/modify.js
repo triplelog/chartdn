@@ -438,7 +438,9 @@ exports.newColumn = function(array,options,nHeaders,types) {
 		array[i].push(answer);
 
 	}
-} // Improve postfix, add median and stdev, get more values, data types, error handling, add if col>0
+	types.push('Float');
+	
+} // Improve postfix, add median and stdev, get more values, data types -- for columns and for new column, error handling, add if col>0
 
 exports.sort = function(array,options) {
 	toData(array);
@@ -672,7 +674,15 @@ exports.pivot = function(array,options,hArray,types) {
 		typesNew.push(types[options.pivot]);
 	}
 	for (var ii in options.columns) {
-		typesNew.push(types[options.columns[ii].column]);
+		if (options.columns[ii].type == 'count'){
+			typesNew.push('Int');
+		}
+		else if (options.columns[ii].type == 'mean'){
+			typesNew.push('Float');
+		}
+		else {
+			typesNew.push(types[options.columns[ii].column]);
+		}
 	}
 	idx = 0;
 	for (var i in typesNew){
@@ -685,7 +695,7 @@ exports.pivot = function(array,options,hArray,types) {
 
 } //Add countif? Add possibility to create buckets like weekly, etc. Error Handling
 
-exports.filter = function(array,options,nHeaders,types) {	
+exports.filter = function(array,options,nHeaders) {	
 	toData(array);
 	var skipRows = [];
 	var formula = options.formula;

@@ -41,15 +41,26 @@
 					<div class="l-box pure-u-1">
 						<div class="box-header">{{ username }}<span class="box-buttons"></span></div>
 						<div class="box-form">
-							Website<br />
-							Name
+							<!--Website<br />
+							Name-->
 						</div>
 					</div>
 					<div class="l-box pure-u-1">
 						<div class="box-header">Activity<span class="box-buttons"></span></div>
 						<div class="box-form">
-							Forks<br />
-							Calendar
+							<div class="activity" id="created">
+								<span name='title'>Create<span><span name="value"></span>
+							</div>
+							<div class="activity" id="forked">
+								<span name='title'>Forked<span><span name="value"></span>
+							</div>
+							<div class="activity" id="edited">
+								<span name='title'>Edited<span><span name="value"></span>
+							</div>
+							<div class="activity" id="viewed">
+								<span name='title'>Viewed<span><span name="value"></span>
+							</div>
+							<div class="calendar"></div>
 						</div>
 						
 					</div>
@@ -63,14 +74,13 @@
 			<div class="l-box pure-u-1 pure-u-md-3-4 pure-u-lg-4-5">
 				<div class="pure-menu pure-menu-horizontal">
 					<ul class="pure-menu-list tabbed-menu">
-						<li class="pure-menu-item" onclick="chgTab('created')" id="tabcreated"><a href="#" class="pure-menu-link">Created</a></li>
+						<li class="pure-menu-item" onclick="chgTab('charts')" id="tabcharts"><a href="#" class="pure-menu-link">Charts</a></li>
 						<li class="pure-menu-item" onclick="chgTab('favorites')" id="tabfavorites"><a href="#" class="pure-menu-link">Favorites</a></li>
-						<li class="pure-menu-item" onclick="chgTab('filters')" id="tabfilters"><a href="#" class="pure-menu-link">Filters</a></li>
 						<li class="pure-menu-item" onclick="chgTab('settings')" id="tabsettings"><a href="#" class="pure-menu-link">Settings</a></li>
 						<li class="pure-menu-item" onclick="chgTab('friends')" id="tabfriends"><a href="#" class="pure-menu-link">Friends</a></li>
 					</ul>
 				</div>
-				<div id="created" class="box-form">
+				<div id="charts" class="box-form">
 					{% for chart in charts %}
 						<chartdn-chart src="{{ chart }}" data-style="plotly"></chartdn-chart>
 					{% else %}
@@ -95,8 +105,6 @@
 					Upgrade/downgrade premium?
 				</div>
 				<div id="friends" class="box-form">
-				</div>
-				<div id="filters" class="box-form">
 				</div>
 				
 			</div>
