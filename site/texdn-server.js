@@ -581,20 +581,39 @@ loginApp.get('/browse',
 		console.log(req.query);
 		var charts = [];
 		console.log('start looking: ', performance.now());
-		Chart.find({  }, function(err, result) {
-			if (err){console.log('errrrr');}
-			console.log('found them: ', performance.now());
-			var charlen = Math.min(result.length,25);
-			for (var i=0;i<charlen;i++){
-				var mychart = {'src':result[i].id,'cols':2,'rows':1,'name':'test'};
-				charts.push(mychart);
-			}
-			res.write(nunjucks.render('browse.html',{
-				charts: charts,		
-			}));
+		if (req.query.tags) {
+			var tags = req.query.tags.split(',');
+			Chart.find({ tags: { $all: tags } }, function(err, result) {
+				if (err){console.log('errrrr');}
+				console.log('found them: ', performance.now());
+				var charlen = Math.min(result.length,25);
+				for (var i=0;i<charlen;i++){
+					var mychart = {'src':result[i].id,'cols':2,'rows':1,'name':'test'};
+					charts.push(mychart);
+				}
+				res.write(nunjucks.render('browse.html',{
+					charts: charts,		
+				}));
 			
-			res.end();
-		}).limit(25);
+				res.end();
+			}).limit(25);
+		}
+		else {
+			Chart.find({  }, function(err, result) {
+				if (err){console.log('errrrr');}
+				console.log('found them: ', performance.now());
+				var charlen = Math.min(result.length,25);
+				for (var i=0;i<charlen;i++){
+					var mychart = {'src':result[i].id,'cols':2,'rows':1,'name':'test'};
+					charts.push(mychart);
+				}
+				res.write(nunjucks.render('browse.html',{
+					charts: charts,		
+				}));
+			
+				res.end();
+			}).limit(25);
+		}
 		
 		
 		
