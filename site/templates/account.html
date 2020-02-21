@@ -151,6 +151,14 @@
 					Upgrade/downgrade premium?
 				</div>
 				<div id="friends" class="box-form">
+					<input type="text" id="newFriend">
+					<button onclick="addFriend()">Add Friend</button>
+					<div id="friendList">
+						{% for friend in friends %}
+							<div><a href="{{ friend }}">{{ friend }}</a></div>
+						{% else %}
+						{% endfor %}
+					</div>
 				</div>
 				
 			</div>
@@ -168,6 +176,7 @@
 </div>
 <script>
 	var charts = {{ charts | dump | safe if charts else '{}'  }};
+	var username = {{ username }};
 </script>
 <script src="../js/account.js"></script>
 <script src="../js/chartdnws.js"></script>

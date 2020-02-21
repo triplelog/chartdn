@@ -487,6 +487,12 @@ wss.on('connection', function connection(ws) {
 		  	chartidtemp = dm.chartidtemp;
 		  }
   	}
+  	else if (dm.operation == 'friend'){
+		  var friend = dm.message;
+		  var me = dm.username;
+		  User.updateOne({username: me, friends: { "$ne": friend}}, {$push: {friends: friend}}, function (err, result) {});
+
+  	}
   	else if (dm.operation == 'view'){
 		  chartid = dm.id;
 		  if (chartid && chartid != ""){
@@ -673,6 +679,7 @@ loginApp.get('/edit/:chartid',
 								dataname = result.data;
 								myOptions = result.options;
 								var newchart = new Chart({id:chartid,data:result.data,options:result.options,users:[username],modifiers:result.modifiers,types:result.types});
+								
 								newchart.save(function (err, newchart) {
 									if (err) return console.error(err);
 									console.log('saved');
@@ -740,10 +747,7 @@ loginApp.get('/edit/:chartid',
 				  else { //Load chart data and options
 					dataname = result.data;
 					myOptions = result.options;
-					if (username != '') {
-						User.updateOne({username: username, "charts.edited": { "$ne": chartid}, "charts.forked": { "$ne": chartid}, "charts.created": { "$ne": chartid}}, {$push: {"charts.edited": chartid}}, function (err, result) {});
-
-					}
+					
 					if (result.options.nsteps || result.options.nsteps === 0){
 						delete result.options.nsteps;
 						result.markModified('options');
@@ -753,6 +757,9 @@ loginApp.get('/edit/:chartid',
 						});
 					}
 					if (result.users[0] == '' || result.users[0] == username){
+						if (username != '') {
+							User.updateOne({username: username, "charts.edited": { "$ne": chartid}, "charts.forked": { "$ne": chartid}, "charts.created": { "$ne": chartid}}, {$push: {"charts.edited": chartid}}, function (err, result) {});
+						}
 						fs.readFile('saved/'+dataname, 'utf8', function(err, fileData) {
 							var defaultData = ''
 							if (!err) {defaultData = fileData;}

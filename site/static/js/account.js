@@ -86,6 +86,21 @@ function minimizeBox(type,full=false){
 	
 }
 
+function addFriend() {
+	var friendEl = document.getElementById('newFriend');
+	if (friendEl && friendEl.value && friendEl.value != ''){
+		var friend = friendEl.value;
+		var jsonmessage = {'operation':'friend','username':username,'message':friend};
+		ws.send(JSON.stringify(jsonmessage));
+		var newDiv = document.createElement('div');
+		var newA = document.createElement('a');
+		newA.setAttribute('href',friend);
+		newA.textContent = friend;
+		newDiv.appendChild(newA);
+		document.getElementById('friendList').appendChild(newDiv);
+	}
+	
+}
 
 
 
