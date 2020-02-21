@@ -490,8 +490,13 @@ wss.on('connection', function connection(ws) {
   	else if (dm.operation == 'friend'){
 		  var friend = dm.message;
 		  var me = dm.username;
-		  User.updateOne({username: me, friends: { "$ne": friend}}, {$push: {friends: friend}}, function (err, result) {});
-
+		  User.count({username: friend}, function(err, result) {
+		  	if (err){return}
+		  	else if (result > 0){
+		  		User.updateOne({username: me, friends: { "$ne": friend}}, {$push: {friends: friend}}, function (err, result) {});
+		  	}
+		  });
+		  
   	}
   	else if (dm.operation == 'view'){
 		  chartid = dm.id;
