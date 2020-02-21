@@ -1,6 +1,6 @@
 hideAll();
 chgTab('charts');
-var n = {created:charts.created.length-1, forked:charts.forked.length-1};
+var n = {created:charts.created.length-1, forked:charts.forked.length-1, edited:charts.edited.length-1, viewed:charts.viewed.length-1};
 function hideAll() {
 	var tabids = ['charts','favorites','settings','friends'];
 	for (var i=0;i<tabids.length;i++){
