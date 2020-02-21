@@ -16,7 +16,6 @@ class chartdnChart extends HTMLElement {
   static get observedAttributes() { return ["src"]; }
   attributeChangedCallback(name, oldValue, newValue) {
 	  if (name == 'src' && oldValue && oldValue != '' && ws.readyState == 1){
-	  	console.log(this.getAttribute('data-loc'));
 	  	var jsonmessage = {'operation':'view','id':newValue,'loc':this.getAttribute('data-loc'),'style':this.getAttribute('data-style')}
 		ws.send(JSON.stringify(jsonmessage));
 	  }

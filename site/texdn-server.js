@@ -536,7 +536,7 @@ function loadChart(chartid,ws,dm,chartData,deletexls=false,result=false){
 			result.markModified('types');
 			result.save(function (err, chart) {
 				if (err) return console.error(err);
-				console.log('saved',chart.types);
+				console.log('saved',chart.types.slice(0,10));
 			});
 		}, function(err) {
 			console.log(err);
@@ -553,7 +553,7 @@ function loadChart(chartid,ws,dm,chartData,deletexls=false,result=false){
 				result2.markModified('types');
 				result2.save(function (err, chart) {
 					if (err) return console.error(err);
-					console.log('saved types');
+					console.log('saved types',chart.types.slice(0,10));
 				});
 			}, function(err) {
 				console.log(err);
@@ -644,7 +644,7 @@ loginApp.get('/edit/:chartid',
 							else { //Fork chart data and options
 								dataname = result.data;
 								myOptions = result.options;
-								var newchart = new Chart({id:chartid,data:result.data,options:result.options,users:[username],modfiers:result.modifiers,types:result.types});
+								var newchart = new Chart({id:chartid,data:result.data,options:result.options,users:[username],modifiers:result.modifiers,types:result.types});
 								newchart.save(function (err, newchart) {
 									if (err) return console.error(err);
 									console.log('saved');
@@ -671,10 +671,20 @@ loginApp.get('/edit/:chartid',
 									if (savedData['type'] && savedData['type'] != ''){
 										chartType[savedData['type']]='selected="selected"';
 									}
-									var xaxis = {};
-									if (savedData.labels && savedData.labels.x){
-										xaxis.title = savedData.labels.x;
-									}
+									var xaxis = {'scale':{}};
+									if (savedData.labels && savedData.labels.x){xaxis.title = savedData.labels.x;}
+									if (savedData.scale && savedData.scale.x){xaxis.scale[savedData.scale.x] = 'selected="selected"';}
+									if (savedData.stepSize && savedData.stepSize.x){xaxis.stepSize = savedData.stepSize.x;}
+									if (savedData.domain){xaxis.domain = savedData.domain;}
+									var yaxis = {'scale':{},'dots':{},'shape':{},'dash':{}};
+									if (savedData.labels && savedData.labels.y){yaxis.title = savedData.labels.y;}
+									if (savedData.scale && savedData.scale.y){yaxis.scale[savedData.scale.y] = 'selected="selected"';}
+									if (savedData.stepSize && savedData.stepSize.y){yaxis.stepSize = savedData.stepSize.y;}
+									if (savedData.range){yaxis.range = savedData.range;}
+									if (savedData.lineColors){yaxis.lineColors = savedData.lineColors;}
+									if (savedData.dots){yaxis.dots[savedData.dots] = 'checked="checked"';}
+									if (savedData.shape){yaxis.shape[savedData.shape] = 'checked="checked"';}
+									if (savedData.dash){yaxis.dash[savedData.dash] = 'selected="selected"';}
 									res.write(nunjucks.render('chartdn.html',{
 										chartScript: '',
 										dataAreaText: defaultData,
@@ -683,7 +693,8 @@ loginApp.get('/edit/:chartid',
 										options: savedData || {},
 										modifiers: result.modifiers || [],
 										title: savedData.title || '',
-										xaxis: xaxis, 
+										xaxis: xaxis,
+										yaxis: yaxis,
 										xColumn: savedData.xColumn || '',
 										yColumns: savedData.yColumns || '',
 										username: username || '',
