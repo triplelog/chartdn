@@ -965,8 +965,6 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes=false) {
 			var returnData = {};
 			if (chgTypes){
 				var types = datatypes.makeTypes(results.data.slice(0,1000));
-				console.log(types);
-				console.log(results.data.slice(0,1000));
 				returnData.types = types;
 			}
 			else {
