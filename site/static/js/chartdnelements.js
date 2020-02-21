@@ -40,12 +40,28 @@ class chartdnChart extends HTMLElement {
   }
   makePlotly(chartJSON) {
   	this.querySelector('#plotlyDiv').style.display = 'block';
-  	if (chartJSON.options){
+  	if (this.getAttribute('data-shape') == 1 && chartJSON.options){
+  		if (!chartJSON.options['margin']){
+  			chartJSON.options['margin'] = {};
+  		}
+  		chartJSON.options['margin']['l']= 40;
+  		chartJSON.options['margin']['t']= 100;
+  		chartJSON.options['margin']['b']= 80;
+  	}
+  	else if (this.getAttribute('data-shape') == 2 && chartJSON.options){
+  		if (!chartJSON.options['margin']){
+  			chartJSON.options['margin'] = {};
+  		}
+  		chartJSON.options['margin']['l']= 60;
+  		chartJSON.options['margin']['t']= 75;
+  		chartJSON.options['margin']['b']= 60;
+  	}
+  	else if (this.getAttribute('data-shape') == 3 && chartJSON.options){
   		if (!chartJSON.options['margin']){
   			chartJSON.options['margin'] = {};
   		}
   		chartJSON.options['margin']['l']= 80;
-  		chartJSON.options['margin']['t']= 40;
+  		chartJSON.options['margin']['t']= 50;
   		chartJSON.options['margin']['b']= 40;
   	}
 	Plotly.newPlot(this.querySelector('#plotlyDiv'), chartJSON.data, chartJSON.options, {responsive: true});

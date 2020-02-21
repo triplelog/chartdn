@@ -46,7 +46,7 @@
 			{% for chart in charts %}
 			  <div class="chart-box box-{{ chart.cols }}-{{ chart.rows }}">
 				<a href="/charts/{{ chart.src }}">
-					<chartdn-chart height="{{ chart.rows * 17 }}vw" src="{{ chart.src }}" data-style="plotly"></chartdn-chart>
+					<chartdn-chart data-shape="{{ chart.cols }}" height="{{ chart.rows * 17 }}vw" src="{{ chart.src }}" data-style="plotly"></chartdn-chart>
 				</a>
 
 				<aside class="photo-box-caption">
