@@ -378,7 +378,7 @@ wss.on('connection', function connection(ws) {
 				result.markModified('options');
 				result.save(function (err, result2) {
 					if (err) return console.error('sajdhfkasdhjfkjsahdfkjsadhfs\n',err);
-					console.log('saved options', result2.options, performance.now());
+					console.log('saved options', performance.now());
 				});
 				if (!chartData){
 					makeAllCharts(ws,dm,result,'all').then(function(result3) {

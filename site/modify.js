@@ -233,6 +233,9 @@ function makeFullMap(array,options,nHeaders){
 	var fullmap = {};
 	var vars = options.variables;
 	for (var ii in vars){
+		if (vars[ii].column == -1 || vars[ii].type=='value'){
+			continue;
+		}
 		var rows = vars[ii].row.split(',');
 		if (rows.length <2){continue;}
 		var rowStart; var rowEnd;
@@ -308,7 +311,10 @@ function makeRowMap(array,options,nHeaders,i){
 	var vars = options.variables;
 	var skipi = false;
 	for (var ii in vars){
-		if (vars[ii].type=='value'){
+		if (vars[ii].column == -1){
+			rowmap[ii.toUpperCase()]=parseInt(i);
+		}
+		else if (vars[ii].type=='value'){
 			var row = parseInt(i);
 			if (vars[ii].row.indexOf('$')==0){
 				row = parseInt(vars[ii].row.substring(1))-nHeaders;

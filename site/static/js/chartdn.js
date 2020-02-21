@@ -1016,7 +1016,13 @@ function updateColumns(id='all') {
 				var elval = el.value;
 				el.innerHTML = '';
 				var cols = allHeaders[modifiers[i].id];
-				console.log(cols);
+				var varOption = document.createElement('option');
+				varOption.value = -1;
+				varOption.textContent = 'Row #';
+				if (-1 == parseInt(elval)){
+					varOption.setAttribute('selected','selected');
+				}
+				el.appendChild(varOption);
 				for (var ii in cols){
 					var varOption = document.createElement('option');
 					varOption.value = parseInt(ii);
