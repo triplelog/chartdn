@@ -82,10 +82,10 @@ app2.get('/user/:username',
 			res.write(nunjucks.render('account.html',{
 				username: result.username,
 				name: result.name || '',
-				robot: result.options.robot || 1,
+				robot: result.settings.robot || 1,
 				charts: charts || {},
 				chartkeys: chartkeys || [],
-				friends: result.friends,
+				friends: result.friends || [],
 			}));
 			res.end();
   		
