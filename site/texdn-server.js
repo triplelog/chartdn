@@ -637,10 +637,12 @@ loginApp.get('/charts/:chartid',
 			username = req.user.username;
 		}
 		var start = process.hrtime();
+		var title = 'ChartDN Chart';
         res.write(nunjucks.render('onechart.html',{
 			username: username || '',
 			newchartid: chartid+'a',
 			chartid: chartid,
+			title: title,
 		}));
 		res.end();
     }
