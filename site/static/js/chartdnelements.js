@@ -45,7 +45,7 @@ class chartdnChart extends HTMLElement {
   			chartJSON.options['margin'] = {};
   		}
   		chartJSON.options['margin']['l']= 40;
-  		chartJSON.options['margin']['t']= 25;
+  		chartJSON.options['margin']['t']= 40;
   		chartJSON.options['margin']['b']= 40;
   	}
 	Plotly.newPlot(this.querySelector('#plotlyDiv'), chartJSON.data, chartJSON.options, {responsive: true});
