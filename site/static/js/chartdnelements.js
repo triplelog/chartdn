@@ -71,7 +71,10 @@ class chartdnChart extends HTMLElement {
   	}
   	else if (style == 'plotly') {
   		var plotlyheight = '';
-  		if (this.getAttribute('height')) {plotlyheight = 'height: '+this.getAttribute('height')+';';}
+  		if (this.getAttribute('height')) {
+  			console.log(this.getAttribute('height'));
+  			plotlyheight = 'height: '+this.getAttribute('height')+';';
+  		}
   		this.innerHTML = `<div class="chart-container" style="position: relative;">
 					<div id="plotlyDiv" style="display: none; `+plotlyheight+`"></div>
 				</div>`;
