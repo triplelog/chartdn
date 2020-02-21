@@ -519,6 +519,9 @@ function chgStep(evt) {
 		if (i != nsteps){qel[i].classList.remove('selectedRaw');}
 		else {qel[i].classList.add('selectedRaw');}
 	}
+	if (nsteps == qel.length -1){
+		nsteps = -1;
+	}
 	var jsonmessage = {'operation':'options','nsteps':nsteps};
 	ws.send(JSON.stringify(jsonmessage));
 }
