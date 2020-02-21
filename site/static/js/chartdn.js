@@ -379,7 +379,7 @@ function columnsChg() {
 				noNames = true;
 			}
 			if (!nsteps && nsteps !=0) {
-				var qstring = 'div[tabulator-field="col'+parseInt(yCols[i])+'"]';
+				var qstring = 'div[tabulator-field="col'+parseInt(yCols[i])+'"] div.tabulator-colo-title';
 				console.log(qstring);
 				var hEl = headerEls.querySelector(qstring);
 				console.log(hEl);
