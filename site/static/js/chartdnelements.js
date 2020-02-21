@@ -11,13 +11,13 @@ class chartdnChart extends HTMLElement {
 	}
 	
 	googleEl = this.querySelector('#googleChart');
-	this.loc = 0;
   }
   
   static get observedAttributes() { return ["src"]; }
   attributeChangedCallback(name, oldValue, newValue) {
 	  if (name == 'src' && oldValue && oldValue != '' && ws.readyState == 1){
-	  	var jsonmessage = {'operation':'view','id':newValue,'loc':this.loc,'style':this.getAttribute('data-style')}
+	  	console.log(this.getAttribute('data-loc'));
+	  	var jsonmessage = {'operation':'view','id':newValue,'loc':this.getAttribute('data-loc'),'style':this.getAttribute('data-style')}
 		ws.send(JSON.stringify(jsonmessage));
 	  }
   }
