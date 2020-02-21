@@ -277,7 +277,7 @@ a.pure-button-primary {
   grid-auto-flow: dense;
 }
 .text-box {
-  grid-column-end: span 2;
+  grid-column-end: span 1;
   grid-row-end: span 1;
 }
 .box-1-1 {
