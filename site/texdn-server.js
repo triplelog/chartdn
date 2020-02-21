@@ -578,6 +578,7 @@ function loadChart(chartid,ws,dm,chartData,deletexls=false,result=false){
 
 loginApp.get('/browse',
 	function(req, res){
+		console.log(req.query);
 		var charts = [];
 		console.log('start looking: ', performance.now());
 		Chart.find({  }, function(err, result) {
