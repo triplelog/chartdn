@@ -604,7 +604,7 @@ loginApp.get('/browse',
 				console.log('found them: ', performance.now());
 				var charlen = Math.min(result.length,25);
 				for (var i=0;i<charlen;i++){
-					var mychart = {'src':result[i].id,'cols':2,'rows':1,'name':'test'};
+					var mychart = {'src':result[i].id,'cols':3,'rows':1,'name':'test'};
 					charts.push(mychart);
 				}
 				res.write(nunjucks.render('browse.html',{
