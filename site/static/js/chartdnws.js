@@ -11,7 +11,10 @@ ws.onmessage = function(evt){
 	var dm = JSON.parse(evt.data);
 	if (dm.operation == 'chart'){
 		var chartJSON = dm.message;
-		document.querySelectorAll('chartdn-chart')[parseInt(dm.loc)].makeChart(chartJSON);
+		var el = document.querySelector('chartdn-chart[data-loc="'+parseInt(dm.loc)+'"]');
+		if (el){
+			el.makeChart(chartJSON);
+		}
 	}
 }
 

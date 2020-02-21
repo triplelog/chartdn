@@ -44,6 +44,9 @@ function chgChart(type,chg){
 }
 minimizedBoxes = {};
 minimizedBoxes.created = 'half';
+minimizedBoxes.forked = 'half';
+minimizedBoxes.edited = 'half';
+minimizedBoxes.viewed = 'half';
 function minimizeBox(type,full=false){
 	var el = document.getElementById(type+'Box');
 	var myStyle = el.querySelector('chartdn-chart').getAttribute('data-style');
