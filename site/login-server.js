@@ -54,12 +54,13 @@ app2.get('/account',
   		charts.forked = req.user.charts.forked || [];
   		charts.edited = req.user.charts.edited || [];
   		charts.viewed = req.user.charts.viewed || [];
-  		
+  		var chartkeys = ['created'];
   		res.write(nunjucks.render('account.html',{
   			username: req.user.username,
   			name: req.user.name || '',
   			robot: req.user.robot || 1,
   			charts: charts || {},
+  			chartkeys: chartkeys || [],
   		}));
 		res.end();
   	}

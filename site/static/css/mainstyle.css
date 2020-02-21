@@ -418,13 +418,13 @@ a.pure-button-primary {
 	float: right;
 }
 .box-buttons i {
-	padding-right: .5rem;
+	padding-right: .75rem;
 }
 .box-buttons-left {
 	float: left;
 }
-.box-buttons i {
-	padding-left: .5rem;
+.box-buttons-left i {
+	padding-left: .75rem;
 }
 .sideways-text {
 	writing-mode: rl;
