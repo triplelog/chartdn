@@ -490,7 +490,7 @@ wss.on('connection', function connection(ws) {
   	else if (dm.operation == 'friend'){
 		  var friend = dm.message;
 		  var me = dm.username;
-		  User.count({username: friend}, function(err, result) {
+		  User.countDocuments({username: friend}, {limit: 1}, function(err, result) {
 		  	if (err){return}
 		  	else if (result > 0){
 		  		User.updateOne({username: me, friends: { "$ne": friend}}, {$push: {friends: friend}}, function (err, result) {});
