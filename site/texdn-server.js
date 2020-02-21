@@ -941,11 +941,9 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes=false) {
 			if (chgTypes){
 				var types = datatypes.makeTypes(results.data.slice(0,1000));
 				returnData.types = types;
-				
-				console.log(types);
 			}
 			else {
-				console.log(chartInfo.types);
+				//console.log(chartInfo.types);
 			}
 			console.log('parsed',performance.now());
 			makeChartsWithData(ws,results.data,chartInfo,chartStyle,dm);
