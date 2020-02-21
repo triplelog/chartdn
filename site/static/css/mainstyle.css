@@ -441,7 +441,7 @@ a.pure-button-primary {
 	height: 3rem;
 	border: 1px solid black;
 }
-#showMoreOptions label, #yAxisBox label, #yAxisFormatBox label {
+#showMoreOptions label, #yAxisBox label, #yAxisFormatBox label, #tableOptions label {
 	width: 7rem;
 	text-align: right;
 	display: inline-block;
