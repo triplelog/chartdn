@@ -110,19 +110,19 @@ function headersChanged(initialData,chg=false) {
 		yCo.appendChild(newColumn);
 	}
 	if (!chg){
-		var headerEls = document.querySelector('div.tabulator-headers');
+		/*var headerEls = document.querySelector('div.tabulator-headers');
 		var headerTitleEls = headerEls.querySelectorAll('div.tabulator-col-title');
 		for (var i=0;i<headerTitleEls.length;i++){
 			headerTitleEls[i].style.backgroundColor = '#e6e6e6';
-		}
+		}*/
 		if (initialData && document.getElementById('xColVal').value != ''){
 			var xcv = parseInt(document.getElementById('xColVal').value);
 			document.getElementById('xColumnSelect').value =  xcv;
-			if (!nsteps && nsteps !=0) {
+			/*if (!nsteps && nsteps !=0) {
 				var qstring = 'div[tabulator-field="col'+xcv+'"] div.tabulator-col-title';
 				var hEl = headerEls.querySelector(qstring);
 				if (hEl){hEl.style.background = '#c6e6e6';}
-			}
+			}*/
 		}
 		if (initialData && document.getElementById('yColsVal').value != ''){
 			yColsVals = document.getElementById('yColsVal').value.split(',');
@@ -140,11 +140,11 @@ function headersChanged(initialData,chg=false) {
 				newColumn.addEventListener('click',clickLineData);
 				newColumn.classList.add('hoverClick');
 				document.getElementById('yAxisDataBox').appendChild(newColumn);
-				if (!nsteps && nsteps !=0) {
+				/*if (!nsteps && nsteps !=0) {
 					var qstring = 'div[tabulator-field="col'+yColsVals[yid]+'"] div.tabulator-col-title';
 					var hEl = headerEls.querySelector(qstring);
 					if (hEl){hEl.style.background = '#e6c6e6';}
-				}
+				}*/
 			}
 			chgLineTab();
 			chgModify();
