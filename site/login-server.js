@@ -68,6 +68,50 @@ app2.get('/account',
   	
   }
 );
+app2.get('/user/:username',
+  function(req, res){
+  	if (!req.isAuthenticated() || req.user.username != req.params.username){
+  		User.findOne({username: erq.params.username}, function(err,result){
+  			if (err){return;}
+  			var charts = {created:[],edited:[],forked:[],viewed:[]};
+			charts.created = result.charts.created || [];
+			charts.forked = result.charts.forked || [];
+			charts.edited = result.charts.edited || [];
+			charts.viewed = result.charts.viewed || [];
+			var chartkeys = ['created','forked','edited','viewed'];
+			res.write(nunjucks.render('account.html',{
+				username: result.username,
+				name: result.name || '',
+				robot: result.options.robot || 1,
+				charts: charts || {},
+				chartkeys: chartkeys || [],
+				friends: result.friends,
+			}));
+			res.end();
+  		
+  		})
+		
+  	}
+  	else {
+  		var charts = {created:[],edited:[],forked:[],viewed:[]};
+  		charts.created = req.user.charts.created || [];
+  		charts.forked = req.user.charts.forked || [];
+  		charts.edited = req.user.charts.edited || [];
+  		charts.viewed = req.user.charts.viewed || [];
+  		var chartkeys = ['created','forked','edited','viewed'];
+  		res.write(nunjucks.render('account.html',{
+  			username: req.user.username,
+  			name: req.user.name || '',
+  			robot: req.user.options.robot || 1,
+  			charts: charts || {},
+  			chartkeys: chartkeys || [],
+  			friends: req.user.friends,
+  		}));
+		res.end();
+  	}
+  	
+  }
+);
 app2.post('/settings',
   function(req, res){
   	if (!req.isAuthenticated()){

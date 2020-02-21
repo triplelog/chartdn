@@ -606,7 +606,8 @@ loginApp.get('/browse',
 				charts.push(mychart);
 			}
 			res.write(nunjucks.render('browse.html',{
-				charts: charts,		
+				charts: charts,
+				query: query,
 			}));
 		
 			res.end();
