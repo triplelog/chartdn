@@ -493,7 +493,11 @@ wss.on('connection', function connection(ws) {
 		  User.countDocuments({username: friend}, function(err, result) {
 		  	if (err){return}
 		  	else if (result > 0){
-		  		User.updateOne({username: me, friends: { "$ne": friend}}, {$push: {friends: friend}}, function (err, result) {});
+		  		User.updateOne({username: me, friends: { "$ne": friend}}, {$push: {friends: friend}}, function (err, result) {
+		  			if (err){return}
+		  			var jsonmessage = {'operation':'friend','message':friend};
+					ws.send(JSON.stringify(jsonmessage));
+		  		});
 		  	}
 		  }).limit(1);
 		  

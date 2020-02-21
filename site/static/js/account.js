@@ -1,6 +1,36 @@
 hideAll();
 chgTab('charts');
 var n = {created:charts.created.length-1, forked:charts.forked.length-1, edited:charts.edited.length-1, viewed:charts.viewed.length-1};
+
+var ws = new WebSocket('wss://chartdn.com:8080');
+ws.onopen = function(evt) {
+	var allcharts = document.querySelectorAll('chartdn-chart');
+	for (var i=0;i<allcharts.length;i++){
+		allcharts[i].setAttribute('data-loc',i);
+		var jsonmessage = {'operation':'view','id':allcharts[i].getAttribute('src'),'loc':i,'style':allcharts[i].getAttribute('data-style')}
+		ws.send(JSON.stringify(jsonmessage));
+	}
+}
+ws.onmessage = function(evt){
+	var dm = JSON.parse(evt.data);
+	if (dm.operation == 'chart'){
+		var chartJSON = dm.message;
+		var el = document.querySelector('chartdn-chart[data-loc="'+parseInt(dm.loc)+'"]');
+		if (el){
+			el.makeChart(chartJSON);
+		}
+	}
+	else if (dm.operation == 'friend'){
+		var newDiv = document.createElement('div');
+		var newA = document.createElement('a');
+		newA.setAttribute('href',dm.message);
+		newA.textContent = dm.message;
+		newDiv.appendChild(newA);
+		document.getElementById('friendList').appendChild(newDiv);
+	}
+}
+
+
 function hideAll() {
 	var tabids = ['charts','favorites','settings','friends'];
 	for (var i=0;i<tabids.length;i++){
@@ -92,15 +122,11 @@ function addFriend() {
 		var friend = friendEl.value;
 		var jsonmessage = {'operation':'friend','username':username,'message':friend};
 		ws.send(JSON.stringify(jsonmessage));
-		var newDiv = document.createElement('div');
-		var newA = document.createElement('a');
-		newA.setAttribute('href',friend);
-		newA.textContent = friend;
-		newDiv.appendChild(newA);
-		document.getElementById('friendList').appendChild(newDiv);
+		
 	}
 	
 }
+
 
 
 
