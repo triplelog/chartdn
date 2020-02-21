@@ -798,6 +798,11 @@ function updateTable(data,sentHeaders) {
 	table.redraw(true);
 	
 }
+function redrawTable() {
+	var dataTable = document.getElementById("dataTableModified");
+	dataTable.style.width = '';
+	if (table){table.redraw(true);}
+}
 
 var syncWorker2 = new Worker('../wasm/datatypeworker.js');
 function dataChanged(initialData=false,dataType='csv') {
@@ -1932,6 +1937,7 @@ drakeF.on('drag', function (el, target, source, sibling) {
 	}
 });
 
+
 // Minimize and Maximize elements
 function minimizeBox(boxid,full=false){
 	if (boxid == 'dataSource' && minimizedBoxes[boxid] == 'large'){
@@ -1942,10 +1948,8 @@ function minimizeBox(boxid,full=false){
 		otherEl.classList.remove('pure-u-3-4');
 		minimizedBoxes[boxid] = 'small';
 		document.getElementById('editSource').style.display = 'inline';
-		if (table){
-			console.log('hello');
-			table.redraw(true);
-		}
+		redrawTable();
+		
 	}
 	else if (boxid == 'dataSource' && minimizedBoxes[boxid]== 'small'){
 		var el = document.getElementById('dataSourceBox');
@@ -1955,7 +1959,7 @@ function minimizeBox(boxid,full=false){
 		otherEl.classList.add('pure-u-3-4');
 		minimizedBoxes[boxid] = 'large';
 		document.getElementById('editSource').style.display = 'none';
-		if (table){table.redraw(true);}
+		redrawTable();
 	}
 	else if (boxid == 'dataTable' || boxid == 'modifyData' || boxid == 'createChart'){
 		if (minimizedBoxes[boxid] == 'large'){
@@ -1982,7 +1986,7 @@ function minimizeBox(boxid,full=false){
 			ell.classList.remove('fa-expand-alt');
 		}
 		if (boxid == 'dataTable'){
-			table.redraw(true);
+			redrawTable();
 		}
 	}
 	else if (boxid == 'chartjs' || boxid == 'plotly' || boxid == 'xkcd' || boxid == 'google'){
