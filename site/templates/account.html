@@ -84,55 +84,50 @@
 					<div class="pure-g">
 						{% for key in chartkeys %}
 							{% if charts[key].length > 0 %}
-							<div class="l-box-half pure-u-1-2" id="createdBox">
+							<div class="l-box-half pure-u-1-2" id="{{ key }}Box">
 								<div class="box-header">
 									<span class="box-buttons-left">
-										<a id="createdSearch" class="hoverClick"><i class="fas fa-search"></i></a>
+										<a id="{{ key }}Search" class="hoverClick"><i class="fas fa-search"></i></a>
 									</span>
-									Created
+									{{ key.toUpperCase() }}
 									<span class="box-buttons">
-										<a onclick="minimizeBox('created')"><i class="fas fa-compress-alt"></i></a>
-										<a onclick="minimizeBox('created',true)"><i class="fas fa-expand"></i></a>
+										<a onclick="minimizeBox('{{ key }}')"><i class="fas fa-compress-alt"></i></a>
+										<a onclick="minimizeBox('{{ key }}',true)"><i class="fas fa-expand"></i></a>
 									</span>
 								</div>
 								<div class="box-header2">
 									<span class="box-buttons-left">
-										<a onclick="chgChart('created',-2)" class="hoverClick"><i class="fas fa-step-backward"></i></a>
-										<a onclick="chgChart('created',-1)" class="hoverClick"><i class="fas fa-caret-left"></i></a>
+										<a onclick="chgChart('{{ key }}',-2)" class="hoverClick"><i class="fas fa-step-backward"></i></a>
+										<a onclick="chgChart('{{ key }}',-1)" class="hoverClick"><i class="fas fa-caret-left"></i></a>
 									</span>
-									<a href="../charts/{{ charts.created[charts.created.length - 1] }}">{{ charts.created[charts.created.length - 1] }}</a>
+									<a href="../charts/{{ charts[key][charts[key].length - 1] }}">{{ charts[key][charts[key].length - 1] }}</a>
 									<span class="box-buttons">
-										<a onclick="chgChart('created',1)" class="hoverClick"><i class="fas fa-caret-right"></i></a>
-										<a onclick="chgChart('created',2)" class="hoverClick"><i class="fas fa-step-forward"></i></a>
+										<a onclick="chgChart('{{ key }}',1)" class="hoverClick"><i class="fas fa-caret-right"></i></a>
+										<a onclick="chgChart('{{ key }}',2)" class="hoverClick"><i class="fas fa-step-forward"></i></a>
 									</span>
 								</div>
 								<div class='box-form'>
-									<chartdn-chart id="createdChart" src="{{ charts.created[charts.created.length - 1] }}" data-style="plotly"></chartdn-chart>
+									<chartdn-chart id="{{ key }}Chart" src="{{ charts[key][charts[key].length - 1] }}" data-style="plotly"></chartdn-chart>
 								</div>
 							</div>
 							{% endif %}
 						{% else %}
 						{% endfor %}
-						{% if charts.forked.length > 0 %}
-						<div class="l-box-half pure-u-1-2">
-							<div class="box-header"><a onclick="chgChart('forked',-1)" class="hoverClick"><i class="fas fa-caret-left"></i></a> Forked <a onclick="chgChart('forked',1)" class="hoverClick"><i class="fas fa-caret-right"></i></a></div>
-							<div class='box-form'>
-								<chartdn-chart id="forkedChart" src="{{ charts.forked[charts.created.length - 1] }}" data-style="plotly"></chartdn-chart>
-							</div>
-						</div>
-						{% endif %}
 						
-						{% if charts.created.length > 0 %}
-						<div class="l-box-half pure-u-1-4" id="createdNone" style="display:none">
-							<div class="box-header">
-								Created
-								<span class="box-buttons">
-									<a onclick="minimizeBox('created')"><i class="fas fa-expand-alt"></i></a>
-									<a onclick="minimizeBox('created',true)"><i class="fas fa-expand"></i></a>
-								</span>
+						{% for key in chartkeys %}
+							{% if charts[key].length > 0 %}
+							<div class="l-box-half pure-u-1-4" id="{{ key }}None" style="display:none">
+								<div class="box-header">
+									{{ key.toUpperCase() }}
+									<span class="box-buttons">
+										<a onclick="minimizeBox('{{ key }}')"><i class="fas fa-expand-alt"></i></a>
+										<a onclick="minimizeBox('{{ key }}',true)"><i class="fas fa-expand"></i></a>
+									</span>
+								</div>
 							</div>
-						</div>
-						{% endif %}
+							{% endif %}
+						{% else %}
+						{% endfor %}
 					</div>
 					
 				</div>
