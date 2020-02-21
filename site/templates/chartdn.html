@@ -402,9 +402,10 @@
 							<div class="box-header2">
 								Options
 							</div>
-							<div class="box-form">
+							<div class="box-form" id="tableOptions">
 								<div>
-									Type: <select onchange="typeChg();" id="chartTypeMenu">
+									<label>Type</label>
+									<select onchange="typeChg();" id="chartTypeMenu">
 										<option value=""></option>
 										<option value="line" {{ isChecked['line'] }}>Line</option>
 										<option value="bar" {{ isChecked['bar'] }}>Bar</option>
@@ -422,15 +423,24 @@
 									</select>
 								</div>
 								<div>
-									Title: <input type="text" name="title" onchange="optionsChg('title')" placeholder="notitle" value="{{ title }}"/>
+									<label>Title</label>
+									<input type="text" name="title" onchange="optionsChg('title')" placeholder="notitle" value="{{ title }}"/>
 								</div>
 								<div>
-									Tags: <input type="text"/>
+									<label>Tags</label>
+									<input type="text"/>
 								</div>
 								<div>
-									View: <input type="text"/>
-									Fork: <input type="text"/>
-									Edit: <input type="text"/><!--Flip from edit anything to data/modify/chart-->
+									<label>View</label>
+									<input type="text"/>
+								</div>
+								<div>
+									<label>Fork</label>
+									<input type="text"/>
+								</div>
+								<div>
+									<label>Edit</label>
+									<input type="text"/><!--Flip from edit anything to data/modify/chart-->
 								</div>
 								<div>
 									<input type="radio" name="shareChart" onchange="shareChg()" value="Svg" checked>SVG</input>
