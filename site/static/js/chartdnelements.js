@@ -40,7 +40,9 @@ class chartdnChart extends HTMLElement {
   }
   makePlotly(chartJSON) {
   	this.querySelector('#plotlyDiv').style.display = 'block';
-  	chartJSON.options.height = "100";
+  	if (chartJSON.options){
+  		chartJSON.options['height'] = 100;
+  	}
 	Plotly.newPlot(this.querySelector('#plotlyDiv'), chartJSON.data, chartJSON.options, {responsive: true});
   }
   
@@ -73,7 +75,6 @@ class chartdnChart extends HTMLElement {
   	else if (style == 'plotly') {
   		var plotlyheight = '';
   		if (this.getAttribute('height')) {
-  			console.log(this.getAttribute('height'));
   			plotlyheight = 'height: '+this.getAttribute('height')+';';
   		}
   		this.innerHTML = `<div class="chart-container" style="position: relative;">
