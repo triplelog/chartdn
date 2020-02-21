@@ -581,7 +581,7 @@ loginApp.get('/browse',
 		var charts = [];
 		Chart.find({  }, function(err, result) {
 			if (err){console.log('errrrr');}
-			var charlen = Math.min(result.length,100);
+			var charlen = Math.min(result.length,25);
 			for (var i=0;i<charlen;i++){
 				var mychart = {'src':result[i].id,'cols':2,'rows':1,'name':'test'};
 				charts.push(mychart);
