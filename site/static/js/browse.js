@@ -1,5 +1,4 @@
-document.getElementById('submitTags').addEventListener('click',submitFilters);
-document.getElementById('submitCreators').addEventListener('click',submitFilters);
+document.getElementById('submitFilters').addEventListener('click',submitFilters);
 function submitFilters() {
 	var tags = document.getElementById('tags').value.replace(/,\s/g,',').replace(/\s/g,'_');
 	var creators = document.getElementById('creators').value.replace(/,\s/g,',').replace(/\s/g,'_');

@@ -589,7 +589,6 @@ loginApp.get('/browse',
 			var creators = req.query.creators.split(',');
 			query = { "users": { $all: creators } };
 		}
-		console.log(query);
 		Chart.find(query, function(err, result) {
 			if (err){console.log('errrrr');}
 			console.log('found them: ', performance.now());
