@@ -46,13 +46,14 @@ minimizedBoxes = {};
 minimizedBoxes.created = 'half';
 function minimizeBox(type,full=false){
 	var el = document.getElementById(type+'Box');
+	var myStyle = el.querySelector('chartdn-chart').getAttribute('data-style');
+	var loc = el.querySelector('chartdn-chart').getAttribute('data-loc');
+	var chartid = el.querySelector('chartdn-chart').getAttribute('src');
 	if (full){
 		el.classList.add('pure-u-1-1');
 		el.classList.remove('pure-u-1-2');
 		el.style.display = 'block';
 		minimizedBoxes[type] = 'full';
-		var myStyle = el.querySelector('chartdn-chart').getAttribute('data-style');
-		var loc = el.querySelector('chartdn-chart').getAttribute('data-loc');
 		var jsonmessage = {'operation':'view','id':chartid,'loc':loc,'style':myStyle};
 		ws.send(JSON.stringify(jsonmessage));
 		var el2 = document.getElementById(type+'None');
@@ -62,8 +63,6 @@ function minimizeBox(type,full=false){
 		el.classList.add('pure-u-1-2');
 		el.classList.remove('pure-u-1-1');
 		el.style.display = 'block';
-		var myStyle = el.querySelector('chartdn-chart').getAttribute('data-style');
-		var loc = el.querySelector('chartdn-chart').getAttribute('data-loc');
 		var jsonmessage = {'operation':'view','id':chartid,'loc':loc,'style':myStyle}
 		ws.send(JSON.stringify(jsonmessage));
 		minimizedBoxes[type] = 'half';
@@ -78,8 +77,6 @@ function minimizeBox(type,full=false){
 		el.classList.add('pure-u-1-2');
 		el.classList.remove('pure-u-1-1');
 		el.style.display = 'block';
-		var myStyle = el.querySelector('chartdn-chart').getAttribute('data-style');
-		var loc = el.querySelector('chartdn-chart').getAttribute('data-loc');
 		var jsonmessage = {'operation':'view','id':chartid,'loc':loc,'style':myStyle}
 		ws.send(JSON.stringify(jsonmessage));
 		minimizedBoxes[type] = 'half';
