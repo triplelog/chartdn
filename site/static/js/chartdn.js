@@ -1038,7 +1038,12 @@ function updateColumns(id='all') {
 					var qstring = 'div[name='+ii+']';
 					var newEl = allVars.querySelector(qstring);
 					if (cols && objVar){
-						newEl.textContent = ii + ' := ' + objVar.type + ' of ' + cols[objVar.column];
+						if (objVar.column == -1){
+							newEl.textContent = ii + ' := Row #';
+						}
+						else {
+							newEl.textContent = ii + ' := ' + objVar.type + ' of ' + cols[objVar.column];
+						}
 					}
 					var rowStr = toRowStr(objVar);
 					newEl.textContent += rowStr;
