@@ -589,7 +589,15 @@ loginApp.get('/browse',
 				console.log('found them: ', performance.now());
 				var charlen = Math.min(result.length,25);
 				for (var i=0;i<charlen;i++){
-					var mychart = {'src':result[i].id,'cols':3,'rows':1,'name':'test'};
+					var cols = 2; var rows = 2;
+					var shape = result[i].options.shapeChart;
+					if (shape == 'wide'){
+						cols = 3; rows = 1;
+					}
+					else if (shape == 'tall'){
+						cols = 1; rows = 3;
+					}
+					var mychart = {'src':result[i].id,'cols':cols,'rows':rows,'name':'test'};
 					charts.push(mychart);
 				}
 				res.write(nunjucks.render('browse.html',{
@@ -605,7 +613,15 @@ loginApp.get('/browse',
 				console.log('found them: ', performance.now());
 				var charlen = Math.min(result.length,25);
 				for (var i=0;i<charlen;i++){
-					var mychart = {'src':result[i].id,'cols':3,'rows':1,'name':'test'};
+					var cols = 2; var rows = 2;
+					var shape = result[i].options.shapeChart;
+					if (shape == 'wide'){
+						cols = 3; rows = 1;
+					}
+					else if (shape == 'tall'){
+						cols = 1; rows = 3;
+					}
+					var mychart = {'src':result[i].id,'cols':cols,'rows':rows,'name':'test'};
 					charts.push(mychart);
 				}
 				res.write(nunjucks.render('browse.html',{
