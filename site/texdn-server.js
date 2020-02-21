@@ -170,7 +170,7 @@ wss.on('connection', function connection(ws) {
 				  if (err) {
 			
 				  } else {
-					result.charts.push(chartid);
+					result.charts.created.push(chartid);
 					result.markModified('charts');
 					result.save(function (err, result) {
 						if (err) return console.error('sajdhfkasdhj\n',err);
@@ -296,7 +296,7 @@ wss.on('connection', function connection(ws) {
 				  if (err) {
 			
 				  } else {
-					result.charts.push(chartid);
+					result.charts.created.push(chartid);
 					result.markModified('charts');
 					result.save(function (err, result) {
 						if (err) return console.error('sajdhfkasdhj\n',err);
@@ -654,7 +654,7 @@ loginApp.get('/edit/:chartid',
 									  if (err) {
 			
 									  } else {
-										result.charts.push(chartid);
+										result.charts.forked.push(chartid);
 										result.markModified('charts');
 										result.save(function (err, result) {
 											if (err) return console.error('sajdhfkasdhj\n',err);
@@ -712,6 +712,21 @@ loginApp.get('/edit/:chartid',
 				  else { //Load chart data and options
 					dataname = result.data;
 					myOptions = result.options;
+					if (username != '') {
+						/*User.findOne({username: username}, function(err, result) {
+						  if (err) {
+
+						  } else {
+							result.charts.forked.push(chartid);
+							result.markModified('charts');
+							result.save(function (err, result) {
+								if (err) return console.error('sajdhfkasdhj\n',err);
+								console.log('updated user charts');
+							});
+						  }
+						});*/
+						//Check if chart is in created, edited, or forked arrays
+					}
 					if (result.options.nsteps || result.options.nsteps === 0){
 						delete result.options.nsteps;
 						result.markModified('options');
