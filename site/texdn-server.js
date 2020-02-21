@@ -578,7 +578,7 @@ loginApp.get('/browse',
 		var query = {};
 		if (req.query.tags && req.query.creators) {
 			var tags = req.query.tags.split(',');
-			var creators = req.query.tags.split(',');
+			var creators = req.query.creators.split(',');
 			query = { "options.tags": { $all: tags }, "users": { $all: creators } };
 		}
 		else if (req.query.tags) {
@@ -586,7 +586,7 @@ loginApp.get('/browse',
 			query = { "options.tags": { $all: tags }};
 		}
 		else if (req.query.creators) {
-			var creators = req.query.tags.split(',');
+			var creators = req.query.creators.split(',');
 			query = { "users": { $all: creators } };
 		}
 		console.log(query);
