@@ -584,7 +584,7 @@ loginApp.get('/browse',
 		if (req.query.tags) {
 			var tags = req.query.tags.split(',');
 			console.log(tags);
-			Chart.find({ options.tags: { $all: tags } }, function(err, result) {
+			Chart.find({ "options.tags": { $all: tags } }, function(err, result) {
 				if (err){console.log('errrrr');}
 				console.log('found them: ', performance.now());
 				var charlen = Math.min(result.length,25);
