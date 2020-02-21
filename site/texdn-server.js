@@ -170,18 +170,8 @@ wss.on('connection', function connection(ws) {
 				console.log('saved');
 			});
 			if (username != '') {
-				User.findOne({username: username}, function(err, result) {
-				  if (err) {
-			
-				  } else {
-					result.charts.created.push(chartid);
-					result.markModified('charts');
-					result.save(function (err, result) {
-						if (err) return console.error('sajdhfkasdhj\n',err);
-						console.log('updated user charts');
-					});
-				  }
-				});
+				User.updateOne({username: username, "charts.created": { "$ne": chartid}}, {$push: {"charts.created": chartid}});
+
 			}
   		}
   		//write data.csv
@@ -296,18 +286,7 @@ wss.on('connection', function connection(ws) {
 				console.log('saved');
 			});
 			if (username != '') {
-				User.findOne({username: username}, function(err, result) {
-				  if (err) {
-			
-				  } else {
-					result.charts.created.push(chartid);
-					result.markModified('charts');
-					result.save(function (err, result) {
-						if (err) return console.error('sajdhfkasdhj\n',err);
-						console.log('updated user charts');
-					});
-				  }
-				});
+				User.updateOne({username: username, "charts.created": { "$ne": chartid}}, {$push: {"charts.created": chartid}});
 			}
   		}
   		//write data.csv
@@ -652,10 +631,7 @@ loginApp.get('/charts/:chartid',
 		var username = '';
 		if (req.user) {
 			username = req.user.username;
-			User.updateOne({username: username, "charts.viewed": { "$ne": chartid}}, {$push: {"charts.viewed": chartid}}, function (err, resultU) {
-				if (err) {console.log(err);}
-				else {console.log(resultU);}
-			} );
+			User.updateOne({username: username, "charts.viewed": { "$ne": chartid}}, {$push: {"charts.viewed": chartid}});
 
 		}
 		
@@ -702,18 +678,7 @@ loginApp.get('/edit/:chartid',
 									console.log('saved');
 								});
 								if (username != '') {
-									User.findOne({username: username}, function(err, result) {
-									  if (err) {
-			
-									  } else {
-										result.charts.forked.push(chartid);
-										result.markModified('charts');
-										result.save(function (err, result) {
-											if (err) return console.error('sajdhfkasdhj\n',err);
-											console.log('updated user charts');
-										});
-									  }
-									});
+									User.updateOne({username: username, "charts.forked": { "$ne": chartid}}, {$push: {"charts.forked": chartid}});
 								}
 								fs.readFile('saved/'+dataname, 'utf8', function(err, fileData) {
 									var defaultData = ''
@@ -776,19 +741,8 @@ loginApp.get('/edit/:chartid',
 					dataname = result.data;
 					myOptions = result.options;
 					if (username != '') {
-						/*User.findOne({username: username}, function(err, result) {
-						  if (err) {
+						User.updateOne({username: username, "charts.edited": { "$ne": chartid}, "charts.forked": { "$ne": chartid}, "charts.created": { "$ne": chartid}}, {$push: {"charts.edited": chartid}});
 
-						  } else {
-							result.charts.forked.push(chartid);
-							result.markModified('charts');
-							result.save(function (err, result) {
-								if (err) return console.error('sajdhfkasdhj\n',err);
-								console.log('updated user charts');
-							});
-						  }
-						});*/
-						//Check if chart is in created, edited, or forked arrays
 					}
 					if (result.options.nsteps || result.options.nsteps === 0){
 						delete result.options.nsteps;
