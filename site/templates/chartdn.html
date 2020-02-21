@@ -432,21 +432,40 @@
 								</div>
 								<div>
 									<label>View</label>
-									<input type="text"/>
+									<select name="viewPermissions" onchange="permissionChg()">
+										<option value="anyone" selected="selected">Anyone</option>
+										<option value="friends">Friends</option>
+										<option value="me">Me</option>
+										<option value="custom">Custom</option>
+									</select>
 								</div>
 								<div>
 									<label>Fork</label>
-									<input type="text"/>
+									<select name="forkPermissions" onchange="permissionChg()">
+										<option value="anyone" selected="selected">Anyone</option>
+										<option value="friends">Friends</option>
+										<option value="me">Me</option>
+										<option value="custom">Custom</option>
+									</select>
 								</div>
 								<div>
 									<label>Edit</label>
-									<input type="text"/><!--Flip from edit anything to data/modify/chart-->
+									<select name="editPermissions" onchange="permissionChg()">
+										<option value="anyone">Anyone</option>
+										<option value="friends">Friends</option>
+										<option value="me" selected="selected">Me</option>
+										<option value="custom">Custom</option>
+									</select>
 								</div>
 								<div>
-									<input type="radio" name="shareChart" onchange="shareChg()" value="Svg" checked>SVG</input>
-									<input type="radio" name="shareChart" onchange="shareChg()" value="Code">Code</input>
-									<input type="radio" name="shareChart" onchange="shareChg()" value="Url">URL</input>
-									<input type="radio" name="shareChart" onchange="shareChg()" value="Embed">Embed</input>
+									<label>Share</label>
+									<select name="shareChart" onchange="shareChg()">
+										<option value="embed" selected="selected">Embed</option>
+										<option value="url">URL</option>
+										<option value="svg">SVG</option>
+										<option value="code">Code</option>
+										<option value="qr">QR</option>
+									</select>
 								</div>
 							</div>
 							
