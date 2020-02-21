@@ -356,6 +356,12 @@ function columnsChg() {
 	var yColsStr = document.getElementById('yColsVal').value;
 	var xColStr = document.getElementById('xColVal').value;
 	
+	
+	var headerEl = document.querySelectorAll('div.tabulator-col');
+	console.log(headerEl.length);
+	
+	
+	
 	var yColumns = [];
 	xColumn = '';
 	var lineNames = [];
