@@ -176,7 +176,7 @@
 </div>
 <script>
 	var charts = {{ charts | dump | safe if charts else '{}'  }};
-	var username = {{ username }};
+	var username = "{{ username }}";
 </script>
 <script src="../js/account.js"></script>
 <script src="../js/chartdnws.js"></script>
