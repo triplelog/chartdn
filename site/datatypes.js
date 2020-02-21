@@ -36,7 +36,6 @@ function isMonth(input_str){
 }
 function isDate(input_str){
 	var threeparts = input_str.split('/');
-	console.log(input_str,threeparts)
 	if (threeparts.length == 3) {
 		if (parseInt(threeparts[0]) > 0 && parseInt(threeparts[0]) < 13 && threeparts[0].length < 3 && threeparts[0].length > 0){
 			if (parseInt(threeparts[1]) > 0 && parseInt(threeparts[1]) < 32 && threeparts[1].length < 3 && threeparts[1].length > 0){
