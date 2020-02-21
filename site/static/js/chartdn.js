@@ -379,7 +379,11 @@ function columnsChg() {
 				noNames = true;
 			}
 			if (!nsteps && nsteps !=0) {
-				headerEls.querySelector('div[tabulator-field="col'+parseInt(yCols[i])+'"]').style.background = 'green';
+				var qstring = 'div[tabulator-field="col'+parseInt(yCols[i])+'"]';
+				console.log(qstring);
+				var hEl = headerEls.querySelector(qstring);
+				console.log(hEl);
+				hEl.style.background = 'green';
 			}
 		}
 		
