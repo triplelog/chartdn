@@ -429,11 +429,11 @@
 								</div>
 								<div>
 									<label>Tags</label>
-									<input type="text"/>
+									<input type="text" name="tags" onchange="optionsChg('tags')"/>
 								</div>
 								<div>
 									<label>View</label>
-									<select name="viewPermissions" onchange="permissionChg()">
+									<select name="viewPermissions" onchange="optionsChg('viewPermissions')">
 										<option value="anyone" selected="selected">Anyone</option>
 										<option value="friends">Friends</option>
 										<option value="me">Me</option>
@@ -442,7 +442,7 @@
 								</div>
 								<div>
 									<label>Fork</label>
-									<select name="forkPermissions" onchange="permissionChg()">
+									<select name="forkPermissions" onchange="optionsChg('forkPermissions')">
 										<option value="anyone" selected="selected">Anyone</option>
 										<option value="friends">Friends</option>
 										<option value="me">Me</option>
@@ -451,7 +451,7 @@
 								</div>
 								<div>
 									<label>Edit</label>
-									<select name="editPermissions" onchange="permissionChg()">
+									<select name="editPermissions" onchange="optionsChg('editPermissions')">
 										<option value="anyone">Anyone</option>
 										<option value="friends">Friends</option>
 										<option value="me" selected="selected">Me</option>
@@ -460,7 +460,7 @@
 								</div>
 								<div>
 									<label>Share</label>
-									<select name="shareChart" onchange="shareChg()">
+									<select name="shareChart" onchange="optionsChg('shareChart')">
 										<option value="embed" selected="selected">Embed</option>
 										<option value="url">URL</option>
 										<option value="svg">SVG</option>
@@ -470,7 +470,7 @@
 								</div>
 								<div>
 									<label>Shape</label>
-									<select name="shapeChart" onchange="shapeChg()">
+									<select name="shapeChart" onchange="optionsChg('shapeChart')">
 										<option value="wide" selected="selected">Wide</option>
 										<option value="tall">Tall</option>
 										<option value="square">Square</option>

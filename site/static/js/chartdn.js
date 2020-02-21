@@ -507,6 +507,7 @@ function optionsChg(optionname) {
 		var newoption = document.querySelector('input[name='+optionname+']').value;
 		var jsonmessage = {'operation':'options'};
 		jsonmessage[optionname]=newoption;
+		console.log(jsonmessage);
 		ws.send(JSON.stringify(jsonmessage));
 	}
 }
