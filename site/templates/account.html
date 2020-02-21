@@ -36,7 +36,7 @@
     <div class="content">
     	<div class="pure-g">
     		<div class="l-box pure-u-1 pure-u-md-1-4 pure-u-lg-1-5">
-				<img class="avatar" src="robots/{{ username }}{{ robot }}.png"></img>
+				<img class="avatar" src="../robots/{{ username }}{{ robot }}.png"></img>
 				<center>{{ name }}</center>
 				<div id="profile" class="pure-g">
 					<div class="l-box pure-u-1">
@@ -135,7 +135,7 @@
 				<div id="favorites" class="box-form">
 				</div>
 				<div id="settings" class="box-form">
-					<form class="pure-form pure-form-stacked" action="/settings" method="post">
+					<form class="pure-form pure-form-stacked" action="../settings" method="post">
 						<fieldset>
 							<label for="name">Name</label>
 							<input id="name" name="name" type="text" placeholder="Name" value="{{ name }}">
@@ -155,7 +155,7 @@
 					<button onclick="addFriend()">Add Friend</button>
 					<div id="friendList">
 						{% for friend in friends %}
-							<div><a href="{{ friend }}">{{ friend }}</a></div>
+							<div><a href="../user/{{ friend }}">{{ friend }}</a></div>
 						{% else %}
 						{% endfor %}
 					</div>
