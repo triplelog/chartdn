@@ -44,6 +44,9 @@
 						<div class="box-form">
 							<!--Website<br />
 							Name-->
+							{% if addfriend %}
+								<a>Add as Friend</a>
+							{% endif %}
 						</div>
 					</div>
 					<div class="l-box pure-u-1">
@@ -134,6 +137,7 @@
 				</div>
 				<div id="favorites" class="box-form">
 				</div>
+				{% if !privacy %}
 				<div id="settings" class="box-form">
 					<form class="pure-form pure-form-stacked" action="../settings" method="post">
 						<fieldset>
@@ -160,6 +164,7 @@
 						{% endfor %}
 					</div>
 				</div>
+				{% endif %}
 				
 			</div>
 		</div>

@@ -87,7 +87,9 @@ app2.get('/user/:username',
 				robot: result.options.robot || 1,
 				charts: charts || {},
 				chartkeys: chartkeys || [],
-				friends: result.friends || [],
+				friends: [],
+				privacy: true,
+				addfriend: req.isAuthenticated(),
 			}));
 			res.end();
   		
