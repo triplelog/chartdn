@@ -84,7 +84,7 @@ const wss = new WebSocket.Server({ server });
 function updateOptions(oldOptions, newOptions) {
 	for(var k in newOptions){
 		var v = newOptions[k];
-		if (k == 'yColumns'){
+		if (k == 'yColumns' || k == 'tags'){
 			oldOptions[k] = v;
 		}
 		else if (k == 'nsteps'){
