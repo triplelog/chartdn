@@ -80,7 +80,7 @@ app2.post('/settings',
 	
 		  } else {
 			result.name=req.body.name;
-			result.robot=parseInt(req.body.robot);
+			result.options.robot=parseInt(req.body.robot);
 			result.save(function (err, result) {
 				if (err) return console.error('error updating user\n',err);
   				res.redirect('/account');

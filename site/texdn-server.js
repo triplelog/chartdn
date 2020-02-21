@@ -575,58 +575,44 @@ loginApp.get('/browse',
 		console.log(req.query);
 		var charts = [];
 		console.log('start looking: ', performance.now());
-		if (req.query.tags) {
+		var query = {};
+		if (req.query.tags && req.query.creators) {
 			var tags = req.query.tags.split(',');
-			console.log(tags);
-			Chart.find({ "options.tags": { $all: tags } }, function(err, result) {
-				if (err){console.log('errrrr');}
-				console.log('found them: ', performance.now());
-				var charlen = Math.min(result.length,25);
-				for (var i=0;i<charlen;i++){
-					var cols = 3; var rows = 1;
-					var shape = result[i].options.shapeChart;
-					if (shape == 'square'){
-						cols = 2; rows = 2;
-					}
-					else if (shape == 'tall'){
-						cols = 1; rows = 3;
-					}
-					var mychart = {'src':result[i].id,'cols':cols,'rows':rows,'name':'test'};
-					charts.push(mychart);
-				}
-				res.write(nunjucks.render('browse.html',{
-					charts: charts,		
-				}));
-			
-				res.end();
-			}).limit(25);
+			var creators = req.query.tags.split(',');
+			query = { "options.tags": { $all: tags }, "users": { $all: creators } };
 		}
-		else {
-			Chart.find({  }, function(err, result) {
-				if (err){console.log('errrrr');}
-				console.log('found them: ', performance.now());
-				var charlen = Math.min(result.length,25);
-				for (var i=0;i<charlen;i++){
-					var cols = 3; var rows = 1;
-					var shape = result[i].options.shapeChart;
-					if (shape == 'wide'){
-						cols = 2; rows = 2;
-					}
-					else if (shape == 'tall'){
-						cols = 1; rows = 3;
-					}
-					var mychart = {'src':result[i].id,'cols':cols,'rows':rows,'name':'test'};
-					charts.push(mychart);
-				}
-				res.write(nunjucks.render('browse.html',{
-					charts: charts,		
-				}));
-			
-				res.end();
-			}).limit(25);
+		else if (req.query.tags) {
+			var tags = req.query.tags.split(',');
+			query = { "options.tags": { $all: tags }};
 		}
+		else if (req.query.creators) {
+			var creators = req.query.tags.split(',');
+			query = { "users": { $all: creators } };
+		}
+		console.log(query);
+		Chart.find(query, function(err, result) {
+			if (err){console.log('errrrr');}
+			console.log('found them: ', performance.now());
+			var charlen = Math.min(result.length,25);
+			for (var i=0;i<charlen;i++){
+				var cols = 3; var rows = 1;
+				var shape = result[i].options.shapeChart;
+				if (shape == 'square'){
+					cols = 2; rows = 2;
+				}
+				else if (shape == 'tall'){
+					cols = 1; rows = 3;
+				}
+				var mychart = {'src':result[i].id,'cols':cols,'rows':rows,'name':'test'};
+				charts.push(mychart);
+			}
+			res.write(nunjucks.render('browse.html',{
+				charts: charts,		
+			}));
 		
-		
+			res.end();
+		}).limit(25);
+
 		
     }
 );

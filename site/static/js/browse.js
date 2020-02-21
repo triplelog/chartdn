@@ -1,11 +1,22 @@
-document.getElementById('submitTags').addEventListener('click',submitTags);
-function submitTags() {
+document.getElementById('submitTags').addEventListener('click',submitFilters);
+document.getElementById('submitCreators').addEventListener('click',submitFilters);
+function submitFilters() {
 	var tags = document.getElementById('tags').value.replace(/,\s/g,',').replace(/\s/g,'_');
-	if (tags.length > 0){
-		window.location.replace("../browse?tags="+tags);
+	var creators = document.getElementById('creators').value.replace(/,\s/g,',').replace(/\s/g,'_');
+	var url = "../browse"
+	if (creators.length > 0){
+		url += '?creators='+creators;
+		if (tags.length > 0){
+			url += '&tags='+tags;
+		}
+		window.location.replace(url);
 	}
+	else if (tags.length > 0){
+		url += '?tags='+tags;
+		window.location.replace(url);
+	}
+	
 }
-
 
 
 minimizedBoxes = {};
