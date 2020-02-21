@@ -1942,7 +1942,10 @@ function minimizeBox(boxid,full=false){
 		otherEl.classList.remove('pure-u-3-4');
 		minimizedBoxes[boxid] = 'small';
 		document.getElementById('editSource').style.display = 'inline';
-		if (table){table.redraw(true);}
+		if (table){
+			console.log('hello');
+			table.redraw(true);
+		}
 	}
 	else if (boxid == 'dataSource' && minimizedBoxes[boxid]== 'small'){
 		var el = document.getElementById('dataSourceBox');
