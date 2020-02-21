@@ -503,6 +503,13 @@ function optionsChg(optionname) {
 
 		ws.send(JSON.stringify(jsonmessage));
 	}
+	else if (optionname == 'tags'){
+		var newoption = document.querySelector('*[name='+optionname+']').value;
+		var jsonmessage = {'operation':'options'};
+		jsonmessage[optionname]=newoption.replace(/,\s/g,',').replace(/\s/g,'_').split(',');
+		console.log(jsonmessage);
+		ws.send(JSON.stringify(jsonmessage));
+	}
 	else {
 		var newoption = document.querySelector('*[name='+optionname+']').value;
 		var jsonmessage = {'operation':'options'};
