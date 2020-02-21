@@ -110,9 +110,19 @@ function headersChanged(initialData,chg=false) {
 		yCo.appendChild(newColumn);
 	}
 	if (!chg){
+		var headerEls = document.querySelector('div.tabulator-headers');
+		var headerTitleEls = headerEls.querySelectorAll('div.tabulator-col-title');
+		for (var i=0;i<headerTitleEls.length;i++){
+			headerTitleEls[i].style.backgroundColor = '#e6e6e6';
+		}
 		if (initialData && document.getElementById('xColVal').value != ''){
 			var xcv = parseInt(document.getElementById('xColVal').value);
 			document.getElementById('xColumnSelect').value =  xcv;
+			if (!nsteps && nsteps !=0) {
+				var qstring = 'div[tabulator-field="col'+xcv+'"] div.tabulator-col-title';
+				var hEl = headerEls.querySelector(qstring);
+				if (hEl){hEl.style.background = '#c6e6e6';}
+			}
 		}
 		if (initialData && document.getElementById('yColsVal').value != ''){
 			yColsVals = document.getElementById('yColsVal').value.split(',');
@@ -130,6 +140,11 @@ function headersChanged(initialData,chg=false) {
 				newColumn.addEventListener('click',clickLineData);
 				newColumn.classList.add('hoverClick');
 				document.getElementById('yAxisDataBox').appendChild(newColumn);
+				if (!nsteps && nsteps !=0) {
+					var qstring = 'div[tabulator-field="col'+yColsVals[yid]+'"] div.tabulator-col-title';
+					var hEl = headerEls.querySelector(qstring);
+					if (hEl){hEl.style.background = '#e6c6e6';}
+				}
 			}
 			chgLineTab();
 			chgModify();
@@ -139,10 +154,20 @@ function headersChanged(initialData,chg=false) {
 	}
 	else {
 		var colChg = false;
+		var headerEls = document.querySelector('div.tabulator-headers');
+		var headerTitleEls = headerEls.querySelectorAll('div.tabulator-col-title');
+		for (var i=0;i<headerTitleEls.length;i++){
+			headerTitleEls[i].style.backgroundColor = '#e6e6e6';
+		}
 		if (document.getElementById('xColVal').value != ''){
 			var xcv = parseInt(document.getElementById('xColVal').value);
 			document.getElementById('xColumnSelect').value =  xcv;
 			if (xcv < headers.length){
+				if (!nsteps && nsteps !=0) {
+					var qstring = 'div[tabulator-field="col'+xcv+'"] div.tabulator-col-title';
+					var hEl = headerEls.querySelector(qstring);
+					if (hEl){hEl.style.background = '#c6e6e6';}
+				}
 			}
 			else {
 				document.getElementById('xColVal').value = '';
@@ -168,6 +193,11 @@ function headersChanged(initialData,chg=false) {
 					newColumn.addEventListener('click',clickLineData);
 					newColumn.classList.add('hoverClick');
 					document.getElementById('yAxisDataBox').appendChild(newColumn);
+					if (!nsteps && nsteps !=0) {
+						var qstring = 'div[tabulator-field="col'+yColsVals[yid]+'"] div.tabulator-col-title';
+						var hEl = headerEls.querySelector(qstring);
+						if (hEl){hEl.style.background = '#e6c6e6';}
+					}
 				}
 				else {
 					colChg = true;
@@ -355,15 +385,7 @@ function createLineDiv(id,chg=false) {
 function columnsChg() {
 	var yColsStr = document.getElementById('yColsVal').value;
 	var xColStr = document.getElementById('xColVal').value;
-	
-	
-	var headerEls = document.querySelector('div.tabulator-headers');
-	var headerTitleEls = headerEls.querySelectorAll('div.tabulator-col-title');
-	for (var i=0;i<headerTitleEls.length;i++){
-		headerTitleEls[i].style.backgroundColor = '#e6e6e6';
-	}
-	
-	
+
 	
 	var yColumns = [];
 	xColumn = '';
@@ -381,22 +403,14 @@ function columnsChg() {
 			else {
 				noNames = true;
 			}
-			if (!nsteps && nsteps !=0) {
-				var qstring = 'div[tabulator-field="col'+parseInt(yCols[i])+'"] div.tabulator-col-title';
-				var hEl = headerEls.querySelector(qstring);
-				if (hEl){hEl.style.background = '#e6c6e6';}
-			}
+			
 		}
 		
 	}
 	
 	if (!isNaN(parseInt(xColStr))){ 
 		xColumn = parseInt(xColStr);
-		if (!nsteps && nsteps !=0) {
-			var qstring = 'div[tabulator-field="col'+xColumn+'"] div.tabulator-col-title';
-			var hEl = headerEls.querySelector(qstring);
-			if (hEl){hEl.style.background = '#c6e6e6';}
-		}
+		
 	}
 	
 	headersChanged(false,true);
@@ -990,7 +1004,6 @@ function clickLineData(evt) {
 
 
 
-//Dragula with column choices
 function updateColumns(id='all') {
 	for (var i in modifiers){
 		if (id=='all' || modifiers[i].id == id){
