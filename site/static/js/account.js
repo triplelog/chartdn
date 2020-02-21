@@ -20,27 +20,24 @@ function chgChart(type,chg){
 		if (n[type]<0){
 			n[type]=0;
 		}
-		var el = document.getElementById(type+'Chart');
-		el.setAttribute('src',charts[type][n[type]]);
 	}
 	else if (chg == -2){
 		n[type]=0;
-		var el = document.getElementById(type+'Chart');
-		el.setAttribute('src',charts[type][n[type]]);
 	}
 	else if (chg == 1){
 		n[type]++;
 		if (n[type]>charts[type].length-1){
 			n[type]=charts[type].length-1;
 		}
-		var el = document.getElementById(type+'Chart');
-		el.setAttribute('src',charts[type][n[type]]);
 	}
 	else if (chg == 2){
 		n[type] = charts[type].length-1;
-		var el = document.getElementById(type+'Chart');
-		el.setAttribute('src',charts[type][n[type]]);
 	}
+	var el = document.getElementById(type+'Chart');
+	el.setAttribute('src',charts[type][n[type]]);
+	var ell = document.getElementById(type+'Link');
+	ell.setAttribute('href','../charts/'+charts[type][n[type]]);
+	ell.textContent = charts[type][n[type]];
 }
 minimizedBoxes = {};
 minimizedBoxes.created = 'half';

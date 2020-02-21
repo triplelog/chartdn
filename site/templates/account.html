@@ -101,7 +101,7 @@
 										<a onclick="chgChart('{{ key }}',-2)" class="hoverClick"><i class="fas fa-step-backward"></i></a>
 										<a onclick="chgChart('{{ key }}',-1)" class="hoverClick"><i class="fas fa-caret-left"></i></a>
 									</span>
-									<a href="../charts/{{ charts[key][charts[key].length - 1] }}">{{ charts[key][charts[key].length - 1] }}</a>
+									<a id="{{key}}Link" href="../charts/{{ charts[key][charts[key].length - 1] }}">{{ charts[key][charts[key].length - 1] }}</a>
 									<span class="box-buttons">
 										<a onclick="chgChart('{{ key }}',1)" class="hoverClick"><i class="fas fa-caret-right"></i></a>
 										<a onclick="chgChart('{{ key }}',2)" class="hoverClick"><i class="fas fa-step-forward"></i></a>
