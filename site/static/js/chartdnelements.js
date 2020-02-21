@@ -11,11 +11,15 @@ class chartdnChart extends HTMLElement {
 	}
 	
 	googleEl = this.querySelector('#googleChart');
+	this.loc = 0;
   }
   
   static get observedAttributes() { return ["src"]; }
   attributeChangedCallback(name, oldValue, newValue) {
-	  console.log(name, newValue);
+	  if (name == 'src'){
+	  	var jsonmessage = {'operation':'view','id':newValue,'loc':this.loc,'style':this.getAttribute('data-style')}
+		ws.send(JSON.stringify(jsonmessage));
+	  }
   }
   
   makeChartjs(chartJSON) {
