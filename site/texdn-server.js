@@ -589,10 +589,10 @@ loginApp.get('/browse',
 				console.log('found them: ', performance.now());
 				var charlen = Math.min(result.length,25);
 				for (var i=0;i<charlen;i++){
-					var cols = 2; var rows = 2;
+					var cols = 3; var rows = 1;
 					var shape = result[i].options.shapeChart;
-					if (shape == 'wide'){
-						cols = 3; rows = 1;
+					if (shape == 'square'){
+						cols = 2; rows = 2;
 					}
 					else if (shape == 'tall'){
 						cols = 1; rows = 3;
@@ -613,10 +613,10 @@ loginApp.get('/browse',
 				console.log('found them: ', performance.now());
 				var charlen = Math.min(result.length,25);
 				for (var i=0;i<charlen;i++){
-					var cols = 2; var rows = 2;
+					var cols = 3; var rows = 1;
 					var shape = result[i].options.shapeChart;
 					if (shape == 'wide'){
-						cols = 3; rows = 1;
+						cols = 2; rows = 2;
 					}
 					else if (shape == 'tall'){
 						cols = 1; rows = 3;
@@ -652,7 +652,9 @@ loginApp.get('/charts/:chartid',
 		var username = '';
 		if (req.user) {
 			username = req.user.username;
+			User.updateOne({username: username, "charts.viewed": { "$ne": chartid}}, {"$push": {"charts.viewed": chartid}} }
 		}
+		
 		var start = process.hrtime();
 		var title = 'ChartDN Chart';
         res.write(nunjucks.render('onechart.html',{
