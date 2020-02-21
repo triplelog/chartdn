@@ -11,7 +11,6 @@ class chartdnChart extends HTMLElement {
 	}
 	
 	googleEl = this.querySelector('#googleChart');
-	this.addEventListener()
   }
   attributeChangedCallback(name, oldValue, newValue) {
 	  console.log(name, newValue);
