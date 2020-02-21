@@ -36,6 +36,7 @@ function isMonth(input_str){
 }
 function isDate(input_str){
 	var threeparts = input_str.split('/');
+	console.log(input_str,threeparts)
 	if (threeparts.length == 3) {
 		if (parseInt(threeparts[0]) > 0 && parseInt(threeparts[0]) < 13 && parseInt(threeparts[0]).toString() == threeparts[0]){
 			if (parseInt(threeparts[1]) > 0 && parseInt(threeparts[1]) < 32 && parseInt(threeparts[1]).toString() == threeparts[1]){
@@ -166,7 +167,7 @@ exports.makeTypes = function(data){
 		for (var ii=0;ii<data[i].length;ii++) {
 			var cell = data[i][ii];
 			var type = getDataType(cell,headers[ii]);
-			console.log(cell, type);
+			//console.log(cell, type);
 			if (datatypes[ii][type]){
 				datatypes[ii][type]+=1;
 			}
