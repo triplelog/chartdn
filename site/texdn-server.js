@@ -652,7 +652,11 @@ loginApp.get('/charts/:chartid',
 		var username = '';
 		if (req.user) {
 			username = req.user.username;
-			User.updateOne({username: username, "charts.viewed": { "$ne": chartid}}, {"$push": {"charts.viewed": chartid}} );
+			User.findOneAndUpdate({username: username, "charts.viewed": { "$ne": chartid}}, {"$push": {"charts.viewed": chartid}}, function (err, resultU) {
+				if (err) {console.log(err);}
+				else {console.log(resultU);}
+			} );
+
 		}
 		
 		var start = process.hrtime();
