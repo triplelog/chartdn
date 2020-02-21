@@ -84,9 +84,9 @@
 					<div class="pure-g">
 						{% if charts.created.length > 0 %}
 						<div class="pure-u-1-2">
-							<div class="box-header">Created</div>
+							<div class="box-header"><a onclick="chgChart('created',-1)"><i class="fas fa-carat-left"></i></a>Created<a onclick="chgChart('created',1)"><i class="fas fa-carat-right"></i></a></div>
 							<div class='box-form'>
-								<chartdn-chart src="{{ charts.created[charts.created.length - 1] }}" data-style="plotly"></chartdn-chart>
+								<chartdn-chart id="createdChart" src="{{ charts.created[charts.created.length - 1] }}" data-style="plotly"></chartdn-chart>
 							</div>
 						</div>
 						{% endif %}
@@ -127,6 +127,9 @@
     </div>
 
 </div>
+<script>
+	var charts = {{ charts | dump | safe if charts else '{}'  }};
+</script>
 <script src="../js/account.js"></script>
 <script src="../js/chartdnws.js"></script>
 <script src="../js/chartdnelements.js"></script>
