@@ -661,7 +661,7 @@ function clickTippy(evt) {
 
 function updateTable(data,sentHeaders) {
 	console.log(sentHeaders);
-	console.log(document.getElementById('yColsVal').value);
+	console.log(yColsVals);
 	var tableColumns = [];
 	
 	var rowColumn = {};
