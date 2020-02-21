@@ -23,4 +23,12 @@ function chgChart(type,chg){
 		var el = document.getElementById(type+'Chart');
 		el.setAttribute('src',charts[type][n[type]]);
 	}
+	else if (chg == -1){
+		n[type]++;
+		if (n[type]>charts[type].length-1){
+			n[type]=charts[type].length-1;
+		}
+		var el = document.getElementById(type+'Chart');
+		el.setAttribute('src',charts[type][n[type]]);
+	}
 }
