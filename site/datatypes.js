@@ -38,23 +38,23 @@ function isDate(input_str){
 	var threeparts = input_str.split('/');
 	console.log(input_str,threeparts)
 	if (threeparts.length == 3) {
-		if (parseInt(threeparts[0]) > 0 && parseInt(threeparts[0]) < 13 && parseInt(threeparts[0]).toString() == threeparts[0]){
-			if (parseInt(threeparts[1]) > 0 && parseInt(threeparts[1]) < 32 && parseInt(threeparts[1]).toString() == threeparts[1]){
-				if (parseInt(threeparts[2]).toString() == threeparts[2]){
-					return 'MM/DD/YYYY';
+		if (parseInt(threeparts[0]) > 0 && parseInt(threeparts[0]) < 13 && threeparts[0].length < 3 && threeparts[0].length > 0){
+			if (parseInt(threeparts[1]) > 0 && parseInt(threeparts[1]) < 32 && threeparts[1].length < 3 && threeparts[1].length > 0){
+				if (parseInt(threeparts[2]).toString() == threeparts[2] && threeparts[2].length == 4){
+					return 'DD/MM/YYYY';
 				}
 			}
 		}
-		if (parseInt(threeparts[0]) > 0 && parseInt(threeparts[0]) < 32 && parseInt(threeparts[0]).toString() == threeparts[0]){
-			if (parseInt(threeparts[1]) > 0 && parseInt(threeparts[1]) < 12 && parseInt(threeparts[1]).toString() == threeparts[1]){
-				if (parseInt(threeparts[2]).toString() == threeparts[2]){
+		if (parseInt(threeparts[0]) > 0 && parseInt(threeparts[0]) < 32 && threeparts[0].length < 3 && threeparts[0].length > 0){
+			if (parseInt(threeparts[1]) > 0 && parseInt(threeparts[1]) < 13 && threeparts[1].length < 3 && threeparts[1].length > 0){
+				if (parseInt(threeparts[2]).toString() == threeparts[2] && threeparts[2].length == 4){
 					return 'DD/MM/YYYY';
 				}
 			}
 		}
 	}
 	else if (threeparts.length == 2) {
-		if (parseInt(threeparts[0]) > 0 && parseInt(threeparts[0]) < 13 && parseInt(threeparts[0]).toString() == threeparts[0]){
+		if (parseInt(threeparts[0]) > 0 && parseInt(threeparts[0]) < 13 && threeparts[0].length < 3 && threeparts[0].length > 0){
 			if (parseInt(threeparts[1]) > 1500 && parseInt(threeparts[1]) < 2500 && parseInt(threeparts[1]).toString() == threeparts[1]){
 				return 'MM/YYYY';
 			}
