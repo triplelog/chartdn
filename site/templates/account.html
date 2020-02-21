@@ -80,8 +80,10 @@
 					<ul class="pure-menu-list tabbed-menu">
 						<li class="pure-menu-item" onclick="chgTab('charts')" id="tabcharts"><a href="#" class="pure-menu-link">Charts</a></li>
 						<li class="pure-menu-item" onclick="chgTab('favorites')" id="tabfavorites"><a href="#" class="pure-menu-link">Favorites</a></li>
+						{% if not privacy %}
 						<li class="pure-menu-item" onclick="chgTab('settings')" id="tabsettings"><a href="#" class="pure-menu-link">Settings</a></li>
 						<li class="pure-menu-item" onclick="chgTab('friends')" id="tabfriends"><a href="#" class="pure-menu-link">Friends</a></li>
+						{% endif %}
 					</ul>
 				</div>
 				<div id="charts" class="box-form">

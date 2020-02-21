@@ -34,8 +34,10 @@ ws.onmessage = function(evt){
 function hideAll() {
 	var tabids = ['charts','favorites','settings','friends'];
 	for (var i=0;i<tabids.length;i++){
-		document.getElementById(tabids[i]).style.display = 'none';
-		document.getElementById('tab'+tabids[i]).classList.remove('pure-menu-selected');
+		if (document.getElementById(tabids[i]) && document.getElementById('tab'+tabids[i])) {
+			document.getElementById(tabids[i]).style.display = 'none';
+			document.getElementById('tab'+tabids[i]).classList.remove('pure-menu-selected');
+		}
 	}
 }
 function chgTab(tabid){
