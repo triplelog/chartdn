@@ -593,7 +593,7 @@ loginApp.get('/browse',
 			}));
 			
 			res.end();
-		}).limit(25);
+		}).limit(5);
 		
 		
 		
