@@ -44,7 +44,7 @@ class chartdnChart extends HTMLElement {
   		if (!chartJSON.options['margin']){
   			chartJSON.options['margin'] = {};
   		}
-  		chartJSON.options['margin']['l']= '10px';
+  		chartJSON.options['margin']['l']= 10;
   		chartJSON.options['margin']['t']= '10px';
   		chartJSON.options['margin']['b']= '10px';
   	}
