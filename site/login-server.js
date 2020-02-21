@@ -51,7 +51,7 @@ app2.get('/account',
   	else {
   		var charts = {created:[],edited:[],forked:[],viewed:[]};
   		charts.created = req.user.charts || [];
-  		console.log(charts.created);
+  		
   		res.write(nunjucks.render('account.html',{
   			username: req.user.username,
   			name: req.user.name || '',
