@@ -83,18 +83,42 @@
 				<div id="charts" class="box-form">
 					<div class="pure-g">
 						{% if charts.created.length > 0 %}
-						<div class="pure-u-1-2">
-							<div class="box-header"><a onclick="chgChart('created',-1)" class="hoverClick"><i class="fas fa-caret-left"></i></a> Created <a onclick="chgChart('created',1)" class="hoverClick"><i class="fas fa-caret-right"></i></a></div>
+						<div class="l-box-half pure-u-1-2" id="createdBox">
+							<div class="box-header">
+								<span class="box-buttons-left">
+									<a onclick="chgChart('created',-2)" class="hoverClick"><i class="fas fa-step-backward"></i></a>
+									<a onclick="chgChart('created',-1)" class="hoverClick"><i class="fas fa-caret-left"></i></a>
+									<a onclick="chgChart('created',1)" class="hoverClick"><i class="fas fa-caret-right"></i></a>
+									<a onclick="chgChart('created',2)" class="hoverClick"><i class="fas fa-step-forward"></i></a>
+								</span>
+								Created
+								<span class="box-buttons">
+									<a onclick="minimizeBox('created')"><i class="fas fa-compress-alt"></i></a>
+									<a onclick="minimizeBox('created',true)"><i class="fas fa-expand"></i></a>
+								</span>
+							</div>
 							<div class='box-form'>
 								<chartdn-chart id="createdChart" src="{{ charts.created[charts.created.length - 1] }}" data-style="plotly"></chartdn-chart>
 							</div>
 						</div>
 						{% endif %}
 						{% if charts.forked.length > 0 %}
-						<div class="pure-u-1-2">
+						<div class="l-box-half pure-u-1-2">
 							<div class="box-header"><a onclick="chgChart('forked',-1)" class="hoverClick"><i class="fas fa-caret-left"></i></a> Forked <a onclick="chgChart('forked',1)" class="hoverClick"><i class="fas fa-caret-right"></i></a></div>
 							<div class='box-form'>
 								<chartdn-chart id="forkedChart" src="{{ charts.forked[charts.created.length - 1] }}" data-style="plotly"></chartdn-chart>
+							</div>
+						</div>
+						{% endif %}
+						
+						{% if charts.created.length > 0 %}
+						<div class="l-box-half pure-u-1-4" id="createdNone" style="display:none">
+							<div class="box-header">
+								Created
+								<span class="box-buttons">
+									<a onclick="minimizeBox('created')"><i class="fas fa-expand-alt"></i></a>
+									<a onclick="minimizeBox('created',true)"><i class="fas fa-expand"></i></a>
+								</span>
 							</div>
 						</div>
 						{% endif %}
