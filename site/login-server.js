@@ -71,8 +71,10 @@ app2.get('/account',
 app2.get('/user/:username',
   function(req, res){
   	if (!req.isAuthenticated() || req.user.username != req.params.username){
+  		console.log(req.params.username);
   		User.findOne({username: req.params.username}, function(err,result){
   			if (err){return;}
+  			console.log(result)
   			var charts = {created:[],edited:[],forked:[],viewed:[]};
 			charts.created = result.charts.created || [];
 			charts.forked = result.charts.forked || [];
