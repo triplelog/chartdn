@@ -583,6 +583,7 @@ loginApp.get('/browse',
 		console.log('start looking: ', performance.now());
 		if (req.query.tags) {
 			var tags = req.query.tags.split(',');
+			console.log(tags);
 			Chart.find({ tags: { $all: tags } }, function(err, result) {
 				if (err){console.log('errrrr');}
 				console.log('found them: ', performance.now());
