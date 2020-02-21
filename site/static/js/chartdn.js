@@ -357,8 +357,8 @@ function columnsChg() {
 	var xColStr = document.getElementById('xColVal').value;
 	
 	
-	var headerEl = document.querySelectorAll('div.tabulator-col');
-	console.log(headerEl.length);
+	var headerEls = document.querySelector('div.tabulator-headers');
+
 	
 	
 	
@@ -378,7 +378,9 @@ function columnsChg() {
 			else {
 				noNames = true;
 			}
-			
+			if (!nsteps && nsteps !=0) {
+				headerEls.querySelector('div[tabulator-field="col'+parseInt(yCols[i])+'"]').style.background = 'green';
+			}
 		}
 		
 	}
