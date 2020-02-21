@@ -170,7 +170,7 @@ wss.on('connection', function connection(ws) {
 				console.log('saved');
 			});
 			if (username != '') {
-				User.updateOne({username: username, "charts.created": { "$ne": chartid}}, {$push: {"charts.created": chartid}});
+				User.updateOne({username: username, "charts.created": { "$ne": chartid}}, {$push: {"charts.created": chartid}}, function (err, result) {});
 
 			}
   		}
@@ -286,7 +286,7 @@ wss.on('connection', function connection(ws) {
 				console.log('saved');
 			});
 			if (username != '') {
-				User.updateOne({username: username, "charts.created": { "$ne": chartid}}, {$push: {"charts.created": chartid}});
+				User.updateOne({username: username, "charts.created": { "$ne": chartid}}, {$push: {"charts.created": chartid}}, function (err, result) {});
 			}
   		}
   		//write data.csv
@@ -678,7 +678,7 @@ loginApp.get('/edit/:chartid',
 									console.log('saved');
 								});
 								if (username != '') {
-									User.updateOne({username: username, "charts.forked": { "$ne": chartid}}, {$push: {"charts.forked": chartid}});
+									User.updateOne({username: username, "charts.forked": { "$ne": chartid}}, {$push: {"charts.forked": chartid}}, function (err, result) {});
 								}
 								fs.readFile('saved/'+dataname, 'utf8', function(err, fileData) {
 									var defaultData = ''
@@ -741,7 +741,7 @@ loginApp.get('/edit/:chartid',
 					dataname = result.data;
 					myOptions = result.options;
 					if (username != '') {
-						User.updateOne({username: username, "charts.edited": { "$ne": chartid}, "charts.forked": { "$ne": chartid}, "charts.created": { "$ne": chartid}}, {$push: {"charts.edited": chartid}});
+						User.updateOne({username: username, "charts.edited": { "$ne": chartid}, "charts.forked": { "$ne": chartid}, "charts.created": { "$ne": chartid}}, {$push: {"charts.edited": chartid}}, function (err, result) {});
 
 					}
 					if (result.options.nsteps || result.options.nsteps === 0){
