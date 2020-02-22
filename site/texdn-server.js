@@ -106,7 +106,8 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 			results.data.splice(dm.message[i].newRow+nHeaders,0,originalRows[dm.message[i].originalRow].row);
 			originalRows[dm.message[i].originalRow].index = dm.message[i].newRow+nHeaders;
 			//update other originalRow index
-			var nomas = {dm.message[i].originalRow:true};
+			var nomas = {};
+			nomas[dm.message[i].originalRow]=true;
 			for (var ii=i+1;ii<dm.message.length;ii++){
 				if (!dm.message[ii].col && !nomas[dm.message[ii].originalRow]){
 					if (originalRows[dm.message[ii].originalRow].index > cIndex) {
