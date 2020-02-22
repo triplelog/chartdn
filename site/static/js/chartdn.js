@@ -69,7 +69,7 @@ var colid = -1;
 var minimizedBoxes = {};
 var table = false;
 var nsteps;
-var useDataChanges = [];
+var userDataChanges = [];
 minimizedBoxes.dataSource = 'large';
 minimizedBoxes.dataTable = 'large';
 minimizedBoxes.modifyData = 'large';
@@ -685,6 +685,13 @@ function clickTippy(evt) {
 	
 }
 
+function sendUserChanges() {
+	var jsonmessage = {'operation':'dataupdate','message':userDataChanges};
+	ws.send(JSON.stringify(jsonmessage));
+	console.log(userDataChanges);
+	userDataChanges = [];
+	document.getElementById('saveUserChanges').style.display = 'none';
+}
 function updateTable(data,sentHeaders) {
 	console.log(sentHeaders);
 	console.log(yColsVals);
@@ -786,6 +793,7 @@ function updateTable(data,sentHeaders) {
 			var col = cell['_cell'].column.field;
 			var value = cell['_cell'].value;
 			userDataChanges.push({'row':row,'col':col,'value':value});
+			document.getElementById('saveUserChanges').style.display = 'block';
 		},
 		renderComplete:function(){
 			if (this.tableWidth && this.options.layout == 'fitData'){

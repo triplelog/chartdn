@@ -344,6 +344,21 @@ wss.on('connection', function connection(ws) {
 		}
 		delete mongoChart[chartid];
   	}
+  	else if (dm.operation == 'dataupdate'){
+
+  		if (chartid != dataid){
+  			Chart.updateOne({ id: chartid }, {data: chartid+'.csv'}, function(err, result) {});
+  			dataid = chartid;
+		}
+		
+		fs.readFile('saved/'+chartid+'.csv', 'utf8', function(err, fileData) {
+			console.log(dm.message);
+			var jsonmessage = {'operation':'downloaded','message':fileData};
+			ws.send(JSON.stringify(jsonmessage));
+			loadChart(chartid,ws,dm,chartData,false,false);
+		});
+		delete mongoChart[chartid];
+  	}
   	else if (dm.operation == 'options'){
   		console.log('message rec',performance.now());
   		if (chartid == ''){
