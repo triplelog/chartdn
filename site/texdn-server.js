@@ -80,7 +80,22 @@ const WebSocket = require('ws');
 //const wss = new WebSocket.Server({ port: 8080 , origin: 'http://tabdn.com'});
 const wss = new WebSocket.Server({ server });
 
-
+function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData)){
+	var results = Papa.parse(oldDataStr, {
+		delimiter: delimiter,
+	});
+	var nHeaders = 1;
+	for (var i=0;i<dm.message.length;i++){
+		results[dm.message[i].row+nHeaders][parseInt(dm.message[i].col.substring(3))] = dm.message[i].value;
+	}
+	var file = fs.createWriteStream('saved/'+chartid+'.csv');
+	file.on('error', function(err) { /* error handling */ });
+	results.forEach(function(v) { file.write(v.join(', ') + '\n'); });
+	file.end();
+		//var jsonmessage = {'operation':'downloaded','message':fileData};
+		//ws.send(JSON.stringify(jsonmessage));
+		loadChart(chartid,ws,dm,chartData,false,false);
+}
 function updateOptions(oldOptions, newOptions) {
 	for(var k in newOptions){
 		var v = newOptions[k];
@@ -352,10 +367,8 @@ wss.on('connection', function connection(ws) {
 		}
 		
 		fs.readFile('saved/'+chartid+'.csv', 'utf8', function(err, fileData) {
-			console.log(dm.message);
-			var jsonmessage = {'operation':'downloaded','message':fileData};
-			ws.send(JSON.stringify(jsonmessage));
-			loadChart(chartid,ws,dm,chartData,false,false);
+			updateData(fileData,'',chartid,ws,dm,chartData);
+			
 		});
 		delete mongoChart[chartid];
   	}
