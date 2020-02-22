@@ -98,6 +98,7 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 			originalRows[dm.message.originalRow] = {'row':results.data[dm.message.originalRow].slice(),'index':dm.message.originalRow};
 		}
 	}
+	console.log(originalRows,dm.message);
 	for (var i=0;i<dm.message.length;i++){
 		if (dm.message.originalRow){
 			var cIndex = originalRows[dm.message.originalRow].index;
