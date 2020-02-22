@@ -471,6 +471,8 @@ wss.on('connection', function connection(ws) {
   		
   	}
   	else if (dm.operation == 'key'){
+  		  console.log(dm.message);
+  		  console.log(tempKeys[dm.message]);
 		  username = tempKeys[dm.message].username;
 		  console.log(username,tempKeys[dm.message]);
 		  dataid = tempKeys[dm.message].data;
