@@ -830,7 +830,7 @@ function updateTable(data,sentHeaders) {
 		rowMoved:function(row, b){
 			var originalRow = row['_row'].data.id;
 			var newRow = row.getPosition();
-			userDataChanges.push({'originalRow':originalrow,'newRow':newRow});
+			userDataChanges.push({'originalRow':originalRow,'newRow':newRow});
 			document.getElementById('saveUserChanges').style.display = 'block';
 		},
 		renderComplete:function(){
