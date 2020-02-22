@@ -828,10 +828,10 @@ function updateTable(data,sentHeaders) {
 			document.getElementById('saveUserChanges').style.display = 'block';
 		},
 		rowMoved:function(row, b){
-			//var originalRow = row['_row']
-			console.log(row['_row']);
-			//userDataChanges.push({'row':row,'col':col,'value':value});
-			console.log(row.getPosition());
+			var originalRow = row['_row'].data.id;
+			var newRow = row.getPosition();
+			userDataChanges.push({'originalRow':originalrow,'newRow':newRow});
+			document.getElementById('saveUserChanges').style.display = 'block';
 		},
 		renderComplete:function(){
 			if (this.tableWidth && this.options.layout == 'fitData'){

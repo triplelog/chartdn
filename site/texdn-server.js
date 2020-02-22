@@ -86,9 +86,25 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 	});
 	var nHeaders = 1;
 	for (var i=0;i<dm.message.length;i++){
-		var cellData = dm.message[i];
-		console.log(cellData);
-		results.data[cellData.row+nHeaders][parseInt(cellData.col.substring(3))] = cellData.value;
+		if (dm.message.col){
+			var cellData = dm.message[i];
+			console.log(cellData);
+			results.data[cellData.row+nHeaders][parseInt(cellData.col.substring(3))] = cellData.value;
+		}
+	}
+	var originalRows = {};
+	for (var i=0;i<dm.message.length;i++){
+		if (dm.message.originalRow){
+			originalRows[dm.message.originalRow] = {'row':results.data[dm.message.originalRow].slice(),'index':dm.message.originalRow};
+		}
+	}
+	for (var i=0;i<dm.message.length;i++){
+		if (dm.message.originalRow){
+			var cIndex = originalRows[dm.message.originalRow].index;
+			results.data.splice(cIndex,1);
+			results.data.splice(dm.message.newRow,0,originalRows[dm.message.originalRow].row);
+			originalRows[dm.message.originalRow].index = dm.message.newRow;
+		}
 	}
 	var file = fs.createWriteStream('saved/'+chartid+'.csv');
 	file.on('error', function(err) { /* error handling */ });
