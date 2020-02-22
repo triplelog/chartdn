@@ -94,9 +94,7 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 	file.on('error', function(err) { /* error handling */ });
 	results.data.forEach(function(v) { file.write(v.join(', ') + '\n'); });
 	file.end();
-		//var jsonmessage = {'operation':'downloaded','message':fileData};
-		//ws.send(JSON.stringify(jsonmessage));
-		loadChart(chartid,ws,dm,chartData,false,false);
+	loadChart(chartid,ws,dm,chartData,false,false);
 }
 function updateOptions(oldOptions, newOptions) {
 	for(var k in newOptions){
@@ -279,7 +277,7 @@ wss.on('connection', function connection(ws) {
 		}
 		delete mongoChart[chartid];
   	}
-  	else if (dm.operation == 'download'){
+  	else if (dm.operation == 'downloadd'){
   		  
   		  if (chartid == ''){
   			chartid = chartidtemp;
@@ -359,6 +357,59 @@ wss.on('connection', function connection(ws) {
 			});
 			
 		}
+		delete mongoChart[chartid];
+  	}
+  	else if (dm.operation == 'download'){
+		if (chartid == ''){
+  			chartid = chartidtemp;
+  			dataid = chartid;
+  			var defaultOptions = {};
+			defaultOptions['nHeaders'] = 1;
+			defaultOptions['type'] = '';
+			defaultOptions['yColumns'] = [];
+			defaultOptions['xColumn'] = '';
+			defaultOptions['stepSize'] = {};
+			defaultOptions['scale'] = {};
+			defaultOptions['labels'] = {};
+			defaultOptions['title'] = '';
+			defaultOptions['delimiter'] = dm.delimiter || '';
+			for(var k in myOptions){
+				defaultOptions[k] = myOptions[k];
+			}
+			var chart = new Chart({id:chartid,data:chartid+'.csv',options:defaultOptions,users:[username],modfiers:[],types:[]});
+			chart.save(function (err, chart) {
+				if (err) return console.error(err);
+				console.log('saved');
+			});
+			if (username != '') {
+				User.updateOne({username: username, "charts.created": { "$ne": chartid}}, {$push: {"charts.created": chartid}}, function (err, result) {});
+			}
+  		}
+  		
+  		if (chartid != dataid){
+  			Chart.updateOne({ id: chartid }, {data: chartid+'.csv'}, function(err, result) {});
+  			dataid = chartid;
+  		}
+  		
+		var wget = 'wget -O saved/'+chartid+'.csv "' + dm.message + '" && echo "done"';
+		if (!dm.type || dm.type == 'csv') {
+		
+		}
+		else {
+			wget = 'wget -O saved/'+chartid+'.'+dm.type+' "' + dm.message + '" && in2csv saved/'+chartid+'.'+dm.type+' > saved/'+chartid+'.csv && rm saved/'+chartid+'.'+dm.type;
+		}
+		var child = exec(wget, function(err, stdout, stderr) {
+			if (err) throw err;
+			else {
+				loadChart(chartid,ws,dm,chartData,false,false);
+				//fs.readFile('saved/'+chartid+'.csv', 'utf8', function(err, fileData) {
+					//var jsonmessage = {'operation':'downloaded','message':fileData};
+					//ws.send(JSON.stringify(jsonmessage));
+					//loadChart(chartid,ws,dm,chartData,false,false);
+				//});
+			}
+		});
+
 		delete mongoChart[chartid];
   	}
   	else if (dm.operation == 'dataupdate'){
