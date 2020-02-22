@@ -1,6 +1,11 @@
 hideAll();
 chgTab('charts');
-var n = {created:charts.created.length-1, forked:charts.forked.length-1, edited:charts.edited.length-1, viewed:charts.viewed.length-1};
+var n = {};
+var keys = ['created','forked','edited','viewed'];
+for (var i=0;i<keys.length;i++){
+	n[keys[i]]=charts[keys[i]].length-1;
+	updateButtons(keys[i]);
+}
 
 var ws = new WebSocket('wss://chartdn.com:8080');
 ws.onopen = function(evt) {
@@ -74,10 +79,20 @@ function chgChart(type,chg){
 }
 function updateButtons(type){
 	if (n[type]==0){
-		console.log(type);
-		var el = document.getElementById(type+'Box').querySelector('span.box-buttons-left');
-		console.log(el);
+		var el = document.getElementById(type+'Box').querySelector('div.box-header2').querySelector('span.box-buttons-left');
 		el.style.visibility = 'hidden';
+	}
+	else {
+		var el = document.getElementById(type+'Box').querySelector('div.box-header2').querySelector('span.box-buttons-left');
+		el.style.visibility = 'visible';
+	}
+	if (n[type]==charts[type].length-1) {
+		var el = document.getElementById(type+'Box').querySelector('div.box-header2').querySelector('span.box-buttons');
+		el.style.visibility = 'hidden';
+	}
+	else {
+		var el = document.getElementById(type+'Box').querySelector('div.box-header2').querySelector('span.box-buttons');
+		el.style.visibility = 'visible';
 	}
 }
 minimizedBoxes = {};
