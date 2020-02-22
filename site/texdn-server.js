@@ -101,12 +101,15 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 	console.log(originalRows);
 	for (var i=0;i<dm.message.length;i++){
 		if (!dm.message[i].col){
+			console.log(dm.message[i]);
 			var cIndex = originalRows[dm.message[i].originalRow].index;
+			console.log(cIndex);
 			results.data.splice(cIndex,1);
 			results.data.splice(dm.message[i].newRow+nHeaders,0,originalRows[dm.message[i].originalRow].row);
 			originalRows[dm.message[i].originalRow].index = dm.message[i].newRow+nHeaders;
+			console.log(originalRows[dm.message[i].originalRow].index);
 		}
-		console.log(originalRows);
+		
 	}
 	var file = fs.createWriteStream('saved/'+chartid+'.csv');
 	file.on('error', function(err) { /* error handling */ });
