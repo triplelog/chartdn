@@ -86,7 +86,10 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 	});
 	var nHeaders = 1;
 	for (var i=0;i<dm.message.length;i++){
-		results[dm.message[i].row+nHeaders][parseInt(dm.message[i].col.substring(3))] = dm.message[i].value;
+		var cellData = dm.message[i];
+		console.log(cellData);
+		console.log(results);
+		results[cellData.row+nHeaders][parseInt(cellData.col.substring(3))] = cellData.value;
 	}
 	var file = fs.createWriteStream('saved/'+chartid+'.csv');
 	file.on('error', function(err) { /* error handling */ });
