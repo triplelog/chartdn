@@ -678,11 +678,11 @@ function clickTippy(evt) {
 	else {
 		var row = evt.target.parentElement.parentElement.getAttribute('data-row');
 		if(tippysR[row]){
-			table.options.movableRows = true;
+			//table.options.movableRows = true;
 			
-			table.updateColumnDefinition("colRow",{'rowHandle':true});
+			//table.updateColumnDefinition("colRow",{'rowHandle':true});
 			//redrawTable();
-			console.log(table.options.columns);
+			//console.log(table.options.columns);
 
 			
 			
@@ -708,6 +708,7 @@ function updateTable(data,sentHeaders) {
 	rowColumn.title = 'Row';
 	rowColumn.field = 'colRow';
 	rowColumn.align = 'right';
+	rowColumn.rowHandle = true;
 	rowColumn.cellClick = function(e, cell){
 		var row = cell.getRow()['_row'].data.colRow;
 		if (!tippysR[row]){
