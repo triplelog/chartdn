@@ -679,10 +679,9 @@ function clickTippy(evt) {
 		var row = evt.target.parentElement.parentElement.getAttribute('data-row');
 		if(tippysR[row]){
 			table.options.movableRows = true;
-			console.log(table.options.columns);
 			
 			var newColumn = {rowHandle:true, formatter:"handle", headerSort:false, frozen:true, width:30, minWidth:30};
-			table.addColumn(newColumn,true, "colRow");
+			table.addColumn(newColumn,true);
 			redrawTable();
 			console.log(table.options.columns);
 
@@ -823,6 +822,7 @@ function updateTable(data,sentHeaders) {
 	table = new Tabulator("#dataTableModified", {
 		columns: tableColumns,
 		autoResize:true,
+		movableRows:true,
 		height:"100%",
 		headerSort: false,
 		layout:"fitData",
