@@ -98,6 +98,7 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 			originalRows[dm.message[i].originalRow] = {'row':results.data[dm.message[i].originalRow+nHeaders].slice(),'index':dm.message[i].originalRow+nHeaders};
 		}
 	}
+	console.log(originalRows);
 	for (var i=0;i<dm.message.length;i++){
 		if (!dm.message[i].col){
 			var cIndex = originalRows[dm.message[i].originalRow].index;
@@ -105,6 +106,7 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 			results.data.splice(dm.message[i].newRow+nHeaders,0,originalRows[dm.message[i].originalRow].row);
 			originalRows[dm.message[i].originalRow].index = dm.message[i].newRow+nHeaders;
 		}
+		console.log(originalRows);
 	}
 	var file = fs.createWriteStream('saved/'+chartid+'.csv');
 	file.on('error', function(err) { /* error handling */ });
