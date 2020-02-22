@@ -827,8 +827,9 @@ function updateTable(data,sentHeaders) {
 			userDataChanges.push({'row':row,'col':col,'value':value});
 			document.getElementById('saveUserChanges').style.display = 'block';
 		},
-		rowMoved:function(row){
+		rowMoved:function(row, b){
 			console.log(row);
+			console.log(b);
 		},
 		renderComplete:function(){
 			if (this.tableWidth && this.options.layout == 'fitData'){
