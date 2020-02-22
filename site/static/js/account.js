@@ -3,8 +3,10 @@ chgTab('charts');
 var n = {};
 var keys = ['created','forked','edited','viewed'];
 for (var i=0;i<keys.length;i++){
-	n[keys[i]]=charts[keys[i]].length-1;
-	updateButtons(keys[i]);
+	if (document.getElementById(keys[i]+'Box')){
+		n[keys[i]]=charts[keys[i]].length-1;
+		updateButtons(keys[i]);
+	}
 }
 
 var ws = new WebSocket('wss://chartdn.com:8080');
