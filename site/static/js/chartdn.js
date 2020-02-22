@@ -682,9 +682,12 @@ function clickTippy(evt) {
 			console.log(table.options.columns);
 			
 			var newColumn = {rowHandle:true, formatter:"handle", headerSort:false, frozen:true, width:30, minWidth:30};
-			table.updateColumnDefinition("colRow", newColumn);
-			redrawTable();
-			console.log(table.options.columns);
+			table.addColumn([newColumn]).then(function(){
+				redrawTable();
+				console.log(table.options.columns);
+			});
+			
+			
 			tippysR[row].destroy();
 			delete tippysR[row];
 		}
