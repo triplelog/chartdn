@@ -680,8 +680,7 @@ function clickTippy(evt) {
 		if(tippysR[row]){
 			table.options.movableRows = true;
 			
-			var newColumn = {title:'M',field:'',rowHandle:true, formatter:"handle", headerSort:false, frozen:true, width:30, minWidth:30};
-			table.addColumn(newColumn,true,'colRow');
+			table.updateColumnDefinition("colRow",{'rowHandle':true});
 			//redrawTable();
 			console.log(table.options.columns);
 
