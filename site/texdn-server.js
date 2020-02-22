@@ -94,17 +94,16 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 	}
 	var originalRows = {};
 	for (var i=0;i<dm.message.length;i++){
-		if (dm.message.originalRow){
-			originalRows[dm.message.originalRow] = {'row':results.data[dm.message.originalRow].slice(),'index':dm.message.originalRow};
+		if (dm.message[i].originalRow){
+			originalRows[dm.message[i].originalRow] = {'row':results.data[dm.message[i].originalRow].slice(),'index':dm.message[i].originalRow};
 		}
 	}
-	console.log(originalRows,dm.message);
 	for (var i=0;i<dm.message.length;i++){
-		if (dm.message.originalRow){
-			var cIndex = originalRows[dm.message.originalRow].index;
+		if (dm.message[i].originalRow){
+			var cIndex = originalRows[dm.message[i].originalRow].index;
 			results.data.splice(cIndex,1);
-			results.data.splice(dm.message.newRow,0,originalRows[dm.message.originalRow].row);
-			originalRows[dm.message.originalRow].index = dm.message.newRow;
+			results.data.splice(dm.message[i].newRow,0,originalRows[dm.message[i].originalRow].row);
+			originalRows[dm.message[i].originalRow].index = dm.message[i].newRow;
 		}
 	}
 	var file = fs.createWriteStream('saved/'+chartid+'.csv');
