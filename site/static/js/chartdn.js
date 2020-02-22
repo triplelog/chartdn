@@ -683,8 +683,7 @@ function clickTippy(evt) {
 			var newColumn = {rowHandle:true, formatter:"handle", headerSort:false, frozen:true, width:30, minWidth:30};
 			table.options.columns[0] = newColumn;
 			redrawTable();
-			console.log(table.options.columns);
-			redrawTable();
+			console.log(table);
 			tippysR[row].destroy();
 			delete tippysR[row];
 		}
