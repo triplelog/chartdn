@@ -94,12 +94,12 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 	}
 	var originalRows = {};
 	for (var i=0;i<dm.message.length;i++){
-		if (dm.message[i].originalRow){
+		if (!dm.message.col){
 			originalRows[dm.message[i].originalRow] = {'row':results.data[dm.message[i].originalRow+nHeaders].slice(),'index':dm.message[i].originalRow+nHeaders};
 		}
 	}
 	for (var i=0;i<dm.message.length;i++){
-		if (dm.message[i].originalRow){
+		if (!dm.message.col){
 			var cIndex = originalRows[dm.message[i].originalRow].index;
 			results.data.splice(cIndex,1);
 			results.data.splice(dm.message[i].newRow+nHeaders,0,originalRows[dm.message[i].originalRow].row);
