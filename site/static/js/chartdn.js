@@ -694,7 +694,6 @@ function sendUserChanges() {
 }
 function updateTable(data,sentHeaders) {
 	console.log(sentHeaders);
-	console.log(yColsVals);
 	var tableColumns = [];
 	
 	var rowColumn = {};
@@ -722,6 +721,36 @@ function updateTable(data,sentHeaders) {
 		}
 		else {
 			tippysR[row].show();
+		}
+	}
+	rowColumn.headerClick = function(e, column){
+		if (!tippysR[-1]){
+			let templateR = document.getElementById('clickRow-template');
+			var tcr = document.createElement('div');
+			tcr.setAttribute('data-row',-1);
+			var newDiv = document.createElement('div');
+			var newA = document.createElement('a');
+			newA.textContent = 'Rearrange Rows';
+			newA.addEventListener('click',clickTippy);
+			newDiv.appendChild(newA);
+			newA = document.createElement('a');
+			newA.textContent = 'Add Row';
+			newA.addEventListener('click',clickTippy);
+			newDiv.appendChild(newA);
+			tcr.appendChild(newDiv);
+				
+			let mytippy = tippy(e.target, {
+			  content: tcr,
+			  appendTo: document.querySelector('.header'),
+			  trigger: 'manual',
+			  interactive: true,
+			  placement: 'left',
+			});
+			tippysR[-1] = mytippy;
+			mytippy.show();
+		}
+		else {
+			tippysR[-1].show();
 		}
 	}
 	tableColumns[0] = rowColumn;
