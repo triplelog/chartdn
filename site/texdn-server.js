@@ -797,6 +797,7 @@ loginApp.get('/edit/:chartid',
 								xColumn: savedData.xColumn || '',
 								yColumns: savedData.yColumns || '',
 								chartid: chartid || '',
+								key: tkey,
 							}));
 							res.end();
 						  });
