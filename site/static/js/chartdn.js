@@ -678,13 +678,6 @@ function clickTippy(evt) {
 	else {
 		var row = evt.target.parentElement.parentElement.getAttribute('data-row');
 		if(tippysR[row]){
-			//table.options.movableRows = true;
-			
-			//table.updateColumnDefinition("colRow",{'rowHandle':true});
-			//redrawTable();
-			//console.log(table.options.columns);
-
-			
 			
 			tippysR[row].destroy();
 			delete tippysR[row];
@@ -732,7 +725,7 @@ function updateTable(data,sentHeaders) {
 			tippysR[row].show();
 		}
 	}
-	rowColumn.headerClick = function(e, column){
+	/*rowColumn.headerClick = function(e, column){
 		if (!tippysR[-1]){
 			let templateR = document.getElementById('clickRow-template');
 			var tcr = document.createElement('div');
@@ -761,7 +754,7 @@ function updateTable(data,sentHeaders) {
 		else {
 			tippysR[-1].show();
 		}
-	}
+	}*/
 	tableColumns[0] = rowColumn;
 	
 	for (var i=0;i<sentHeaders.headers.length;i++){
@@ -833,6 +826,9 @@ function updateTable(data,sentHeaders) {
 			var value = cell['_cell'].value;
 			userDataChanges.push({'row':row,'col':col,'value':value});
 			document.getElementById('saveUserChanges').style.display = 'block';
+		},
+		rowMoved:function(row){
+			console.log(row);
 		},
 		renderComplete:function(){
 			if (this.tableWidth && this.options.layout == 'fitData'){
