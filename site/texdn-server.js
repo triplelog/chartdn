@@ -102,6 +102,7 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 	for (var i=0;i<dm.message.length;i++){
 		if (!dm.message[i].col){
 			console.log(dm.message[i]);
+			console.log(originalRows[dm.message[i].originalRow]);
 			var cIndex = originalRows[dm.message[i].originalRow].index;
 			console.log(cIndex);
 			results.data.splice(cIndex,1);
