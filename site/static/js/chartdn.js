@@ -756,7 +756,7 @@ function updateTable(data,sentHeaders) {
 		}
 	}*/
 	tableColumns[0] = rowColumn;
-	
+	var movableRows = false;
 	for (var i=0;i<sentHeaders.headers.length;i++){
 
 		var thisColumn = {};
@@ -792,6 +792,7 @@ function updateTable(data,sentHeaders) {
 		}
 		if (!modifiers || modifiers.length == 0 || nsteps == 0){
 			thisColumn.editor = 'input';
+			movableRows = true;
 		}
 		tableColumns.push(thisColumn);
 	
@@ -815,7 +816,7 @@ function updateTable(data,sentHeaders) {
 	table = new Tabulator("#dataTableModified", {
 		columns: tableColumns,
 		autoResize:true,
-		movableRows:true,
+		movableRows:movableRows,
 		height:"100%",
 		headerSort: false,
 		layout:"fitData",

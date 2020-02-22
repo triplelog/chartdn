@@ -88,7 +88,6 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 	for (var i=0;i<dm.message.length;i++){
 		if (dm.message[i].col){
 			var cellData = dm.message[i];
-			console.log(cellData);
 			results.data[cellData.row+nHeaders][parseInt(cellData.col.substring(3))] = cellData.value;
 		}
 	}
@@ -98,7 +97,6 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 			originalRows[dm.message[i].originalRow] = {'row':results.data[dm.message[i].originalRow+nHeaders].slice(),'index':dm.message[i].originalRow+nHeaders};
 		}
 	}
-	console.log(originalRows);
 	for (var i=0;i<dm.message.length;i++){
 		if (!dm.message[i].col){
 			var cIndex = originalRows[dm.message[i].originalRow].index;
