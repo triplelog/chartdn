@@ -74,8 +74,10 @@ function chgChart(type,chg){
 }
 function updateButtons(type){
 	if (n[type]==0){
+		console.log(type);
 		var el = document.getElementById(type+'Box').querySelector('span.box-buttons-left');
-		el.style.visisbility = 'hidden';
+		console.log(el);
+		el.style.visibility = 'hidden';
 	}
 }
 minimizedBoxes = {};
