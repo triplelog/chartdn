@@ -1,11 +1,8 @@
 
 var ws = new WebSocket('wss://chartdn.com:8080');
 ws.onopen = function(evt) {
-	console.log(username);
-	var jsonmessage = {'operation':'username','message':username};
-	if (chartid != ""){jsonmessage['chartid']=chartid;}
-	if (dataid != ""){jsonmessage['dataid']=dataid;}
-	if (chartidtemp != ""){jsonmessage['chartidtemp']=chartidtemp;}
+	var jsonmessage = {'operation':'key','message':key};
+	jsonmessage['chartid']=chartid;
 	ws.send(JSON.stringify(jsonmessage));
 	
 	var jsonmessage = {'operation':'view','id':chartid,'loc':0}
@@ -17,9 +14,6 @@ ws.onmessage = function(evt){
 	if (dm.operation == 'downloaded'){
 		document.getElementById('dataCopy').value = dm.message;
 		dataChanged(true);
-	}
-	else if (dm.operation == 'id'){
-		chartid = dm.message;
 	}
 	else if (dm.operation == 'chart'){
 		//var d = new Date(); var n = d.getTime(); console.log('time7: ', n);

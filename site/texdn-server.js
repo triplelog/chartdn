@@ -80,6 +80,7 @@ const WebSocket = require('ws');
 //const wss = new WebSocket.Server({ port: 8080 , origin: 'http://tabdn.com'});
 const wss = new WebSocket.Server({ server });
 
+var tempKeys = {};
 function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 	var results = Papa.parse(oldDataStr, {
 		delimiter: delimiter,
@@ -469,15 +470,17 @@ wss.on('connection', function connection(ws) {
   		
   		
   	}
-  	else if (dm.operation == 'username'){
-		  username = dm.message;
-		  if (dm.chartid && dm.chartid != ""){
+  	else if (dm.operation == 'key'){
+		  username = tempKeys[dm.message].username;
+		  console.log(username,tempKeys[dm.message]);
+		  dataid = tempKeys[dm.message].data;
+		  if (dm.chartid != ""){
 		  	chartid = dm.chartid;
-		  	dataid = dm.dataid;
 		  }
 		  else {
-		  	chartidtemp = dm.chartidtemp;
+		  	chartidtemp = tempKeys[dm.message].chartidtemp;
 		  }
+		  
   	}
   	else if (dm.operation == 'friend'){
 		  var friend = dm.message;
@@ -696,6 +699,10 @@ loginApp.get('/edit/:chartid',
 									if (savedData.dots){yaxis.dots[savedData.dots] = 'checked="checked"';}
 									if (savedData.shape){yaxis.shape[savedData.shape] = 'checked="checked"';}
 									if (savedData.dash){yaxis.dash[savedData.dash] = 'selected="selected"';}
+									var tkey = crypto.randomBytes(100).toString('hex').substr(2, 18);
+									tempKeys[tkey] = {username:username};
+									tempKeys[tkey].dataid = dataname.split('.')[0];
+									tempKeys[tkey].chartid = chartid;
 									res.write(nunjucks.render('chartdn.html',{
 										chartScript: '',
 										dataAreaText: defaultData,
@@ -708,9 +715,8 @@ loginApp.get('/edit/:chartid',
 										yaxis: yaxis,
 										xColumn: savedData.xColumn || '',
 										yColumns: savedData.yColumns || '',
-										username: username || '',
 										chartid: chartid || '',
-										dataid: dataname.split('.')[0] || '',
+										key: tkey,
 									}));
 									res.end();
 								});
@@ -718,11 +724,14 @@ loginApp.get('/edit/:chartid',
 						});
 					}
 					else if (chartid.length == 8) {
+						var tkey = crypto.randomBytes(100).toString('hex').substr(2, 18);
+						tempKeys[tkey] = {username:username};
+						tempKeys[tkey].dataid = chartid;
+						tempKeys[tkey].chartidtemp = chartid;
 						res.write(nunjucks.render('chartdn.html',{
 							chartScript: '', 
 							dataAreaText: '',
-							username: username || '',
-							chartidtemp: chartid || '',
+							key: tkey,
 						}));
 						res.end();
 					}
@@ -769,6 +778,10 @@ loginApp.get('/edit/:chartid',
 							if (savedData.dots){yaxis.dots[savedData.dots] = 'checked="checked"';}
 							if (savedData.shape){yaxis.shape[savedData.shape] = 'checked="checked"';}
 							if (savedData.dash){yaxis.dash[savedData.dash] = 'selected="selected"';}
+							var tkey = crypto.randomBytes(100).toString('hex').substr(2, 18);
+							tempKeys[tkey] = {username:username};
+							tempKeys[tkey].dataid = dataname.split('.')[0];
+							tempKeys[tkey].chartid = chartid;
 							res.write(nunjucks.render('chartdn.html',{
 								chartScript: '',
 								dataAreaText: defaultData,
@@ -781,9 +794,7 @@ loginApp.get('/edit/:chartid',
 								yaxis: yaxis,
 								xColumn: savedData.xColumn || '',
 								yColumns: savedData.yColumns || '',
-								username: username || '',
 								chartid: chartid || '',
-								dataid: dataname.split('.')[0] || '',
 							}));
 							res.end();
 						  });
