@@ -1297,13 +1297,11 @@ function updateModifier(evt){
 					modifiers[i].options.push(newObj);
 					
 					var newMM = pel.parentElement.querySelector('div[name=allReplacements]');
-					var newDiv = document.createElement('div');
-					newDiv.textContent = toReplaceElement(newObj);
-					newMM.appendChild(newDiv);
+					newMM.appendChild(toReplaceElement(newObj));
 				}
 			}
 			else if (mType == 'new' || mType == 'filter'){
-				saveModifier = false;
+				saveModifier = true; //Why not auto update?
 				if (el.getAttribute('name')=='save'){
 					saveModifier = true;
 				}
@@ -1391,7 +1389,7 @@ function updateModifier(evt){
 							break;
 						}
 					}
-				}
+				} //This doesnt change modifiers
 				else if (el.getAttribute('name')=='type'){
 					console.log('world');
 					if (el.value != 'value') {
@@ -1404,7 +1402,7 @@ function updateModifier(evt){
 					}
 					return;
 					
-				}
+				} //This doesnt change modifiers
 				else if (el.getAttribute('name')=='name'){
 					modifiers[i].name = el.value;
 					el.parentElement.parentElement.parentElement.parentElement.querySelector('span[name=title]').textContent = el.value;

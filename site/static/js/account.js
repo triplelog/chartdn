@@ -70,6 +70,13 @@ function chgChart(type,chg){
 	var ell = document.getElementById(type+'Link');
 	ell.setAttribute('href','../charts/'+charts[type][n[type]]);
 	ell.textContent = charts[type][n[type]];
+	updateButtons(type);
+}
+function updateButtons(type){
+	if (n[type]==0){
+		var el = document.getElementById(type+'Box').querySelector('span.box-buttons-left');
+		el.style.visisbility = 'hidden';
+	}
 }
 minimizedBoxes = {};
 minimizedBoxes.created = 'half';
@@ -117,6 +124,7 @@ function minimizeBox(type,full=false){
 	}
 	
 }
+
 
 function addFriend() {
 	var friendEl = document.getElementById('newFriend');
