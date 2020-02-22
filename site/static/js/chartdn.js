@@ -1606,10 +1606,6 @@ function createPivot(obj) {
 	  }
 	});
 	drakeP.on('drop', function (el, target, source, sibling) { 
-		var type = el.getAttribute('data-type');
-		var col = el.getAttribute('data-col');
-		
-		console.log(target);
 		var modid = target.parentElement.parentElement.id.substring(4);
 		var mymod = false;
 		for (var ii in modifiers){
@@ -1632,8 +1628,26 @@ function createPivot(obj) {
 		}
 	});
 	drakeP.on('remove', function (el, target, source, sibling) { 
-		var type = el.getAttribute('data-type');
-		var col = el.getAttribute('data-col');
+		var modid = target.parentElement.parentElement.id.substring(4);
+		var mymod = false;
+		for (var ii in modifiers){
+			if (modifiers[ii].id == modid){
+				mymod = modifiers[ii];
+				break;
+			}
+		}
+		if (mymod){
+			var els = target.querySelectorAll('div[data-col]');
+			mymod.options.columns = [];
+			for (var i=0;i<els.length;i++){
+				var modcol = {'type':els[i].getAttribute('data-type'),'column':els[i].getAttribute('data-col')};
+				mymod.options.columns.push(modcol);
+			}
+			modifierChanged(true);
+		}
+		else {
+			console.log('should have found modifier');
+		}
 	});
 	
 }
