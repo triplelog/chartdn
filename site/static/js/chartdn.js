@@ -678,6 +678,7 @@ function clickTippy(evt) {
 	else {
 		var row = evt.target.parentElement.parentElement.getAttribute('data-row');
 		if(tippysR[row]){
+			console.log(table);
 			tippysR[row].destroy();
 			delete tippysR[row];
 		}
