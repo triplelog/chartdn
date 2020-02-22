@@ -88,12 +88,11 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 	for (var i=0;i<dm.message.length;i++){
 		var cellData = dm.message[i];
 		console.log(cellData);
-		console.log(results);
-		results[cellData.row+nHeaders][parseInt(cellData.col.substring(3))] = cellData.value;
+		results.data[cellData.row+nHeaders][parseInt(cellData.col.substring(3))] = cellData.value;
 	}
 	var file = fs.createWriteStream('saved/'+chartid+'.csv');
 	file.on('error', function(err) { /* error handling */ });
-	results.forEach(function(v) { file.write(v.join(', ') + '\n'); });
+	results.data.forEach(function(v) { file.write(v.join(', ') + '\n'); });
 	file.end();
 		//var jsonmessage = {'operation':'downloaded','message':fileData};
 		//ws.send(JSON.stringify(jsonmessage));
