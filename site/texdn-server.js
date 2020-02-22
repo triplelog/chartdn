@@ -101,14 +101,27 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 	console.log(originalRows);
 	for (var i=0;i<dm.message.length;i++){
 		if (!dm.message[i].col){
-			console.log(dm.message[i]);
-			console.log(originalRows[dm.message[i].originalRow]);
 			var cIndex = originalRows[dm.message[i].originalRow].index;
-			console.log(cIndex);
 			results.data.splice(cIndex,1);
 			results.data.splice(dm.message[i].newRow+nHeaders,0,originalRows[dm.message[i].originalRow].row);
 			originalRows[dm.message[i].originalRow].index = dm.message[i].newRow+nHeaders;
-			console.log(originalRows[dm.message[i].originalRow].index);
+			//update other originalRow index
+			var nomas = {};
+			for (var ii=i+1;ii<dm.message.length;ii++){
+				if (!dm.message[ii].col && !nomas[dm.message[ii].originalRow]){
+					if (originalRows[dm.message[ii].originalRow].index > cIndex) {
+						if (originalRows[dm.message[ii].originalRow].index <= dm.message[i].newRow+nHeaders) {
+							originalRows[dm.message[ii].originalRow].index--;
+						}
+					}
+					else if (originalRows[dm.message[ii].originalRow].index < cIndex) {
+						if (originalRows[dm.message[ii].originalRow].index >= dm.message[i].newRow+nHeaders) {
+							originalRows[dm.message[ii].originalRow].index++;
+						}
+					}
+					nomas[dm.message[ii].originalRow]= true;
+				}
+			}
 		}
 		
 	}
