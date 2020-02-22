@@ -828,6 +828,9 @@ function updateTable(data,sentHeaders) {
 			document.getElementById('saveUserChanges').style.display = 'block';
 		},
 		rowMoved:function(row, b){
+			//var originalRow = row['_row']
+			console.log(row['_row']);
+			//userDataChanges.push({'row':row,'col':col,'value':value});
 			console.log(row.getPosition());
 		},
 		renderComplete:function(){
