@@ -680,10 +680,11 @@ function clickTippy(evt) {
 		if(tippysR[row]){
 			table.options.movableRows = true;
 			console.log(table.options.columns);
+			
 			var newColumn = {rowHandle:true, formatter:"handle", headerSort:false, frozen:true, width:30, minWidth:30};
-			table.options.columns[0] = newColumn;
+			table.updateColumnDefinition("colRow", newColumn);
 			redrawTable();
-			console.log(table);
+			console.log(table.options.columns);
 			tippysR[row].destroy();
 			delete tippysR[row];
 		}
