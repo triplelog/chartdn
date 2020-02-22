@@ -682,7 +682,7 @@ function clickTippy(evt) {
 			
 			var newColumn = {rowHandle:true, formatter:"handle", headerSort:false, frozen:true, width:30, minWidth:30};
 			table.addColumn(newColumn,true);
-			redrawTable();
+			//redrawTable();
 			console.log(table.options.columns);
 
 			
