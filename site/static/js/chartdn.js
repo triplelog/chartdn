@@ -678,10 +678,10 @@ function clickTippy(evt) {
 	else {
 		var row = evt.target.parentElement.parentElement.getAttribute('data-row');
 		if(tippysR[row]){
-			console.log(table.options);
-			console.log(table.options.movableRows);
 			table.options.movableRows = true;
-			console.log(table.options.movableRows);
+			console.log(table.options.columns);
+			var newColumn = {rowHandle:true, formatter:"handle", headerSort:false, frozen:true, width:30, minWidth:30};
+			table.options.columns[0] = newColumn;
 			redrawTable();
 			tippysR[row].destroy();
 			delete tippysR[row];
