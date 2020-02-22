@@ -86,7 +86,7 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 	});
 	var nHeaders = 1;
 	for (var i=0;i<dm.message.length;i++){
-		if (dm.message.col){
+		if (dm.message[i].col){
 			var cellData = dm.message[i];
 			console.log(cellData);
 			results.data[cellData.row+nHeaders][parseInt(cellData.col.substring(3))] = cellData.value;
@@ -94,12 +94,12 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 	}
 	var originalRows = {};
 	for (var i=0;i<dm.message.length;i++){
-		if (!dm.message.col){
+		if (!dm.message[i].col){
 			originalRows[dm.message[i].originalRow] = {'row':results.data[dm.message[i].originalRow+nHeaders].slice(),'index':dm.message[i].originalRow+nHeaders};
 		}
 	}
 	for (var i=0;i<dm.message.length;i++){
-		if (!dm.message.col){
+		if (!dm.message[i].col){
 			var cIndex = originalRows[dm.message[i].originalRow].index;
 			results.data.splice(cIndex,1);
 			results.data.splice(dm.message[i].newRow+nHeaders,0,originalRows[dm.message[i].originalRow].row);
