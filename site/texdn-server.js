@@ -191,6 +191,81 @@ wss.on('connection', function connection(ws) {
   		}
   		//write data.csv
   		var d = new Date(); var n = d.getTime(); console.log('time3: ', n);
+  		if (chartid != dataid){
+  			Chart.updateOne({ id: chartid }, {data: chartid+'.csv'}, function(err, result) {});
+  			dataid = chartid;
+  		}
+  		
+		var t0 = performance.now();
+		var fstr = '';
+		if (!dm.type || dm.type == 'csv'){
+			var strData = atob(dm.message);
+			var charData = strData.split('').map(function(x){return x.charCodeAt(0);});
+			var binData = new Uint8Array(charData);
+			var pakores = pako.inflate(binData,{to:'string'});
+			fstr = atob(pakores);
+		}
+		else if (dm.type == 'xls' || dm.type == 'xlsx'){
+			fstr = dm.message;
+		}
+		
+		var d = new Date(); var n = d.getTime(); console.log('time4: ', n);
+		
+		if (dm.type == 'xls' || dm.type == 'xlsx'){
+			fs.writeFile("saved/"+chartid+"."+dm.type, fstr, {encoding: 'base64'}, function(err) {
+				var wget = 'in2csv saved/'+chartid+"."+dm.type+" > saved/"+chartid+".csv";
+				var child = exec(wget, function(err, stdout, stderr) {
+					if (err) throw err;
+					else {
+						loadChart(chartid,ws,dm,chartData,true,false);
+						
+					}
+					
+				});
+			});
+		}
+		else {
+			fs.writeFile("saved/"+chartid+".csv", fstr, function (err) {
+				loadChart(chartid,ws,dm,chartData,false,false);
+
+			});
+		}
+		
+		delete mongoChart[chartid];
+		chartData = false;
+  	}
+  	else if (dm.operation == 'uploadd'){
+  		var d = new Date(); var n = d.getTime(); console.log('time2: ', n);
+  		if (chartid == ''){
+  			chartid = chartidtemp;
+  			dataid = chartid;
+  			var defaultOptions = {};
+			defaultOptions['nHeaders'] = 1;
+			defaultOptions['type'] = '';
+			defaultOptions['yColumns'] = [];
+			defaultOptions['xColumn'] = '';
+			defaultOptions['stepSize'] = {};
+			defaultOptions['scale'] = {};
+			defaultOptions['labels'] = {};
+			defaultOptions['title'] = '';
+			defaultOptions['delimiter'] = dm.delimiter || '';
+			for(var k in myOptions){
+				defaultOptions[k] = myOptions[k];
+			}
+			var chart = new Chart({id:chartid,data:dataid+'.csv',options:defaultOptions,users:[username],modfiers:[],types:[]});
+
+			chart.save(function (err, chart) {
+				if (err) return console.error(err);
+				
+				console.log('saved');
+			});
+			if (username != '') {
+				User.updateOne({username: username, "charts.created": { "$ne": chartid}}, {$push: {"charts.created": chartid}}, function (err, result) {});
+
+			}
+  		}
+  		//write data.csv
+  		var d = new Date(); var n = d.getTime(); console.log('time3: ', n);
   		if (chartid == dataid){
   			var t0 = performance.now();
   			var fstr = '';
@@ -276,88 +351,7 @@ wss.on('connection', function connection(ws) {
 			
 		}
 		delete mongoChart[chartid];
-  	}
-  	else if (dm.operation == 'downloadd'){
-  		  
-  		  if (chartid == ''){
-  			chartid = chartidtemp;
-  			dataid = chartid;
-  			var defaultOptions = {};
-			defaultOptions['nHeaders'] = 1;
-			defaultOptions['type'] = '';
-			defaultOptions['yColumns'] = [];
-			defaultOptions['xColumn'] = '';
-			defaultOptions['stepSize'] = {};
-			defaultOptions['scale'] = {};
-			defaultOptions['labels'] = {};
-			defaultOptions['title'] = '';
-			defaultOptions['delimiter'] = dm.delimiter || '';
-			for(var k in myOptions){
-				defaultOptions[k] = myOptions[k];
-			}
-			var chart = new Chart({id:chartid,data:chartid+'.csv',options:defaultOptions,users:[username],modfiers:[],types:[]});
-			chart.save(function (err, chart) {
-				if (err) return console.error(err);
-				console.log('saved');
-			});
-			if (username != '') {
-				User.updateOne({username: username, "charts.created": { "$ne": chartid}}, {$push: {"charts.created": chartid}}, function (err, result) {});
-			}
-  		}
-  		//write data.csv
-  		if (chartid == dataid){
-  			var wget = 'wget -O saved/'+chartid+'.csv "' + dm.message + '" && echo "done"';
-  			if (!dm.type || dm.type == 'csv') {
-  			
-			}
-			else {
-				wget = 'wget -O saved/'+chartid+'.'+dm.type+' "' + dm.message + '" && in2csv saved/'+chartid+'.'+dm.type+' > saved/'+chartid+'.csv && rm saved/'+chartid+'.'+dm.type;
-			}
-			var child = exec(wget, function(err, stdout, stderr) {
-				if (err) throw err;
-				else {
-					fs.readFile('saved/'+chartid+'.csv', 'utf8', function(err, fileData) {
-						var jsonmessage = {'operation':'downloaded','message':fileData};
-						ws.send(JSON.stringify(jsonmessage));
-						loadChart(chartid,ws,dm,chartData,false,false);
-					});
-				}
-			});
-		}
-		else {
-			Chart.findOne({ id: chartid }, function(err, result) {
-			  if (err) {
-				
-			  } else {
-			  	result.data = chartid+'.csv';
-			  	dataid = chartid;
-				result.markModified('data');
-				result.save(function (err, result) {
-					if (err) return console.error('sajdhfkasdhjfkjsahdfkjsadhfs\n',err);
-					console.log('saved new dataname');
-				});
-				var wget = 'wget -O saved/'+chartid+'.csv "' + dm.message + '" && echo "done"';
-				if (!dm.type || dm.type == 'csv') {
-		
-				}
-				else {
-					wget = 'wget -O saved/'+chartid+'.'+dm.type+' "' + dm.message + '" && in2csv saved/'+chartid+'.'+dm.type+' > saved/'+chartid+'.csv && rm saved/'+chartid+'.'+dm.type;
-				}
-				var child = exec(wget, function(err, stdout, stderr) {
-					if (err) throw err;
-					else {
-						fs.readFile('saved/'+chartid+'.csv', 'utf8', function(err, fileData) {
-							var jsonmessage = {'operation':'downloaded','message':fileData};
-							ws.send(JSON.stringify(jsonmessage));
-							loadChart(chartid,ws,dm,chartData,false,result);
-						});
-					}
-				});
-			  }
-			});
-			
-		}
-		delete mongoChart[chartid];
+		chartData = false;
   	}
   	else if (dm.operation == 'download'){
 		if (chartid == ''){
@@ -411,6 +405,7 @@ wss.on('connection', function connection(ws) {
 		});
 
 		delete mongoChart[chartid];
+		chartData = false;
   	}
   	else if (dm.operation == 'dataupdate'){
 
@@ -424,6 +419,7 @@ wss.on('connection', function connection(ws) {
 			
 		});
 		delete mongoChart[chartid];
+		chartData = false;
   	}
   	else if (dm.operation == 'options'){
   		console.log('message rec',performance.now());
