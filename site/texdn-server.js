@@ -517,6 +517,11 @@ wss.on('connection', function connection(ws) {
 			  });
 		  }
   	}
+  	else if (dm.operation == 'search'){
+		  console.log(username);
+		  console.log(dm.key);
+		  console.log(dm.tags);
+  	}
 
   		
 

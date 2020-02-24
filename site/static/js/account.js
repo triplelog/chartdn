@@ -16,7 +16,7 @@ for (var i=0;i<keys.length;i++){
 		  content: tcr,
 		  trigger: 'click',
 		  interactive: true,
-		  placement: 'top',
+		  placement: 'bottom',
 		});
 	}
 }
@@ -157,7 +157,13 @@ function minimizeBox(type,full=false){
 }
 
 function clickTippy(evt) {
-	console.log(evt.target.parentEl.id);
+	console.log(evt.target.parentElement.id);
+	var key = evt.target.parentElement.id;
+	var tags = evt.target.parentElement.querySelector('input').value;
+	console.log(key,tags);
+	var jsonmessage = {'operation':'search','key':key,'tags':tags};
+	ws.send(JSON.stringify(jsonmessage));
+	
 }
 
 function addFriend() {
