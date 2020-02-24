@@ -220,7 +220,7 @@ wss.on('connection', function connection(ws) {
 			chart.save(function (err, chart) {
 				if (err) return console.error(err);
 				
-				console.log('saved');
+				console.log('saved', chart);
 			});
 			if (username != '') {
 				User.updateOne({username: username, "charts.created": { "$ne": chartid}}, {$push: {"charts.created": chartid}}, function (err, result) {});
@@ -677,12 +677,12 @@ loginApp.get('/edit/:chartid',
 							}
 							else { //Fork chart data and options
 								
-								if (!result.data.forks || result.data.forks.length == 0){
+								if (!result.stats.forks || result.stats.forks.length == 0){
 									var nforks = 0;
 									chartid = chartid.substr(0,chartid.length-1)+String.fromCharCode(nforks+97);
 								}
 								else {
-									var nforks = result.data.forks.length;
+									var nforks = result.stats.forks.length;
 									chartid = chartid.substr(0,chartid.length-1)+String.fromCharCode(nforks+97);
 								}
 								var newchart = new Chart({id:chartid,data:result.data,options:result.options,users:[username],modifiers:result.modifiers,types:result.types,stats:{time:Date.now(),views:{},forks:[]}});
