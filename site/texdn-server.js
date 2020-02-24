@@ -62,7 +62,7 @@ nunjucks.configure('templates', {
 
 var db = mongoose.connection;
 var chartSchema = new mongoose.Schema({
-	id: String,
+	id: {type: String, required: true, unique: true},
 	data: String,
 	options: {},
 	modifiers: [],
@@ -626,8 +626,6 @@ loginApp.get('/browse',
 loginApp.get('/new',
 	function(req, res){
 		var username = '';
-		var cryptid = parseInt(crypto.randomBytes(50).toString('hex'),16);
-		console.log(cryptid);
 		var chartid = parseInt(crypto.randomBytes(50).toString('hex'),16).toString(36).substr(2, 8);
 		var defaultOptions = {};
 		defaultOptions['nHeaders'] = 1;
@@ -645,7 +643,20 @@ loginApp.get('/new',
 		}
 		var chart = new Chart({id:chartid,data:'',options:defaultOptions,users:[username],modfiers:[],types:[],stats:{time:Date.now(),views:{},forks:[]}});
 		chart.save(function (err, chart) {
-			if (err) return console.error(err);
+			if (err) {
+				console.log(err);
+				chartid = parseInt(crypto.randomBytes(50).toString('hex'),16).toString(36).substr(2, 8);
+				var chart2 = new Chart({id:chartid,data:'',options:defaultOptions,users:[username],modfiers:[],types:[],stats:{time:Date.now(),views:{},forks:[]}});
+				chart2.save(function (err, chart2) {
+					if (err) {
+						console.log('second error', err);
+				
+					};
+					console.log('new chart created');
+					res.redirect('/edit/'+chartid);
+				});	
+				
+			};
 			console.log('new chart created');
 			res.redirect('/edit/'+chartid);
 		});			
