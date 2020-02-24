@@ -159,7 +159,7 @@ function minimizeBox(type,full=false){
 function clickTippy(evt) {
 	var dataKey = evt.target.parentElement.getAttribute('data-key');
 	var tags = evt.target.parentElement.querySelector('input').value;
-	var jsonmessage = {'operation':'search','tkey':key,'key':dataKey,'tags':tags};
+	var jsonmessage = {'operation':'search','tkey':tkey,'key':dataKey,'tags':tags};
 	ws.send(JSON.stringify(jsonmessage));
 	
 }
@@ -168,7 +168,7 @@ function addFriend() {
 	var friendEl = document.getElementById('newFriend');
 	if (friendEl && friendEl.value && friendEl.value != ''){
 		var friend = friendEl.value;
-		var jsonmessage = {'operation':'friend','tkey':key,'message':friend};
+		var jsonmessage = {'operation':'friend','tkey':tkey,'message':friend};
 		ws.send(JSON.stringify(jsonmessage));
 		
 	}

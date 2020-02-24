@@ -59,7 +59,6 @@ app2.get('/account',
   		charts.edited = req.user.charts.edited || [];
   		charts.viewed = req.user.charts.viewed || [];
   		var chartkeys = ['created','forked','edited','viewed'];
-  		console.log(tkey);
   		res.write(nunjucks.render('account.html',{
   			username: req.user.username,
   			name: req.user.name || '',
@@ -67,7 +66,7 @@ app2.get('/account',
   			charts: charts || {},
   			chartkeys: chartkeys || [],
   			friends: req.user.friends,
-  			key: tkey,
+  			tkey: tkey,
   		}));
 		res.end();
   	}
