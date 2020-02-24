@@ -635,7 +635,7 @@ loginApp.get('/new',
 		defaultOptions['scale'] = {};
 		defaultOptions['labels'] = {};
 		defaultOptions['title'] = '';
-		defaultOptions['delimiter'] = dm.delimiter || '';
+		defaultOptions['delimiter'] = '';
 		if (req.user) {
 			username = req.user.username;
 			User.updateOne({username: username, "charts.created": { "$ne": chartid}}, {$push: {"charts.created": chartid}}, function (err, result) {});
