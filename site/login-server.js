@@ -8,6 +8,7 @@ const { exec } = require('child_process');
 const bodyParser = require('body-parser');
 var parse = require('csv-parse');
 var nunjucks = require('nunjucks');
+var crypto = require("crypto");
 //const flate = require('wasm-flate');
 const options = {
   key: fs.readFileSync('/etc/letsencrypt/live/chartdn.com/privkey.pem'),
