@@ -693,7 +693,7 @@ loginApp.get('/edit/:chartid',
 									result2.markModified('stats.forks');
 									result2.save(function (err, oldchart) {
 										if (err) return console.error(err);
-										console.log('saved old chart', result2.stats);
+										console.log('saved old chart', oldchart.stats);
 										console.log('redirecting...');
 										res.redirect('../edit/'+chartid);
 									});
