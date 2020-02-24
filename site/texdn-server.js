@@ -690,7 +690,7 @@ loginApp.get('/edit/:chartid',
 									if (err) return console.error(err);
 									console.log('saved new chart', newchart,result);
 									result.stats.forks.push('a');
-									result.markModified(stats);
+									result.markModified('stats');
 									result.save(function (err, oldchart) {
 										if (err) return console.error(err);
 										console.log('saved old chart', result.stats);
