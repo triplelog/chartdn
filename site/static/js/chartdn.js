@@ -1297,7 +1297,7 @@ function updateModifier(evt){
 					modifiers[i].options.push(newObj);
 					
 					var newMM = pel.parentElement.querySelector('div[name=allReplacements]');
-					newMM.appendChild(toReplaceElement(newObj));
+					toReplaceElement(newObj,'',newMM);
 				}
 			}
 			else if (mType == 'new' || mType == 'filter'){
@@ -1650,7 +1650,7 @@ function createPivot(obj) {
 	
 }
 
-function toReplaceElement(obj){
+function toReplaceElement(obj,idx,newMM){
 	var newDiv = document.createElement('div');
 	var newB = document.createElement('button');
 	newB.textContent = 'Edit';
@@ -1659,8 +1659,18 @@ function toReplaceElement(obj){
 	var newSpan = document.createElement('span');
 	newSpan.textContent = 'Replace '+obj.find+' with '+obj.replace;
 	newDiv.appendChild(newSpan);
-	
-	return newDiv;
+	if (idx != ''){
+		newDiv.setAttribute('data-id',idx);
+	}
+	else {
+		var divs = newMM.querySelectorAll('div[data-id]');
+		var i = 0;
+		for (i=0;i<newMM.length;i++){
+			divs[i].setAttribute('data-id',i);
+		}
+		newDiv.setAttribute('data-id',i);
+	}
+	newMM.appendChild(newDiv);
 }
 function createReplace(obj) {
 	
@@ -1694,44 +1704,87 @@ function createReplace(obj) {
 		newM.querySelector('span[name=disable]').textContent = 'Disable';
 	}
 	
+	var newMM = newM.querySelector('div[name=allReplacements]');
 	if (obj.options){
 		for (var i=0;i<obj.options.length;i++){
-			var newMM = newM.querySelector('div[name=allReplacements]');
-			newMM.appendChild(toReplaceElement(obj.options[i]));
+			toReplaceElement(obj.options[i],i,newMM);
 		}
 	}
 	
-	/*
-	var lastObj;
-	if (obj.options){
-		lastObj = obj.options[obj.options.length-1];
-	}
-	
-	var newMM = newM.querySelector('input[name=find]');
-	if (obj.options.find || obj.options.find === 0) {newMM.value = obj.options.find;}
-	
-	newMM = newM.querySelector('input[name=replace]');
-	if (obj.options.replace || obj.options.replace === 0) {newMM.value = obj.options.replace;}
-	
-	newMM = newM.querySelector('input[name=case]');
-	if (obj.options.case) {newMM.checked = true;}
-	
-	newMM = newM.querySelector('input[name=numerical]');
-	if (obj.options.numerical) {newMM.checked = true;}
-	
-	newMM = newM.querySelector('input[name=full]');
-	if (obj.options.full) {newMM.checked = true;}
-	
-	
+	var drakeP = dragula([newMM], {
+	  copy: function (el, source) {
+		return false;
+	  },
+	  accepts: function (el, target, source) {
+		return true;
+	  },
+	  removeOnSpill: function (el, source) {
+		return true;
+	  }
+	});
+	drakeP.on('drop', function (el, target, source, sibling) { 
+		var modid = target.parentElement.parentElement.id.substring(4);
+		var mymod = false;
+		for (var ii in modifiers){
+			if (modifiers[ii].id == modid){
+				mymod = modifiers[ii];
+				break;
+			}
+		}
+		if (mymod){
+			var els = target.querySelectorAll('div[data-id]');
+			var oldIndex = el.getAttribute('data-id');
+			var newIndex;
+			
+			var oldReplace = mymod.options[oldIndex];
+			Object.freeze(oldReplace);
+			mymod.options.splice(oldIndex,1);
+			if (sibling){
+				newIndex = sibling.getAttribute('data-id');
+				mymod.options.splice(newIndex,1,oldReplace);
+			}
+			else {
+				mymod.options.push(oldReplace);
+			}
+			
+			for (var i=0;i<els.length;i++){
+				els[i].setAttribute('data-id',i);
+			}
+			console.log(mymod.options);
+			modifierChanged(true);
+		}
+		else {
+			console.log('should have found modifier');
+		}
+	});
+	drakeP.on('remove', function (el, target, source, sibling) { 
+		var modid = target.parentElement.parentElement.id.substring(4);
+		var mymod = false;
+		for (var ii in modifiers){
+			if (modifiers[ii].id == modid){
+				mymod = modifiers[ii];
+				break;
+			}
+		}
+		if (mymod){
+			var els = target.querySelectorAll('div[data-id]');
+			var oldIndex = el.getAttribute('data-id');
+			
+			var oldReplace = mymod.options[oldIndex];
+			Object.freeze(oldReplace);
+			mymod.options.splice(oldIndex,1);
+			
+			for (var i=0;i<els.length;i++){
+				els[i].setAttribute('data-id',i);
+			}
+			console.log(mymod.options);
+			modifierChanged(true);
+		}
+		else {
+			console.log('should have found modifier');
+		}
+	});
 
-	if (obj.options.column || obj.options.column === 0) {
-		newMM = newM.querySelector('select[name=column]');
-		if (newMM) {newMM.setAttribute('value',obj.options.column);}
-	}
-	
-	newMM = newM.querySelector('input[name=row]');
-	if (obj.options.row && obj.options.row >= 0) {newMM.value = obj.options.row;}
-	if (obj.options.row === 0) {newMM.value = obj.options.row;}*/
 	
 	newMM = newM.querySelector('button[name=submit]');
 	newMM.addEventListener('click',updateModifier);
