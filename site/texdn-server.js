@@ -640,7 +640,7 @@ loginApp.get('/charts/:chartid',
 			User.updateOne({username: username, "charts.viewed": { "$ne": chartid}}, {$push: {"charts.viewed": chartid}}, function (err, result) {});
 
 		}
-		Chart.updateOne({id: chartid},{$inc: {'stats.views.total':1}}, function(err, result) {console.log(err,result);});
+		Chart.updateOne({id: chartid},{$inc: {'stats.views.total':1}}, function(err, result) {});
 		var start = process.hrtime();
 		var title = 'ChartDN Chart';
         res.write(nunjucks.render('onechart.html',{
@@ -666,9 +666,7 @@ loginApp.get('/fork/:chartid',
 		// when we get data we want to store it in memory
 		req.on('end', () => {
 			Chart.findOne({ id: chartid }, function(err, result2) {
-				if (err){
-				
-				}
+				if (err){}
 				else { //Fork chart data and options
 					
 					if (!result2.stats.forks){
@@ -683,7 +681,7 @@ loginApp.get('/fork/:chartid',
 					result2.stats.forks.push(String.fromCharCode(nforks+97));
 					result2.markModified('stats');
 					Promise.all([newchart.save(),result2.save()]).then(function(values) {
-						console.log('saved both', values);
+						console.log('saved both', values[1].stats.views);
 						res.redirect('../edit/'+chartid);
 					});
 				}
