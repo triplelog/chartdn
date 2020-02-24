@@ -49,6 +49,8 @@ app2.get('/account',
 		res.end();
   	}
   	else {
+  		var tkey = crypto.randomBytes(100).toString('hex').substr(2, 18);
+		tempKeys[tkey] = {username:username};
   		var charts = {created:[],edited:[],forked:[],viewed:[]};
   		charts.created = req.user.charts.created || [];
   		charts.forked = req.user.charts.forked || [];
@@ -62,6 +64,7 @@ app2.get('/account',
   			charts: charts || {},
   			chartkeys: chartkeys || [],
   			friends: req.user.friends,
+  			key:tkey,
   		}));
 		res.end();
   	}
@@ -75,6 +78,8 @@ app2.get('/user/:username',
   		User.findOne({username: req.params.username}, function(err,result){
   			if (err){return;}
   			console.log(result)
+  			var tkey = crypto.randomBytes(100).toString('hex').substr(2, 18);
+			tempKeys[tkey] = {username:username};
   			var charts = {created:[],edited:[],forked:[],viewed:[]};
 			charts.created = result.charts.created || [];
 			charts.forked = result.charts.forked || [];
@@ -90,6 +95,7 @@ app2.get('/user/:username',
 				friends: [],
 				privacy: true,
 				addfriend: req.isAuthenticated(),
+				key: tkey,
 			}));
 			res.end();
   		

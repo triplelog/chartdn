@@ -9,7 +9,7 @@ for (var i=0;i<keys.length;i++){
 		var searchEl = document.getElementById(keys[i]+'Search');
 		let templateR = document.getElementById('search-template');
 		let tcr = templateR.content.cloneNode(true).firstElementChild;
-		tcr.id = keys[i]+'SearchBox';
+		tcr.setAttribute('data-key',keys[i]);
 		tcr.querySelector('button').addEventListener('click',clickTippy);
 				
 		let mytippy = tippy(searchEl, {
@@ -157,11 +157,9 @@ function minimizeBox(type,full=false){
 }
 
 function clickTippy(evt) {
-	console.log(evt.target.parentElement.id);
-	var key = evt.target.parentElement.id;
+	var dataKey = evt.target.parentElement.getAttribute('data-key');
 	var tags = evt.target.parentElement.querySelector('input').value;
-	console.log(key,tags);
-	var jsonmessage = {'operation':'search','key':key,'tags':tags};
+	var jsonmessage = {'operation':'search','tkey':key,'key':dataKey,'tags':tags};
 	ws.send(JSON.stringify(jsonmessage));
 	
 }
@@ -170,7 +168,7 @@ function addFriend() {
 	var friendEl = document.getElementById('newFriend');
 	if (friendEl && friendEl.value && friendEl.value != ''){
 		var friend = friendEl.value;
-		var jsonmessage = {'operation':'friend','username':username,'message':friend};
+		var jsonmessage = {'operation':'friend','tkey':key,'message':friend};
 		ws.send(JSON.stringify(jsonmessage));
 		
 	}

@@ -486,7 +486,7 @@ wss.on('connection', function connection(ws) {
   	}
   	else if (dm.operation == 'friend'){
 		  var friend = dm.message;
-		  var me = dm.username;
+		  var me = tempKeys[dm.tkey].username;
 		  User.countDocuments({username: friend}, function(err, result) {
 		  	if (err){return}
 		  	else if (result > 0){
@@ -518,7 +518,7 @@ wss.on('connection', function connection(ws) {
 		  }
   	}
   	else if (dm.operation == 'search'){
-		  console.log(username);
+		  console.log(tempKeys[dm.tkey].username);
 		  console.log(dm.key);
 		  console.log(dm.tags);
   	}
