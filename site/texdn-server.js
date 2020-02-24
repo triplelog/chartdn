@@ -68,6 +68,7 @@ var chartSchema = new mongoose.Schema({
 	modifiers: [],
 	users: [String],
 	types: Array,
+	data: {time:Date,views:{},forks:Array},
 	
 });
 var Chart = mongoose.model('Chart', chartSchema);
@@ -214,7 +215,7 @@ wss.on('connection', function connection(ws) {
 			for(var k in myOptions){
 				defaultOptions[k] = myOptions[k];
 			}
-			var chart = new Chart({id:chartid,data:dataid+'.csv',options:defaultOptions,users:[username],modfiers:[],types:[]});
+			var chart = new Chart({id:chartid,data:dataid+'.csv',options:defaultOptions,users:[username],modfiers:[],types:[],data:{time:Date.now(),views:{},forks:[]}});
 
 			chart.save(function (err, chart) {
 				if (err) return console.error(err);
@@ -288,7 +289,7 @@ wss.on('connection', function connection(ws) {
 			for(var k in myOptions){
 				defaultOptions[k] = myOptions[k];
 			}
-			var chart = new Chart({id:chartid,data:chartid+'.csv',options:defaultOptions,users:[username],modfiers:[],types:[]});
+			var chart = new Chart({id:chartid,data:chartid+'.csv',options:defaultOptions,users:[username],modfiers:[],types:[],data:{time:Date.now(),views:{},forks:[]}});
 			chart.save(function (err, chart) {
 				if (err) return console.error(err);
 				console.log('saved');
@@ -520,7 +521,7 @@ wss.on('connection', function connection(ws) {
 		  }
   	}
   	else if (dm.operation == 'search'){
-		  console.log(tempKeys[dm.tkey].username);
+		  var username = tempKeys[dm.tkey].username;
 		  console.log(dm.key);
 		  console.log(dm.tags);
   	}
@@ -675,15 +676,43 @@ loginApp.get('/edit/:chartid',
 							
 							}
 							else { //Fork chart data and options
-								dataname = result.data;
-								myOptions = result.options;
-								var newchart = new Chart({id:chartid,data:result.data,options:result.options,users:[username],modifiers:result.modifiers,types:result.types});
+								if (!result.data.forks || result.data.forks.length == 0){
+									var newchart = new Chart({id:chartid,data:result.data,options:result.options,users:[username],modifiers:result.modifiers,types:result.types,data:{time:Date.now(),views:{},forks:[]}});
+									newchart.save(function (err, newchart) {
+										if (err) return console.error(err);
+										console.log('saved new chart');
+										result.data.forks.push('a');
+										result.markModified(data);
+										result.save(function (err, oldchart) {
+											if (err) return console.error(err);
+											console.log('saved old chart', result.data);
+										});
+										console.log('redirecting');
+										res.redirect('../edit/'+chartid);
+									});
+									
+								}
+								else {
+									var nforks = result.data.forks.length;
+									var newchartid = chartid.substr(0,chartid.length-1)+String.fromCharCode(nforks+97);
+									var newchart = new Chart({id:newchartid,data:result.data,options:result.options,users:[username],modifiers:result.modifiers,types:result.types,data:{time:Date.now(),views:{},forks:[]}});
+									newchart.save(function (err, newchart) {
+										if (err) return console.error(err);
+										console.log('saved new chart');
+										result.data.forks.push(String.fromCharCode(nforks+97));
+										result.markModified(data);
+										result.save(function (err, oldchart) {
+											if (err) return console.error(err);
+											console.log('saved old chart', result.data);
+										});
+										console.log('redirecting');
+										res.redirect('../edit/'+newchartid);
+									});
+								}
 								
-								newchart.save(function (err, newchart) {
-									if (err) return console.error(err);
-									console.log('saved');
-								});
-								if (username != '') {
+								
+								
+								/*if (username != '') {
 									User.updateOne({username: username, "charts.forked": { "$ne": chartid}}, {$push: {"charts.forked": chartid}}, function (err, result) {});
 								}
 								fs.readFile('saved/'+dataname, 'utf8', function(err, fileData) {
@@ -728,7 +757,7 @@ loginApp.get('/edit/:chartid',
 										key: tkey,
 									}));
 									res.end();
-								});
+								});*/
 							}
 						});
 					}
