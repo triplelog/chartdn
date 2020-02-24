@@ -707,7 +707,6 @@ loginApp.get('/edit/:chartid',
 				  var dataname;
 				  var myOptions;
 				  if (err || result == null) {
-					if (chartid.length == 8) {
 						var tkey = crypto.randomBytes(100).toString('hex').substr(2, 18);
 						tempKeys[tkey] = {username:username};
 						tempKeys[tkey].dataid = chartid;
@@ -718,11 +717,7 @@ loginApp.get('/edit/:chartid',
 							key: tkey,
 						}));
 						res.end();
-					}
-					else {
-						
-						return 0;
-					}
+
 				  } 
 				  else { //Load chart data and options
 					dataname = result.data;
