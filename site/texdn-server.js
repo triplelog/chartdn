@@ -640,7 +640,7 @@ loginApp.get('/charts/:chartid',
 			User.updateOne({username: username, "charts.viewed": { "$ne": chartid}}, {$push: {"charts.viewed": chartid}}, function (err, result) {});
 
 		}
-		
+		Chart.updateOne({id: chartid},{$inc: {'stats.views.total':1}}, function(err, result) {console.log(err,result);});
 		var start = process.hrtime();
 		var title = 'ChartDN Chart';
         res.write(nunjucks.render('onechart.html',{
