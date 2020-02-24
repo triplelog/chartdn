@@ -665,7 +665,7 @@ loginApp.get('/fork/:chartid',
 
 		// when we get data we want to store it in memory
 		req.on('end', () => {
-			Chart.findOne({ id: chartid.substr(0,chartid.length-1) }, function(err, result2) {
+			Chart.findOne({ id: chartid }, function(err, result2) {
 				if (err){
 				
 				}
@@ -673,11 +673,11 @@ loginApp.get('/fork/:chartid',
 					
 					if (!result2.stats.forks){
 						var nforks = 0;
-						chartid = chartid.substr(0,chartid.length-1)+String.fromCharCode(nforks+97);
+						chartid = chartid+String.fromCharCode(nforks+97);
 					}
 					else {
 						var nforks = result2.stats.forks.length;
-						chartid = chartid.substr(0,chartid.length-1)+String.fromCharCode(nforks+97);
+						chartid = chartid+String.fromCharCode(nforks+97);
 					}
 					var newchart = new Chart({id:chartid,data:result2.data,options:result2.options,users:[username],modifiers:result2.modifiers,types:result2.types,stats:{time:Date.now(),views:{},forks:[]}});
 					result2.stats.forks.push(String.fromCharCode(nforks+97));
