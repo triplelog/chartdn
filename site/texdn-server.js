@@ -68,7 +68,7 @@ var chartSchema = new mongoose.Schema({
 	modifiers: [],
 	users: [String],
 	types: Array,
-	data: {time:Date,views:{},forks:Array},
+	stats: {time:Date,views:{},forks:Array},
 	
 });
 var Chart = mongoose.model('Chart', chartSchema);
@@ -215,7 +215,7 @@ wss.on('connection', function connection(ws) {
 			for(var k in myOptions){
 				defaultOptions[k] = myOptions[k];
 			}
-			var chart = new Chart({id:chartid,data:dataid+'.csv',options:defaultOptions,users:[username],modfiers:[],types:[],data:{time:Date.now(),views:{},forks:[]}});
+			var chart = new Chart({id:chartid,data:dataid+'.csv',options:defaultOptions,users:[username],modfiers:[],types:[],stats:{time:Date.now(),views:{},forks:[]}});
 
 			chart.save(function (err, chart) {
 				if (err) return console.error(err);
@@ -289,7 +289,7 @@ wss.on('connection', function connection(ws) {
 			for(var k in myOptions){
 				defaultOptions[k] = myOptions[k];
 			}
-			var chart = new Chart({id:chartid,data:chartid+'.csv',options:defaultOptions,users:[username],modfiers:[],types:[],data:{time:Date.now(),views:{},forks:[]}});
+			var chart = new Chart({id:chartid,data:chartid+'.csv',options:defaultOptions,users:[username],modfiers:[],types:[],stats:{time:Date.now(),views:{},forks:[]}});
 			chart.save(function (err, chart) {
 				if (err) return console.error(err);
 				console.log('saved');
@@ -676,39 +676,29 @@ loginApp.get('/edit/:chartid',
 							
 							}
 							else { //Fork chart data and options
+								
 								if (!result.data.forks || result.data.forks.length == 0){
-									var newchart = new Chart({id:chartid,data:result.data,options:result.options,users:[username],modifiers:result.modifiers,types:result.types,data:{time:Date.now(),views:{},forks:[]}});
-									newchart.save(function (err, newchart) {
-										if (err) return console.error(err);
-										console.log('saved new chart');
-										result.data.forks.push('a');
-										result.markModified(data);
-										result.save(function (err, oldchart) {
-											if (err) return console.error(err);
-											console.log('saved old chart', result.data);
-										});
-										console.log('redirecting');
-										res.redirect('../edit/'+chartid);
-									});
-									
+									var nforks = 0;
+									chartid = chartid.substr(0,chartid.length-1)+String.fromCharCode(nforks+97);
 								}
 								else {
 									var nforks = result.data.forks.length;
-									var newchartid = chartid.substr(0,chartid.length-1)+String.fromCharCode(nforks+97);
-									var newchart = new Chart({id:newchartid,data:result.data,options:result.options,users:[username],modifiers:result.modifiers,types:result.types,data:{time:Date.now(),views:{},forks:[]}});
-									newchart.save(function (err, newchart) {
-										if (err) return console.error(err);
-										console.log('saved new chart');
-										result.data.forks.push(String.fromCharCode(nforks+97));
-										result.markModified(data);
-										result.save(function (err, oldchart) {
-											if (err) return console.error(err);
-											console.log('saved old chart', result.data);
-										});
-										console.log('redirecting');
-										res.redirect('../edit/'+newchartid);
-									});
+									chartid = chartid.substr(0,chartid.length-1)+String.fromCharCode(nforks+97);
 								}
+								var newchart = new Chart({id:chartid,data:result.data,options:result.options,users:[username],modifiers:result.modifiers,types:result.types,stats:{time:Date.now(),views:{},forks:[]}});
+								newchart.save(function (err, newchart) {
+									if (err) return console.error(err);
+									console.log('saved new chart');
+									result.stats.forks.push('a');
+									result.markModified(stats);
+									result.save(function (err, oldchart) {
+										if (err) return console.error(err);
+										console.log('saved old chart', result.stats);
+									});
+									console.log('redirecting');
+									res.redirect('../edit/'+chartid);
+								});
+									
 								
 								
 								
