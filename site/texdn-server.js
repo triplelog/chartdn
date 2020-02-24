@@ -652,6 +652,46 @@ loginApp.get('/charts/:chartid',
 		res.end();
     }
 );
+loginApp.get('/fork/:chartid',
+	function(req, res){
+		var chartid = req.params.chartid;
+		var username = '';
+		if (req.user) {
+			username = req.user.username;
+		}
+		var start = process.hrtime();
+        req.on('data', function (chunk) {
+        
+        });
+
+		// when we get data we want to store it in memory
+		req.on('end', () => {
+			Chart.findOne({ id: chartid.substr(0,chartid.length-1) }, function(err, result2) {
+				if (err){
+				
+				}
+				else { //Fork chart data and options
+					
+					if (!result2.stats.forks){
+						var nforks = 0;
+						chartid = chartid.substr(0,chartid.length-1)+String.fromCharCode(nforks+97);
+					}
+					else {
+						var nforks = result2.stats.forks.length;
+						chartid = chartid.substr(0,chartid.length-1)+String.fromCharCode(nforks+97);
+					}
+					var newchart = new Chart({id:chartid,data:result2.data,options:result2.options,users:[username],modifiers:result2.modifiers,types:result2.types,stats:{time:Date.now(),views:{},forks:[]}});
+					result2.stats.forks.push(String.fromCharCode(nforks+97));
+					result2.markModified('stats');
+					Promise.all([newchart.save(),result2.save()]).then(function(values) {
+						console.log('saved both', values);
+						res.redirect('../edit/'+chartid);
+					});
+				}
+			});
+		});
+	}
+);
 loginApp.get('/edit/:chartid',
 	function(req, res){
 		var chartid = req.params.chartid;
@@ -670,94 +710,7 @@ loginApp.get('/edit/:chartid',
 				  var dataname;
 				  var myOptions;
 				  if (err || result == null) {
-					if (chartid.length > 8) {
-						Chart.findOne({ id: chartid.substr(0,chartid.length-1) }, function(err, result2) {
-							if (err){
-							
-							}
-							else { //Fork chart data and options
-								
-								if (!result2.stats.forks){
-									var nforks = 0;
-									chartid = chartid.substr(0,chartid.length-1)+String.fromCharCode(nforks+97);
-								}
-								else {
-									var nforks = result2.stats.forks.length;
-									chartid = chartid.substr(0,chartid.length-1)+String.fromCharCode(nforks+97);
-								}
-								var newchart = new Chart({id:chartid,data:result2.data,options:result2.options,users:[username],modifiers:result2.modifiers,types:result2.types,stats:{time:Date.now(),views:{},forks:[]}});
-								result2.stats.forks.push(String.fromCharCode(nforks+97));
-								result2.markModified('stats');
-								Promise.all([newchart.save(),result2.save()]).then(function(values) {
-									console.log('saved both', values);
-									res.redirect('../edit/'+chartid);
-								});
-								/*newchart.save(function (err, newchart) {
-									if (err) return console.error(err);
-									console.log('saved new chart', newchart,result2);
-									
-									result2.save(function (err, oldchart) {
-										if (err) return console.error(err);
-										console.log('saved old chart', oldchart.stats);
-										console.log('redirecting...');
-										res.redirect('../edit/'+chartid);
-									});
-									
-								});*/
-									
-								
-								
-								
-								/*if (username != '') {
-									User.updateOne({username: username, "charts.forked": { "$ne": chartid}}, {$push: {"charts.forked": chartid}}, function (err, result) {});
-								}
-								fs.readFile('saved/'+dataname, 'utf8', function(err, fileData) {
-									var defaultData = ''
-									if (!err) {defaultData = fileData;}
-									var savedData = myOptions;
-									var chartType = {'line':'','bar':'','scatter':'','pie':'','bubble':'','histogram':'','heatmap':'','radar':'','box':'','choropleth':'','splom':'','diff':'','calendar':''};
-									if (savedData['type'] && savedData['type'] != ''){
-										chartType[savedData['type']]='selected="selected"';
-									}
-									var xaxis = {'scale':{}};
-									if (savedData.labels && savedData.labels.x){xaxis.title = savedData.labels.x;}
-									if (savedData.scale && savedData.scale.x){xaxis.scale[savedData.scale.x] = 'selected="selected"';}
-									if (savedData.stepSize && savedData.stepSize.x){xaxis.stepSize = savedData.stepSize.x;}
-									if (savedData.domain){xaxis.domain = savedData.domain;}
-									var yaxis = {'scale':{},'dots':{},'shape':{},'dash':{}};
-									if (savedData.labels && savedData.labels.y){yaxis.title = savedData.labels.y;}
-									if (savedData.scale && savedData.scale.y){yaxis.scale[savedData.scale.y] = 'selected="selected"';}
-									if (savedData.stepSize && savedData.stepSize.y){yaxis.stepSize = savedData.stepSize.y;}
-									if (savedData.range){yaxis.range = savedData.range;}
-									if (savedData.lineColors){yaxis.lineColors = savedData.lineColors;}
-									if (savedData.dots){yaxis.dots[savedData.dots] = 'checked="checked"';}
-									if (savedData.shape){yaxis.shape[savedData.shape] = 'checked="checked"';}
-									if (savedData.dash){yaxis.dash[savedData.dash] = 'selected="selected"';}
-									var tkey = crypto.randomBytes(100).toString('hex').substr(2, 18);
-									tempKeys[tkey] = {username:username};
-									tempKeys[tkey].dataid = dataname.split('.')[0];
-									tempKeys[tkey].chartid = chartid;
-									res.write(nunjucks.render('chartdn.html',{
-										chartScript: '',
-										dataAreaText: defaultData,
-										nHeaders: savedData.nHeaders || 1,
-										isChecked: chartType,
-										options: savedData || {},
-										modifiers: result.modifiers || [],
-										title: savedData.title || '',
-										xaxis: xaxis,
-										yaxis: yaxis,
-										xColumn: savedData.xColumn || '',
-										yColumns: savedData.yColumns || '',
-										chartid: chartid || '',
-										key: tkey,
-									}));
-									res.end();
-								});*/
-							}
-						});
-					}
-					else if (chartid.length == 8) {
+					if (chartid.length == 8) {
 						var tkey = crypto.randomBytes(100).toString('hex').substr(2, 18);
 						tempKeys[tkey] = {username:username};
 						tempKeys[tkey].dataid = chartid;
