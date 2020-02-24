@@ -59,6 +59,7 @@ app2.get('/account',
   		charts.edited = req.user.charts.edited || [];
   		charts.viewed = req.user.charts.viewed || [];
   		var chartkeys = ['created','forked','edited','viewed'];
+  		console.log(tkey);
   		res.write(nunjucks.render('account.html',{
   			username: req.user.username,
   			name: req.user.name || '',
@@ -66,7 +67,7 @@ app2.get('/account',
   			charts: charts || {},
   			chartkeys: chartkeys || [],
   			friends: req.user.friends,
-  			key:tkey,
+  			key: tkey,
   		}));
 		res.end();
   	}
@@ -105,21 +106,7 @@ app2.get('/user/:username',
 		
   	}
   	else {
-  		var charts = {created:[],edited:[],forked:[],viewed:[]};
-  		charts.created = req.user.charts.created || [];
-  		charts.forked = req.user.charts.forked || [];
-  		charts.edited = req.user.charts.edited || [];
-  		charts.viewed = req.user.charts.viewed || [];
-  		var chartkeys = ['created','forked','edited','viewed'];
-  		res.write(nunjucks.render('account.html',{
-  			username: req.user.username,
-  			name: req.user.name || '',
-  			robot: req.user.options.robot || 1,
-  			charts: charts || {},
-  			chartkeys: chartkeys || [],
-  			friends: req.user.friends,
-  		}));
-		res.end();
+  		//Redirect to /account
   	}
   	
   }
