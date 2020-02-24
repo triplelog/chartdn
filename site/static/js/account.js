@@ -6,6 +6,18 @@ for (var i=0;i<keys.length;i++){
 	if (document.getElementById(keys[i]+'Box')){
 		n[keys[i]]=charts[keys[i]].length-1;
 		updateButtons(keys[i]);
+		var searchEl = document.getElementById(keys[i]+'Search');
+		let templateR = document.getElementById('search-template');
+		let tcr = templateR.content.cloneNode(true).firstElementChild;
+		tcr.id = keys[i]+'SearchBox';
+		tcr.querySelector('button').addEventListener('click',clickTippy);
+				
+		let mytippy = tippy(searchEl, {
+		  content: tcr,
+		  trigger: 'click',
+		  interactive: true,
+		  placement: 'top',
+		});
 	}
 }
 
@@ -144,6 +156,9 @@ function minimizeBox(type,full=false){
 	
 }
 
+function clickTippy(evt) {
+	console.log(evt.target.parentEl.id);
+}
 
 function addFriend() {
 	var friendEl = document.getElementById('newFriend');

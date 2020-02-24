@@ -135,6 +135,12 @@
 						{% else %}
 						{% endfor %}
 					</div>
+					<template id="search-template">
+						<div>
+							<input type="text" />
+							<button>Search</button>
+						</div>
+					</template>
 					
 				</div>
 				<div id="favorites" class="box-form">
@@ -185,6 +191,8 @@
 	var charts = {{ charts | dump | safe if charts else '{}'  }};
 	var username = "{{ username }}";
 </script>
+<script src="https://unpkg.com/popper.js@1"></script>
+<script src="https://unpkg.com/tippy.js@5"></script>
 <script src="../js/account.js"></script>
 <script src="../js/chartdnelements.js"></script>
 </body>
