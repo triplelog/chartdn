@@ -199,7 +199,7 @@ wss.on('connection', function connection(ws) {
   	console.log(dm.operation);
   	if (dm.operation == 'upload'){
   		var d = new Date(); var n = d.getTime(); console.log('time2: ', n);
-  		if (chartid == ''){
+  		/*if (chartid == ''){
   			chartid = chartidtemp;
   			dataid = chartid;
   			var defaultOptions = {};
@@ -226,7 +226,7 @@ wss.on('connection', function connection(ws) {
 				User.updateOne({username: username, "charts.created": { "$ne": chartid}}, {$push: {"charts.created": chartid}}, function (err, result) {});
 
 			}
-  		}
+  		}*/
   		//write data.csv
   		var d = new Date(); var n = d.getTime(); console.log('time3: ', n);
   		if (chartid != dataid){
@@ -273,7 +273,7 @@ wss.on('connection', function connection(ws) {
 		chartData = false;
   	}
   	else if (dm.operation == 'download'){
-		if (chartid == ''){
+		/*if (chartid == ''){
   			chartid = chartidtemp;
   			dataid = chartid;
   			var defaultOptions = {};
@@ -297,7 +297,7 @@ wss.on('connection', function connection(ws) {
 			if (username != '') {
 				User.updateOne({username: username, "charts.created": { "$ne": chartid}}, {$push: {"charts.created": chartid}}, function (err, result) {});
 			}
-  		}
+  		}*/
   		
   		if (chartid != dataid){
   			Chart.updateOne({ id: chartid }, {data: chartid+'.csv'}, function(err, result) {});
@@ -623,12 +623,33 @@ loginApp.get('/browse',
 );
 loginApp.get('/new',
 	function(req, res){
-		var chartid = crypto.randomBytes(50).toString('hex').substr(2, 8);
 		var username = '';
+		
+		var chartid = crypto.randomBytes(50).toString(36).substr(2, 8);
+		var defaultOptions = {};
+		defaultOptions['nHeaders'] = 1;
+		defaultOptions['type'] = '';
+		defaultOptions['yColumns'] = [];
+		defaultOptions['xColumn'] = '';
+		defaultOptions['stepSize'] = {};
+		defaultOptions['scale'] = {};
+		defaultOptions['labels'] = {};
+		defaultOptions['title'] = '';
+		defaultOptions['delimiter'] = dm.delimiter || '';
 		if (req.user) {
 			username = req.user.username;
+			User.updateOne({username: username, "charts.created": { "$ne": chartid}}, {$push: {"charts.created": chartid}}, function (err, result) {});
 		}
-		res.redirect('/edit/'+chartid);
+		var chart = new Chart({id:chartid,data:chartid+'.csv',options:defaultOptions,users:[username],modfiers:[],types:[],stats:{time:Date.now(),views:{},forks:[]}});
+		chart.save(function (err, chart) {
+			if (err) return console.error(err);
+			console.log('new chart created');
+			res.redirect('/edit/'+chartid);
+		});			
+		//Create chart here
+
+
+		
     }
 );
 loginApp.get('/charts/:chartid',
@@ -707,7 +728,7 @@ loginApp.get('/edit/:chartid',
 				  var dataname;
 				  var myOptions;
 				  if (err || result == null) {
-						var tkey = crypto.randomBytes(100).toString('hex').substr(2, 18);
+						/*var tkey = crypto.randomBytes(100).toString('hex').substr(2, 18);
 						tempKeys[tkey] = {username:username};
 						tempKeys[tkey].dataid = chartid;
 						tempKeys[tkey].chartidtemp = chartid;
@@ -716,7 +737,7 @@ loginApp.get('/edit/:chartid',
 							dataAreaText: '',
 							key: tkey,
 						}));
-						res.end();
+						res.end();*/
 
 				  } 
 				  else { //Load chart data and options
