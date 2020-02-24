@@ -688,7 +688,7 @@ loginApp.get('/edit/:chartid',
 								var newchart = new Chart({id:chartid,data:result.data,options:result.options,users:[username],modifiers:result.modifiers,types:result.types,stats:{time:Date.now(),views:{},forks:[]}});
 								newchart.save(function (err, newchart) {
 									if (err) return console.error(err);
-									console.log('saved new chart');
+									console.log('saved new chart', newchart,result);
 									result.stats.forks.push('a');
 									result.markModified(stats);
 									result.save(function (err, oldchart) {
