@@ -180,4 +180,4 @@ app2.post('/login',
 
 
 
-module.exports = app2;
+module.exports = {loginApp: app2, tempKeys: tempKeys}

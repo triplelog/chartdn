@@ -1,4 +1,6 @@
-var loginApp = require('./login-server.js');
+var fromLogin = require('./login-server.js');
+var loginApp = fromLogin.loginApp;
+var tempKeys = fromLogin.tempKeys;
 
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/chartdn', {useNewUrlParser: true});
