@@ -671,29 +671,29 @@ loginApp.get('/edit/:chartid',
 				  var myOptions;
 				  if (err || result == null) {
 					if (chartid.length > 8) {
-						Chart.findOne({ id: chartid.substr(0,chartid.length-1) }, function(err, result) {
+						Chart.findOne({ id: chartid.substr(0,chartid.length-1) }, function(err, result2) {
 							if (err){
 							
 							}
 							else { //Fork chart data and options
 								
-								if (!result.stats.forks || result.stats.forks.length == 0){
+								if (!result2.stats.forks){
 									var nforks = 0;
 									chartid = chartid.substr(0,chartid.length-1)+String.fromCharCode(nforks+97);
 								}
 								else {
-									var nforks = result.stats.forks.length;
+									var nforks = result2.stats.forks.length;
 									chartid = chartid.substr(0,chartid.length-1)+String.fromCharCode(nforks+97);
 								}
-								var newchart = new Chart({id:chartid,data:result.data,options:result.options,users:[username],modifiers:result.modifiers,types:result.types,stats:{time:Date.now(),views:{},forks:[]}});
+								var newchart = new Chart({id:chartid,data:result2.data,options:result2.options,users:[username],modifiers:result2.modifiers,types:result2.types,stats:{time:Date.now(),views:{},forks:[]}});
 								newchart.save(function (err, newchart) {
 									if (err) return console.error(err);
-									console.log('saved new chart', newchart,result);
-									result.stats.forks.push('a');
-									result.markModified('stats');
-									result.save(function (err, oldchart) {
+									console.log('saved new chart', newchart,result2);
+									result2.stats.forks.push(String.fromCharCode(nforks+97));
+									result2.markModified('stats.forks');
+									result2.save(function (err, oldchart) {
 										if (err) return console.error(err);
-										console.log('saved old chart', result.stats);
+										console.log('saved old chart', result2.stats);
 										console.log('redirecting...');
 										res.redirect('../edit/'+chartid);
 									});
