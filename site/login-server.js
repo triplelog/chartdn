@@ -52,7 +52,7 @@ app2.get('/account',
   	}
   	else {
   		var tkey = crypto.randomBytes(100).toString('hex').substr(2, 18);
-		tempKeys[tkey] = {username:username};
+		tempKeys[tkey] = {username:req.user.username};
   		var charts = {created:[],edited:[],forked:[],viewed:[]};
   		charts.created = req.user.charts.created || [];
   		charts.forked = req.user.charts.forked || [];
