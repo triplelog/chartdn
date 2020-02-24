@@ -624,8 +624,9 @@ loginApp.get('/browse',
 loginApp.get('/new',
 	function(req, res){
 		var username = '';
-		
-		var chartid = parseInt(crypto.randomBytes(50).toString('hex')).toString(36).substr(2, 8);
+		var cryptid = parseInt(crypto.randomBytes(50).toString('hex'),16);
+		console.log(cryptid);
+		var chartid = parseInt(crypto.randomBytes(50).toString('hex'),16).toString(36).substr(2, 8);
 		var defaultOptions = {};
 		defaultOptions['nHeaders'] = 1;
 		defaultOptions['type'] = '';
@@ -636,6 +637,7 @@ loginApp.get('/new',
 		defaultOptions['labels'] = {};
 		defaultOptions['title'] = '';
 		defaultOptions['delimiter'] = '';
+		console.log(chartid);
 		if (req.user) {
 			username = req.user.username;
 			User.updateOne({username: username, "charts.created": { "$ne": chartid}}, {$push: {"charts.created": chartid}}, function (err, result) {});
