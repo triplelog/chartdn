@@ -625,7 +625,7 @@ loginApp.get('/new',
 	function(req, res){
 		var username = '';
 		
-		var chartid = crypto.randomBytes(50).toString(36).substr(2, 8);
+		var chartid = crypto.randomBytes(50).toString('36').substr(2, 8);
 		var defaultOptions = {};
 		defaultOptions['nHeaders'] = 1;
 		defaultOptions['type'] = '';
