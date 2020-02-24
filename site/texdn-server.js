@@ -1,3 +1,4 @@
+var tempKeys = {};
 var loginApp = require('./login-server.js');
 
 const mongoose = require('mongoose');
@@ -80,7 +81,7 @@ const WebSocket = require('ws');
 //const wss = new WebSocket.Server({ port: 8080 , origin: 'http://tabdn.com'});
 const wss = new WebSocket.Server({ server });
 
-var tempKeys = {};
+
 function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 	var results = Papa.parse(oldDataStr, {
 		delimiter: delimiter,
