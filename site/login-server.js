@@ -16,6 +16,7 @@ const options = {
 };
 
 
+var tempKeys = {};
 const User = require('./models/user');
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/chartdn', {useNewUrlParser: true});

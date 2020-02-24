@@ -1,4 +1,3 @@
-var tempKeys = {};
 var loginApp = require('./login-server.js');
 
 const mongoose = require('mongoose');
