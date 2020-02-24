@@ -694,9 +694,10 @@ loginApp.get('/edit/:chartid',
 									result.save(function (err, oldchart) {
 										if (err) return console.error(err);
 										console.log('saved old chart', result.stats);
+										console.log('redirecting...');
+										res.redirect('../edit/'+chartid);
 									});
-									console.log('redirecting');
-									res.redirect('../edit/'+chartid);
+									
 								});
 									
 								
