@@ -689,7 +689,7 @@ loginApp.get('/edit/:chartid',
 								result2.stats.forks.push(String.fromCharCode(nforks+97));
 								result2.markModified('stats');
 								Promise.all([newchart.save(),result2.save()]).then(function(values) {
-									console.log('saved both');
+									console.log('saved both', values);
 									res.redirect('../edit/'+chartid);
 								});
 								/*newchart.save(function (err, newchart) {
