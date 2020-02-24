@@ -509,11 +509,13 @@ wss.on('connection', function connection(ws) {
 			  	if (err || result == null){
 			  	}
 			  	else {
-					if (dm.style){
-						makeAllCharts(ws,dm,result,dm.style);
-					}
-					else {
-						makeAllCharts(ws,dm,result,'all');
+			  		if (result.data != ''){
+						if (dm.style){
+							makeAllCharts(ws,dm,result,dm.style);
+						}
+						else {
+							makeAllCharts(ws,dm,result,'all');
+						}
 					}
 			  	}
 				
@@ -637,12 +639,11 @@ loginApp.get('/new',
 		defaultOptions['labels'] = {};
 		defaultOptions['title'] = '';
 		defaultOptions['delimiter'] = '';
-		console.log(chartid);
 		if (req.user) {
 			username = req.user.username;
 			User.updateOne({username: username, "charts.created": { "$ne": chartid}}, {$push: {"charts.created": chartid}}, function (err, result) {});
 		}
-		var chart = new Chart({id:chartid,data:chartid+'.csv',options:defaultOptions,users:[username],modfiers:[],types:[],stats:{time:Date.now(),views:{},forks:[]}});
+		var chart = new Chart({id:chartid,data:'',options:defaultOptions,users:[username],modfiers:[],types:[],stats:{time:Date.now(),views:{},forks:[]}});
 		chart.save(function (err, chart) {
 			if (err) return console.error(err);
 			console.log('new chart created');
@@ -759,7 +760,10 @@ loginApp.get('/edit/:chartid',
 							User.updateOne({username: username, "charts.edited": { "$ne": chartid}, "charts.forked": { "$ne": chartid}, "charts.created": { "$ne": chartid}}, {$push: {"charts.edited": chartid}}, function (err, result) {});
 						}
 						fs.readFile('saved/'+dataname, 'utf8', function(err, fileData) {
-							var defaultData = ''
+							if (err){
+								
+							}
+							var defaultData = '';
 							if (!err) {defaultData = fileData;}
 							var savedData = myOptions;
 							var chartType = {'line':'','bar':'','scatter':'','pie':'','bubble':'','histogram':'','heatmap':'','radar':'','box':'','choropleth':'','splom':'','diff':'','calendar':''};
