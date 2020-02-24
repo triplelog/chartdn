@@ -686,11 +686,16 @@ loginApp.get('/edit/:chartid',
 									chartid = chartid.substr(0,chartid.length-1)+String.fromCharCode(nforks+97);
 								}
 								var newchart = new Chart({id:chartid,data:result2.data,options:result2.options,users:[username],modifiers:result2.modifiers,types:result2.types,stats:{time:Date.now(),views:{},forks:[]}});
-								newchart.save(function (err, newchart) {
+								result2.stats.forks.push(String.fromCharCode(nforks+97));
+								result2.markModified('stats');
+								Promise.all([newchart.save(),result2.save()]).then(function(values) {
+									console.log('saved both');
+									res.redirect('../edit/'+chartid);
+								});
+								/*newchart.save(function (err, newchart) {
 									if (err) return console.error(err);
 									console.log('saved new chart', newchart,result2);
-									result2.stats.forks.push(String.fromCharCode(nforks+97));
-									result2.markModified('stats.forks');
+									
 									result2.save(function (err, oldchart) {
 										if (err) return console.error(err);
 										console.log('saved old chart', oldchart.stats);
@@ -698,7 +703,7 @@ loginApp.get('/edit/:chartid',
 										res.redirect('../edit/'+chartid);
 									});
 									
-								});
+								});*/
 									
 								
 								
