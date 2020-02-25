@@ -560,7 +560,10 @@ wss.on('connection', function connection(ws) {
 			  	}
 			  	else if (result.users.view[0] == 'friends' && username != ''){
 			  		//Check if result.users.creator is a friend
-			  		console.log(result.users, username)
+			  		console.log(result.users, username);
+			  			User.findOne({username: username}, function(err,result){
+			  				console.log(result);
+			  			})
 			  		 User.countDocuments({username: username, followers: result.users.creator}, function(err, result2) {
 						if (err){return}
 						else if (result2 > 0){
