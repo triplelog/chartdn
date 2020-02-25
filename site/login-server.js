@@ -98,27 +98,27 @@ app2.get('/user/:username',
   			}
 			tempKeys[tkey] = {username:username};
   			var charts = {created:[],edited:[],forked:[],viewed:[]};
-  			console.log(result.charts.created);
   			Promise.all([Chart.find({id: {$in: result.charts.created}, 'users.view': 'any'}, 'id users')]).then(function(results) {
   				console.log(results);
+  				charts.created = result.charts.created || [];
+				charts.forked = result.charts.forked || [];
+				charts.edited = result.charts.edited || [];
+				charts.viewed = result.charts.viewed || [];
+				var chartkeys = ['created','forked','edited','viewed'];
+				res.write(nunjucks.render('account.html',{
+					username: result.username,
+					name: result.name || '',
+					robot: result.options.robot || 1,
+					charts: charts || {},
+					chartkeys: chartkeys || [],
+					friends: [],
+					privacy: true,
+					addfriend: req.isAuthenticated(),
+					key: tkey,
+				}));
+				res.end();
   			})
-			charts.created = result.charts.created || [];
-			charts.forked = result.charts.forked || [];
-			charts.edited = result.charts.edited || [];
-			charts.viewed = result.charts.viewed || [];
-			var chartkeys = ['created','forked','edited','viewed'];
-			res.write(nunjucks.render('account.html',{
-				username: result.username,
-				name: result.name || '',
-				robot: result.options.robot || 1,
-				charts: charts || {},
-				chartkeys: chartkeys || [],
-				friends: [],
-				privacy: true,
-				addfriend: req.isAuthenticated(),
-				key: tkey,
-			}));
-			res.end();
+			
   		
   		})
 		
