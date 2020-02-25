@@ -331,7 +331,7 @@ wss.on('connection', function connection(ws) {
   		if (chartid != dataid){
   			Chart.updateOne({ id: chartid }, {data: chartid+'.csv'}, function(err, result) {});
 		}
-		
+		console.log(dataid);
 		fs.readFile('saved/'+dataid+'.csv', 'utf8', function(err, fileData) {
 			updateData(fileData,'',chartid,ws,dm,chartData);
 			dataid = chartid;
