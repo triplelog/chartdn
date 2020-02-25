@@ -781,6 +781,7 @@ function updateTable(data,sentHeaders) {
 			  trigger: 'manual',
 			  interactive: true,
 			  placement: 'bottom',
+			  onHide(instance){console.log(this); console.log(instance);}
 			});
 			tippys[col] = mytippy;
 			mytippy.show();
