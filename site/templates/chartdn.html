@@ -439,6 +439,7 @@
 									<label>Tags</label>
 									<input type="text" name="tags" onchange="optionsChg('tags')" value="{{ options.tags.join(', ') if options.tags else ''}}"/>
 								</div>
+								{% if isCreator %}
 								<div>
 									<label>View</label>
 									<select name="viewPermissions" onchange="optionsChg('viewPermissions')">
@@ -466,6 +467,7 @@
 										<!--<option value="custom">Custom</option>-->
 									</select>
 								</div>
+								{% endif %}
 								<div>
 									<label>Share</label>
 									<select name="shareChart" onchange="optionsChg('shareChart')">

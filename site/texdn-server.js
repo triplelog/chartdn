@@ -429,12 +429,14 @@ wss.on('connection', function connection(ws) {
   		if (mongoChart[chartid]) {
   				var result = mongoChart[chartid];
   				console.log('Chart Found',performance.now());
-				updatePermissions(result.users, dm);
-				result.markModified('users');
-				result.save(function (err, result2) {
-					if (err) return console.error('sajdhfkasdhjfkjsahdfkjsadhfs\n',err);
-					console.log('saved options', result2.users, performance.now());
-				});
+  				if (result.users.creator == username){
+					updatePermissions(result.users, dm);
+					result.markModified('users');
+					result.save(function (err, result2) {
+						if (err) return console.error('sajdhfkasdhjfkjsahdfkjsadhfs\n',err);
+						console.log('saved options', result2.users, performance.now());
+					});
+				}
   		}
   		else {
   			Chart.findOne({ id: chartid }, function(err, result) {
@@ -442,13 +444,15 @@ wss.on('connection', function connection(ws) {
 				
 			  } else {
 			  	console.log('Chart Found',performance.now());
-				updatePermissions(result.users, dm);
-				result.markModified('users');
-				result.save(function (err, result2) {
-					if (err) return console.error('sajdhfkasdhjfkjsahdfkjsadhfs\n',err);
-					console.log('saved options', performance.now(), result2.users);
-				});
-				mongoChart[chartid] = result;
+			  	if (result.users.creator == username){
+					updatePermissions(result.users, dm);
+					result.markModified('users');
+					result.save(function (err, result2) {
+						if (err) return console.error('sajdhfkasdhjfkjsahdfkjsadhfs\n',err);
+						console.log('saved options', performance.now(), result2.users);
+					});
+					mongoChart[chartid] = result;
+				}
 			  }
 			});
   		}
@@ -929,6 +933,7 @@ loginApp.get('/edit/:chartid',
 								yColumns: savedData.yColumns || '',
 								chartid: chartid || '',
 								key: tkey,
+								isCreator: result.users.creator == username,
 							}));
 							res.end();
 						  });
@@ -984,6 +989,7 @@ loginApp.get('/edit/:chartid',
 										yColumns: savedData.yColumns || '',
 										chartid: chartid || '',
 										key: tkey,
+										isCreator: result.users.creator == username,
 									}));
 									res.end();
 								  });
