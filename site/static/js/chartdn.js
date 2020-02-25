@@ -662,12 +662,17 @@ function clickTippy(evt) {
 			modifiers.push(newObject);
 			modifierChanged(false);
 			chgModify(newObject);
+			console.log(newObject);
 			updateColumns();
+		}
+		else if (evt.target.getAttribute('name')=='deleteButton'){
+			console.log(col);
 		}
 		if(tippys[col]){
 			tippys[col].destroy();
 			delete tippys[col];
 		}
+		
 	}
 	else {
 		var row = evt.target.parentElement.parentElement.getAttribute('data-row');
@@ -774,6 +779,7 @@ function updateTable(data,sentHeaders) {
 			tc.querySelector('button[name=pivotButton]').addEventListener('click',clickTippy);
 			tc.querySelector('button[name=ascButton]').addEventListener('click',clickTippy);
 			tc.querySelector('button[name=descButton]').addEventListener('click',clickTippy);
+			tc.querySelector('button[name=deleteButton]').addEventListener('click',clickTippy);
 			
 			if (!tippys[col]){
 				let mytippy = tippy(e.target, {
