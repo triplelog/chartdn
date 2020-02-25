@@ -666,7 +666,7 @@ function clickTippy(evt) {
 		}
 		else if (evt.target.getAttribute('name')=='deleteButton'){
 			table.deleteColumn('col'+col);
-			userDataChanges.push({'deleteColumn':col});
+			userDataChanges.push({'deleteColumn':parseInt(col)});
 			document.getElementById('saveUserChanges').style.display = 'block';
 		}
 		if(tippys[col]){
@@ -679,7 +679,7 @@ function clickTippy(evt) {
 		var row = evt.target.parentElement.parentElement.getAttribute('data-row');
 		if (evt.target.getAttribute('name')=='deleteButton'){
 			table.deleteRow(row);
-			userDataChanges.push({'originalRow':row,'newRow':-1});
+			userDataChanges.push({'originalRow':parseInt(row),'newRow':-1});
 			document.getElementById('saveUserChanges').style.display = 'block';
 		}
 		if(tippysR[row]){
