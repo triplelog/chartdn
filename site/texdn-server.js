@@ -808,7 +808,7 @@ loginApp.get('/edit/:chartid',
 						});
 					}
 					
-					if (result2.users.edit.all[0]== 'any' || result2.users.creator == username) {
+					if (result.users.edit.all[0]== 'any' || result.users.creator == username) {
 						if (username != '') {
 							User.updateOne({username: username, "charts.edited": { "$ne": chartid}, "charts.forked": { "$ne": chartid}, "charts.created": { "$ne": chartid}}, {$push: {"charts.edited": chartid}}, function (err, result) {});
 						}
