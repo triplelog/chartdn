@@ -502,7 +502,7 @@ wss.on('connection', function connection(ws) {
 			  	if (err || result == null){
 			  	}
 			  	else if (result.users.view[0]=='any' || result.users.creator == username){
-			  		console.log('viewable',result);
+			  		console.log('viewable', username);
 			  		if (result.data != ''){
 						if (dm.style){
 							makeAllCharts(ws,dm,result,dm.style);
