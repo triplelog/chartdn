@@ -682,6 +682,13 @@ function clickTippy(evt) {
 			userDataChanges.push({'originalRow':parseInt(row),'newRow':-1});
 			document.getElementById('saveUserChanges').style.display = 'block';
 		}
+		else if (evt.target.getAttribute('name')=='addButton'){
+			table.addRow({},false,row);
+			//userDataChanges.push({'originalRow':-1,'newRow':parseInt(row)});
+			document.getElementById('saveUserChanges').style.display = 'block';
+		}
+		
+		
 		if(tippysR[row]){
 			
 			tippysR[row].destroy();
