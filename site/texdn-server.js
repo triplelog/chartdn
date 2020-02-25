@@ -145,6 +145,7 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 				newLine += v[newColumns[i]]+', ';
 			}
 			newLine += v[newColumns[i]]+'\n';
+			file.write(newLine);
 		}
 	});
 	file.end();
