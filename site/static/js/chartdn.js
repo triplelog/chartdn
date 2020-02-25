@@ -667,8 +667,8 @@ function clickTippy(evt) {
 		else if (evt.target.getAttribute('name')=='deleteButton'){
 			console.log(col);
 			table.deleteColumn('col'+col);
-			//remove from data table
-			//add to userchanges
+			userDataChanges.push({'deleteColumn':col});
+			document.getElementById('saveUserChanges').style.display = 'block';
 		}
 		if(tippys[col]){
 			tippys[col].destroy();
@@ -844,9 +844,7 @@ function updateTable(data,sentHeaders) {
 		},
 		columnMoved:function(column, columns){
 			var originalColumn = column['_column'].field.substring(3);
-			console.log(originalColumn);
 			var newColumn = column['_column'];
-			console.log(columns[1]);
 			var myColumns = [];
 			for (var i=0;i<columns.length;i++){
 				var field = columns[i]['_column'].field;

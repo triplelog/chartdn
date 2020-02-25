@@ -90,6 +90,8 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 	});
 	var nHeaders = 1;
 	var newColumns = [];
+	var deleteColumns = [];
+	var chgRows = [];
 	for (var i=0;i<dm.message.length;i++){
 		if (dm.message[i].col){
 			var cellData = dm.message[i];
@@ -98,39 +100,48 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 		else if (dm.message[i].newColumns){
 			newColumns = dm.message[i].newColumns;
 		}
-	}
-	var originalRows = {};
-	for (var i=0;i<dm.message.length;i++){
-		if (!dm.message[i].col && !dm.message[i].newColumns){
-			originalRows[dm.message[i].originalRow] = {'row':results.data[dm.message[i].originalRow+nHeaders].slice(),'index':dm.message[i].originalRow+nHeaders};
+		else if (dm.message[i].deleteColumn){
+			deleteColumns.push(dm.message[i].deleteColumn);
+		}
+		else {
+			chgRows.push(dm.message[i]);
 		}
 	}
-	for (var i=0;i<dm.message.length;i++){
-		if (!dm.message[i].col && !dm.message[i].newColumns){
-			var cIndex = originalRows[dm.message[i].originalRow].index;
-			results.data.splice(cIndex,1);
-			results.data.splice(dm.message[i].newRow+nHeaders,0,originalRows[dm.message[i].originalRow].row);
-			originalRows[dm.message[i].originalRow].index = dm.message[i].newRow+nHeaders;
-			//update other originalRow index
-			var nomas = {};
-			nomas[dm.message[i].originalRow]=true;
-			for (var ii=i+1;ii<dm.message.length;ii++){
-				if (!dm.message[ii].col && !dm.message[ii].newColumns && !nomas[dm.message[ii].originalRow]){
-					if (originalRows[dm.message[ii].originalRow].index > cIndex) {
-						if (originalRows[dm.message[ii].originalRow].index <= dm.message[i].newRow+nHeaders) {
-							originalRows[dm.message[ii].originalRow].index--;
-						}
-					}
-					else if (originalRows[dm.message[ii].originalRow].index < cIndex) {
-						if (originalRows[dm.message[ii].originalRow].index >= dm.message[i].newRow+nHeaders) {
-							originalRows[dm.message[ii].originalRow].index++;
-						}
-					}
-					nomas[dm.message[ii].originalRow]= true;
-				}
+	for (var i=0;i<deleteColumns.length;i++){
+		for (var ii=0;ii<newColumns.length;ii++){
+			if (newColumns[ii] == deleteColumns[i]){
+				newColumns.splice(ii,1);
+				break;
 			}
 		}
-		
+	}
+	var originalRows = {};
+	for (var i=0;i<chgRows.length;i++){
+		originalRows[chgRows[i].originalRow] = {'row':results.data[chgRows[i].originalRow+nHeaders].slice(),'index':chgRows[i].originalRow+nHeaders};
+	}
+	for (var i=0;i<chgRows.length;i++){
+		var cIndex = originalRows[chgRows[i].originalRow].index;
+		results.data.splice(cIndex,1);
+		results.data.splice(chgRows[i].newRow+nHeaders,0,originalRows[chgRows[i].originalRow].row);
+		originalRows[chgRows[i].originalRow].index = chgRows[i].newRow+nHeaders;
+		//update other originalRow index
+		var nomas = {};
+		nomas[chgRows[i].originalRow]=true;
+		for (var ii=i+1;ii<chgRows.length;ii++){
+			if (!nomas[chgRows[ii].originalRow]){
+				if (originalRows[chgRows[ii].originalRow].index > cIndex) {
+					if (originalRows[chgRows[ii].originalRow].index <= chgRows[i].newRow+nHeaders) {
+						originalRows[chgRows[ii].originalRow].index--;
+					}
+				}
+				else if (originalRows[chgRows[ii].originalRow].index < cIndex) {
+					if (originalRows[chgRows[ii].originalRow].index >= chgRows[i].newRow+nHeaders) {
+						originalRows[chgRows[ii].originalRow].index++;
+					}
+				}
+				nomas[chgRows[ii].originalRow]= true;
+			}
+		}
 	}
 	var file = fs.createWriteStream('saved/'+chartid+'.csv');
 	file.on('error', function(err) { /* error handling */ });
