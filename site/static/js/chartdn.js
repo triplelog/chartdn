@@ -1741,7 +1741,7 @@ function createReplace(obj) {
 			mymod.options.splice(oldIndex,1);
 			if (sibling){
 				newIndex = sibling.getAttribute('data-id');
-				mymod.options.splice(newIndex,1,oldReplace);
+				mymod.options.splice(newIndex,0,oldReplace);
 			}
 			else {
 				mymod.options.push(oldReplace);
