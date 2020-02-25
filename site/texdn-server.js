@@ -650,7 +650,11 @@ loginApp.get('/browse',
 		}
 		else if (req.query.tags) {
 			var tags = req.query.tags.split(',');
-			query = { 'users.view': 'any', "options.tags": { $all: tags }};
+			var followers = [];
+			if (req.isAuthenticated() && req.user){
+				followers = req.user.followers;
+			}
+			query = { "options.tags": { $all: tags }, $or: [{'users.view': 'any'}, {'users.view': 'friends', 'users.creator': { $in: followers }}]};
 		}
 		else if (req.query.creators) {
 			var creators = req.query.creators.split(',');
