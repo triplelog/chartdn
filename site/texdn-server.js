@@ -510,6 +510,7 @@ wss.on('connection', function connection(ws) {
 			  	if (err || result == null){
 			  	}
 			  	else if (!result.users.view || result.users.creator == username){
+			  		console.log('viewable');
 			  		if (result.data != ''){
 						if (dm.style){
 							makeAllCharts(ws,dm,result,dm.style);
