@@ -831,12 +831,11 @@ function updateTable(data,sentHeaders) {
 			userDataChanges.push({'originalRow':originalRow,'newRow':newRow});
 			document.getElementById('saveUserChanges').style.display = 'block';
 		},
-		columnMoved:function(column){
+		columnMoved:function(column, columns){
 			var originalColumn = column['_column'].field.substring(3);
 			console.log(originalColumn);
 			var newColumn = column['_column'];
-			console.log(newColumn);
-			console.log(column);
+			console.log(columns);
 			//userDataChanges.push({'originalRow':originalRow,'newRow':newRow});
 			//document.getElementById('saveUserChanges').style.display = 'block';
 		},
