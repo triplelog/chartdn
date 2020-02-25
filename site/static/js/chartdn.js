@@ -832,7 +832,7 @@ function updateTable(data,sentHeaders) {
 			document.getElementById('saveUserChanges').style.display = 'block';
 		},
 		columnMoved:function(column){
-			var originalcolumn = column['_column'].data;
+			var originalColumn = column['_column'].data;
 			console.log(originalColumn);
 			//var newRow = row.getPosition();
 			//userDataChanges.push({'originalRow':originalRow,'newRow':newRow});
