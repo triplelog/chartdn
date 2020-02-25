@@ -504,6 +504,13 @@ function optionsChg(optionname) {
 		console.log(jsonmessage);
 		ws.send(JSON.stringify(jsonmessage));
 	}
+	else if (optionname == 'viewPermissions' || optionname == 'forkPermissions' || optionname == 'editPermissions'){
+		var newoption = document.querySelector('*[name='+optionname+']').value;
+		var jsonmessage = {'operation':'permissions'};
+		jsonmessage[optionname]=newoption;
+		console.log(jsonmessage);
+		ws.send(JSON.stringify(jsonmessage));
+	}
 	else {
 		var newoption = document.querySelector('*[name='+optionname+']').value;
 		var jsonmessage = {'operation':'options'};

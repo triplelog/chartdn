@@ -186,7 +186,6 @@ function updateOptions(oldOptions, newOptions) {
 	for(var k in newOptions){
 		
 		var v = newOptions[k];
-		console.log(k,v);
 		if (k == 'yColumns' || k == 'tags'){
 			oldOptions[k] = v;
 		}
@@ -232,6 +231,21 @@ function updateOptions(oldOptions, newOptions) {
 		}
 		else if (k != 'operation'){
 			oldOptions[k] = v;
+		}
+	}
+}
+function updatePermissions(oldUser, newOptions) {
+	for(var k in newOptions){
+		
+		var v = newOptions[k];
+		if (k == 'viewPermissions'){
+			oldUser['view'] = v;
+		}
+		else if (k == 'forkPermissions'){
+			oldUser['fork'] = v;
+		}
+		else if (k == 'editPermissions'){
+			oldUser['edit'].all = v;
 		}
 	}
 }
@@ -409,6 +423,35 @@ wss.on('connection', function connection(ws) {
   		
   		
   		
+  	}
+  	else if (dm.operation == 'permissions'){
+  		console.log('message rec',performance.now());
+  		if (mongoChart[chartid]) {
+  				var result = mongoChart[chartid];
+  				console.log('Chart Found',performance.now());
+				updatePermissions(result.users, dm);
+				result.markModified('users');
+				result.save(function (err, result2) {
+					if (err) return console.error('sajdhfkasdhjfkjsahdfkjsadhfs\n',err);
+					console.log('saved options', result2.users, performance.now());
+				});
+  		}
+  		else {
+  			Chart.findOne({ id: chartid }, function(err, result) {
+			  if (err) {
+				
+			  } else {
+			  	console.log('Chart Found',performance.now());
+				updatePermissions(result.users, dm);
+				result.markModified('users');
+				result.save(function (err, result2) {
+					if (err) return console.error('sajdhfkasdhjfkjsahdfkjsadhfs\n',err);
+					console.log('saved options', performance.now(), result2.users);
+				});
+				mongoChart[chartid] = result;
+			  }
+			});
+  		}
   	}
   	else if (dm.operation == 'modifiers'){
   		console.log('message rec',performance.now());
