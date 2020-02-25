@@ -81,6 +81,10 @@ app2.get('/user/:username',
   			if (err){return;}
   			console.log(result)
   			var tkey = crypto.randomBytes(100).toString('hex').substr(2, 18);
+  			var username = '';
+  			if (req.isAuthenticated){
+  				username = req.user.username;
+  			}
 			tempKeys[tkey] = {username:username};
   			var charts = {created:[],edited:[],forked:[],viewed:[]};
   			Promise.all([Chart.find({id: {$in: result.charts.created}, 'users.view[0]': 'any'}, 'id')]).then(function(results) {
