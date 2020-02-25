@@ -634,7 +634,10 @@ loginApp.get('/browse',
 	function(req, res){
 		var charts = [];
 		console.log('start looking: ', performance.now());
-		
+		var username = '';
+		if (req.isAuthenticated() && req.user){
+			username = req.user.username;
+		}
 		var query = {'users.view': 'any'};
 		if (req.query.tags && req.query.creators) {
 			var tags = req.query.tags.split(',');
