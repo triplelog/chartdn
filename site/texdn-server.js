@@ -184,7 +184,9 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 }
 function updateOptions(oldOptions, newOptions) {
 	for(var k in newOptions){
+		
 		var v = newOptions[k];
+		console.log(k,v);
 		if (k == 'yColumns' || k == 'tags'){
 			oldOptions[k] = v;
 		}
