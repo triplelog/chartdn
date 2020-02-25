@@ -722,6 +722,7 @@ function updateTable(data,sentHeaders) {
 			tcr.setAttribute('data-row',row);
 			tcr.querySelector('button[name=filterButton]').addEventListener('click',clickTippy);
 			tcr.querySelector('button[name=deleteButton]').addEventListener('click',clickTippy);
+			tcr.querySelector('button[name=addButton]').addEventListener('click',clickTippy);
 				
 			let mytippy = tippy(e.target, {
 			  content: tcr,
