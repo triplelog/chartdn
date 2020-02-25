@@ -80,6 +80,7 @@ const wss = new WebSocket.Server({ server });
 function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 	var results = Papa.parse(oldDataStr, {
 		delimiter: delimiter,
+		skipEmptyLines: true,
 	});
 	var nHeaders = 1;
 	var newColumns = [];
@@ -121,7 +122,7 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 	for (var i=0;i<chgRows.length;i++){
 		if (chgRows[i].originalRow+nHeaders < results.data.length){
 			originalRows[chgRows[i].originalRow] = {'row':results.data[chgRows[i].originalRow+nHeaders].slice(),'index':chgRows[i].originalRow+nHeaders};
-			console.log(chgRows[i].originalRow+nHeaders, results.data.length, results.data[55]);
+			console.log(chgRows[i].originalRow+nHeaders, results.data.length);
 		}
 		else if (chgRows[i].originalRow+nHeaders == results.data.length) {
 			results.data.push([]);
