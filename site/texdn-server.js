@@ -782,26 +782,37 @@ loginApp.get('/fork/:chartid',
 							res.redirect('../edit/'+chartid);
 						});
 					}
-					else if (result2.users.fork[0] == 'friends') {
-						//Check if creator in friends
-						if (!result2.stats.forks){
-							var nforks = 0;
-							chartid = chartid+String.fromCharCode(nforks+97);
-						}
-						else {
-							var nforks = result2.stats.forks.length;
-							chartid = chartid+String.fromCharCode(nforks+97);
-						}
-						var newchart = new Chart({id:chartid,data:result2.data,options:result2.options,users:{creator:username,view:['any'],fork:['any'],edit:{all:['private']}},modifiers:result2.modifiers,types:result2.types,stats:{time:Date.now(),views:{},forks:[]}});
-						result2.stats.forks.push(String.fromCharCode(nforks+97));
-						result2.markModified('stats');
-						Promise.all([newchart.save(),result2.save()]).then(function(values) {
-							console.log('saved both', values[1].stats.views);
-							if (username != '') {
-								User.updateOne({username: username, "charts.forked": { "$ne": chartid}}, {$push: {"charts.forked": chartid}}, function (err, result) {});
+					else if (result2.users.fork[0] == 'friends' && username != '') {
+						User.countDocuments({username: username, followers: result2.users.creator}, function(err, result3) {
+							if (err){return}
+							else if (result3 > 0){
+								if (!result2.stats.forks){
+									var nforks = 0;
+									chartid = chartid+String.fromCharCode(nforks+97);
+								}
+								else {
+									var nforks = result2.stats.forks.length;
+									chartid = chartid+String.fromCharCode(nforks+97);
+								}
+								var newchart = new Chart({id:chartid,data:result2.data,options:result2.options,users:{creator:username,view:['any'],fork:['any'],edit:{all:['private']}},modifiers:result2.modifiers,types:result2.types,stats:{time:Date.now(),views:{},forks:[]}});
+								result2.stats.forks.push(String.fromCharCode(nforks+97));
+								result2.markModified('stats');
+								Promise.all([newchart.save(),result2.save()]).then(function(values) {
+									console.log('saved both', values[1].stats.views);
+									if (username != '') {
+										User.updateOne({username: username, "charts.forked": { "$ne": chartid}}, {$push: {"charts.forked": chartid}}, function (err, result) {});
+									}
+									res.redirect('../edit/'+chartid);
+								});
 							}
-							res.redirect('../edit/'+chartid);
-						});
+							else {
+								console.log('No permission to fork this chart.')
+							}
+					
+						})
+						
+						
+						
 					}
 					else {
 						console.log('No permission to fork this chart.')
