@@ -632,14 +632,18 @@ function loadChart(chartid,ws,dm,chartData,deletexls=false,result=false){
 
 loginApp.get('/browse',
 	function(req, res){
-		console.log(req.query);
 		var charts = [];
 		console.log('start looking: ', performance.now());
+		
 		var query = {'users.view': 'any'};
 		if (req.query.tags && req.query.creators) {
 			var tags = req.query.tags.split(',');
 			var creators = req.query.creators.split(',');
-			query = { 'users.view': 'any', "options.tags": { $all: tags }, "users.creator": { $in: creators } };
+			var followers = [];
+			if (req.isAuthenticated() && req.user){
+				followers = req.user.followers;
+			}
+			query = { "options.tags": { $all: tags }, "users.creator": { $in: creators }, $or: [{'users.view': 'any'}, {'users.view': 'friends', 'users.creator': { $in: followers }}] };
 		}
 		else if (req.query.tags) {
 			var tags = req.query.tags.split(',');
@@ -647,7 +651,12 @@ loginApp.get('/browse',
 		}
 		else if (req.query.creators) {
 			var creators = req.query.creators.split(',');
-			query = { 'users.view': 'any', "users.creator": { $in: creators } };
+			var followers = [];
+			if (req.isAuthenticated() && req.user){
+				followers = req.user.followers;
+			}
+			query = { "users.creator": { $in: creators }, $or: [{'users.view': 'any'}, {'users.view': 'friends', 'users.creator': { $in: followers }}] };
+
 		}
 		Chart.find(query, function(err, result) {
 			if (err){console.log('errrrr');}
@@ -969,6 +978,7 @@ loginApp.get('/edit/:chartid',
 							}
 							else {
 								console.log('No permission to fedit this chart.')
+								res.redirect('/charts/'+chartid);
 							}
 					
 						})
