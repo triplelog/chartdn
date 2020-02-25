@@ -1296,14 +1296,18 @@ function updateModifier(evt){
 					newObj.full = pel.querySelector('*[name=full]').checked;
 					if (pel.getAttribute('data-id') && pel.getAttribute('data-id') != ''){
 						modifiers[i].options[parseInt(pel.getAttribute('data-id'))] = newObj;
-						pel.setAttribute('data-id','')
+						var newMM = pel.parentElement.querySelector('div[name=allReplacements]');
+						toReplaceElement(newObj,pel.getAttribute('data-id'),newMM);
+						pel.setAttribute('data-id','');
+						
 					}
 					else {
 						modifiers[i].options.push(newObj);
+						var newMM = pel.parentElement.querySelector('div[name=allReplacements]');
+						toReplaceElement(newObj,'',newMM);
 					}
 					
-					var newMM = pel.parentElement.querySelector('div[name=allReplacements]');
-					toReplaceElement(newObj,'',newMM);
+					
 				}
 			}
 			else if (mType == 'new' || mType == 'filter'){
