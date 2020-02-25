@@ -762,7 +762,7 @@ loginApp.get('/fork/:chartid',
 			Chart.findOne({ id: chartid }, function(err, result2) {
 				if (err){}
 				else { //Fork chart data and options
-					if (!result2.users.fork[0] == 'any' || result2.users.creator == username) {
+					if (result2.users.fork[0] == 'any' || result2.users.creator == username) {
 						if (!result2.stats.forks){
 							var nforks = 0;
 							chartid = chartid+String.fromCharCode(nforks+97);
