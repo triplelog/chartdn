@@ -112,13 +112,17 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 	for (var i=0;i<deleteColumns.length;i++){
 		if (newColumns.length == 0){
 			for (var ii=0;ii<results.data[0].length;ii++){
-				newColumns.push(ii);
+				if (ii != deleteColumns[i]){
+					newColumns.push(ii);
+				}
 			}
 		}
-		for (var ii=0;ii<newColumns.length;ii++){
-			if (newColumns[ii] == deleteColumns[i]){
-				newColumns.splice(ii,1);
-				break;
+		else {
+			for (var ii=0;ii<newColumns.length;ii++){
+				if (newColumns[ii] == deleteColumns[i]){
+					newColumns.splice(ii,1);
+					break;
+				}
 			}
 		}
 	}
