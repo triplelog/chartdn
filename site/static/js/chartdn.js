@@ -660,9 +660,9 @@ function clickTippy(evt) {
 			el.value = '';
 			createPivot(newObject);
 			modifiers.push(newObject);
-			modifierChanged(false);
+			modifierChanged();
 			chgModify(newObject);
-			console.log(newObject);
+			console.log(modifiers);
 			updateColumns();
 		}
 		else if (evt.target.getAttribute('name')=='deleteButton'){
