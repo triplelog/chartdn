@@ -834,8 +834,9 @@ function updateTable(data,sentHeaders) {
 		columnMoved:function(column){
 			var originalColumn = column['_column'].field.substring(3);
 			console.log(originalColumn);
-			var newColumn = column.getPosition();
+			var newColumn = column['_column'];
 			console.log(newColumn);
+			console.log(column);
 			//userDataChanges.push({'originalRow':originalRow,'newRow':newRow});
 			//document.getElementById('saveUserChanges').style.display = 'block';
 		},
