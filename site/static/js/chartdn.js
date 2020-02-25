@@ -679,6 +679,8 @@ function clickTippy(evt) {
 		var row = evt.target.parentElement.parentElement.getAttribute('data-row');
 		if (evt.target.getAttribute('name')=='deleteButton'){
 			table.deleteRow(row);
+			userDataChanges.push({'originalRow':row,'newRow':-1});
+			document.getElementById('saveUserChanges').style.display = 'block';
 		}
 		if(tippysR[row]){
 			

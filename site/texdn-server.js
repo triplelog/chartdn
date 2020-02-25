@@ -107,8 +107,6 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 			chgRows.push(dm.message[i]);
 		}
 	}
-	console.log(deleteColumns);
-	console.log(newColumns);
 	for (var i=0;i<deleteColumns.length;i++){
 		if (newColumns.length == 0){
 			for (var ii=0;ii<results.data[0].length;ii++){
@@ -126,7 +124,6 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 			}
 		}
 	}
-	console.log(newColumns);
 	var originalRows = {};
 	for (var i=0;i<chgRows.length;i++){
 		originalRows[chgRows[i].originalRow] = {'row':results.data[chgRows[i].originalRow+nHeaders].slice(),'index':chgRows[i].originalRow+nHeaders};
@@ -134,15 +131,22 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 	for (var i=0;i<chgRows.length;i++){
 		var cIndex = originalRows[chgRows[i].originalRow].index;
 		results.data.splice(cIndex,1);
-		results.data.splice(chgRows[i].newRow+nHeaders,0,originalRows[chgRows[i].originalRow].row);
-		originalRows[chgRows[i].originalRow].index = chgRows[i].newRow+nHeaders;
+		if (chgRows[i].newRow != -1){
+			results.data.splice(chgRows[i].newRow+nHeaders,0,originalRows[chgRows[i].originalRow].row);
+			originalRows[chgRows[i].originalRow].index = chgRows[i].newRow+nHeaders;
+		}
+		
 		//update other originalRow index
 		var nomas = {};
 		nomas[chgRows[i].originalRow]=true;
 		for (var ii=i+1;ii<chgRows.length;ii++){
 			if (!nomas[chgRows[ii].originalRow]){
+				
 				if (originalRows[chgRows[ii].originalRow].index > cIndex) {
-					if (originalRows[chgRows[ii].originalRow].index <= chgRows[i].newRow+nHeaders) {
+					if (chgRows[i].newRow == -1) {
+						originalRows[chgRows[ii].originalRow].index--;
+					}
+					else if (originalRows[chgRows[ii].originalRow].index <= chgRows[i].newRow+nHeaders) {
 						originalRows[chgRows[ii].originalRow].index--;
 					}
 				}
