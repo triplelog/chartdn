@@ -99,7 +99,7 @@ app2.get('/user/:username',
 			tempKeys[tkey] = {username:username};
   			var charts = {created:[],edited:[],forked:[],viewed:[]};
   			console.log(result.charts.created);
-  			Promise.all([Chart.find({id: {$in: result.charts.created}}, 'id')]).then(function(results) {
+  			Promise.all([Chart.find({id: {$in: result.charts.created}, 'users.view': 'any'}, 'id')]).then(function(results) {
   				console.log(results);
   			})
 			charts.created = result.charts.created || [];
