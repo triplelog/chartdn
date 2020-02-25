@@ -126,7 +126,18 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 	}
 	var originalRows = {};
 	for (var i=0;i<chgRows.length;i++){
-		originalRows[chgRows[i].originalRow] = {'row':results.data[chgRows[i].originalRow+nHeaders].slice(),'index':chgRows[i].originalRow+nHeaders};
+		if (chgRows[i].originalRow+nHeaders < results.data.length){
+			originalRows[chgRows[i].originalRow] = {'row':results.data[chgRows[i].originalRow+nHeaders].slice(),'index':chgRows[i].originalRow+nHeaders};
+		}
+		else if (chgRows[i].originalRow+nHeaders == results.data.length) {
+			results.data.push([]);
+			originalRows[chgRows[i].originalRow] = {'row':[],'index':chgRows[i].originalRow+nHeaders};
+		}
+		else {
+			console.log('results not big enough!');
+			results.data[chgRows[i].originalRow+nHeaders] = [];
+			originalRows[chgRows[i].originalRow] = {'row':[],'index':chgRows[i].originalRow+nHeaders};
+		}
 	}
 	for (var i=0;i<chgRows.length;i++){
 		var cIndex = originalRows[chgRows[i].originalRow].index;

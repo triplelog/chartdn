@@ -684,12 +684,8 @@ function clickTippy(evt) {
 		}
 		else if (evt.target.getAttribute('name')=='addButton'){
 			var rowCount = table.getDataCount();
-			console.log(rowCount);
 			table.addRow({id:rowCount,colRow:rowCount},false,row);
-			rowCount = table.getDataCount();
-			console.log(rowCount);
-			//userDataChanges.push({'originalRow':-1,'newRow':rowCount,'isNew':true});
-			//userDataChanges.push({'originalRow':-1,'newRow':parseInt(row)});
+			userDataChanges.push({'originalRow':rowCount,'newRow':parseInt(row)});
 			document.getElementById('saveUserChanges').style.display = 'block';
 		}
 		
