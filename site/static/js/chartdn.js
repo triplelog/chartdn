@@ -728,9 +728,22 @@ function updateTable(data,sentHeaders) {
 			let templateR = document.getElementById('clickRow-template');
 			let tcr = templateR.content.cloneNode(true).firstElementChild;
 			tcr.setAttribute('data-row',row);
-			tcr.querySelector('button[name=filterButton]').addEventListener('click',clickTippy);
-			tcr.querySelector('button[name=deleteButton]').addEventListener('click',clickTippy);
-			tcr.querySelector('button[name=addButton]').addEventListener('click',clickTippy);
+			
+			if (!modifiers || modifiers.length == 0 || nsteps == 0) {
+				tcr.querySelector('button[name=deleteButton]').addEventListener('click',clickTippy);
+				tcr.querySelector('button[name=addButton]').addEventListener('click',clickTippy);
+			}
+			else {
+				tcr.querySelector('button[name=deleteButton]').style.display = 'none';
+				tcr.querySelector('button[name=addButton]').style.display = 'none';
+			}
+			if (!modifiers || modifiers.length == 0 || (!nsteps && nsteps != 0) ){
+				tcr.querySelector('button[name=filterButton]').addEventListener('click',clickTippy);
+			}
+			else {
+				tcr.querySelector('button[name=filterButton]').style.display = 'none';
+			}
+			
 				
 			let mytippy = tippy(e.target, {
 			  content: tcr,
@@ -796,12 +809,27 @@ function updateTable(data,sentHeaders) {
 			let tc = template.content.cloneNode(true).firstElementChild;
 			tc.setAttribute('data-col',col);
 			tc.setAttribute('data-name',headers[parseInt(col)]);
-			tc.querySelector('button[name=xButton]').addEventListener('click',clickTippy);
-			tc.querySelector('button[name=yButton]').addEventListener('click',clickTippy);
-			tc.querySelector('button[name=pivotButton]').addEventListener('click',clickTippy);
-			tc.querySelector('button[name=ascButton]').addEventListener('click',clickTippy);
-			tc.querySelector('button[name=descButton]').addEventListener('click',clickTippy);
-			tc.querySelector('button[name=deleteButton]').addEventListener('click',clickTippy);
+			if (!modifiers || modifiers.length == 0 || nsteps == 0) {
+				tc.querySelector('button[name=deleteButton]').addEventListener('click',clickTippy);
+			}
+			else {
+				tc.querySelector('button[name=deleteButton]').style.display = 'none';
+			}
+			if (!modifiers || modifiers.length == 0 || (!nsteps && nsteps != 0) ){
+				tc.querySelector('button[name=xButton]').addEventListener('click',clickTippy);
+				tc.querySelector('button[name=yButton]').addEventListener('click',clickTippy);
+				tc.querySelector('button[name=pivotButton]').addEventListener('click',clickTippy);
+				tc.querySelector('button[name=ascButton]').addEventListener('click',clickTippy);
+				tc.querySelector('button[name=descButton]').addEventListener('click',clickTippy);
+			}
+			else {
+				tc.querySelector('button[name=xButton]').style.display = 'none';
+				tc.querySelector('button[name=yButton]').style.display = 'none';
+				tc.querySelector('button[name=pivotButton]').style.display = 'none';
+				tc.querySelector('button[name=ascButton]').style.display = 'none';
+				tc.querySelector('button[name=descButton]').style.display = 'none';
+			}
+			
 			
 			if (!tippys[col]){
 				let mytippy = tippy(e.target, {
