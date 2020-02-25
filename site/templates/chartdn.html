@@ -444,26 +444,26 @@
 									<select name="viewPermissions" onchange="optionsChg('viewPermissions')">
 										<option value="any" {{ 'selected="selected"' if users.view[0]=='any' else ''}}>Anyone</option>
 										<option value="friends" {{ 'selected="selected"' if users.view[0]=='friends' else ''}}>Friends</option>
-										<option value="private">Me</option>
-										<option value="custom">Custom</option>
+										<option value="private" {{ 'selected="selected"' if users.view[0]=='private' else ''}}>Me</option>
+										<!--<option value="custom">Custom</option>-->
 									</select>
 								</div>
 								<div>
 									<label>Fork</label>
 									<select name="forkPermissions" onchange="optionsChg('forkPermissions')">
-										<option value="any" selected="selected">Anyone</option>
-										<option value="friends">Friends</option>
-										<option value="private">Me</option>
-										<option value="custom">Custom</option>
+										<option value="any" {{ 'selected="selected"' if users.fork[0]=='any' else ''}}>Anyone</option>
+										<option value="friends" {{ 'selected="selected"' if users.fork[0]=='friends' else ''}}>Friends</option>
+										<option value="private" {{ 'selected="selected"' if users.fork[0]=='private' else ''}}>Me</option>
+										<!--<option value="custom">Custom</option>-->
 									</select>
 								</div>
 								<div>
 									<label>Edit</label>
 									<select name="editPermissions" onchange="optionsChg('editPermissions')">
-										<option value="any">Anyone</option>
-										<option value="friends">Friends</option>
-										<option value="private" selected="selected">Me</option>
-										<option value="custom">Custom</option>
+										<option value="any" {{ 'selected="selected"' if users.edit.all[0]=='any' else ''}}>Anyone</option>
+										<option value="friends" {{ 'selected="selected"' if users.edit.all[0]=='friends' else ''}}>Friends</option>
+										<option value="private" {{ 'selected="selected"' if users.edit.all[0]=='private' else ''}}>Me</option>
+										<!--<option value="custom">Custom</option>-->
 									</select>
 								</div>
 								<div>
