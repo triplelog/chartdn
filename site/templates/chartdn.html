@@ -479,9 +479,9 @@
 								<div>
 									<label>Shape</label>
 									<select name="shapeChart" onchange="optionsChg('shapeChart')">
-										<option value="wide" selected="selected">Wide</option>
-										<option value="tall">Tall</option>
-										<option value="square">Square</option>
+										<option value="wide" {{ 'selected="selected"' if options.shapeChart=='wide' else ''}}>Wide</option>
+										<option value="tall" {{ 'selected="selected"' if options.shapeChart=='tall' else ''}}>Tall</option>
+										<option value="square" {{ 'selected="selected"' if options.shapeChart=='square' else ''}}>Square</option>
 									</select>
 								</div>
 							</div>
