@@ -1294,7 +1294,13 @@ function updateModifier(evt){
 					newObj.case = pel.querySelector('*[name=case]').checked;
 					newObj.numerical = pel.querySelector('*[name=numerical]').checked;
 					newObj.full = pel.querySelector('*[name=full]').checked;
-					modifiers[i].options.push(newObj);
+					if (pel.getAttribute('data-id') && pel.getAttribute('data-id') != ''){
+						modifiers[i].options[parseInt(pel.getAttribute('data-id'))] = newObj;
+						pel.setAttribute('data-id','')
+					}
+					else {
+						modifiers[i].options.push(newObj);
+					}
 					
 					var newMM = pel.parentElement.querySelector('div[name=allReplacements]');
 					toReplaceElement(newObj,'',newMM);
@@ -1650,11 +1656,29 @@ function createPivot(obj) {
 	
 }
 
+function editReplace(evt) {
+	var el = evt.target;
+	var modid = evt.target.parentElement.parentElement.parentElement.parentElement.id.substring(4);
+	var mymod = false;
+	for (var ii in modifiers){
+		if (modifiers[ii].id == modid){
+			mymod = modifiers[ii];
+			break;
+		}
+	}
+	if (mymod){
+		var idx = parseInt(el.parentElement.getAttribute('data-id'));
+		var myoptions = mymod.options[idx];
+		var ell = el.parentElement.parentElement.parentElement.querySelector('div[name=createReplace]');
+		ell.setAttribute('data-id',idx);
+		ell.querySelector('input[name=find]').value = myoptions.find;
+	}
+}
 function toReplaceElement(obj,idx,newMM){
 	var newDiv = document.createElement('div');
 	var newB = document.createElement('button');
 	newB.textContent = 'Edit';
-	//newB.addEventListener('click',);
+	newB.addEventListener('click',editReplace);
 	newDiv.appendChild(newB);
 	var newSpan = document.createElement('span');
 	newSpan.textContent = 'Replace '+obj.find+' with '+obj.replace;
