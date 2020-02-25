@@ -1680,7 +1680,7 @@ function editReplace(evt) {
 		ell.querySelector('input[name=numerical]').checked = myoptions.numerical;
 		ell.querySelector('input[name=case]').checked = myoptions.case;
 		ell.querySelector('input[name=full]').checked = myoptions.full;
-		ell.querySelector('select[name=column]').setAttribute('value',myoptions.column);
+		ell.querySelector('select[name=column]').value = myoptions.column;
 		ell.querySelector('select[name=column] > option:checked').removeAttribute('selected');
 		ell.querySelector('select[name=column] > option[value="'+myoptions.column+'"]').setAttribute('selected','selected');
 		ell.querySelector('input[name=row]').value = myoptions.row;
