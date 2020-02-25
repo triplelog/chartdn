@@ -20,6 +20,17 @@ var tempKeys = {};
 const User = require('./models/user');
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/chartdn', {useNewUrlParser: true});
+var chartSchema = new mongoose.Schema({
+	id: {type: String, required: true, unique: true},
+	data: String,
+	options: {},
+	modifiers: [],
+	users: {creator:String,view:[String],fork:[String],edit:{'all':[String],'data':[String],'modify':[String],'chart':[String]}},
+	types: Array,
+	stats: {time:Date,views:{},forks:Array},
+	
+});
+var Chart = mongoose.model('Chart', chartSchema);
 
 var passport = require('passport')
 var LocalStrategy = require('passport-local').Strategy;
