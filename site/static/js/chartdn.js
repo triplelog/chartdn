@@ -842,7 +842,7 @@ function updateTable(data,sentHeaders) {
 					myColumns.push(1);
 				}
 			}
-			userDataChanges.push({'newColumns':myColumns);
+			userDataChanges.push({'newColumns':myColumns});
 			document.getElementById('saveUserChanges').style.display = 'block';
 		},
 		renderComplete:function(){
