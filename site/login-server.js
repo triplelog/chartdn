@@ -184,4 +184,4 @@ app2.post('/login',
 
 
 
-module.exports = {loginApp: app2, tempKeys: tempKeys}
+module.exports = {loginApp: app2, tempKeys: tempKeys, Chart: Chart}

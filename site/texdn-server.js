@@ -1,9 +1,12 @@
-var fromLogin = require('./login-server.js');
-var loginApp = fromLogin.loginApp;
-var tempKeys = fromLogin.tempKeys;
+
 
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/chartdn', {useNewUrlParser: true});
+
+var fromLogin = require('./login-server.js');
+var loginApp = fromLogin.loginApp;
+var tempKeys = fromLogin.tempKeys;
+var Chart = fromLogin.Chart;
 
 const https = require('https');
 //const http = require('http');
@@ -61,17 +64,7 @@ nunjucks.configure('templates', {
 });
 
 var db = mongoose.connection;
-var chartSchema = new mongoose.Schema({
-	id: {type: String, required: true, unique: true},
-	data: String,
-	options: {},
-	modifiers: [],
-	users: {creator:String,view:[String],fork:[String],edit:{'all':[String],'data':[String],'modify':[String],'chart':[String]}},
-	types: Array,
-	stats: {time:Date,views:{},forks:Array},
-	
-});
-var Chart = mongoose.model('Chart', chartSchema);
+
 
 
 const server = https.createServer(options, (req, res) => {
