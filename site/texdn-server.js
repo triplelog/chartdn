@@ -89,10 +89,14 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 		delimiter: delimiter,
 	});
 	var nHeaders = 1;
+	var newColumns = [];
 	for (var i=0;i<dm.message.length;i++){
 		if (dm.message[i].col){
 			var cellData = dm.message[i];
 			results.data[cellData.row+nHeaders][parseInt(cellData.col.substring(3))] = cellData.value;
+		}
+		else if (dm.message.newColumns){
+			newColumns = dm.message.newColumns;
 		}
 	}
 	var originalRows = {};
@@ -130,7 +134,19 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 	}
 	var file = fs.createWriteStream('saved/'+chartid+'.csv');
 	file.on('error', function(err) { /* error handling */ });
-	results.data.forEach(function(v) { file.write(v.join(', ') + '\n'); });
+	results.data.forEach(function(v) { 
+		if (newColumns.length == 0){
+			file.write(v.join(', ') + '\n'); 
+		}
+		else {
+			var newLine = '';
+			var i=0;
+			for (i=0;i<newColumns.length-1;i++){
+				newLine += v[newColumns[i]]+', ';
+			}
+			newLine += v[newColumns[i]]+'\n';
+		}
+	});
 	file.end();
 	loadChart(chartid,ws,dm,chartData,false,false);
 }

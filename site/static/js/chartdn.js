@@ -838,8 +838,9 @@ function updateTable(data,sentHeaders) {
 			console.log(columns[1]);
 			var myColumns = [];
 			for (var i=0;i<columns.length;i++){
-				if (columns[i]){
-					myColumns.push(1);
+				var field = columns[i]['_column'].field;
+				if (field && field != 'colRow'){
+					myColumns.push(parseInt(field.substring(3)));
 				}
 			}
 			userDataChanges.push({'newColumns':myColumns});
