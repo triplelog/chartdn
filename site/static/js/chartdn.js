@@ -662,11 +662,13 @@ function clickTippy(evt) {
 			modifiers.push(newObject);
 			modifierChanged();
 			chgModify(newObject);
-			console.log(modifiers);
 			updateColumns();
 		}
 		else if (evt.target.getAttribute('name')=='deleteButton'){
 			console.log(col);
+			table.deleteColumn('col'+col);
+			//remove from data table
+			//add to userchanges
 		}
 		if(tippys[col]){
 			tippys[col].destroy();
