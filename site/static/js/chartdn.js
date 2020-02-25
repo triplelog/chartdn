@@ -1306,6 +1306,15 @@ function updateModifier(evt){
 						var newMM = pel.parentElement.querySelector('div[name=allReplacements]');
 						toReplaceElement(newObj,'',newMM);
 					}
+					//Clear options
+					pel.querySelector('input[name=find]').value = '';
+					pel.querySelector('input[name=replace]').value = '';
+					pel.querySelector('input[name=numerical]').checked = false;
+					pel.querySelector('input[name=case]').checked = false;
+					pel.querySelector('input[name=full]').checked = false;
+					pel.querySelector('select[name=column]').value = 0;
+					pel.querySelector('select[name=column] > option:checked').removeAttribute('selected');
+					pel.querySelector('input[name=row]').value = '';
 					
 					
 				}
@@ -1683,7 +1692,12 @@ function editReplace(evt) {
 		ell.querySelector('select[name=column]').value = myoptions.column;
 		ell.querySelector('select[name=column] > option:checked').removeAttribute('selected');
 		ell.querySelector('select[name=column] > option[value="'+myoptions.column+'"]').setAttribute('selected','selected');
-		ell.querySelector('input[name=row]').value = myoptions.row;
+		if (myoptions.row == -1){
+			ell.querySelector('input[name=row]').value = '';
+		}
+		else {
+			ell.querySelector('input[name=row]').value = myoptions.row;
+		}
 	}
 }
 function toReplaceElement(obj,idx,newMM){
