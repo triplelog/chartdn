@@ -82,7 +82,7 @@ app2.get('/user/:username',
   			console.log(result)
   			var tkey = crypto.randomBytes(100).toString('hex').substr(2, 18);
   			var username = '';
-  			if (req.isAuthenticated){
+  			if (req.isAuthenticated()){
   				username = req.user.username;
   			}
 			tempKeys[tkey] = {username:username};
