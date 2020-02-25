@@ -131,11 +131,14 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 	for (var i=0;i<chgRows.length;i++){
 		var cIndex = originalRows[chgRows[i].originalRow].index;
 		results.data.splice(cIndex,1);
-		console.log(results.data);
+		console.log(results.data.slice(0,5));
+		console.log(cIndex);
 		if (chgRows[i].newRow != -1){
 			results.data.splice(chgRows[i].newRow+nHeaders,0,originalRows[chgRows[i].originalRow].row);
 			originalRows[chgRows[i].originalRow].index = chgRows[i].newRow+nHeaders;
 		}
+		console.log(results.data.slice(0,5));
+		console.log(chgRows[i]);
 		
 		//update other originalRow index
 		var nomas = {};
