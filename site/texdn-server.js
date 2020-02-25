@@ -245,6 +245,7 @@ wss.on('connection', function connection(ws) {
   ws.on('message', function incoming(message) {
   	var dm = JSON.parse(message);
   	console.log(dm.operation);
+  	console.log('uname:',username);
   	if (dm.operation == 'upload'){
   		var d = new Date(); var n = d.getTime(); console.log('time2: ', n);
 
@@ -499,6 +500,7 @@ wss.on('connection', function connection(ws) {
   	}
   	else if (dm.operation == 'view'){
 		  chartid = dm.id;
+		  console.log('uname:',username);
 		  if (chartid && chartid != ""){
 			  Chart.findOne({ id: chartid }, function(err, result) {
 			  	if (err || result == null){
