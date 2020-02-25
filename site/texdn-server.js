@@ -632,6 +632,7 @@ loginApp.get('/browse',
 loginApp.get('/new',
 	function(req, res){
 		var username = '';
+		
 		var chartid = parseInt(crypto.randomBytes(50).toString('hex'),16).toString(36).substr(2, 8);
 		var defaultOptions = {};
 		defaultOptions['nHeaders'] = 1;
@@ -643,7 +644,10 @@ loginApp.get('/new',
 		defaultOptions['labels'] = {};
 		defaultOptions['title'] = '';
 		defaultOptions['delimiter'] = '';
-		
+		if (req.user) {
+			username = req.user.username;
+			User.updateOne({username: username, "charts.created": { "$ne": chartid}}, {$push: {"charts.created": chartid}}, function (err, result) {});
+		}
 		var chart = new Chart({id:chartid,data:'',options:defaultOptions,users:{creator:username,view:['any'],fork:['any'],edit:{all:['private']}},modfiers:[],types:[],stats:{time:Date.now(),views:{},forks:[]}});
 		chart.save(function (err, chart) {
 			if (err) {
@@ -660,10 +664,7 @@ loginApp.get('/new',
 				});	
 				
 			};
-			if (req.user) {
-				username = req.user.username;
-				User.updateOne({username: username, "charts.created": { "$ne": chartid}}, {$push: {"charts.created": chartid}}, function (err, result) {});
-			}
+			
 			console.log('new chart created', chart);
 			res.redirect('/edit/'+chartid);
 		});			
