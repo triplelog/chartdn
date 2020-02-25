@@ -832,9 +832,10 @@ function updateTable(data,sentHeaders) {
 			document.getElementById('saveUserChanges').style.display = 'block';
 		},
 		columnMoved:function(column){
-			var originalColumn = column;
+			var originalColumn = column['_column'].field.substring(3);
 			console.log(originalColumn);
-			//var newRow = row.getPosition();
+			var newColumn = column.getPosition();
+			console.log(newColumn);
 			//userDataChanges.push({'originalRow':originalRow,'newRow':newRow});
 			//document.getElementById('saveUserChanges').style.display = 'block';
 		},
