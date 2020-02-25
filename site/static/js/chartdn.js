@@ -685,7 +685,7 @@ function clickTippy(evt) {
 		else if (evt.target.getAttribute('name')=='addButton'){
 			var rowCount = table.getDataCount();
 			table.addRow({id:rowCount,colRow:rowCount},false,row);
-			userDataChanges.push({'originalRow':rowCount,'newRow':parseInt(row)});
+			userDataChanges.push({'originalRow':rowCount,'newRow':parseInt(row)+1});
 			document.getElementById('saveUserChanges').style.display = 'block';
 		}
 		
