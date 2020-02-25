@@ -115,7 +115,7 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 			var nomas = {};
 			nomas[dm.message[i].originalRow]=true;
 			for (var ii=i+1;ii<dm.message.length;ii++){
-				if (!dm.message[ii].col && !nomas[dm.message[ii].originalRow]){
+				if (!dm.message[ii].col && !dm.message[ii].newColumns && !nomas[dm.message[ii].originalRow]){
 					if (originalRows[dm.message[ii].originalRow].index > cIndex) {
 						if (originalRows[dm.message[ii].originalRow].index <= dm.message[i].newRow+nHeaders) {
 							originalRows[dm.message[ii].originalRow].index--;
