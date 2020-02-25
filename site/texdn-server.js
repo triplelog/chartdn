@@ -517,10 +517,10 @@ wss.on('connection', function connection(ws) {
 		  if (tempKeys[dm.message].dataid){
 		  	dataid = tempKeys[dm.message].dataid;
 		  }
-		  if (dm.chartid != ""){
+		  if (dm.chartid && dm.chartid != ""){
 		  	chartid = dm.chartid;
 		  }
-		  else {
+		  else if (tempKeys[dm.message].chartidtemp){
 		  	chartidtemp = tempKeys[dm.message].chartidtemp;
 		  }
 		  
@@ -674,9 +674,12 @@ loginApp.get('/browse',
 				var mychart = {'src':result[i].id,'cols':cols,'rows':rows,'name':'test'};
 				charts.push(mychart);
 			}
+			var tkey = crypto.randomBytes(100).toString('hex').substr(2, 18);
+			tempKeys[tkey] = {username:username};
 			res.write(nunjucks.render('browse.html',{
 				charts: charts,
 				query: query,
+				tkey: tkey,
 			}));
 		
 			res.end();
