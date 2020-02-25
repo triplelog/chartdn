@@ -107,6 +107,8 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 			chgRows.push(dm.message[i]);
 		}
 	}
+	console.log(deleteColumns);
+	console.log(newColumns);
 	for (var i=0;i<deleteColumns.length;i++){
 		for (var ii=0;ii<newColumns.length;ii++){
 			if (newColumns[ii] == deleteColumns[i]){
@@ -115,6 +117,7 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 			}
 		}
 	}
+	console.log(newColumns);
 	var originalRows = {};
 	for (var i=0;i<chgRows.length;i++){
 		originalRows[chgRows[i].originalRow] = {'row':results.data[chgRows[i].originalRow+nHeaders].slice(),'index':chgRows[i].originalRow+nHeaders};
