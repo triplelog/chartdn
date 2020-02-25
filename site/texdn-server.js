@@ -111,7 +111,7 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 	console.log(newColumns);
 	for (var i=0;i<deleteColumns.length;i++){
 		if (newColumns.length == 0){
-			for (var ii=0;ii<results.fields.length;ii++){
+			for (var ii=0;ii<results.meta.fields.length;ii++){
 				newColumns.push(ii);
 			}
 		}
