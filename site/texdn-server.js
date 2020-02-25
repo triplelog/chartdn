@@ -731,7 +731,7 @@ loginApp.get('/fork/:chartid',
 						Promise.all([newchart.save(),result2.save()]).then(function(values) {
 							console.log('saved both', values[1].stats.views);
 							if (username != '') {
-								User.updateOne({username: username, "charts.forked": { "$ne": chartid}, {$push: {"charts.forked": chartid}}, function (err, result) {});
+								User.updateOne({username: username, "charts.forked": { "$ne": chartid}}, {$push: {"charts.forked": chartid}}, function (err, result) {});
 							}
 							res.redirect('../edit/'+chartid);
 						});
