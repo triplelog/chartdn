@@ -775,16 +775,18 @@ function updateTable(data,sentHeaders) {
 			tc.querySelector('button[name=ascButton]').addEventListener('click',clickTippy);
 			tc.querySelector('button[name=descButton]').addEventListener('click',clickTippy);
 			
-			let mytippy = tippy(e.target, {
-			  content: tc,
-			  appendTo: document.querySelector('.header'),
-			  trigger: 'manual',
-			  interactive: true,
-			  placement: 'bottom',
-			  onHidden(instance){tippys[col].destroy(); delete tippys[col];}
-			});
-			tippys[col] = mytippy;
-			mytippy.show();
+			if (!tippys[col]){
+				let mytippy = tippy(e.target, {
+				  content: tc,
+				  appendTo: document.querySelector('.header'),
+				  trigger: 'manual',
+				  interactive: true,
+				  placement: 'bottom',
+				  onHidden(instance){tippys[col].destroy(); delete tippys[col];}
+				});
+				tippys[col] = mytippy;
+				mytippy.show();
+			}
 		}
 		if (!modifiers || modifiers.length == 0 || nsteps == 0){
 			thisColumn.editor = 'input';
