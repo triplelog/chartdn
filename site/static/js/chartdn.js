@@ -751,6 +751,7 @@ function updateTable(data,sentHeaders) {
 	}*/
 	tableColumns[0] = rowColumn;
 	var movableRows = false;
+	var movableColumns = false;
 	for (var i=0;i<sentHeaders.headers.length;i++){
 
 		var thisColumn = {};
@@ -787,6 +788,7 @@ function updateTable(data,sentHeaders) {
 		if (!modifiers || modifiers.length == 0 || nsteps == 0){
 			thisColumn.editor = 'input';
 			movableRows = true;
+			movableColumns = true;
 		}
 		tableColumns.push(thisColumn);
 	
@@ -811,6 +813,7 @@ function updateTable(data,sentHeaders) {
 		columns: tableColumns,
 		autoResize:true,
 		movableRows:movableRows,
+		movableColumns:movableColumns,
 		height:"100%",
 		headerSort: false,
 		layout:"fitData",
