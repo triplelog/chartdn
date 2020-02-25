@@ -835,9 +835,15 @@ function updateTable(data,sentHeaders) {
 			var originalColumn = column['_column'].field.substring(3);
 			console.log(originalColumn);
 			var newColumn = column['_column'];
-			console.log(columns);
-			//userDataChanges.push({'originalRow':originalRow,'newRow':newRow});
-			//document.getElementById('saveUserChanges').style.display = 'block';
+			console.log(columns[1]);
+			var myColumns = [];
+			for (var i=0;i<columns.length;i++){
+				if (columns[i]){
+					myColumns.push(1);
+				}
+			}
+			userDataChanges.push({'newColumns':myColumns);
+			document.getElementById('saveUserChanges').style.display = 'block';
 		},
 		renderComplete:function(){
 			if (this.tableWidth && this.options.layout == 'fitData'){
