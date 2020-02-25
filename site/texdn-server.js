@@ -664,7 +664,7 @@ loginApp.get('/new',
 				username = req.user.username;
 				User.updateOne({username: username, "charts.created": { "$ne": chartid}}, {$push: {"charts.created": chartid}}, function (err, result) {});
 			}
-			console.log('new chart created');
+			console.log('new chart created', chart);
 			res.redirect('/edit/'+chartid);
 		});			
 		//Create chart here
