@@ -532,7 +532,7 @@ wss.on('connection', function connection(ws) {
 		  }
   	}
   	else if (dm.operation == 'search'){
-		  var username = tempKeys[dm.tkey].username;
+		  username = tempKeys[dm.tkey].username;
 		  console.log(dm.key);
 		  console.log(dm.tags);
   	}
