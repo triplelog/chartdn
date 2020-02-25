@@ -66,7 +66,7 @@ var chartSchema = new mongoose.Schema({
 	data: String,
 	options: {},
 	modifiers: [],
-	users: [String],
+	users: {creator:String,view:[String],fork:[String],edit:{'all':[String],'data':[String],'modify':[String],'chart':[String]}},
 	types: Array,
 	stats: {time:Date,views:{},forks:Array},
 	
@@ -254,34 +254,7 @@ wss.on('connection', function connection(ws) {
   	console.log(dm.operation);
   	if (dm.operation == 'upload'){
   		var d = new Date(); var n = d.getTime(); console.log('time2: ', n);
-  		/*if (chartid == ''){
-  			chartid = chartidtemp;
-  			dataid = chartid;
-  			var defaultOptions = {};
-			defaultOptions['nHeaders'] = 1;
-			defaultOptions['type'] = '';
-			defaultOptions['yColumns'] = [];
-			defaultOptions['xColumn'] = '';
-			defaultOptions['stepSize'] = {};
-			defaultOptions['scale'] = {};
-			defaultOptions['labels'] = {};
-			defaultOptions['title'] = '';
-			defaultOptions['delimiter'] = dm.delimiter || '';
-			for(var k in myOptions){
-				defaultOptions[k] = myOptions[k];
-			}
-			var chart = new Chart({id:chartid,data:dataid+'.csv',options:defaultOptions,users:[username],modfiers:[],types:[],stats:{time:Date.now(),views:{},forks:[]}});
 
-			chart.save(function (err, chart) {
-				if (err) return console.error(err);
-				
-				console.log('saved', chart);
-			});
-			if (username != '') {
-				User.updateOne({username: username, "charts.created": { "$ne": chartid}}, {$push: {"charts.created": chartid}}, function (err, result) {});
-
-			}
-  		}*/
   		//write data.csv
   		var d = new Date(); var n = d.getTime(); console.log('time3: ', n);
   		if (chartid != dataid){
@@ -328,31 +301,6 @@ wss.on('connection', function connection(ws) {
 		chartData = false;
   	}
   	else if (dm.operation == 'download'){
-		/*if (chartid == ''){
-  			chartid = chartidtemp;
-  			dataid = chartid;
-  			var defaultOptions = {};
-			defaultOptions['nHeaders'] = 1;
-			defaultOptions['type'] = '';
-			defaultOptions['yColumns'] = [];
-			defaultOptions['xColumn'] = '';
-			defaultOptions['stepSize'] = {};
-			defaultOptions['scale'] = {};
-			defaultOptions['labels'] = {};
-			defaultOptions['title'] = '';
-			defaultOptions['delimiter'] = dm.delimiter || '';
-			for(var k in myOptions){
-				defaultOptions[k] = myOptions[k];
-			}
-			var chart = new Chart({id:chartid,data:chartid+'.csv',options:defaultOptions,users:[username],modfiers:[],types:[],stats:{time:Date.now(),views:{},forks:[]}});
-			chart.save(function (err, chart) {
-				if (err) return console.error(err);
-				console.log('saved');
-			});
-			if (username != '') {
-				User.updateOne({username: username, "charts.created": { "$ne": chartid}}, {$push: {"charts.created": chartid}}, function (err, result) {});
-			}
-  		}*/
   		
   		if (chartid != dataid){
   			Chart.updateOne({ id: chartid }, {data: chartid+'.csv'}, function(err, result) {});
@@ -561,7 +509,18 @@ wss.on('connection', function connection(ws) {
 			  Chart.findOne({ id: chartid }, function(err, result) {
 			  	if (err || result == null){
 			  	}
-			  	else {
+			  	else if (!result.users.view || result.users.creator == username){
+			  		if (result.data != ''){
+						if (dm.style){
+							makeAllCharts(ws,dm,result,dm.style);
+						}
+						else {
+							makeAllCharts(ws,dm,result,'all');
+						}
+					}
+			  	}
+			  	else if (result.users.view[0] == 'friends'){
+			  		//Check if result.users.creator is a friend
 			  		if (result.data != ''){
 						if (dm.style){
 							makeAllCharts(ws,dm,result,dm.style);
@@ -635,19 +594,19 @@ loginApp.get('/browse',
 		console.log(req.query);
 		var charts = [];
 		console.log('start looking: ', performance.now());
-		var query = {};
+		var query = {'users.view': false};
 		if (req.query.tags && req.query.creators) {
 			var tags = req.query.tags.split(',');
 			var creators = req.query.creators.split(',');
-			query = { "options.tags": { $all: tags }, "users": { $all: creators } };
+			query = { 'users.view': false, "options.tags": { $all: tags }, "users.creator": { $in: creators } };
 		}
 		else if (req.query.tags) {
 			var tags = req.query.tags.split(',');
-			query = { "options.tags": { $all: tags }};
+			query = { 'users.view': false, "options.tags": { $all: tags }};
 		}
 		else if (req.query.creators) {
 			var creators = req.query.creators.split(',');
-			query = { "users": { $all: creators } };
+			query = { 'users.view': false, "users.creator": { $in: creators } };
 		}
 		Chart.find(query, function(err, result) {
 			if (err){console.log('errrrr');}
@@ -690,16 +649,13 @@ loginApp.get('/new',
 		defaultOptions['labels'] = {};
 		defaultOptions['title'] = '';
 		defaultOptions['delimiter'] = '';
-		if (req.user) {
-			username = req.user.username;
-			User.updateOne({username: username, "charts.created": { "$ne": chartid}}, {$push: {"charts.created": chartid}}, function (err, result) {});
-		}
-		var chart = new Chart({id:chartid,data:'',options:defaultOptions,users:[username],modfiers:[],types:[],stats:{time:Date.now(),views:{},forks:[]}});
+		
+		var chart = new Chart({id:chartid,data:'',options:defaultOptions,users:{creator:username,edit:{all:['private']}},modfiers:[],types:[],stats:{time:Date.now(),views:{},forks:[]}});
 		chart.save(function (err, chart) {
 			if (err) {
 				console.log(err);
 				chartid = parseInt(crypto.randomBytes(50).toString('hex'),16).toString(36).substr(2, 8);
-				var chart2 = new Chart({id:chartid,data:'',options:defaultOptions,users:[username],modfiers:[],types:[],stats:{time:Date.now(),views:{},forks:[]}});
+				var chart2 = new Chart({id:chartid,data:'',options:defaultOptions,users:{creator:username,edit:{all:['private']}},modfiers:[],types:[],stats:{time:Date.now(),views:{},forks:[]}});
 				chart2.save(function (err, chart2) {
 					if (err) {
 						console.log('second error', err);
@@ -710,6 +666,10 @@ loginApp.get('/new',
 				});	
 				
 			};
+			if (req.user) {
+				username = req.user.username;
+				User.updateOne({username: username, "charts.created": { "$ne": chartid}}, {$push: {"charts.created": chartid}}, function (err, result) {});
+			}
 			console.log('new chart created');
 			res.redirect('/edit/'+chartid);
 		});			
@@ -756,22 +716,50 @@ loginApp.get('/fork/:chartid',
 			Chart.findOne({ id: chartid }, function(err, result2) {
 				if (err){}
 				else { //Fork chart data and options
-					
-					if (!result2.stats.forks){
-						var nforks = 0;
-						chartid = chartid+String.fromCharCode(nforks+97);
+					if (!result2.users.fork || result2.users.creator == username) {
+						if (!result2.stats.forks){
+							var nforks = 0;
+							chartid = chartid+String.fromCharCode(nforks+97);
+						}
+						else {
+							var nforks = result2.stats.forks.length;
+							chartid = chartid+String.fromCharCode(nforks+97);
+						}
+						var newchart = new Chart({id:chartid,data:result2.data,options:result2.options,users:{creator:username,edit:{all:['private']}},modifiers:result2.modifiers,types:result2.types,stats:{time:Date.now(),views:{},forks:[]}});
+						result2.stats.forks.push(String.fromCharCode(nforks+97));
+						result2.markModified('stats');
+						Promise.all([newchart.save(),result2.save()]).then(function(values) {
+							console.log('saved both', values[1].stats.views);
+							if (username != '') {
+								User.updateOne({username: username, "charts.forked": { "$ne": chartid}, {$push: {"charts.forked": chartid}}, function (err, result) {});
+							}
+							res.redirect('../edit/'+chartid);
+						});
+					}
+					else if (result2.users.fork == 'friends') {
+						//Check if creator in friends
+						if (!result2.stats.forks){
+							var nforks = 0;
+							chartid = chartid+String.fromCharCode(nforks+97);
+						}
+						else {
+							var nforks = result2.stats.forks.length;
+							chartid = chartid+String.fromCharCode(nforks+97);
+						}
+						var newchart = new Chart({id:chartid,data:result2.data,options:result2.options,users:{creator:username,edit:{all:['private']}},modifiers:result2.modifiers,types:result2.types,stats:{time:Date.now(),views:{},forks:[]}});
+						result2.stats.forks.push(String.fromCharCode(nforks+97));
+						result2.markModified('stats');
+						Promise.all([newchart.save(),result2.save()]).then(function(values) {
+							console.log('saved both', values[1].stats.views);
+							if (username != '') {
+								User.updateOne({username: username, "charts.forked": { "$ne": chartid}, {$push: {"charts.forked": chartid}}, function (err, result) {});
+							}
+							res.redirect('../edit/'+chartid);
+						});
 					}
 					else {
-						var nforks = result2.stats.forks.length;
-						chartid = chartid+String.fromCharCode(nforks+97);
+						console.log('No permission to fork this chart.')
 					}
-					var newchart = new Chart({id:chartid,data:result2.data,options:result2.options,users:[username],modifiers:result2.modifiers,types:result2.types,stats:{time:Date.now(),views:{},forks:[]}});
-					result2.stats.forks.push(String.fromCharCode(nforks+97));
-					result2.markModified('stats');
-					Promise.all([newchart.save(),result2.save()]).then(function(values) {
-						console.log('saved both', values[1].stats.views);
-						res.redirect('../edit/'+chartid);
-					});
 				}
 			});
 		});
@@ -819,7 +807,8 @@ loginApp.get('/edit/:chartid',
 							console.log('deleted nsteps');
 						});
 					}
-					if (result.users[0] == '' || result.users[0] == username){
+					
+					if (result2.users.edit.all[0]== 'any' || result2.users.creator == username) {
 						if (username != '') {
 							User.updateOne({username: username, "charts.edited": { "$ne": chartid}, "charts.forked": { "$ne": chartid}, "charts.created": { "$ne": chartid}}, {$push: {"charts.edited": chartid}}, function (err, result) {});
 						}
