@@ -1665,7 +1665,7 @@ function toReplaceElement(obj,idx,newMM){
 	else {
 		var divs = newMM.querySelectorAll('div[data-id]');
 		var i = 0;
-		for (i=0;i<newMM.length;i++){
+		for (i=0;i<divs.length;i++){
 			divs[i].setAttribute('data-id',i);
 		}
 		newDiv.setAttribute('data-id',i);
