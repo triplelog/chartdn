@@ -507,10 +507,9 @@ wss.on('connection', function connection(ws) {
 		  chartid = dm.id;
 		  if (chartid && chartid != ""){
 			  Chart.findOne({ id: chartid }, function(err, result) {
-			  	console.log(result);
 			  	if (err || result == null){
 			  	}
-			  	else if (!result.users.view || result.users.creator == username){
+			  	else if (result.users.view[0]=='any' || result.users.creator == username){
 			  		console.log('viewable');
 			  		if (result.data != ''){
 						if (dm.style){
@@ -596,19 +595,19 @@ loginApp.get('/browse',
 		console.log(req.query);
 		var charts = [];
 		console.log('start looking: ', performance.now());
-		var query = {'users.view': false};
+		var query = {'users.view': 'any'};
 		if (req.query.tags && req.query.creators) {
 			var tags = req.query.tags.split(',');
 			var creators = req.query.creators.split(',');
-			query = { 'users.view': false, "options.tags": { $all: tags }, "users.creator": { $in: creators } };
+			query = { 'users.view': 'any', "options.tags": { $all: tags }, "users.creator": { $in: creators } };
 		}
 		else if (req.query.tags) {
 			var tags = req.query.tags.split(',');
-			query = { 'users.view': false, "options.tags": { $all: tags }};
+			query = { 'users.view': 'any', "options.tags": { $all: tags }};
 		}
 		else if (req.query.creators) {
 			var creators = req.query.creators.split(',');
-			query = { 'users.view': false, "users.creator": { $in: creators } };
+			query = { 'users.view': 'any', "users.creator": { $in: creators } };
 		}
 		Chart.find(query, function(err, result) {
 			if (err){console.log('errrrr');}
@@ -718,7 +717,7 @@ loginApp.get('/fork/:chartid',
 			Chart.findOne({ id: chartid }, function(err, result2) {
 				if (err){}
 				else { //Fork chart data and options
-					if (!result2.users.fork || result2.users.creator == username) {
+					if (!result2.users.fork[0] == 'any' || result2.users.creator == username) {
 						if (!result2.stats.forks){
 							var nforks = 0;
 							chartid = chartid+String.fromCharCode(nforks+97);
@@ -738,7 +737,7 @@ loginApp.get('/fork/:chartid',
 							res.redirect('../edit/'+chartid);
 						});
 					}
-					else if (result2.users.fork == 'friends') {
+					else if (result2.users.fork[0] == 'friends') {
 						//Check if creator in friends
 						if (!result2.stats.forks){
 							var nforks = 0;
