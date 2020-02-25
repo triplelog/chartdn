@@ -854,6 +854,7 @@ loginApp.get('/edit/:chartid',
 						  });
 					  }
 					  else {
+					  	console.log(result.users.creator,username);
 					  	res.redirect('/charts/'+chartid);
 					  }
 
