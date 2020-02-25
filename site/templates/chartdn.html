@@ -437,7 +437,7 @@
 								</div>
 								<div>
 									<label>Tags</label>
-									<input type="text" name="tags" onchange="optionsChg('tags')" value="{{ options.tags.join(', ') }}"/>
+									<input type="text" name="tags" onchange="optionsChg('tags')" value="{{ options.tags.join(', ') if options.tags else ''}}"/>
 								</div>
 								<div>
 									<label>View</label>
