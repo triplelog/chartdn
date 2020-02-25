@@ -7,6 +7,7 @@ ws.onopen = function(evt) {
 		ws.send(JSON.stringify(jsonmessage));
 	}
 	var jsonmessage = {'operation':'key','message':tkey};
+	jsonmessage['chartid']=chartid;
 	ws.send(JSON.stringify(jsonmessage));
 }
 ws.onmessage = function(evt){

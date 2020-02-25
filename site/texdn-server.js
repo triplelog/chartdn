@@ -468,11 +468,10 @@ wss.on('connection', function connection(ws) {
   		
   	}
   	else if (dm.operation == 'key'){
-  		  console.log(dm.message);
-  		  console.log(tempKeys[dm.message]);
 		  username = tempKeys[dm.message].username;
-		  console.log(username,tempKeys[dm.message]);
-		  dataid = tempKeys[dm.message].dataid;
+		  if (tempKeys[dm.message].dataid){
+		  	dataid = tempKeys[dm.message].dataid;
+		  }
 		  if (dm.chartid != ""){
 		  	chartid = dm.chartid;
 		  }
@@ -688,7 +687,6 @@ loginApp.get('/charts/:chartid',
 		var title = 'ChartDN Chart';
 		var tkey = crypto.randomBytes(100).toString('hex').substr(2, 18);
 		tempKeys[tkey] = {username:username};
-		tempKeys[tkey].dataid = '';
 		tempKeys[tkey].chartid = chartid;
         res.write(nunjucks.render('onechart.html',{
 			username: username || '',
