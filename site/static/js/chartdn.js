@@ -825,11 +825,18 @@ function updateTable(data,sentHeaders) {
 			userDataChanges.push({'row':row,'col':col,'value':value});
 			document.getElementById('saveUserChanges').style.display = 'block';
 		},
-		rowMoved:function(row, b){
+		rowMoved:function(row){
 			var originalRow = row['_row'].data.id;
 			var newRow = row.getPosition();
 			userDataChanges.push({'originalRow':originalRow,'newRow':newRow});
 			document.getElementById('saveUserChanges').style.display = 'block';
+		},
+		columnMoved:function(column){
+			var originalcolumn = column['_column'].data;
+			console.log(originalColumn);
+			//var newRow = row.getPosition();
+			//userDataChanges.push({'originalRow':originalRow,'newRow':newRow});
+			//document.getElementById('saveUserChanges').style.display = 'block';
 		},
 		renderComplete:function(){
 			if (this.tableWidth && this.options.layout == 'fitData'){
