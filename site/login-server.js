@@ -98,12 +98,19 @@ app2.get('/user/:username',
   			}
 			tempKeys[tkey] = {username:username};
   			var charts = {created:[],edited:[],forked:[],viewed:[]};
-  			Promise.all([Chart.find({id: {$in: result.charts.created}, 'users.view': 'any'}, 'id users')]).then(function(results) {
-  				console.log(results);
-  				charts.created = result.charts.created || [];
-				charts.forked = result.charts.forked || [];
-				charts.edited = result.charts.edited || [];
-				charts.viewed = result.charts.viewed || [];
+  			Promise.all([Chart.find({id: {$in: result.charts.created}, 'users.view': 'any'}, 'id users'),Chart.find({id: {$in: result.charts.edited}, 'users.view': 'any'}, 'id users'),Chart.find({id: {$in: result.charts.forked}, 'users.view': 'any'}, 'id users'),Chart.find({id: {$in: result.charts.viewed}, 'users.view': 'any'}, 'id users')]).then(function(results) {
+  				for (var i=0;i<results[0].length;i++){
+  					charts.created.push(results[0][i].id);
+  				}
+  				for (var i=0;i<results[1].length;i++){
+  					charts.edited.push(results[1][i].id);
+  				}
+  				for (var i=0;i<results[2].length;i++){
+  					charts.forked.push(results[2][i].id);
+  				}
+  				for (var i=0;i<results[3].length;i++){
+  					charts.viewed.push(results[3][i].id);
+  				}
 				var chartkeys = ['created','forked','edited','viewed'];
 				res.write(nunjucks.render('account.html',{
 					username: result.username,
