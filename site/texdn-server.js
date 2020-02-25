@@ -110,6 +110,11 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 	console.log(deleteColumns);
 	console.log(newColumns);
 	for (var i=0;i<deleteColumns.length;i++){
+		if (newColumns.length == 0){
+			for (var ii=0;ii<results.fields.length;ii++){
+				newColumns.push(ii);
+			}
+		}
 		for (var ii=0;ii<newColumns.length;ii++){
 			if (newColumns[ii] == deleteColumns[i]){
 				newColumns.splice(ii,1);
