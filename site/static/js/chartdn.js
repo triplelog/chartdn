@@ -665,7 +665,6 @@ function clickTippy(evt) {
 			updateColumns();
 		}
 		else if (evt.target.getAttribute('name')=='deleteButton'){
-			console.log(col);
 			table.deleteColumn('col'+col);
 			userDataChanges.push({'deleteColumn':col});
 			document.getElementById('saveUserChanges').style.display = 'block';
@@ -678,6 +677,9 @@ function clickTippy(evt) {
 	}
 	else {
 		var row = evt.target.parentElement.parentElement.getAttribute('data-row');
+		if (evt.target.getAttribute('name')=='deleteButton'){
+			table.deleteRow(row);
+		}
 		if(tippysR[row]){
 			
 			tippysR[row].destroy();
@@ -710,7 +712,7 @@ function updateTable(data,sentHeaders) {
 			let tcr = templateR.content.cloneNode(true).firstElementChild;
 			tcr.setAttribute('data-row',row);
 			tcr.querySelector('button[name=filterButton]').addEventListener('click',clickTippy);
-			tcr.querySelector('button[name=matchButton]').addEventListener('click',clickTippy);
+			tcr.querySelector('button[name=deleteButton]').addEventListener('click',clickTippy);
 				
 			let mytippy = tippy(e.target, {
 			  content: tcr,
