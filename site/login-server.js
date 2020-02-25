@@ -83,6 +83,9 @@ app2.get('/user/:username',
   			var tkey = crypto.randomBytes(100).toString('hex').substr(2, 18);
 			tempKeys[tkey] = {username:username};
   			var charts = {created:[],edited:[],forked:[],viewed:[]};
+  			Promise.all([Chart.find({id: {$in: result.charts.created}, 'users.view[0]': 'any'}, 'id')]).then(function(results) {
+  				console.log(results);
+  			})
 			charts.created = result.charts.created || [];
 			charts.forked = result.charts.forked || [];
 			charts.edited = result.charts.edited || [];
