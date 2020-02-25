@@ -651,12 +651,12 @@ loginApp.get('/new',
 		defaultOptions['title'] = '';
 		defaultOptions['delimiter'] = '';
 		
-		var chart = new Chart({id:chartid,data:'',options:defaultOptions,users:{creator:username,edit:{all:['private']}},modfiers:[],types:[],stats:{time:Date.now(),views:{},forks:[]}});
+		var chart = new Chart({id:chartid,data:'',options:defaultOptions,users:{creator:username,view:['any'],fork:['any'],edit:{all:['private']}},modfiers:[],types:[],stats:{time:Date.now(),views:{},forks:[]}});
 		chart.save(function (err, chart) {
 			if (err) {
 				console.log(err);
 				chartid = parseInt(crypto.randomBytes(50).toString('hex'),16).toString(36).substr(2, 8);
-				var chart2 = new Chart({id:chartid,data:'',options:defaultOptions,users:{creator:username,edit:{all:['private']}},modfiers:[],types:[],stats:{time:Date.now(),views:{},forks:[]}});
+				var chart2 = new Chart({id:chartid,data:'',options:defaultOptions,users:{creator:username,view:['any'],fork:['any'],edit:{all:['private']}},modfiers:[],types:[],stats:{time:Date.now(),views:{},forks:[]}});
 				chart2.save(function (err, chart2) {
 					if (err) {
 						console.log('second error', err);
@@ -726,7 +726,7 @@ loginApp.get('/fork/:chartid',
 							var nforks = result2.stats.forks.length;
 							chartid = chartid+String.fromCharCode(nforks+97);
 						}
-						var newchart = new Chart({id:chartid,data:result2.data,options:result2.options,users:{creator:username,edit:{all:['private']}},modifiers:result2.modifiers,types:result2.types,stats:{time:Date.now(),views:{},forks:[]}});
+						var newchart = new Chart({id:chartid,data:result2.data,options:result2.options,users:{creator:username,view:['any'],fork:['any'],edit:{all:['private']}},modifiers:result2.modifiers,types:result2.types,stats:{time:Date.now(),views:{},forks:[]}});
 						result2.stats.forks.push(String.fromCharCode(nforks+97));
 						result2.markModified('stats');
 						Promise.all([newchart.save(),result2.save()]).then(function(values) {
@@ -747,7 +747,7 @@ loginApp.get('/fork/:chartid',
 							var nforks = result2.stats.forks.length;
 							chartid = chartid+String.fromCharCode(nforks+97);
 						}
-						var newchart = new Chart({id:chartid,data:result2.data,options:result2.options,users:{creator:username,edit:{all:['private']}},modifiers:result2.modifiers,types:result2.types,stats:{time:Date.now(),views:{},forks:[]}});
+						var newchart = new Chart({id:chartid,data:result2.data,options:result2.options,users:{creator:username,view:['any'],fork:['any'],edit:{all:['private']}},modifiers:result2.modifiers,types:result2.types,stats:{time:Date.now(),views:{},forks:[]}});
 						result2.stats.forks.push(String.fromCharCode(nforks+97));
 						result2.markModified('stats');
 						Promise.all([newchart.save(),result2.save()]).then(function(values) {
