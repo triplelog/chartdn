@@ -1297,7 +1297,7 @@ function updateModifier(evt){
 					if (pel.getAttribute('data-id') && pel.getAttribute('data-id') != ''){
 						modifiers[i].options[parseInt(pel.getAttribute('data-id'))] = newObj;
 						var newMM = pel.parentElement.querySelector('div[name=allReplacements]');
-						toReplaceElement(newObj,pel.getAttribute('data-id'),newMM);
+						toReplaceElement(newObj,parseInt(pel.getAttribute('data-id')),newMM);
 						pel.setAttribute('data-id','');
 						
 					}
@@ -1676,9 +1676,20 @@ function editReplace(evt) {
 		var ell = el.parentElement.parentElement.parentElement.querySelector('div[name=createReplace]');
 		ell.setAttribute('data-id',idx);
 		ell.querySelector('input[name=find]').value = myoptions.find;
+		ell.querySelector('input[name=replace]').value = myoptions.replace;
+		ell.querySelector('input[name=numerical]').checked = myoptions.numerical;
+		ell.querySelector('input[name=case]').checked = myoptions.case;
+		ell.querySelector('input[name=full]').checked = myoptions.full;
+		ell.querySelector('select[name=column]').setAttribute('value',myoptions.column);
+		ell.querySelector('input[name=row]').value = myoptions.row;
 	}
 }
 function toReplaceElement(obj,idx,newMM){
+	var divs = newMM.querySelectorAll('div[data-id]');
+	if (parseInt(idx)< divs.length){
+		divs[parseInt(idx)].querySelector('span').textContent = 'Replace '+obj.find+' with '+obj.replace;
+		return;
+	}
 	var newDiv = document.createElement('div');
 	var newB = document.createElement('button');
 	newB.textContent = 'Edit';
@@ -1691,7 +1702,6 @@ function toReplaceElement(obj,idx,newMM){
 		newDiv.setAttribute('data-id',idx);
 	}
 	else {
-		var divs = newMM.querySelectorAll('div[data-id]');
 		var i = 0;
 		for (i=0;i<divs.length;i++){
 			divs[i].setAttribute('data-id',i);
