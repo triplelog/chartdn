@@ -332,7 +332,7 @@ wss.on('connection', function connection(ws) {
   			Chart.updateOne({ id: chartid }, {data: chartid+'.csv'}, function(err, result) {});
 		}
 		
-		fs.readFile('saved/'+dataid, 'utf8', function(err, fileData) {
+		fs.readFile('saved/'+dataid+'.csv', 'utf8', function(err, fileData) {
 			updateData(fileData,'',chartid,ws,dm,chartData);
 			dataid = chartid;
 		});
