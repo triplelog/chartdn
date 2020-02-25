@@ -162,7 +162,7 @@ app2.post('/settings',
 
 app2.post('/register',
   function(req, res){
-  	var user = new User({username: req.body.username, charts: {created:[],forked:[],edited:[],viewed:[]}, friends:[], options: {favorites:{},robot:1}});
+  	var user = new User({username: req.body.username, charts: {created:[],forked:[],edited:[],viewed:[]}, friends:[], followers:[], options: {favorites:{},robot:1}});
 	User.register(user,req.body.password, function(err) {
 		if (err) {
 		  console.log('error while user register!', err);

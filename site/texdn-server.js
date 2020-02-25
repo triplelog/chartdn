@@ -245,7 +245,6 @@ wss.on('connection', function connection(ws) {
   ws.on('message', function incoming(message) {
   	var dm = JSON.parse(message);
   	console.log(dm.operation);
-  	console.log('uname:',username);
   	if (dm.operation == 'upload'){
   		var d = new Date(); var n = d.getTime(); console.log('time2: ', n);
 
@@ -469,9 +468,7 @@ wss.on('connection', function connection(ws) {
   		
   	}
   	else if (dm.operation == 'key'){
-  	      console.log(tempKeys[dm.message].username);
 		  username = tempKeys[dm.message].username;
-		  console.log('uname:',username);
 		  if (tempKeys[dm.message].dataid){
 		  	dataid = tempKeys[dm.message].dataid;
 		  }
@@ -491,6 +488,7 @@ wss.on('connection', function connection(ws) {
 		  	else if (result > 0){
 		  		User.updateOne({username: me, friends: { "$ne": friend}}, {$push: {friends: friend}}, function (err, result) {
 		  			if (err){return}
+		  			User.updateOne({username: friend, followers: { "$ne": me}}, {$push: {followers: me}}, function (err, result) {})
 		  			var jsonmessage = {'operation':'friend','message':friend};
 					ws.send(JSON.stringify(jsonmessage));
 		  		});
@@ -500,13 +498,12 @@ wss.on('connection', function connection(ws) {
   	}
   	else if (dm.operation == 'view'){
 		  chartid = dm.id;
-		  console.log('uname:',username);
 		  if (chartid && chartid != ""){
 			  Chart.findOne({ id: chartid }, function(err, result) {
 			  	if (err || result == null){
 			  	}
 			  	else if (result.users.view[0]=='any' || result.users.creator == username){
-			  		console.log('viewable', username);
+			  		console.log('viewable');
 			  		if (result.data != ''){
 						if (dm.style){
 							makeAllCharts(ws,dm,result,dm.style);
@@ -516,18 +513,23 @@ wss.on('connection', function connection(ws) {
 						}
 					}
 			  	}
-			  	else if (result.users.view[0] == 'friends'){
+			  	else if (result.users.view[0] == 'friends' && username != ''){
 			  		//Check if result.users.creator is a friend
-			  		if (result.data != ''){
-						if (dm.style){
-							makeAllCharts(ws,dm,result,dm.style);
+			  		 User.countDocuments({username: username, followers: result.users.creator}, function(err, result2) {
+						if (err){return}
+						else if (result2 > 0){
+							if (result.data != '' && result2.followers ){
+								if (dm.style){
+									makeAllCharts(ws,dm,result,dm.style);
+								}
+								else {
+									makeAllCharts(ws,dm,result,'all');
+								}
+							}
 						}
-						else {
-							makeAllCharts(ws,dm,result,'all');
-						}
-					}
+			  		
+			  		})
 			  	}
-				
 			  });
 		  }
   	}
