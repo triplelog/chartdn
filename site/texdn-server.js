@@ -1215,7 +1215,11 @@ function makeChartsWithData(ws,rawdata,chartInfo,chartStyle,dm,reloadTable=true)
 function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes=false) {
 	return new Promise(function(resolve, reject) {
         fs.readFile('saved/'+chartInfo.data, 'utf8', function(err, fileData) {
-        	if (err){reject(err);}
+        	console.log(chartInfo.data);
+        	if (err){
+        		console.log(err);
+        		console.log(fileData);
+        	}
 			if (!fileData || fileData.length == 0 ){reject('nofile');}
 			console.log('file read',performance.now());
 			var results = Papa.parse(fileData, {
