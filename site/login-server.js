@@ -202,8 +202,11 @@ app2.post('/register',
 
   
 app2.post('/login', 
-  req.body.username = req.body.username.toLowerCase();
-  passport.authenticate('local', { successRedirect: '/account', failureRedirect: '/fail' })
+  function(req, res){
+  	  console.log(req);
+	  req.body.username = req.body.username.toLowerCase();
+	  passport.authenticate('local', { successRedirect: '/account', failureRedirect: '/fail' })
+  }
 );
 
 
