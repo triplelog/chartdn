@@ -779,7 +779,7 @@ loginApp.get('/charts/:chartid',
 				});
 			});*/
 			User.findOne({username: username}, 'charts.viewed', function (err, result) {
-				console.log(result.charts.viewed,performance.now());
+				console.log(result.charts.viewed.length,performance.now());
 				/*User.updateOne({username: username}, {$push: {"charts.viewed": chartid}}, function (err2, result2) {
 					console.log('added chart ',performance.now());
 				});*/
