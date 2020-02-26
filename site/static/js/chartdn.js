@@ -1427,9 +1427,10 @@ function updateModifier(evt){
 						modifiers[i].options[parseInt(pel.getAttribute('data-id'))] = newObj;
 						var newMM = pel.parentElement.querySelector('div[name=allReplacements]');
 						toReplaceElement(newObj,parseInt(pel.getAttribute('data-id')),newMM);
-						pel.setAttribute('data-id','');
 						var textEl = newMM.querySelector('div[data-id="'+parseInt(pel.getAttribute('data-id'))+'"]');
 						if (textEl){textEl.style.backgroundColor = '';}
+						pel.setAttribute('data-id','');
+						
 						
 					}
 					else {
