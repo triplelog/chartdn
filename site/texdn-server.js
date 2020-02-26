@@ -1214,10 +1214,9 @@ function makeChartsWithData(ws,rawdata,chartInfo,chartStyle,dm,reloadTable=true)
 }
 
 function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes=false) {
-	if (!chartInfo.data){
-		return 'no data file';
-	}
+	
 	return new Promise(function(resolve, reject) {
+		if (!chartInfo.data){reject('no data file');}
         fs.readFile('saved/'+chartInfo.data, 'utf8', function(err, fileData) {
         	console.log(chartInfo.data);
         	if (err){
