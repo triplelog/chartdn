@@ -544,7 +544,7 @@ wss.on('connection', function connection(ws) {
 		  	if (err){return}
 		  	else if (result > 0){
 		  		User.updateOne({username: me, friends: { "$ne": friend}}, {$push: {friends: friend}}, function (err2, result2) {
-		  			if (err2){return}
+		  			if (err2 || !result2){return}
 		  			else {
 						console.log('new friend');
 						User.updateOne({username: friend, followers: { "$ne": me}}, {$push: {followers: me}}, function (err3, result3) {})
