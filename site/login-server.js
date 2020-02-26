@@ -203,17 +203,16 @@ app2.post('/register',
 function usernameToLowerCase(req, res){
 	req.body.username = req.body.username.toLowerCase();
 } 
-app2.post('/login', 
-	router.post("/login", usernameToLowerCase,
+app2.post('/login',  usernameToLowerCase,
 	passport.authenticate('local', { successRedirect: '/account', failureRedirect: '/fail' }),
 	function (req, res) {}
-	);
+);
   /*function(req, res){
   	  console.log(req);
 	  req.body.username = req.body.username.toLowerCase();
 	  passport.authenticate('local', { successRedirect: '/account', failureRedirect: '/fail' })
-  }*/
-);
+  }
+);*/
 
 
 
