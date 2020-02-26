@@ -546,7 +546,7 @@ wss.on('connection', function connection(ws) {
 		  		User.updateOne({username: me, friends: { "$ne": friend}}, {$push: {friends: friend}}, function (err2, result2) {
 		  			if (err2 || !result2){return}
 		  			else {
-						console.log('new friend');
+						console.log('new friend', result2);
 						User.updateOne({username: friend, followers: { "$ne": me}}, {$push: {followers: me}}, function (err3, result3) {})
 						var jsonmessage = {'operation':'friend','message':friend};
 						ws.send(JSON.stringify(jsonmessage));
