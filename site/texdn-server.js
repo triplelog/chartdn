@@ -131,8 +131,8 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 			console.log(chgRows[i].originalRow+nHeaders, results.data.length);
 		}
 		else if (chgRows[i].originalRow+nHeaders == results.data.length) {
-			results.data.push(['']);
-			originalRows[chgRows[i].originalRow] = {'row':[''],'index':chgRows[i].originalRow+nHeaders};
+			results.data.push(['','']);
+			originalRows[chgRows[i].originalRow] = {'row':['',''],'index':chgRows[i].originalRow+nHeaders};
 		}
 		else {
 			console.log('results not big enough!');
