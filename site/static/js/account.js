@@ -45,12 +45,14 @@ ws.onmessage = function(evt){
 		}
 	}
 	else if (dm.operation == 'friend'){
-		var newDiv = document.createElement('div');
-		var newA = document.createElement('a');
-		newA.setAttribute('href','../user/'+dm.message);
-		newA.textContent = dm.message;
-		newDiv.appendChild(newA);
-		document.getElementById('friendList').appendChild(newDiv);
+		if (document.getElementById('friendList')) {
+			var newDiv = document.createElement('div');
+			var newA = document.createElement('a');
+			newA.setAttribute('href','../user/'+dm.message);
+			newA.textContent = dm.message;
+			newDiv.appendChild(newA);
+			document.getElementById('friendList').appendChild(newDiv);
+		}
 	}
 	else if (dm.operation == 'result'){
 		var type = dm.key
