@@ -203,6 +203,7 @@ function addFriend(friend='') {
 		}
 	}
 	else {
+		friend = friend.toLowerCase();
 		var jsonmessage = {'operation':'friend','message':friend};
 		ws.send(JSON.stringify(jsonmessage));
 	}
