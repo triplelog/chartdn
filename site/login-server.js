@@ -152,18 +152,45 @@ app2.post('/settings',
   	}
   	else {
   		var user = req.user;
-  		User.findOne({ username: req.user.username }, function(err, result) {
+  		var query = {};
+  		if (user.name != req.body.name){
+  			query['name']= req.body.name;
+  		}
+  		if (user.options.robot != parseInt(req.body.robot)){
+  			query['options.robot']= parseInt(req.body.robot);
+  		}
+  		console.log(query);
+  		User.updateOne({ username: req.user.username }, query, function(err, result) {});
+  		/*User.findOne({ username: req.user.username }, function(err, result) {
 		  if (err) {
 	
 		  } else {
-			result.name=req.body.name;
-			result.options.robot=parseInt(req.body.robot);
-			result.save(function (err, result) {
-				if (err) return console.error('error updating user\n',err);
-  				res.redirect('/account');
-			});
+		  	if (result.name != req.body.name){
+		  		result.name=req.body.name;
+		  		result.markModified('name');
+		  	}
+			
+			
+			
+			if (result.options.robot != parseInt(req.body.robot)){
+				result.options.robot=parseInt(req.body.robot);
+				result.markModified('options');
+				var robotall = 'python3 python/robohash/createrobo.py '+req.body.username.toLowerCase()+' 2 3 4';
+				var child = exec(robotall, function(err, stdout, stderr) {
+					console.log('robots created: ',performance.now());
+				});
+			}
+			else {
+				result.save(function (err, result) {
+					if (err) return console.error('error updating user\n',err);
+					res.redirect('/account');
+				});
+			}
+			
+			
+			
 		  }
-		});
+		});*/
   		
   	}
   }
@@ -202,6 +229,7 @@ app2.post('/register',
 			var child = exec(robotall, function(err, stdout, stderr) {
 				console.log('robots created: ',performance.now());
 			});
+			
 		}
 		
 
