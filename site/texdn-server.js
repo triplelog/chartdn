@@ -408,6 +408,7 @@ wss.on('connection', function connection(ws) {
 				mongoChart[chartid] = result;
 				if (!chartData){
 					makeAllCharts(ws,dm,result,'all').then(function(result3) {
+						console.log('rrr ',result3);
 						chartData = result3.data;
 					}, function(err) {
 						console.log(err);
@@ -1214,8 +1215,7 @@ function makeChartsWithData(ws,rawdata,chartInfo,chartStyle,dm,reloadTable=true)
 
 function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes=false) {
 	if (!chartInfo.data){
-		console.log('no data file');
-		return reject('no data file');
+		return 'no data file';
 	}
 	return new Promise(function(resolve, reject) {
         fs.readFile('saved/'+chartInfo.data, 'utf8', function(err, fileData) {
@@ -1224,7 +1224,7 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes=false) {
         		reject(err);
         	}
 			else if (!fileData || fileData.length == 0 ){
-				reject('nofile');
+				reject('file empty');
 			}
 			else {
 				console.log('file read',performance.now());
