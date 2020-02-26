@@ -771,7 +771,10 @@ loginApp.get('/charts/:chartid',
 		var username = '';
 		if (req.user) {
 			username = req.user.username;
-			User.updateOne({username: username}, [{$pull: {"charts.viewed": chartid}}, {$push: {"charts.viewed": chartid}}], {multi: true}, function (err, result) {});
+			User.updateOne({username: username}, [{$pull: {"charts.viewed": chartid}}, {$push: {"charts.viewed": chartid}}], {multi: true}, function (err, result) {
+				console.log('err: ',err);
+				console.log('res: ', result);
+			});
 			/*var largeChartArray = [];
 			for (var i=0;i<7000;i++){
 				var cid = crypto.randomBytes(100).toString('hex').substr(2, 8);
