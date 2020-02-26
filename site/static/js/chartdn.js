@@ -1758,7 +1758,8 @@ function copyReplace(evt) {
 			newOptions[k] = myoptions[k];
 		}
 		var ell = el.parentElement.parentElement.parentElement.querySelector('div[name=createReplace]');
-		ell.setAttribute('data-id',idx);
+		var nDivs = el.parentElement.parentElement.querySelectorAll('div[data-id]').length;
+		ell.setAttribute('data-id',nDivs);
 		ell.querySelector('input[name=find]').value = myoptions.find;
 		ell.querySelector('input[name=replace]').value = myoptions.replace;
 		ell.querySelector('input[name=numerical]').checked = myoptions.numerical;
@@ -1776,11 +1777,12 @@ function copyReplace(evt) {
 		
 		mymod.options.push(newOptions);
 		toReplaceElement(newOptions,'',el.parentElement.parentElement);
+		el.parentElement.parentElement.querySelectorAll('div[data-id]')[nDivs].style.backgroundColor = 'rgb(200,200,200)';
 	}
 }
 function editReplace(evt) {
 	var el = evt.target;
-	el.style.backgroundColor = 'rgb(200,200,200)';
+	el.parentElement.style.backgroundColor = 'rgb(200,200,200)';
 	var modid = evt.target.parentElement.parentElement.parentElement.parentElement.id.substring(4);
 	var mymod = false;
 	for (var ii in modifiers){
@@ -1813,7 +1815,7 @@ function editReplace(evt) {
 function toReplaceElement(obj,idx,newMM){
 	var divs = newMM.querySelectorAll('div[data-id]');
 	if (parseInt(idx)< divs.length){
-		divs[parseInt(idx)].querySelector('span').textContent = 'Replace '+obj.find+' with '+obj.replace;
+		divs[parseInt(idx)].querySelector('span').textContent = ' Replace '+obj.find+' with '+obj.replace;
 		return;
 	}
 	var newDiv = document.createElement('div');
