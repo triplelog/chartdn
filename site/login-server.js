@@ -130,7 +130,7 @@ app2.get('/user/:username',
 					friends: [],
 					privacy: true,
 					addfriend: req.isAuthenticated(),
-					key: tkey,
+					tkey: tkey,
 				}));
 				res.end();
   			})
