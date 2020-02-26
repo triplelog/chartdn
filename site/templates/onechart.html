@@ -40,7 +40,12 @@
         <a class="pure-menu-heading header-logo" href="../"><img width="172" src="../images/logo.png"></a>
 
         <ul class="pure-menu-list header-menu">
+        	{% if editable %}
+        	<li class="pure-menu-item"><a href="../edit/{{ chartid }}" class="pure-menu-link">Edit Chart</a></li>
+            {% endif %}
+        	{% if forkable %}
         	<li class="pure-menu-item"><a href="../fork/{{ chartid }}" class="pure-menu-link">Fork Chart</a></li>
+            {% endif %}
             <li class="pure-menu-item"><a href="../new" class="pure-menu-link">New Chart</a></li>
             <li class="pure-menu-item"><a href="../browse" class="pure-menu-link">Browse Charts</a></li>
             <li class="pure-menu-item"><a href="../account" class="pure-menu-link">My Account</a></li>

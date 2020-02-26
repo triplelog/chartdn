@@ -762,16 +762,24 @@ loginApp.get('/charts/:chartid',
 
 		}
 		Chart.updateOne({id: chartid},{$inc: {'stats.views.total':1}}, function(err, result) {});
-		console.log('look for chart',performance.now());
+		console.log('look for chart ',performance.now());
 		Chart.findOne({id: chartid},'users', function(err, result) {
 			var editable = false;
+			var forkable = false;
+			var viewable = false;
 			if (result.users.creator == username){
 				editable = true;
+			}
+			if (result.users.view[0] == 'any'){
+				viewable = true;
+			}
+			if (result.users.fork[0] == 'any'){
+				forkable = true;
 			}
 			//Check if viewable
 			//Check if forkable
 			//Check if editable
-			console.log('found chart, editable: ',editable,performance.now());
+			console.log('found chart ',performance.now());
 			var start = process.hrtime();
 			var title = 'ChartDN Chart';
 			var tkey = crypto.randomBytes(100).toString('hex').substr(2, 18);
@@ -782,6 +790,9 @@ loginApp.get('/charts/:chartid',
 				chartid: chartid,
 				title: title,
 				tkey:tkey,
+				editable: editable,
+				forkable: forkable,
+				viewable: viewable,
 			}));
 			res.end();
 		});
