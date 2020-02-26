@@ -171,6 +171,7 @@ app2.post('/settings',
 
 app2.post('/register',
   function(req, res){
+  	console.log('registering: ',performance.now());
   	var user = new User({username: req.body.username.toLowerCase(), charts: {created:[],forked:[],edited:[],viewed:[]}, friends:[], followers:[], options: {displayName: req.body.username,favorites:{},robot:1}});
 	User.register(user,req.body.password, function(err) {
 		if (err) {
@@ -184,13 +185,16 @@ app2.post('/register',
 		}
 		else {
 		
-			console.log('user registered!');
-			var robot = 'python3 python/createrobo.py '+req.body.username;
+			console.log('user registered!',performance.now());
+			var robot = 'python3 python/createrobo.py '+req.body.username.toLowerCase();
 			var child = exec(robot, function(err, stdout, stderr) {
-			
+				console.log('robot created: ',performance.now());
 				req.login(user, function(err) {
 				  if (err) { res.redirect('/'); }
-				  else {res.redirect('../account'); }
+				  else {
+				  	console.log('logged in: ',performance.now());
+				  	res.redirect('../account');
+				  }
 				});
 			});
 		}
@@ -207,12 +211,7 @@ function usernameToLowerCase(req, res, next){
 app2.post('/login',  usernameToLowerCase,
 	passport.authenticate('local', { successRedirect: '/account', failureRedirect: '/fail' })
 );
-  /*function(req, res){
-  	  console.log(req);
-	  req.body.username = req.body.username.toLowerCase();
-	  passport.authenticate('local', { successRedirect: '/account', failureRedirect: '/fail' })
-  }
-);*/
+
 
 
 
