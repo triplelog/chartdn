@@ -1256,6 +1256,11 @@ function updateColumns(id='all') {
 
 function updateNsteps(evt,id='',pm=0) {
 	if (!evt){
+		if (!id){
+			nsteps = -1;
+			chgStep(evt,true);
+			return;
+		}
 		console.log(id,pm);
 		var cnsteps = 0;
 		for (var i in modifiers){
@@ -1632,7 +1637,7 @@ function updateModifier(evt){
 function chgModify(mObject={}){
 	var idx = -1;
 	var iidx = -1;
-	
+	var foundModifier = false;
 	for (var i in modifiers){
 		var m = modifiers[i];
 		if (m.enabled){
@@ -1646,6 +1651,7 @@ function chgModify(mObject={}){
 		
 		if (!document.getElementById('edit'+m.id)) {continue;}
 		if (m.id == mObject.id){
+			foundModifier = true;
 			if (document.getElementById(m.id).style.borderColor != 'rgb(200, 200, 200)') {
 				document.getElementById('edit'+m.id).style.display = 'block';
 				document.getElementById(m.id).style.borderColor = 'rgb(200, 200, 200)';
@@ -1673,9 +1679,9 @@ function chgModify(mObject={}){
 			document.getElementById(m.id).style.borderColor = 'white';
 		}
 		
-		
-		
-		
+	}
+	if (!foundModifier){
+		updateNsteps(false,false);
 	}
 }
 function clickModifier(evt){
