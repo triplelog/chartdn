@@ -860,9 +860,7 @@ function updateTable(data,sentHeaders) {
 		for (var ii=0;ii<data[i].length;ii++){
 			newDataRow['col'+ii]=data[i][ii];
 		}
-		if (newDataRow['col0']){
-			tableData.push(newDataRow);
-		}
+		tableData.push(newDataRow);
 		
 	}
 	var dataTable = document.getElementById("dataTableModified");
