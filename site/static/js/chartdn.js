@@ -1638,8 +1638,7 @@ function updateModifier(evt){
 function chgModify(mObject={}){
 	var idx = -1;
 	var iidx = -1;
-	var foundModifier = false;
-	console.log(foundModifier);
+	var toEnd = true;
 	for (var i in modifiers){
 		var m = modifiers[i];
 		if (m.enabled){
@@ -1653,8 +1652,8 @@ function chgModify(mObject={}){
 		
 		if (!document.getElementById('edit'+m.id)) {continue;}
 		if (m.id == mObject.id){
-			foundModifier = true;
 			if (document.getElementById(m.id).style.borderColor != 'rgb(200, 200, 200)') {
+				toEnd = false;
 				document.getElementById('edit'+m.id).style.display = 'block';
 				document.getElementById(m.id).style.borderColor = 'rgb(200, 200, 200)';
 				var q = idx;
@@ -1663,18 +1662,19 @@ function chgModify(mObject={}){
 				/*var qstring = 'a[name="'+q+'"]';
 				var el = document.getElementById('rawModified').querySelector(qstring);
 				el.classList.add('suggestedRaw');*/
+				if (m.type == 'pivot'){
+					updateNsteps(false,m.id,0);
+				}
+				else {
+					updateNsteps(false,m.id,1);
+				}
 			}
 			else {
 				document.getElementById('edit'+m.id).style.display = 'none';
 				document.getElementById(m.id).style.borderColor = 'white';
 			}
 			
-			if (m.type == 'pivot'){
-				updateNsteps(false,m.id,0);
-			}
-			else {
-				updateNsteps(false,m.id,1);
-			}
+			
 		}
 		else {
 			document.getElementById('edit'+m.id).style.display = 'none';
@@ -1682,7 +1682,7 @@ function chgModify(mObject={}){
 		}
 		
 	}
-	if (!foundModifier){
+	if (toEnd){
 		console.log('go to last');
 		updateNsteps(false,false);
 	}
