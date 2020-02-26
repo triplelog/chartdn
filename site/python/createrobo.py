@@ -3,16 +3,12 @@ import sys
 import time
 
 hash = sys.argv[1]
-print(time.time())
 rh = Robohash(hash)
-print(time.time())
 rh.assemble(roboset='set1')
-print(time.time())
 with open("static/robots/"+hash+"1.png", "wb") as f:
     rh.img.save(f, format="png")
-print(time.time())
+print(1)
 rh = Robohash(hash)
-print(time.time())
 rh.assemble(roboset='set2')
 with open("static/robots/"+hash+"2.png", "wb") as f:
     rh.img.save(f, format="png")
