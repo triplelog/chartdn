@@ -47,6 +47,20 @@ ws.onmessage = function(evt){
 		newDiv.appendChild(newA);
 		document.getElementById('friendList').appendChild(newDiv);
 	}
+	else if (dm.operation == 'result'){
+		var type = dm.key
+		charts[type]=[];
+		for (var i=0;i<dm.message.length;i++){
+			charts[type].push(dm.message[i].id);
+		}
+		n[type]=charts[type].length-1;
+		var el = document.getElementById(type+'Chart');
+		el.setAttribute('src',charts[type][n[type]]);
+		var ell = document.getElementById(type+'Link');
+		ell.setAttribute('href','../charts/'+charts[type][n[type]]);
+		ell.textContent = 'View';
+		updateButtons(type);
+	}
 }
 
 
@@ -88,7 +102,7 @@ function chgChart(type,chg){
 	el.setAttribute('src',charts[type][n[type]]);
 	var ell = document.getElementById(type+'Link');
 	ell.setAttribute('href','../charts/'+charts[type][n[type]]);
-	ell.textContent = charts[type][n[type]];
+	ell.textContent = 'View';
 	updateButtons(type);
 }
 function updateButtons(type){
