@@ -186,9 +186,8 @@ app2.post('/register',
 		else {
 		
 			console.log('user registered!',performance.now());
-			var robot = 'python3 python/createrobo.py '+req.body.username.toLowerCase();
+			var robot = 'python3 python/createrobo.py '+req.body.username.toLowerCase()+' 1';
 			var child = exec(robot, function(err, stdout, stderr) {
-				console.log(stdout);
 				console.log('robot created: ',performance.now());
 				req.login(user, function(err) {
 				  if (err) { res.redirect('/'); }
@@ -197,6 +196,11 @@ app2.post('/register',
 				  	res.redirect('../account');
 				  }
 				});
+			});
+			
+			var robotall = 'python3 python/createrobo.py '+req.body.username.toLowerCase()+' 2 3 4 5';
+			var child = exec(robotall, function(err, stdout, stderr) {
+				console.log('robots created: ',performance.now());
 			});
 		}
 		
