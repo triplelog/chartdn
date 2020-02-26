@@ -131,9 +131,8 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 			console.log(chgRows[i].originalRow+nHeaders, results.data.length);
 		}
 		else if (chgRows[i].originalRow+nHeaders == results.data.length) {
-			results.data.push([]);
-			originalRows[chgRows[i].originalRow] = {'row':[],'index':chgRows[i].originalRow+nHeaders};
-			console.log(results.data.length, results.data[chgRows[i].originalRow+nHeaders]);
+			results.data.push(['']);
+			originalRows[chgRows[i].originalRow] = {'row':[''],'index':chgRows[i].originalRow+nHeaders};
 		}
 		else {
 			console.log('results not big enough!');
@@ -143,7 +142,6 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 	}
 	for (var i=0;i<chgRows.length;i++){
 		var cIndex = originalRows[chgRows[i].originalRow].index;
-		console.log(results.data[cIndex], cIndex);
 		results.data.splice(cIndex,1);
 		if (chgRows[i].newRow != -1){
 			results.data.splice(chgRows[i].newRow+nHeaders,0,originalRows[chgRows[i].originalRow].row);
