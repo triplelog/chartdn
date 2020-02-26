@@ -519,16 +519,19 @@ function optionsChg(optionname) {
 		ws.send(JSON.stringify(jsonmessage));
 	}
 }
-function chgStep(evt) {
-	var el = evt.target;
-	nsteps = parseInt(el.getAttribute('name'));
+function chgStep(evt,knownstep=false) {
+	if (!knownstep){
+		var el = evt.target;
+		nsteps = parseInt(el.getAttribute('name'));
+	}
 	var ell = document.getElementById('rawModified');
 	var qel = ell.querySelectorAll('a[name]');
 	for (var i=0;i<qel.length;i++){
 		if (i != nsteps){qel[i].classList.remove('selectedRaw');}
 		else {qel[i].classList.add('selectedRaw');}
 	}
-	if (nsteps == qel.length -1){
+
+	if (nsteps >= qel.length -1){
 		nsteps = -1;
 	}
 	var jsonmessage = {'operation':'options','nsteps':nsteps};
@@ -1270,13 +1273,16 @@ function updateNsteps(evt) {
 	for (var i in modifiers){
 		if ('edit'+modifiers[i].id == id){
 			nsteps = cnsteps;
+			if (evt.target.getAttribute('name') == 'after'){
+				nsteps++;
+			}
+			chgStep(evt,true);
 			break;
 		}
 		else if (modifiers[i].enabled) {
 			cnsteps++;
 		}
 	}
-	console.log(id,nsteps,evt.target.getAttribute('name'));
 }
 function updateModifier(evt){
 	var id = evt.target.parentElement.parentElement.id;
