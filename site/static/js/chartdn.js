@@ -729,6 +729,8 @@ function updateTable(data,sentHeaders) {
 		tcr.setAttribute('data-row',row);
 		
 		if (!modifiers || modifiers.length == 0 || nsteps == 0) {
+			tcr.querySelector('button[name=deleteButton]').style.display = 'block';
+			tcr.querySelector('button[name=addButton]').style.display = 'block';
 			tcr.querySelector('button[name=deleteButton]').addEventListener('click',clickTippy);
 			tcr.querySelector('button[name=addButton]').addEventListener('click',clickTippy);
 		}
@@ -737,7 +739,9 @@ function updateTable(data,sentHeaders) {
 			tcr.querySelector('button[name=addButton]').style.display = 'none';
 		}
 		if (!modifiers || modifiers.length == 0 || (!nsteps && nsteps != 0) ){
+			tcr.querySelector('button[name=filterButton]').style.display = 'block';
 			tcr.querySelector('button[name=filterButton]').addEventListener('click',clickTippy);
+			
 		}
 		else {
 			tcr.querySelector('button[name=filterButton]').style.display = 'none';
