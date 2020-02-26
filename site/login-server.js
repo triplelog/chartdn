@@ -58,6 +58,9 @@ app2.use(passport.session());
 app2.get('/account',
   function(req, res){
   	if (!req.isAuthenticated()){
+  		if (req.params.e){
+  			console.log(req.params.e);
+  		}
 		res.write(nunjucks.render('loginregister.html',{}));
 		res.end();
   	}
@@ -165,8 +168,13 @@ app2.post('/register',
   	var user = new User({username: req.body.username, charts: {created:[],forked:[],edited:[],viewed:[]}, friends:[], followers:[], options: {favorites:{},robot:1}});
 	User.register(user,req.body.password, function(err) {
 		if (err) {
-		  console.log('error while user register!', err.message);
-		  res.redirect('../account');
+		  if (err.name == 'UserExistsError'){
+		  	res.redirect('../account?e=duplicate');
+		  }
+		  else {
+		  	console.log(err);
+		  }
+		  
 		}
 		else {
 		
