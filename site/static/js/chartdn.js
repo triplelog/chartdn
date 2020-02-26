@@ -1639,6 +1639,7 @@ function chgModify(mObject={}){
 	var idx = -1;
 	var iidx = -1;
 	var foundModifier = false;
+	console.log(foundModifier);
 	for (var i in modifiers){
 		var m = modifiers[i];
 		if (m.enabled){
