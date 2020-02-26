@@ -1256,9 +1256,10 @@ function updateColumns(id='all') {
 
 function updateNsteps(evt,id='',pm=0) {
 	if (!evt){
+		console.log(id,pm);
 		var cnsteps = 0;
 		for (var i in modifiers){
-			if ('edit'+modifiers[i].id == id){
+			if (modifiers[i].id == id){
 				nsteps = cnsteps+pm;
 				chgStep(evt,true);
 				break;
