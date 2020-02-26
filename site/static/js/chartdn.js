@@ -1851,7 +1851,7 @@ function copyReplace(evt) {
 		}
 		
 		mymod.options.push(newOptions);
-		toReplaceElement(newOptions,'',el.parentElement.parentElement);
+		toReplaceElement(newOptions,'',el.parentElement.parentElement,false);
 		el.parentElement.parentElement.querySelectorAll('div[data-id]')[nDivs].style.backgroundColor = 'rgb(200,200,200)';
 	}
 }
@@ -1897,7 +1897,7 @@ function editReplace(evt) {
 		}
 	}
 }
-function toReplaceElement(obj,idx,newMM){
+function toReplaceElement(obj,idx,newMM,showText=true){
 	var divs = newMM.querySelectorAll('div[data-id]');
 	if (parseInt(idx)< divs.length){
 		divs[parseInt(idx)].querySelector('span').textContent = ' Replace '+obj.find+' with '+obj.replace;
@@ -1915,7 +1915,9 @@ function toReplaceElement(obj,idx,newMM){
 	newDiv.appendChild(newB);
 	
 	var newSpan = document.createElement('span');
-	newSpan.textContent = ' Replace '+obj.find+' with '+obj.replace;
+	if (showText){
+		newSpan.textContent = ' Replace '+obj.find+' with '+obj.replace;
+	}
 	newDiv.appendChild(newSpan);
 	if (idx != ''){
 		newDiv.setAttribute('data-id',idx);
