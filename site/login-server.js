@@ -151,6 +151,7 @@ app2.post('/settings',
 		res.redirect('/account');
   	}
   	else {
+  		console.log('updating settings...',performance.now());
   		var user = req.user;
   		var query = {};
   		if (user.name != req.body.name){
@@ -158,12 +159,21 @@ app2.post('/settings',
   		}
   		if (user.options.robot != parseInt(req.body.robot)){
   			query['options.robot']= parseInt(req.body.robot);
-  			var robot = 'python3 python/robohash/createrobo.py '+user.username+' '+req.body.robot;
-			var child = exec(robot, function(err, stdout, stderr) {
+  			if (!fs.existsSync('static/robots/'+user.username+req.body.robot+'.png')){
+				var robot = 'python3 python/robohash/createrobo.py '+user.username+' '+req.body.robot;
+				var child = exec(robot, function(err, stdout, stderr) {
+					User.updateOne({ username: req.user.username }, query, function(err, result) {
+						console.log('new robot',performance.now());
+						res.redirect('/account');
+					});
+				});
+			}
+			else {
 				User.updateOne({ username: req.user.username }, query, function(err, result) {
+					console.log('already there',performance.now());
 					res.redirect('/account');
 				});
-			});
+			}
   		}
   		else if (query){
   			User.updateOne({ username: req.user.username }, query, function(err, result) {
