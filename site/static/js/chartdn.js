@@ -744,7 +744,7 @@ function updateTable(data,sentHeaders) {
 				tcr.querySelector('button[name=filterButton]').style.display = 'none';
 			}
 			
-				
+			console.log(e.target);
 			let mytippy = tippy(e.target, {
 			  content: tcr,
 			  appendTo: document.querySelector('.header'),
