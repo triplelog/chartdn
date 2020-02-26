@@ -188,7 +188,7 @@ function clickTippy(evt) {
 }
 
 function addFriend(friend='') {
-	if (friend != ''){
+	if (friend == ''){
 		var friendEl = document.getElementById('newFriend');
 		if (friendEl && friendEl.value && friendEl.value != ''){
 			var friend = friendEl.value;
