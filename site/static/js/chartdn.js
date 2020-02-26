@@ -1856,6 +1856,10 @@ function copyReplace(evt) {
 	}
 }
 function editReplace(evt) {
+	if (!evt.target){
+		console.log(evt);
+		return;
+	}
 	var el = evt.target;
 	var otherEls = el.parentElement.parentElement.querySelectorAll('div[data-id]');
 	for (var i=0;i<otherEls.length;i++){
@@ -1973,6 +1977,9 @@ function createReplace(obj) {
 	  removeOnSpill: function (el, source) {
 		return true;
 	  }
+	});
+	drakeP.on('drag', function (el, target, source, sibling) { 
+		editReplace(el);
 	});
 	drakeP.on('drop', function (el, target, source, sibling) { 
 		var modid = target.parentElement.parentElement.id.substring(4);
