@@ -198,7 +198,6 @@ function addFriend(friend='') {
 		}
 	}
 	else {
-		console.log(friend);
 		var jsonmessage = {'operation':'friend','message':friend};
 		ws.send(JSON.stringify(jsonmessage));
 	}
