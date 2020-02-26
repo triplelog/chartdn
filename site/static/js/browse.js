@@ -38,6 +38,9 @@ function submitFilters() {
 		url += '?tags='+tags;
 		window.location.replace(url);
 	}
+	else {
+		window.location.replace(url);
+	}
 	
 }
 
