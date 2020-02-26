@@ -408,7 +408,6 @@ wss.on('connection', function connection(ws) {
 				mongoChart[chartid] = result;
 				if (!chartData){
 					makeAllCharts(ws,dm,result,'all').then(function(result3) {
-						console.log('rrr ',result3);
 						chartData = result3.data;
 					}, function(err) {
 						console.log(err);

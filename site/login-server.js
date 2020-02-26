@@ -171,7 +171,7 @@ app2.post('/settings',
 
 app2.post('/register',
   function(req, res){
-  	var user = new User({username: req.body.username, charts: {created:[],forked:[],edited:[],viewed:[]}, friends:[], followers:[], options: {favorites:{},robot:1}});
+  	var user = new User({username: req.body.username.toLowerCase(), charts: {created:[],forked:[],edited:[],viewed:[]}, friends:[], followers:[], options: {displayName: req.body.username,favorites:{},robot:1}});
 	User.register(user,req.body.password, function(err) {
 		if (err) {
 		  if (err.name == 'UserExistsError'){
@@ -202,6 +202,7 @@ app2.post('/register',
 
   
 app2.post('/login', 
+  req.body.username = req.body.username.toLowerCase();
   passport.authenticate('local', { successRedirect: '/account', failureRedirect: '/fail' })
 );
 
