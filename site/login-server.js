@@ -200,8 +200,9 @@ app2.post('/register',
   }
 );
 
-function usernameToLowerCase(req, res){
+function usernameToLowerCase(req, res, next){
 	req.body.username = req.body.username.toLowerCase();
+	next();
 } 
 app2.post('/login',  usernameToLowerCase,
 	passport.authenticate('local', { successRedirect: '/account', failureRedirect: '/fail' })
