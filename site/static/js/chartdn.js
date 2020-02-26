@@ -1252,7 +1252,31 @@ function updateColumns(id='all') {
 }
 
 function updateNsteps(evt) {
-	console.log(evt.target);
+	var id = evt.target.parentElement.parentElement.id;
+	var el = evt.target;
+	if (!id || id.substring(0,4) != 'edit'){
+		id = evt.target.parentElement.parentElement.parentElement.id;
+	}
+	if (!id || id.substring(0,4) != 'edit'){
+		id = evt.target.parentElement.parentElement.parentElement.parentElement.id;
+	}
+	if (!id || id.substring(0,4) != 'edit'){
+		id = evt.target.parentElement.parentElement.parentElement.parentElement.parentElement.id;
+	}
+	if (el.getAttribute('name') == null || el.getAttribute('name') == ''){
+		el = evt.target.parentElement;
+	}
+	var cnsteps = 0;
+	for (var i in modifiers){
+		if ('edit'+modifiers[i].id == id){
+			nsteps = cnsteps;
+			break;
+		}
+		else if (modifiers[i].enabled) {
+			cnsteps++;
+		}
+	}
+	console.log(id,nsteps,evt.target.getAttribute('name'));
 }
 function updateModifier(evt){
 	var id = evt.target.parentElement.parentElement.id;
