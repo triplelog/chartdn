@@ -165,7 +165,7 @@ app2.post('/register',
   	var user = new User({username: req.body.username, charts: {created:[],forked:[],edited:[],viewed:[]}, friends:[], followers:[], options: {favorites:{},robot:1}});
 	User.register(user,req.body.password, function(err) {
 		if (err) {
-		  console.log('error while user register!', err);
+		  console.log('error while user register!', err.message);
 		  res.redirect('../account');
 		}
 		else {
