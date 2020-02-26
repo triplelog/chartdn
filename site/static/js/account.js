@@ -187,14 +187,21 @@ function clickTippy(evt) {
 	
 }
 
-function addFriend() {
-	var friendEl = document.getElementById('newFriend');
-	if (friendEl && friendEl.value && friendEl.value != ''){
-		var friend = friendEl.value;
+function addFriend(friend='') {
+	if (friend != ''){
+		var friendEl = document.getElementById('newFriend');
+		if (friendEl && friendEl.value && friendEl.value != ''){
+			var friend = friendEl.value;
+			var jsonmessage = {'operation':'friend','message':friend};
+			ws.send(JSON.stringify(jsonmessage));
+		
+		}
+	}
+	else {
 		var jsonmessage = {'operation':'friend','message':friend};
 		ws.send(JSON.stringify(jsonmessage));
-		
 	}
+	
 	
 }
 
