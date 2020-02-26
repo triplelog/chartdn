@@ -58,12 +58,17 @@ app2.use(passport.session());
 app2.get('/account',
   function(req, res){
   	if (!req.isAuthenticated()){
-  		console.log(req.query);
-  		if (req.query.e){
-  			console.log(req.query.e);
+  		if (req.query.e && req.query.e=='duplicate'){
+  			res.write(nunjucks.render('loginregister.html',{
+				duplicate: true,
+			}));
+			res.end();
   		}
-		res.write(nunjucks.render('loginregister.html',{}));
-		res.end();
+  		else {
+  			res.write(nunjucks.render('loginregister.html',{}));
+			res.end();
+  		}
+		
   	}
   	else {
   		var tkey = crypto.randomBytes(100).toString('hex').substr(2, 18);
