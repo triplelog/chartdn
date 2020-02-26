@@ -16,7 +16,6 @@ class chartdnChart extends HTMLElement {
   static get observedAttributes() { return ["src"]; }
   attributeChangedCallback(name, oldValue, newValue) {
 	  if (name == 'src' && oldValue && oldValue != '' && ws.readyState == 1){
-	  	console.log(newValue);
 	  	var jsonmessage = {'operation':'view','id':newValue,'loc':this.getAttribute('data-loc'),'style':this.getAttribute('data-style')}
 		ws.send(JSON.stringify(jsonmessage));
 	  }
@@ -40,6 +39,7 @@ class chartdnChart extends HTMLElement {
 	google.charts.setOnLoadCallback(drawChart);
   }
   makePlotly(chartJSON) {
+  	console.log(chartJSON);
   	this.querySelector('#plotlyDiv').style.display = 'block';
   	if (this.getAttribute('data-shape') == 1 && chartJSON.options){
   		if (!chartJSON.options['margin']){
