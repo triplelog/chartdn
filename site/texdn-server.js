@@ -556,8 +556,10 @@ wss.on('connection', function connection(ws) {
   	else if (dm.operation == 'view'){
 		  chartid = dm.id;
 		  if (chartid && chartid != ""){
+		  	  console.log(chartid);
 			  Chart.findOne({ id: chartid }, function(err, result) {
 			  	if (err || result == null){
+			  		console.log(err);
 			  	}
 			  	else if (result.users.view[0]=='any' || result.users.creator == username){
 			  		console.log('viewable');
