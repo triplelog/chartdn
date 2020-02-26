@@ -543,9 +543,10 @@ wss.on('connection', function connection(ws) {
 		  User.countDocuments({username: friend}, function(err, result) {
 		  	if (err){return}
 		  	else if (result > 0){
-		  		User.updateOne({username: me, friends: { "$ne": friend}}, {$push: {friends: friend}}, function (err, result) {
-		  			if (err){return}
-		  			User.updateOne({username: friend, followers: { "$ne": me}}, {$push: {followers: me}}, function (err, result) {})
+		  		User.updateOne({username: me, friends: { "$ne": friend}}, {$push: {friends: friend}}, function (err2, result2) {
+		  			if (err2){return}
+		  			console.log('new friend');
+		  			User.updateOne({username: friend, followers: { "$ne": me}}, {$push: {followers: me}}, function (err3, result3) {})
 		  			var jsonmessage = {'operation':'friend','message':friend};
 					ws.send(JSON.stringify(jsonmessage));
 		  		});
