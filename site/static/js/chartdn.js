@@ -1999,6 +1999,9 @@ function createReplace(obj) {
 			
 			var oldReplace = mymod.options[oldIndex];
 			Object.freeze(oldReplace);
+			console.log(oldIndex);
+			console.log(sibling);
+			console.log(mymod.options);
 			mymod.options.splice(oldIndex,1);
 			if (sibling){
 				newIndex = sibling.getAttribute('data-id');
