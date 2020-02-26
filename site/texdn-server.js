@@ -838,7 +838,7 @@ loginApp.get('/fork/:chartid',
 					}
 					else if (result2.users.fork[0] == 'friends' && username != '') {
 						User.countDocuments({username: username, followers: result2.users.creator}, function(err, result3) {
-							if (err){return}
+							if (err){res.redirect('../charts/'+chartid); return;}
 							else if (result3 > 0){
 								if (!result2.stats.forks){
 									var nforks = 0;
@@ -861,12 +861,14 @@ loginApp.get('/fork/:chartid',
 							}
 							else {
 								console.log('No permission to fork this chart.')
+								res.redirect('../charts/'+chartid);
 							}
 					
 						})
 					}
 					else {
 						console.log('No permission to fork this chart.')
+						res.redirect('../charts/'+chartid);
 					}
 				}
 			});
@@ -971,7 +973,10 @@ loginApp.get('/edit/:chartid',
 					}
 					else if (result.users.edit.all[0]== 'friends' && username != '') {
 						User.countDocuments({username: username, followers: result.users.creator}, function(err, result3) {
-							if (err){return}
+							if (err){
+								res.redirect('../charts/'+chartid);
+								return;
+							}
 							else if (result3 > 0){
 								if (username != '') {
 									User.updateOne({username: username, "charts.edited": { "$ne": chartid}, "charts.forked": { "$ne": chartid}, "charts.created": { "$ne": chartid}}, {$push: {"charts.edited": chartid}}, function (err, result) {});
@@ -1027,14 +1032,14 @@ loginApp.get('/edit/:chartid',
 							}
 							else {
 								console.log('No permission to fedit this chart.')
-								res.redirect('/charts/'+chartid);
+								res.redirect('../charts/'+chartid);
 							}
 					
 						})
 					}
 					else {
 					  	console.log(result.users.creator,username);
-					  	res.redirect('/charts/'+chartid);
+					  	res.redirect('../charts/'+chartid);
 					}
 
 				  }

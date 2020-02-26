@@ -166,19 +166,20 @@ app2.post('/register',
 	User.register(user,req.body.password, function(err) {
 		if (err) {
 		  console.log('error while user register!', err);
-		  res.redirect('/account');
+		  res.redirect('../account');
 		}
+		else {
 		
-		console.log('user registered!');
-		var robot = 'python3 python/createrobo.py '+req.body.username;
-		var child = exec(robot, function(err, stdout, stderr) {
+			console.log('user registered!');
+			var robot = 'python3 python/createrobo.py '+req.body.username;
+			var child = exec(robot, function(err, stdout, stderr) {
 			
-			req.login(user, function(err) {
-			  if (err) { res.redirect('/'); }
-			  else {res.redirect('/account'); }
+				req.login(user, function(err) {
+				  if (err) { res.redirect('/'); }
+				  else {res.redirect('../account'); }
+				});
 			});
-		});
-		
+		}
 		
 
 	});
