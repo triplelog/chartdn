@@ -1251,6 +1251,9 @@ function updateColumns(id='all') {
 	}
 }
 
+function updateNsteps(evt) {
+	console.log(evt.target);
+}
 function updateModifier(evt){
 	var id = evt.target.parentElement.parentElement.id;
 	var el = evt.target;
@@ -1656,6 +1659,8 @@ function createPivot(obj) {
 	
 	newM.querySelector('*[name=delete]').addEventListener('click',updateModifier);
 	newM.querySelector('*[name=disable]').addEventListener('click',updateModifier);
+	newM.querySelector('*[name=before]').addEventListener('click',updateNsteps);
+	newM.querySelector('*[name=after]').addEventListener('click',updateNsteps);
 	
 	if (!obj.enabled){
 		newM.querySelector('span[name=disable]').textContent = 'Enable';
@@ -2120,11 +2125,8 @@ function createNew(obj) {
 	newM.querySelector('button[name=clear]').addEventListener('click',updateModifier);
 	newM.querySelector('*[name=delete]').addEventListener('click',updateModifier);
 	newM.querySelector('*[name=disable]').addEventListener('click',updateModifier);
-	newM.querySelector('*[name=save]').addEventListener('click',updateModifier);
-	//Prefill variables, etc.
-	//Add event listener to header buttons
-	
-	
+	//newM.querySelector('*[name=save]').addEventListener('click',updateModifier);
+
 	//createNewColumnBox(obj.id);
 	fillNew(obj);
 }
