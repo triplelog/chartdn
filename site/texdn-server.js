@@ -709,7 +709,8 @@ loginApp.get('/browse',
 			tempKeys[tkey] = {username:username};
 			res.write(nunjucks.render('browse.html',{
 				charts: charts,
-				query: query,
+				tags: req.query.tags,
+				creators: req.query.creators,
 				tkey: tkey,
 			}));
 		
