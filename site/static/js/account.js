@@ -54,7 +54,7 @@ ws.onmessage = function(evt){
 			document.getElementById('friendList').appendChild(newDiv);
 		}
 		else {
-			//remove Add Friend Button
+			document.getElementById('addFriend').style.display = 'none';
 		}
 	}
 	else if (dm.operation == 'result'){

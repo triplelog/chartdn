@@ -102,8 +102,18 @@ app2.get('/user/:username',
   			console.log(result)
   			var tkey = crypto.randomBytes(100).toString('hex').substr(2, 18);
   			var username = '';
+  			var addFriend = false;
   			if (req.isAuthenticated()){
   				username = req.user.username;
+  				addFriend = true;
+  				var myFriends = req.user.friends;
+  				var nFriends = myFriends.length;
+  				for (var i=0;i<nFriends;i++){
+  					if (myFriends[i] == result.username){
+  						addFriend = false;
+  						break;
+  					}
+  				}
   			}
 			tempKeys[tkey] = {username:username};
   			var charts = {created:[],edited:[],forked:[],viewed:[]};
@@ -122,14 +132,14 @@ app2.get('/user/:username',
   				}
 				var chartkeys = ['created','forked','edited','viewed'];
 				res.write(nunjucks.render('account.html',{
-					username: result.username,
+					username: result.options.displayName || result.username,
 					name: result.name || '',
 					robot: result.options.robot || 1,
 					charts: charts || {},
 					chartkeys: chartkeys || [],
 					friends: [],
 					privacy: true,
-					addfriend: req.isAuthenticated(),
+					addfriend: addFriend,
 					tkey: tkey,
 				}));
 				res.end();
