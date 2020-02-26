@@ -1254,7 +1254,26 @@ function updateColumns(id='all') {
 	}
 }
 
-function updateNsteps(evt) {
+function updateNsteps(evt,id='',pm=0) {
+	if (!evt){
+		var cnsteps = 0;
+		for (var i in modifiers){
+			if ('edit'+modifiers[i].id == id){
+				nsteps = cnsteps+pm;
+				chgStep(evt,true);
+				break;
+			}
+			else if (modifiers[i].enabled) {
+				cnsteps++;
+			}
+		}
+		return;
+	}
+	if (evt.target.getAttribute('name')=='final'){
+		nsteps = -1;
+		chgStep(evt,true);
+		return;
+	}
 	var id = evt.target.parentElement.parentElement.id;
 	var el = evt.target;
 	if (!id || id.substring(0,4) != 'edit'){
@@ -1612,14 +1631,15 @@ function updateModifier(evt){
 function chgModify(mObject={}){
 	var idx = -1;
 	var iidx = -1;
+	
 	for (var i in modifiers){
 		var m = modifiers[i];
 		if (m.enabled){
 			idx++;
 			if (idx != iidx){
-				var qstring = 'a[name="'+idx+'"]';
+				/*var qstring = 'a[name="'+idx+'"]';
 				var el = document.getElementById('rawModified').querySelector(qstring);
-				el.classList.remove('suggestedRaw');
+				el.classList.remove('suggestedRaw');*/
 			}
 		}
 		
@@ -1631,13 +1651,20 @@ function chgModify(mObject={}){
 				var q = idx;
 				iidx = idx;
 				if (!m.enabled){q = idx+1; iidx = idx+1;}
-				var qstring = 'a[name="'+q+'"]';
+				/*var qstring = 'a[name="'+q+'"]';
 				var el = document.getElementById('rawModified').querySelector(qstring);
-				el.classList.add('suggestedRaw');
+				el.classList.add('suggestedRaw');*/
 			}
 			else {
 				document.getElementById('edit'+m.id).style.display = 'none';
 				document.getElementById(m.id).style.borderColor = 'white';
+			}
+			
+			if (m.type == 'pivot'){
+				updateNsteps(false,m.id,0);
+			}
+			else {
+				updateNsteps(false,m.id,1);
 			}
 		}
 		else {
@@ -1657,6 +1684,7 @@ function clickModifier(evt){
 	for (var i in modifiers){
 		if (modifiers[i].id==id){
 			chgModify(modifiers[i]);
+			
 			return;
 
 		}
@@ -1691,6 +1719,7 @@ function createPivot(obj) {
 	newM.querySelector('*[name=disable]').addEventListener('click',updateModifier);
 	newM.querySelector('*[name=before]').addEventListener('click',updateNsteps);
 	newM.querySelector('*[name=after]').addEventListener('click',updateNsteps);
+	newM.querySelector('*[name=final]').addEventListener('click',updateNsteps);
 	
 	if (!obj.enabled){
 		newM.querySelector('span[name=disable]').textContent = 'Enable';
