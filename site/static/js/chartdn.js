@@ -1861,14 +1861,14 @@ function editReplace(evt) {
 		el = evt;
 	}
 	else {
-		el = evt.target;
+		el = evt.target.parentElement;
 	}
-	var otherEls = el.parentElement.parentElement.querySelectorAll('div[data-id]');
+	var otherEls = el.parentElement.querySelectorAll('div[data-id]');
 	for (var i=0;i<otherEls.length;i++){
 		otherEls[i].style.backgroundColor = '';
 	}
-	el.parentElement.style.backgroundColor = 'rgb(200,200,200)';
-	var modid = el.parentElement.parentElement.parentElement.parentElement.id.substring(4);
+	el.style.backgroundColor = 'rgb(200,200,200)';
+	var modid = el.parentElement.parentElement.parentElement.id.substring(4);
 	var mymod = false;
 	for (var ii in modifiers){
 		if (modifiers[ii].id == modid){
@@ -1877,9 +1877,9 @@ function editReplace(evt) {
 		}
 	}
 	if (mymod){
-		var idx = parseInt(el.parentElement.getAttribute('data-id'));
+		var idx = parseInt(el.getAttribute('data-id'));
 		var myoptions = mymod.options[idx];
-		var ell = el.parentElement.parentElement.parentElement.querySelector('div[name=createReplace]');
+		var ell = el.parentElement.parentElement.querySelector('div[name=createReplace]');
 		ell.setAttribute('data-id',idx);
 		ell.querySelector('input[name=find]').value = myoptions.find;
 		ell.querySelector('input[name=replace]').value = myoptions.replace;
