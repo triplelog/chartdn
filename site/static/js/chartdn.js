@@ -738,8 +738,7 @@ function updateTable(data,sentHeaders) {
 			tcr.querySelector('button[name=deleteButton]').style.display = 'none';
 			tcr.querySelector('button[name=addButton]').style.display = 'none';
 		}
-		console.log(nsteps);
-		if (!modifiers || modifiers.length == 0 || (!nsteps && nsteps != 0) ){
+		if (!modifiers || modifiers.length == 0 || (!nsteps && nsteps != 0) || nsteps == -1 ){
 			tcr.querySelector('button[name=filterButton]').style.display = 'block';
 			tcr.querySelector('button[name=filterButton]').addEventListener('click',clickTippy);
 		}
@@ -817,7 +816,7 @@ function updateTable(data,sentHeaders) {
 			else {
 				tc.querySelector('button[name=deleteButton]').style.display = 'none';
 			}
-			if (!modifiers || modifiers.length == 0 || (!nsteps && nsteps != 0) ){
+			if (!modifiers || modifiers.length == 0 || (!nsteps && nsteps != 0) || nsteps == -1 ){
 				tc.querySelector('button[name=xButton]').addEventListener('click',clickTippy);
 				tc.querySelector('button[name=yButton]').addEventListener('click',clickTippy);
 				tc.querySelector('button[name=pivotButton]').addEventListener('click',clickTippy);
