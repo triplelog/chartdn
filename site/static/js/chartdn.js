@@ -1839,6 +1839,7 @@ function toReplaceElement(obj,idx,newMM){
 		var i = 0;
 		for (i=0;i<divs.length;i++){
 			divs[i].setAttribute('data-id',i);
+			divs[i].style.backgroundColor = 'rgb(200,200,200)';
 		}
 		newDiv.setAttribute('data-id',i);
 	}
