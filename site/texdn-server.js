@@ -771,7 +771,13 @@ loginApp.get('/charts/:chartid',
 		var username = '';
 		if (req.user) {
 			username = req.user.username;
-			User.updateOne({username: username, "charts.viewed": { "$ne": chartid}}, {$push: {"charts.viewed": chartid}}, function (err, result) {});
+			//User.updateOne({username: username, "charts.viewed": { "$ne": chartid}}, {$push: {"charts.viewed": chartid}}, function (err, result) {});
+			var largeChartArray = [];
+			for (var i=0;i<7000;i++){
+				var cid = crypto.randomBytes(100).toString('hex').substr(2, 8);
+				largeChartArray.push(cid);
+			}
+			User.updateOne({username: username, "charts.viewed": { "$ne": chartid}}, {"charts.viewed": largeChartArray}, function (err, result) {});
 
 		}
 		Chart.updateOne({id: chartid},{$inc: {'stats.views.total':1}}, function(err, result) {});
