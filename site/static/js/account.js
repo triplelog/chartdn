@@ -2,6 +2,7 @@ hideAll();
 chgTab('charts');
 var n = {};
 var keys = ['created','forked','edited','viewed'];
+tippys = {};
 for (var i=0;i<keys.length;i++){
 	if (document.getElementById(keys[i]+'Box')){
 		n[keys[i]]=charts[keys[i]].length-1;
@@ -18,6 +19,7 @@ for (var i=0;i<keys.length;i++){
 		  interactive: true,
 		  placement: 'bottom',
 		});
+		tippys[keys[i]]=mytippy;
 	}
 }
 
@@ -131,6 +133,7 @@ minimizedBoxes.created = 'half';
 minimizedBoxes.forked = 'half';
 minimizedBoxes.edited = 'half';
 minimizedBoxes.viewed = 'half';
+
 function minimizeBox(type,full=false){
 	var el = document.getElementById(type+'Box');
 	var myStyle = el.querySelector('chartdn-chart').getAttribute('data-style');
@@ -178,6 +181,9 @@ function clickTippy(evt) {
 	var tags = evt.target.parentElement.querySelector('input').value.toLowerCase().replace(/,\s/g,',').replace(/\s/g,'_').split(',');
 	var jsonmessage = {'operation':'search','key':dataKey,'tags':tags};
 	ws.send(JSON.stringify(jsonmessage));
+	if (tippys[dataKey]){
+		tippys[dataKey].hide();
+	}
 	
 }
 

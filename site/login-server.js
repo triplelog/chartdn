@@ -57,7 +57,6 @@ app2.use(passport.session());
 
 app2.get('/account',
   function(req, res){
-  	console.log('account..',performance.now());
   	if (!req.isAuthenticated()){
   		if (req.query.e && req.query.e=='duplicate'){
   			res.write(nunjucks.render('loginregister.html',{
@@ -72,7 +71,6 @@ app2.get('/account',
 		
   	}
   	else {
-  		console.log('user...',performance.now());
   		var tkey = crypto.randomBytes(100).toString('hex').substr(2, 18);
 		tempKeys[tkey] = {username:req.user.username};
   		var charts = {created:[],edited:[],forked:[],viewed:[]};
@@ -81,7 +79,6 @@ app2.get('/account',
   		charts.edited = req.user.charts.edited || [];
   		charts.viewed = req.user.charts.viewed || [];
   		var chartkeys = ['created','forked','edited','viewed'];
-  		console.log('3...',performance.now());
   		res.write(nunjucks.render('account.html',{
   			username: req.user.username,
   			name: req.user.name || '',
@@ -91,7 +88,6 @@ app2.get('/account',
   			friends: req.user.friends,
   			tkey: tkey,
   		}));
-  		console.log('4...',performance.now());
 		res.end();
   	}
   	
@@ -155,7 +151,6 @@ app2.post('/settings',
 		res.redirect('/account');
   	}
   	else {
-  		console.log('updating settings...',performance.now());
   		var user = req.user;
   		var query = {};
   		if (user.name != req.body.name){
@@ -167,14 +162,12 @@ app2.post('/settings',
 				var robot = 'python3 python/robohash/createrobo.py '+user.username+' '+req.body.robot;
 				var child = exec(robot, function(err, stdout, stderr) {
 					User.updateOne({ username: req.user.username }, query, function(err, result) {
-						console.log('new robot',performance.now());
 						res.redirect('/account');
 					});
 				});
 			}
 			else {
 				User.updateOne({ username: req.user.username }, query, function(err, result) {
-					console.log('already there',performance.now());
 					res.redirect('/account');
 				});
 			}
