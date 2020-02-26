@@ -724,40 +724,38 @@ function updateTable(data,sentHeaders) {
 	rowColumn.rowHandle = true;
 	rowColumn.cellClick = function(e, cell){
 		var row = cell.getRow()['_row'].data.colRow;
-		if (!tippysR[row]){
-			let templateR = document.getElementById('clickRow-template');
-			let tcr = templateR.content.cloneNode(true).firstElementChild;
-			tcr.setAttribute('data-row',row);
+		let templateR = document.getElementById('clickRow-template');
+		let tcr = templateR.content.cloneNode(true).firstElementChild;
+		tcr.setAttribute('data-row',row);
+		
+		if (!modifiers || modifiers.length == 0 || nsteps == 0) {
+			tcr.querySelector('button[name=deleteButton]').addEventListener('click',clickTippy);
+			tcr.querySelector('button[name=addButton]').addEventListener('click',clickTippy);
+		}
+		else {
+			tcr.querySelector('button[name=deleteButton]').style.display = 'none';
+			tcr.querySelector('button[name=addButton]').style.display = 'none';
+		}
+		if (!modifiers || modifiers.length == 0 || (!nsteps && nsteps != 0) ){
+			tcr.querySelector('button[name=filterButton]').addEventListener('click',clickTippy);
+		}
+		else {
+			tcr.querySelector('button[name=filterButton]').style.display = 'none';
+		}
 			
-			if (!modifiers || modifiers.length == 0 || nsteps == 0) {
-				tcr.querySelector('button[name=deleteButton]').addEventListener('click',clickTippy);
-				tcr.querySelector('button[name=addButton]').addEventListener('click',clickTippy);
-			}
-			else {
-				tcr.querySelector('button[name=deleteButton]').style.display = 'none';
-				tcr.querySelector('button[name=addButton]').style.display = 'none';
-			}
-			if (!modifiers || modifiers.length == 0 || (!nsteps && nsteps != 0) ){
-				tcr.querySelector('button[name=filterButton]').addEventListener('click',clickTippy);
-			}
-			else {
-				tcr.querySelector('button[name=filterButton]').style.display = 'none';
-			}
-			
-			console.log(e.target);
+		if (!tippys[row]){
 			let mytippy = tippy(e.target, {
 			  content: tcr,
 			  appendTo: document.querySelector('.header'),
 			  trigger: 'manual',
 			  interactive: true,
 			  placement: 'left',
+			  onHidden(instance){tippys[row].destroy(); delete tippys[row];}
 			});
 			tippysR[row] = mytippy;
 			mytippy.show();
 		}
-		else {
-			tippysR[row].show();
-		}
+
 	}
 	/*rowColumn.headerClick = function(e, column){
 		if (!tippysR[-1]){
