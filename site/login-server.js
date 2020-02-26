@@ -158,7 +158,7 @@ app2.post('/settings',
   		}
   		if (user.options.robot != parseInt(req.body.robot)){
   			query['options.robot']= parseInt(req.body.robot);
-  			var robot = 'python3 python/robohash/createrobo.py '+req.body.username.toLowerCase()+req.body.robot;
+  			var robot = 'python3 python/robohash/createrobo.py '+user.username+' '+req.body.robot;
 			var child = exec(robot, function(err, stdout, stderr) {
 				User.updateOne({ username: req.user.username }, query, function(err, result) {
 					res.redirect('/account');
