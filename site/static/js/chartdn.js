@@ -738,10 +738,10 @@ function updateTable(data,sentHeaders) {
 			tcr.querySelector('button[name=deleteButton]').style.display = 'none';
 			tcr.querySelector('button[name=addButton]').style.display = 'none';
 		}
+		console.log(nsteps);
 		if (!modifiers || modifiers.length == 0 || (!nsteps && nsteps != 0) ){
 			tcr.querySelector('button[name=filterButton]').style.display = 'block';
 			tcr.querySelector('button[name=filterButton]').addEventListener('click',clickTippy);
-			console.log('filter');
 		}
 		else {
 			tcr.querySelector('button[name=filterButton]').style.display = 'none';
