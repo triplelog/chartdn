@@ -80,7 +80,7 @@ app2.get('/account',
   		charts.viewed = req.user.charts.viewed || [];
   		var chartkeys = ['created','forked','edited','viewed'];
   		res.write(nunjucks.render('account.html',{
-  			username: req.user.username,
+  			username: req.user.options.displayName || req.user.username,
   			name: req.user.name || '',
   			robot: req.user.options.robot || 1,
   			charts: charts || {},
