@@ -1857,6 +1857,10 @@ function copyReplace(evt) {
 }
 function editReplace(evt) {
 	var el = evt.target;
+	var otherEls = el.parentElement.parentElement.querySelectorAll('div[data-id]');
+	for (var i=0;i<otherEls.length;i++){
+		otherEls[i].style.backgroundColor = '';
+	}
 	el.parentElement.style.backgroundColor = 'rgb(200,200,200)';
 	var modid = evt.target.parentElement.parentElement.parentElement.parentElement.id.substring(4);
 	var mymod = false;
