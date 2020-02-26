@@ -23,6 +23,9 @@ for (var i=0;i<keys.length;i++){
 
 var ws = new WebSocket('wss://chartdn.com:8080');
 ws.onopen = function(evt) {
+	var jsonmessage = {'operation':'key','message':tkey};
+	ws.send(JSON.stringify(jsonmessage));
+	
 	var allcharts = document.querySelectorAll('chartdn-chart');
 	for (var i=0;i<allcharts.length;i++){
 		allcharts[i].setAttribute('data-loc',i);
@@ -173,7 +176,7 @@ function minimizeBox(type,full=false){
 function clickTippy(evt) {
 	var dataKey = evt.target.parentElement.getAttribute('data-key');
 	var tags = evt.target.parentElement.querySelector('input').value.toLowerCase().replace(/,\s/g,',').replace(/\s/g,'_').split(',');
-	var jsonmessage = {'operation':'search','tkey':tkey,'key':dataKey,'tags':tags};
+	var jsonmessage = {'operation':'search','key':dataKey,'tags':tags};
 	ws.send(JSON.stringify(jsonmessage));
 	
 }
@@ -182,7 +185,7 @@ function addFriend() {
 	var friendEl = document.getElementById('newFriend');
 	if (friendEl && friendEl.value && friendEl.value != ''){
 		var friend = friendEl.value;
-		var jsonmessage = {'operation':'friend','tkey':tkey,'message':friend};
+		var jsonmessage = {'operation':'friend','message':friend};
 		ws.send(JSON.stringify(jsonmessage));
 		
 	}

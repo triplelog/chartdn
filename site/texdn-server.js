@@ -557,7 +557,6 @@ wss.on('connection', function connection(ws) {
 		  chartid = dm.id;
 		  if (chartid && chartid != ""){
 			  Chart.findOne({ id: chartid }, function(err, result) {
-			  	console.log(result);
 			  	if (err || result == null){
 			  	}
 			  	else if (result.users.view[0]=='any' || result.users.creator == username){
