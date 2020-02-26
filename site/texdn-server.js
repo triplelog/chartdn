@@ -771,9 +771,13 @@ loginApp.get('/charts/:chartid',
 		var username = '';
 		if (req.user) {
 			username = req.user.username;
-			User.updateOne({username: username}, [{$pull: {"charts.viewed": chartid}}, {$push: {"charts.viewed": chartid}}], {multi: true}, function (err, result) {
+			User.updateOne({username: username}, $pull: {"charts.viewed": chartid}}, function (err, result) {
 				console.log('err: ',err);
 				console.log('res: ', result);
+				User.updateOne({username: username}, {$push: {"charts.viewed": chartid}}, function (err2, result2) {
+					console.log('err: ',err2);
+					console.log('res: ', result2);
+				});
 			});
 			/*var largeChartArray = [];
 			for (var i=0;i<7000;i++){
