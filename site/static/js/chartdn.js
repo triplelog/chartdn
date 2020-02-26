@@ -743,14 +743,14 @@ function updateTable(data,sentHeaders) {
 			tcr.querySelector('button[name=filterButton]').style.display = 'none';
 		}
 			
-		if (!tippys[row]){
+		if (!tippysR[row]){
 			let mytippy = tippy(e.target, {
 			  content: tcr,
 			  appendTo: document.querySelector('.header'),
 			  trigger: 'manual',
 			  interactive: true,
 			  placement: 'left',
-			  onHidden(instance){tippys[row].destroy(); delete tippys[row];}
+			  onHidden(instance){tippysR[row].destroy(); delete tippysR[row];}
 			});
 			tippysR[row] = mytippy;
 			mytippy.show();
