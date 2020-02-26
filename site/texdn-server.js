@@ -525,7 +525,6 @@ wss.on('connection', function connection(ws) {
   		
   	}
   	else if (dm.operation == 'key'){
-  		  console.log(dm,tempKeys);
 		  username = tempKeys[dm.message].username;
 		  if (tempKeys[dm.message].dataid){
 		  	dataid = tempKeys[dm.message].dataid;
@@ -540,7 +539,7 @@ wss.on('connection', function connection(ws) {
   	}
   	else if (dm.operation == 'friend'){
 		  var friend = dm.message;
-		  var me = tempKeys[dm.tkey].username;
+		  var me = username;
 		  User.countDocuments({username: friend}, function(err, result) {
 		  	if (err){return}
 		  	else if (result > 0){
