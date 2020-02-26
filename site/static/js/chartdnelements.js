@@ -39,7 +39,6 @@ class chartdnChart extends HTMLElement {
 	google.charts.setOnLoadCallback(drawChart);
   }
   makePlotly(chartJSON) {
-  	console.log(chartJSON);
   	this.querySelector('#plotlyDiv').style.display = 'block';
   	if (this.getAttribute('data-shape') == 1 && chartJSON.options){
   		if (!chartJSON.options['margin']){
@@ -71,6 +70,7 @@ class chartdnChart extends HTMLElement {
   
   
   makeChart(chartJSON){
+  	console.log(chartJSON);
   	if (this.getAttribute('data-style') == 'XKCD'){
   		this.makeXkcd(chartJSON);
   	}
