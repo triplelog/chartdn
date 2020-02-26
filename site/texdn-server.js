@@ -771,7 +771,7 @@ loginApp.get('/charts/:chartid',
 		var username = '';
 		if (req.user) {
 			username = req.user.username;
-			User.updateOne({username: username}, $pull: {"charts.viewed": chartid}}, function (err, result) {
+			User.updateOne({username: username}, {$pull: {"charts.viewed": chartid}}, function (err, result) {
 				console.log('err: ',err);
 				console.log('res: ', result);
 				User.updateOne({username: username}, {$push: {"charts.viewed": chartid}}, function (err2, result2) {
