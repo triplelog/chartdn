@@ -594,8 +594,8 @@ wss.on('connection', function connection(ws) {
 		  console.log('search for charts',performance.now());
 		  User.findOne({username:username}, 'charts', function(err, result) {
 		  	var c = result.charts[k];
-		  	Chart.find({id: {$in: c}, tags: {$all: tags}}, function(err, result2) {
-		  		console.log(c,k,tags,result2,performance.now());
+		  	Chart.find({id: {$in: c}, 'options.tags': {$all: tags}}, function(err, result2) {
+		  		console.log(result2,performance.now());
 			}).limit(25);
 		  })
 		  
