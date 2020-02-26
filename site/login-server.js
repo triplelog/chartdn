@@ -98,7 +98,7 @@ app2.get('/user/:username',
   			}
 			tempKeys[tkey] = {username:username};
   			var charts = {created:[],edited:[],forked:[],viewed:[]};
-  			Promise.all([Chart.find({id: {$in: result.charts.created}, 'users.view': 'any'}, 'id users'),Chart.find({id: {$in: result.charts.edited}, 'users.view': 'any'}, 'id users'),Chart.find({id: {$in: result.charts.forked}, 'users.view': 'any'}, 'id users'),Chart.find({id: {$in: result.charts.viewed}, 'users.view': 'any'}, 'id users')]).then(function(results) {
+  			Promise.all([Chart.find({id: {$in: result.charts.created}, 'users.view': 'any'}, 'id'),Chart.find({id: {$in: result.charts.edited}, 'users.view': 'any'}, 'id'),Chart.find({id: {$in: result.charts.forked}, 'users.view': 'any'}, 'id'),Chart.find({id: {$in: result.charts.viewed}, 'users.view': 'any'}, 'id')]).then(function(results) {
   				for (var i=0;i<results[0].length;i++){
   					charts.created.push(results[0][i].id);
   				}

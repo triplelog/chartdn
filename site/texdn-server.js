@@ -762,18 +762,30 @@ loginApp.get('/charts/:chartid',
 
 		}
 		Chart.updateOne({id: chartid},{$inc: {'stats.views.total':1}}, function(err, result) {});
-		var start = process.hrtime();
-		var title = 'ChartDN Chart';
-		var tkey = crypto.randomBytes(100).toString('hex').substr(2, 18);
-		tempKeys[tkey] = {username:username};
-		tempKeys[tkey].chartid = chartid;
-        res.write(nunjucks.render('onechart.html',{
-			username: username || '',
-			chartid: chartid,
-			title: title,
-			tkey:tkey,
-		}));
-		res.end();
+		console.log('look for chart',performance.now());
+		Chart.findOne({id: chartid},'users', function(err, result) {
+			var editable = false;
+			if (result.users.creator == username){
+				editable = true;
+			}
+			//Check if viewable
+			//Check if forkable
+			//Check if editable
+			console.log('found chart, editable: ',editable,performance.now());
+			var start = process.hrtime();
+			var title = 'ChartDN Chart';
+			var tkey = crypto.randomBytes(100).toString('hex').substr(2, 18);
+			tempKeys[tkey] = {username:username};
+			tempKeys[tkey].chartid = chartid;
+			res.write(nunjucks.render('onechart.html',{
+				username: username || '',
+				chartid: chartid,
+				title: title,
+				tkey:tkey,
+			}));
+			res.end();
+		});
+		
     }
 );
 loginApp.get('/fork/:chartid',
