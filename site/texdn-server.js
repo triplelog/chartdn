@@ -125,9 +125,8 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 			console.log(chgRows[i].originalRow+nHeaders, results.data.length);
 		}
 		else if (chgRows[i].originalRow+nHeaders == results.data.length) {
-			results.data.push([]);
+			results.data.push(['','']);
 			originalRows[chgRows[i].originalRow] = {'row':[],'index':chgRows[i].originalRow+nHeaders};
-			console.log(originalRows[chgRows[i].originalRow],chgRows[i].originalRow);
 		}
 		else {
 			console.log('results not big enough!');
@@ -1178,7 +1177,8 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes=false) {
 			if (!fileData || fileData.length == 0 ){reject('nofile');}
 			console.log('file read',performance.now());
 			var results = Papa.parse(fileData, {
-				delimiter: chartInfo.options.delimiter || ""
+				delimiter: chartInfo.options.delimiter || "",
+				skipEmptyLines: true,
 			});
 			var returnData = {};
 			if (chgTypes){
