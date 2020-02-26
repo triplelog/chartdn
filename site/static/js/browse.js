@@ -24,8 +24,8 @@ ws.onmessage = function(evt){
 
 document.getElementById('submitFilters').addEventListener('click',submitFilters);
 function submitFilters() {
-	var tags = document.getElementById('tags').value.replace(/,\s/g,',').replace(/\s/g,'_');
-	var creators = document.getElementById('creators').value.replace(/,\s/g,',').replace(/\s/g,'_');
+	var tags = document.getElementById('tags').value.toLowerCase().replace(/,\s/g,',').replace(/\s/g,'_');
+	var creators = document.getElementById('creators').value.toLowerCase().replace(/,\s/g,',').replace(/\s/g,'_');
 	var url = "../browse"
 	if (creators.length > 0){
 		url += '?creators='+creators;

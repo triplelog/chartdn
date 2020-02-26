@@ -158,7 +158,7 @@ function minimizeBox(type,full=false){
 
 function clickTippy(evt) {
 	var dataKey = evt.target.parentElement.getAttribute('data-key');
-	var tags = evt.target.parentElement.querySelector('input').value;
+	var tags = evt.target.parentElement.querySelector('input').value.toLowerCase().replace(/,\s/g,',').replace(/\s/g,'_').split(',');
 	var jsonmessage = {'operation':'search','tkey':tkey,'key':dataKey,'tags':tags};
 	ws.send(JSON.stringify(jsonmessage));
 	

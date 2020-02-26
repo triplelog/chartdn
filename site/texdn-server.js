@@ -589,8 +589,16 @@ wss.on('connection', function connection(ws) {
   	}
   	else if (dm.operation == 'search'){
 		  username = tempKeys[dm.tkey].username;
-		  console.log(dm.key);
-		  console.log(dm.tags);
+		  var k = dm.key;
+		  var tags = dm.tags;
+		  console.log('search for charts',performance.now());
+		  User.findOne({username:username}, 'charts', function(err, result) {
+		  	var c = result.charts[k];
+		  	Chart.find({id: {$in: c}, tags: {$all: tags}}, function(err, result2) {
+		  		console.log(c,k,tags,result2,performance.now());
+			}).limit(25);
+		  })
+		  
   	}
 
   		
