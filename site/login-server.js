@@ -140,7 +140,7 @@ app2.get('/user/:username',
 		
   	}
   	else {
-  		//Redirect to /account
+  		res.redirect('/account');
   	}
   	
   }

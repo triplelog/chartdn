@@ -1740,8 +1740,47 @@ function createPivot(obj) {
 	
 }
 
+function copyReplace(evt) {
+	var el = evt.target;
+	var modid = evt.target.parentElement.parentElement.parentElement.parentElement.id.substring(4);
+	var mymod = false;
+	for (var ii in modifiers){
+		if (modifiers[ii].id == modid){
+			mymod = modifiers[ii];
+			break;
+		}
+	}
+	if (mymod){
+		var idx = parseInt(el.parentElement.getAttribute('data-id'));
+		var myoptions = mymod.options[idx];
+		var newOptions = {};
+		for (var k in myoptions){
+			newOptions[k] = myoptions[k];
+		}
+		var ell = el.parentElement.parentElement.parentElement.querySelector('div[name=createReplace]');
+		ell.setAttribute('data-id',idx);
+		ell.querySelector('input[name=find]').value = myoptions.find;
+		ell.querySelector('input[name=replace]').value = myoptions.replace;
+		ell.querySelector('input[name=numerical]').checked = myoptions.numerical;
+		ell.querySelector('input[name=case]').checked = myoptions.case;
+		ell.querySelector('input[name=full]').checked = myoptions.full;
+		ell.querySelector('select[name=column]').value = myoptions.column;
+		ell.querySelector('select[name=column] > option:checked').removeAttribute('selected');
+		ell.querySelector('select[name=column] > option[value="'+myoptions.column+'"]').setAttribute('selected','selected');
+		if (myoptions.row == -1){
+			ell.querySelector('input[name=row]').value = '';
+		}
+		else {
+			ell.querySelector('input[name=row]').value = myoptions.row;
+		}
+		
+		mymod.options.push(newOptions);
+		toReplaceElement(newOptions,'',el.parentElement.parentElement);
+	}
+}
 function editReplace(evt) {
 	var el = evt.target;
+	el.style.backgroundColor = 'rgb(200,200,200)';
 	var modid = evt.target.parentElement.parentElement.parentElement.parentElement.id.substring(4);
 	var mymod = false;
 	for (var ii in modifiers){
@@ -1782,8 +1821,14 @@ function toReplaceElement(obj,idx,newMM){
 	newB.textContent = 'Edit';
 	newB.addEventListener('click',editReplace);
 	newDiv.appendChild(newB);
+	
+	newB = document.createElement('button');
+	newB.textContent = 'Copy';
+	newB.addEventListener('click',copyReplace);
+	newDiv.appendChild(newB);
+	
 	var newSpan = document.createElement('span');
-	newSpan.textContent = 'Replace '+obj.find+' with '+obj.replace;
+	newSpan.textContent = ' Replace '+obj.find+' with '+obj.replace;
 	newDiv.appendChild(newSpan);
 	if (idx != ''){
 		newDiv.setAttribute('data-id',idx);
