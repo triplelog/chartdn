@@ -1856,11 +1856,13 @@ function copyReplace(evt) {
 	}
 }
 function editReplace(evt) {
+	var el;
 	if (!evt.target){
-		console.log(evt);
-		return;
+		el = evt;
 	}
-	var el = evt.target;
+	else {
+		el = evt.target;
+	}
 	var otherEls = el.parentElement.parentElement.querySelectorAll('div[data-id]');
 	for (var i=0;i<otherEls.length;i++){
 		otherEls[i].style.backgroundColor = '';
