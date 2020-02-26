@@ -89,7 +89,13 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 	for (var i=0;i<dm.message.length;i++){
 		if (dm.message[i].col){
 			var cellData = dm.message[i];
-			results.data[cellData.row+nHeaders][parseInt(cellData.col.substring(3))] = cellData.value;
+			if (cellData.row+nHeaders<results.data.length){
+				results.data[cellData.row+nHeaders][parseInt(cellData.col.substring(3))] = cellData.value;
+			}
+			else {
+				results.data[cellData.row+nHeaders] = [];
+				results.data[cellData.row+nHeaders][parseInt(cellData.col.substring(3))] = cellData.value;
+			}
 		}
 		else if (dm.message[i].newColumns){
 			newColumns = dm.message[i].newColumns;
