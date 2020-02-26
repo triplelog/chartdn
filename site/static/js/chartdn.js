@@ -1868,7 +1868,7 @@ function editReplace(evt) {
 		otherEls[i].style.backgroundColor = '';
 	}
 	el.parentElement.style.backgroundColor = 'rgb(200,200,200)';
-	var modid = evt.target.parentElement.parentElement.parentElement.parentElement.id.substring(4);
+	var modid = el.parentElement.parentElement.parentElement.parentElement.id.substring(4);
 	var mymod = false;
 	for (var ii in modifiers){
 		if (modifiers[ii].id == modid){
