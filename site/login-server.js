@@ -75,7 +75,7 @@ app2.get('/account',
 		tempKeys[tkey] = {username:req.user.username};
   		var charts = {created:[],edited:[],forked:[],viewed:[]};
   		console.log('len of viewed: ',req.user.charts.viewed.length);
-  		if (req.user.charts.viewed.length > 6000){
+  		if (req.user.charts.viewed.length > 5999){
   			req.user.charts.viewed.splice(0,1000);
   			User.updateOne({username:req.user.username},{'charts.viewed': req.user.charts.viewed}, function(err,result){});
   		}
