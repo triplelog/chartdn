@@ -58,6 +58,7 @@ app2.use(passport.session());
 app2.get('/account',
   function(req, res){
   	if (!req.isAuthenticated()){
+  		console.log(req.params);
   		if (req.params.e){
   			console.log(req.params.e);
   		}
