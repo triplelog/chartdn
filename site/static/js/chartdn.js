@@ -1257,7 +1257,6 @@ function updateColumns(id='all') {
 function updateNsteps(evt,id='',pm=0) {
 	if (!evt){
 		if (!id){
-			console.log('set nsteps to -1');
 			nsteps = -1;
 			chgStep(evt,true);
 			return;
@@ -1683,7 +1682,6 @@ function chgModify(mObject={}){
 		
 	}
 	if (toEnd){
-		console.log('go to last');
 		updateNsteps(false,false);
 	}
 }
