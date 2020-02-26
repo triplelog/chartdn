@@ -251,6 +251,13 @@ app2.post('/login',  usernameToLowerCase,
 	passport.authenticate('local', { successRedirect: '/account', failureRedirect: '/fail' })
 );
 
+app2.get('/logout', 
+	function(req, res) {
+	  req.logout();
+	  res.redirect('../');
+	}
+);
+
 
 
 

@@ -47,6 +47,10 @@
 							{% if addfriend %}
 								<button onclick="addFriend('{{ username }}')" id="addFriend">Add as Friend</button>
 							{% endif %}
+							{% if not privacy %}
+								<button onclick="logOut()">Log Out</button>
+							{% endif %}
+							
 						</div>
 					</div>
 					<div class="l-box pure-u-1">

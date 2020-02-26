@@ -211,6 +211,10 @@ function addFriend(friend='') {
 	
 }
 
+function logOut() {
+	window.location.replace('../logout');
+}
+
 
 
 
