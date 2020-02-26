@@ -34,6 +34,7 @@ ws.onmessage = function(evt){
 	var dm = JSON.parse(evt.data);
 	if (dm.operation == 'chart'){
 		var chartJSON = dm.message;
+		console.log(dm);
 		var el = document.querySelector('chartdn-chart[data-loc="'+parseInt(dm.loc)+'"]');
 		if (el){
 			el.makeChart(chartJSON);

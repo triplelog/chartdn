@@ -70,7 +70,6 @@ class chartdnChart extends HTMLElement {
   
   
   makeChart(chartJSON){
-  	console.log(chartJSON);
   	if (this.getAttribute('data-style') == 'XKCD'){
   		this.makeXkcd(chartJSON);
   	}
