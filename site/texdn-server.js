@@ -588,7 +588,6 @@ wss.on('connection', function connection(ws) {
 		  }
   	}
   	else if (dm.operation == 'search'){
-		  username = tempKeys[dm.tkey].username;
 		  var k = dm.key;
 		  var tags = dm.tags;
 		  console.log('search for charts',performance.now());
