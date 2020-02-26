@@ -1213,31 +1213,38 @@ function makeChartsWithData(ws,rawdata,chartInfo,chartStyle,dm,reloadTable=true)
 }
 
 function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes=false) {
+	if (!chartInfo.data){
+		console.log('no data file');
+		return reject('no data file');
+	}
 	return new Promise(function(resolve, reject) {
         fs.readFile('saved/'+chartInfo.data, 'utf8', function(err, fileData) {
         	console.log(chartInfo.data);
         	if (err){
-        		console.log(err);
-        		console.log(fileData);
+        		reject(err);
         	}
-			if (!fileData || fileData.length == 0 ){reject('nofile');}
-			console.log('file read',performance.now());
-			var results = Papa.parse(fileData, {
-				delimiter: chartInfo.options.delimiter || "",
-				skipEmptyLines: false,
-			});
-			var returnData = {};
-			if (chgTypes){
-				var types = datatypes.makeTypes(results.data.slice(0,1000));
-				returnData.types = types;
+			else if (!fileData || fileData.length == 0 ){
+				reject('nofile');
 			}
 			else {
-				//console.log(chartInfo.types);
+				console.log('file read',performance.now());
+				var results = Papa.parse(fileData, {
+					delimiter: chartInfo.options.delimiter || "",
+					skipEmptyLines: false,
+				});
+				var returnData = {};
+				if (chgTypes){
+					var types = datatypes.makeTypes(results.data.slice(0,1000));
+					returnData.types = types;
+				}
+				else {
+					//console.log(chartInfo.types);
+				}
+				console.log('parsed',performance.now());
+				makeChartsWithData(ws,results.data,chartInfo,chartStyle,dm);
+				returnData.data = results.data;
+				resolve(returnData);
 			}
-			console.log('parsed',performance.now());
-			makeChartsWithData(ws,results.data,chartInfo,chartStyle,dm);
-			returnData.data = results.data;
-			resolve(returnData);
 		});
     });
 
