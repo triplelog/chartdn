@@ -79,6 +79,10 @@ app2.get('/account',
   		charts.edited = req.user.charts.edited || [];
   		charts.viewed = req.user.charts.viewed || [];
   		var chartkeys = ['created','forked','edited','viewed'];
+  		var startTab = 'charts';
+  		if (req.query.t){
+  			startTab = req.query.t;
+  		}
   		res.write(nunjucks.render('account.html',{
   			username: req.user.options.displayName || req.user.username,
   			name: req.user.name || '',
@@ -87,6 +91,7 @@ app2.get('/account',
   			chartkeys: chartkeys || [],
   			friends: req.user.friends,
   			tkey: tkey,
+  			startTab: startTab,
   		}));
 		res.end();
   	}
@@ -172,23 +177,23 @@ app2.post('/settings',
 				var robot = 'python3 python/robohash/createrobo.py '+user.username+' '+req.body.robot;
 				var child = exec(robot, function(err, stdout, stderr) {
 					User.updateOne({ username: req.user.username }, query, function(err, result) {
-						res.redirect('/account');
+						res.redirect('/account?t=settings');
 					});
 				});
 			}
 			else {
 				User.updateOne({ username: req.user.username }, query, function(err, result) {
-					res.redirect('/account');
+					res.redirect('/account?t=settings');
 				});
 			}
   		}
   		else if (query){
   			User.updateOne({ username: req.user.username }, query, function(err, result) {
-				res.redirect('/account');
+				res.redirect('/account?t=settings');
 			});
   		}
   		else {
-  			res.redirect('/account');
+  			res.redirect('/account?t=settings');
   		}
   		
   	}

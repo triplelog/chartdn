@@ -190,6 +190,7 @@
 <script>
 	var charts = {{ charts | dump | safe if charts else '{}'  }};
 	var tkey = "{{ tkey }}";
+	var startTab = "{{ startTab if startTab else 'charts' }}";
 </script>
 <script src="https://unpkg.com/popper.js@1"></script>
 <script src="https://unpkg.com/tippy.js@5"></script>

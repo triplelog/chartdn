@@ -1,5 +1,5 @@
 hideAll();
-chgTab('charts');
+chgTab(startTab);
 var n = {};
 var keys = ['created','forked','edited','viewed'];
 tippys = {};
