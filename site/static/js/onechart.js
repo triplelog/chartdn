@@ -1,5 +1,8 @@
 var ws = new WebSocket('wss://chartdn.com:8080');
 ws.onopen = function(evt) {
+	var jsonmessage = {'operation':'qr'};
+	ws.send(JSON.stringify(jsonmessage));
+	
 	var jsonmessage = {'operation':'key','message':tkey};
 	jsonmessage['chartid']=chartid;
 	ws.send(JSON.stringify(jsonmessage));

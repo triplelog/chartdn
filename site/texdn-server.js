@@ -591,7 +591,7 @@ wss.on('connection', function connection(ws) {
 		  }
   	}
   	else if (dm.operation == 'qr'){
-  		var dotnet = 'dotnet run --project python/qr-art/src/qr-art/qr-art.csproj "base" static/images/logo.png png static/images/test.png -t 12';
+  		var dotnet = 'dotnet python/qr-art/src/qr-art/bin/Debug/netcoreapp3.1/qr-art.dll "base" static/images/logo.png png static/images/test.png -t 12';
 		console.log(dotnet, performance.now());
 		var child = exec(dotnet, function(err, stdout, stderr) {
 			if (err) throw err;
