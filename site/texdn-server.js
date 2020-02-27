@@ -361,7 +361,7 @@ wss.on('connection', function connection(ws) {
 		chartData = false;
   	}
   	else if (dm.operation == 'options'){
-  		console.log('message rec',performance.now());
+  		console.log('message rec', dm,performance.now());
   		if (chartid == ''){
 			updateOptions(myOptions, dm);
   		}

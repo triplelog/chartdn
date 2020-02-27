@@ -67,6 +67,23 @@ function initialLoad() {
 	if (chartType == 'line'){
 		showLineChartOptions();
 	}
+	for (var i in modifiers){
+		if (modifiers[i].type == 'pivot'){
+			createPivot(modifiers[i]);
+		}
+		else if (modifiers[i].type == 'sort'){
+			createSort(modifiers[i]);
+		}
+		else if (modifiers[i].type == 'replace'){
+			createReplace(modifiers[i]);
+		}
+		else if (modifiers[i].type == 'new'){
+			createNew(modifiers[i]);
+		}
+		else if (modifiers[i].type == 'filter'){
+			createFilter(modifiers[i]);
+		}
+	}
 }
 
 function getOrdinal(n) {
@@ -969,25 +986,10 @@ function dataChanged(initialData=false,dataType='csv') {
 	}
 	else {
 		if (csv.length > 0){minimizeBox('dataSource');}
-		for (var i in modifiers){
-			if (modifiers[i].type == 'pivot'){
-				createPivot(modifiers[i]);
-			}
-			else if (modifiers[i].type == 'sort'){
-				createSort(modifiers[i]);
-			}
-			else if (modifiers[i].type == 'replace'){
-				createReplace(modifiers[i]);
-			}
-			else if (modifiers[i].type == 'new'){
-				createNew(modifiers[i]);
-			}
-			else if (modifiers[i].type == 'filter'){
-				createFilter(modifiers[i]);
-			}
-		}
+		
 	}
-	var data = Papa.parse(csv).data;
+	//var data = Papa.parse(csv).data;
+	/*
 	headers = [];
 	var includeHeaders = false;
 	for (var i=0;i<data.length;i++){
@@ -1002,7 +1004,7 @@ function dataChanged(initialData=false,dataType='csv') {
 			}
 		}
 		
-	}
+	}*/
 	if (modifiers.length == 0){
 		modifierChanged(false);
 	}
