@@ -162,9 +162,14 @@ exports.makeTypes = function(data){
 		headers.push(cell);
 	}
 	var dataTypes = {};
+	console.log(headers);
 	for (var i=nHeaders;i<data.length-1;i++) {
+		if (data[i].length > headers.length){
+			console.log(data[i]);
+		}
 		for (var ii=0;ii<data[i].length;ii++) {
 			var cell = data[i][ii];
+			
 			var type = getDataType(cell,headers[ii]);
 			//console.log(cell, type);
 			if (datatypes[ii][type]){
