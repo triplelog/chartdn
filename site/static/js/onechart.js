@@ -20,8 +20,6 @@ ws.onmessage = function(evt){
 	var charData = strData.split('').map(function(x){return x.charCodeAt(0);});
 	var binData = new Uint8Array(charData);
 	var newData = pako.inflate(binData,{to:'string'});
-	console.log(newData);
-	console.log(atob(newData));
 		
 	var dm = JSON.parse(newData);
 	if (dm.operation == 'chart'){
