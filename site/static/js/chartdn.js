@@ -56,11 +56,7 @@ ws.onmessage = function(evt){
 }
 
 function initialLoad() {
-	// Set table if already have data
-	var oldData = document.getElementById('dataCopy').value;
-	if (oldData.length > 0){
-		dataChanged(true);
-	}
+	
 	minimizeBox('modifyData');
 	minimizeBox('yAxis');
 	var chartType = document.getElementById('chartTypeMenu').querySelector('option:checked').value;
@@ -83,6 +79,11 @@ function initialLoad() {
 		else if (modifiers[i].type == 'filter'){
 			createFilter(modifiers[i]);
 		}
+	}
+	if (hasData){
+		minimizeBox('dataSource');
+		modifierChanged(false);
+		headersChanged(true);
 	}
 }
 
@@ -970,14 +971,10 @@ function redrawTable() {
 	if (table){table.redraw(true);}
 }
 
-//var syncWorker2 = new Worker('../wasm/datatypeworker.js');
 function dataChanged(initialData=false,dataType='csv') {
 	
 	var csv = dataCopy.value;
-	/*syncWorker2.postMessage(csv);
-	syncWorker2.onmessage = function(e) {
-		console.log(e);
-	};*/
+
 	if (!initialData){
 		var delimiter = document.getElementById('delimiter').value;
 		if (delimiter.toLowerCase() == 'auto'){delimiter = '';}
@@ -992,23 +989,7 @@ function dataChanged(initialData=false,dataType='csv') {
 		if (csv.length > 0){minimizeBox('dataSource');}
 		
 	}
-	//var data = Papa.parse(csv).data;
-	/*
-	headers = [];
-	var includeHeaders = false;
-	for (var i=0;i<data.length;i++){
-		for (var ii=0;ii<data[i].length;ii++){
-			if (i==0){
-				if (nHeaders > 0) {
-					headers.push(data[i][ii]);
-				}
-				else {
-					headers.push(getOrdinal(ii+1));
-				}
-			}
-		}
-		
-	}*/
+
 	if (modifiers.length == 0){
 		modifierChanged(false);
 	}

@@ -975,54 +975,48 @@ loginApp.get('/edit/:chartid',
 						if (username != '') {
 							User.updateOne({username: username, "charts.edited": { "$ne": chartid}, "charts.forked": { "$ne": chartid}, "charts.created": { "$ne": chartid}}, {$push: {"charts.edited": chartid}}, function (err, result) {});
 						}
-						fs.readFile('saved/'+dataname, 'utf8', function(err, fileData) {
-							if (err){
-								
-							}
-							var defaultData = '';
-							if (!err) {defaultData = fileData;}
-							var savedData = myOptions;
-							var chartType = {'line':'','bar':'','scatter':'','pie':'','bubble':'','histogram':'','heatmap':'','radar':'','box':'','choropleth':'','splom':'','diff':'','calendar':''};
-							if (savedData['type'] && savedData['type'] != ''){
-								chartType[savedData['type']]='selected="selected"';
-							}
-							var xaxis = {'scale':{}};
-							if (savedData.labels && savedData.labels.x){xaxis.title = savedData.labels.x;}
-							if (savedData.scale && savedData.scale.x){xaxis.scale[savedData.scale.x] = 'selected="selected"';}
-							if (savedData.stepSize && savedData.stepSize.x){xaxis.stepSize = savedData.stepSize.x;}
-							if (savedData.domain){xaxis.domain = savedData.domain;}
-							var yaxis = {'scale':{},'dots':{},'shape':{},'dash':{}};
-							if (savedData.labels && savedData.labels.y){yaxis.title = savedData.labels.y;}
-							if (savedData.scale && savedData.scale.y){yaxis.scale[savedData.scale.y] = 'selected="selected"';}
-							if (savedData.stepSize && savedData.stepSize.y){yaxis.stepSize = savedData.stepSize.y;}
-							if (savedData.range){yaxis.range = savedData.range;}
-							if (savedData.lineColors){yaxis.lineColors = savedData.lineColors;}
-							if (savedData.dots){yaxis.dots[savedData.dots] = 'checked="checked"';}
-							if (savedData.shape){yaxis.shape[savedData.shape] = 'checked="checked"';}
-							if (savedData.dash){yaxis.dash[savedData.dash] = 'selected="selected"';}
-							var tkey = crypto.randomBytes(100).toString('hex').substr(2, 18);
-							tempKeys[tkey] = {username:username,sendTable:'yes'};
-							tempKeys[tkey].dataid = dataname.split('.')[0];
-							tempKeys[tkey].chartid = chartid;
-							res.write(nunjucks.render('chartdn.html',{
-								chartScript: '',
-								//dataAreaText: defaultData,
-								nHeaders: savedData.nHeaders || 1,
-								isChecked: chartType,
-								options: savedData || {},
-								users: result.users || {},
-								modifiers: result.modifiers || [],
-								title: savedData.title || '',
-								xaxis: xaxis,
-								yaxis: yaxis,
-								xColumn: savedData.xColumn || '',
-								yColumns: savedData.yColumns || '',
-								chartid: chartid || '',
-								key: tkey,
-								isCreator: result.users.creator == username,
-							}));
-							res.end();
-						  });
+						var savedData = myOptions;
+						var chartType = {'line':'','bar':'','scatter':'','pie':'','bubble':'','histogram':'','heatmap':'','radar':'','box':'','choropleth':'','splom':'','diff':'','calendar':''};
+						if (savedData['type'] && savedData['type'] != ''){
+							chartType[savedData['type']]='selected="selected"';
+						}
+						var xaxis = {'scale':{}};
+						if (savedData.labels && savedData.labels.x){xaxis.title = savedData.labels.x;}
+						if (savedData.scale && savedData.scale.x){xaxis.scale[savedData.scale.x] = 'selected="selected"';}
+						if (savedData.stepSize && savedData.stepSize.x){xaxis.stepSize = savedData.stepSize.x;}
+						if (savedData.domain){xaxis.domain = savedData.domain;}
+						var yaxis = {'scale':{},'dots':{},'shape':{},'dash':{}};
+						if (savedData.labels && savedData.labels.y){yaxis.title = savedData.labels.y;}
+						if (savedData.scale && savedData.scale.y){yaxis.scale[savedData.scale.y] = 'selected="selected"';}
+						if (savedData.stepSize && savedData.stepSize.y){yaxis.stepSize = savedData.stepSize.y;}
+						if (savedData.range){yaxis.range = savedData.range;}
+						if (savedData.lineColors){yaxis.lineColors = savedData.lineColors;}
+						if (savedData.dots){yaxis.dots[savedData.dots] = 'checked="checked"';}
+						if (savedData.shape){yaxis.shape[savedData.shape] = 'checked="checked"';}
+						if (savedData.dash){yaxis.dash[savedData.dash] = 'selected="selected"';}
+						var tkey = crypto.randomBytes(100).toString('hex').substr(2, 18);
+						tempKeys[tkey] = {username:username,sendTable:'yes'};
+						tempKeys[tkey].dataid = dataname.split('.')[0];
+						tempKeys[tkey].chartid = chartid;
+						var hasData = true;
+						res.write(nunjucks.render('chartdn.html',{
+							chartScript: '',
+							hasData: hasData,
+							nHeaders: savedData.nHeaders || 1,
+							isChecked: chartType,
+							options: savedData || {},
+							users: result.users || {},
+							modifiers: result.modifiers || [],
+							title: savedData.title || '',
+							xaxis: xaxis,
+							yaxis: yaxis,
+							xColumn: savedData.xColumn || '',
+							yColumns: savedData.yColumns || '',
+							chartid: chartid || '',
+							key: tkey,
+							isCreator: result.users.creator == username,
+						}));
+						res.end();
 					}
 					else if (result.users.edit.all[0]== 'friends' && username != '') {
 						User.countDocuments({username: username, followers: result.users.creator}, function(err, result3) {
@@ -1034,54 +1028,48 @@ loginApp.get('/edit/:chartid',
 								if (username != '') {
 									User.updateOne({username: username, "charts.edited": { "$ne": chartid}, "charts.forked": { "$ne": chartid}, "charts.created": { "$ne": chartid}}, {$push: {"charts.edited": chartid}}, function (err, result) {});
 								}
-								fs.readFile('saved/'+dataname, 'utf8', function(err, fileData) {
-									if (err){
-								
-									}
-									var defaultData = '';
-									if (!err) {defaultData = fileData;}
-									var savedData = myOptions;
-									var chartType = {'line':'','bar':'','scatter':'','pie':'','bubble':'','histogram':'','heatmap':'','radar':'','box':'','choropleth':'','splom':'','diff':'','calendar':''};
-									if (savedData['type'] && savedData['type'] != ''){
-										chartType[savedData['type']]='selected="selected"';
-									}
-									var xaxis = {'scale':{}};
-									if (savedData.labels && savedData.labels.x){xaxis.title = savedData.labels.x;}
-									if (savedData.scale && savedData.scale.x){xaxis.scale[savedData.scale.x] = 'selected="selected"';}
-									if (savedData.stepSize && savedData.stepSize.x){xaxis.stepSize = savedData.stepSize.x;}
-									if (savedData.domain){xaxis.domain = savedData.domain;}
-									var yaxis = {'scale':{},'dots':{},'shape':{},'dash':{}};
-									if (savedData.labels && savedData.labels.y){yaxis.title = savedData.labels.y;}
-									if (savedData.scale && savedData.scale.y){yaxis.scale[savedData.scale.y] = 'selected="selected"';}
-									if (savedData.stepSize && savedData.stepSize.y){yaxis.stepSize = savedData.stepSize.y;}
-									if (savedData.range){yaxis.range = savedData.range;}
-									if (savedData.lineColors){yaxis.lineColors = savedData.lineColors;}
-									if (savedData.dots){yaxis.dots[savedData.dots] = 'checked="checked"';}
-									if (savedData.shape){yaxis.shape[savedData.shape] = 'checked="checked"';}
-									if (savedData.dash){yaxis.dash[savedData.dash] = 'selected="selected"';}
-									var tkey = crypto.randomBytes(100).toString('hex').substr(2, 18);
-									tempKeys[tkey] = {username:username,sendTable:'yes'};
-									tempKeys[tkey].dataid = dataname.split('.')[0];
-									tempKeys[tkey].chartid = chartid;
-									res.write(nunjucks.render('chartdn.html',{
-										chartScript: '',
-										//dataAreaText: defaultData,
-										nHeaders: savedData.nHeaders || 1,
-										isChecked: chartType,
-										options: savedData || {},
-										users: result.users || {},
-										modifiers: result.modifiers || [],
-										title: savedData.title || '',
-										xaxis: xaxis,
-										yaxis: yaxis,
-										xColumn: savedData.xColumn || '',
-										yColumns: savedData.yColumns || '',
-										chartid: chartid || '',
-										key: tkey,
-										isCreator: result.users.creator == username,
-									}));
-									res.end();
-								  });
+								var savedData = myOptions;
+								var chartType = {'line':'','bar':'','scatter':'','pie':'','bubble':'','histogram':'','heatmap':'','radar':'','box':'','choropleth':'','splom':'','diff':'','calendar':''};
+								if (savedData['type'] && savedData['type'] != ''){
+									chartType[savedData['type']]='selected="selected"';
+								}
+								var xaxis = {'scale':{}};
+								if (savedData.labels && savedData.labels.x){xaxis.title = savedData.labels.x;}
+								if (savedData.scale && savedData.scale.x){xaxis.scale[savedData.scale.x] = 'selected="selected"';}
+								if (savedData.stepSize && savedData.stepSize.x){xaxis.stepSize = savedData.stepSize.x;}
+								if (savedData.domain){xaxis.domain = savedData.domain;}
+								var yaxis = {'scale':{},'dots':{},'shape':{},'dash':{}};
+								if (savedData.labels && savedData.labels.y){yaxis.title = savedData.labels.y;}
+								if (savedData.scale && savedData.scale.y){yaxis.scale[savedData.scale.y] = 'selected="selected"';}
+								if (savedData.stepSize && savedData.stepSize.y){yaxis.stepSize = savedData.stepSize.y;}
+								if (savedData.range){yaxis.range = savedData.range;}
+								if (savedData.lineColors){yaxis.lineColors = savedData.lineColors;}
+								if (savedData.dots){yaxis.dots[savedData.dots] = 'checked="checked"';}
+								if (savedData.shape){yaxis.shape[savedData.shape] = 'checked="checked"';}
+								if (savedData.dash){yaxis.dash[savedData.dash] = 'selected="selected"';}
+								var tkey = crypto.randomBytes(100).toString('hex').substr(2, 18);
+								tempKeys[tkey] = {username:username,sendTable:'yes'};
+								tempKeys[tkey].dataid = dataname.split('.')[0];
+								tempKeys[tkey].chartid = chartid;
+								var hasData = true;
+								res.write(nunjucks.render('chartdn.html',{
+									chartScript: '',
+									hasData: hasData,
+									nHeaders: savedData.nHeaders || 1,
+									isChecked: chartType,
+									options: savedData || {},
+									users: result.users || {},
+									modifiers: result.modifiers || [],
+									title: savedData.title || '',
+									xaxis: xaxis,
+									yaxis: yaxis,
+									xColumn: savedData.xColumn || '',
+									yColumns: savedData.yColumns || '',
+									chartid: chartid || '',
+									key: tkey,
+									isCreator: result.users.creator == username,
+								}));
+								res.end();
 							}
 							else {
 								console.log('No permission to fedit this chart.')
