@@ -172,6 +172,7 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 			}
 		}
 	}
+	console.log(newColumns);
 	var file = fs.createWriteStream('saved/'+chartid+'.csv');
 	file.on('error', function(err) { /* error handling */ });
 	results.data.forEach(function(v) { 
