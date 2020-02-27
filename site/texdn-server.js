@@ -1240,12 +1240,18 @@ function makeChartsWithData(ws,rawdata,chartInfo,chartStyle,dm,reloadTable=true)
 		}
 		console.log('precompress: ',performance.now());
 		var a = JSON.stringify(jsonmessage);
-		console.log('stringified: ', a.length, "   ",performance.now());
-		var b = pako.deflate(a, {to:'string'});
-		console.log('compressed: ',performance.now());
-		var c = btoa(b);
-		console.log('stringed: ', c.length, "   ",performance.now());
-		ws.send(a);
+		if (a.length > 999999){
+			console.log('stringified: ', a.length, "   ",performance.now());
+			var b = pako.deflate(a, {to:'string'});
+			console.log('compressed: ',performance.now());
+			var c = btoa(b);
+			console.log('stringed: ', c.length, "   ",performance.now());
+			ws.send(c);
+		}
+		else {
+			console.log('no compression: ',performance.now());
+			ws.send(a);
+		}
 		console.log('message sent',performance.now());
 	}
 }

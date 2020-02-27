@@ -16,6 +16,7 @@ ws.onopen = function(evt) {
 	
 }
 ws.onmessage = function(evt){
+	console.log(evt.data.substring(0,50));
 	var strData = atob(evt.data);
 	var charData = strData.split('').map(function(x){return x.charCodeAt(0);});
 	var binData = new Uint8Array(charData);
