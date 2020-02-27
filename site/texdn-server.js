@@ -1006,7 +1006,7 @@ loginApp.get('/edit/:chartid',
 							tempKeys[tkey].chartid = chartid;
 							res.write(nunjucks.render('chartdn.html',{
 								chartScript: '',
-								dataAreaText: defaultData,
+								//dataAreaText: defaultData,
 								nHeaders: savedData.nHeaders || 1,
 								isChecked: chartType,
 								options: savedData || {},
@@ -1065,7 +1065,7 @@ loginApp.get('/edit/:chartid',
 									tempKeys[tkey].chartid = chartid;
 									res.write(nunjucks.render('chartdn.html',{
 										chartScript: '',
-										dataAreaText: defaultData,
+										//dataAreaText: defaultData,
 										nHeaders: savedData.nHeaders || 1,
 										isChecked: chartType,
 										options: savedData || {},
