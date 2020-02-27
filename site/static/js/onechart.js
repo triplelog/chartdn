@@ -16,18 +16,19 @@ ws.onopen = function(evt) {
 	
 }
 ws.onmessage = function(evt){
-	console.log(evt.data.substring(0,50));
-	var strData = atob(evt.data);
-	var charData = strData.split('').map(function(x){return x.charCodeAt(0);});
-	var binData = new Uint8Array(charData);
-	var newData = pako.inflate(binData,{to:'string'});
-	var dm = JSON.parse(newData);
-	
-	//var dm = JSON.parse(evt.data);
+	var dm;
+	if (evt.data[0]=='{'){
+		dm = JSON.parse(evt.data);
+	}
+	else {
+		var strData = atob(evt.data);
+		var charData = strData.split('').map(function(x){return x.charCodeAt(0);});
+		var binData = new Uint8Array(charData);
+		var newData = pako.inflate(binData,{to:'string'});
+		dm = JSON.parse(newData);
+	}
 	if (dm.operation == 'chart'){
 		var chartJSON = dm.message;
-		
-		
 		
 		var el = document.querySelector('chartdn-chart[data-loc="'+parseInt(dm.loc)+'"]');
 		if (el){
