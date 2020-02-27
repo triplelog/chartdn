@@ -16,13 +16,13 @@ ws.onopen = function(evt) {
 	
 }
 ws.onmessage = function(evt){
-	/*var strData = atob(evt.data);
+	var strData = atob(evt.data);
 	var charData = strData.split('').map(function(x){return x.charCodeAt(0);});
 	var binData = new Uint8Array(charData);
 	var newData = pako.inflate(binData,{to:'string'});
-	var dm = JSON.parse(newData);*/
+	var dm = JSON.parse(newData);
 	
-	var dm = JSON.parse(evt.data);
+	//var dm = JSON.parse(evt.data);
 	if (dm.operation == 'chart'){
 		var chartJSON = dm.message;
 		

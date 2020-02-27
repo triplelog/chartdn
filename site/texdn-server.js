@@ -1245,7 +1245,7 @@ function makeChartsWithData(ws,rawdata,chartInfo,chartStyle,dm,reloadTable=true)
 		console.log('compressed: ',performance.now());
 		var c = btoa(b);
 		console.log('stringed: ', c.length, "   ",performance.now());
-		ws.send(a);
+		ws.send(c);
 		console.log('message sent',performance.now());
 	}
 }
