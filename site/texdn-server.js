@@ -187,25 +187,41 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 	}*/
 	results.data.forEach(function(v) { 
 		if (newColumns.length == 0){
-			v.forEach(function(vv){
-				if (vv.indexOf(',')>-1){
-					vv= '"'+vv+'"';
+			var newLine = '';
+			var i=0;
+			for (i=0;i<v.length-1;i++){
+				if (v[i].indexOf(',')>-1){
+					newLine += '"'+v[i]+'", ';
 				}
-			});
-			file.write(v.join(', ') + '\n'); 
+				else {
+					newLine += v[i]+', ';
+				}
+			}
+			if (v[i].indexOf(',')>-1){
+				newLine += '"'+v[i]+'"\n';
+			}
+			else {
+				newLine += v[i]+'\n';
+			}
+			file.write(newLine);
 		}
 		else {
-			v.forEach(function(vv){
-				if (vv.indexOf(',')>-1){
-					vv= '"'+vv+'"';
-				}
-			});
 			var newLine = '';
 			var i=0;
 			for (i=0;i<newColumns.length-1;i++){
-				newLine += v[newColumns[i]]+', ';
+				if (v[newColumns[i]].indexOf(',')>-1){
+					newLine += '"'+v[newColumns[i]]+'", ';
+				}
+				else {
+					newLine += v[newColumns[i]]+', ';
+				}
 			}
-			newLine += v[newColumns[i]]+'\n';
+			if (v[newColumns[i]].indexOf(',')>-1){
+				newLine += '"'+v[newColumns[i]]+'"\n';
+			}
+			else {
+				newLine += v[newColumns[i]]+'\n';
+			}
 			file.write(newLine);
 		}
 	});
