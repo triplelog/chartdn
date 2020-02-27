@@ -920,9 +920,12 @@ loginApp.get('/fork/:chartid',
 							if (nforks < 26){
 								chartid = chartid+String.fromCharCode(nforks+97);
 							}
-							else {
-								
-								chartid = chartid+String.fromCharCode(nforks+97)+'_'+String.fromCharCode(nforks+97);
+							else if (nforks < 26*10*26){
+								var secondchar = Math.floor(nforks/(26*26));
+								var firstval = Math.floor((nforks-secondchar*26*26)/26);
+								var firstchar = String.fromCharCode(firstval+97);
+								var lastchar = String.fromCharCode((nforks%26)+97);
+								chartid = chartid+ firstchar + secondchar + lastchar;
 							}
 						}
 						var newchart = new Chart({id:chartid,data:result2.data,options:result2.options,users:{creator:username,view:['any'],fork:['any'],edit:{all:['private']}},modifiers:result2.modifiers,types:result2.types,stats:{time:Date.now(),views:{},forks:[]}});
@@ -946,7 +949,16 @@ loginApp.get('/fork/:chartid',
 								}
 								else {
 									var nforks = result2.stats.forks.length;
-									chartid = chartid+String.fromCharCode(nforks+97);
+									if (nforks < 26){
+										chartid = chartid+String.fromCharCode(nforks+97);
+									}
+									else if (nforks < 26*10*26){
+										var secondchar = Math.floor(nforks/(26*26));
+										var firstval = Math.floor((nforks-secondchar*26*26)/26);
+										var firstchar = String.fromCharCode(firstval+97);
+										var lastchar = String.fromCharCode((nforks%26)+97);
+										chartid = chartid+ firstchar + secondchar + lastchar;
+									}
 								}
 								var newchart = new Chart({id:chartid,data:result2.data,options:result2.options,users:{creator:username,view:['any'],fork:['any'],edit:{all:['private']}},modifiers:result2.modifiers,types:result2.types,stats:{time:Date.now(),views:{},forks:[]}});
 								result2.stats.forks.push(String.fromCharCode(nforks+97));
@@ -1318,14 +1330,12 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes=false,sendTable
 			}
 			else {
 				console.log('file read',performance.now());
-				console.log(fileData.substring(0,2000));
 				var results = Papa.parse(fileData, {
 					//delimiter: chartInfo.options.delimiter || "",
 					delimiter: "",
 					skipEmptyLines: false,
 					quoteChar: '"',
 				});
-				console.log(results.data.slice(0,10));
 				var returnData = {};
 				if (chgTypes){
 					var types = datatypes.makeTypes(results.data.slice(0,1000));
