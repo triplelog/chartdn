@@ -1237,6 +1237,7 @@ function makeChartsWithData(ws,rawdata,chartInfo,chartStyle,dm,reloadTable=true)
 		if (reloadTable){
 			jsonmessage['mdata']=data.modified;
 		}
+		console.log(pako.deflate(JSON.stringify(jsonmessage), {to:'string'}));
 		ws.send(JSON.stringify(jsonmessage));
 		console.log('message sent',performance.now());
 	}
