@@ -16,16 +16,19 @@ ws.onopen = function(evt) {
 	
 }
 ws.onmessage = function(evt){
-	var dm = JSON.parse(evt.data);
-	if (dm.operation == 'chart'){
-		//var chartJSON = dm.message;
+	var strData = atob(evt.data);
+	var charData = strData.split('').map(function(x){return x.charCodeAt(0);});
+	var binData = new Uint8Array(charData);
+	var newData = pako.inflate(binData,{to:'string'});
+	console.log(newData);
+	console.log(atob(newData));
 		
-		var strData = atob(dm.message);
-		var charData = strData.split('').map(function(x){return x.charCodeAt(0);});
-		var binData = new Uint8Array(charData);
-		var chartJSON = pako.inflate(binData,{to:'string'});
-		console.log(chartJSON);
-		console.log(atob(chartJSON));
+	var dm = JSON.parse(newData);
+	if (dm.operation == 'chart'){
+		var chartJSON = dm.message;
+		
+		
+		
 		var el = document.querySelector('chartdn-chart[data-loc="'+parseInt(dm.loc)+'"]');
 		if (el){
 			el.makeChart(chartJSON);
