@@ -592,7 +592,7 @@ wss.on('connection', function connection(ws) {
 		  }
   	}
   	else if (dm.operation == 'qr'){
-  		var dotnet = 'dotnet python/qr-art/src/qr-art/bin/Debug/netcoreapp3.1/qr-art.dll "https://chartdn.com/charts/yoigjmppb" static/images/favicon.png png static/images/logopart.png -t 6 -e M';
+  		var dotnet = 'dotnet python/qr-art/src/qr-art/bin/Debug/netcoreapp3.1/qr-art.dll "https://chartdn.com/charts/yoigjmppb" static/images/logopart.png png static/images/newqr.png -t 6 -e M';
 		console.log('making qr', performance.now());
 		var child = exec(dotnet, function(err, stdout, stderr) {
 			if (err) throw err;
