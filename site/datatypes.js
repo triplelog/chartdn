@@ -165,6 +165,10 @@ exports.makeTypes = function(data){
 	var headerLen = headers.length;
 	for (var i=nHeaders;i<data.length-1;i++) {
 		var len = Math.min(data[i].length,10000);
+		if (data[i].length>headerLen){
+			console.log(headers);
+			console.log(data[i]);
+		}
 		for (var ii=0;ii<len;ii++) {
 			var cell = data[i][ii];
 			
