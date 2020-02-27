@@ -174,17 +174,39 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 	}
 	var file = fs.createWriteStream('saved/'+chartid+'.csv');
 	file.on('error', function(err) { /* error handling */ });
+	/*if (newColumns.length == 0){
+		file.write(Papa.unparse(results.data))
+	}
+	else {
+		var vv = [];
+		var i=0;
+		for (i=0;i<newColumns.length;i++){
+			vv.push(v[newColumns[i]]);
+		}
+		file.write(Papa.unparse(vv) + '\n');
+	}*/
 	results.data.forEach(function(v) { 
 		if (newColumns.length == 0){
-			file.write(Papa.unparse(v) + '\n'); 
+			v.forEach(function(vv){
+				if (vv.indexOf(',')>-1){
+					vv= '"'+vv+'"';
+				}
+			});
+			file.write(v.join(', ') + '\n'); 
 		}
 		else {
-			var vv = [];
+			v.forEach(function(vv){
+				if (vv.indexOf(',')>-1){
+					vv= '"'+vv+'"';
+				}
+			});
+			var newLine = '';
 			var i=0;
-			for (i=0;i<newColumns.length;i++){
-				vv.push(v[newColumns[i]]);
+			for (i=0;i<newColumns.length-1;i++){
+				newLine += v[newColumns[i]]+', ';
 			}
-			file.write(Papa.unparse(vv) + '\n');
+			newLine += v[newColumns[i]]+'\n';
+			file.write(newLine);
 		}
 	});
 	file.end();
