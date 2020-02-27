@@ -209,18 +209,28 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 			var newLine = '';
 			var i=0;
 			for (i=0;i<newColumns.length-1;i++){
-				if (v[newColumns[i]].indexOf(',')>-1){
-					newLine += '"'+v[newColumns[i]]+'", ';
+				if (newColumns[i]<v.length){
+					if (v[newColumns[i]].indexOf(',')>-1){
+						newLine += '"'+v[newColumns[i]]+'", ';
+					}
+					else {
+						newLine += v[newColumns[i]]+', ';
+					}
 				}
 				else {
-					newLine += v[newColumns[i]]+', ';
+					newLine += ', ';
 				}
 			}
-			if (v[newColumns[i]].indexOf(',')>-1){
-				newLine += '"'+v[newColumns[i]]+'"\n';
+			if (newColumns[i]<v.length){
+				if (v[newColumns[i]].indexOf(',')>-1){
+					newLine += '"'+v[newColumns[i]]+'"\n';
+				}
+				else {
+					newLine += v[newColumns[i]]+'\n';
+				}
 			}
 			else {
-				newLine += v[newColumns[i]]+'\n';
+				newLine += '\n';
 			}
 			file.write(newLine);
 		}
