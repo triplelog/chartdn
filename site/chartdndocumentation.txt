@@ -23,6 +23,9 @@ npm install passport passport-local mongoose passport-local-mongoose
 
 sudo apt-get install python3-pip
 pip3 install robohash
+--use qr-art
+install dotnet and libgdiplus for qr-art
+
 
 Use node on backend
 Need csv-parse, nunjucks(template system), express, wasm-flate

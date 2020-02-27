@@ -267,6 +267,7 @@ wss.on('connection', function connection(ws) {
   var myOptions = {};
   var chartData = false;
   var mongoChart = {};
+  var sendTable = true;
   ws.on('message', function incoming(message) {
   	var dm = JSON.parse(message);
   	console.log(dm.operation);
@@ -375,7 +376,7 @@ wss.on('connection', function connection(ws) {
 					console.log('saved options', result.options, performance.now());
 				});
 				if (!chartData){
-					makeAllCharts(ws,dm,result,'all').then(function(result3) {
+					makeAllCharts(ws,dm,result,'all',false,true).then(function(result3) {
 						chartData = result3.data;
 					}, function(err) {
 						console.log(err);
@@ -408,7 +409,7 @@ wss.on('connection', function connection(ws) {
 				});
 				mongoChart[chartid] = result;
 				if (!chartData){
-					makeAllCharts(ws,dm,result,'all').then(function(result3) {
+					makeAllCharts(ws,dm,result,'all',false,true).then(function(result3) {
 						chartData = result3.data;
 					}, function(err) {
 						console.log(err);
@@ -479,7 +480,7 @@ wss.on('connection', function connection(ws) {
 					console.log('saved modifiers', performance.now());
 				});
 				if (!chartData){
-					makeAllCharts(ws,dm,result,'all').then(function(result3) {
+					makeAllCharts(ws,dm,result,'all',false,true).then(function(result3) {
 						chartData = result3.data;
 					}, function(err) {
 						console.log(err);
@@ -506,7 +507,7 @@ wss.on('connection', function connection(ws) {
 				});
 				mongoChart[chartid] = result;
 				if (!chartData){
-					makeAllCharts(ws,dm,result,'all').then(function(result3) {
+					makeAllCharts(ws,dm,result,'all',false,true).then(function(result3) {
 						chartData = result3.data;
 					}, function(err) {
 						console.log(err);
@@ -530,6 +531,12 @@ wss.on('connection', function connection(ws) {
 		  username = tempKeys[dm.message].username;
 		  if (tempKeys[dm.message].dataid){
 		  	dataid = tempKeys[dm.message].dataid;
+		  }
+		  if (tempKeys[dm.message].sendTable == 'yes'){
+		  	sendTable = true;
+		  }
+		  else if (tempKeys[dm.message].sendTable == 'no'){
+		  	sendTable = false;
 		  }
 		  if (dm.chartid && dm.chartid != ""){
 		  	chartid = dm.chartid;
@@ -568,10 +575,10 @@ wss.on('connection', function connection(ws) {
 			  		console.log('viewable');
 			  		if (result.data != ''){
 						if (dm.style){
-							makeAllCharts(ws,dm,result,dm.style);
+							makeAllCharts(ws,dm,result,dm.style,false,sendTable);
 						}
 						else {
-							makeAllCharts(ws,dm,result,'all');
+							makeAllCharts(ws,dm,result,'all',false,sendTable);
 						}
 					}
 			  	}
@@ -580,10 +587,10 @@ wss.on('connection', function connection(ws) {
 						if (err){return}
 						else if (result2 > 0 && result.data != ''){
 							if (dm.style){
-								makeAllCharts(ws,dm,result,dm.style);
+								makeAllCharts(ws,dm,result,dm.style,false,sendTable);
 							}
 							else {
-								makeAllCharts(ws,dm,result,'all');
+								makeAllCharts(ws,dm,result,'all',false,sendTable);
 							}
 						}
 			  		
@@ -721,7 +728,7 @@ loginApp.get('/browse',
 				charts.push(mychart);
 			}
 			var tkey = crypto.randomBytes(100).toString('hex').substr(2, 18);
-			tempKeys[tkey] = {username:username};
+			tempKeys[tkey] = {username:username,sendTable:'no'};
 			res.write(nunjucks.render('browse.html',{
 				charts: charts,
 				tags: req.query.tags,
@@ -823,7 +830,7 @@ loginApp.get('/charts/:chartid',
 			var start = process.hrtime();
 			var title = 'ChartDN Chart';
 			var tkey = crypto.randomBytes(100).toString('hex').substr(2, 18);
-			tempKeys[tkey] = {username:username};
+			tempKeys[tkey] = {username:username,sendTable:'no'};
 			tempKeys[tkey].chartid = chartid;
 			res.write(nunjucks.render('onechart.html',{
 				username: username || '',
@@ -863,7 +870,13 @@ loginApp.get('/fork/:chartid',
 						}
 						else {
 							var nforks = result2.stats.forks.length;
-							chartid = chartid+String.fromCharCode(nforks+97);
+							if (nforks < 26){
+								chartid = chartid+String.fromCharCode(nforks+97);
+							}
+							else {
+								
+								chartid = chartid+String.fromCharCode(nforks+97)+'_'+String.fromCharCode(nforks+97);
+							}
 						}
 						var newchart = new Chart({id:chartid,data:result2.data,options:result2.options,users:{creator:username,view:['any'],fork:['any'],edit:{all:['private']}},modifiers:result2.modifiers,types:result2.types,stats:{time:Date.now(),views:{},forks:[]}});
 						result2.stats.forks.push(String.fromCharCode(nforks+97));
@@ -988,7 +1001,7 @@ loginApp.get('/edit/:chartid',
 							if (savedData.shape){yaxis.shape[savedData.shape] = 'checked="checked"';}
 							if (savedData.dash){yaxis.dash[savedData.dash] = 'selected="selected"';}
 							var tkey = crypto.randomBytes(100).toString('hex').substr(2, 18);
-							tempKeys[tkey] = {username:username};
+							tempKeys[tkey] = {username:username,sendTable:'yes'};
 							tempKeys[tkey].dataid = dataname.split('.')[0];
 							tempKeys[tkey].chartid = chartid;
 							res.write(nunjucks.render('chartdn.html',{
@@ -1047,7 +1060,7 @@ loginApp.get('/edit/:chartid',
 									if (savedData.shape){yaxis.shape[savedData.shape] = 'checked="checked"';}
 									if (savedData.dash){yaxis.dash[savedData.dash] = 'selected="selected"';}
 									var tkey = crypto.randomBytes(100).toString('hex').substr(2, 18);
-									tempKeys[tkey] = {username:username};
+									tempKeys[tkey] = {username:username,sendTable:'yes'};
 									tempKeys[tkey].dataid = dataname.split('.')[0];
 									tempKeys[tkey].chartid = chartid;
 									res.write(nunjucks.render('chartdn.html',{
@@ -1256,7 +1269,7 @@ function makeChartsWithData(ws,rawdata,chartInfo,chartStyle,dm,reloadTable=true)
 	}
 }
 
-function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes=false) {
+function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes=false,sendTable=true) {
 	
 	return new Promise(function(resolve, reject) {
 		if (!chartInfo.data){reject('no data file');}
@@ -1283,7 +1296,7 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes=false) {
 					//console.log(chartInfo.types);
 				}
 				console.log('parsed',performance.now());
-				makeChartsWithData(ws,results.data,chartInfo,chartStyle,dm);
+				makeChartsWithData(ws,results.data,chartInfo,chartStyle,dm,sendTable);
 				returnData.data = results.data;
 				resolve(returnData);
 			}
