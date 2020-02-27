@@ -190,14 +190,14 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 			var newLine = '';
 			var i=0;
 			for (i=0;i<v.length-1;i++){
-				if (v[i].indexOf(',')>-1){
-					newLine += '"'+v[i]+'", ';
+				if (v[i].indexOf('|')>-1){
+					newLine += '"'+v[i]+'"| ';
 				}
 				else {
-					newLine += v[i]+', ';
+					newLine += v[i]+'| ';
 				}
 			}
-			if (v[i].indexOf(',')>-1){
+			if (v[i].indexOf('|')>-1){
 				newLine += '"'+v[i]+'"\n';
 			}
 			else {
@@ -210,11 +210,11 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 			var i=0;
 			for (i=0;i<newColumns.length-1;i++){
 				if (newColumns[i]<v.length){
-					if (v[newColumns[i]].indexOf(',')>-1){
-						newLine += '"'+v[newColumns[i]]+'", ';
+					if (v[newColumns[i]].indexOf('|')>-1){
+						newLine += '"'+v[newColumns[i]]+'"| ';
 					}
 					else {
-						newLine += v[newColumns[i]]+', ';
+						newLine += v[newColumns[i]]+'| ';
 					}
 				}
 				else {
@@ -222,7 +222,7 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 				}
 			}
 			if (newColumns[i]<v.length){
-				if (v[newColumns[i]].indexOf(',')>-1){
+				if (v[newColumns[i]].indexOf('|')>-1){
 					newLine += '"'+v[newColumns[i]]+'"\n';
 				}
 				else {
@@ -1320,7 +1320,8 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes=false,sendTable
 				console.log('file read',performance.now());
 				console.log(fileData.substring(0,2000));
 				var results = Papa.parse(fileData, {
-					delimiter: chartInfo.options.delimiter || "",
+					//delimiter: chartInfo.options.delimiter || "",
+					delimiter: "",
 					skipEmptyLines: false,
 					quoteChar: '"',
 				});
