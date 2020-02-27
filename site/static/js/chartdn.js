@@ -105,7 +105,8 @@ var allHeaders = {};
 var colid = -1;
 var minimizedBoxes = {};
 var table = false;
-var nsteps;
+var nsteps = -1;
+var newnsteps = -1;
 var userDataChanges = [];
 minimizedBoxes.dataSource = 'large';
 minimizedBoxes.dataTable = 'large';
@@ -155,7 +156,7 @@ function headersChanged(initialData,chg=false) {
 		if (initialData && document.getElementById('xColVal').value != ''){
 			var xcv = parseInt(document.getElementById('xColVal').value);
 			document.getElementById('xColumnSelect').value =  xcv;
-			/*if (!nsteps && nsteps !=0) {
+			/*if (nsteps == -1) {
 				var qstring = 'div[tabulator-field="col'+xcv+'"] div.tabulator-col-title';
 				var hEl = headerEls.querySelector(qstring);
 				if (hEl){hEl.style.background = '#c6e6e6';}
@@ -177,7 +178,7 @@ function headersChanged(initialData,chg=false) {
 				newColumn.addEventListener('click',clickLineData);
 				newColumn.classList.add('hoverClick');
 				document.getElementById('yAxisDataBox').appendChild(newColumn);
-				/*if (!nsteps && nsteps !=0) {
+				/*if (nsteps == -1) {
 					var qstring = 'div[tabulator-field="col'+yColsVals[yid]+'"] div.tabulator-col-title';
 					var hEl = headerEls.querySelector(qstring);
 					if (hEl){hEl.style.background = '#e6c6e6';}
@@ -216,7 +217,7 @@ function headersChanged(initialData,chg=false) {
 					newColumn.addEventListener('click',clickLineData);
 					newColumn.classList.add('hoverClick');
 					document.getElementById('yAxisDataBox').appendChild(newColumn);
-					if (!nsteps && nsteps !=0) {
+					if (nsteps == -1) {
 						var qstring = 'div[tabulator-field="col'+yColsVals[yid]+'"] div.tabulator-col-title';
 						var hEl = headerEls.querySelector(qstring);
 						if (hEl){hEl.style.background = '#e6c6e6';}
@@ -236,7 +237,7 @@ function headersChanged(initialData,chg=false) {
 			var xcv = parseInt(document.getElementById('xColVal').value);
 			document.getElementById('xColumnSelect').value =  xcv;
 			if (xcv < headers.length){
-				if (!nsteps && nsteps !=0) {
+				if (nsteps == -1) {
 					var qstring = 'div[tabulator-field="col'+xcv+'"] div.tabulator-col-title';
 					var hEl = headerEls.querySelector(qstring);
 					if (hEl){hEl.style.background = '#c6e6e6';}
@@ -561,20 +562,23 @@ function optionsChg(optionname) {
 function chgStep(evt,knownstep=false) {
 	if (!knownstep){
 		var el = evt.target;
-		nsteps = parseInt(el.getAttribute('name'));
+		newnsteps = parseInt(el.getAttribute('name'));
 	}
 	var ell = document.getElementById('rawModified');
 	var qel = ell.querySelectorAll('a[name]');
 	for (var i=0;i<qel.length;i++){
-		if (i != nsteps){qel[i].classList.remove('selectedRaw');}
+		if (i != newnsteps){qel[i].classList.remove('selectedRaw');}
 		else {qel[i].classList.add('selectedRaw');}
 	}
 
-	if (nsteps >= qel.length -1){
-		nsteps = -1;
+	if (newnsteps >= qel.length -1){
+		newnsteps = -1;
 	}
-	var jsonmessage = {'operation':'options','nsteps':nsteps};
-	ws.send(JSON.stringify(jsonmessage));
+	if (nsteps != newnsteps){
+		var jsonmessage = {'operation':'options','nsteps':newnsteps};
+		ws.send(JSON.stringify(jsonmessage));
+		nsteps = newnsteps;
+	}
 }
 function modifierChanged(save=true) {
 	var el = document.getElementById('rawModified');
@@ -778,7 +782,7 @@ function updateTable(data,sentHeaders) {
 			tcr.querySelector('button[name=deleteButton]').style.display = 'none';
 			tcr.querySelector('button[name=addButton]').style.display = 'none';
 		}
-		if (!modifiers || modifiers.length == 0 || (!nsteps && nsteps != 0) || nsteps == -1 ){
+		if (!modifiers || modifiers.length == 0 || nsteps == -1 ){
 			tcr.querySelector('button[name=filterButton]').addEventListener('click',clickTippy);
 		}
 		else {
@@ -855,7 +859,7 @@ function updateTable(data,sentHeaders) {
 			else {
 				tc.querySelector('button[name=deleteButton]').style.display = 'none';
 			}
-			if (!modifiers || modifiers.length == 0 || (!nsteps && nsteps != 0) || nsteps == -1 ){
+			if (!modifiers || modifiers.length == 0 || nsteps == -1 ){
 				tc.querySelector('button[name=xButton]').addEventListener('click',clickTippy);
 				tc.querySelector('button[name=yButton]').addEventListener('click',clickTippy);
 				tc.querySelector('button[name=pivotButton]').addEventListener('click',clickTippy);
@@ -1281,7 +1285,7 @@ function updateColumns(id='all') {
 function updateNsteps(evt,id='',pm=0) {
 	if (!evt){
 		if (!id){
-			nsteps = -1;
+			newnsteps = -1;
 			chgStep(evt,true);
 			return;
 		}
@@ -1289,7 +1293,7 @@ function updateNsteps(evt,id='',pm=0) {
 		var cnsteps = 0;
 		for (var i in modifiers){
 			if (modifiers[i].id == id){
-				nsteps = cnsteps+pm;
+				newnsteps = cnsteps+pm;
 				chgStep(evt,true);
 				break;
 			}
@@ -1300,7 +1304,7 @@ function updateNsteps(evt,id='',pm=0) {
 		return;
 	}
 	if (evt.target.getAttribute('name')=='final'){
-		nsteps = -1;
+		newnsteps = -1;
 		chgStep(evt,true);
 		return;
 	}
@@ -1321,9 +1325,9 @@ function updateNsteps(evt,id='',pm=0) {
 	var cnsteps = 0;
 	for (var i in modifiers){
 		if ('edit'+modifiers[i].id == id){
-			nsteps = cnsteps;
+			newnsteps = cnsteps;
 			if (evt.target.getAttribute('name') == 'after'){
-				nsteps++;
+				newnsteps++;
 			}
 			chgStep(evt,true);
 			break;
