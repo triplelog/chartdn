@@ -1318,10 +1318,13 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes=false,sendTable
 			}
 			else {
 				console.log('file read',performance.now());
+				console.log(fileData.substring(0,2000));
 				var results = Papa.parse(fileData, {
 					delimiter: chartInfo.options.delimiter || "",
 					skipEmptyLines: false,
+					quoteChar: '"',
 				});
+				console.log(results.data.slice(0,10));
 				var returnData = {};
 				if (chgTypes){
 					var types = datatypes.makeTypes(results.data.slice(0,1000));
