@@ -176,16 +176,15 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 	file.on('error', function(err) { /* error handling */ });
 	results.data.forEach(function(v) { 
 		if (newColumns.length == 0){
-			file.write(v.join(', ') + '\n'); 
+			file.write(Papa.unparse(v) + '\n'); 
 		}
 		else {
-			var newLine = '';
+			var vv = [];
 			var i=0;
-			for (i=0;i<newColumns.length-1;i++){
-				newLine += v[newColumns[i]]+', ';
+			for (i=0;i<newColumns.length;i++){
+				vv.push(v[newColumns[i]]);
 			}
-			newLine += v[newColumns[i]]+'\n';
-			file.write(newLine);
+			file.write(Papa.unparse(vv) + '\n');
 		}
 	});
 	file.end();
