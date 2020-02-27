@@ -1238,8 +1238,14 @@ function makeChartsWithData(ws,rawdata,chartInfo,chartStyle,dm,reloadTable=true)
 		if (reloadTable){
 			jsonmessage['mdata']=data.modified;
 		}
-		console.log(btoa(pako.deflate(JSON.stringify(jsonmessage), {to:'string'})));
-		ws.send(JSON.stringify(jsonmessage));
+		console.log('precompress: ',performance.now());
+		var a = JSON.stringify(jsonmessage);
+		console.log('stringified: ',performance.now());
+		var b = pako.deflate(a, {to:'string'});
+		console.log('compressed: ',performance.now());
+		var c = btoa(b);
+		console.log('stringed: ',performance.now());
+		ws.send(c);
 		console.log('message sent',performance.now());
 	}
 }
