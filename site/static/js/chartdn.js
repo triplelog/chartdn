@@ -6,12 +6,25 @@ ws.onopen = function(evt) {
 	jsonmessage['chartid']=chartid;
 	ws.send(JSON.stringify(jsonmessage));
 	
+	initialLoad();
 	var jsonmessage = {'operation':'view','id':chartid,'loc':0}
 	ws.send(JSON.stringify(jsonmessage));
+	
 }
 ws.onmessage = function(evt){
+	var dm;
+	if (evt.data[0]=='{'){
+		dm = JSON.parse(evt.data);
+	}
+	else {
+		var strData = atob(evt.data);
+		var charData = strData.split('').map(function(x){return x.charCodeAt(0);});
+		var binData = new Uint8Array(charData);
+		var newData = pako.inflate(binData,{to:'string'});
+		dm = JSON.parse(newData);
+	}
 	//var d = new Date(); var n = d.getTime(); console.log('time6: ', n);
-	var dm = JSON.parse(evt.data);
+
 	if (dm.operation == 'downloaded'){
 		document.getElementById('dataCopy').value = dm.message;
 		dataChanged(true);
@@ -42,7 +55,19 @@ ws.onmessage = function(evt){
 	}
 }
 
-
+function initialLoad() {
+	// Set table if already have data
+	var oldData = document.getElementById('dataCopy').value;
+	if (oldData.length > 0){
+		dataChanged(true);
+	}
+	minimizeBox('modifyData');
+	minimizeBox('yAxis');
+	var chartType = document.getElementById('chartTypeMenu').querySelector('option:checked').value;
+	if (chartType == 'line'){
+		showLineChartOptions();
+	}
+}
 
 function getOrdinal(n) {
    var s=["th","st","nd","rd"],
@@ -306,11 +331,7 @@ function dst() {
 	}
 }
 
-// Set table if already have data
-var oldData = document.getElementById('dataCopy').value;
-if (oldData.length > 0){
-	dataChanged(true);
-}
+
 		
 		
 function headerChg() {
@@ -928,14 +949,14 @@ function redrawTable() {
 	if (table){table.redraw(true);}
 }
 
-var syncWorker2 = new Worker('../wasm/datatypeworker.js');
+//var syncWorker2 = new Worker('../wasm/datatypeworker.js');
 function dataChanged(initialData=false,dataType='csv') {
 	
 	var csv = dataCopy.value;
-	syncWorker2.postMessage(csv);
+	/*syncWorker2.postMessage(csv);
 	syncWorker2.onmessage = function(e) {
 		console.log(e);
-	};
+	};*/
 	if (!initialData){
 		var delimiter = document.getElementById('delimiter').value;
 		if (delimiter.toLowerCase() == 'auto'){delimiter = '';}
@@ -2459,12 +2480,6 @@ function minimizeBox(boxid,full=false){
 			ell.classList.remove('fa-expand-alt');
 		}
 	}
-}
-minimizeBox('modifyData');
-minimizeBox('yAxis');
-var chartType = document.getElementById('chartTypeMenu').querySelector('option:checked').value;
-if (chartType == 'line'){
-	showLineChartOptions();
 }
 
 
