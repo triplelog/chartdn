@@ -78,7 +78,7 @@ const WebSocket = require('ws');
 const wss = new WebSocket.Server({ server });
 
 
-function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
+function updateData(oldDataStr,delimiter,chartid,ws,dm){
 	var results = Papa.parse(oldDataStr, {
 		delimiter: delimiter,
 		skipEmptyLines: false,
@@ -236,7 +236,7 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,chartData){
 		}
 	});
 	file.end();
-	loadChart(chartid,ws,dm,chartData,false,false);
+	loadChart(chartid,ws,dm,false,false);
 }
 function updateOptions(oldOptions, newOptions) {
 	for(var k in newOptions){
@@ -308,6 +308,7 @@ function updatePermissions(oldUser, newOptions) {
 wss.on('connection', function connection(ws) {
   var charts = {};
   var chartid = '';
+  var delimiter = '';
   var dataid = '';
   var chartidtemp = '';
   var username = '';
@@ -349,7 +350,7 @@ wss.on('connection', function connection(ws) {
 				var child = exec(wget, function(err, stdout, stderr) {
 					if (err) throw err;
 					else {
-						loadChart(chartid,ws,dm,chartData,true,false);
+						loadChart(chartid,ws,dm,true,false);
 						
 					}
 					
@@ -358,7 +359,7 @@ wss.on('connection', function connection(ws) {
 		}
 		else {
 			fs.writeFile("saved/"+chartid+".csv", fstr, function (err) {
-				loadChart(chartid,ws,dm,chartData,false,false);
+				loadChart(chartid,ws,dm,false,false);
 
 			});
 		}
@@ -383,11 +384,11 @@ wss.on('connection', function connection(ws) {
 		var child = exec(wget, function(err, stdout, stderr) {
 			if (err) throw err;
 			else {
-				loadChart(chartid,ws,dm,chartData,false,false);
+				loadChart(chartid,ws,dm,false,false);
 				//fs.readFile('saved/'+chartid+'.csv', 'utf8', function(err, fileData) {
 					//var jsonmessage = {'operation':'downloaded','message':fileData};
 					//ws.send(JSON.stringify(jsonmessage));
-					//loadChart(chartid,ws,dm,chartData,false,false);
+					//loadChart(chartid,ws,dm,false,false);
 				//});
 			}
 		});
@@ -396,12 +397,17 @@ wss.on('connection', function connection(ws) {
 		chartData = false;
   	}
   	else if (dm.operation == 'dataupdate'){
-
+		delimiter = '|';
+		dm.delimiter = '|';
   		if (chartid != dataid){
-  			Chart.updateOne({ id: chartid }, {data: chartid+'.csv'}, function(err, result) {});
+  			Chart.updateOne({ id: chartid }, {data: chartid+'.csv', "options.delimiter":'|'}, function(err, result) {});
+		}
+		else if (delimiter != '|'){
+			Chart.updateOne({ id: chartid }, {"options.delimiter":'|'}, function(err, result) {});
+			
 		}
 		fs.readFile('saved/'+dataid+'.csv', 'utf8', function(err, fileData) {
-			updateData(fileData,'',chartid,ws,dm,chartData);
+			updateData(fileData,delimiter,chartid,ws,dm);
 			dataid = chartid;
 		});
 		delete mongoChart[chartid];
@@ -619,7 +625,7 @@ wss.on('connection', function connection(ws) {
 			  	if (err || result == null){
 			  	}
 			  	else if (result.users.view[0]=='any' || result.users.creator == username){
-			  		console.log('viewable');
+			  		delimiter = result.options.delimiter;
 			  		if (result.data != ''){
 						if (dm.style){
 							makeAllCharts(ws,dm,result,dm.style,false,sendTable);
@@ -630,6 +636,7 @@ wss.on('connection', function connection(ws) {
 					}
 			  	}
 			  	else if (result.users.view[0] == 'friends' && username != ''){
+			  		 delimiter = result.options.delimiter;
 			  		 User.countDocuments({username: username, followers: result.users.creator}, function(err, result2) {
 						if (err){return}
 						else if (result2 > 0 && result.data != ''){
@@ -679,7 +686,7 @@ wss.on('connection', function connection(ws) {
   });
 });
 
-function loadChart(chartid,ws,dm,chartData,deletexls=false,result=false){
+function loadChart(chartid,ws,dm,deletexls=false,result=false){
 	if (result){
 		makeAllCharts(ws,dm,result,'all',true).then(function(result3) {
 			chartData = result3.data;
@@ -1331,8 +1338,7 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes=false,sendTable
 			else {
 				console.log('file read',performance.now());
 				var results = Papa.parse(fileData, {
-					//delimiter: chartInfo.options.delimiter || "",
-					delimiter: "",
+					delimiter: dm.delimiter || chartInfo.options.delimiter || "",
 					skipEmptyLines: false,
 					quoteChar: '"',
 				});
