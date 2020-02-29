@@ -1065,6 +1065,9 @@ loginApp.get('/edit/:chartid',
 						tempKeys[tkey].dataid = dataname.split('.')[0];
 						tempKeys[tkey].chartid = chartid;
 						var hasData = true;
+						if (!dataname || dataname = ''){
+							hasData = false;
+						}
 						res.write(nunjucks.render('chartdn.html',{
 							chartScript: '',
 							hasData: hasData,
@@ -1118,6 +1121,9 @@ loginApp.get('/edit/:chartid',
 								tempKeys[tkey].dataid = dataname.split('.')[0];
 								tempKeys[tkey].chartid = chartid;
 								var hasData = true;
+								if (!dataname || dataname = ''){
+									hasData = false;
+								}
 								res.write(nunjucks.render('chartdn.html',{
 									chartScript: '',
 									hasData: hasData,
