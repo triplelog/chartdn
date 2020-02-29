@@ -1964,6 +1964,9 @@ function createReplace(obj) {
 	
 	newM.querySelector('*[name=delete]').addEventListener('click',updateModifier);
 	newM.querySelector('*[name=disable]').addEventListener('click',updateModifier);
+	newM.querySelector('*[name=before]').addEventListener('click',updateNsteps);
+	newM.querySelector('*[name=after]').addEventListener('click',updateNsteps);
+	newM.querySelector('*[name=final]').addEventListener('click',updateNsteps);
 	
 	if (!obj.enabled){
 		newM.querySelector('span[name=disable]').textContent = 'Enable';
@@ -2097,6 +2100,9 @@ function createSort(obj) {
 	
 	newM.querySelector('*[name=delete]').addEventListener('click',updateModifier);
 	newM.querySelector('*[name=disable]').addEventListener('click',updateModifier);
+	newM.querySelector('*[name=before]').addEventListener('click',updateNsteps);
+	newM.querySelector('*[name=after]').addEventListener('click',updateNsteps);
+	newM.querySelector('*[name=final]').addEventListener('click',updateNsteps);
 	
 	if (!obj.enabled){
 		newM.querySelector('span[name=disable]').textContent = 'Enable';
@@ -2222,6 +2228,9 @@ function createNew(obj) {
 	newM.querySelector('button[name=clear]').addEventListener('click',updateModifier);
 	newM.querySelector('*[name=delete]').addEventListener('click',updateModifier);
 	newM.querySelector('*[name=disable]').addEventListener('click',updateModifier);
+	newM.querySelector('*[name=before]').addEventListener('click',updateNsteps);
+	newM.querySelector('*[name=after]').addEventListener('click',updateNsteps);
+	newM.querySelector('*[name=final]').addEventListener('click',updateNsteps);
 	//newM.querySelector('*[name=save]').addEventListener('click',updateModifier);
 
 	//createNewColumnBox(obj.id);
