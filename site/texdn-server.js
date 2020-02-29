@@ -397,7 +397,6 @@ wss.on('connection', function connection(ws) {
 		chartData = false;
   	}
   	else if (dm.operation == 'dataupdate'){
-		delimiter = '|';
 		dm.delimiter = '|';
   		if (chartid != dataid){
   			Chart.updateOne({ id: chartid }, {data: chartid+'.csv', "options.delimiter":'|'}, function(err, result) {});
@@ -409,6 +408,7 @@ wss.on('connection', function connection(ws) {
 		fs.readFile('saved/'+dataid+'.csv', 'utf8', function(err, fileData) {
 			updateData(fileData,delimiter,chartid,ws,dm);
 			dataid = chartid;
+			delimiter = '|';
 		});
 		delete mongoChart[chartid];
 		chartData = false;
