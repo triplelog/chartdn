@@ -218,7 +218,7 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm){
 					}
 				}
 				else {
-					newLine += ', ';
+					newLine += '| ';
 				}
 			}
 			if (newColumns[i]<v.length){
