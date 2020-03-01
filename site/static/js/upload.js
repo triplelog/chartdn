@@ -58,7 +58,6 @@ function fullCompression(to_compress) {
 		if (csvindex>-1){
 			mybase64 = mybase64.substring(index+7);
 			var compbase64 = pako.deflate(mybase64,{to:'string'});
-		
 			dataChanged(btoa(compbase64));
 		}
 		else {

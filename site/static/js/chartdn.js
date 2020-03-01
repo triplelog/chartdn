@@ -971,9 +971,13 @@ function dataChanged(csv='',dataType='csv') {
 	
 	if (csv == ''){
 		csv = dataCopy.value;
+		console.log(csv);
 		var compbase64 = pako.deflate(csv,{to:'string'});
-
+		console.log(compbase64);
 		csv = btoa(compbase64);
+		console.log(csv);
+		csv = compbase64;
+		console.log(csv);
 	}
 
 	var delimiter = document.getElementById('delimiter').value;
