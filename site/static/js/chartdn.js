@@ -25,11 +25,7 @@ ws.onmessage = function(evt){
 	}
 	//var d = new Date(); var n = d.getTime(); console.log('time6: ', n);
 
-	if (dm.operation == 'downloaded'){
-		document.getElementById('dataCopy').value = dm.message;
-		dataChanged(true);
-	}
-	else if (dm.operation == 'chart'){
+	if (dm.operation == 'chart'){
 		//var d = new Date(); var n = d.getTime(); console.log('time7: ', n);
 		var chartJSON = dm.message;
 		var allCharts = document.querySelectorAll('chartdn-chart');
@@ -971,32 +967,29 @@ function redrawTable() {
 	if (table){table.redraw(true);}
 }
 
-function dataChanged(initialData=false,dataType='csv') {
+function dataChanged(csv='',dataType='csv') {
 	
-	var csv = dataCopy.value;
+	if (csv == ''){
+		csv = dataCopy.value;
+		var index = mybase64.indexOf('base64,');
+		var csvindex = mybase64.substring(0,index).indexOf('text/csv');
 
-	if (!initialData){
-		var delimiter = document.getElementById('delimiter').value;
-		if (delimiter.toLowerCase() == 'auto'){delimiter = '';}
-		var d = new Date(); var n = d.getTime(); console.log('time: ', n);
-		var jsonmessage = {'operation':'upload','message':csv,'delimiter':delimiter};
-		if (dataType != 'csv'){
-			jsonmessage.type = dataType;
-		}
-		ws.send(JSON.stringify(jsonmessage));
-	}
-	else {
-		if (csv.length > 0){minimizeBox('dataSource');}
-		
+		mybase64 = mybase64.substring(index+7);
+		var compbase64 = pako.deflate(mybase64,{to:'string'});
+
+		csv = btoa(compbase64);
 	}
 
-	if (modifiers.length == 0){
-		modifierChanged(false);
+	var delimiter = document.getElementById('delimiter').value;
+	if (delimiter.toLowerCase() == 'auto'){delimiter = '';}
+	var d = new Date(); var n = d.getTime(); console.log('time: ', n);
+	var jsonmessage = {'operation':'upload','message':csv,'delimiter':delimiter};
+	if (dataType != 'csv'){
+		jsonmessage.type = dataType;
 	}
-	else{
-		modifierChanged(!initialData);
-	}
-	headersChanged(initialData);
+	ws.send(JSON.stringify(jsonmessage));
+
+
 
 }
 

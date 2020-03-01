@@ -59,22 +59,19 @@ function fullCompression(to_compress) {
 			mybase64 = mybase64.substring(index+7);
 			var compbase64 = pako.deflate(mybase64,{to:'string'});
 		
-			document.getElementById('dataCopy').value = btoa(compbase64);
-			dataChanged();
+			dataChanged(btoa(compbase64));
 		}
 		else {
 			var xlsindex = mybase64.substring(0,index).indexOf('excel');
 			if (xlsindex>-1){
 				mybase64 = mybase64.substring(index+7);
-				document.getElementById('dataCopy').value = mybase64;
-				dataChanged(false,'xls');
+				dataChanged(mybase64,'xls');
 			}
 			else {
 				var xlsxindex = mybase64.substring(0,index).indexOf('openxml');
 				if (xlsxindex>-1) {
 					mybase64 = mybase64.substring(index+7);
-					document.getElementById('dataCopy').value = mybase64;
-					dataChanged(false,'xlsx');
+					dataChanged(mybase64,'xlsx');
 				}
 			}
 		}
