@@ -971,11 +971,7 @@ function dataChanged(csv='',dataType='csv') {
 	
 	if (csv == ''){
 		csv = dataCopy.value;
-		var index = mybase64.indexOf('base64,');
-		var csvindex = mybase64.substring(0,index).indexOf('text/csv');
-
-		mybase64 = mybase64.substring(index+7);
-		var compbase64 = pako.deflate(mybase64,{to:'string'});
+		var compbase64 = pako.deflate(csv,{to:'string'});
 
 		csv = btoa(compbase64);
 	}
