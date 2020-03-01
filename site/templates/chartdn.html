@@ -62,36 +62,6 @@
   <div class="content-wrapper">
     <div class="content">
     	<div class="pure-g">
-			<!--<div class="l-box pure-u-1-4 sectionpart" id="dataSourceBox">
-				<div class="box-header">Data Source<span class="box-buttons"><a onclick="minimizeBox('dataSource')"><i class="fas fa-compress-alt"></i></a></span></div>
-				<form class="pure-form-stacked box-form">
-						<label>
-							<input type="radio" name="dataSourceType" onchange="dst()" value="File" checked>Upload File (csv or Excel)
-						</label>
-						<label>
-							<input type="radio" name="dataSourceType" onchange="dst()" value="Copy">Copy/Paste
-						</label>
-						<label>
-							<input type="radio" name="dataSourceType" onchange="dst()" value="Url">URL
-						</label>
-						<div class="l-box pure-u-1">
-				
-							<input type="file" name="dataFile" id="dataFile"></input>
-							<div id="dropArea">
-
-							</div>
-							<textarea rows="7" name="dataCopy" id="dataCopy" oninput="dataChg()" onchange="dataChg()">{{ dataAreaText }}</textarea>
-							<input type="text" name="dataUrl" id="dataUrl" onchange="urlChg()"></input>
-
-						</div>
-						<label for="nHeaders">Header Rows
-							<input type="number" value="{{ nHeaders | default(1) }}" name="nHeaders" id="nHeaders" onchange="headerChg()">
-						</label>
-						<label for="delimiter">Delimiter
-							<input type="text" value="" name="delimiter" id="delimiter" onchange="delimiterChg()" placeholder="auto">
-						</label>
-				</form>
-			</div>-->
 			<div class="l-box-half pure-u-1-1 sectionpart">
 				<div class="box-header">
 					<span class="box-buttons-left"><a onclick="minimizeBox('dataSource')" id="editSource" style="display: none;">Edit Source</a></span>
@@ -103,7 +73,7 @@
 						<div class="l-box pure-u-1-4 sectionpart" id="dataSourceBox">
 							<div class="box-header2">Data Source<span class="box-buttons"><a onclick="minimizeBox('dataSource')"><i class="fas fa-compress-alt"></i></a></span></div>
 							<form class="pure-form-stacked box-form">
-								<select name="dataSourceType" onchange="dst()">
+								Method: <select name="dataSourceType" onchange="dst()">
 									<option value="File">Upload File</option>
 									<option value="Copy">Copy/Paste</option>
 									<option value="Url">URL</option>
@@ -119,10 +89,10 @@
 
 								</div>
 								<label for="nHeaders">Header Rows
-									<input type="number" value="{{ nHeaders | default(1) }}" name="nHeaders" id="nHeaders" onchange="headerChg()">
+									<input type="number" style="width:2rem;" value="{{ nHeaders | default(1) }}" name="nHeaders" id="nHeaders" onchange="headerChg()">
 								</label>
 								<label for="delimiter">Delimiter
-									<input type="text" value="" name="delimiter" id="delimiter" onchange="delimiterChg()" placeholder="auto">
+									<input type="text" style="width:2rem;" value="" name="delimiter" id="delimiter" onchange="delimiterChg()" placeholder="auto">
 								</label>
 							</form>
 						</div>
