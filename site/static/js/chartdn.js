@@ -970,17 +970,9 @@ function redrawTable() {
 function dataChanged(csv='',dataType='csv') {
 	
 	if (csv == ''){
-		csv = dataCopy.value;
+		csv = atob(dataCopy.value);
 		var compbase64 = pako.deflate(csv,{to:'string'});
 		csv = btoa(compbase64);
-		var strData = atob(csv);
-		console.log(strData);
-			var charData = strData.split('').map(function(x){return x.charCodeAt(0);});
-			var binData = new Uint8Array(charData);
-			var pakores = pako.inflate(binData,{to:'string'});
-			console.log(pakores);
-			fstr = atob(pakores);
-			console.log(fstr);
 	}
 
 	var delimiter = document.getElementById('delimiter').value;
