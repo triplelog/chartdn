@@ -968,17 +968,18 @@ function redrawTable() {
 }
 
 function dataChanged(csv='',dataType='csv') {
-	
+	var isString = false;
 	if (csv == ''){
-		csv = atob(dataCopy.value);
+		csv = dataCopy.value;
 		var compbase64 = pako.deflate(csv,{to:'string'});
 		csv = btoa(compbase64);
+		isString = true;
 	}
 
 	var delimiter = document.getElementById('delimiter').value;
 	if (delimiter.toLowerCase() == 'auto'){delimiter = '';}
 	var d = new Date(); var n = d.getTime(); console.log('time: ', n);
-	var jsonmessage = {'operation':'upload','message':csv,'delimiter':delimiter};
+	var jsonmessage = {'operation':'upload','message':csv,'delimiter':delimiter,'string':isString};
 	if (dataType != 'csv'){
 		jsonmessage.type = dataType;
 	}

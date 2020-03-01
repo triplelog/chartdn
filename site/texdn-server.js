@@ -336,7 +336,12 @@ wss.on('connection', function connection(ws) {
 			var charData = strData.split('').map(function(x){return x.charCodeAt(0);});
 			var binData = new Uint8Array(charData);
 			var pakores = pako.inflate(binData,{to:'string'});
-			fstr = atob(pakores);
+			if (dm.isString){
+				fstr = pakores;
+			}
+			else {
+				fstr = atob(pakores);
+			}
 		}
 		else if (dm.type == 'xls' || dm.type == 'xlsx'){
 			fstr = dm.message;
