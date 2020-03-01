@@ -979,7 +979,7 @@ function dataChanged(csv='',dataType='csv') {
 	var delimiter = document.getElementById('delimiter').value;
 	if (delimiter.toLowerCase() == 'auto'){delimiter = '';}
 	var d = new Date(); var n = d.getTime(); console.log('time: ', n);
-	var jsonmessage = {'operation':'upload','message':csv,'delimiter':delimiter,'string':isString};
+	var jsonmessage = {'operation':'upload','message':csv,'delimiter':delimiter,'isString':isString};
 	if (dataType != 'csv'){
 		jsonmessage.type = dataType;
 	}
