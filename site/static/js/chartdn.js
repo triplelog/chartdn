@@ -971,13 +971,16 @@ function dataChanged(csv='',dataType='csv') {
 	
 	if (csv == ''){
 		csv = dataCopy.value;
-		console.log(csv);
 		var compbase64 = pako.deflate(csv,{to:'string'});
-		console.log(compbase64);
 		csv = btoa(compbase64);
-		console.log(csv);
-		csv = compbase64;
-		console.log(csv);
+		var strData = atob(csv);
+		console.log(strData);
+			var charData = strData.split('').map(function(x){return x.charCodeAt(0);});
+			var binData = new Uint8Array(charData);
+			var pakores = pako.inflate(binData,{to:'string'});
+			console.log(pakores);
+			fstr = atob(pakores);
+			console.log(fstr);
 	}
 
 	var delimiter = document.getElementById('delimiter').value;
