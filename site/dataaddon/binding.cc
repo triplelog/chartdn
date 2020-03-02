@@ -17,8 +17,3 @@ NODE_MODULE_INITIALIZER(v8::Local<v8::Object> exports,
 }
 
 
-// Define a Node.js module, but with the wrong version. Node.js should still be
-// able to load this module, multiple times even, because it exposes the
-// specially named initializer above.
-#undef NODE_MODULE_VERSION
-#define NODE_MODULE_VERSION 3
