@@ -8,7 +8,7 @@ const datatypes = require(bindingPath);
 
 var allins = [];
 console.log(performance.now());
-for (var i=0;i<10000;i++){
+for (var i=0;i<100000;i++){
 	//var out = datatypes.getType('a'+i);
 	allins.push('a'+i);
 }
@@ -16,7 +16,7 @@ console.log(performance.now());
 
 
 var allouts = [];
-for (var i=0;i<10000;i++){
+for (var i=0;i<100000;i++){
 	//var out = datatypes.getType('a'+i);
 	allouts[i] = allins[i];
 }
