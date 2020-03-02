@@ -15,10 +15,8 @@ for (var i=0;i<1000000;i++){
 console.log(performance.now());
 
 
-//var allouts = [];
-//for (var i=0;i<1000000;i++){
 var allouts = datatypes(allins);
-//}
+
 console.log(performance.now());
 console.log(allouts[0]);
 
