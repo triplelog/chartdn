@@ -1,7 +1,7 @@
 {
   'targets': [
     {
-      'target_name': 'datatypes',
+      'target_name': 'binding',
       'sources': [ 'datatypes.cc' ],
     }
   ]
