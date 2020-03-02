@@ -8,7 +8,7 @@ const datatypes = require(bindingPath);
 var allouts = [];
 console.log(performance.now());
 for (var i=0;i<1000;i++){
-	var out = datatypes.getType('a'+i);
-	allouts.push(out);
+	//var out = datatypes.getType('a'+i);
+	allouts.push('a'+i);
 }
 console.log(performance.now());
