@@ -22,3 +22,10 @@ for (var i=0;i<100000;i++){
 console.log(performance.now());
 console.log(allouts[0]);
 
+var alloutsjs = [];
+for (var i=0;i<100000;i++){
+	alloutsjs[i] = allins[i]+allins[i];
+}
+console.log(performance.now());
+console.log(alloutsjs[0]);
+
