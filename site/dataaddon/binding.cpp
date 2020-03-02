@@ -6,7 +6,7 @@
 std::string functionexample::getType(std::string a){
   return a;
 }
-Napi::Array functionexample::TypeWrapped(const Napi::CallbackInfo& info) 
+std::string functionexample::TypeWrapped(const Napi::CallbackInfo& info) 
 {
   Napi::Env env = info.Env();
   Napi::Array napiArray = info[0].As<Napi::Array>();
@@ -17,13 +17,14 @@ Napi::Array functionexample::TypeWrapped(const Napi::CallbackInfo& info)
   	std::string a = "aa";
   	//outputArray[i] = Napi::String::New(env, a);
   }
+  std::string out = "aa";
   //Napi::String input = info[0].As<Napi::String>();
   //std::string x = info[0].As<Napi::String>();
   //std::string y = std::string(info[0].As<Napi::String>());
   //Napi::String returnValue = napiArray.Get(534).As<Napi::String>();
  // Napi::String returnValue = Napi::String::New(env, functionexample::getType(input));
   
-  return napiArray;
+  return out;
 }
 Napi::Object functionexample::Init(Napi::Env env, Napi::Object exports) 
 {
