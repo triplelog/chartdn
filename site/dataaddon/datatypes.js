@@ -8,13 +8,7 @@ const datatypes = require(bindingPath);
 
 function getDataType(x) {
 	var t = datatypes.hello(x);
-	console.log(t);
-	if (t == 'I'){
-		return 'Int';
-	}
-	else {
-		return 'Not';
-	}
+	return t;
 }
 exports.makeTypes = function(data){
 	console.log('start getting types',performance.now());
