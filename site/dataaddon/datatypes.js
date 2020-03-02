@@ -15,11 +15,10 @@ for (var i=0;i<1000000;i++){
 console.log(performance.now());
 
 var allouts = [];
-var out = datatypes.hello(allins);
-/*var out;
+var out;
 for (var i=0;i<1000000;i++){
 	out = datatypes.hello(allins[i]);
-}*/
+}
 console.log(out);
 console.log(performance.now());
 
