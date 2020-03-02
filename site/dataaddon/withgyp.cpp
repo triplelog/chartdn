@@ -3,7 +3,7 @@
 
 
 void Method(const Nan::FunctionCallbackInfo<v8::Value>& info) {
-	Nan::Utf8String xx(info[0]);
+	Nan::Utf8String xx = utf8_value(info[0]);
 	v8::Local<v8::String> x = xx;
   	info.GetReturnValue().Set(x);
 }
