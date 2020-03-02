@@ -8,7 +8,7 @@ void Method(const Nan::FunctionCallbackInfo<v8::Value>& info) {
     std::string str(*s);
     std::reverse(str.begin(), str.end());    
 
-    Local<String> retval = String::NewFromUtf8(isolate, str.c_str());
+    v8::Local<v8::String> retval = v8::String::NewFromUtf8(isolate, str.c_str());
     //args.GetReturnValue().Set(retval);
 	//v8::Local<v8::String> xxx = xx + xx;
   	//info.GetReturnValue().Set(xxx);
