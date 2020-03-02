@@ -1,4 +1,6 @@
 #include "datatypes.h"
+#include <node_api.h>
+#include <string>
 /*
 static void Method(const v8::FunctionCallbackInfo<v8::Value>& args) {
   v8::Isolate* isolate = args.GetIsolate();
