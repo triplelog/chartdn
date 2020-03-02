@@ -10,7 +10,8 @@ Napi::TypedArray functionexample::TypeWrapped(const Napi::CallbackInfo& info)
 {
   Napi::Env env = info.Env();
   Napi::TypedArray napiArray = info[0].As<Napi::TypedArray>();
-  Napi::TypedArray outputArray = Napi::TypedArray(env, napiArray.Get(0).As<Napi::String>(), Napi::String, 1);
+  Napi::String x = napiArray.Get(0).As<Napi::String>();
+  Napi::TypedArray outputArray = Napi::TypedArray(env, x, Napi::String, 1);
   /*int i;
   int j = napiArray.ElementLength();
   for (i=0;i<j;i++){
