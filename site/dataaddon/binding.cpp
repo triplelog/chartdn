@@ -31,7 +31,7 @@ std::string functionexample::getType(std::string a){
 Napi::String functionexample::TypeWrapped(const Napi::CallbackInfo& info) 
 {
   Napi::Env env = info.Env();
-  Napi::String input = info[0].As<Napi::String>() + "_";
+  Napi::String input = info[0].As<Napi::String>() + info[0].As<Napi::String>();
  // Napi::String returnValue = Napi::String::New(env, functionexample::getType(input));
   
   //return returnValue;
