@@ -2,7 +2,7 @@
 #include <string>
 
 
-bool isNumber(input_str) {
+bool isNumber(strd::string input_str) {
 	int sz = input_str.size();
 	int i=0;
 	for (i=0;i<sz;i++){
