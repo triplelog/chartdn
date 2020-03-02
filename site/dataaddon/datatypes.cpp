@@ -21,7 +21,7 @@ void Method(const Nan::FunctionCallbackInfo<v8::Value>& info) {
   	info.GetReturnValue().Set(retval);*/
   	
   	v8::Local<v8::Array> array = v8::Local<v8::Array>::Cast(info[0]);
-  	unsigned int i =0;
+  	uint32_t i =0;
     for (i=0;i<1000000;i++){
     	v8::String::Utf8Value s(isolate, array->Get(v8::Integer::New(i)));
     	grabNumber(*s);
