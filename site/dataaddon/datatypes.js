@@ -1,5 +1,6 @@
 'use strict';
-var assert = require('assert');
-var binding = require('./build/Release/binding');
-assert.equal('world', binding.hello());
+const assert = require('assert');
+const bindingPath = require.resolve(`./build/Release/binding`);
+const binding = require(bindingPath);
+assert.strictEqual(binding.hello(), 'world');
 console.log('binding.hello() =', binding.hello());
