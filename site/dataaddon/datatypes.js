@@ -24,7 +24,8 @@ console.log(allouts[0]);
 
 var alloutsjs = [];
 for (var i=0;i<1000000;i++){
-	alloutsjs[i] = allins[i];
+	var x = allins[i];
+	alloutsjs[i] = x+x+x+x+x;
 }
 console.log(performance.now());
 console.log(alloutsjs[0]);

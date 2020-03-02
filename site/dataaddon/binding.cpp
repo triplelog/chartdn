@@ -12,7 +12,7 @@ Napi::String functionexample::TypeWrapped(const Napi::CallbackInfo& info)
   //Napi::String input = info[0].As<Napi::String>();
   std::string x = info[0].As<Napi::String>();
   //std::string y = std::string(info[0].As<Napi::String>());
-  Napi::String returnValue = Napi::String::New(env, x);
+  Napi::String returnValue = Napi::String::New(env, x+x+x+x+x);
  // Napi::String returnValue = Napi::String::New(env, functionexample::getType(input));
   
   return returnValue;
