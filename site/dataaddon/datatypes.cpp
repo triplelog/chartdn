@@ -1,7 +1,8 @@
 #include <nan.h>
 #include <string>
 #include "isNumber.cpp"
-isDataNumber(std::string);
+
+isDataNumber(std::string)
 
 void Method(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
