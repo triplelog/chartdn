@@ -15,10 +15,10 @@ for (var i=0;i<1000000;i++){
 console.log(performance.now());
 
 
-console.log(datatypes);
+console.log(datatypes.hello());
 
 console.log(performance.now());
-console.log(allouts[0]);
+
 
 var alloutsjs = [];
 for (var i=0;i<1000000;i++){
