@@ -22,7 +22,7 @@ void Method(const Nan::FunctionCallbackInfo<v8::Value>& info) {
   	
   	v8::Local<v8::Array> array = v8::Local<v8::Array>::Cast(info[0]);
   	unsigned int i =0;
-  	v8::String::Utf8Value s;
+  	v8::String::Utf8Value s(isolate, Nan::Get(array,0).ToLocalChecked());
     for (i=0;i<1000000;i++){
     	s(isolate, Nan::Get(array,i).ToLocalChecked());
     	grabNumber(*s);
