@@ -23,7 +23,7 @@ void Method(const Nan::FunctionCallbackInfo<v8::Value>& info) {
   	//info.GetReturnValue().Set(xxx);
   	//Nan::Utf8String utf8_value(info[0]->ToString(context));
 	//v8::Local<v8::String> xxx = xx + xx;
-  	info.GetReturnValue().Set(Nan::New(outstr).ToLocalChecked());
+  	info.GetReturnValue().Set(retval);
 }
 
 void Init(v8::Local<v8::Object> exports) {
