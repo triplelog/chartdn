@@ -9,7 +9,7 @@ std::string functionexample::getType(std::string a){
 Napi::String functionexample::TypeWrapped(const Napi::CallbackInfo& info) 
 {
   Napi::Env env = info.Env();
-  Napi::TypedArrayOf<Napi::String> napiArray = info[0].As<Napi::TypeArrayOf<Napi::String>>()
+  Napi::TypedArrayOf<Napi::String> napiArray = info[0].As<Napi::TypedArrayOf<Napi::String>>()
   //Napi::String input = info[0].As<Napi::String>();
   //std::string x = info[0].As<Napi::String>();
   //std::string y = std::string(info[0].As<Napi::String>());
