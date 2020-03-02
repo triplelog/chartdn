@@ -20,7 +20,7 @@ void Method(const Nan::FunctionCallbackInfo<v8::Value>& info) {
     v8::Local<v8::String> retval = v8::String::NewFromUtf8(isolate, *s).ToLocalChecked();
   	info.GetReturnValue().Set(retval);*/
   	
-  	v8::Local<Array> array = Local<Array>::Cast(info[0]);
+  	v8::Array array = v8::Array::Cast(info[0]);
     
     /*for (unsigned int i = 0; i < array->Length(); i++ ) {
       if (array->Has(i)) {
