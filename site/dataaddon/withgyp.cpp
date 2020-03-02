@@ -6,7 +6,6 @@ void Method(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
 	v8::String::Utf8Value s(isolate, info[0]);
     std::string str(*s);
-    std::reverse(str.begin(), str.end());    
 	std::string outstr = str + str;
     v8::Local<v8::String> retval = v8::String::NewFromUtf8(isolate, outstr.c_str()).ToLocalChecked();
     //args.GetReturnValue().Set(retval);
