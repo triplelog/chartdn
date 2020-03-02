@@ -1,24 +1,17 @@
 #include <nan.h>
 
-using v8::FunctionTemplate;
-using v8::Object;
-using v8::String;
-using Nan::GetFunction;
-using Nan::New;
-using Nan::Set;
-
-NAN_METHOD(CalculateSync) {
-  // expect a number as the first argument
-  int points = info[0]->Uint32Value();
-
-  info.GetReturnValue().Set(points);
+void Method(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+  info.GetReturnValue().Set(Nan::New("world").ToLocalChecked());
 }
 
-// Estimate() function
-NAN_MODULE_INIT(InitAll) {
-  Set(target, New<String>("calculateSync").ToLocalChecked(),
-    GetFunction(New<FunctionTemplate>(CalculateSync)).ToLocalChecked());
+void Init(v8::Local<v8::Object> exports) {
+  v8::Local<v8::Context> context = exports->CreationContext();
+  exports->Set(context,
+               Nan::New("hello").ToLocalChecked(),
+               Nan::New<v8::FunctionTemplate>(Method)
+                   ->GetFunction(context)
+                   .ToLocalChecked());
 }
 
-NODE_MODULE(addon, InitAll)
+NODE_MODULE(hello, Init)
 
