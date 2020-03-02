@@ -22,7 +22,7 @@ Napi::TypedArray functionexample::TypeWrapped(const Napi::CallbackInfo& info)
   //Napi::String returnValue = napiArray.Get(534).As<Napi::String>();
  // Napi::String returnValue = Napi::String::New(env, functionexample::getType(input));
   
-  return outputArray;
+  return napiArray;
 }
 Napi::Object functionexample::Init(Napi::Env env, Napi::Object exports) 
 {
