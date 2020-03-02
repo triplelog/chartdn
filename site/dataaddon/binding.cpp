@@ -15,7 +15,7 @@ Napi::Array functionexample::TypeWrapped(const Napi::CallbackInfo& info)
   int maxi = 1000000;
   for (i=0;i<maxi;i++){
   	std::string a = "aa";
-  	outputArray[i] = Napi::String::New(env, a);
+  	//outputArray[i] = Napi::String::New(env, a);
   }
   //Napi::String input = info[0].As<Napi::String>();
   //std::string x = info[0].As<Napi::String>();
@@ -23,7 +23,7 @@ Napi::Array functionexample::TypeWrapped(const Napi::CallbackInfo& info)
   //Napi::String returnValue = napiArray.Get(534).As<Napi::String>();
  // Napi::String returnValue = Napi::String::New(env, functionexample::getType(input));
   
-  return outputArray;
+  return napiArray;
 }
 Napi::Object functionexample::Init(Napi::Env env, Napi::Object exports) 
 {
