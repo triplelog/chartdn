@@ -15,15 +15,27 @@ bool grabNumber(char* input_str) {
 
 void Method(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
-	v8::String::Utf8Value s(isolate, info[0]);
+	/*v8::String::Utf8Value s(isolate, info[0]);
 	grabNumber(*s);
     v8::Local<v8::String> retval = v8::String::NewFromUtf8(isolate, *s).ToLocalChecked();
-    //args.GetReturnValue().Set(retval);
-	//v8::Local<v8::String> xxx = xx + xx;
-  	//info.GetReturnValue().Set(xxx);
-  	//Nan::Utf8String utf8_value(info[0]->ToString(context));
-	//v8::Local<v8::String> xxx = xx + xx;
-  	info.GetReturnValue().Set(retval);
+  	info.GetReturnValue().Set(retval);*/
+  	
+  	v8::Local<Array> array = Local<Array>::Cast(info[0]);
+    
+    /*for (unsigned int i = 0; i < array->Length(); i++ ) {
+      if (array->Has(i)) {
+        double value = array->Get(i)->NumberValue();
+        array->Set(i, Number::New(isolate, value + 1));
+      }
+    }
+
+    Local<String> prop = String::NewFromUtf8(isolate, "not_index");
+    Local<Array> a = Array::New(isolate);
+    a->Set(0, array->Get(0));
+    a->Set(1, array->Get(prop));
+    a->Set(2, array->Get(2));*/
+
+    args.GetReturnValue().Set(v8::String::NewFromUtf8(isolate, "hello").ToLocalChecked());
 }
 
 void Init(v8::Local<v8::Object> exports) {
