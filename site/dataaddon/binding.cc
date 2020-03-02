@@ -1,6 +1,7 @@
-#include <node.h>
-#include <v8.h>
+#define NAPI_VERSION 3
+#include <node_api.h>
 
+/*
 static void Method(const v8::FunctionCallbackInfo<v8::Value>& args) {
   v8::Isolate* isolate = args.GetIsolate();
   args.GetReturnValue().Set(v8::String::NewFromUtf8(
@@ -22,5 +23,11 @@ NODE_MODULE_INITIALIZER(v8::Local<v8::Object> exports,
   NODE_SET_METHOD(exports, "hello", Method);
   NODE_SET_METHOD(exports, "dataType", DataType);
 }
+*/
 
+Napi::Object InitAll(Napi::Env env, Napi::Object exports) {
+  return exports;
+}
+
+NODE_API_MODULE(testaddon, InitAll)
 
