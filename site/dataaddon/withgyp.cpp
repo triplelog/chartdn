@@ -1,7 +1,10 @@
 #include <nan.h>
+#include <string>
+
 
 void Method(const Nan::FunctionCallbackInfo<v8::Value>& info) {
-  info.GetReturnValue().Set(Nan::New("world").ToLocalChecked());
+	std::string x = info[0];
+  	info.GetReturnValue().Set(Nan::New(x).ToLocalChecked());
 }
 
 void Init(v8::Local<v8::Object> exports) {
