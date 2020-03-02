@@ -2,7 +2,7 @@
 const { PerformanceObserver, performance } = require('perf_hooks');
 
 const assert = require('assert');
-const bindingPath = require.resolve(`./build/binding`);
+const bindingPath = require.resolve(`./build/Release/binding`);
 const datatypes = require(bindingPath).hello;
 
 
