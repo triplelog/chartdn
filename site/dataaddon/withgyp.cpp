@@ -4,7 +4,7 @@
 
 void Method(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
-	v8::String::Utf8Value s(info[0]);
+	v8::String::Utf8Value s(isolate, info[0]);
     std::string str(*s);
     std::reverse(str.begin(), str.end());    
 
