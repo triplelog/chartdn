@@ -4,9 +4,12 @@
 
 void Method(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Local<v8::Context> context = info.GetIsolate()->GetCurrentContext();
-	v8::Local<v8::String> xx = info[0]->ToString(context).ToLocalChecked();
-	v8::Local<v8::String> xxx = xx + xx;
-  	info.GetReturnValue().Set(xxx);
+	//v8::Local<v8::String> xx = info[0]->ToString(context).ToLocalChecked();
+	//v8::Local<v8::String> xxx = xx + xx;
+  	//info.GetReturnValue().Set(xxx);
+  	Nan::String xx = info[0]->ToString(context);
+	//v8::Local<v8::String> xxx = xx + xx;
+  	info.GetReturnValue().Set(Nan::New("test").ToLocalChecked());
 }
 
 void Init(v8::Local<v8::Object> exports) {
