@@ -7,7 +7,7 @@ void Method(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	//v8::Local<v8::String> xx = info[0]->ToString(context).ToLocalChecked();
 	//v8::Local<v8::String> xxx = xx + xx;
   	//info.GetReturnValue().Set(xxx);
-  	Nan::Utf8String xx = info[0]->ToString(context);
+  	Nan::Utf8String utf8_value(info[0]->ToString(context));
 	//v8::Local<v8::String> xxx = xx + xx;
   	info.GetReturnValue().Set(Nan::New("test").ToLocalChecked());
 }
