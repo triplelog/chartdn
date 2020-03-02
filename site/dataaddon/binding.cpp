@@ -13,7 +13,7 @@ Napi::TypedArray functionexample::TypeWrapped(const Napi::CallbackInfo& info)
   Napi::TypedArray outputArray = Napi::TypedArray();
   int i;
   for (i=0;i<10;i++){
-  	outputArray.Set(i,napiArray.Get(i).As<Napi::String>());
+  	outputArray[i] = napiArray.Get(i).As<Napi::String>();
   }
   //Napi::String input = info[0].As<Napi::String>();
   //std::string x = info[0].As<Napi::String>();
