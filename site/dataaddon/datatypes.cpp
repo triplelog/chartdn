@@ -16,7 +16,7 @@ bool grabNumber(char* input_str) {
 void Method(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
 	v8::String::Utf8Value s(isolate, info[0]);
-	grabNumber(*s);
+	//grabNumber(*s);
     v8::Local<v8::String> retval = v8::String::NewFromUtf8(isolate, *s).ToLocalChecked();
     //args.GetReturnValue().Set(retval);
 	//v8::Local<v8::String> xxx = xx + xx;
