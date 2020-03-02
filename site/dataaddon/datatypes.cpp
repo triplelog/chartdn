@@ -1,6 +1,6 @@
 #include <nan.h>
 #include <string>
-#include <isNumber.cpp>
+#include "isNumber.cpp"
 
 
 void Method(const Nan::FunctionCallbackInfo<v8::Value>& info) {
