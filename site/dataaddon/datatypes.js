@@ -10,7 +10,12 @@ var allins = [];
 console.log(performance.now());
 for (var i=0;i<1000000;i++){
 	//var out = datatypes.getType('a'+i);
-	allins.push('a'+i);
+	if (i%77777==0){
+		allins.push(''+i);
+	}
+	else {
+		allins.push('a'+i);
+	}
 }
 console.log(performance.now());
 
