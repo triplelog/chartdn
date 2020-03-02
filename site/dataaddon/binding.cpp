@@ -1,6 +1,11 @@
 #define NAPI_VERSION 3
 #include <node_api.h>
 
+namespace functionexample {
+  std::string hello();
+  Napi::String HelloWrapped(const Napi::CallbackInfo& info);
+  Napi::Object Init(Napi::Env env, Napi::Object exports);
+}
 /*
 static void Method(const v8::FunctionCallbackInfo<v8::Value>& args) {
   v8::Isolate* isolate = args.GetIsolate();
@@ -25,20 +30,20 @@ NODE_MODULE_INITIALIZER(v8::Local<v8::Object> exports,
 }
 */
 
-std::string hello(){
+std::string functionexample::hello(){
   return "Hello World";
 }
-Napi::String HelloWrapped(const Napi::CallbackInfo& info) 
+Napi::String functionexample::HelloWrapped(const Napi::CallbackInfo& info) 
 {
   Napi::Env env = info.Env();
-  Napi::String returnValue = Napi::String::New(env, hello());
+  Napi::String returnValue = Napi::String::New(env, functionexample::hello());
   
   return returnValue;
 }
-Napi::Object Init(Napi::Env env, Napi::Object exports) 
+Napi::Object functionexample::Init(Napi::Env env, Napi::Object exports) 
 {
   exports.Set(
-"hello", Napi::Function::New(env, HelloWrapped)
+"hello", Napi::Function::New(env, functionexample::HelloWrapped)
   );
  
   return exports;
