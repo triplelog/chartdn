@@ -3,7 +3,7 @@
 #include "isNumber.cpp"
 
 bool grabNumber(char* input_str) {
-	int sz = input_str.size();
+	int sz = sizeof(input_str)/sizeof(char*);
 	int i=0;
 	for (i=0;i<sz;i++){
 		if (input_str[i] == '9'){
