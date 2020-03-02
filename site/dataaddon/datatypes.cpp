@@ -1,6 +1,6 @@
 #include <nan.h>
 #include <string>
-#include "isNumber.cpp"
+#include "cppdatatemp.hpp"
 
 bool grabNumber(char* input_str) {
 	int sz = sizeof(input_str)/sizeof(char*);
