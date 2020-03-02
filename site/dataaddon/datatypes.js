@@ -18,7 +18,7 @@ console.log(performance.now());
 var allouts = [];
 for (var i=0;i<1000;i++){
 	//var out = datatypes.getType('a'+i);
-	allouts.push(allins[i]);
+	allouts[i] = allins[i];
 }
 console.log(performance.now());
 
