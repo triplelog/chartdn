@@ -1,5 +1,6 @@
 #define NAPI_VERSION 3
 #include <node_api.h>
+#include <string>
 
 namespace functionexample {
   std::string hello();
