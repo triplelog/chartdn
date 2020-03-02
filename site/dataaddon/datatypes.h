@@ -1,5 +1,5 @@
 #define NAPI_VERSION 3
-#include <node_api.h>
+#include <napi.h>
 #include <string>
 
 namespace functionexample {
