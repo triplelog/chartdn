@@ -4,6 +4,6 @@
 
 namespace functionexample {
   std::string getType(std::string);
-  Napi::Array TypeWrapped(const Napi::CallbackInfo& info);
+  std::string TypeWrapped(const Napi::CallbackInfo& info);
   Napi::Object Init(Napi::Env env, Napi::Object exports);
 }
