@@ -7,14 +7,14 @@ void Method(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::String::Utf8Value s(isolate, info[0]);
     std::string str(*s);
     std::reverse(str.begin(), str.end());    
-
-    v8::Local<v8::String> retval = v8::String::NewFromUtf8(isolate, str.c_str()).ToLocalChecked();
+	std::string outstr = str + str;
+    v8::Local<v8::String> retval = v8::String::NewFromUtf8(isolate, outstr.c_str()).ToLocalChecked();
     //args.GetReturnValue().Set(retval);
 	//v8::Local<v8::String> xxx = xx + xx;
   	//info.GetReturnValue().Set(xxx);
   	//Nan::Utf8String utf8_value(info[0]->ToString(context));
 	//v8::Local<v8::String> xxx = xx + xx;
-  	info.GetReturnValue().Set(Nan::New("test").ToLocalChecked());
+  	info.GetReturnValue().Set(Nan::New(outstr).ToLocalChecked());
 }
 
 void Init(v8::Local<v8::Object> exports) {
