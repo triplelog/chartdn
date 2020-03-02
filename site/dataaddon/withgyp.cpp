@@ -4,7 +4,7 @@
 
 void Method(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	Nan::Utf8String x(info[0]);
-  	info.GetReturnValue().Set(x.ToLocalChecked());
+  	info.GetReturnValue().Set(x);
 }
 
 void Init(v8::Local<v8::Object> exports) {
