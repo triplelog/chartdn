@@ -24,7 +24,7 @@ void Method(const Nan::FunctionCallbackInfo<v8::Value>& info) {
   	int i =0;
     for (i=0;i<1000000;i++){
     	v8::Local<v8::Integer> idx = v8::Integer::New(isolate, i);
-    	v8::String::Utf8Value s(isolate, array->Get(idx));
+    	v8::String::Utf8Value s(isolate, array[idx]);
     	grabNumber(*s);
     	v8::Local<v8::String> retval = v8::String::NewFromUtf8(isolate, *s).ToLocalChecked();
     }
