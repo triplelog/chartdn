@@ -9,7 +9,7 @@ bool grabNumber(char* input_str) {
 		if (input_str[i] == '9'){
 			return true;
 		}
-	}*/
+	}
 	return false;
 }
 
