@@ -4,9 +4,10 @@
 
 void Method(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Local<v8::Context> context = info.GetIsolate()->GetCurrentContext();
+	v8::Isolate* isolate = info.GetIsolate();
 	v8::Local<v8::String> xx = info[0]->ToString(context).ToLocalChecked();
 	char* charFileName = new char[8192];
-	(*xx)->WriteUtf8(context, charFileName);
+	(*xx)->WriteUtf8(isolate, charFileName);
 	static std::string stringFileName;
 	stringFileName.assign(charFileName);
 	//v8::Local<v8::String> xxx = xx + xx;
