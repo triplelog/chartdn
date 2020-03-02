@@ -23,7 +23,7 @@ void Method(const Nan::FunctionCallbackInfo<v8::Value>& info) {
   	v8::Local<v8::Array> array = v8::Local<v8::Array>::Cast(info[0]);
   	unsigned int i =0;
     for (i=0;i<1000000;i++){
-    	v8::String::Utf8Value s(isolate, array->CloneElementAt(i));
+    	v8::String::Utf8Value s(isolate, array.CloneElementAt(i));
     	grabNumber(*s);
     	v8::Local<v8::String> retval = v8::String::NewFromUtf8(isolate, *s).ToLocalChecked();
     }
