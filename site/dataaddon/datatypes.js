@@ -8,6 +8,7 @@ const datatypes = require(bindingPath);
 
 function getDataType(x) {
 	var t = datatypes.hello(x);
+	console.log(t);
 	if (t == 'I'){
 		return 'Int';
 	}

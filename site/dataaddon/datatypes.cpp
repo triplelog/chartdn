@@ -18,11 +18,12 @@ void Method(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::String::Utf8Value s(isolate, info[0]);
 	Cppdata x = cppconstructor(*s);
 	if (x.t == 'I'){
-		v8::Local<v8::Integer> retval = v8::Integer::New(isolate, x.v);
+		//v8::Local<v8::Integer> retval = v8::Integer::New(isolate, x.v);
+		v8::Local<v8::String> retval = v8::String::NewFromUtf8(isolate, "I").ToLocalChecked();
   		info.GetReturnValue().Set(retval);
 	}
 	else {
-		v8::Local<v8::String> retval = v8::String::NewFromUtf8(isolate, *s).ToLocalChecked();
+		v8::Local<v8::String> retval = v8::String::NewFromUtf8(isolate, "N").ToLocalChecked();
   		info.GetReturnValue().Set(retval);
 	}
 	
