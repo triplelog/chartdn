@@ -25,9 +25,23 @@ NODE_MODULE_INITIALIZER(v8::Local<v8::Object> exports,
 }
 */
 
-Napi::Object InitAll(Napi::Env env, Napi::Object exports) {
+std::string hello(){
+  return "Hello World";
+}
+Napi::String HelloWrapped(const Napi::CallbackInfo& info) 
+{
+  Napi::Env env = info.Env();
+  Napi::String returnValue = Napi::String::New(env, hello());
+  
+  return returnValue;
+}
+Napi::Object Init(Napi::Env env, Napi::Object exports) 
+{
+  exports.Set(
+"hello", Napi::Function::New(env, HelloWrapped)
+  );
+ 
   return exports;
 }
 
-NODE_API_MODULE(hello, InitAll)
 
