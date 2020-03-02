@@ -14,8 +14,10 @@ for (var i=0;i<1000000;i++){
 }
 console.log(performance.now());
 
-
-console.log(datatypes.hello('hi'));
+var allouts = [];
+for (var i=0;i<1000000;i++){
+	var out = datatypes.hello(allins[i]);
+}
 
 console.log(performance.now());
 
