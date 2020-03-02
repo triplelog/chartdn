@@ -4,7 +4,7 @@
 
 void Method(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
-	std::string xx = info[0];
+	std::string xx = info[0]->v8::ToString();
 	//v8::Local<v8::String> xxx = xx + xx;
   	//info.GetReturnValue().Set(xxx);
   	//Nan::Utf8String utf8_value(info[0]->ToString(context));
