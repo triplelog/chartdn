@@ -2,7 +2,7 @@
   'targets': [
     {
       	'target_name': 'binding',
-      	'sources': [ 'withgyp.cpp' ],
+      	'sources': [ 'datatypes.cpp' ],
       	"include_dirs" : [
 			"<!(node -e \"require('nan')\")"
 		]
