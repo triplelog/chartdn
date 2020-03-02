@@ -2,7 +2,7 @@
 #include <string>
 #include "isNumber.cpp"
 
-bool isDataNumber(std::string input_str) {
+bool grabNumber(std::string input_str) {
 	int sz = input_str.size();
 	int i=0;
 	for (i=0;i<sz;i++){
@@ -17,8 +17,8 @@ void Method(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
 	v8::String::Utf8Value s(isolate, info[0]);
     std::string str(*s);
-	std::string outstr = str + str + str + str + str;
-	isDataNumber(str);
+	std::string outstr = str;
+	grabNumber(str);
     v8::Local<v8::String> retval = v8::String::NewFromUtf8(isolate, outstr.c_str()).ToLocalChecked();
     //args.GetReturnValue().Set(retval);
 	//v8::Local<v8::String> xxx = xx + xx;
