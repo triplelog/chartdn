@@ -3,7 +3,7 @@ const { PerformanceObserver, performance } = require('perf_hooks');
 
 const assert = require('assert');
 const bindingPath = require.resolve(`./build/Release/binding`);
-const datatypes = require(bindingPath).getType;
+const datatypes = require(bindingPath).hello;
 
 
 var allins = [];
@@ -15,7 +15,7 @@ for (var i=0;i<1000000;i++){
 console.log(performance.now());
 
 
-var allouts = datatypes(allins);
+var allouts = datatypes();
 
 console.log(performance.now());
 console.log(allouts[0]);
