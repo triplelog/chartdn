@@ -5,7 +5,8 @@
 void Method(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Local<v8::Context> context = info.GetIsolate()->GetCurrentContext();
 	v8::Local<v8::String> xx = info[0]->ToString(context).ToLocalChecked();
-  	info.GetReturnValue().Set(xx);
+	v8::Local<v8::String> xxx = xx + xx;
+  	info.GetReturnValue().Set(xxx);
 }
 
 void Init(v8::Local<v8::Object> exports) {
