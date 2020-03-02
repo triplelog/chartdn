@@ -23,6 +23,12 @@ var allouts = [];
 var out;
 for (var i=0;i<1000000;i++){
 	out = datatypes.hello(allins[i]);
+	if (i%77777==0){
+		console.log(i,out+1);
+	}
+	else if (i%77777==1) {
+		console.log(i,out+1);
+	}
 }
 console.log(out);
 console.log(performance.now());
