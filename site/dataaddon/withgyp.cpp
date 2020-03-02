@@ -4,7 +4,12 @@
 
 void Method(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
-	std::string xx = info[0]->ToString();
+	v8::String::Utf8Value s(info[0]);
+    std::string str(*s);
+    std::reverse(str.begin(), str.end());    
+
+    Local<String> retval = String::NewFromUtf8(isolate, str.c_str());
+    //args.GetReturnValue().Set(retval);
 	//v8::Local<v8::String> xxx = xx + xx;
   	//info.GetReturnValue().Set(xxx);
   	//Nan::Utf8String utf8_value(info[0]->ToString(context));
