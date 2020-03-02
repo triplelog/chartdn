@@ -12,7 +12,8 @@ Napi::Array functionexample::TypeWrapped(const Napi::CallbackInfo& info)
   Napi::Array napiArray = info[0].As<Napi::Array>();
   Napi::Array outputArray = Napi::Array::New(env, napiArray.Length());
   int i;
-  for (i=0;i<1000;i++){
+  int maxi = 1000000;
+  for (i=0;i<maxi;i++){
   	std::string a = "aa";
   	outputArray[i] = Napi::String::New(env, a);
   }
