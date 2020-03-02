@@ -25,20 +25,21 @@ NODE_MODULE_INITIALIZER(v8::Local<v8::Object> exports,
 }
 */
 
-std::string functionexample::hello(){
-  return "Hello World";
+std::string functionexample::getType(std::string a){
+  return a;
 }
-Napi::String functionexample::HelloWrapped(const Napi::CallbackInfo& info) 
+Napi::String functionexample::TypeWrapped(const Napi::CallbackInfo& info) 
 {
   Napi::Env env = info.Env();
-  Napi::String returnValue = Napi::String::New(env, functionexample::hello());
+  Napi::String input = info[0].As<Napi::Number>();
+  Napi::String returnValue = Napi::String::New(env, functionexample::getType(input));
   
   return returnValue;
 }
 Napi::Object functionexample::Init(Napi::Env env, Napi::Object exports) 
 {
   exports.Set(
-"hello", Napi::Function::New(env, functionexample::HelloWrapped)
+"getType", Napi::Function::New(env, functionexample::TypeWrapped)
   );
  
   return exports;
