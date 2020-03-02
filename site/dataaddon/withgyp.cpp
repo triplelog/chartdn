@@ -3,9 +3,8 @@
 
 
 void Method(const Nan::FunctionCallbackInfo<v8::Value>& info) {
-	Nan::Utf8String xx = utf8_value(info[0]);
-	v8::Local<v8::String> x = xx;
-  	info.GetReturnValue().Set(x);
+	std::string xx = info[0]->ToString(context).FromJust();
+  	info.GetReturnValue().Set(Nan::New("hello").ToLocalChecked());
 }
 
 void Init(v8::Local<v8::Object> exports) {
