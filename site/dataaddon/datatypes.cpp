@@ -35,7 +35,7 @@ void Method(const Nan::FunctionCallbackInfo<v8::Value>& info) {
     a->Set(1, array->Get(prop));
     a->Set(2, array->Get(2));*/
 
-    args.GetReturnValue().Set(v8::String::NewFromUtf8(isolate, "hello").ToLocalChecked());
+    info.GetReturnValue().Set(v8::String::NewFromUtf8(isolate, "hello").ToLocalChecked());
 }
 
 void Init(v8::Local<v8::Object> exports) {
