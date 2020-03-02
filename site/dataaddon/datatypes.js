@@ -3,7 +3,7 @@ const { PerformanceObserver, performance } = require('perf_hooks');
 
 const assert = require('assert');
 const bindingPath = require.resolve(`./build/Release/binding`);
-const datatypes = require(bindingPath).hello;
+const datatypes = require(bindingPath).CalculateSync();
 
 
 var allins = [];
