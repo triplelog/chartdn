@@ -7,7 +7,7 @@ const datatypes = require(bindingPath);
 
 
 function getDataType(x) {
-	var t = datatypes.hello(x).t;
+	var t = datatypes.hello(x)[0]];
 	return t;
 }
 exports.makeTypes = function(data){
