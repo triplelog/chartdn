@@ -3,7 +3,7 @@
 #include "cppdatatemp.hpp"
 
 Cppdata x;
-std::vector<std::vector<Cppdata>> statarray = new std::vector<std::vector<Cppdata>>;
+std::vector<std::vector<Cppdata>> statarray;
 bool grabNumber(char* input_str) {
 	int sz = sizeof(input_str)/sizeof(char*);
 	int i=0;
@@ -20,7 +20,7 @@ void Method(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Local<v8::Array> inArray = v8::Local<v8::Array>::Cast(info[0]);
 	v8::Local<v8::Array> outArray = Nan::New<v8::Array>(1000000);
 	int i=0;
-	std::vector<Cppdata> statrow = new std::vector<Cppdata>;
+	std::vector<Cppdata> statrow;
 	
 	for (i=0;i<100;i++){
 		v8::String::Utf8Value s(isolate, Nan::Get(inArray,i).ToLocalChecked());
