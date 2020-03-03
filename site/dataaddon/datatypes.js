@@ -26,7 +26,7 @@ console.log(performance.now());
 var allouts = [];
 var out = []
 for (var i=0;i<100000;i++){
-	out.push(datatypes.helloarray(allins[i]));
+	out.push(datatypes.loadarray(allins[i]));
 }
 
 console.log(performance.now());
