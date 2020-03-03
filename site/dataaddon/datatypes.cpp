@@ -34,6 +34,7 @@ void Method(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	info.GetReturnValue().Set(retobj);
 	*/
 	v8::Local<v8::Array> array = v8::Array::New(isolate, 3);
+	Nan::Set(array,0,v8::String::NewFromUtf8(isolate, "v").ToLocalChecked());
 	/*
 	retobj->Set(context,v,v8::Number::New(isolate,x.v));
 	retobj->Set(context,w,v8::Number::New(isolate,x.w));
