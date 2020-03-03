@@ -24,13 +24,13 @@ void Method(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	
 	std::vector<Cppdata> statrow;
 	for (ii=0;ii<10;ii++){
-		v8::String::Utf8Value s(isolate, Nan::Get(inArray,i).ToLocalChecked());
+		v8::String::Utf8Value s(isolate, Nan::Get(inArray,ii).ToLocalChecked());
 		x = cppconstructor(*s);
-		Nan::Set(outArray,i,v8::String::NewFromUtf8(isolate,&x.t).ToLocalChecked());
+		Nan::Set(outArray,ii,v8::String::NewFromUtf8(isolate,&x.t).ToLocalChecked());
 		statrow.push_back(x);
 	}
 	statarray.push_back(statrow);
-	Nan::Set(outArray,i,v8::Number::New(isolate,int(statarray.size())));
+	//Nan::Set(outArray,i,v8::Number::New(isolate,int(statarray.size())));
 	
 	
 	/*
