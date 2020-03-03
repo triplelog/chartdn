@@ -21,7 +21,7 @@ console.log(performance.now());
 var allouts = [];
 var out = datatypes.helloarray(allins);
 console.log(performance.now());
-console.log(out.slice(0,10));
+console.log(out.slice(77770,20));
 
 
 function getDataType(x) {
