@@ -24,7 +24,7 @@ for (var i=0;i<100000;i++){
 console.log(performance.now());
 
 var allouts = [];
-var out = []
+var out = [];
 for (var i=0;i<100000;i++){
 	out.push(datatypes.loadarray(allins[i]));
 }
@@ -32,6 +32,13 @@ for (var i=0;i<100000;i++){
 console.log(performance.now());
 console.log(out.slice(0,5));
 
+out = [];
+for (var i=0;i<10;i++){
+	out.push(datatypes.readarray([0,1,2,3,4,5]));
+}
+
+console.log(performance.now());
+console.log(out.slice(0,5));
 
 function getDataType(x) {
 	var t = datatypes.hello(x)[0];

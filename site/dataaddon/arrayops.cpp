@@ -23,8 +23,8 @@ void MethodRead(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Local<v8::Array> outArray = Nan::New<v8::Array>(sz);
 	int ii=0;
 	for (ii=0;ii<sz;ii++){
-		int i = Nan::Get(inArray,ii).ToLocalChecked()->Int32Value(isolate);
-		x = statarray[i][0];
+		//int i = Nan::Get(inArray,ii).ToLocalChecked()->Int32Value(isolate);
+		x = statarray[ii][0];
 		Nan::Set(outArray,ii,v8::String::NewFromUtf8(isolate,&x.t).ToLocalChecked());
 	}
 	info.GetReturnValue().Set(outArray);
