@@ -65,7 +65,7 @@ nunjucks.configure('templates', {
     autoescape: false
 });
 
-var db = mongoose.connection;
+//var db = mongoose.connection;
 
 
 
