@@ -26,8 +26,8 @@ void Method(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Local<v8::String> v = v8::String::NewFromUtf8(isolate, "v").ToLocalChecked();
     v8::Local<v8::String> w = v8::String::NewFromUtf8(isolate, "w").ToLocalChecked();
     v8::Local<v8::String> t = v8::String::NewFromUtf8(isolate, "t").ToLocalChecked();
-	retobj.Set(v,v8::Number::New(isolate,x.v));
-	retobj.Set(w,v8::Number::New(isolate,x.w));
+	retobj->Set(v,v8::Number::New(isolate,x.v));
+	retobj::Set(w,v8::Number::New(isolate,x.w));
 	retobj.Set(t,v8::String::NewFromUtf8(isolate,&x.t);
 	info.GetReturnValue().Set(retobj);
 	
