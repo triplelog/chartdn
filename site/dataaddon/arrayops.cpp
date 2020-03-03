@@ -34,7 +34,7 @@ void MethodRead(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 void MethodLoad(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
 	v8::Local<v8::Array> inArray = v8::Local<v8::Array>::Cast(info[0]);
-	int sz = Nan::Length(inArray);
+	int sz = inArray->Length(isolate);
 	int i=0; int ii=0;
 	
 	
@@ -53,7 +53,7 @@ void Init(v8::Local<v8::Object> exports) {
   v8::Local<v8::Context> context = exports->CreationContext();
   exports->Set(context,
                Nan::New("loadarray").ToLocalChecked(),
-               Nan::New<v8::FunctionTemplate>(Method)
+               Nan::New<v8::FunctionTemplate>(MethodLoad)
                    ->GetFunction(context)
                    .ToLocalChecked());
 }
