@@ -18,20 +18,20 @@ bool grabNumber(char* input_str) {
 void Method(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
 	v8::Local<v8::Array> inArray = v8::Local<v8::Array>::Cast(info[0]);
-	v8::Local<v8::Array> outArray = Nan::New<v8::Array>(1000000);
+	v8::Local<v8::Array> outArray = Nan::New<v8::Array>(10);
 	int i=0; int ii=0;
 	
 	
-	for (i=0;i<1000;i++){
-		std::vector<Cppdata> statrow;
-		for (ii=0;ii<10;ii++){
-			v8::String::Utf8Value s(isolate, Nan::Get(inArray,i).ToLocalChecked());
-			x = cppconstructor(*s);
-			Nan::Set(outArray,i,v8::String::NewFromUtf8(isolate,&x.t).ToLocalChecked());
-			statrow.push_back(x);
-		}
-		statarray.push_back(statrow);
+	std::vector<Cppdata> statrow;
+	for (ii=0;ii<10;ii++){
+		v8::String::Utf8Value s(isolate, Nan::Get(inArray,i).ToLocalChecked());
+		x = cppconstructor(*s);
+		Nan::Set(outArray,i,v8::String::NewFromUtf8(isolate,&x.t).ToLocalChecked());
+		statrow.push_back(x);
 	}
+	statarray.push_back(statrow);
+	Nan::Set(outArray,i,v8::Number::New(isolate,int(statarray.size())));
+	
 	
 	/*
 	v8::String::Utf8Value s(isolate, info[0]);

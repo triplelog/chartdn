@@ -8,21 +8,27 @@ const datatypes = require(bindingPath);
 
 var allins = [];
 console.log(performance.now());
-for (var i=0;i<1000000;i++){
-	//var out = datatypes.getType('a'+i);
-	if (i%77777==0){
-		allins.push(''+i);
-	}
-	else {
-		allins.push('a'+i);
+for (var i=0;i<10000;i++){
+	for (var ii=0;ii<10;ii++){
+		//var out = datatypes.getType('a'+i);
+		if (i%77777==0){
+			allins.push(''+i*10+ii);
+		}
+		else {
+			allins.push('a'+i*10+ii);
+		}
 	}
 }
 console.log(performance.now());
 
 var allouts = [];
-var out = datatypes.helloarray(allins);
+var out = []
+for (var i=0;i<10000;i++){
+	out.push(datatypes.helloarray(allins[i]));
+}
+
 console.log(performance.now());
-console.log(out.slice(0,20));
+console.log(out.slice(0,5));
 
 
 function getDataType(x) {
