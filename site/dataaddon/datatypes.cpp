@@ -22,7 +22,7 @@ void Method(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
 	v8::String::Utf8Value s(isolate, info[0]);
 	Cppdata x = cppconstructor(*s);
-	v8::Local<v8::Object> retobj = v8::Object::New();
+	v8::Local<v8::Object> retobj = v8::Local<v8::Object>::New();
 	if (x.t == 'I'){
 		//v8::Local<v8::Integer> retval = v8::Integer::New(isolate, x.v);
 		v8::Local<v8::String> retval = v8::String::NewFromUtf8(isolate, &x.t).ToLocalChecked();
