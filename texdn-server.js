@@ -236,7 +236,7 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,cpptable){
 		}
 	});
 	file.end();
-	loadChart(chartid,ws,dm,cpptable,false,false);
+	return loadChart(chartid,ws,dm,cpptable,false,false);
 }
 function updateOptions(oldOptions, newOptions) {
 	for(var k in newOptions){
@@ -357,7 +357,7 @@ wss.on('connection', function connection(ws) {
 				var child = exec(wget, function(err, stdout, stderr) {
 					if (err) throw err;
 					else {
-						loadChart(chartid,ws,dm,cpptable,true,false);
+						chartData = loadChart(chartid,ws,dm,cpptable,true,false);
 						
 					}
 					
@@ -366,7 +366,7 @@ wss.on('connection', function connection(ws) {
 		}
 		else {
 			fs.writeFile("saved/"+chartid+".csv", fstr, function (err) {
-				loadChart(chartid,ws,dm,cpptable,false,false);
+				chartData = loadChart(chartid,ws,dm,cpptable,false,false);
 
 			});
 		}
@@ -705,6 +705,13 @@ wss.on('connection', function connection(ws) {
 });
 
 function loadChart(chartid,ws,dm,cpptable,deletexls=false,result=false){
+	if (deletexls){
+		fs.unlink("saved/"+chartid+"."+dm.type, (err) => {
+			if (err){
+				console.log('Did not delete xls file');
+			}
+		});
+	}
 	if (result){
 		makeAllCharts(ws,dm,result,'all',true,true,cpptable).then(function(result3) {
 			chartData = result3.data;
@@ -714,8 +721,10 @@ function loadChart(chartid,ws,dm,cpptable,deletexls=false,result=false){
 				if (err) return console.error(err);
 				console.log('saved',chart.types.slice(0,10));
 			});
+			return chartData;
 		}, function(err) {
 			console.log(err);
+			return false;
 		});
 	}
 	else {
@@ -723,6 +732,7 @@ function loadChart(chartid,ws,dm,cpptable,deletexls=false,result=false){
 		  if (err) {
 		
 		  } else {
+		  	
 			makeAllCharts(ws,dm,result2,'all',true,true,cpptable).then(function(result3) {
 				chartData = result3.data;
 				result2.types = result3.types;
@@ -731,16 +741,12 @@ function loadChart(chartid,ws,dm,cpptable,deletexls=false,result=false){
 					if (err) return console.error(err);
 					console.log('saved types',chart.types.slice(0,10));
 				});
+				return chartData;
 			}, function(err) {
 				console.log(err);
+				return false;
 			});
-			if (deletexls){
-				fs.unlink("saved/"+chartid+"."+dm.type, (err) => {
-					if (err){
-						console.log('Did not delete xls file');
-					}
-				});
-			}
+			
 		  }
 		});
 	}
@@ -1301,7 +1307,7 @@ function makeChartsWithData(ws,rawdata,chartInfo,chartStyle,dm,reloadTable=true)
 	console.log('data converted',performance.now());
 	var nHeaders = chartInfo.options.nHeaders || 1;
 	var data = convertDataToFull(newData,nHeaders,chartInfo.modifiers,chartInfo.options.nsteps,chartInfo.types.slice(0,maxColumns));
-	
+	console.log('modifiers applied',performance.now());
 	/*
 	if (chartStyle == 'all' || chartStyle == 'chartJS') {
 		var chartJSON = createChartjs.createChartjs(data,chartInfo.options);
