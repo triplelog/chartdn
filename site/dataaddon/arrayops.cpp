@@ -17,7 +17,7 @@ bool grabNumber(char* input_str) {
 
 void MethodRead(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
-	int row = info[0]->Int32Value(isolate);
+	int row = info[0]->Int32Value();
 	
 	x = statarray[row];
 	int sz = x.size();
