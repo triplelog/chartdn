@@ -18,7 +18,7 @@ bool grabNumber(char* input_str) {
 void MethodRead(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
 	v8::Local<v8::Context> context = isolate->GetCurrentContext();
-	int row = v8::Number::New(isolate,info[0]->NumberValue(context));
+	int row = info[0]->Int32Value(context).FromJust();
 	//int row = (int)(info[0]->Int32Value(context));
 	
 	x = statarray[row];
