@@ -1370,12 +1370,12 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes,sendTable,cppta
 					quoteChar: '"',
 				});
 				var returnData = {};
-				datatypes.clearArray();
-				datatypes.loadRows(results.data.slice(0,1000));
-				datatypes.readRow(5);
+				cpptable.clearArray();
+				cpptable.loadRows(results.data.slice(0,1000));
+				cpptable.readRow(5);
 				if (chgTypes){
 					console.log('start getting types',performance.now());
-					var types = datatypes.makeTypes(results.data.slice(0,1000));
+					var types = cpptable.makeTypes(results.data.slice(0,1000));
 					console.log('got types',performance.now());
 					returnData.types = types;
 				}
