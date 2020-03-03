@@ -1,7 +1,7 @@
 
 
-//const mongoose = require('mongoose');
-//mongoose.connect('mongodb://localhost:27017/chartdn', {useNewUrlParser: true});
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/chartdn', {useNewUrlParser: true});
 
 var fromLogin = require('./login-server.js');
 var loginApp = fromLogin.loginApp;
@@ -65,7 +65,7 @@ nunjucks.configure('templates', {
     autoescape: false
 });
 
-//var db = mongoose.connection;
+var db = mongoose.connection;
 
 
 
