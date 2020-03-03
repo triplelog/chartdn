@@ -6,6 +6,7 @@ const bindingPath = require.resolve(`./build/Release/binding`);
 console.log(bindingPath);
 const datatypes = require(bindingPath);
 
+/*
 var allins = [];
 console.log(performance.now());
 for (var i=0;i<100000;i++){
@@ -39,7 +40,7 @@ for (var i=0;i<100000;i++){
 
 console.log(performance.now());
 console.log(out.slice(0,5));
-
+*/
 function getDataType(x) {
 	var t = datatypes.hello(x)[0];
 	return t;
