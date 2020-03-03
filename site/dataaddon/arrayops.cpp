@@ -21,9 +21,9 @@ struct Cppdata {
 void Method(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
 	v8::Local<v8::Array> inArray = v8::Local<v8::Array>::Cast(info[0]);
-	v8::Local<v8::Array> outArray = Nan::New<v8::Array>(1000);
+	v8::Local<v8::Array> outArray = Nan::New<v8::Array>(1000000);
 	int i=0;
-	for (i=0;i<1000;i++){
+	for (i=0;i<1000000;i++){
 		v8::String::Utf8Value s(isolate, Nan::Get(inArray,i).ToLocalChecked());
 		Cppdata x = cppconstructor(*s);
 		Nan::Set(outArray,i,v8::String::NewFromUtf8(isolate,&x.t).ToLocalChecked());
