@@ -27,9 +27,9 @@ void Method(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		v8::String::Utf8Value s(isolate, Nan::Get(inArray,ii).ToLocalChecked());
 		x = cppconstructor(*s);
 		Nan::Set(outArray,ii,v8::String::NewFromUtf8(isolate,&x.t).ToLocalChecked());
-		statrow.push_back(x);
+		//statrow.push_back(x);
 	}
-	statarray.push_back(statrow);
+	//statarray.push_back(statrow);
 	//Nan::Set(outArray,i,v8::Number::New(isolate,int(statarray.size())));
 	
 	
