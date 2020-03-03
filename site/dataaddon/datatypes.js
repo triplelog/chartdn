@@ -5,6 +5,24 @@ const assert = require('assert');
 const bindingPath = require.resolve(`./build/Release/binding`);
 const datatypes = require(bindingPath);
 
+var allins = [];
+console.log(performance.now());
+for (var i=0;i<1000000;i++){
+	//var out = datatypes.getType('a'+i);
+	if (i%77777==0){
+		allins.push(''+i);
+	}
+	else {
+		allins.push('a'+i);
+	}
+}
+console.log(performance.now());
+
+var allouts = [];
+var out = datatypes.helloarray(allins);
+
+console.log(out);
+console.log(performance.now());
 
 function getDataType(x) {
 	var t = datatypes.hello(x)[0];
