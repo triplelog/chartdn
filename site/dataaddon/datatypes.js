@@ -8,7 +8,7 @@ const datatypes = require(bindingPath);
 
 var allins = [];
 console.log(performance.now());
-for (var i=0;i<10000;i++){
+for (var i=0;i<100000;i++){
 	var newrow = []
 	for (var ii=0;ii<10;ii++){
 		//var out = datatypes.getType('a'+i);
@@ -25,7 +25,7 @@ console.log(performance.now());
 
 var allouts = [];
 var out = []
-for (var i=0;i<10000;i++){
+for (var i=0;i<100000;i++){
 	out.push(datatypes.helloarray(allins[i]));
 }
 
