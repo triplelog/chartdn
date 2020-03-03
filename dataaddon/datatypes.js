@@ -3,10 +3,9 @@ const { PerformanceObserver, performance } = require('perf_hooks');
 
 const assert = require('assert');
 const bindingPath = require.resolve(`./build/Release/binding`);
-console.log(bindingPath);
 const arrayPath = require.resolve(`./build/Release/bindingArray`);
-console.log(arrayPath);
 const datatypes = require(bindingPath);
+const dataArray = require(arrayPath);
 
 /*
 var allins = [];
@@ -95,7 +94,7 @@ exports.makeTypes = function(data){
 	return typeArray;
 }
 
-exports.loadArray = function(data){
+exports.loadRows = function(data){
 	if (data.length<2){
 		return [];
 	}
@@ -111,36 +110,15 @@ exports.loadArray = function(data){
 		var cell = data[0][ii];
 		headers.push(cell);
 	}
-	var dataTypes = {};
 	var headerLen = headers.length;
 	for (var i=nHeaders;i<data.length-1;i++) {
-		var len = Math.min(data[i].length,headerLen);
-		for (var ii=0;ii<len;ii++) {
-			var cell = data[i][ii];
-			
-			var type = getDataType(cell);
-			//console.log(cell, type);
-			if (datatypes[ii][type]){
-				datatypes[ii][type]+=1;
-			}
-			else {
-				datatypes[ii][type]=1;
-			}	
-		}
+		//var len = Math.min(data[i].length,headerLen);
+		dataArray.loadarray(data[i]);
 	}
-	var typeArray = [];
-	for (var i=0;i<ncols;i++){
-		var maxValue = 0;
-		var maxType = '';
-		for (var ii in datatypes[i]){
-			if (datatypes[i][ii]>maxValue){
-				maxValue = datatypes[i][ii];
-				maxType = ii;
-			}
-		}
-		typeArray.push(maxType);
-	}
-	return typeArray;
+}
+exports.readRow = function(i){
+	var out = dataArray.readarray(i);
+	console.log(out);
 }
 
 

@@ -832,13 +832,15 @@ loginApp.get('/new',
 				
 					};
 					console.log('new chart created');
+					
 					res.redirect('/edit/'+chartid);
 				});	
 				
 			};
-			
-			console.log('new chart created', chart);
-			res.redirect('/edit/'+chartid);
+			else {
+				console.log('new chart created', chart);
+				res.redirect('/edit/'+chartid);
+			}
 		});			
 		//Create chart here
 
@@ -1347,6 +1349,7 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes=false,sendTable
 				reject('file empty');
 			}
 			else {
+				
 				console.log('file read',performance.now());
 				var results = Papa.parse(fileData, {
 					delimiter: dm.delimiter || chartInfo.options.delimiter || "",
@@ -1354,6 +1357,8 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes=false,sendTable
 					quoteChar: '"',
 				});
 				var returnData = {};
+				datatypes.loadRows(results.data.slice(0,1000));
+				datatypes.readRow(5);
 				if (chgTypes){
 					console.log('start getting types',performance.now());
 					var types = datatypes.makeTypes(results.data.slice(0,1000));
