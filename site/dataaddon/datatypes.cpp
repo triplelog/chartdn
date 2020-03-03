@@ -23,6 +23,7 @@ void Method(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Local<v8::Context> context = isolate->GetCurrentContext();
 	v8::String::Utf8Value s(isolate, info[0]);
 	Cppdata x = cppconstructor(*s);
+	/*
 	v8::Local<v8::Object> retobj = v8::Object::New(isolate);
 	v8::Local<v8::String> v = v8::String::NewFromUtf8(isolate, "v").ToLocalChecked();
     v8::Local<v8::String> w = v8::String::NewFromUtf8(isolate, "w").ToLocalChecked();
@@ -31,6 +32,13 @@ void Method(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	retobj->Set(context,w,v8::Number::New(isolate,x.w));
 	retobj->Set(context,t,v8::String::NewFromUtf8(isolate,&x.t).ToLocalChecked());
 	info.GetReturnValue().Set(retobj);
+	*/
+	v8::Local<Nan::Array> array = Nan::Array::New();
+	/*
+	retobj->Set(context,v,v8::Number::New(isolate,x.v));
+	retobj->Set(context,w,v8::Number::New(isolate,x.w));
+	retobj->Set(context,t,v8::String::NewFromUtf8(isolate,&x.t).ToLocalChecked());*/
+	info.GetReturnValue().Set(array);
 	
     
 }
