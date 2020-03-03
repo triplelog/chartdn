@@ -4,6 +4,8 @@ const { PerformanceObserver, performance } = require('perf_hooks');
 const assert = require('assert');
 const bindingPath = require.resolve(`./build/Release/binding`);
 console.log(bindingPath);
+const arrayPath = require.resolve(`./build/Release/bindingArray`);
+console.log(arrayPath);
 const datatypes = require(bindingPath);
 
 /*
