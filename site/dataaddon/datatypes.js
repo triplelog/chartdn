@@ -11,7 +11,6 @@ function getDataType(x) {
 	return t;
 }
 exports.makeTypes = function(data){
-	console.log('start getting types',performance.now());
 	if (data.length<2){
 		return [];
 	}
@@ -56,7 +55,6 @@ exports.makeTypes = function(data){
 		}
 		typeArray.push(maxType);
 	}
-	console.log('got types',performance.now());
 	return typeArray;
 }
 /*var allins = [];

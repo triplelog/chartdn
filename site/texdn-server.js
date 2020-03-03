@@ -27,8 +27,8 @@ var createXkcd = require('./createCharts/xkcd-charts.js');
 var createGoogle = require('./createCharts/google-charts.js');
 var createChartjs = require('./createCharts/chartjs-charts.js');
 var modJS = require('./modify.js');
-//var datatypes = require('./datatypes.js');
-var datatypes = require('./dataaddon/datatypes.js');
+var datatypes = require('./datatypes.js');
+//var datatypes = require('./dataaddon/datatypes.js');
 const options = {
   key: fs.readFileSync('/etc/letsencrypt/live/chartdn.com/privkey.pem'),
   cert: fs.readFileSync('/etc/letsencrypt/live/chartdn.com/fullchain.pem')
@@ -1359,7 +1359,9 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes=false,sendTable
 				});
 				var returnData = {};
 				if (chgTypes){
+					console.log('start getting types',performance.now());
 					var types = datatypes.makeTypes(results.data.slice(0,1000));
+					console.log('got types',performance.now());
 					returnData.types = types;
 				}
 				else {
