@@ -130,7 +130,6 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm){
 	for (var i=0;i<chgRows.length;i++){
 		if (chgRows[i].originalRow+nHeaders < results.data.length){
 			originalRows[chgRows[i].originalRow] = {'row':results.data[chgRows[i].originalRow+nHeaders].slice(),'index':chgRows[i].originalRow+nHeaders};
-			console.log(chgRows[i].originalRow+nHeaders, results.data.length);
 		}
 		else if (chgRows[i].originalRow+nHeaders == results.data.length) {
 			results.data.push(['','']);
@@ -340,11 +339,9 @@ wss.on('connection', function connection(ws) {
 			
 			if (dm.isString){
 				fstr = pakores;
-				console.log('aaa',fstr);
 			}
 			else {
 				fstr = atob(pakores);
-				console.log('bbb',fstr);
 			}
 		}
 		else if (dm.type == 'xls' || dm.type == 'xlsx'){
@@ -589,7 +586,6 @@ wss.on('connection', function connection(ws) {
   		
   	}
   	else if (dm.operation == 'key'){
-  		console.log(tempKeys,dm.message);
 		  username = tempKeys[dm.message].username;
 		  if (tempKeys[dm.message].dataid){
 		  	dataid = tempKeys[dm.message].dataid;
