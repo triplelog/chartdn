@@ -1,36 +1,64 @@
 # Installation
 Create Debian 10 image with key
-ssh -i /Users/robertwilcox/.ssh/id_rsa root@155.138.236.241
-Create new sudo user: adduser rwilcox, password: kZGWGda3A
-Copy key from root/.ssh/authorized_keys to /home/rwilcox/.ssh (create .ssh directory first)
 Change Namecheap A record to IP
+ssh -i /Users/robertwilcox/.ssh/id_rsa root@155.138.230.41
+adduser rwilcox ( password = kZGWGda3A)
+usermod -aG sudo rwilcox 
+su - rwilcox
+sudo apt-get update (to test sudo permission)
+mkdir .ssh
+exit
+cp .ssh/authorized_keys /home/rwilcox/.ssh
+exit
+ssh -i /Users/robertwilcox/.ssh/id_rsa rwilcox@155.138.230.41 (enter password)
+cd .ssh then sudo chown rwilcox:rwilcox authorized_keys
+exit
+ssh -i /Users/robertwilcox/.ssh/id_rsa rwilcox@155.138.230.41 (no password)
+sudo apt-get install nginx git python3-pip certbot python-certbot-nginx
 
-sudo apt-get install nginx
-save chartdn.com to /etc/nginx/sites-available
-sudo ln -s /etc/nginx/sites-available/chartdn.com /etc/nginx/sites-enabled/
-sudo apt-get install certbot python-certbot-nginx
 sudo chown -R rwilcox:rwilcox /etc/nginx
+save chartdn.com to /etc/nginx/sites-available
+rm default from sites-available and sites-enabled
+sudo ln -s /etc/nginx/sites-available/chartdn.com /etc/nginx/sites-enabled/
 sudo certbot --nginx
+sudo systemctl restart nginx
+sudo reboot now
 
-sudo apt-get install git
 git clone https://github.com/triplelog/chartdn.git in ~
-sudo curl -sL https://deb.nodesource.com/setup_13.x | sudo bash -
-sudo apt-get install -y nodejs
+cd chartdn
 sudo chown -R rwilcox:rwilcox /etc/letsencrypt
+sudo curl -sL https://deb.nodesource.com/setup_13.x | sudo bash - (to install npm)
+sudo apt-get install -y nodejs
+npm install -s ws passport passport-local mongoose passport-local-mongoose
+npm install -s csv-parse nunjucks express express-session papaparse pako btoa base64-to-uint8array fast-sort
+sudo npm install -g node-gyp
+cd dataaddon
+node-gyp rebuild
 
-npm install -s ws
-npm install passport passport-local mongoose passport-local-mongoose
+#Set up mongo
+wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -
+echo "deb http://repo.mongodb.org/apt/debian buster/mongodb-org/4.2 main" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.2.list
+sudo apt-get update
+sudo apt-get install -y mongodb-org
+#create /data/db file with chown mongodb:mongodb
+sudo systemctl start mongod
+mongo (to check that it is installed)
 
-sudo apt-get install python3-pip
-pip3 install robohash
---use qr-art
-install dotnet and libgdiplus for qr-art
 
+mkdir saved (from chartdn directory)
+mkdir robots (from chartdn/static directory)
+pip3 install robohash (only need natsort and pillow -- I think im using custom robohash)
+git clone https://github.com/triplelog/qr-art.git (from python folder)
+wget -q https://packages.microsoft.com/config/ubuntu/19.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+sudo dpkg -i packages-microsoft-prod.deb
+sudo apt-get update
+sudo apt-get install apt-transport-https
+sudo apt-get update
+sudo apt-get install dotnet-sdk-3.1
+dotnet build (from qr-art/src/qr-art)
+sudo apt-get install -y libgdiplus
 
-Use node on backend
-Need csv-parse, nunjucks(template system), express, wasm-flate
-Need passport
-Add https stuff
+#Copy the database and data files
 
 # Set Data
 automated functions: find max for given column

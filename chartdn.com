@@ -1,66 +1,93 @@
+
 server {
+	server_name chartdn.com;
+	location / {
+			proxy_pass https://127.0.0.1:12312;
+			proxy_http_version 1.1;
+			proxy_set_header Upgrade $http_upgrade;
+			proxy_set_header Connection "Upgrade";
+	}
+	location /login {
+			proxy_pass https://127.0.0.1:3000;
+			proxy_http_version 1.1;
+			proxy_set_header Upgrade $http_upgrade;
+			proxy_set_header Connection "Upgrade";
+	}
+	location /logout {
+			proxy_pass https://127.0.0.1:3000;
+			proxy_http_version 1.1;
+			proxy_set_header Upgrade $http_upgrade;
+			proxy_set_header Connection "Upgrade";
+	}
+	location /register {
+			proxy_pass https://127.0.0.1:3000;
+			proxy_http_version 1.1;
+			proxy_set_header Upgrade $http_upgrade;
+			proxy_set_header Connection "Upgrade";
+	}
+	location /account {
+			proxy_pass https://127.0.0.1:3000;
+			proxy_http_version 1.1;
+			proxy_set_header Upgrade $http_upgrade;
+			proxy_set_header Connection "Upgrade";
+	}
+	location /settings {
+			proxy_pass https://127.0.0.1:3000;
+			proxy_http_version 1.1;
+			proxy_set_header Upgrade $http_upgrade;
+			proxy_set_header Connection "Upgrade";
+	}
+	location /new {
+			proxy_pass https://127.0.0.1:3000;
+			proxy_http_version 1.1;
+			proxy_set_header Upgrade $http_upgrade;
+			proxy_set_header Connection "Upgrade";
+	}
+	location /browse {
+			proxy_pass https://127.0.0.1:3000;
+			proxy_http_version 1.1;
+			proxy_set_header Upgrade $http_upgrade;
+			proxy_set_header Connection "Upgrade";
+	}
+	location ~ /charts/* {
+			proxy_pass https://127.0.0.1:3000;
+			proxy_http_version 1.1;
+			proxy_set_header Upgrade $http_upgrade;
+			proxy_set_header Connection "Upgrade";
+	}
+	location ~ /edit/* {
+			proxy_pass https://127.0.0.1:3000;
+			proxy_http_version 1.1;
+			proxy_set_header Upgrade $http_upgrade;
+			proxy_set_header Connection "Upgrade";
+	}
+	location ~ /fork/* {
+			proxy_pass https://127.0.0.1:3000;
+			proxy_http_version 1.1;
+			proxy_set_header Upgrade $http_upgrade;
+			proxy_set_header Connection "Upgrade";
+	}
+	location ~ /user/* {
+			proxy_pass https://127.0.0.1:3000;
+			proxy_http_version 1.1;
+			proxy_set_header Upgrade $http_upgrade;
+			proxy_set_header Connection "Upgrade";
+	}
+
+
+
+}
+
+server {
+    if ($host = chartdn.com) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
         listen 80 default_server;
         listen [::]:80 default_server;
         server_name chartdn.com;
-        # SSL configuration
+    return 404; # managed by Certbot
 
-        #listen 443 ssl default_server;
-        #listen [::]:443 ssl default_server;
-        #ssl_certificate /etc/letsencrypt/live/chartdn.com/fullchain.pem;
-        #ssl_certificate_key /etc/letsencrypt/live/chartdn.com/privkey.pem;
-        
-        location / {
-                # First attempt to serve request as file, then
-                # as directory, then fall back to displaying a 404.
-                #try_files $uri $uri/ =404;
-                proxy_pass https://127.0.0.1:12312;
-                proxy_http_version 1.1;
-                proxy_set_header Upgrade $http_upgrade;
-                proxy_set_header Connection "Upgrade";
-        }
-        location /login {
-                # First attempt to serve request as file, then
-                # as directory, then fall back to displaying a 404.
-                #try_files $uri $uri/ =404;
-                proxy_pass https://127.0.0.1:12312;
-                proxy_http_version 1.1;
-                proxy_set_header Upgrade $http_upgrade;
-                proxy_set_header Connection "Upgrade";
-        }
-        location /chartdn {
-                # First attempt to serve request as file, then
-                # as directory, then fall back to displaying a 404.
-                #try_files $uri $uri/ =404;
-                proxy_pass https://127.0.0.1:3000;
-                proxy_http_version 1.1;
-                proxy_set_header Upgrade $http_upgrade;
-                proxy_set_header Connection "Upgrade";
-        }
-        location /uploadfile {
-                # First attempt to serve request as file, then
-                # as directory, then fall back to displaying a 404.
-                #try_files $uri $uri/ =404;
-                proxy_pass http://127.0.0.1:3000;
-                proxy_http_version 1.1;
-                proxy_set_header Upgrade $http_upgrade;
-                proxy_set_header Connection "Upgrade";
-        }
-	    location /downloadfile {
-                # First attempt to serve request as file, then
-                # as directory, then fall back to displaying a 404.
-                #try_files $uri $uri/ =404;
-                proxy_pass http://127.0.0.1:3000;
-                proxy_http_version 1.1;
-                proxy_set_header Upgrade $http_upgrade;
-                proxy_set_header Connection "Upgrade";
-        }
-        location /savefile {
-                # First attempt to serve request as file, then
-                # as directory, then fall back to displaying a 404.
-                #try_files $uri $uri/ =404;
-                proxy_pass http://127.0.0.1:3000;
-                proxy_http_version 1.1;
-                proxy_set_header Upgrade $http_upgrade;
-                proxy_set_header Connection "Upgrade";
-        }
+
 }
