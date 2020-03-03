@@ -20,7 +20,7 @@ struct Cppdata {
 }*/
 void Method(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
-	v8::Local<v8::Array> array = v8::Local<v8::Array>::Cast(isolate,info[0]);
+	v8::Local<v8::Array> array = v8::Local<v8::Array>::Cast(info[0]);
 	/*
 	v8::String::Utf8Value s(isolate, info[0]);
 	Cppdata x = cppconstructor(*s);
