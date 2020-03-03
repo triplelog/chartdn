@@ -19,8 +19,8 @@ struct Cppdata {
 	char t = 'I';
 }*/
 void Method(const Nan::FunctionCallbackInfo<v8::Value>& info) {
-	v8::Isolate* isolate = info.GetIsolate();
-	v8::String::Utf8Value s(isolate, info[0]);
+	//v8::Isolate* isolate = info.GetIsolate();
+	Nan::Utf8Value s(info[0]);
 	Cppdata x = cppconstructor(*s);
 	/*
 	v8::Local<v8::Object> retobj = v8::Object::New(isolate);
@@ -33,7 +33,7 @@ void Method(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	info.GetReturnValue().Set(retobj);
 	*/
 	v8::Local<v8::Array> array = Nan::New<v8::Array>(3);
-	Nan::Set(array,0,v8::String::NewFromUtf8(isolate,&x.t).ToLocalChecked());
+	Nan::Set(array,0,Nan::NewFromUtf8(&x.t));
 	Nan::Set(array,1,Nan::New(x.v));
 	Nan::Set(array,2,Nan::New(x.w));
 	/*
