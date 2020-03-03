@@ -18,26 +18,23 @@ bool grabNumber(char* input_str) {
 void MethodRead(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
 	v8::Local<v8::Array> inArray = v8::Local<v8::Array>::Cast(info[0]);
-	int i=0; int ii=0;
 	
-	
-	std::vector<Cppdata> statrow;
-	for (ii=0;ii<10;ii++){
-		v8::String::Utf8Value s(isolate, Nan::Get(inArray,ii).ToLocalChecked());
-		x = cppconstructor(*s);
-		statrow.push_back(x);
+	int sz = inArray->Length();
+	v8::Local<v8::Array> outArray = Nan::New<v8::Array>(sz);
+	int ii=0;
+	for (ii=0;ii<sz;ii++){
+		int i = Nan::Get(inArray,ii);
+		x = statarray[ii][0];
+		Nan::Set(outArray,ii,v8::String::NewFromUtf8(isolate,&x.t).ToLocalChecked());
 	}
-	statarray.push_back(statrow);
-
+	info.GetReturnValue().Set(outArray);
 }
 
 void MethodLoad(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
 	v8::Local<v8::Array> inArray = v8::Local<v8::Array>::Cast(info[0]);
 	int sz = inArray->Length();
-	int i=0; int ii=0;
-	
-	
+	int ii=0;
 	std::vector<Cppdata> statrow;
 	for (ii=0;ii<sz;ii++){
 		v8::String::Utf8Value s(isolate, Nan::Get(inArray,ii).ToLocalChecked());
@@ -54,6 +51,11 @@ void Init(v8::Local<v8::Object> exports) {
   exports->Set(context,
                Nan::New("loadarray").ToLocalChecked(),
                Nan::New<v8::FunctionTemplate>(MethodLoad)
+                   ->GetFunction(context)
+                   .ToLocalChecked());
+  exports->Set(context,
+               Nan::New("readarray").ToLocalChecked(),
+               Nan::New<v8::FunctionTemplate>(MethodRead)
                    ->GetFunction(context)
                    .ToLocalChecked());
 }
