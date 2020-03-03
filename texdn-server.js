@@ -836,7 +836,7 @@ loginApp.get('/new',
 					res.redirect('/edit/'+chartid);
 				});	
 				
-			};
+			}
 			else {
 				console.log('new chart created', chart);
 				res.redirect('/edit/'+chartid);
