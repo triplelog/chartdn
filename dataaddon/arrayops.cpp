@@ -29,7 +29,6 @@ void MethodRead(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	for (ii=0;ii<sz;ii++){
 		
 		const char* t = &statrow[ii].t;
-		t[1] = '\0';
 		Nan::MaybeLocal<v8::String> tt = Nan::New<T>(t, 1);
 		Nan::Set(outArray,ii*3+0,tt.ToLocalChecked());
 		Nan::Set(outArray,ii*3+1,v8::Number::New(isolate,statrow[ii].v));
