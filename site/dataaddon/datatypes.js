@@ -20,9 +20,9 @@ console.log(performance.now());
 
 var allouts = [];
 var out = datatypes.helloarray(allins);
-
-console.log(out);
 console.log(performance.now());
+console.log(out.slice(0,10));
+
 
 function getDataType(x) {
 	var t = datatypes.hello(x)[0];
