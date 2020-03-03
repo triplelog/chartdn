@@ -838,7 +838,7 @@ function updateTable(data,sentHeaders) {
 		var thisColumn = {};
 		thisColumn.title = sentHeaders.headers[i];
 		thisColumn.field = 'col'+i;
-		if (sentHeaders.types[i] && sentHeaders.types[i] == 'Not'){
+		if (sentHeaders.types[i] && sentHeaders.types[i] == 'S'){
 			thisColumn.align = 'left';
 		}
 		else {
