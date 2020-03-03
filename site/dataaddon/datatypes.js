@@ -9,15 +9,17 @@ const datatypes = require(bindingPath);
 var allins = [];
 console.log(performance.now());
 for (var i=0;i<10000;i++){
+	var newrow = []
 	for (var ii=0;ii<10;ii++){
 		//var out = datatypes.getType('a'+i);
 		if (i%77777==0){
-			allins.push(''+i*10+ii);
+			newrow.push(''+i*10+ii);
 		}
 		else {
-			allins.push('a'+i*10+ii);
+			newrow.push('a'+i*10+ii);
 		}
 	}
+	allins.push(newrow);
 }
 console.log(performance.now());
 
