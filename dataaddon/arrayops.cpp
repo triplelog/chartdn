@@ -27,7 +27,8 @@ void MethodRead(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	
 	int ii=0;
 	for (ii=0;ii<sz;ii++){
-		const char *t = new char(statrow[ii].t);
+		std::string t(1, statrow[ii].t);
+		std::cout << s << "\n\n\n\n\n\n\n\n\n";
 		//char *CharBuff = new char[2];
 		//CharBuff[0] = t;
 		//CharBuff[1] = '\0';
