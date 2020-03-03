@@ -18,7 +18,7 @@ bool grabNumber(char* input_str) {
 void Method(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
 	v8::Local<v8::Array> inArray = v8::Local<v8::Array>::Cast(info[0]);
-	v8::Local<v8::Array> outArray = Nan::New<v8::Array>(10);
+	v8::Local<v8::Array> outArray = Nan::New<v8::Array>(11);
 	int i=0; int ii=0;
 	
 	
@@ -30,7 +30,7 @@ void Method(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		statrow.push_back(x);
 	}
 	statarray.push_back(statrow);
-	Nan::Set(outArray,i,v8::Number::New(isolate,int(statarray.size())));
+	Nan::Set(outArray,10,v8::Number::New(isolate,int(statarray.size())));
 	
 	
 	/*
