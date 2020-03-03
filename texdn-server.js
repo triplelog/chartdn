@@ -28,7 +28,7 @@ var createGoogle = require('./createCharts/google-charts.js');
 var createChartjs = require('./createCharts/chartjs-charts.js');
 var modJS = require('./modify.js');
 //var datatypes = require('./datatypes.js');
-var datatypes = require('./dataaddon/datatypes.js');
+
 const options = {
   key: fs.readFileSync('/etc/letsencrypt/live/chartdn.com/privkey.pem'),
   cert: fs.readFileSync('/etc/letsencrypt/live/chartdn.com/fullchain.pem')
@@ -79,7 +79,7 @@ const WebSocket = require('ws');
 const wss = new WebSocket.Server({ server });
 
 
-function updateData(oldDataStr,delimiter,chartid,ws,dm){
+function updateData(oldDataStr,delimiter,chartid,ws,dm,cpptable){
 	var results = Papa.parse(oldDataStr, {
 		delimiter: delimiter,
 		skipEmptyLines: false,
@@ -236,7 +236,7 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm){
 		}
 	});
 	file.end();
-	loadChart(chartid,ws,dm,false,false);
+	loadChart(chartid,ws,dm,cpptable,false,false);
 }
 function updateOptions(oldOptions, newOptions) {
 	for(var k in newOptions){
@@ -316,6 +316,7 @@ wss.on('connection', function connection(ws) {
   var chartData = false;
   var mongoChart = {};
   var sendTable = true;
+  var cpptable = require('./dataaddon/datatypes.js');
   ws.on('message', function incoming(message) {
   	var dm = JSON.parse(message);
   	console.log(dm.operation);
@@ -356,7 +357,7 @@ wss.on('connection', function connection(ws) {
 				var child = exec(wget, function(err, stdout, stderr) {
 					if (err) throw err;
 					else {
-						loadChart(chartid,ws,dm,true,false);
+						loadChart(chartid,ws,dm,cpptable,true,false);
 						
 					}
 					
@@ -365,7 +366,7 @@ wss.on('connection', function connection(ws) {
 		}
 		else {
 			fs.writeFile("saved/"+chartid+".csv", fstr, function (err) {
-				loadChart(chartid,ws,dm,false,false);
+				loadChart(chartid,ws,dm,cpptable,false,false);
 
 			});
 		}
@@ -390,11 +391,11 @@ wss.on('connection', function connection(ws) {
 		var child = exec(wget, function(err, stdout, stderr) {
 			if (err) throw err;
 			else {
-				loadChart(chartid,ws,dm,false,false);
+				loadChart(chartid,ws,dm,cpptable,false,false);
 				//fs.readFile('saved/'+chartid+'.csv', 'utf8', function(err, fileData) {
 					//var jsonmessage = {'operation':'downloaded','message':fileData};
 					//ws.send(JSON.stringify(jsonmessage));
-					//loadChart(chartid,ws,dm,false,false);
+					//loadChart(chartid,ws,dm,cpptable,false,false);
 				//});
 			}
 		});
@@ -412,7 +413,7 @@ wss.on('connection', function connection(ws) {
 			
 		}
 		fs.readFile('saved/'+dataid+'.csv', 'utf8', function(err, fileData) {
-			updateData(fileData,delimiter,chartid,ws,dm);
+			updateData(fileData,delimiter,chartid,ws,dm,cpptable);
 			dataid = chartid;
 			delimiter = '|';
 		});
@@ -435,7 +436,7 @@ wss.on('connection', function connection(ws) {
 					console.log('saved options', result.options, performance.now());
 				});
 				if (!chartData){
-					makeAllCharts(ws,dm,result,'all',false,true).then(function(result3) {
+					makeAllCharts(ws,dm,result,'all',false,true,cpptable).then(function(result3) {
 						chartData = result3.data;
 					}, function(err) {
 						console.log(err);
@@ -468,7 +469,7 @@ wss.on('connection', function connection(ws) {
 				});
 				mongoChart[chartid] = result;
 				if (!chartData){
-					makeAllCharts(ws,dm,result,'all',false,true).then(function(result3) {
+					makeAllCharts(ws,dm,result,'all',false,true,cpptable).then(function(result3) {
 						chartData = result3.data;
 					}, function(err) {
 						console.log(err);
@@ -539,7 +540,7 @@ wss.on('connection', function connection(ws) {
 					console.log('saved modifiers', performance.now());
 				});
 				if (!chartData){
-					makeAllCharts(ws,dm,result,'all',false,true).then(function(result3) {
+					makeAllCharts(ws,dm,result,'all',false,true,cpptable).then(function(result3) {
 						chartData = result3.data;
 					}, function(err) {
 						console.log(err);
@@ -566,7 +567,7 @@ wss.on('connection', function connection(ws) {
 				});
 				mongoChart[chartid] = result;
 				if (!chartData){
-					makeAllCharts(ws,dm,result,'all',false,true).then(function(result3) {
+					makeAllCharts(ws,dm,result,'all',false,true,cpptable).then(function(result3) {
 						chartData = result3.data;
 					}, function(err) {
 						console.log(err);
@@ -632,11 +633,17 @@ wss.on('connection', function connection(ws) {
 			  	else if (result.users.view[0]=='any' || result.users.creator == username){
 			  		delimiter = result.options.delimiter;
 			  		if (result.data != ''){
-						if (dm.style){
-							makeAllCharts(ws,dm,result,dm.style,false,sendTable);
+			  			mongoChart[chartid] = result;
+						if (!dm.style){
+							dm.style = 'all';
 						}
-						else {
-							makeAllCharts(ws,dm,result,'all',false,sendTable);
+						if (!chartData){
+							makeAllCharts(ws,dm,result,dm.style,false,sendTable,cpptable).then(function(result3) {
+								chartData = result3.data;
+							}, function(err) {
+								console.log(err);
+							});
+				
 						}
 					}
 			  	}
@@ -645,11 +652,17 @@ wss.on('connection', function connection(ws) {
 			  		 User.countDocuments({username: username, followers: result.users.creator}, function(err, result2) {
 						if (err){return}
 						else if (result2 > 0 && result.data != ''){
-							if (dm.style){
-								makeAllCharts(ws,dm,result,dm.style,false,sendTable);
+							mongoChart[chartid] = result;
+							if (!dm.style){
+								dm.style = 'all';
 							}
-							else {
-								makeAllCharts(ws,dm,result,'all',false,sendTable);
+							if (!chartData){
+								makeAllCharts(ws,dm,result,dm.style,false,sendTable,cpptable).then(function(result3) {
+									chartData = result3.data;
+								}, function(err) {
+									console.log(err);
+								});
+				
 							}
 						}
 			  		
@@ -691,9 +704,9 @@ wss.on('connection', function connection(ws) {
   });
 });
 
-function loadChart(chartid,ws,dm,deletexls=false,result=false){
+function loadChart(chartid,ws,dm,cpptable,deletexls=false,result=false){
 	if (result){
-		makeAllCharts(ws,dm,result,'all',true).then(function(result3) {
+		makeAllCharts(ws,dm,result,'all',true,true,cpptable).then(function(result3) {
 			chartData = result3.data;
 			result.types = result3.types;
 			result.markModified('types');
@@ -710,7 +723,7 @@ function loadChart(chartid,ws,dm,deletexls=false,result=false){
 		  if (err) {
 		
 		  } else {
-			makeAllCharts(ws,dm,result2,'all',true).then(function(result3) {
+			makeAllCharts(ws,dm,result2,'all',true,true,cpptable).then(function(result3) {
 				chartData = result3.data;
 				result2.types = result3.types;
 				result2.markModified('types');
@@ -1336,7 +1349,7 @@ function makeChartsWithData(ws,rawdata,chartInfo,chartStyle,dm,reloadTable=true)
 	}
 }
 
-function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes=false,sendTable=true) {
+function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes,sendTable,cpptable) {
 	
 	return new Promise(function(resolve, reject) {
 		if (!chartInfo.data){reject('no data file');}
@@ -1357,6 +1370,7 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes=false,sendTable
 					quoteChar: '"',
 				});
 				var returnData = {};
+				datatypes.clearArray();
 				datatypes.loadRows(results.data.slice(0,1000));
 				datatypes.readRow(5);
 				if (chgTypes){

@@ -120,6 +120,9 @@ exports.readRow = function(i){
 	var out = dataArray.readarray(i);
 	console.log(out);
 }
+exports.clearArray = function(i){
+	dataArray.cleararray();
+}
 
 
 
