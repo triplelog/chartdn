@@ -33,12 +33,12 @@ console.log(performance.now());
 console.log(out.slice(0,5));
 
 out = [];
-for (var i=0;i<10;i++){
-	out.push(datatypes.readarray([0,1,2,3,4,5]));
+for (var i=0;i<5;i++){
+	out.push(datatypes.readarray(i));
 }
 
 console.log(performance.now());
-console.log(out.slice(0,5));
+console.log(out);
 
 function getDataType(x) {
 	var t = datatypes.hello(x)[0];
