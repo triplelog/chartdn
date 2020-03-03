@@ -46,6 +46,7 @@ void Method(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 }
 
 void Init(v8::Local<v8::Object> exports) {
+  //std::vector<Cppdata>* statarray = new std::vector<Cppdata>[plen];
   v8::Local<v8::Context> context = exports->CreationContext();
   exports->Set(context,
                Nan::New("helloarray").ToLocalChecked(),
