@@ -21,13 +21,13 @@ void MethodRead(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	int row = info[0]->Int32Value(context).FromJust();
 	//int row = (int)(info[0]->Int32Value(context));
 	
-	x = statarray[row];
-	int sz = x.size();
+	std::vector<Cppdata> statrow = statarray[row];
+	int sz = statrow.size();
 	v8::Local<v8::Array> outArray = Nan::New<v8::Array>(sz);
 	
 	int ii=0;
 	for (ii=0;ii<sz;ii++){
-		Nan::Set(outArray,ii,v8::String::NewFromUtf8(isolate,&x[ii].t).ToLocalChecked());
+		Nan::Set(outArray,ii,v8::String::NewFromUtf8(isolate,&statrow[ii].t).ToLocalChecked());
 	}
 	info.GetReturnValue().Set(outArray);
 }
