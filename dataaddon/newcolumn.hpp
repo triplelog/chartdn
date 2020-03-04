@@ -21,14 +21,14 @@ using namespace std::chrono;
 struct NewColumnVar {
 	int column;
 	std::string type;
-	int row[];
+	int row[4];
 	std::string name;
 };
 
 struct NewColumn {
 	std::string formula;
-	NewColumnVar vars[];//This is actually map of name to formula
 	flat_hash_map<long,std::vector<Cppdata>> fullmap;
+	NewColumnVar vars[];//This is actually map of name to formula
 };
 
 void makeFullMap(NewColumn newcol) {
