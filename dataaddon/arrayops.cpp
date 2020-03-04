@@ -212,7 +212,8 @@ void MethodNewCol(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 				}
 			}
 		}
-		Cppdata answer = solvePostfixVV(newcol.expstr.c_str(), intArray, stack);
+		char back_to_cstr[] = newcol.expstr.c_str();
+		Cppdata answer = solvePostfixVV(back_to_cstr, intArray, stack);
 		temparray[i].push_back(answer);
 
 	}
