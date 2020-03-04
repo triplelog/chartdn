@@ -1,6 +1,7 @@
 #include <nan.h>
 #include <string>
 #include "cppdatatemp.hpp"
+#include "newcolumn.hpp"
 
 Cppdata x;
 std::vector<std::vector<Cppdata>> statarray;
@@ -161,6 +162,16 @@ void MethodSort(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 
 }
 
+void MethodNewCol(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+	v8::Isolate* isolate = info.GetIsolate();
+	v8::Local<v8::Context> context = isolate->GetCurrentContext();
+	NewColumn newcol;
+	newcol.formula = "";
+	newcol.vars = [];
+	makeFullMap(newcol);
+
+}
+
 void Init(v8::Local<v8::Object> exports) {
   //std::vector<Cppdata>* statarray = new std::vector<Cppdata>[plen];
   v8::Local<v8::Context> context = exports->CreationContext();
@@ -192,6 +203,11 @@ void Init(v8::Local<v8::Object> exports) {
   exports->Set(context,
                Nan::New("readarraycol").ToLocalChecked(),
                Nan::New<v8::FunctionTemplate>(MethodCol)
+                   ->GetFunction(context)
+                   .ToLocalChecked());
+  exports->Set(context,
+               Nan::New("newcolumn").ToLocalChecked(),
+               Nan::New<v8::FunctionTemplate>(MethodNewCol)
                    ->GetFunction(context)
                    .ToLocalChecked());
 }

@@ -164,6 +164,146 @@ exports.readCol = function(i){
 	return out;
 }
 
+function makeRowMap(array,options,nHeaders,i){
+	var rowmap = {};
+	var vars = options.variables;
+	var skipi = false;
+	for (var ii in vars){
+		if (vars[ii].column == -1){
+			rowmap[ii.toUpperCase()]=parseInt(i);
+		}
+		else if (vars[ii].type=='value'){
+			var row = parseInt(i);
+			if (vars[ii].row.indexOf('$')==0){
+				row = parseInt(vars[ii].row.substring(1))-nHeaders;
+			}
+			else {
+				row += parseInt(vars[ii].row);
+			}
+			if (row < 0 || row >= array.length){
+				skipi = true;
+				break;
+			}
+			else {
+				rowmap[ii.toUpperCase()]=parseInt(array[row][vars[ii].column]);
+			}
+		}
+		else {
+			var rows = vars[ii].row.split(',');
+			var rowStart; var rowEnd;
+			if (rows[0].indexOf('$')==0 && rows[1].indexOf('$')==0){
+				continue;
+			}
+			else {
+				if (rows[0].indexOf('$')==0){
+					rowStart = parseInt(rows[0].substring(1));
+				}
+				else {
+					rowStart = parseInt(rows[0])+parseInt(i);
+				}
+				if (rows[1].indexOf('$')==0){
+					rowEnd = parseInt(rows[1].substring(1));
+				}
+				else {
+					rowEnd = parseInt(rows[1])+parseInt(i);
+				}
+				if (rowEnd < 0){
+					rowEnd = array.length + rowEnd;
+				}
+				if (rowEnd > array.length-1){
+					rowEnd = array.length - 1;
+				}
+				if (rowStart < 0){
+					rowStart = array.length + rowStart;
+				}
+				rowEnd = rowEnd - nHeaders;
+				rowStart = rowStart - nHeaders;
+				if (rowStart < 0){
+					rowStart = 0;
+				}
+				if (vars[ii].type=='mean'){
+					var sum = 0;
+					var n = 0;
+					for (var i=rowStart;i<=rowEnd;i++){
+						sum += parseInt(array[i][vars[ii].column]);
+						n += 1;
+					}
+					if (n > 0){
+						rowmap[ii.toUpperCase()]=sum/n;
+					}
+				}
+				else if (vars[ii].type=='count'){
+					var n = 0;
+					for (var i=rowStart;i<=rowEnd;i++){
+						n += 1;
+					}
+					rowmap[ii.toUpperCase()]=n;
+				}
+				else if (vars[ii].type=='sum'){
+					var sum = 0;
+					for (var i=rowStart;i<=rowEnd;i++){
+						sum += parseInt(array[i][vars[ii].column]);
+					}
+					rowmap[ii.toUpperCase()]=sum;
+				}
+				else if (vars[ii].type=='max'){
+					var max = parseInt(array[rowStart][vars[ii].column]);
+					for (var i=rowStart;i<=rowEnd;i++){
+						if (parseInt(array[i][vars[ii].column]) > max){
+							max = parseInt(array[i][vars[ii].column]);
+						}
+					}
+					rowmap[ii.toUpperCase()]=max;
+				}
+				else if (vars[ii].type=='min'){
+					var min = parseInt(array[rowStart][vars[ii].column]);
+					for (var i=rowStart;i<=rowEnd;i++){
+						if (parseInt(array[i][vars[ii].column]) < min){
+							min = parseInt(array[i][vars[ii].column]);
+						}
+					}
+					rowmap[ii.toUpperCase()]=min;
+				}
+			}
+		}
+	}
+	if (skipi){
+		return 'skip';
+	}
+	else {
+		return rowmap;
+	}
+}
+exports.newCol = function(options){
+	var formula = options.formula;
+	if (!formula || formula == ''){return;}
+	var bothparts = postfixify(formula);
+	
+	var fullmap = makeFullMap(options);
+		
+	/*for (var i in array){
+		var rowmap = makeRowMap(array,options,nHeaders,i);
+		if (rowmap === 'skip'){array[i].push(''); continue;}
+		var intstr = [];
+		for (var ii in bothparts[0]){
+			if(fullmap[bothparts[0][ii]]){
+				intstr.push(fullmap[bothparts[0][ii]]);
+			}
+			else if(rowmap[bothparts[0][ii]]){
+				
+				intstr.push(rowmap[bothparts[0][ii]]);
+			}
+			else {
+				intstr.push(bothparts[0][ii]);
+			}
+		}
+		var answer = solvePostfix(intstr,bothparts[1]);
+		array[i].push(answer);
+
+	}
+	types.push('Float');*/
+}
+
 
 
 /*var allins = [];
@@ -202,3 +342,204 @@ for (var i=0;i<1000000;i++){
 console.log(performance.now());
 console.log(alloutsjs[0]);*/
 
+function makePost(infixexpr) {
+	prec = {}
+	prec["*"] = 4
+	prec["/"] = 4
+	prec["+"] = 3
+	prec["~"] = 3
+	prec[">"] = 2
+	prec["<"] = 2
+	prec["="] = 2
+	prec["!"] = 2
+	prec["["] = 2
+	prec["]"] = 2
+	prec["&"] = 1
+	prec["|"] = 0
+	prec["("] = -1
+	opStack = []
+	postfixList = []
+	intstr = []
+	expstr = []
+	tokenList = []
+	temptoken = ''
+	for (var i=0;i<infixexpr.length;i++){
+		var ie = infixexpr[i];
+		if ("-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".indexOf(ie) > -1){
+			temptoken += ie
+		}
+		else{
+			if (temptoken != ''){
+				tokenList.push(temptoken)
+			}
+			tokenList.push(ie)
+			temptoken = ''
+		}
+	}
+	if (temptoken != ''){
+		tokenList.push(temptoken)
+	}
+	
+	for (var i=0;i<tokenList.length;i++){
+		var token = tokenList[i];
+		if ("*/+~><=![]&|()".indexOf(token) == -1){
+			postfixList.push(token)
+		}
+		else if (token == '('){
+			opStack.push(token)
+		}
+		else if (token == ')'){
+			topToken = opStack.pop()
+			while (topToken != '('){
+				postfixList.push(topToken)
+				topToken = opStack.pop()
+			}
+		}
+		else {
+			while ((opStack.length > 0) && (prec[opStack[opStack.length-1]] >= prec[token])){
+				postfixList.push(opStack.pop())
+			}
+			opStack.push(token)
+		}
+	}
+	while (opStack.length > 0){
+		postfixList.push(opStack.pop())
+	}
+	for (var i=0;i<postfixList.length;i++){
+		var ci = postfixList[i];
+		if ("*/+~><=![]&|".indexOf(ci) == -1){
+			intstr.push(ci);
+			expstr.push('#');
+		}
+		else if (ci == '~'){
+			expstr.push('-');
+		}
+		else{
+			expstr.push(ci);
+		}
+	}
+	return [intstr,expstr]
+
+}
+
+function replaceDecimals(istr){
+	dindex = istr.indexOf('.');
+	while (dindex >-1){
+		intpart = 0;
+		decpart = 0;
+		denom = 1;
+		strparts = [dindex,dindex+1];
+		for (var i=1;i<dindex+1;i++){
+			if ("0123456789".indexOf(istr[dindex-i]) > -1){
+				intpart += parseInt(istr[dindex-i])*Math.pow(10,i-1);
+				strparts[0] = dindex-i;
+			}
+			else{break;}
+		}
+		for (var i=dindex+1;i<istr.length;i++){
+			if ("0123456789".indexOf(istr[i]) > -1){
+				decpart *=10;
+				denom *=10;
+				decpart += parseInt(istr[i]);
+				strparts[1] = i+1;
+			}
+			else{break;}
+		}
+		istr = istr.substring(0,strparts[0])+'('+ (intpart*denom+decpart) +'/'+ denom +')'+istr.substring(strparts[1],);
+		dindex = istr.indexOf('.');
+	}
+
+	return istr
+}
+
+function replaceNegatives(istr){
+	dindex = istr.indexOf('-')
+	while (dindex >-1){
+		if (dindex == 0){
+			if ("0123456789".indexOf(istr[1]) == -1) {
+				istr = '-1*'+istr.substring(1,);
+			}
+			dindex = istr.indexOf('-',1);
+		}
+		else{
+			if ("><=![]&|(".indexOf(istr[dindex-1])> -1) {
+				if ("0123456789".indexOf(istr[dindex-1])== -1){
+					istr = istr.substring(0,dindex)+'-1*'+istr.substring(dindex+1,);
+				}
+				dindex = istr.indexOf('-',dindex+1);
+			}
+			else{
+				istr = istr.substring(0,dindex)+'~'+istr.substring(dindex+1,);
+				dindex = istr.indexOf('-',dindex+1);
+			}
+		}
+	}
+				
+	return istr
+}
+
+function postfixify(input_str) {
+	input_str = input_str.toUpperCase();
+	input_str = input_str.replace(/\sAND\s/g,'&');
+	input_str = input_str.replace(/\sOR\s/g,'|');
+	input_str = input_str.replace(/\s/g,'');
+	input_str = input_str.replace(/\[/g,'(');
+	input_str = input_str.replace(/]/g,')');
+	input_str = input_str.replace(/{/g,'(');
+	input_str = input_str.replace(/}/g,')');
+	input_str = input_str.replace(/>=/g,']');
+	input_str = input_str.replace(/<=/g,'[');
+	input_str = input_str.replace(/==/g,'=');
+	input_str = input_str.replace(/!=/g,'!');
+	input_str = input_str.replace(/\+-/g,'-');
+	input_str = input_str.replace(/--/g,'+');
+	input_str = replaceDecimals(input_str);
+	input_str = replaceNegatives(input_str);
+	return makePost(input_str);
+}
+
+function solvePostfix(intstr,expstr){
+	var resultStack = [];
+	var idx = 0;
+	for(var i = 0; i < expstr.length; i++) {
+		if(expstr[i]=='#') {
+			resultStack.push(intstr[idx]);
+			idx++;
+		} else {
+			var a = resultStack.pop();
+			var b = resultStack.pop();
+			if(expstr[i] === "+") {
+				resultStack.push(parseInt(a) + parseInt(b));
+			} else if(expstr[i] === "-") {
+				resultStack.push(parseInt(b) - parseInt(a));
+			} else if(expstr[i] === "*") {
+				resultStack.push(parseInt(a) * parseInt(b));
+			} else if(expstr[i] === "/") {
+				resultStack.push(parseInt(b) / parseInt(a));
+			} else if(expstr[i] === "^") {
+				resultStack.push(Math.pow(parseInt(b), parseInt(a)));
+			} else if(expstr[i] === ">") {
+				resultStack.push(parseInt(b) > parseInt(a));
+			} else if(expstr[i] === "<") {
+				resultStack.push(parseInt(b) < parseInt(a));
+			} else if(expstr[i] === "]") {
+				resultStack.push(parseInt(b) >= parseInt(a));
+			} else if(expstr[i] === "[") {
+				resultStack.push(parseInt(b) <= parseInt(a));
+			} else if(expstr[i] === "=") {
+				resultStack.push(parseInt(b) == parseInt(a));
+			} else if(expstr[i] === "!") {
+				resultStack.push(parseInt(b) != parseInt(a));
+			} else if(expstr[i] === "&") {
+				resultStack.push(b && a);
+			} else if(expstr[i] === "|") {
+				resultStack.push(b || a);
+			}
+		}
+	}
+	if(resultStack.length > 1) {
+		return "error";
+	} else {
+		return resultStack.pop();
+	}
+}

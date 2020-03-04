@@ -1239,11 +1239,12 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable) {
 		else {idx++;}
 		t2 = performance.now();
 		if (modifiers[i].type == 'new'){
-			modJS.newColumn(rawArray,modifiers[i].options,nHeaders,types);
+			//modJS.newColumn(rawArray,modifiers[i].options,nHeaders,types);
 			if (hArray.length>0){
 				hArray[0].push(modifiers[i].name);
 			}
 			//Update columns in create chart
+			cpptable.newCol(rawArray,modifiers[i].options);
 		}
 		else if (modifiers[i].type == 'filter'){
 			modJS.filter(rawArray,modifiers[i].options,nHeaders);
