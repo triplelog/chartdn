@@ -1299,7 +1299,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable) {
 			}
 		}
 		if (i >= nHeaders) {
-			var thisrow = cpptable.readRow(i);
+			var thisrow = cpptable.readRow(i-nHeaders);
 			for (var ii=0;ii<thisrow.length;ii++) {
 				var cell = thisrow[ii];
 				cols[ii].push(cell);
