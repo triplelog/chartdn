@@ -135,10 +135,10 @@ exports.sortArray = function(i){
 }
 exports.readCol = function(i){
 	var outRaw = dataArray.readarraycol(i);
-	/*var out = [];
+	var out = [];
 	for (var i=0;i<outRaw.length/3;i++){
 		out.push(outRaw[i*3+1]);
-	}*/
+	}
 	return outRaw;
 }
 
