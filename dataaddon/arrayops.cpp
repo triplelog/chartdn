@@ -130,7 +130,12 @@ void MethodSort(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	sortCol.push_back(oneSort);
 	vsize++;
 	//std::sort(temparray.begin(),temparray.end());
-	std::partial_sort(temparray.begin(),temparray.begin()+1000,temparray.end());
+	if (1000<temparray.size()){
+		std::partial_sort(temparray.begin(),temparray.begin()+1000,temparray.end());
+	}
+	else {
+		std::sort(temparray.begin(),temparray.end());
+	}
 
 }
 
