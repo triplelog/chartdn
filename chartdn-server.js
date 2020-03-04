@@ -446,10 +446,10 @@ wss.on('connection', function connection(ws) {
 				else {
 					console.log('used cached data', performance.now());
 					if (dm.nsteps || dm.nsteps === 0){
-						makeChartsWithData(ws,chartData,result,'all',dm,true);
+						makeChartsWithData(ws,chartData,result,'all',dm,true,cpptable);
 					}
 					else {
-						makeChartsWithData(ws,chartData,result,'all',dm,false);
+						makeChartsWithData(ws,chartData,result,'all',dm,false,cpptable);
 					}
 					
 				}
@@ -479,10 +479,10 @@ wss.on('connection', function connection(ws) {
 				else {
 					console.log('used cached data', performance.now());
 					if (dm.nsteps || dm.nsteps === 0){
-						makeChartsWithData(ws,chartData,result,'all',dm,true);
+						makeChartsWithData(ws,chartData,result,'all',dm,true,cpptable);
 					}
 					else {
-						makeChartsWithData(ws,chartData,result,'all',dm,false);
+						makeChartsWithData(ws,chartData,result,'all',dm,false,cpptable);
 					}
 					
 				}
@@ -549,7 +549,7 @@ wss.on('connection', function connection(ws) {
 				}
 				else {
 					console.log('used cached data', performance.now());
-					makeChartsWithData(ws,chartData,result,'all',dm,true);
+					makeChartsWithData(ws,chartData,result,'all',dm,true,cpptable);
 					
 				}
   		}
@@ -576,7 +576,7 @@ wss.on('connection', function connection(ws) {
 				}
 				else {
 					console.log('used cached data', performance.now());
-					makeChartsWithData(ws,chartData,result,'all',dm,true);
+					makeChartsWithData(ws,chartData,result,'all',dm,true,cpptable);
 					
 				}
 			  }
@@ -1193,7 +1193,7 @@ loginServer.listen(3000);
 
 
 
-function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable=false) {
+function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable) {
 
 	rawArray = dataStr;
 	var t1 = performance.now();
@@ -1316,7 +1316,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable=fals
 	return {'byrow':retArray,'bycol':cols,'modified':modifiedArray,'headers':allHeaders};
 	
 }
-function makeChartsWithData(ws,rawdata,chartInfo,chartStyle,dm,reloadTable=true,cpptable=false) {
+function makeChartsWithData(ws,rawdata,chartInfo,chartStyle,dm,reloadTable,cpptable) {
 	var maxColumns = 50;
 	var newData = [];
 	var rawLen = rawdata.length;
