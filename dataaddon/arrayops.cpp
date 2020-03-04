@@ -172,7 +172,8 @@ void MethodNewCol(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	NewColumn newcol;
 	newcol.intstr.push_back("a");
 	newcol.intstr.push_back("1");
-	newcol.expstr = "##+";
+	std::string estr("##+");
+	newcol.expstr = estr;
 	NewColumnVar newvar;
 	newvar.column = 0;
 	newvar.type = "sum";
