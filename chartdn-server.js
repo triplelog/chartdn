@@ -1266,28 +1266,27 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable=fals
 			//Update columns in create chart
 		}
 	}
+	var t3 = performance.now();
 	allHeaders['current']=[];
 	for (var ii in hArray[0]){
 		allHeaders['current'].push(hArray[0][ii]);
 	}
-
+	
 	var filteredArray = hArray.concat(modJS.toData(rawArray));
 	if (!modifiedArray || modifiedArray.length == 0){
-		modifiedArray = [];
+		
 		allHeaders['modified']={};
 		allHeaders['modified'].headers=hArray[0].slice();
 		allHeaders['modified'].types=types.slice();
-		//var hlen = hArray.length;
+		modifiedArray = [];
 		var rlen = rawArray.length;
-		/*for (var ii=0;ii<hlen;ii++){
-			modifiedArray[ii] = hArray[ii].slice();
-		}*/
+		var t4 = performance.now();
 		for (var ii=0;ii<rlen;ii++){
 			modifiedArray[ii] = rawArray[ii].slice();
 		}
 	}
-	var t6 = performance.now();
-	console.log('modifier time',t2,t6);
+	var t5 = performance.now();
+	console.log('modifier time',t2,t3,t4,t5);
 	//console.log(filteredArray);
 	retArray = [];
 	var cols = [];
