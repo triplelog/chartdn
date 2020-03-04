@@ -1249,7 +1249,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable) {
 			modJS.filter(rawArray,modifiers[i].options,nHeaders);
 		}
 		else if (modifiers[i].type == 'sort'){
-			cpptable.sortArray(modifiers[i].options.column,modifiers[i].options.ascending);
+			cpptable.sortArray(modifiers[i].options);
 		}
 		else if (modifiers[i].type == 'replace'){
 			modJS.replace(rawArray,modifiers[i].options);
