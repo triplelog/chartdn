@@ -1272,24 +1272,27 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable=fals
 		allHeaders['current'].push(hArray[0][ii]);
 	}
 	
-	var filteredArray = hArray.concat(modJS.toData(rawArray));
+	
 	if (!modifiedArray || modifiedArray.length == 0){
 		
 		allHeaders['modified']={};
 		allHeaders['modified'].headers=hArray[0].slice();
 		allHeaders['modified'].types=types.slice();
 		modifiedArray = [];
-		var rlen = rawArray.length;
+		//var rlen = rawArray.length;
+		var rlen = 1000;
 		var t4 = performance.now();
 		for (var ii=0;ii<rlen;ii++){
-			modifiedArray[ii] = rawArray[ii].slice();
+			//modifiedArray[ii] = rawArray[ii].slice();
+			modifiedArray[ii] = cpptable.readRow(ii);
 		}
 	}
 	var t5 = performance.now();
-	console.log('modifier time',t2,t3,t4,t5);
+	console.log('modifier time',t1,t2,t3,t4,t5);
 	//console.log(filteredArray);
 	retArray = [];
 	var cols = [];
+	var filteredArray = hArray.concat(modJS.toData(rawArray));
 	for (var i=0;i<filteredArray.length;i++) {
 	
 		if (i == 0){
