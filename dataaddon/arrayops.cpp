@@ -215,8 +215,8 @@ void MethodNewCol(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		int len = newcol.expstr.length();
 		char exp[len+1];
 		strcpy(exp, newcol.expstr.c_str());
-		/*Cppdata answer = solvePostfixVV(exp, intArray, stack);
-		temparray[i].push_back(answer);*/
+		Cppdata answer = solvePostfixVV(exp, intArray, stack);
+		/*temparray[i].push_back(answer);*/
 
 	}
 	//types.push('Float');*/
