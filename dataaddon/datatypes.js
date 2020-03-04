@@ -276,13 +276,14 @@ function makeRowMap(array,options,nHeaders,i){
 		return rowmap;
 	}
 }
+
 exports.newCol = function(options){
 	var formula = options.formula;
 	if (!formula || formula == ''){return;}
 	var bothparts = postfixify(formula);
 	
 	//var fullmap = makeFullMap(options);
-	//dataArray.newcolumn();
+	dataArray.newcolumn();
 	/*for (var i in array){
 		var rowmap = makeRowMap(array,options,nHeaders,i);
 		if (rowmap === 'skip'){array[i].push(''); continue;}
