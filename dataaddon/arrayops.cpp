@@ -24,8 +24,10 @@ void MethodRead(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		type = info[1]->Int32Value(context).FromJust();
 	}
 	//int row = (int)(info[0]->Int32Value(context));
-	
-	std::vector<Cppdata> statrow = temparray[row];
+	std::vector<Cppdata> statrow;
+	if (row < temparray.size() && row >= 0){
+		statrow = temparray[row];
+	}
 	/*if (type == 1) {
 		statrow = temparray[row];
 	} 

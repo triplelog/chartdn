@@ -1231,8 +1231,9 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable) {
 			modifiedArray = [];
 			//var rlen = rawArray.length;
 			var rlen = Math.min(1000,rawArray.length);
-			for (var ii=0;ii<rlen;ii++){
-				modifiedArray[ii] = cpptable.readRow(ii);
+			var newrow = cpptable.readRow(ii);
+			if (newrow.length > 0){
+				modifiedArray.push(newrow);
 			}
 			nsteps = false;
 		}
@@ -1274,12 +1275,15 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable) {
 		allHeaders['modified'].types=types.slice();
 		modifiedArray = [];
 		//var rlen = rawArray.length;
-		var rlen = Math.min(1000,rawArray.length);
+		var rlen = Math.min(1000,rawArray.length-1);
 		var t4 = performance.now();
 		for (var ii=0;ii<rlen;ii++){
 			//modifiedArray[ii] = rawArray[ii].slice();
-			console.log(ii);
-			modifiedArray[ii] = cpptable.readRow(ii);
+			var newrow = cpptable.readRow(ii);
+			if (newrow.length > 0){
+				modifiedArray.push(newrow);
+			}
+			
 		}
 	}
 	var t5 = performance.now();

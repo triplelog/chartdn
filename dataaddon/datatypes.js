@@ -136,8 +136,10 @@ exports.loadRows = function(data){
 exports.readRow = function(i){
 	var outRaw = dataArray.readarray(i);
 	var out = [];
-	for (var i=0;i<outRaw.length/3;i++){
-		out.push(outputValue(outRaw[i*3],outRaw[i*3+1],outRaw[i*3+2]));
+	if (outRaw.length>0){
+		for (var i=0;i<outRaw.length/3;i++){
+			out.push(outputValue(outRaw[i*3],outRaw[i*3+1],outRaw[i*3+2]));
+		}
 	}
 	return out;
 }
