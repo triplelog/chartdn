@@ -6,7 +6,7 @@ Cppdata x;
 std::vector<std::vector<Cppdata>> statarray;
 std::vector<std::vector<Cppdata>> temparray;
 
-void MethodCopy();
+void MethodCopy(const Nan::FunctionCallbackInfo<v8::Value>& info);
 
 void MethodClear(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	statarray.clear();
@@ -90,11 +90,11 @@ void MethodLoad(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		statrow.push_back(x);
 	}
 	statarray.push_back(statrow);
-	MethodCopy();
+	MethodCopy(info);
 
 }
 
-void MethodCopy() {
+void MethodCopy(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	temparray.clear();
 	std::vector<Cppdata> onearray;
 	int sz = statarray.size();
