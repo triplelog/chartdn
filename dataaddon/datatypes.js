@@ -19,7 +19,7 @@ function outputValue(t,v,w){
 			return v*Math.pow(10,w);
 		}
 		else if (w< 0){
-			return v/Math.pow(10,w);
+			return v/Math.pow(10,-1*w);
 		}
 	}
 	return v;
