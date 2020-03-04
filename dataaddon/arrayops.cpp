@@ -118,6 +118,7 @@ void MethodSort(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	bool ascending = info[1]->BooleanValue(isolate);
 	int col = info[0]->Int32Value(context).FromJust();
 	
+	sortCol.clear();
 	std::vector<int> oneSort;
 	if (ascending){oneSort.push_back(1);}
 	else {oneSort.push_back(0);}

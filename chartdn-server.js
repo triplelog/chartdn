@@ -1250,6 +1250,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable) {
 		}
 		else if (modifiers[i].type == 'sort'){
 			//modJS.sort(rawArray,modifiers[i].options);
+			console.log(modifiers[i].options.column,modifiers[i].options.ascending);
 			cpptable.sortArray(modifiers[i].options.column,modifiers[i].options.ascending);
 		}
 		else if (modifiers[i].type == 'replace'){

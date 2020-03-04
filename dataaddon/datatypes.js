@@ -130,8 +130,8 @@ exports.clearArray = function(i){
 exports.copyArray = function(i){
 	dataArray.copyarray();
 }
-exports.sortArray = function(i){
-	dataArray.sortarray();
+exports.sortArray = function(i,j){
+	dataArray.sortarray(i,j);
 }
 exports.readCol = function(i){
 	var outRaw = dataArray.readarraycol(i);
