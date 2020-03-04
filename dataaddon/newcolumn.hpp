@@ -35,17 +35,13 @@ void makeFullMap(NewColumn newcol) {
 	newcol.fullmap.clear();
 	int varsz = newcol.vars.size();
 	int i;
-	/*for (i=0;i<varsz;i++){
-		NewColumnVar var;
-		var.column = newcol.vars[i].column;
-		var.type = newcol.vars[i].type;
-		var.row = newcol.vars[i].row;
-		var.name = ??;
+	for (i=0;i<varsz;i++){
+		NewColumnVar var = newcol.vars[i];
 		if (var.column == -1 || var.type=="value"){
 			continue;
 		}
 		int rowStart = 0;
-		int rowEnd = lengthofarray - 1;*/
+		int rowEnd = temparray.size() - 1;
 		/*var rows = var.row.split(',');
 		if (rows.length <2){continue;}
 		var rowStart; var rowEnd;
@@ -70,8 +66,8 @@ void makeFullMap(NewColumn newcol) {
 		else {
 			continue;
 		}*/
-		/*int ii;
-		if (var.type=="mean"){
+		int ii;
+		/*if (var.type=="mean"){
 			int sum = 0;//Make this Cppdata -- of first row or 0
 			int n = 0;
 			
@@ -89,14 +85,14 @@ void makeFullMap(NewColumn newcol) {
 				n++;
 			}
 			fullmap[var.name]=n;
-		}
-		else if (var.type=="sum"){
-			int sum = 0;
-			for (ii=rowStart;ii<=rowEnd;ii++){
-				sum += parseInt(array[ii][var.column]);
+		}*/
+		if (var.type=="sum"){
+			Cppdata sum = temparray[rowStart][var.column];
+			for (ii=rowStart+1;ii<=rowEnd;ii++){
+				sum = sum + temparray[ii][var.column];
 			}
 			fullmap[var.name]=sum;
-		}
+		}/*
 		else if (var.type=="max"){
 			int max = parseInt(array[rowStart][var.column]);
 			for (ii=rowStart;ii<=rowEnd;ii++){
@@ -114,6 +110,6 @@ void makeFullMap(NewColumn newcol) {
 				}
 			}
 			fullmap[var.name]=min;
-		}
-	}*/
+		}*/
+	}
 }
