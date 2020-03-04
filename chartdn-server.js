@@ -1284,7 +1284,11 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable) {
 	var t5 = performance.now();
 	//console.log(filteredArray);
 	retArray = [];
+	var col1 = cpptable.readCol(1);
+	
 	var cols = [];
+	var t5b = performance.now();
+	console.log(col1.slice(0,100));
 	var filteredArray = hArray.concat(modJS.toData(rawArray));
 	var t6 = performance.now();
 	for (var i=0;i<filteredArray.length;i++) {
@@ -1305,7 +1309,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable) {
 	
 	}
 	var t7 = performance.now();
-	console.log('modifier time',t1,t2,t3,t4,t5,t6,t7);
+	console.log('modifier time',t1,t2,t3,t4,t5,t5b,t6,t7);
 	return {'byrow':retArray,'bycol':cols,'modified':modifiedArray,'headers':allHeaders};
 	
 }
