@@ -87,7 +87,7 @@ void MethodSort(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	vsize++;
 	//std::sort(temparray.begin(),temparray.end());
 	int tasz = temparray.size();
-	std::partial_sort(temparray[0],temparray[1000],temparray[tasz]);
+	std::sort(temparray[0],temparray[tasz]);
 
 }
 
