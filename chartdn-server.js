@@ -1250,7 +1250,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable) {
 		}
 		else if (modifiers[i].type == 'sort'){
 			//modJS.sort(rawArray,modifiers[i].options);
-			cpptable.sortArray();
+			cpptable.sortArray(modifiers[i].options.column,modifiers[i].options.ascending);
 		}
 		else if (modifiers[i].type == 'replace'){
 			modJS.replace(rawArray,modifiers[i].options);
@@ -1288,7 +1288,6 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable) {
 	
 	var cols = [];
 	var t6 = performance.now();
-	console.log(col1.slice(0,100));
 	console.log('modifier time',t1,t2,t3,t4,t5,t6);
 	return {'modified':modifiedArray,'headers':allHeaders};
 	

@@ -628,7 +628,7 @@ inline bool operator<(const std::vector<Cppdata> a, const std::vector<Cppdata> b
 			if (strarray[a[0].v][sortCol[i][1]].compare(strarray[b[0].v][sortCol[i][1]]) < 0) {return true;}
 			if (strarray[a[0].v][sortCol[i][1]].compare(strarray[b[0].v][sortCol[i][1]]) > 0) {return false;}
 		}*/
-		if (sortCol[i][0] == 1){
+		if (sortCol[i][0] == 0){
 			if (a[sortCol[i][1]] > b[sortCol[i][1]]) {return true;}
 			if (a[sortCol[i][1]] < b[sortCol[i][1]]) {return false;}
     	}
