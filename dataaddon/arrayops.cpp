@@ -1,12 +1,14 @@
 #include <nan.h>
 #include <string>
 #include "cppdatatemp.hpp"
-#include "newcolumn.hpp"
+
 
 Cppdata x;
 std::vector<std::vector<Cppdata>> statarray;
 std::vector<std::vector<std::string>> strarray;
 std::vector<std::vector<Cppdata>> temparray;
+
+#include "newcolumn.hpp"
 
 void MethodCopy(const Nan::FunctionCallbackInfo<v8::Value>& info);
 
