@@ -28,7 +28,7 @@ struct NewColumnVar {
 struct NewColumn {
 	std::string formula;
 	flat_hash_map<long,std::vector<Cppdata>> fullmap;
-	NewColumnVar vars[];//This is actually map of name to formula
+	std::vector<NewColumnVar> vars;//This is actually map of name to formula
 };
 
 void makeFullMap(NewColumn newcol) {
