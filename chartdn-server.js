@@ -1282,11 +1282,11 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable) {
 		}
 	}
 	var t5 = performance.now();
-	console.log('modifier time',t1,t2,t3,t4,t5);
 	//console.log(filteredArray);
 	retArray = [];
 	var cols = [];
 	var filteredArray = hArray.concat(modJS.toData(rawArray));
+	var t6 = performance.now();
 	for (var i=0;i<filteredArray.length;i++) {
 	
 		if (i == 0){
@@ -1305,6 +1305,8 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable) {
 		}
 	
 	}
+	var t7 = performance.now();
+	console.log('modifier time',t1,t2,t3,t4,t5,t6,t7);
 	return {'byrow':retArray,'bycol':cols,'modified':modifiedArray,'headers':allHeaders};
 	
 }
