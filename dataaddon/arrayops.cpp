@@ -58,7 +58,7 @@ void MethodCol(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	
 	int ii=0;
 	Cppdata oneData;
-	for (std::vector<int>::iterator it = temparray.begin() ; it != temparray.end(); ++it)
+	for (std::vector<std::vector<Cppdata>>::iterator it = temparray.begin() ; it != temparray.end(); ++it)
 		
 		if (col < *it.size()){
 			oneData = *it[col];
