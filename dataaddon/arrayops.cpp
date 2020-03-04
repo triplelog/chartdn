@@ -89,10 +89,11 @@ void MethodLoad(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		statrow.push_back(x);
 	}
 	statarray.push_back(statrow);
+	MethodCopy();
 
 }
 
-void MethodCopy(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+void MethodCopy() {
 	temparray.clear();
 	std::vector<Cppdata> onearray;
 	int sz = statarray.size();
@@ -153,7 +154,7 @@ void Init(v8::Local<v8::Object> exports) {
   exports->Set(context,
                Nan::New("copyarray").ToLocalChecked(),
                Nan::New<v8::FunctionTemplate>(MethodCopy)
-                   ->GetFunction(context)
+                   ->GetFunction()
                    .ToLocalChecked());
   exports->Set(context,
                Nan::New("sortarray").ToLocalChecked(),

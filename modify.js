@@ -448,15 +448,7 @@ exports.newColumn = function(array,options,nHeaders,types) {
 	
 } // Improve postfix, add median and stdev, get more values, data types -- for columns and for new column, error handling, add if col>0
 
-exports.sort = function(array,options) {
-	toData(array);
-	if (options.ascending){
-		fsort(array).asc(u => u[options.column]);
-	}
-	else {
-		fsort(array).desc(u => u[options.column]);
-	}
-} // Done?
+
 
 exports.replace = function(array,options) {
 	if (!options || options.length == 0){ return;}
