@@ -278,9 +278,9 @@ function makeRowMap(array,options,nHeaders,i){
 }
 
 exports.newCol = function(options){
-	var formula = options.formula;
-	if (!formula || formula == ''){return;}
-	var bothparts = postfixify(formula);
+	//var formula = options.formula;
+	//if (!formula || formula == ''){return;}
+	//var bothparts = postfixify(formula);
 	
 	//var fullmap = makeFullMap(options);
 	dataArray.newcolumn();
@@ -426,7 +426,7 @@ function makePost(infixexpr) {
 }
 
 function replaceDecimals(istr){
-	dindex = istr.indexOf('.');
+	var dindex = istr.indexOf('.');
 	while (dindex >-1){
 		intpart = 0;
 		decpart = 0;
