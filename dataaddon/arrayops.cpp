@@ -167,7 +167,12 @@ void MethodNewCol(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Local<v8::Context> context = isolate->GetCurrentContext();
 	NewColumn newcol;
 	newcol.formula = "abcd";
-	//newcol.vars = [];
+	NewColumnVar newvar;
+	newvar.column = 0;
+	newvar.type = "sum";
+	newvar.row = [0,-1,-2,-2];
+	newvar.name = "a";
+	newcol.vars = [newvar];
 	makeFullMap(newcol);
 
 }

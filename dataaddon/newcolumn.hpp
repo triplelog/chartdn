@@ -33,9 +33,9 @@ struct NewColumn {
 
 void makeFullMap(NewColumn newcol) {
 	newcol.fullmap.clear();
-	/*int varsz = newcol.vars.size();
+	int varsz = newcol.vars.size();
 	int i;
-	for (i=0;i<varsz;i++){
+	/*for (i=0;i<varsz;i++){
 		NewColumnVar var;
 		var.column = newcol.vars[i].column;
 		var.type = newcol.vars[i].type;
