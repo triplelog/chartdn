@@ -956,7 +956,7 @@ inline Cppdata solvePostfixVV(char expstr[], std::vector<Cppdata> const intArray
   
         } else 
         { 
-            switch (exp[i]) 
+            switch (expstr[i]) 
             { 
 	            case '>': stack[currentIndex - 2].w = (stack[currentIndex - 2] > stack[currentIndex - 1]) ? 1 : 0; stack[currentIndex - 2].t = 'B'; break; 
 	            case '<': stack[currentIndex - 2].w = (stack[currentIndex - 2] < stack[currentIndex - 1]) ? 1 : 0; stack[currentIndex - 2].t = 'B'; break;
