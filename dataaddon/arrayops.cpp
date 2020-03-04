@@ -170,10 +170,13 @@ void MethodNewCol(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	NewColumnVar newvar;
 	newvar.column = 0;
 	newvar.type = "sum";
-	newvar.row = {0,-1,-2,-2};
+	newvar.row[0] = 0;
+	newvar.row[1] = -1;
+	newvar.row[2] = -2;
+	newvar.row[3] = -2;
 	newvar.name = "a";
 	
-	newcol.vars = {newvar};
+	newcol.vars.push_back(newvar);
 	makeFullMap(newcol);
 
 }
