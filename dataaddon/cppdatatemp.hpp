@@ -22,7 +22,7 @@ using phmap::flat_hash_map;
 
 bool sortFilter = false;
 std::vector<std::vector<int>> sortCol;
-
+int vsize =0;
 struct Cppdata {
 	int v = 1;
 	short w = 1;

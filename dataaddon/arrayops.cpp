@@ -73,6 +73,7 @@ void MethodSort(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	oneSort.push_back(1);
 	oneSort.push_back(1);
 	sortCol.push_back(oneSort);
+	vsize++;
 	std::sort(temparray[0],temparray[500]);
 
 }
