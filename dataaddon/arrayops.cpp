@@ -55,10 +55,11 @@ void MethodCopy(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	int sz = statarray.size();
 	int szz = statarray[0].size();
 	onearray.resize(szz);
-	temparray.resize(sz,onearray)
-	for (int i=0; i<sz; i++) {
+	temparray.resize(sz,onearray);
+	int i=0; int ii = 0;
+	for (i=0; i<sz; i++) {
 		std::vector<Cppdata> onerow(szz);
-		for (int ii=0; ii<szz; ii++) {
+		for (ii=0; ii<szz; ii++) {
 			onerow[ii].t=statarray[i][ii].t;
 			onerow[ii].v=statarray[i][ii].v;
 			onerow[ii].w=statarray[i][ii].w;
