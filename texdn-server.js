@@ -1205,7 +1205,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable=fals
 	if (cpptable){
 		cpptable.sortArray();
 	}
-	console.log('sorted cpptable',performance.now());
+	console.log('sorted 500 cpptable',performance.now());
 	var t2 = performance.now();
 	var hArray = rawArray.slice(0,nHeaders);
 	rawArray.splice(0,nHeaders);

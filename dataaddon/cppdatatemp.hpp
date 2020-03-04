@@ -20,6 +20,9 @@
 using namespace std::chrono;
 using phmap::flat_hash_map;
 
+bool sortFilter = false;
+std::vector<std::vector<int>> sortCol;
+
 struct Cppdata {
 	int v = 1;
 	short w = 1;
@@ -621,18 +624,18 @@ inline bool operator<(const std::vector<Cppdata>& a, const std::vector<Cppdata>&
 	}
 	int i;
 	for (i=vsize-1;i>-1;i--) {
-		if (sortCol[i][0] == 0){
+		/*if (sortCol[i][0] == 0){
 			if (strarray[a[0].v][sortCol[i][1]].compare(strarray[b[0].v][sortCol[i][1]]) < 0) {return true;}
 			if (strarray[a[0].v][sortCol[i][1]].compare(strarray[b[0].v][sortCol[i][1]]) > 0) {return false;}
-		}
-		else if (sortCol[i][0] == 1){
+		}*/
+		if (sortCol[i][0] == 1){
 			if (a[sortCol[i][1]] > b[sortCol[i][1]]) {return true;}
 			if (a[sortCol[i][1]] < b[sortCol[i][1]]) {return false;}
     	}
-    	else if (sortCol[i][0] == 2){
+    	/*else if (sortCol[i][0] == 2){
 			if (strarray[a[0].v][sortCol[i][1]].compare(strarray[b[0].v][sortCol[i][1]]) > 0) {return true;}
 			if (strarray[a[0].v][sortCol[i][1]].compare(strarray[b[0].v][sortCol[i][1]]) < 0) {return false;}
-		}
+		}*/
 		else {
 			if (a[sortCol[i][1]] < b[sortCol[i][1]]) {return true;}
 			if (a[sortCol[i][1]] > b[sortCol[i][1]]) {return false;}
