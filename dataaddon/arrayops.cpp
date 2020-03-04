@@ -155,7 +155,7 @@ void Init(v8::Local<v8::Object> exports) {
   exports->Set(context,
                Nan::New("copyarray").ToLocalChecked(),
                Nan::New<v8::FunctionTemplate>(MethodCopy)
-                   ->GetFunction()
+                   ->GetFunction(context)
                    .ToLocalChecked());
   exports->Set(context,
                Nan::New("sortarray").ToLocalChecked(),
