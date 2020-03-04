@@ -15,9 +15,19 @@ void MethodRead(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
 	v8::Local<v8::Context> context = isolate->GetCurrentContext();
 	int row = info[0]->Int32Value(context).FromJust();
+	int type = 0;
+	if (info.Length() > 1){
+		type = info[1]->Int32Value(context).FromJust();
+	}
 	//int row = (int)(info[0]->Int32Value(context));
 	
-	std::vector<Cppdata> statrow = statarray[row];
+	std::vector<Cppdata> statrow;
+	if (type == 1) {
+		statrow = temparray[row];
+	} 
+	else {
+		statrow = statarray[row];
+	}
 	int sz = statrow.size();
 	v8::Local<v8::Array> outArray = Nan::New<v8::Array>(sz*3);
 	

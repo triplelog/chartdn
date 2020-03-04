@@ -1207,7 +1207,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable=fals
 	}
 	console.log('sorted cpptable',performance.now());
 	if (cpptable){
-		cpptable.readRow(5);
+		cpptable.readRow(5,1);
 	}
 	console.log('output 1 row cpptable',performance.now());
 	var t2;//gets used in modifiers
