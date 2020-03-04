@@ -192,7 +192,6 @@ void MethodNewCol(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	for (i=0;i<sz;i++){
 		flat_hash_map<std::string,Cppdata> rowmap = makeRowMap(newcol,i);
 		//if (rowmap === 'skip'){array[i].push(''); continue;}
-		create int array using intstr, fullmap, and rowmap
 		int ii;
 		int szintstr = intstr.size();
 		std::vector<Cppdata> intArray;
@@ -212,22 +211,8 @@ void MethodNewCol(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 				}
 			}
 		}
-		solvePostfixVV(newcol.expstr.c_str(), intArray, stack);
-		/*var intstr = [];
-		for (var ii in bothparts[0]){
-			if(fullmap[bothparts[0][ii]]){
-				intstr.push(fullmap[bothparts[0][ii]]);
-			}
-			else if(rowmap[bothparts[0][ii]]){
-				
-				intstr.push(rowmap[bothparts[0][ii]]);
-			}
-			else {
-				intstr.push(bothparts[0][ii]);
-			}
-		}
-		var answer = solvePostfix(intstr,bothparts[1]);*/
-		array[i].push(answer);*/
+		Cppdata answer = solvePostfixVV(newcol.expstr.c_str(), intArray, stack);
+		temparray[idx].push_back(answer);
 
 	}
 	//types.push('Float');*/
