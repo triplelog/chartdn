@@ -616,7 +616,7 @@ inline bool operator>=(const Cppdata& a, const Cppdata& b)
     if (a < b){ return false; }
 	return true;
 }
-inline bool operator<(const std::vector<Cppdata>& a, const std::vector<Cppdata>& b)
+inline bool operator<(const std::vector<Cppdata> a, const std::vector<Cppdata> b)
 {
 	if (sortFilter){
 		if (a[0].w != 1) {return false;}
