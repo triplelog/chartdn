@@ -170,7 +170,9 @@ void MethodNewCol(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
 	v8::Local<v8::Context> context = isolate->GetCurrentContext();
 	NewColumn newcol;
-	newcol.formula = "abcd";
+	newcol.intstr.push_back("a");
+	newcol.intstr.push_back("1");
+	newcol.expstr = "##+";
 	NewColumnVar newvar;
 	newvar.column = 0;
 	newvar.type = "sum";
@@ -183,13 +185,34 @@ void MethodNewCol(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	newcol.vars.push_back(newvar);
 	
 	
-	//postfixify(formula)
 	makeFullMap(newcol);
 	int sz = temparray.size();
 	int i;
+	std::vector<Cppdata> stack;
 	for (i=0;i<sz;i++){
 		flat_hash_map<std::string,Cppdata> rowmap = makeRowMap(newcol,i);
 		//if (rowmap === 'skip'){array[i].push(''); continue;}
+		create int array using intstr, fullmap, and rowmap
+		int ii;
+		int szintstr = intstr.size();
+		std::vector<Cppdata> intArray;
+		flat_hash_map<std::string,Cppdata>::iterator f;
+		for (ii=0;ii<szintstr;ii++){
+			f = fullmap.find(intstr[ii]);
+			if (f != fullmap.end()){
+				intArray.push_back(f->second);
+			}
+			else {
+				f = rowmap.find(intstr[ii]);
+				if (f != rowmap.end()){
+					intArray.push_back(f->second);
+				}
+				else {
+					intArray.push_back(cppconstructor(intstr[ii].c_str()));
+				}
+			}
+		}
+		solvePostfixVV(newcol.expstr.c_str(), intArray, stack);
 		/*var intstr = [];
 		for (var ii in bothparts[0]){
 			if(fullmap[bothparts[0][ii]]){
@@ -203,7 +226,7 @@ void MethodNewCol(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 				intstr.push(bothparts[0][ii]);
 			}
 		}
-		var answer = solvePostfix(intstr,bothparts[1]);
+		var answer = solvePostfix(intstr,bothparts[1]);*/
 		array[i].push(answer);*/
 
 	}

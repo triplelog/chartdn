@@ -18,7 +18,7 @@ function makePost(infixexpr) {
 	opStack = []
 	postfixList = []
 	intstr = []
-	expstr = []
+	expstr = ""
 	tokenList = []
 	temptoken = ''
 	for (var i=0;i<infixexpr.length;i++){
@@ -67,13 +67,13 @@ function makePost(infixexpr) {
 		var ci = postfixList[i];
 		if ("*/+~><=![]&|".indexOf(ci) == -1){
 			intstr.push(ci);
-			expstr.push('#');
+			expstr += '#';
 		}
 		else if (ci == '~'){
-			expstr.push('-');
+			expstr += '-';
 		}
 		else{
-			expstr.push(ci);
+			expstr += ci;
 		}
 	}
 	return [intstr,expstr]
@@ -202,6 +202,9 @@ function solvePostfix(intstr,expstr){
 	}
 }
 
+exports.newpostfix = function(input_str){
+	return postfixify(input_str);
+}
 function toData(array){
 	var remidx = [];
 	for (var i in array) {

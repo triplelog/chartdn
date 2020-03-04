@@ -1245,6 +1245,9 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable) {
 			//	hArray[0].push(modifiers[i].name);
 			//}
 			//Update columns in create chart
+			var bothparts = modJS.newpostfix(modifiers[i].options.formula);
+			modifiers[i].options['intstr']=bothparts[0];
+			modifiers[i].options['expstr']=bothparts[1];
 			cpptable.newCol(modifiers[i].options);
 		}
 		else if (modifiers[i].type == 'filter'){
