@@ -32,7 +32,7 @@ struct NewColumn {
 };
 
 void makeFullMap(NewColumn newcol) {
-	fullmap.clear();
+	newcol.fullmap.clear();
 	/*int varsz = newcol.vars.size();
 	int i;
 	for (i=0;i<varsz;i++){
