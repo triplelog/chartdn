@@ -142,7 +142,20 @@ exports.readCol = function(i){
 	var outRaw = dataArray.readarraycol(i);
 	var out = [];
 	for (var i=0;i<outRaw.length/3;i++){
-		out.push(outRaw[i*3+1]);
+		if (outRaw[i*3+0] == 'I'){
+			out.push(outRaw[i*3+1]);
+		}
+		else if (outRaw[i*3+0] == 'S'){
+			out.push(outRaw[i*3+1]);
+		}
+		else if (outRaw[i*3+0] == 'F'){
+			if (outRaw[i*3+2]> 0){
+				out.push(outRaw[i*3+1]*Math.pow(10,outRaw[i*3+2]));
+			}
+			else if (outRaw[i*3+2]< 0){
+				out.push(outRaw[i*3+1]/Math.pow(10,-1*outRaw[i*3+2]));
+			}
+		}
 	}
 	return out;
 }

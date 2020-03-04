@@ -11,6 +11,7 @@ void MethodCopy(const Nan::FunctionCallbackInfo<v8::Value>& info);
 
 void MethodClear(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	statarray.clear();
+	strarray.clear();
 }
 
 void MethodRead(const Nan::FunctionCallbackInfo<v8::Value>& info) {

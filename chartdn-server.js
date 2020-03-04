@@ -1370,6 +1370,7 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes,sendTable,cppta
 					quoteChar: '"',
 				});
 				var returnData = {};
+				console.log('file parsed',performance.now());
 				cpptable.clearArray();
 				cpptable.loadRows(results.data);
 				console.log('cpptable loaded',performance.now());
