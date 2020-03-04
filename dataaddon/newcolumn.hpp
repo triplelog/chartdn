@@ -71,7 +71,7 @@ void makeFullMap(NewColumn newcol) {
 				n++;
 			}
 			if (n > 0){
-				newcol.fullmap[var.name]=sum/n;
+				newcol.fullmap[var.name]=sum/Cppdata(n);
 			}
 		}
 		else if (var.type=="count"){
