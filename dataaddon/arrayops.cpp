@@ -35,12 +35,20 @@ void MethodRead(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	
 	int ii=0;
 	for (ii=0;ii<sz;ii++){
-		
-		const char* t = &statrow[ii].t;
-		Nan::MaybeLocal<v8::String> tt = Nan::New<v8::String>(t, 1);
-		Nan::Set(outArray,ii*3+0,tt.ToLocalChecked());
-		Nan::Set(outArray,ii*3+1,v8::Number::New(isolate,statrow[ii].v));
-		Nan::Set(outArray,ii*3+2,v8::Number::New(isolate,statrow[ii].w));
+		if (statrow[ii].t == 'S'){
+			const char* t = &statrow[ii].t;
+			Nan::MaybeLocal<v8::String> tt = Nan::New<v8::String>(t, 1);
+			Nan::Set(outArray,ii*3+0,tt.ToLocalChecked());
+			Nan::Set(outArray,ii*3+1,v8::Number::New(isolate,strarray[statrow[ii].v][statrow[ii].w]));
+			Nan::Set(outArray,ii*3+2,v8::Number::New(isolate,statrow[ii].w));
+		}
+		else {
+			const char* t = &statrow[ii].t;
+			Nan::MaybeLocal<v8::String> tt = Nan::New<v8::String>(t, 1);
+			Nan::Set(outArray,ii*3+0,tt.ToLocalChecked());
+			Nan::Set(outArray,ii*3+1,v8::Number::New(isolate,statrow[ii].v));
+			Nan::Set(outArray,ii*3+2,v8::Number::New(isolate,statrow[ii].w));
+		}
 		//Nan::Set(outArray,ii,v8::String::NewFromUtf8(isolate,&statrow[ii].t).ToLocalChecked());
 	}
 	info.GetReturnValue().Set(outArray);
@@ -93,7 +101,8 @@ void MethodLoad(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		if (x.t == 'S'){
 			std::string str(*s);
 			strrow.push_back(str);
-			x.v = idx;
+			x.v = statarray.size();
+			x.w = idx;
 			idx++;
 			
 		}
