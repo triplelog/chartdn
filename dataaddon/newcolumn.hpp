@@ -33,7 +33,7 @@ struct NewColumn {
 
 void makeFullMap(NewColumn newcol) {
 	fullmap.clear();
-	int varsz = newcol.vars.size();
+	/*int varsz = newcol.vars.size();
 	int i;
 	for (i=0;i<varsz;i++){
 		NewColumnVar var;
@@ -45,7 +45,7 @@ void makeFullMap(NewColumn newcol) {
 			continue;
 		}
 		int rowStart = 0;
-		int rowEnd = lengthofarray - 1;
+		int rowEnd = lengthofarray - 1;*/
 		/*var rows = var.row.split(',');
 		if (rows.length <2){continue;}
 		var rowStart; var rowEnd;
@@ -70,8 +70,8 @@ void makeFullMap(NewColumn newcol) {
 		else {
 			continue;
 		}*/
-		int ii;
-		if (var.type=='mean'){
+		/*int ii;
+		if (var.type=="mean"){
 			int sum = 0;//Make this Cppdata -- of first row or 0
 			int n = 0;
 			
@@ -83,21 +83,21 @@ void makeFullMap(NewColumn newcol) {
 				fullmap[var.name]=sum/n;
 			}
 		}
-		else if (var.type=='count'){
+		else if (var.type=="count"){
 			int n = 0;
 			for (ii=rowStart;ii<=rowEnd;ii++){
 				n++;
 			}
 			fullmap[var.name]=n;
 		}
-		else if (var.type=='sum'){
+		else if (var.type=="sum"){
 			int sum = 0;
 			for (ii=rowStart;ii<=rowEnd;ii++){
 				sum += parseInt(array[ii][var.column]);
 			}
 			fullmap[var.name]=sum;
 		}
-		else if (var.type=='max'){
+		else if (var.type=="max"){
 			int max = parseInt(array[rowStart][var.column]);
 			for (ii=rowStart;ii<=rowEnd;ii++){
 				if (parseInt(array[ii][var.column]) > max){
@@ -106,7 +106,7 @@ void makeFullMap(NewColumn newcol) {
 			}
 			fullmap[var.name]=max;
 		}
-		else if (var.type=='min'){
+		else if (var.type=="min"){
 			int min = parseInt(array[rowStart][var.column]);
 			for (ii=rowStart;ii<=rowEnd;ii++){
 				if (parseInt(array[ii][var.column]) < min){
@@ -115,5 +115,5 @@ void makeFullMap(NewColumn newcol) {
 			}
 			fullmap[var.name]=min;
 		}
-	}
+	}*/
 }

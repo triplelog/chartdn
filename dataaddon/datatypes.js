@@ -279,8 +279,8 @@ exports.newCol = function(options){
 	if (!formula || formula == ''){return;}
 	var bothparts = postfixify(formula);
 	
-	var fullmap = makeFullMap(options);
-		
+	//var fullmap = makeFullMap(options);
+	dataArray.makeNewColumn();
 	/*for (var i in array){
 		var rowmap = makeRowMap(array,options,nHeaders,i);
 		if (rowmap === 'skip'){array[i].push(''); continue;}
