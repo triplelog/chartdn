@@ -21,13 +21,13 @@ void MethodRead(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	}
 	//int row = (int)(info[0]->Int32Value(context));
 	
-	std::vector<Cppdata> statrow;
-	if (type == 1) {
+	std::vector<Cppdata> statrow = temparray[row];
+	/*if (type == 1) {
 		statrow = temparray[row];
 	} 
 	else {
 		statrow = statarray[row];
-	}
+	}*/
 	int sz = statrow.size();
 	v8::Local<v8::Array> outArray = Nan::New<v8::Array>(sz*3);
 	
@@ -85,7 +85,8 @@ void MethodSort(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	oneSort.push_back(1);
 	sortCol.push_back(oneSort);
 	vsize++;
-	std::sort(temparray.begin(),temparray.end());
+	//std::sort(temparray.begin(),temparray.end());
+	std::partial_sort(temparray.begin(),temparray[1000],temparray.end());
 
 }
 
