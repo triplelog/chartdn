@@ -6,6 +6,7 @@ Cppdata x;
 std::vector<std::vector<Cppdata>> statarray;
 std::vector<std::vector<Cppdata>> temparray;
 
+void MethodCopy();
 
 void MethodClear(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	statarray.clear();
