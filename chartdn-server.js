@@ -1372,6 +1372,9 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes,sendTable,cppta
 				var returnData = {};
 				cpptable.clearArray();
 				cpptable.loadRows(results.data);
+				console.log('cpptable loaded',performance.now());
+				cpptable.copyArray();
+				console.log('cpptable copied',performance.now());
 				if (chgTypes){
 					console.log('start getting types',performance.now());
 					var types = cpptable.makeTypes(results.data.slice(0,1000));
@@ -1381,7 +1384,6 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes,sendTable,cppta
 				else {
 					//console.log(chartInfo.types);
 				}
-				console.log('parsed',performance.now());
 				makeChartsWithData(ws,results.data,chartInfo,chartStyle,dm,sendTable,cpptable);
 				returnData.data = results.data;
 				resolve(returnData);

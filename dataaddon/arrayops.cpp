@@ -90,7 +90,6 @@ void MethodLoad(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		statrow.push_back(x);
 	}
 	statarray.push_back(statrow);
-	MethodCopy(info);
 
 }
 
