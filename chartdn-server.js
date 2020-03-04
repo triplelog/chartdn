@@ -1198,9 +1198,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable) {
 	rawArray = dataStr;
 	var t1 = performance.now();
 	console.log('tocopy cpptable',performance.now());
-	if (cpptable){
-		cpptable.copyArray();
-	}
+	cpptable.copyArray();
 	console.log('copied cpptable',performance.now());
 	/*if (cpptable){
 		cpptable.sortArray();
@@ -1226,17 +1224,15 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable) {
 		}
 		if (!modifiers[i].enabled){continue;}
 		if (nsteps === 0 || (nsteps && idx >= nsteps)){
-			modifiedArray = [];
+			
 			allHeaders['modified']={};
 			allHeaders['modified'].headers=hArray[0].slice();
 			allHeaders['modified'].types=types.slice();
-			//var hlen = hArray.length;
-			var rlen = rawArray.length;
-			/*for (var ii=0;ii<hlen;ii++){
-				allHeaders['modified'][ii] = hArray[ii].slice();
-			}*/
+			modifiedArray = [];
+			//var rlen = rawArray.length;
+			var rlen = 1000;
 			for (var ii=0;ii<rlen;ii++){
-				modifiedArray[ii] = rawArray[ii].slice();
+				modifiedArray[ii] = cpptable.readRow(ii);
 			}
 			nsteps = false;
 		}
@@ -1254,9 +1250,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable) {
 		}
 		else if (modifiers[i].type == 'sort'){
 			//modJS.sort(rawArray,modifiers[i].options);
-			if (cpptable){
-				cpptable.sortArray();
-			}
+			cpptable.sortArray();
 		}
 		else if (modifiers[i].type == 'replace'){
 			modJS.replace(rawArray,modifiers[i].options);
@@ -1284,9 +1278,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable) {
 		var t4 = performance.now();
 		for (var ii=0;ii<rlen;ii++){
 			//modifiedArray[ii] = rawArray[ii].slice();
-			if (cpptable){
-				modifiedArray[ii] = cpptable.readRow(ii);
-			}
+			modifiedArray[ii] = cpptable.readRow(ii);
 		}
 	}
 	var t5 = performance.now();
