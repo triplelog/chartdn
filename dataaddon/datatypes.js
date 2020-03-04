@@ -137,7 +137,7 @@ exports.readRow = function(i){
 	var outRaw = dataArray.readarray(i);
 	var out = [];
 	for (var i=0;i<outRaw.length/3;i++){
-		out.push(outputValue(outRaw[i*3],outRaw[i*3],outRaw[i*3]));
+		out.push(outputValue(outRaw[i*3],outRaw[i*3+1],outRaw[i*3+2]));
 	}
 	return out;
 }
@@ -159,7 +159,7 @@ exports.readCol = function(i){
 	var outRaw = dataArray.readarraycol(i);
 	var out = [];
 	for (var i=0;i<outRaw.length/3;i++){
-		out.push(outputValue(outRaw[i*3],outRaw[i*3],outRaw[i*3]));
+		out.push(outputValue(outRaw[i*3],outRaw[i*3+1],outRaw[i*3+2]));
 	}
 	return out;
 }
