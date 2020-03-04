@@ -193,26 +193,26 @@ void MethodNewCol(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		flat_hash_map<std::string,Cppdata> rowmap = makeRowMap(newcol,i);
 		//if (rowmap === 'skip'){array[i].push(''); continue;}
 		int ii;
-		int szintstr = intstr.size();
+		int szintstr = newcol.intstr.size();
 		std::vector<Cppdata> intArray;
 		flat_hash_map<std::string,Cppdata>::iterator f;
 		for (ii=0;ii<szintstr;ii++){
-			f = fullmap.find(intstr[ii]);
-			if (f != fullmap.end()){
+			f = newcol.fullmap.find(newcol.intstr[ii]);
+			if (f != newcol.fullmap.end()){
 				intArray.push_back(f->second);
 			}
 			else {
-				f = rowmap.find(intstr[ii]);
+				f = rowmap.find(newcol.intstr[ii]);
 				if (f != rowmap.end()){
 					intArray.push_back(f->second);
 				}
 				else {
-					intArray.push_back(cppconstructor(intstr[ii].c_str()));
+					intArray.push_back(cppconstructor(newcol.intstr[ii].c_str()));
 				}
 			}
 		}
 		Cppdata answer = solvePostfixVV(newcol.expstr.c_str(), intArray, stack);
-		temparray[idx].push_back(answer);
+		temparray[i].push_back(answer);
 
 	}
 	//types.push('Float');*/
