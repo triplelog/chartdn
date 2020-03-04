@@ -139,7 +139,7 @@ exports.readCol = function(i){
 	for (var i=0;i<outRaw.length/3;i++){
 		out.push(outRaw[i*3+1]);
 	}
-	return outRaw;
+	return out;
 }
 
 

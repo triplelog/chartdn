@@ -56,13 +56,15 @@ void MethodCol(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	int sz = temparray.size();
 	v8::Local<v8::Array> outArray = Nan::New<v8::Array>(sz*3);
 	
-	int ii=0;
+	
 	Cppdata oneData;
+	std::vector<Cppdata> oneRow;
 	std::vector<std::vector<Cppdata>>::iterator it;
+	int ii=0;
 	for (it = temparray.begin() ; it != temparray.end(); ++it){
-		
-		if (col < (*it).size()){
-			oneData = (*it)[col];
+		oneRow = *it;
+		if (col < oneRow.size()){
+			oneData = oneRow[col];
 			const char* t = &oneData.t;
 			Nan::MaybeLocal<v8::String> tt = Nan::New<v8::String>(t, 1);
 			Nan::Set(outArray,ii*3+0,tt.ToLocalChecked());
@@ -70,6 +72,7 @@ void MethodCol(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 			Nan::Set(outArray,ii*3+2,v8::Number::New(isolate,oneData.w));
 			//Nan::Set(outArray,ii,v8::String::NewFromUtf8(isolate,&statrow[ii].t).ToLocalChecked());
 		}
+		ii++;
 	}
 	info.GetReturnValue().Set(outArray);
 }
