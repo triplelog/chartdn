@@ -1,6 +1,6 @@
 //Line, bar, pie/donut, scatter, bubble,
  
-exports.createPlotly = function(data,options) {
+exports.createPlotly = function(data,options,cpptable) {
 	var datasets = [];
 	if (!options['yColumns'] || options['yColumns'].length == 0){return {};}
 	for (var i=0;i<options['yColumns'].length;i++){
@@ -40,16 +40,16 @@ exports.createPlotly = function(data,options) {
 		
 		if (options.type == 'line' || options.type == 'bar'){
 			
-			if (options.xColumn != ''){dataObject['x']=data['bycol'][options['xColumn']];}
+			if (options.xColumn != ''){dataObject['x']=cpptable.readCol(options['xColumn']);}
 			else {dataObject['x']=i;}
 		
-			dataObject['y']=data['bycol'][options['yColumns'][i]];
+			dataObject['y']=cpptable.readCol(options['yColumns'][i]);
 		}
 		if (options.type == 'pie') {
-			if (options.xColumn != ''){dataObject['labels']=data['bycol'][options['xColumn']];}
+			if (options.xColumn != ''){dataObject['labels']=cpptable.readCol(options['xColumn']);}
 			else {dataObject['labels']=i;}
 			
-			dataObject['values']=data['bycol'][options['yColumns'][i]];
+			dataObject['values']=cpptable.readCol(options['yColumns'][i]);
 			dataObject['hole']=.5;
 		}
 		

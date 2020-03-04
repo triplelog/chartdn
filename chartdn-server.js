@@ -1287,30 +1287,10 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable) {
 	var col1 = cpptable.readCol(1);
 	
 	var cols = [];
-	var t5b = performance.now();
-	console.log(col1.slice(0,100));
-	var filteredArray = hArray.concat(modJS.toData(rawArray));
 	var t6 = performance.now();
-	for (var i=0;i<filteredArray.length;i++) {
-	
-		if (i == 0){
-			for (var ii=0;ii<filteredArray[i].length;ii++) {
-				cols.push([]);
-			}
-		}
-		if (i >= nHeaders) {
-			var thisrow = cpptable.readRow(i-nHeaders);
-			for (var ii=0;ii<thisrow.length;ii++) {
-				var cell = thisrow[ii];
-				cols[ii].push(cell);
-			}
-			retArray.push(thisrow);
-		}
-	
-	}
-	var t7 = performance.now();
-	console.log('modifier time',t1,t2,t3,t4,t5,t5b,t6,t7);
-	return {'byrow':retArray,'bycol':cols,'modified':modifiedArray,'headers':allHeaders};
+	console.log(col1.slice(0,100));
+	console.log('modifier time',t1,t2,t3,t4,t5,t6);
+	return {'modified':modifiedArray,'headers':allHeaders};
 	
 }
 function makeChartsWithData(ws,rawdata,chartInfo,chartStyle,dm,reloadTable,cpptable) {
@@ -1346,7 +1326,7 @@ function makeChartsWithData(ws,rawdata,chartInfo,chartStyle,dm,reloadTable,cppta
 		ws.send(JSON.stringify(jsonmessage));
 	}*/
 	if (chartStyle == 'all' || chartStyle == 'plotly') {
-		var chartJSON = createPlotly.createPlotly(data,chartInfo.options);
+		var chartJSON = createPlotly.createPlotly(data,chartInfo.options,cpptable);
 		console.log('plotly created',performance.now());
 		if (!dm.loc){dm.loc = 0}
 		var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc,'style':'plotly','allHeaders':data.headers};
