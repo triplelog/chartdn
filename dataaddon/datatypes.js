@@ -117,8 +117,12 @@ exports.loadRows = function(data){
 	}
 }
 exports.readRow = function(i){
-	var out = dataArray.readarray(i);
-	console.log(out);
+	var outRaw = dataArray.readarray(i);
+	var out = [];
+	for (var i=0;i<outRaw.length/3;i++){
+		out.push(outRaw[i*3+1]);
+	}
+	return out;
 }
 exports.clearArray = function(i){
 	dataArray.cleararray();
