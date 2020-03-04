@@ -4,6 +4,7 @@
 
 Cppdata x;
 std::vector<std::vector<Cppdata>> statarray;
+std::vector<std::vector<std::string>> strarray;
 std::vector<std::vector<Cppdata>> temparray;
 
 void MethodCopy(const Nan::FunctionCallbackInfo<v8::Value>& info);
@@ -84,12 +85,23 @@ void MethodLoad(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	int sz = inArray->Length();
 	int ii=0;
 	std::vector<Cppdata> statrow;
+	std::vector<std::string> strrow;
+	int idx = 0;
 	for (ii=0;ii<sz;ii++){
 		v8::String::Utf8Value s(isolate, Nan::Get(inArray,ii).ToLocalChecked());
 		x = cppconstructor(*s);
+		if (x.t == 'S'){
+			std::string str(*s);
+			strrow.push_back(str);
+			x.v = idx;
+			idx++;
+			
+		}
 		statrow.push_back(x);
+		
 	}
 	statarray.push_back(statrow);
+	strarray.push_back(strrow);
 
 }
 
