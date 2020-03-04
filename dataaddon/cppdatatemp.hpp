@@ -613,6 +613,33 @@ inline bool operator>=(const Cppdata& a, const Cppdata& b)
     if (a < b){ return false; }
 	return true;
 }
+inline bool operator<(const std::vector<Cppdata>& a, const std::vector<Cppdata>& b)
+{
+	if (sortFilter){
+		if (a[0].w != 1) {return false;}
+		if (b[0].w == 0) {return true;}
+	}
+	int i;
+	for (i=vsize-1;i>-1;i--) {
+		if (sortCol[i][0] == 0){
+			if (strarray[a[0].v][sortCol[i][1]].compare(strarray[b[0].v][sortCol[i][1]]) < 0) {return true;}
+			if (strarray[a[0].v][sortCol[i][1]].compare(strarray[b[0].v][sortCol[i][1]]) > 0) {return false;}
+		}
+		else if (sortCol[i][0] == 1){
+			if (a[sortCol[i][1]] > b[sortCol[i][1]]) {return true;}
+			if (a[sortCol[i][1]] < b[sortCol[i][1]]) {return false;}
+    	}
+    	else if (sortCol[i][0] == 2){
+			if (strarray[a[0].v][sortCol[i][1]].compare(strarray[b[0].v][sortCol[i][1]]) > 0) {return true;}
+			if (strarray[a[0].v][sortCol[i][1]].compare(strarray[b[0].v][sortCol[i][1]]) < 0) {return false;}
+		}
+		else {
+			if (a[sortCol[i][1]] < b[sortCol[i][1]]) {return true;}
+			if (a[sortCol[i][1]] > b[sortCol[i][1]]) {return false;}
+    	}
+    }
+    return false;
+}
 inline Cppdata createDate(int m, int d, int y){
 	Cppdata out = Cppdata(0);
 	out.t = 'D';

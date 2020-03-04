@@ -123,6 +123,12 @@ exports.readRow = function(i){
 exports.clearArray = function(i){
 	dataArray.cleararray();
 }
+exports.copyArray = function(i){
+	dataArray.copyarray();
+}
+exports.sortArray = function(i){
+	dataArray.sortarray();
+}
 
 
 

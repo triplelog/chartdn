@@ -1193,12 +1193,19 @@ loginServer.listen(3000);
 
 
 
-function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types) {
+function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable=false) {
 
 	rawArray = dataStr;
 	var t1 = performance.now();
-
-	
+	console.log('tocopy cpptable',performance.now());
+	if (cpptable){
+		cpptable.copyArray();
+	}
+	console.log('copied cpptable',performance.now());
+	if (cpptable){
+		cpptable.sortArray();
+	}
+	console.log('sorted cpptable',performance.now());
 	var t2 = performance.now();
 	var hArray = rawArray.slice(0,nHeaders);
 	rawArray.splice(0,nHeaders);
@@ -1297,7 +1304,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types) {
 	return {'byrow':retArray,'bycol':cols,'modified':modifiedArray,'headers':allHeaders};
 	
 }
-function makeChartsWithData(ws,rawdata,chartInfo,chartStyle,dm,reloadTable=true) {
+function makeChartsWithData(ws,rawdata,chartInfo,chartStyle,dm,reloadTable=true,cpptable=false) {
 	var maxColumns = 50;
 	var newData = [];
 	var rawLen = rawdata.length;
@@ -1306,7 +1313,7 @@ function makeChartsWithData(ws,rawdata,chartInfo,chartStyle,dm,reloadTable=true)
 	}
 	console.log('data converted',performance.now());
 	var nHeaders = chartInfo.options.nHeaders || 1;
-	var data = convertDataToFull(newData,nHeaders,chartInfo.modifiers,chartInfo.options.nsteps,chartInfo.types.slice(0,maxColumns));
+	var data = convertDataToFull(newData,nHeaders,chartInfo.modifiers,chartInfo.options.nsteps,chartInfo.types.slice(0,maxColumns),cpptable);
 	console.log('modifiers applied',performance.now());
 	/*
 	if (chartStyle == 'all' || chartStyle == 'chartJS') {
@@ -1377,8 +1384,7 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes,sendTable,cppta
 				});
 				var returnData = {};
 				cpptable.clearArray();
-				cpptable.loadRows(results.data.slice(0,1000));
-				cpptable.readRow(5);
+				cpptable.loadRows(results.data);
 				if (chgTypes){
 					console.log('start getting types',performance.now());
 					var types = cpptable.makeTypes(results.data.slice(0,1000));
@@ -1389,7 +1395,7 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes,sendTable,cppta
 					//console.log(chartInfo.types);
 				}
 				console.log('parsed',performance.now());
-				makeChartsWithData(ws,results.data,chartInfo,chartStyle,dm,sendTable);
+				makeChartsWithData(ws,results.data,chartInfo,chartStyle,dm,sendTable,cpptable);
 				returnData.data = results.data;
 				resolve(returnData);
 			}

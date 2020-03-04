@@ -4,16 +4,9 @@
 
 Cppdata x;
 std::vector<std::vector<Cppdata>> statarray;
-bool grabNumber(char* input_str) {
-	int sz = sizeof(input_str)/sizeof(char*);
-	int i=0;
-	for (i=0;i<sz;i++){
-		if (input_str[i] == '9'){
-			return true;
-		}
-	}
-	return false;
-}
+std::vector<std::vector<Cppdata>> temparray;
+bool sortFilter = false;
+std::vector<std::vector<int>> sortCol;
 
 void MethodClear(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	statarray.clear();
@@ -57,6 +50,34 @@ void MethodLoad(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 
 }
 
+void MethodCopy(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+	temparray.clear();
+	std::vector<Cppdata> onearray;
+	int sz = statarray.size();
+	int szz = statarray[0].size();
+	onearray.resize(szz);
+	temparray.resize(sz,onearray)
+	for (int i=0; i<sz; i++) {
+		std::vector<Cppdata> onerow(szz);
+		for (int ii=0; ii<szz; ii++) {
+			onerow[ii].t=statarray[i][ii].t;
+			onerow[ii].v=statarray[i][ii].v;
+			onerow[ii].w=statarray[i][ii].w;
+		}
+		temparray[i] =onerow;
+	}
+
+}
+
+void MethodSort(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+	std::vector<int> oneSort;
+	oneSort.push_back(0);
+	oneSort.push_back(1);
+	sortCol.push_back(oneSort);
+	std::sort(temparray[0],temparray[500]);
+
+}
+
 void Init(v8::Local<v8::Object> exports) {
   //std::vector<Cppdata>* statarray = new std::vector<Cppdata>[plen];
   v8::Local<v8::Context> context = exports->CreationContext();
@@ -73,6 +94,16 @@ void Init(v8::Local<v8::Object> exports) {
   exports->Set(context,
                Nan::New("cleararray").ToLocalChecked(),
                Nan::New<v8::FunctionTemplate>(MethodClear)
+                   ->GetFunction(context)
+                   .ToLocalChecked());
+  exports->Set(context,
+               Nan::New("copyarray").ToLocalChecked(),
+               Nan::New<v8::FunctionTemplate>(MethodCopy)
+                   ->GetFunction(context)
+                   .ToLocalChecked());
+  exports->Set(context,
+               Nan::New("sortarray").ToLocalChecked(),
+               Nan::New<v8::FunctionTemplate>(MethodSort)
                    ->GetFunction(context)
                    .ToLocalChecked());
 }
