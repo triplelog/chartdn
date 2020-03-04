@@ -1295,13 +1295,12 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable) {
 			}
 		}
 		if (i >= nHeaders) {
-			var tempA = [];
-			for (var ii=0;ii<filteredArray[i].length;ii++) {
-				var cell = filteredArray[i][ii];
+			var thisrow = cpptable.readRow(i);
+			for (var ii=0;ii<thisrow.length;ii++) {
+				var cell = thisrow[ii];
 				cols[ii].push(cell);
-				tempA.push(cell);
 			}
-			retArray.push(tempA);
+			retArray.push(thisrow);
 		}
 	
 	}
