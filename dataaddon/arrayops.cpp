@@ -181,7 +181,33 @@ void MethodNewCol(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	newvar.name = "a";
 	
 	newcol.vars.push_back(newvar);
+	
+	
+	//postfixify(formula)
 	makeFullMap(newcol);
+	int sz = temparray.size();
+	int i;
+	for (i=0;i<sz;i++){
+		flat_hash_map<std::string,Cppdata> rowmap = makeRowMap(newcol,i);
+		//if (rowmap === 'skip'){array[i].push(''); continue;}
+		/*var intstr = [];
+		for (var ii in bothparts[0]){
+			if(fullmap[bothparts[0][ii]]){
+				intstr.push(fullmap[bothparts[0][ii]]);
+			}
+			else if(rowmap[bothparts[0][ii]]){
+				
+				intstr.push(rowmap[bothparts[0][ii]]);
+			}
+			else {
+				intstr.push(bothparts[0][ii]);
+			}
+		}
+		var answer = solvePostfix(intstr,bothparts[1]);
+		array[i].push(answer);*/
+
+	}
+	//types.push('Float');*/
 
 }
 
