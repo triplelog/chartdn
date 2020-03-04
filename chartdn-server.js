@@ -1278,6 +1278,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable) {
 		var t4 = performance.now();
 		for (var ii=0;ii<rlen;ii++){
 			//modifiedArray[ii] = rawArray[ii].slice();
+			console.log(ii);
 			modifiedArray[ii] = cpptable.readRow(ii);
 		}
 	}
