@@ -91,7 +91,7 @@ void makeFullMap(NewColumn newcol) {
 			for (ii=rowStart+1;ii<=rowEnd;ii++){
 				sum = sum + temparray[ii][var.column];
 			}
-			fullmap[var.name]=sum;
+			newcol.fullmap[var.name]=sum;
 		}/*
 		else if (var.type=="max"){
 			int max = parseInt(array[rowStart][var.column]);
