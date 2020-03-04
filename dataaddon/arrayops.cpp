@@ -115,7 +115,7 @@ void MethodCopy(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 void MethodSort(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
 	v8::Local<v8::Context> context = isolate->GetCurrentContext();
-	bool ascending = info[1]->BooleanValue(context);
+	bool ascending = info[1]->BooleanValue(isolate);
 	int col = info[0]->Int32Value(context).FromJust();
 	
 	std::vector<int> oneSort;
