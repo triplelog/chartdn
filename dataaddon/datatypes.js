@@ -7,6 +7,23 @@ const arrayPath = require.resolve(`./build/Release/bindingArray`);
 const datatypes = require(bindingPath);
 const dataArray = require(arrayPath);
 
+function outputValue(t,v,w){
+	if (t == 'I'){
+		return v;
+	}
+	else if (t == 'S'){
+		return v;
+	}
+	else if (t == 'F'){
+		if (w> 0){
+			return v*Math.pow(10,w);
+		}
+		else if (w< 0){
+			return v/Math.pow(10,w);
+		}
+	}
+	return v;
+}
 /*
 var allins = [];
 console.log(performance.now());
@@ -120,7 +137,7 @@ exports.readRow = function(i){
 	var outRaw = dataArray.readarray(i);
 	var out = [];
 	for (var i=0;i<outRaw.length/3;i++){
-		out.push(outRaw[i*3+1]);
+		out.push(outputValue(outRaw[i*3],outRaw[i*3],outRaw[i*3]));
 	}
 	return out;
 }
@@ -142,20 +159,7 @@ exports.readCol = function(i){
 	var outRaw = dataArray.readarraycol(i);
 	var out = [];
 	for (var i=0;i<outRaw.length/3;i++){
-		if (outRaw[i*3+0] == 'I'){
-			out.push(outRaw[i*3+1]);
-		}
-		else if (outRaw[i*3+0] == 'S'){
-			out.push(outRaw[i*3+1]);
-		}
-		else if (outRaw[i*3+0] == 'F'){
-			if (outRaw[i*3+2]> 0){
-				out.push(outRaw[i*3+1]*Math.pow(10,outRaw[i*3+2]));
-			}
-			else if (outRaw[i*3+2]< 0){
-				out.push(outRaw[i*3+1]/Math.pow(10,-1*outRaw[i*3+2]));
-			}
-		}
+		out.push(outputValue(outRaw[i*3],outRaw[i*3],outRaw[i*3]));
 	}
 	return out;
 }
