@@ -175,7 +175,7 @@ void MethodNewCol(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	std::string estr("##+");
 	newcol.expstr = estr;
 	NewColumnVar newvar;
-	newvar.column = 0;
+	newvar.column = 1;
 	newvar.type = "sum";
 	newvar.row[0] = 0;
 	newvar.row[1] = -1;
@@ -212,10 +212,10 @@ void MethodNewCol(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 				}
 			}
 		}
-		/*int len = newcol.expstr.length();
+		int len = newcol.expstr.length();
 		char exp[len+1];
 		strcpy(exp, newcol.expstr.c_str());
-		Cppdata answer = solvePostfixVV(exp, intArray, stack);
+		/*Cppdata answer = solvePostfixVV(exp, intArray, stack);
 		temparray[i].push_back(answer);*/
 
 	}
