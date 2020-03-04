@@ -1205,7 +1205,11 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable=fals
 	if (cpptable){
 		cpptable.sortArray();
 	}
-	console.log('sorted 500 cpptable',performance.now());
+	console.log('sorted cpptable',performance.now());
+	if (cpptable){
+		cpptable.readRow(5);
+	}
+	console.log('output 1 row cpptable',performance.now());
 	var t2 = performance.now();
 	var hArray = rawArray.slice(0,nHeaders);
 	rawArray.splice(0,nHeaders);
@@ -1279,7 +1283,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable=fals
 		}
 	}
 	var t6 = performance.now();
-	console.log(t2,t6);
+	console.log('modifier time',t2,t6);
 	//console.log(filteredArray);
 	retArray = [];
 	var cols = [];
