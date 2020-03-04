@@ -57,21 +57,23 @@ void MethodCol(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Local<v8::Array> outArray = Nan::New<v8::Array>(sz*3);
 	
 	int ii=0;
+	std::vector<Cppdata> oneCol;
 	for (ii=0;ii<sz;ii++){
-		if (col < temparray[ii].size()){
-			const char* t = &temparray[ii][col].t;
+		oneCol = temparray[ii];
+		if (col < oneCol.size()){
+			const char* t = &oneCol[col].t;
 			Nan::MaybeLocal<v8::String> tt = Nan::New<v8::String>(t, 1);
 			Nan::Set(outArray,ii*3+0,tt.ToLocalChecked());
-			Nan::Set(outArray,ii*3+1,v8::Number::New(isolate,temparray[ii][col].v));
-			Nan::Set(outArray,ii*3+2,v8::Number::New(isolate,temparray[ii][col].w));
+			Nan::Set(outArray,ii*3+1,v8::Number::New(isolate,oneCol[col].v));
+			Nan::Set(outArray,ii*3+2,v8::Number::New(isolate,oneCol[col].w));
 			//Nan::Set(outArray,ii,v8::String::NewFromUtf8(isolate,&statrow[ii].t).ToLocalChecked());
 		}
-		if (col+1 < temparray[ii].size()){
-			const char* t = &temparray[ii][col+1].t;
+		if (col+1 < oneCol.size()){
+			const char* t = &oneCol[col+1].t;
 			Nan::MaybeLocal<v8::String> tt = Nan::New<v8::String>(t, 1);
 			Nan::Set(outArray,ii*3+0,tt.ToLocalChecked());
-			Nan::Set(outArray,ii*3+1,v8::Number::New(isolate,temparray[ii][col+1].v));
-			Nan::Set(outArray,ii*3+2,v8::Number::New(isolate,temparray[ii][col+1].w));
+			Nan::Set(outArray,ii*3+1,v8::Number::New(isolate,oneCol[col+1].v));
+			Nan::Set(outArray,ii*3+2,v8::Number::New(isolate,oneCol[col+1].w));
 			//Nan::Set(outArray,ii,v8::String::NewFromUtf8(isolate,&statrow[ii].t).ToLocalChecked());
 		}
 	}
