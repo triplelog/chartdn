@@ -60,8 +60,8 @@ void MethodCol(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	Cppdata oneData;
 	for (std::vector<std::vector<Cppdata>>::iterator it = temparray.begin() ; it != temparray.end(); ++it)
 		
-		if (col < *it.size()){
-			oneData = *it[col];
+		if (col < it.size()){
+			oneData = it[col];
 			const char* t = &oneData.t;
 			Nan::MaybeLocal<v8::String> tt = Nan::New<v8::String>(t, 1);
 			Nan::Set(outArray,ii*3+0,tt.ToLocalChecked());
