@@ -119,7 +119,7 @@ flat_hash_map<std::string,Cppdata> makeRowMap(NewColumn newcol,int idx){
 		if (var.column == -1){
 			rowmap[var.name]=Cppdata(idx);
 		}
-		else if (var.type=='value'){
+		else if (var.type=="value"){
 			int row = idx;
 			if (var.row[0]>-2){
 				row = var.row[0];
