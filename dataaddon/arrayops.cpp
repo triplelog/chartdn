@@ -7,6 +7,7 @@ Cppdata x;
 std::vector<std::vector<Cppdata>> statarray;
 std::vector<std::vector<std::string>> strarray;
 std::vector<std::vector<Cppdata>> temparray;
+std::vector<std::vector<std::string>> tempstrarray;
 
 #include "newcolumn.hpp"
 #include "pivot.hpp"
@@ -45,7 +46,7 @@ void MethodRead(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		if (statrow[ii].t == 'S'){
 			const char* t = &statrow[ii].t;
 			Nan::MaybeLocal<v8::String> tt = Nan::New<v8::String>(t, 1);
-			Nan::MaybeLocal<v8::String> ttt = Nan::New<v8::String>(strarray[statrow[ii].v][statrow[ii].w]);
+			Nan::MaybeLocal<v8::String> ttt = Nan::New<v8::String>(tempstrarray[statrow[ii].v][statrow[ii].w]);
 			Nan::Set(outArray,ii*3+0,tt.ToLocalChecked());
 			Nan::Set(outArray,ii*3+1,ttt.ToLocalChecked());
 			Nan::Set(outArray,ii*3+2,v8::Number::New(isolate,statrow[ii].w));
@@ -138,6 +139,21 @@ void MethodCopy(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 			onerow[ii].w=statarray[i][ii].w;
 		}
 		temparray[i] =onerow;
+	}
+	
+	tempstrarray.clear();
+	std::vector<std::string> onearray2;
+	sz = strarray.size();
+	szz = strarray[0].size();
+	onearray2.resize(szz);
+	tempstrarray.resize(sz,onearray2);
+	i=0; ii = 0;
+	for (i=0; i<sz; i++) {
+		std::vector<std::string> onerow2(szz);
+		for (ii=0; ii<szz; ii++) {
+			onerow2[ii]=strarray[i][ii];
+		}
+		tempstrarray[i] =onerow2;
 	}
 
 }
@@ -373,7 +389,7 @@ void MethodPivot(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	int csz = pivot.columns.size();
 	flat_hash_map<std::string,std::vector<Cppdata>>::iterator f = pivot.fullmap.begin();
 	int idx = 0;
-	v8::Local<v8::Array> outArray = Nan::New<v8::Array>(5);
+	//v8::Local<v8::Array> outArray = Nan::New<v8::Array>(5);
 	while (f != pivot.fullmap.end()){
 		std::vector<Cppdata> oneRow;
 		std::vector<std::string> oneStringRow;
@@ -397,7 +413,7 @@ void MethodPivot(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 					newObj.v = idx;
 					newObj.w = oneStringRow.size();
 					
-					oneStringRow.push_back(strarray[object[ii].v][object[ii].w]);
+					oneStringRow.push_back(tempstrarray[object[ii].v][object[ii].w]);
 					oneRow.push_back(newObj);
 				}
 				else {
@@ -407,16 +423,16 @@ void MethodPivot(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		}
 		temparray2.push_back(oneRow);
 		strarray2.push_back(oneStringRow);
-		if (idx<5){
-			Nan::Set(outArray,idx,v8::Number::New(isolate,oneRow[0].v));
-		}
+		//if (idx<5){
+		//	Nan::Set(outArray,idx,v8::Number::New(isolate,oneRow[0].v));
+		//}
 		idx++;
 		f++;
 	}
 	
-	info.GetReturnValue().Set(outArray);
+	//info.GetReturnValue().Set(outArray);
 	temparray = temparray2;
-	strarray = strarray2;
+	tempstrarray = strarray2;
 	//if (idx<array.length){array.splice(idx,array.length-idx);}
 	
 	/*var hArrayNew = [];
