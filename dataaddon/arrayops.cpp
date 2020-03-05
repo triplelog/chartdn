@@ -163,11 +163,11 @@ void MethodSort(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	oneSort.push_back(col);
 	sortCol.push_back(oneSort);
 	vsize++;
-	v8::Local<v8::Array> outArray = Nan::New<v8::Array>(sz);
-	Nan::Set(outArray,i,v8::Number::New(isolate,oneSort[0]));
-	Nan::Set(outArray,i,v8::Number::New(isolate,oneSort[1]));
-	Nan::Set(outArray,i,v8::Number::New(isolate,vsize));
-	Nan::Set(outArray,i,v8::Number::New(isolate,temparray.size()));
+	v8::Local<v8::Array> outArray = Nan::New<v8::Array>(5);
+	Nan::Set(outArray,0,v8::Number::New(isolate,oneSort[0]));
+	Nan::Set(outArray,1,v8::Number::New(isolate,oneSort[1]));
+	Nan::Set(outArray,2,v8::Number::New(isolate,vsize));
+	Nan::Set(outArray,3,v8::Number::New(isolate,temparray.size()));
 	//std::sort(temparray.begin(),temparray.end());
 	if (1000<temparray.size()){
 		std::partial_sort(temparray.begin(),temparray.begin()+1000,temparray.end());
@@ -175,7 +175,7 @@ void MethodSort(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	else {
 		std::sort(temparray.begin(),temparray.end());
 	}
-	Nan::Set(outArray,i,v8::Number::New(isolate,temparray.size()));
+	Nan::Set(outArray,4,v8::Number::New(isolate,temparray.size()));
 	info.GetReturnValue().Set(outArray);
 
 }
