@@ -908,7 +908,7 @@ function updateTable(data,sentHeaders) {
 	var dataTable = document.getElementById("dataTableModified");
 	
 	dataTable.innerHTML = '';
-	initialData = tableData.slice(0,100);
+	initialData = tableData.slice(0,1000);
 	table = new Tabulator("#dataTableModified", {
 		ajaxURL:"placeholder",
 		paginationSize:100,
@@ -979,14 +979,13 @@ function queryRealm(url, config, params){
     return new Promise(function(resolve, reject){
         //do some async data retrieval then pass the array of row data back into Tabulator
         //ws request data
-        var jsonmessage = {'operation':'data','size':params.size,'page':params.page};
-		console.log(jsonmessage);
-		ws.send(JSON.stringify(jsonmessage));
+        //var jsonmessage = {'operation':'data','size':params.size,'page':params.page};
+		//console.log(jsonmessage);
+		//ws.send(JSON.stringify(jsonmessage));
 		var returnData = {
-			"last_page":2, //the total number of available pages (this value must be greater than 0)
-			"data":initialData,
+			"last_page":10, //the total number of available pages (this value must be greater than 0)
+			"data":initialData.slice(params.page*100-100,params.page*100),
 		}
-		console.log(returnData);
         resolve(returnData);
 
         //if there is an error call this function and pass the error message or object into it
