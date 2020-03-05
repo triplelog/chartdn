@@ -1270,7 +1270,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable) {
 			console.log('starting pivot', performance.now());
 			cpptable.pivot(modifiers[i].options);
 			console.log('finished pivot', performance.now());
-			cpptable.readRow(5);
+			console.log(cpptable.readRow(5));
 			//Update columns in create chart
 		}
 	}
