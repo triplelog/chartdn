@@ -1201,17 +1201,9 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable) {
 	console.log('tocopy cpptable',performance.now());
 	cpptable.copyArray();
 	console.log('copied cpptable',performance.now());
-	/*if (cpptable){
-		cpptable.sortArray();
-	}
-	console.log('sorted cpptable',performance.now());
-	if (cpptable){
-		cpptable.readRow(5,1);
-	}
-	console.log('output 1 row cpptable',performance.now());*/
 	var t2;//gets used in modifiers
 	var hArray = rawArray.slice(0,nHeaders);
-	rawArray.splice(0,nHeaders);
+	//rawArray.splice(0,nHeaders);
 	
 	var idx = 0;
 	var allHeaders = {};
@@ -1231,10 +1223,14 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable) {
 			allHeaders['modified'].types=types.slice();
 			modifiedArray = [];
 			//var rlen = rawArray.length;
-			var rlen = Math.min(1000,rawArray.length);
-			var newrow = cpptable.readRow(ii);
-			if (newrow.length > 0){
-				modifiedArray.push(newrow);
+			var rlen = 1000;
+			for (var ii=0;ii<rlen;ii++){
+				//modifiedArray[ii] = rawArray[ii].slice();
+				var newrow = cpptable.readRow(ii);
+				if (newrow.length > 0){
+					modifiedArray.push(newrow);
+				}
+			
 			}
 			nsteps = false;
 		}
@@ -1297,7 +1293,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable) {
 		allHeaders['modified'].types=types.slice();
 		modifiedArray = [];
 		//var rlen = rawArray.length;
-		var rlen = Math.min(1000,rawArray.length-1);
+		var rlen = 1000;
 		var t4 = performance.now();
 		for (var ii=0;ii<rlen;ii++){
 			//modifiedArray[ii] = rawArray[ii].slice();
