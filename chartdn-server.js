@@ -1275,8 +1275,9 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable) {
 			console.log(cpptable.readRow(5));
 			//Update columns in create chart
 		}
-		console.log('aaa');
+		
 		for (var idd=0;idd<5;idd++){
+			console.log(idd);
 			console.log(cpptable.readRow(idd));
 		}
 		
