@@ -1369,6 +1369,9 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes,sendTable,cppta
 			else {
 				
 				console.log('file read',performance.now());
+				cpptable.clearArray();
+				var jsonmessage = {'operation':'loading','message':'50%'};
+				ws.send(JSON.stringify(jsonmessage));
 				var results = Papa.parse(fileData, {
 					delimiter: dm.delimiter || chartInfo.options.delimiter || "",
 					skipEmptyLines: false,
@@ -1376,7 +1379,7 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes,sendTable,cppta
 				});
 				var returnData = {};
 				console.log('file parsed',performance.now());
-				cpptable.clearArray();
+				
 				cpptable.loadRows(results.data);
 				console.log('cpptable loaded',performance.now());
 				cpptable.copyArray();
