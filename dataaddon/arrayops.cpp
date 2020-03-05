@@ -229,7 +229,7 @@ void MethodNewCol(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		temparray[i].push_back(answer);
 
 	}
-	info.GetReturnValue().Set(outArray);
+	//info.GetReturnValue().Set(outArray);
 	//types.push('Float');*/
 
 }
