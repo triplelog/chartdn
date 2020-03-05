@@ -908,8 +908,9 @@ function updateTable(data,sentHeaders) {
 	
 	dataTable.innerHTML = '';
 	table = new Tabulator("#dataTableModified", {
-		//ajaxProgressiveLoad:"scroll",
-		//ajaxProgressiveLoadScrollMargin:300,
+		ajaxProgressiveLoad:"scroll",
+		ajaxProgressiveLoadScrollMargin:300,
+		ajaxRequestFunc:queryRealm,
 		columns: tableColumns,
 		autoResize:true,
 		movableRows:movableRows,
@@ -962,6 +963,22 @@ function updateTable(data,sentHeaders) {
 	dataTable.style.width = '';
 	table.redraw(true);
 	
+}
+function queryRealm(url, config, params){
+    //url - the url of the request
+    //config - the ajaxConfig object
+    //params - the ajaxParams object
+	console.log(url);
+	console.log(config);
+	console.log(params);
+    //return promise
+    return new Promise(function(resolve, reject){
+        //do some async data retrieval then pass the array of row data back into Tabulator
+        resolve(data);
+
+        //if there is an error call this function and pass the error message or object into it
+        reject();
+    });
 }
 function redrawTable() {
 	var dataTable = document.getElementById("dataTableModified");
