@@ -983,7 +983,7 @@ function queryRealm(url, config, params){
 		console.log(jsonmessage);
 		ws.send(JSON.stringify(jsonmessage));
 		var returnData = {
-			"last_page":1, //the total number of available pages (this value must be greater than 0)
+			"last_page":2, //the total number of available pages (this value must be greater than 0)
 			"data":initialData,
 		}
 		console.log(returnData);
