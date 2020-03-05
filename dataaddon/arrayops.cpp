@@ -368,26 +368,48 @@ void MethodPivot(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	MakeFullMap(pivot);
 	
 	std::vector<std::vector<Cppdata>> temparray2;
+	std::vector<std::vector<std::string>> strarray2;
 	
 	int csz = pivot.columns.size();
 	flat_hash_map<std::string,std::vector<Cppdata>>::iterator f = pivot.fullmap.begin();
 	int idx = 0;
 	while (f != pivot.fullmap.end()){
 		std::vector<Cppdata> oneRow;
-		oneRow.push_back(f->first);
+		std::vector<std::string> oneStringRow;
+		Cppdata first;
+		first.t = 'S';
+		first.v = idx;
+		first.w = 0;
+		oneStringRow.push_back(f->first);
+		oneRow.push_back(first);
+		
 		std::vector<Cppdata> object = f->second;
 		int ii;
 		for (ii=0;ii<csz;ii++) {
 			if (pivot.types[ii] == "mean"){
-				oneRow[ii] = object[ii*2]/object[ii*2+1];
+				oneRow.push_back(object[ii*2]/object[ii*2+1]);
 			}
 			else {
-				oneRow[ii] = object[ii];
+				if (object[ii].t == 'S'){
+					Cppdata newObj;
+					newObj.t = 'S';
+					newObj.v = idx;
+					newObj.w = oneStringRow.size();
+					
+					oneStringRow.push_back(strarray[object[ii].v][object[ii].w]);
+					oneRow.push_back(newObj);
+				}
+				else {
+					oneRow.push_back(object[ii]);
+				}
 			}
 		}
 		temparray2.push_back(oneRow);
+		strarray2.push_back(oneStringRow);
+		idx++;
 	}
 	temparray = temparray2;
+	strarray = strarray2;
 	//if (idx<array.length){array.splice(idx,array.length-idx);}
 	
 	/*var hArrayNew = [];
