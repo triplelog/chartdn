@@ -368,13 +368,14 @@ Cppdata Cppdata::operator/(Cppdata const &b)
 		}
 		else if (b.t == 'I'){
 			long av = v;
-			av *= 200000000;
+			w -= 8;
+			av *= 100000000;
 			av /= b.v;
 			long tden = 200000000;
 			if (av >= tden && av >= -1*tden) {
 				while (av >= tden && av >= -1*tden) {
 					av /= 10;
-					w--;
+					w++;
 				}
 			}
 			
