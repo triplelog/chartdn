@@ -196,11 +196,11 @@ void MethodNewCol(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		std::string str2(*s2);
 		newvar.name = str2;
 		
-		newvar.column = Nan::Get(newvarArray,ii*7+2)->Int32Value(context).FromJust();
-		newvar.row[0] = Nan::Get(newvarArray,ii*7+3)->Int32Value(context).FromJust();
-		newvar.row[1] = Nan::Get(newvarArray,ii*7+4)->Int32Value(context).FromJust();
-		newvar.row[2] = Nan::Get(newvarArray,ii*7+5)->Int32Value(context).FromJust();
-		newvar.row[3] = Nan::Get(newvarArray,ii*7+6)->Int32Value(context).FromJust();
+		newvar.column = Nan::Get(newvarArray,ii*7+2).ToLocalChecked()->Int32Value(context).FromJust();
+		newvar.row[0] = Nan::Get(newvarArray,ii*7+3).ToLocalChecked()->Int32Value(context).FromJust();
+		newvar.row[1] = Nan::Get(newvarArray,ii*7+4).ToLocalChecked()->Int32Value(context).FromJust();
+		newvar.row[2] = Nan::Get(newvarArray,ii*7+5).ToLocalChecked()->Int32Value(context).FromJust();
+		newvar.row[3] = Nan::Get(newvarArray,ii*7+6).ToLocalChecked()->Int32Value(context).FromJust();
 		
 		newcol.vars.push_back(newvar);
 	}
