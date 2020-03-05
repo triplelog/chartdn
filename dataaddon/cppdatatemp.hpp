@@ -362,6 +362,28 @@ Cppdata Cppdata::operator/(Cppdata const &b)
 			return c;
 		}
 	}
+	else if (t == 'F'){
+		if (b.t == 'R'){
+			return c;
+		}
+		else if (b.t == 'I'){
+			long av = v;
+			av *= 200000000;
+			av /= b.v;
+			long tden = 200000000;
+			if (av >= tden && av >= -1*tden) {
+				while (av >= tden && av >= -1*tden) {
+					av /= 10;
+					w--;
+				}
+			}
+			
+			c.t = 'F';
+			c.v = av;
+			c.w = w;
+			return c;
+		}
+	}
 	return c;
 }
 Cppdata Cppdata::operator==(Cppdata const &b)
