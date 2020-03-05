@@ -9,6 +9,7 @@ std::vector<std::vector<std::string>> strarray;
 std::vector<std::vector<Cppdata>> temparray;
 
 #include "newcolumn.hpp"
+#include "pivot.hpp"
 
 void MethodCopy(const Nan::FunctionCallbackInfo<v8::Value>& info);
 
@@ -356,6 +357,19 @@ void MethodFilter(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 
 }
 
+void MethodPivot(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+	v8::Isolate* isolate = info.GetIsolate();
+	v8::Local<v8::Context> context = isolate->GetCurrentContext();
+	
+	Pivot pivot;
+	pivot.pivotcol = 0;
+	pivot.columns = {2};
+	pivot.types = {"max"};
+	MakeFullMap(pivot);
+	
+
+}
+
 void Init(v8::Local<v8::Object> exports) {
   //std::vector<Cppdata>* statarray = new std::vector<Cppdata>[plen];
   v8::Local<v8::Context> context = exports->CreationContext();
@@ -397,6 +411,11 @@ void Init(v8::Local<v8::Object> exports) {
   exports->Set(context,
                Nan::New("filter").ToLocalChecked(),
                Nan::New<v8::FunctionTemplate>(MethodFilter)
+                   ->GetFunction(context)
+                   .ToLocalChecked());
+  exports->Set(context,
+               Nan::New("pivot").ToLocalChecked(),
+               Nan::New<v8::FunctionTemplate>(MethodPivot)
                    ->GetFunction(context)
                    .ToLocalChecked());
 }

@@ -1267,6 +1267,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable) {
 		}
 		else if (modifiers[i].type == 'pivot'){
 			modJS.pivot(rawArray,modifiers[i].options,hArray,types);
+			cpptable.pivot(modifiers[i].options);
 			//Update columns in create chart
 		}
 	}

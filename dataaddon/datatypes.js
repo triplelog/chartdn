@@ -221,6 +221,9 @@ exports.filter = function(options){
 
 }
 
+exports.pivot = function(options) {
+	dataArray.pivot();
+}
 
 /*var allins = [];
 console.log(performance.now());
