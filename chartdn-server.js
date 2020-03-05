@@ -1304,6 +1304,8 @@ function makeChartsWithData(ws,hArray,chartInfo,chartStyle,dm,reloadTable,cpptab
 	var maxColumns = 50;
 	console.log('data converted',performance.now());
 	var nHeaders = chartInfo.options.nHeaders || 1;
+	var jsonmessage = {'operation':'loading','message':'10%'};
+	ws.send(JSON.stringify(jsonmessage));
 	var data = convertDataToFull(hArray,nHeaders,chartInfo.modifiers,chartInfo.options.nsteps,chartInfo.types.slice(0,maxColumns),cpptable);
 	console.log('modifiers applied',performance.now());
 	jsonmessage = {'operation':'loading','message':'90%'};
