@@ -1260,7 +1260,9 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable) {
 			console.log('finished filter', performance.now());
 		}
 		else if (modifiers[i].type == 'sort'){
+			console.log(modifiers[i].options);
 			cpptable.sortArray(modifiers[i].options);
+			console.log('hi');
 		}
 		else if (modifiers[i].type == 'replace'){
 			modJS.replace(rawArray,modifiers[i].options);
@@ -1306,9 +1308,6 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable) {
 	var t5 = performance.now();
 	//console.log(filteredArray);
 	retArray = [];
-	console.log('hi');
-	var col1 = cpptable.readCol(1);
-	console.log('hello');
 	var cols = [];
 	var t6 = performance.now();
 	console.log('modifier time',t1,t2,t3,t4,t5,t6);
