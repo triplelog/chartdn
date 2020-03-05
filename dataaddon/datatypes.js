@@ -169,37 +169,27 @@ exports.readCol = function(i){
 
 
 exports.newCol = function(options){
-	//var formula = options.formula;
-	//if (!formula || formula == ''){return;}
-	//var bothparts = postfixify(formula);
-	
-	//var fullmap = makeFullMap(options);
-	var intstr = ["a","b","1"];
-	var exp = "##+#+";
-	var vars = ["max","a",1,0,-1,-2,-2,"value","b",2,-2,-2,0,0];
+	var intstr = options.intstr;//["a","b","1"];
+	var exp = options.expstr;//"##+#+";
+	var vars = [];
+	for (var i in options.vars){
+		vars.push(options.vars[i].type);
+		vars.push(i);
+		vars.push(options.vars[i].column);
+		var rows = options.vars[i].row.split(',');
+		if (rows[0].indexOf('$')==0){vars.push(rows[0].substring(1));}
+		else {vars.push(-2);}
+		if (rows.length >= 2 && rows[1].indexOf('$')==0){vars.push(rows[1].substring(1));}
+		else {vars.push(-2);}
+		if (rows[0].indexOf('$')==-1){vars.push(rows[0]);}
+		else {vars.push(-2);}
+		if (rows.length >= 2 && rows[1].indexOf('$')==-1){vars.push(rows[1]);}
+		else {vars.push(-2);}
+	}
+	//var vars = ["max","a",1,0,-1,-2,-2,"value","b",2,-2,-2,0,0];
 	var out = dataArray.newcolumn(intstr,exp,vars);
 	console.log(out);
-	/*for (var i in array){
-		var rowmap = makeRowMap(array,options,nHeaders,i);
-		if (rowmap === 'skip'){array[i].push(''); continue;}
-		var intstr = [];
-		for (var ii in bothparts[0]){
-			if(fullmap[bothparts[0][ii]]){
-				intstr.push(fullmap[bothparts[0][ii]]);
-			}
-			else if(rowmap[bothparts[0][ii]]){
-				
-				intstr.push(rowmap[bothparts[0][ii]]);
-			}
-			else {
-				intstr.push(bothparts[0][ii]);
-			}
-		}
-		var answer = solvePostfix(intstr,bothparts[1]);
-		array[i].push(answer);
-
-	}
-	types.push('Float');*/
+	//types.push('Float');
 }
 
 
