@@ -372,7 +372,7 @@ void MethodPivot(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	int csz = pivot.columns.size();
 	flat_hash_map<std::string,std::vector<Cppdata>>::iterator f = pivot.fullmap.begin();
 	int idx = 0;
-	while (f != pivot.fullmap.end(); ){
+	while (f != pivot.fullmap.end()){
 		std::vector<Cppdata> oneRow;
 		oneRow.push_back(f->first);
 		std::vector<Cppdata> object = f->second;
