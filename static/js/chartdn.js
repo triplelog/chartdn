@@ -958,7 +958,7 @@ function updateTable(data,sentHeaders) {
 				document.getElementById("dataTableModified").style.width = nWidth+'px';
 			}
     	},
-    	data: tableData.slice(0,1000),
+    	//data: tableData.slice(0,1000),
 	});
 	dataTable.style.width = '';
 	table.redraw(true);
