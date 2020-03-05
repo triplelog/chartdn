@@ -564,49 +564,43 @@ exports.replace = function(array,options) {
 } // add full cell option, numerical replace, input as regex
 
 exports.pivotHeaders = function(options,hArray,types){
-		var hArrayNew = [];
-		for (var i in hArray){
-			hArrayNew.push([]);
-			if (hArray[i][options.pivot]){
-				hArrayNew[i].push(hArray[i][options.pivot]);
-			}
-			for (var ii in options.columns) {
-				hArrayNew[i].push(hArray[i][options.columns[ii].column]);
-			}
-		}
-		idx = 0;
-		for (var i in hArrayNew){
-			var iidx = 0;
-			for (var ii in hArrayNew[i]){
-				hArray[idx][iidx]=hArrayNew[i][ii];
-				iidx++;
-			}
+	var hArrayNew = [];
+	if (hArray[options.pivot]){
+		hArrayNew.push(hArray[options.pivot]);
+	}
+	for (var ii in options.columns) {
+		hArrayNew.push(hArray[options.columns[ii].column] + '(' + options.columns[ii].type + ')');
+	}
 	
-			if (iidx<hArray[idx].length){hArray[idx].splice(iidx,hArray[idx].length-iidx);}
-			idx++;
+	idx = 0;
+	iidx = 0;
+	for (var ii in hArrayNew){
+		hArray[iidx]=hArrayNew[ii];
+		iidx++;
+	}
+	if (iidx<hArray.length){hArray.splice(iidx,hArray.length-iidx);}
+	
+	var typesNew = [];
+	if (types[options.pivot]){
+		typesNew.push(types[options.pivot]);
+	}
+	for (var ii in options.columns) {
+		if (options.columns[ii].type == 'count'){
+			typesNew.push('Int');
 		}
-		if (idx<hArray.length){hArray.splice(idx,hArray.length-idx);}
-		var typesNew = [];
-		if (types[options.pivot]){
-			typesNew.push(types[options.pivot]);
+		else if (options.columns[ii].type == 'mean'){
+			typesNew.push('Float');
 		}
-		for (var ii in options.columns) {
-			if (options.columns[ii].type == 'count'){
-				typesNew.push('Int');
-			}
-			else if (options.columns[ii].type == 'mean'){
-				typesNew.push('Float');
-			}
-			else {
-				typesNew.push(types[options.columns[ii].column]);
-			}
+		else {
+			typesNew.push(types[options.columns[ii].column]);
 		}
-		idx = 0;
-		for (var i in typesNew){
-			types[idx]=typesNew[i];
-			idx++;
-		}
-		if (idx<types.length){types.splice(idx,types.length-idx);}
+	}
+	idx = 0;
+	for (var i in typesNew){
+		types[idx]=typesNew[i];
+		idx++;
+	}
+	if (idx<types.length){types.splice(idx,types.length-idx);}
 }
 exports.pivot = function(array,options,hArray,types) {
 	toData(array);

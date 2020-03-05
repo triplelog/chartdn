@@ -314,7 +314,7 @@ wss.on('connection', function connection(ws) {
   var chartidtemp = '';
   var username = '';
   var myOptions = {};
-  var chartData = false;
+  var hArray = false;
   var mongoChart = {};
   var sendTable = true;
   var cpptable = require('./chartdn-data/datatypes.js');
@@ -358,7 +358,7 @@ wss.on('connection', function connection(ws) {
 				var child = exec(wget, function(err, stdout, stderr) {
 					if (err) throw err;
 					else {
-						chartData = loadChart(chartid,ws,dm,cpptable,true,false);
+						hArray = loadChart(chartid,ws,dm,cpptable,true,false);
 						
 					}
 					
@@ -367,13 +367,13 @@ wss.on('connection', function connection(ws) {
 		}
 		else {
 			fs.writeFile("saved/"+chartid+".csv", fstr, function (err) {
-				chartData = loadChart(chartid,ws,dm,cpptable,false,false);
+				hArray = loadChart(chartid,ws,dm,cpptable,false,false);
 
 			});
 		}
 		
 		delete mongoChart[chartid];
-		chartData = false;
+		hArray = false;
   	}
   	else if (dm.operation == 'download'){
   		
@@ -402,7 +402,7 @@ wss.on('connection', function connection(ws) {
 		});
 
 		delete mongoChart[chartid];
-		chartData = false;
+		hArray = false;
   	}
   	else if (dm.operation == 'dataupdate'){
 		dm.delimiter = '|';
@@ -419,7 +419,7 @@ wss.on('connection', function connection(ws) {
 			delimiter = '|';
 		});
 		delete mongoChart[chartid];
-		chartData = false;
+		hArray = false;
   	}
   	else if (dm.operation == 'options'){
   		console.log('message rec', dm,performance.now());
@@ -436,9 +436,9 @@ wss.on('connection', function connection(ws) {
 					if (err) return console.error('sajdhfkasdhjfkjsahdfkjsadhfs\n',err);
 					console.log('saved options', result.options, performance.now());
 				});
-				if (!chartData){
+				if (!hArray){
 					makeAllCharts(ws,dm,result,'all',false,true,cpptable).then(function(result3) {
-						chartData = result3.data;
+						hArray = result3.hArray;
 					}, function(err) {
 						console.log(err);
 					});
@@ -447,10 +447,10 @@ wss.on('connection', function connection(ws) {
 				else {
 					console.log('used cached data', performance.now());
 					if (dm.nsteps || dm.nsteps === 0){
-						makeChartsWithData(ws,chartData,result,'all',dm,true,cpptable);
+						makeChartsWithData(ws,hArray,result,'all',dm,true,cpptable);
 					}
 					else {
-						makeChartsWithData(ws,chartData,result,'all',dm,false,cpptable);
+						makeChartsWithData(ws,hArray,result,'all',dm,false,cpptable);
 					}
 					
 				}
@@ -469,9 +469,9 @@ wss.on('connection', function connection(ws) {
 					console.log('saved options', performance.now());
 				});
 				mongoChart[chartid] = result;
-				if (!chartData){
+				if (!hArray){
 					makeAllCharts(ws,dm,result,'all',false,true,cpptable).then(function(result3) {
-						chartData = result3.data;
+						hArray = result3.hArray;
 					}, function(err) {
 						console.log(err);
 					});
@@ -480,10 +480,10 @@ wss.on('connection', function connection(ws) {
 				else {
 					console.log('used cached data', performance.now());
 					if (dm.nsteps || dm.nsteps === 0){
-						makeChartsWithData(ws,chartData,result,'all',dm,true,cpptable);
+						makeChartsWithData(ws,hArray,result,'all',dm,true,cpptable);
 					}
 					else {
-						makeChartsWithData(ws,chartData,result,'all',dm,false,cpptable);
+						makeChartsWithData(ws,hArray,result,'all',dm,false,cpptable);
 					}
 					
 				}
@@ -540,9 +540,9 @@ wss.on('connection', function connection(ws) {
 					if (err) return console.error('sajdhfkasdhjfkjsahdfkjsadhfs\n',err);
 					console.log('saved modifiers', performance.now());
 				});
-				if (!chartData){
+				if (!hArray){
 					makeAllCharts(ws,dm,result,'all',false,true,cpptable).then(function(result3) {
-						chartData = result3.data;
+						hArray = result3.hArray;
 					}, function(err) {
 						console.log(err);
 					});
@@ -550,7 +550,7 @@ wss.on('connection', function connection(ws) {
 				}
 				else {
 					console.log('used cached data', performance.now());
-					makeChartsWithData(ws,chartData,result,'all',dm,true,cpptable);
+					makeChartsWithData(ws,hArray,result,'all',dm,true,cpptable);
 					
 				}
   		}
@@ -567,9 +567,9 @@ wss.on('connection', function connection(ws) {
 					console.log('saved modifiers', performance.now());
 				});
 				mongoChart[chartid] = result;
-				if (!chartData){
+				if (!hArray){
 					makeAllCharts(ws,dm,result,'all',false,true,cpptable).then(function(result3) {
-						chartData = result3.data;
+						hArray = result3.hArray;
 					}, function(err) {
 						console.log(err);
 					});
@@ -577,7 +577,7 @@ wss.on('connection', function connection(ws) {
 				}
 				else {
 					console.log('used cached data', performance.now());
-					makeChartsWithData(ws,chartData,result,'all',dm,true,cpptable);
+					makeChartsWithData(ws,hArray,result,'all',dm,true,cpptable);
 					
 				}
 			  }
@@ -638,9 +638,9 @@ wss.on('connection', function connection(ws) {
 						if (!dm.style){
 							dm.style = 'all';
 						}
-						if (!chartData){
+						if (!hArray){
 							makeAllCharts(ws,dm,result,dm.style,false,sendTable,cpptable).then(function(result3) {
-								chartData = result3.data;
+								hArray = result3.hArray;
 							}, function(err) {
 								console.log(err);
 							});
@@ -657,9 +657,9 @@ wss.on('connection', function connection(ws) {
 							if (!dm.style){
 								dm.style = 'all';
 							}
-							if (!chartData){
+							if (!hArray){
 								makeAllCharts(ws,dm,result,dm.style,false,sendTable,cpptable).then(function(result3) {
-									chartData = result3.data;
+									hArray = result3.hArray;
 								}, function(err) {
 									console.log(err);
 								});
@@ -715,14 +715,14 @@ function loadChart(chartid,ws,dm,cpptable,deletexls=false,result=false){
 	}
 	if (result){
 		makeAllCharts(ws,dm,result,'all',true,true,cpptable).then(function(result3) {
-			chartData = result3.data;
+			hArray = result3.hArray;
 			result.types = result3.types;
 			result.markModified('types');
 			result.save(function (err, chart) {
 				if (err) return console.error(err);
 				console.log('saved',chart.types.slice(0,10));
 			});
-			return chartData;
+			return hArray;
 		}, function(err) {
 			console.log(err);
 			return false;
@@ -735,14 +735,14 @@ function loadChart(chartid,ws,dm,cpptable,deletexls=false,result=false){
 		  } else {
 		  	
 			makeAllCharts(ws,dm,result2,'all',true,true,cpptable).then(function(result3) {
-				chartData = result3.data;
+				hArray = result3.hArray;
 				result2.types = result3.types;
 				result2.markModified('types');
 				result2.save(function (err, chart) {
 					if (err) return console.error(err);
 					console.log('saved types',chart.types.slice(0,10));
 				});
-				return chartData;
+				return hArray;
 			}, function(err) {
 				console.log(err);
 				return false;
@@ -1194,15 +1194,12 @@ loginServer.listen(3000);
 
 
 
-function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable) {
-
-	rawArray = dataStr;
+function convertDataToFull(hArray,nHeaders,modifiers,nsteps,types,cpptable) {
 	var t1 = performance.now();
 	console.log('tocopy cpptable',performance.now());
 	cpptable.copyArray();
 	console.log('copied cpptable',performance.now());
 	var t2;//gets used in modifiers
-	var hArray = rawArray.slice(0,nHeaders);
 	//rawArray.splice(0,nHeaders);
 	
 	var idx = 0;
@@ -1212,20 +1209,18 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable) {
 	for (var i in modifiers){
 		
 		allHeaders[modifiers[i].id]=[];
-		for (var ii in hArray[0]){
-			allHeaders[modifiers[i].id].push(hArray[0][ii]);
+		for (var ii in hArray){
+			allHeaders[modifiers[i].id].push(hArray[ii]);
 		}
 		if (!modifiers[i].enabled){continue;}
 		if (nsteps === 0 || (nsteps && idx >= nsteps)){
 			
 			allHeaders['modified']={};
-			allHeaders['modified'].headers=hArray[0].slice();
+			allHeaders['modified'].headers=hArray.slice();
 			allHeaders['modified'].types=types.slice();
 			modifiedArray = [];
-			//var rlen = rawArray.length;
 			var rlen = 1000;
 			for (var ii=0;ii<rlen;ii++){
-				//modifiedArray[ii] = rawArray[ii].slice();
 				var newrow = cpptable.readRow(ii);
 				if (newrow === false){
 					break;
@@ -1240,9 +1235,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable) {
 		else {idx++;}
 		t2 = performance.now();
 		if (modifiers[i].type == 'new'){
-			if (hArray.length>0){
-				hArray[0].push(modifiers[i].name);
-			}
+			hArray.push(modifiers[i].name);
 			types.push('F');//Set this to determine the actual type
 			console.log('starting new col', performance.now());
 			var bothparts = modJS.newpostfix(modifiers[i].options.formula);
@@ -1252,7 +1245,6 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable) {
 			console.log('created new col', performance.now());
 		}
 		else if (modifiers[i].type == 'filter'){
-			//modJS.filter(rawArray,modifiers[i].options,nHeaders);
 			console.log('starting filter', performance.now());
 			var bothparts = modJS.newpostfix(modifiers[i].options.formula);
 			modifiers[i].options['intstr']=bothparts[0];
@@ -1281,22 +1273,20 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable) {
 	}
 	var t3 = performance.now();
 	allHeaders['current']=[];
-	for (var ii in hArray[0]){
-		allHeaders['current'].push(hArray[0][ii]);
+	for (var ii in hArray){
+		allHeaders['current'].push(hArray[ii]);
 	}
 	
 	
 	if (!modifiedArray || modifiedArray.length == 0){
 		
 		allHeaders['modified']={};
-		allHeaders['modified'].headers=hArray[0].slice();
+		allHeaders['modified'].headers=hArray.slice();
 		allHeaders['modified'].types=types.slice();
 		modifiedArray = [];
-		//var rlen = rawArray.length;
 		var rlen = 1000;
 		var t4 = performance.now();
 		for (var ii=0;ii<rlen;ii++){
-			//modifiedArray[ii] = rawArray[ii].slice();
 			var newrow = cpptable.readRow(ii);
 			if (newrow === false){
 				break;
@@ -1316,16 +1306,11 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable) {
 	return {'modified':modifiedArray,'headers':allHeaders};
 	
 }
-function makeChartsWithData(ws,rawdata,chartInfo,chartStyle,dm,reloadTable,cpptable) {
+function makeChartsWithData(ws,hArray,chartInfo,chartStyle,dm,reloadTable,cpptable) {
 	var maxColumns = 50;
-	var newData = [];
-	var rawLen = rawdata.length;
-	for (var i=0;i<rawLen;i++){
-		newData.push(rawdata[i].slice(0,maxColumns));
-	}
 	console.log('data converted',performance.now());
 	var nHeaders = chartInfo.options.nHeaders || 1;
-	var data = convertDataToFull(newData,nHeaders,chartInfo.modifiers,chartInfo.options.nsteps,chartInfo.types.slice(0,maxColumns),cpptable);
+	var data = convertDataToFull(hArray,nHeaders,chartInfo.modifiers,chartInfo.options.nsteps,chartInfo.types.slice(0,maxColumns),cpptable);
 	console.log('modifiers applied',performance.now());
 	/*
 	if (chartStyle == 'all' || chartStyle == 'chartJS') {
@@ -1410,8 +1395,10 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes,sendTable,cppta
 				else {
 					//console.log(chartInfo.types);
 				}
-				makeChartsWithData(ws,results.data,chartInfo,chartStyle,dm,sendTable,cpptable);
-				returnData.data = results.data;
+				var hArray = results.data[0];
+				returnData.hArray = hArray.slice();
+				makeChartsWithData(ws,hArray,chartInfo,chartStyle,dm,sendTable,cpptable);
+				
 				resolve(returnData);
 			}
 		});
