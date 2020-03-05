@@ -1227,6 +1227,9 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable) {
 			for (var ii=0;ii<rlen;ii++){
 				//modifiedArray[ii] = rawArray[ii].slice();
 				var newrow = cpptable.readRow(ii);
+				if (newrow === false){
+					break;
+				}
 				if (newrow.length > 0){
 					modifiedArray.push(newrow);
 				}
@@ -1298,6 +1301,9 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable) {
 		for (var ii=0;ii<rlen;ii++){
 			//modifiedArray[ii] = rawArray[ii].slice();
 			var newrow = cpptable.readRow(ii);
+			if (newrow === false){
+				break;
+			}
 			if (newrow.length > 0){
 				modifiedArray.push(newrow);
 			}
