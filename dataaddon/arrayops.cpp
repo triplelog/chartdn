@@ -36,9 +36,9 @@ void MethodRead(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		if (statrow[ii].t == 'S'){
 			const char* t = &statrow[ii].t;
 			Nan::MaybeLocal<v8::String> tt = Nan::New<v8::String>(t, 1);
-			//Nan::MaybeLocal<v8::String> ttt = Nan::New<v8::String>(tempstrarray[statrow[ii].v][statrow[ii].w]);
+			Nan::MaybeLocal<v8::String> ttt = Nan::New<v8::String>(tempstrarray[statrow[ii].v][statrow[ii].w]);
 			Nan::Set(outArray,ii*3+0,tt.ToLocalChecked());
-			Nan::Set(outArray,ii*3+1,tt.ToLocalChecked());
+			Nan::Set(outArray,ii*3+1,ttt.ToLocalChecked());
 			Nan::Set(outArray,ii*3+2,v8::Number::New(isolate,statrow[ii].w));
 		}
 		else {
@@ -163,20 +163,20 @@ void MethodSort(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	oneSort.push_back(col);
 	sortCol.push_back(oneSort);
 	vsize++;
-	v8::Local<v8::Array> outArray = Nan::New<v8::Array>(5);
-	Nan::Set(outArray,0,v8::Number::New(isolate,oneSort[0]));
-	Nan::Set(outArray,1,v8::Number::New(isolate,oneSort[1]));
-	Nan::Set(outArray,2,v8::Number::New(isolate,vsize));
-	Nan::Set(outArray,3,v8::Number::New(isolate,temparray.size()));
-	//std::sort(temparray.begin(),temparray.end());
+	//v8::Local<v8::Array> outArray = Nan::New<v8::Array>(5);
+	//Nan::Set(outArray,0,v8::Number::New(isolate,oneSort[0]));
+	//Nan::Set(outArray,1,v8::Number::New(isolate,oneSort[1]));
+	//Nan::Set(outArray,2,v8::Number::New(isolate,vsize));
+	//Nan::Set(outArray,3,v8::Number::New(isolate,temparray.size()));
+
 	if (1000<temparray.size()){
 		std::partial_sort(temparray.begin(),temparray.begin()+1000,temparray.end());
 	}
 	else {
 		std::sort(temparray.begin(),temparray.end());
 	}
-	Nan::Set(outArray,4,v8::Number::New(isolate,temparray.size()));
-	info.GetReturnValue().Set(outArray);
+	//Nan::Set(outArray,4,v8::Number::New(isolate,temparray.size()));
+	//info.GetReturnValue().Set(outArray);
 
 }
 

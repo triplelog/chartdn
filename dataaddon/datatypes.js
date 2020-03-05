@@ -155,7 +155,7 @@ exports.sortArray = function(options){
 	if (!options.ascending){
 		j = false;
 	}
-	console.log(dataArray.sortarray(i,j));
+	dataArray.sortarray(i,j);
 }
 exports.readCol = function(i){
 	var outRaw = dataArray.readarraycol(i);
