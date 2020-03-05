@@ -1306,8 +1306,9 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable) {
 	var t5 = performance.now();
 	//console.log(filteredArray);
 	retArray = [];
+	console.log('hi');
 	var col1 = cpptable.readCol(1);
-	
+	console.log('hello');
 	var cols = [];
 	var t6 = performance.now();
 	console.log('modifier time',t1,t2,t3,t4,t5,t6);
