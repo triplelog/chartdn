@@ -913,7 +913,7 @@ function updateTable(data,sentHeaders) {
 		ajaxURL:"placeholder",
 		paginationSize:100,
 		ajaxProgressiveLoad:"scroll",
-		ajaxProgressiveLoadScrollMargin:300,
+		ajaxProgressiveLoadScrollMargin:500,
 		ajaxRequestFunc:queryRealm,
 		columns: tableColumns,
 		autoResize:true,
