@@ -169,11 +169,19 @@ void MethodSort(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 void MethodNewCol(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
 	v8::Local<v8::Context> context = isolate->GetCurrentContext();
+	
 	NewColumn newcol;
-	newcol.intstr.push_back("a");
-	newcol.intstr.push_back("b");
-	newcol.intstr.push_back("1");
-	std::string estr("##+#+");
+	v8::Local<v8::Array> intstrArray = v8::Local<v8::Array>::Cast(info[0]);
+	int ii;
+	for (ii=0;ii<intstrArray->Length();ii++){
+		v8::String::Utf8Value s(isolate, Nan::Get(intstrArray,ii).ToLocalChecked());
+		std::string str(*s);
+		newcol.intstr.push_back(str);
+	}
+	
+	
+	v8::String::Utf8Value expin(isolate, info[1]->Utf8Value(context));
+	std::string estr(*expin);
 	newcol.expstr = estr;
 	NewColumnVar newvar;
 	newvar.column = 1;
@@ -212,7 +220,6 @@ void MethodNewCol(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	for (i=0;i<sz;i++){
 		flat_hash_map<std::string,Cppdata> rowmap = makeRowMap(newcol,i);
 		//if (rowmap === 'skip'){array[i].push(''); continue;}
-		int ii;
 		int szintstr = newcol.intstr.size();
 		std::vector<Cppdata> intArray;
 		flat_hash_map<std::string,Cppdata>::iterator f;

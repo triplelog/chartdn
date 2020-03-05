@@ -174,7 +174,9 @@ exports.newCol = function(options){
 	//var bothparts = postfixify(formula);
 	
 	//var fullmap = makeFullMap(options);
-	var out = dataArray.newcolumn();
+	var intstr = ["a","b","1"];
+	var exp = "##+#+";
+	var out = dataArray.newcolumn(intstr,exp);
 	console.log(out);
 	/*for (var i in array){
 		var rowmap = makeRowMap(array,options,nHeaders,i);
