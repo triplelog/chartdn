@@ -53,7 +53,7 @@ var express = require('express');
 
 var app = express();
 app.use('/',express.static('static'));
-app.use('/docs/',express.static('chartdn-docs'));
+app.use('/docs/',express.static('chartdn-docs/build/html'));
 
 
 const server1 = https.createServer(options, app);
