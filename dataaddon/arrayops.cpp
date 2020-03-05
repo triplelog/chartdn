@@ -108,7 +108,7 @@ void MethodLoad(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		if (x.t == 'S'){
 			std::string str(*s);
 			strrow.push_back(str);
-			x.v = statarray.size();
+			x.v = strarray.size();
 			x.w = idx;
 			idx++;
 			
@@ -263,6 +263,99 @@ void MethodNewCol(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 
 }
 
+void MethodFilter(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+	v8::Isolate* isolate = info.GetIsolate();
+	v8::Local<v8::Context> context = isolate->GetCurrentContext();
+	
+	NewColumn newcol;
+	v8::Local<v8::Array> intstrArray = v8::Local<v8::Array>::Cast(info[0]);
+	int ii;
+	for (ii=0;ii<intstrArray->Length();ii++){
+		v8::String::Utf8Value s(isolate, Nan::Get(intstrArray,ii).ToLocalChecked());
+		std::string str(*s);
+		newcol.intstr.push_back(str);
+	}
+	
+	
+	v8::String::Utf8Value expin(isolate, info[1]);
+	std::string estr(*expin);
+	newcol.expstr = estr;
+	
+	v8::Local<v8::Array> newvarArray = v8::Local<v8::Array>::Cast(info[2]);
+	for (ii=0;ii<newvarArray->Length()/7;ii++){
+		NewColumnVar newvar;
+		
+		v8::String::Utf8Value s(isolate, Nan::Get(newvarArray,ii*7).ToLocalChecked());
+		std::string str(*s);
+		newvar.type = str;
+		
+		v8::String::Utf8Value s2(isolate, Nan::Get(newvarArray,ii*7+1).ToLocalChecked());
+		std::string str2(*s2);
+		newvar.name = str2;
+		
+		newvar.column = Nan::Get(newvarArray,ii*7+2).ToLocalChecked()->Int32Value(context).FromJust();
+		newvar.row[0] = Nan::Get(newvarArray,ii*7+3).ToLocalChecked()->Int32Value(context).FromJust();
+		newvar.row[1] = Nan::Get(newvarArray,ii*7+4).ToLocalChecked()->Int32Value(context).FromJust();
+		newvar.row[2] = Nan::Get(newvarArray,ii*7+5).ToLocalChecked()->Int32Value(context).FromJust();
+		newvar.row[3] = Nan::Get(newvarArray,ii*7+6).ToLocalChecked()->Int32Value(context).FromJust();
+		
+		newcol.vars.push_back(newvar);
+	}
+	bool exclude = info[3]->BooleanValue(isolate);
+	
+	newcol = makeFullMap(newcol);
+	int sz = temparray.size();
+	int i;
+	int len = newcol.expstr.length();
+	char exp[len+1];
+	strcpy(exp, newcol.expstr.c_str());
+		
+	std::vector<Cppdata> stack;
+	stack.resize(len);
+	
+	v8::Local<v8::Array> outArray = Nan::New<v8::Array>(sz);
+	
+	std::vector<std::vector<Cppdata>> temparray2;
+	for (i=0;i<sz;i++){
+		flat_hash_map<std::string,Cppdata> rowmap = makeRowMap(newcol,i);
+		int szintstr = newcol.intstr.size();
+		std::vector<Cppdata> intArray;
+		flat_hash_map<std::string,Cppdata>::iterator f;
+		for (ii=0;ii<szintstr;ii++){
+			f = newcol.fullmap.find(newcol.intstr[ii]);
+			if (f != newcol.fullmap.end()){
+				intArray.push_back(f->second);
+			}
+			else {
+				f = rowmap.find(newcol.intstr[ii]);
+				if (f != rowmap.end()){
+					intArray.push_back(f->second);
+				}
+				else {
+					intArray.push_back(cppconstructor(newcol.intstr[ii].c_str()));
+				}
+			}
+		}
+		
+		
+		Cppdata answer = solvePostfixVV(exp, intArray, stack);
+
+		if (answer.t == 'B' && answer.w == 1 && exclude){
+			//skipRows.push_back(i);
+		}
+		else if (answer.t == 'B' && answer.w == 0 && !exclude) {
+			//skipRows.push_back(i);
+		}
+		else {
+			temparray2.push_back(temparray[i]);
+		}
+
+	}
+	temparray.clear();
+	temparray = temparray2;
+
+}
+
 void Init(v8::Local<v8::Object> exports) {
   //std::vector<Cppdata>* statarray = new std::vector<Cppdata>[plen];
   v8::Local<v8::Context> context = exports->CreationContext();
@@ -299,6 +392,11 @@ void Init(v8::Local<v8::Object> exports) {
   exports->Set(context,
                Nan::New("newcolumn").ToLocalChecked(),
                Nan::New<v8::FunctionTemplate>(MethodNewCol)
+                   ->GetFunction(context)
+                   .ToLocalChecked());
+  exports->Set(context,
+               Nan::New("filter").ToLocalChecked(),
+               Nan::New<v8::FunctionTemplate>(MethodFilter)
                    ->GetFunction(context)
                    .ToLocalChecked());
 }

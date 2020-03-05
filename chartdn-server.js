@@ -1240,24 +1240,24 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable) {
 		else {idx++;}
 		t2 = performance.now();
 		if (modifiers[i].type == 'new'){
-			//modJS.newColumn(rawArray,modifiers[i].options,nHeaders,types);
 			if (hArray.length>0){
 				hArray[0].push(modifiers[i].name);
 			}
-			//Update columns in create chart
 			console.log('starting new col', performance.now());
 			var bothparts = modJS.newpostfix(modifiers[i].options.formula);
-			console.log('postfixed', performance.now());
 			modifiers[i].options['intstr']=bothparts[0];
-			
 			modifiers[i].options['expstr']=bothparts[1];
 			cpptable.newCol(modifiers[i].options);
 			console.log('created new col', performance.now());
-			console.log(cpptable.readRow(5));
-			console.log('read new col', performance.now());
 		}
 		else if (modifiers[i].type == 'filter'){
-			modJS.filter(rawArray,modifiers[i].options,nHeaders);
+			//modJS.filter(rawArray,modifiers[i].options,nHeaders);
+			console.log('starting filter', performance.now());
+			var bothparts = modJS.newpostfix(modifiers[i].options.formula);
+			modifiers[i].options['intstr']=bothparts[0];
+			modifiers[i].options['expstr']=bothparts[1];
+			cpptable.filter(modifiers[i].options);
+			console.log('finished filter', performance.now());
 		}
 		else if (modifiers[i].type == 'sort'){
 			cpptable.sortArray(modifiers[i].options);

@@ -195,6 +195,31 @@ exports.newCol = function(options){
 	//types.push('Float');
 }
 
+exports.filter = function(options){
+	var intstr = options.intstr;//["a","b","1"];
+	var exp = options.expstr;//"##+#+";
+	if (intstr.length == 0 || exp.length == 0){
+		return;
+	}
+	var vars = [];
+	for (var i in options.variables){
+		vars.push(options.variables[i].type);
+		vars.push(i.toUpperCase());
+		vars.push(options.variables[i].column);
+		var rows = options.variables[i].row.split(',');
+		if (rows[0].indexOf('$')==0){vars.push(rows[0].substring(1));}
+		else {vars.push(-2);}
+		if (rows.length >= 2 && rows[1].indexOf('$')==0){vars.push(rows[1].substring(1));}
+		else {vars.push(-2);}
+		if (rows[0].indexOf('$')==-1){vars.push(rows[0]);}
+		else {vars.push(-2);}
+		if (rows.length >= 2 && rows[1].indexOf('$')==-1){vars.push(rows[1]);}
+		else {vars.push(-2);}
+	}
+
+	dataArray.filter(intstr,exp,vars,options.exclude);
+
+}
 
 
 /*var allins = [];
