@@ -148,13 +148,13 @@ flat_hash_map<std::string,Cppdata> makeRowMap(NewColumn newcol,int idx){
 					rowStart = var.row[0];
 				}
 				else {
-					rowStart = var.row[2];
+					rowStart = var.row[2]+row;
 				}
 				if (var.row[0]>-2){
 					rowEnd = var.row[1];
 				}
 				else {
-					rowEnd = var.row[3];
+					rowEnd = var.row[3]+row;
 				}
 				if (rowEnd < 0){
 					rowEnd = temparray.size() + rowEnd;
