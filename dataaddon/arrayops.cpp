@@ -189,7 +189,12 @@ void MethodNewCol(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	makeFullMap(newcol);
 	int sz = temparray.size();
 	int i;
+	int len = newcol.expstr.length();
+	char exp[len+1];
+	strcpy(exp, newcol.expstr.c_str());
+		
 	std::vector<Cppdata> stack;
+	stack.resize(len);
 	
 	v8::Local<v8::Array> outArray = Nan::New<v8::Array>(sz);
 	
@@ -216,10 +221,8 @@ void MethodNewCol(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 				}
 			}
 		}
-		int len = newcol.expstr.length();
-		char exp[len+1];
-		strcpy(exp, newcol.expstr.c_str());
-		Nan::MaybeLocal<v8::String> tt = Nan::New<v8::String>(exp);
+		
+		Nan::MaybeLocal<v8::String> tt = Nan::New<v8::String>(intArray[i%2]);
 		Nan::Set(outArray,i,tt.ToLocalChecked());
 		
 		/*Cppdata answer = solvePostfixVV(exp, intArray, stack);
