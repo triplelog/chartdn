@@ -1260,9 +1260,9 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable) {
 			console.log('finished filter', performance.now());
 		}
 		else if (modifiers[i].type == 'sort'){
-			console.log(modifiers[i].options);
+			console.log('starting sort', performance.now());
 			cpptable.sortArray(modifiers[i].options);
-			console.log('hi');
+			console.log('finished sort', performance.now());
 		}
 		else if (modifiers[i].type == 'replace'){
 			modJS.replace(rawArray,modifiers[i].options);
@@ -1275,6 +1275,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable) {
 			console.log(cpptable.readRow(5));
 			//Update columns in create chart
 		}
+		console.log('aaa');
 		for (var idd=0;idd<5;idd++){
 			console.log(cpptable.readRow(idd));
 		}
