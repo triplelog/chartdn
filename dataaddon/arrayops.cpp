@@ -209,12 +209,14 @@ void MethodNewCol(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		for (ii=0;ii<szintstr;ii++){
 			f = newcol.fullmap.find(newcol.intstr[ii]);
 			if (f != newcol.fullmap.end()){
-				intArray.push_back(Cppdata(7));
+				intArray.push_back(f->second);
+				//intArray.push_back(Cppdata(7));
 			}
 			else {
 				f = rowmap.find(newcol.intstr[ii]);
 				if (f != rowmap.end()){
-					intArray.push_back(Cppdata(9));
+					intArray.push_back(f->second);
+					//intArray.push_back(Cppdata(9));
 				}
 				else {
 					intArray.push_back(cppconstructor(newcol.intstr[ii].c_str()));
@@ -222,7 +224,7 @@ void MethodNewCol(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 			}
 		}
 		
-		Nan::Set(outArray,i,v8::Number::New(isolate,intArray[i%2].v));
+		Nan::Set(outArray,i,v8::Number::New(isolate,newcol.fullmap["a"].v));
 		
 		Cppdata answer = solvePostfixVV(exp, intArray, stack);
 		temparray[i].push_back(answer);
