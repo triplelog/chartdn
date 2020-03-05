@@ -134,14 +134,14 @@ void MethodCopy(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	tempstrarray.clear();
 	std::vector<std::string> onearray2;
 	sz = strarray.size();
-	szz = strarray[0].size();
-	onearray2.resize(szz);
-	tempstrarray.resize(sz,onearray2);
+	
+	tempstrarray.resize(sz);
 	i=0; ii = 0;
 	for (i=0; i<sz; i++) {
-		std::vector<std::string> onerow2(szz);
+		std::vector<std::string> onerow2;
+		szz = strarray[i].size();
 		for (ii=0; ii<szz; ii++) {
-			onerow2[ii]=strarray[i][ii];
+			onerow2.push_back(strarray[i][ii]);
 		}
 		tempstrarray[i] =onerow2;
 	}
