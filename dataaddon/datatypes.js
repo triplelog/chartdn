@@ -222,8 +222,14 @@ exports.filter = function(options){
 }
 
 exports.pivot = function(options) {
-	var out = dataArray.pivot();
-	console.log(out);
+	var cols = [];
+	var types = [];
+	for (var ii in options.columns) {
+		cols.push(options.columns[ii].column);
+		types.push(options.columns[ii].type);
+	}
+	dataArray.pivot(options.pivot,cols,types);
+	
 }
 
 /*var allins = [];

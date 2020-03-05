@@ -378,9 +378,20 @@ void MethodPivot(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Local<v8::Context> context = isolate->GetCurrentContext();
 	
 	Pivot pivot;
-	pivot.pivotcol = 0;
-	pivot.columns = {2};
-	pivot.types = {"max"};
+	pivot.pivotcol = info[0]->Int32Value(context).FromJust();
+	
+	v8::Local<v8::Array> columnsArray = v8::Local<v8::Array>::Cast(info[1]);
+	int iiii;
+	for (iiii=0;iiii<columnsArray->Length();iiii++){
+		int x = Nan::Get(columnsArray,iiii).ToLocalChecked()->Int32Value(context).FromJust();
+		pivot.columns.push_back(x);
+	}
+	v8::Local<v8::Array> typesArray = v8::Local<v8::Array>::Cast(info[2]);
+	for (iiii=0;iiii<typesArray->Length();iiii++){
+		v8::String::Utf8Value s(isolate, Nan::Get(typesArray,iiii).ToLocalChecked());
+		std::string str(*s);
+		pivot.types.push_back(str);
+	}
 	pivot.fullmap = MakeFullMap(pivot);
 	
 	std::vector<std::vector<Cppdata>> temparray2;
