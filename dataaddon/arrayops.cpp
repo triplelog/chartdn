@@ -411,6 +411,7 @@ void MethodPivot(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 			Nan::Set(outArray,idx,v8::Number::New(isolate,oneRow[0].v));
 		}
 		idx++;
+		f++;
 	}
 	
 	info.GetReturnValue().Set(outArray);
