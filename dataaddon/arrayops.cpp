@@ -36,9 +36,9 @@ void MethodRead(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		if (statrow[ii].t == 'S'){
 			const char* t = &statrow[ii].t;
 			Nan::MaybeLocal<v8::String> tt = Nan::New<v8::String>(t, 1);
-			Nan::MaybeLocal<v8::String> ttt = Nan::New<v8::String>(tempstrarray[statrow[ii].v][statrow[ii].w]);
+			//Nan::MaybeLocal<v8::String> ttt = Nan::New<v8::String>(tempstrarray[statrow[ii].v][statrow[ii].w]);
 			Nan::Set(outArray,ii*3+0,tt.ToLocalChecked());
-			Nan::Set(outArray,ii*3+1,ttt.ToLocalChecked());
+			Nan::Set(outArray,ii*3+1,tt.ToLocalChecked());
 			Nan::Set(outArray,ii*3+2,v8::Number::New(isolate,statrow[ii].w));
 		}
 		else {
