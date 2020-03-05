@@ -24,20 +24,10 @@ void MethodRead(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Local<v8::Context> context = isolate->GetCurrentContext();
 	int row = info[0]->Int32Value(context).FromJust();
 	int type = 0;
-	if (info.Length() > 1){
-		type = info[1]->Int32Value(context).FromJust();
-	}
-	//int row = (int)(info[0]->Int32Value(context));
 	std::vector<Cppdata> statrow;
 	if (row < temparray.size() && row >= 0){
 		statrow = temparray[row];
 	}
-	/*if (type == 1) {
-		statrow = temparray[row];
-	} 
-	else {
-		statrow = statarray[row];
-	}*/
 	int sz = statrow.size();
 	v8::Local<v8::Array> outArray = Nan::New<v8::Array>(sz*3);
 	
@@ -173,6 +163,11 @@ void MethodSort(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	oneSort.push_back(col);
 	sortCol.push_back(oneSort);
 	vsize++;
+	v8::Local<v8::Array> outArray = Nan::New<v8::Array>(sz);
+	Nan::Set(outArray,i,v8::Number::New(isolate,oneSort[0]));
+	Nan::Set(outArray,i,v8::Number::New(isolate,oneSort[1]));
+	Nan::Set(outArray,i,v8::Number::New(isolate,vsize));
+	Nan::Set(outArray,i,v8::Number::New(isolate,temparray.size()));
 	//std::sort(temparray.begin(),temparray.end());
 	if (1000<temparray.size()){
 		std::partial_sort(temparray.begin(),temparray.begin()+1000,temparray.end());
@@ -180,6 +175,8 @@ void MethodSort(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	else {
 		std::sort(temparray.begin(),temparray.end());
 	}
+	Nan::Set(outArray,i,v8::Number::New(isolate,temparray.size()));
+	info.GetReturnValue().Set(outArray);
 
 }
 
