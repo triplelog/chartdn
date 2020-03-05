@@ -246,7 +246,7 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,cpptable){
 				resolve(result);
 			}
 		});
-	}
+	});
 }
 function updateOptions(oldOptions, newOptions) {
 	for(var k in newOptions){
@@ -770,7 +770,7 @@ function loadChart(chartid,ws,dm,cpptable,deletexls=false,result=false){
 			  }
 			});
 		}
-	}
+	});
 
 }
 
