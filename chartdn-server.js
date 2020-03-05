@@ -1241,9 +1241,9 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable) {
 		t2 = performance.now();
 		if (modifiers[i].type == 'new'){
 			//modJS.newColumn(rawArray,modifiers[i].options,nHeaders,types);
-			//if (hArray.length>0){
-			//	hArray[0].push(modifiers[i].name);
-			//}
+			if (hArray.length>0){
+				hArray[0].push(modifiers[i].name);
+			}
 			//Update columns in create chart
 			console.log('starting new col', performance.now());
 			var bothparts = modJS.newpostfix(modifiers[i].options.formula);
