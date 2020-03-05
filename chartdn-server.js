@@ -1383,8 +1383,8 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes,sendTable,cppta
 				console.log('file parsed',performance.now());
 				
 				cpptable.loadRows(results.data);
-				jsonmessage = {'operation':'loading','message':'70%'};
-				ws.send(JSON.stringify(jsonmessage));
+				//jsonmessage = {'operation':'loading','message':'70%'};
+				//ws.send(JSON.stringify(jsonmessage));
 				console.log('cpptable loaded',performance.now());
 				cpptable.copyArray();
 				console.log('cpptable copied',performance.now());
