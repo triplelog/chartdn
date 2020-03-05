@@ -183,16 +183,29 @@ void MethodNewCol(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::String::Utf8Value expin(isolate, info[1]);
 	std::string estr(*expin);
 	newcol.expstr = estr;
-	NewColumnVar newvar;
-	newvar.column = 1;
-	newvar.type = "max";
-	newvar.row[0] = 0;
-	newvar.row[1] = -1;
-	newvar.row[2] = -2;
-	newvar.row[3] = -2;
-	newvar.name = "a";
-	newcol.vars.push_back(newvar);
 	
+	v8::Local<v8::Array> newvarArray = v8::Local<v8::Array>::Cast(info[2]);
+	for (ii=0;ii<newvarArray->Length()/7;ii++){
+		NewColumnVar newvar;
+		
+		v8::String::Utf8Value s(isolate, Nan::Get(newvarArray,ii*7).ToLocalChecked());
+		std::string str(*s);
+		newvar.type = str;
+		
+		v8::String::Utf8Value s2(isolate, Nan::Get(newvarArray,ii*7+1).ToLocalChecked());
+		std::string str2(*s2);
+		newvar.name = str2;
+		
+		newvar.column = Nan::Get(newvarArray,ii*7+2)->Int32Value(context).FromJust();
+		newvar.row[0] = Nan::Get(newvarArray,ii*7+3)->Int32Value(context).FromJust();
+		newvar.row[1] = Nan::Get(newvarArray,ii*7+4)->Int32Value(context).FromJust();
+		newvar.row[2] = Nan::Get(newvarArray,ii*7+5)->Int32Value(context).FromJust();
+		newvar.row[3] = Nan::Get(newvarArray,ii*7+6)->Int32Value(context).FromJust();
+		
+		newcol.vars.push_back(newvar);
+	}
+	
+	/*
 	NewColumnVar newvar2;
 	newvar2.column = 2;
 	newvar2.type = "value";
@@ -201,7 +214,7 @@ void MethodNewCol(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	newvar2.row[2] = 0;
 	newvar2.row[3] = -2;
 	newvar2.name = "b";
-	newcol.vars.push_back(newvar2);
+	newcol.vars.push_back(newvar2);*/
 	
 	
 	newcol = makeFullMap(newcol);
