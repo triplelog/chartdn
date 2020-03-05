@@ -373,6 +373,7 @@ void MethodPivot(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	int csz = pivot.columns.size();
 	flat_hash_map<std::string,std::vector<Cppdata>>::iterator f = pivot.fullmap.begin();
 	int idx = 0;
+	v8::Local<v8::Array> outArray = Nan::New<v8::Array>();
 	while (f != pivot.fullmap.end()){
 		std::vector<Cppdata> oneRow;
 		std::vector<std::string> oneStringRow;
@@ -406,8 +407,11 @@ void MethodPivot(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		}
 		temparray2.push_back(oneRow);
 		strarray2.push_back(oneStringRow);
+		Nan::Set(outArray,idx,v8::Number::New(isolate,oneRow[0].v));
 		idx++;
 	}
+	
+	info.GetReturnValue().Set(outArray);
 	temparray = temparray2;
 	strarray = strarray2;
 	//if (idx<array.length){array.splice(idx,array.length-idx);}

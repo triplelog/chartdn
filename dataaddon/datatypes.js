@@ -222,7 +222,8 @@ exports.filter = function(options){
 }
 
 exports.pivot = function(options) {
-	dataArray.pivot();
+	var out = dataArray.pivot();
+	console.log(out);
 }
 
 /*var allins = [];
