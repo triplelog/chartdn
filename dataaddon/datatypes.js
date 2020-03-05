@@ -171,6 +171,9 @@ exports.readCol = function(i){
 exports.newCol = function(options){
 	var intstr = options.intstr;//["a","b","1"];
 	var exp = options.expstr;//"##+#+";
+	if (intstr.length == 0 || exp.length == 0){
+		return;
+	}
 	var vars = [];
 	for (var i in options.vars){
 		vars.push(options.vars[i].type);
