@@ -1260,7 +1260,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable) {
 			console.log('finished filter', performance.now());
 		}
 		else if (modifiers[i].type == 'sort'){
-			console.log('starting sort', performance.now());
+			console.log('starting sort', modifiers[i].options, performance.now());
 			cpptable.sortArray(modifiers[i].options);
 			console.log('finished sort', performance.now());
 		}
