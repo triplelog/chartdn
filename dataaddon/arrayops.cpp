@@ -176,7 +176,7 @@ void MethodNewCol(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	newcol.expstr = estr;
 	NewColumnVar newvar;
 	newvar.column = 1;
-	newvar.type = "sum";
+	newvar.type = "max";
 	newvar.row[0] = 0;
 	newvar.row[1] = -1;
 	newvar.row[2] = -2;
@@ -222,14 +222,13 @@ void MethodNewCol(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 			}
 		}
 		
-		/*Nan::MaybeLocal<v8::String> tt = Nan::New<v8::String>(intArray[i%2].t);
-		Nan::Set(outArray,i,tt.ToLocalChecked());*/
+		Nan::Set(outArray,i,v8::Number::New(isolate,intArray[i%2].v));
 		
 		Cppdata answer = solvePostfixVV(exp, intArray, stack);
 		temparray[i].push_back(answer);
 
 	}
-	//info.GetReturnValue().Set(outArray);
+	info.GetReturnValue().Set(outArray);
 	//types.push('Float');*/
 
 }
