@@ -138,7 +138,7 @@ flat_hash_map<std::string,Cppdata> makeRowMap(NewColumn newcol,int idx){
 			}
 		}
 		else {
-			int row = idx;
+			int row = idx; int ii;
 			int rowStart = 0; int rowEnd = -1;
 			if (var.row[0]>-2 && var.row[1]>-2){
 				continue;
