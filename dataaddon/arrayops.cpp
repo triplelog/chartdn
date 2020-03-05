@@ -412,7 +412,7 @@ void MethodPivot(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		int iii = 0; int ii;
 		for (ii=0;ii<csz;ii++) {
 			if (pivot.types[ii] == "mean"){
-				oneRow.push_back(object[iii]);
+				oneRow.push_back(object[iii+1]);
 				iii++;
 			}
 			else {
