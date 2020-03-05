@@ -252,13 +252,13 @@ void MethodNewCol(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 			}
 		}
 		
-		Nan::Set(outArray,i,v8::Number::New(isolate,newcol.fullmap["a"].v));
+		//Nan::Set(outArray,i,v8::Number::New(isolate,newcol.fullmap["a"].v));
 		
 		Cppdata answer = solvePostfixVV(exp, intArray, stack);
 		temparray[i].push_back(answer);
 
 	}
-	info.GetReturnValue().Set(outArray);
+	//info.GetReturnValue().Set(outArray);
 	//types.push('Float');*/
 
 }

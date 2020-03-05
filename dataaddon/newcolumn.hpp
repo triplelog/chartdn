@@ -146,24 +146,31 @@ flat_hash_map<std::string,Cppdata> makeRowMap(NewColumn newcol,int idx){
 			else {
 				if (var.row[0]>-2){
 					rowStart = var.row[0];
+					if (rowStart < 0){
+						rowStart = temparray.size() + rowStart;
+					}
 				}
 				else {
 					rowStart = var.row[2]+row;
+					if (rowStart < 0){
+						rowStart = 0;
+					}
 				}
 				if (var.row[0]>-2){
 					rowEnd = var.row[1];
+					if (rowEnd < 0){
+						rowEnd = temparray.size() + rowEnd;
+					}
 				}
 				else {
 					rowEnd = var.row[3]+row;
+					if (rowEnd < 0){
+						rowEnd = 0;
+					}
 				}
-				if (rowEnd < 0){
-					rowEnd = temparray.size() + rowEnd;
-				}
+				
 				if (rowEnd > temparray.size()-1){
 					rowEnd = temparray.size() - 1;
-				}
-				if (rowStart < 0){
-					rowStart = temparray.size() + rowStart;
 				}
 				if (rowStart > temparray.size()-1){
 					rowStart = temparray.size() - 1;

@@ -190,9 +190,8 @@ exports.newCol = function(options){
 		else {vars.push(-2);}
 	}
 	//var vars = ["max","a",1,0,-1,-2,-2,"value","b",2,-2,-2,0,0];
-	console.log(intstr,exp,vars);
-	var out = dataArray.newcolumn(intstr,exp,vars);
-	console.log(out);
+	//console.log(intstr,exp,vars);
+	dataArray.newcolumn(intstr,exp,vars);
 	//types.push('Float');
 }
 
