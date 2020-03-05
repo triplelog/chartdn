@@ -1367,9 +1367,8 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes,sendTable,cppta
 				reject('file empty');
 			}
 			else {
-				
-				console.log('file read',performance.now());
 				cpptable.clearArray();
+				console.log('file read',performance.now());
 				var jsonmessage = {'operation':'loading','message':'10%'};
 				ws.send(JSON.stringify(jsonmessage));
 				var results = Papa.parse(fileData, {
@@ -1377,15 +1376,17 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes,sendTable,cppta
 					skipEmptyLines: false,
 					quoteChar: '"',
 				});
-				jsonmessage = {'operation':'loading','message':'40%'};
-				ws.send(JSON.stringify(jsonmessage));
+				
 				var returnData = {};
 				console.log('file parsed',performance.now());
+				jsonmessage = {'operation':'loading','message':'40%'};
+				ws.send(JSON.stringify(jsonmessage));
 				
 				cpptable.loadRows(results.data);
-				//jsonmessage = {'operation':'loading','message':'70%'};
-				//ws.send(JSON.stringify(jsonmessage));
 				console.log('cpptable loaded',performance.now());
+				jsonmessage = {'operation':'loading','message':'70%'};
+				ws.send(JSON.stringify(jsonmessage));
+				
 				cpptable.copyArray();
 				console.log('cpptable copied',performance.now());
 				if (chgTypes){
