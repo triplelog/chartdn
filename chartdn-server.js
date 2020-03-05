@@ -1243,6 +1243,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable) {
 			if (hArray.length>0){
 				hArray[0].push(modifiers[i].name);
 			}
+			types.push('F');//Set this to determine the actual type
 			console.log('starting new col', performance.now());
 			var bothparts = modJS.newpostfix(modifiers[i].options.formula);
 			modifiers[i].options['intstr']=bothparts[0];
@@ -1264,22 +1265,62 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable) {
 			cpptable.sortArray(modifiers[i].options);
 			console.log('finished sort', performance.now());
 		}
-		else if (modifiers[i].type == 'replace'){
-			modJS.replace(rawArray,modifiers[i].options);
-		}
 		else if (modifiers[i].type == 'pivot'){
 			//modJS.pivot(rawArray,modifiers[i].options,hArray,types);
+			var hArrayNew = [];
+			for (var i in hArray){
+				hArrayNew.push([]);
+				if (hArray[i][options.pivot]){
+					hArrayNew[i].push(hArray[i][options.pivot]);
+				}
+				for (var ii in options.columns) {
+					hArrayNew[i].push(hArray[i][options.columns[ii].column]);
+				}
+			}
+			idx = 0;
+			for (var i in hArrayNew){
+				var iidx = 0;
+				for (var ii in hArrayNew[i]){
+					hArray[idx][iidx]=hArrayNew[i][ii];
+					iidx++;
+				}
+		
+				if (iidx<hArray[idx].length){hArray[idx].splice(iidx,hArray[idx].length-iidx);}
+				idx++;
+			}
+			if (idx<hArray.length){hArray.splice(idx,hArray.length-idx);}
+			var typesNew = [];
+			if (types[options.pivot]){
+				typesNew.push(types[options.pivot]);
+			}
+			for (var ii in options.columns) {
+				if (options.columns[ii].type == 'count'){
+					typesNew.push('Int');
+				}
+				else if (options.columns[ii].type == 'mean'){
+					typesNew.push('Float');
+				}
+				else {
+					typesNew.push(types[options.columns[ii].column]);
+				}
+			}
+			idx = 0;
+			for (var i in typesNew){
+				types[idx]=typesNew[i];
+				idx++;
+			}
+			if (idx<types.length){types.splice(idx,types.length-idx);}
+			
 			console.log('starting pivot', performance.now());
 			cpptable.pivot(modifiers[i].options);
 			console.log('finished pivot', performance.now());
 			console.log(cpptable.readRow(5));
 			//Update columns in create chart
 		}
+		/*else if (modifiers[i].type == 'replace'){
+			modJS.replace(rawArray,modifiers[i].options);
+		}*/
 		
-		for (var idd=0;idd<5;idd++){
-			console.log(idd);
-			console.log(cpptable.readRow(idd));
-		}
 		
 	}
 	var t3 = performance.now();
