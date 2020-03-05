@@ -90,6 +90,7 @@ function getOrdinal(n) {
 }
 // Set options like number of Header Rows
 var nHeaders = 1;
+var initialData;
 var yColsVals = [];
 var xColumn = '';
 if (options.xColumn){
@@ -907,6 +908,7 @@ function updateTable(data,sentHeaders) {
 	var dataTable = document.getElementById("dataTableModified");
 	
 	dataTable.innerHTML = '';
+	initialData = tableData.slice(0,100);
 	table = new Tabulator("#dataTableModified", {
 		ajaxURL:"placeholder",
 		paginationSize:100,
@@ -980,7 +982,13 @@ function queryRealm(url, config, params){
         var jsonmessage = {'operation':'data','size':params.size,'page':params.page};
 		console.log(jsonmessage);
 		ws.send(JSON.stringify(jsonmessage));
-        resolve(data);
+		initalData
+		var returnData = {
+			"last_page":1, //the total number of available pages (this value must be greater than 0)
+			"data":initialData,
+		}
+		console.log(returnData);
+        resolve(returnData);
 
         //if there is an error call this function and pass the error message or object into it
         reject();
