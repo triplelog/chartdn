@@ -908,6 +908,8 @@ function updateTable(data,sentHeaders) {
 	
 	dataTable.innerHTML = '';
 	table = new Tabulator("#dataTableModified", {
+		//ajaxProgressiveLoad:"scroll",
+		//ajaxProgressiveLoadScrollMargin:300,
 		columns: tableColumns,
 		autoResize:true,
 		movableRows:movableRows,
@@ -955,8 +957,8 @@ function updateTable(data,sentHeaders) {
 				document.getElementById("dataTableModified").style.width = nWidth+'px';
 			}
     	},
+    	data: tableData.slice(0,1000),
 	});
-	table.addData(tableData.slice(0,1000), false);
 	dataTable.style.width = '';
 	table.redraw(true);
 	

@@ -1253,7 +1253,7 @@ function convertDataToFull(hArray,nHeaders,modifiers,nsteps,types,cpptable) {
 			console.log('finished filter', performance.now());
 		}
 		else if (modifiers[i].type == 'sort'){
-			console.log('starting sort', modifiers[i].options, performance.now());
+			console.log('starting sort', performance.now());
 			cpptable.sortArray(modifiers[i].options);
 			console.log('finished sort', performance.now());
 		}
@@ -1262,7 +1262,6 @@ function convertDataToFull(hArray,nHeaders,modifiers,nsteps,types,cpptable) {
 			console.log('starting pivot', performance.now());
 			cpptable.pivot(modifiers[i].options);
 			console.log('finished pivot', performance.now());
-			console.log(cpptable.readRow(5));
 			//Update columns in create chart
 		}
 		/*else if (modifiers[i].type == 'replace'){
@@ -1297,12 +1296,7 @@ function convertDataToFull(hArray,nHeaders,modifiers,nsteps,types,cpptable) {
 			
 		}
 	}
-	var t5 = performance.now();
-	//console.log(filteredArray);
-	retArray = [];
-	var cols = [];
-	var t6 = performance.now();
-	console.log('modifier time',t1,t2,t3,t4,t5,t6);
+	console.log('finished modifying', performance.now());
 	return {'modified':modifiedArray,'headers':allHeaders};
 	
 }
@@ -1363,6 +1357,7 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes,sendTable,cppta
 	
 	return new Promise(function(resolve, reject) {
 		if (!chartInfo.data){reject('no data file');}
+		console.log('starting file read',performance.now());
         fs.readFile('saved/'+chartInfo.data, 'utf8', function(err, fileData) {
         	console.log(chartInfo.data);
         	if (err){
