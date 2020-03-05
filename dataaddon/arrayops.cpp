@@ -171,8 +171,9 @@ void MethodNewCol(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Local<v8::Context> context = isolate->GetCurrentContext();
 	NewColumn newcol;
 	newcol.intstr.push_back("a");
+	newcol.intstr.push_back("b");
 	newcol.intstr.push_back("1");
-	std::string estr("##+");
+	std::string estr("##+#+");
 	newcol.expstr = estr;
 	NewColumnVar newvar;
 	newvar.column = 1;
@@ -182,8 +183,17 @@ void MethodNewCol(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	newvar.row[2] = -2;
 	newvar.row[3] = -2;
 	newvar.name = "a";
-	
 	newcol.vars.push_back(newvar);
+	
+	NewColumnVar newvar2;
+	newvar2.column = 2;
+	newvar2.type = "value";
+	newvar2.row[0] = -2;
+	newvar2.row[1] = -2;
+	newvar2.row[2] = 0;
+	newvar2.row[3] = -2;
+	newvar2.name = "b";
+	newcol.vars.push_back(newvar2);
 	
 	
 	newcol = makeFullMap(newcol);
@@ -209,14 +219,12 @@ void MethodNewCol(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		for (ii=0;ii<szintstr;ii++){
 			f = newcol.fullmap.find(newcol.intstr[ii]);
 			if (f != newcol.fullmap.end()){
-				//intArray.push_back(f->second);
-				intArray.push_back(Cppdata(7));
+				intArray.push_back(f->second);
 			}
 			else {
 				f = rowmap.find(newcol.intstr[ii]);
 				if (f != rowmap.end()){
-					//intArray.push_back(f->second);
-					intArray.push_back(Cppdata(9));
+					intArray.push_back(f->second);
 				}
 				else {
 					intArray.push_back(cppconstructor(newcol.intstr[ii].c_str()));
