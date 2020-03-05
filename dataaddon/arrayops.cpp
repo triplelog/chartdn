@@ -222,11 +222,11 @@ void MethodNewCol(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 			}
 		}
 		
-		Nan::MaybeLocal<v8::String> tt = Nan::New<v8::String>(intArray[0]);
-		Nan::Set(outArray,i,tt.ToLocalChecked());
+		/*Nan::MaybeLocal<v8::String> tt = Nan::New<v8::String>(intArray[i%2].t);
+		Nan::Set(outArray,i,tt.ToLocalChecked());*/
 		
-		/*Cppdata answer = solvePostfixVV(exp, intArray, stack);
-		temparray[i].push_back(answer);*/
+		Cppdata answer = solvePostfixVV(exp, intArray, stack);
+		temparray[i].push_back(answer);
 
 	}
 	info.GetReturnValue().Set(outArray);
