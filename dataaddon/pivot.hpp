@@ -81,8 +81,9 @@ flat_hash_map<std::string,std::vector<Cppdata>> MakeFullMap(Pivot pivot) {
 						}
 					}
 					else if (type=="mean"){
-						pivot.fullmap[k][iidx*2] = pivot.fullmap[k][iidx*2] + temparray[i][col];
-						pivot.fullmap[k][iidx*2+1] = pivot.fullmap[k][iidx*2+1] + Cppdata(1);
+						pivot.fullmap[k][iidx] = pivot.fullmap[k][iidx] + temparray[i][col];
+						iidx++;
+						pivot.fullmap[k][iidx] = pivot.fullmap[k][iidx] + Cppdata(1);
 					}
 					else{
 						pivot.fullmap[k][iidx] = pivot.fullmap[k][iidx] + temparray[i][col];

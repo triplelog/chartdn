@@ -413,9 +413,10 @@ void MethodPivot(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		
 		std::vector<Cppdata> object = f->second;
 		int ii;
-		for (ii=0;ii<csz;ii++) {
+		for (ii=0;ii<object.size();ii++) {
 			if (pivot.types[ii] == "mean"){
-				oneRow.push_back(object[ii*2]/object[ii*2+1]);
+				oneRow.push_back(object[ii]/object[ii+1]);
+				ii++;
 			}
 			else {
 				if (object[ii].t == 'S'){
