@@ -412,26 +412,27 @@ void MethodPivot(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		oneRow.push_back(first);
 		
 		std::vector<Cppdata> object = f->second;
-		int ii;
-		for (ii=0;ii<object.size();ii++) {
+		int iii = 0;
+		for (ii=0;ii<csz;ii++) {
 			if (pivot.types[ii] == "mean"){
-				oneRow.push_back(object[ii]/object[ii+1]);
-				ii++;
+				oneRow.push_back(object[iii]/object[iii+1]);
+				iii++;
 			}
 			else {
-				if (object[ii].t == 'S'){
+				if (object[iii].t == 'S'){
 					Cppdata newObj;
 					newObj.t = 'S';
 					newObj.v = idx;
 					newObj.w = oneStringRow.size();
 					
-					oneStringRow.push_back(tempstrarray[object[ii].v][object[ii].w]);
+					oneStringRow.push_back(tempstrarray[object[iii].v][object[iii].w]);
 					oneRow.push_back(newObj);
 				}
 				else {
-					oneRow.push_back(object[ii]);
+					oneRow.push_back(object[iii]);
 				}
 			}
+			iii++;
 		}
 		temparray2.push_back(oneRow);
 		strarray2.push_back(oneStringRow);
