@@ -49,6 +49,10 @@ ws.onmessage = function(evt){
 		headers = dm.message;
 		headersChanged(true,oldHeaders);
 	}
+	else if (dm.operation == 'loading'){
+		var dataTable = document.getElementById('dataTableModified');
+		dataTable.innerHTML = dm.message;
+	}
 }
 
 function initialLoad() {
@@ -77,6 +81,8 @@ function initialLoad() {
 		}
 	}
 	if (hasData){
+		var dataTable = document.getElementById("dataTableModified");
+		dataTable.innerHTML = '20%';
 		minimizeBox('dataSource');
 		modifierChanged(false);
 		headersChanged(true);
