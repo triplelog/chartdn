@@ -28,7 +28,7 @@ struct Pivot {
 };
 
 
-void MakeFullMap(Pivot pivot) {
+flat_hash_map<std::string,std::vector<Cppdata>> MakeFullMap(Pivot pivot) {
 	int sz = temparray.size();
 	int i;
 	int csz = pivot.columns.size();
@@ -93,6 +93,7 @@ void MakeFullMap(Pivot pivot) {
 			
 		}
 	}
+	return pivot.fullmap;
 }
 
 

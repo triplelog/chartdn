@@ -365,7 +365,7 @@ void MethodPivot(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	pivot.pivotcol = 0;
 	pivot.columns = {2};
 	pivot.types = {"max"};
-	MakeFullMap(pivot);
+	flat_hash_map<std::string,std::vector<Cppdata>> pivot.fullmap = MakeFullMap(pivot);
 	
 	std::vector<std::vector<Cppdata>> temparray2;
 	std::vector<std::vector<std::string>> strarray2;
