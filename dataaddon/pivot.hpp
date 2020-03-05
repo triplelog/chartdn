@@ -23,7 +23,7 @@ using namespace std::chrono;
 struct Pivot {
 	int pivotcol;
 	std::vector<int> columns;
-	std::vector<int> types;
+	std::vector<std::string> types;
 	flat_hash_map<std::string,std::vector<Cppdata>> fullmap;
 };
 
@@ -81,7 +81,7 @@ void MakeFullMap(Pivot pivot) {
 						}
 					}
 					else if (type=="mean"){
-						pivot.fullmap[k][iidx*2] += pivot.fullmap[k][iidx*2] + temparray[i][col];
+						pivot.fullmap[k][iidx*2] = pivot.fullmap[k][iidx*2] + temparray[i][col];
 						pivot.fullmap[k][iidx*2+1] = pivot.fullmap[k][iidx*2+1] + Cppdata(1);
 					}
 					else{
