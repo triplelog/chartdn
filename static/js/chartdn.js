@@ -50,8 +50,9 @@ ws.onmessage = function(evt){
 		headersChanged(true,oldHeaders);
 	}
 	else if (dm.operation == 'loading'){
-		var dataTable = document.getElementById('dataTableModified');
-		dataTable.innerHTML = dm.message;
+		var dataTableOverlay = document.getElementById('dataTableOverlay');
+		dataTableOverlay.innerHTML = dm.message;
+		dataTableOver.style.display = 'block';
 	}
 }
 
@@ -910,7 +911,7 @@ function updateTable(data,sentHeaders) {
 		
 	}
 	var dataTable = document.getElementById("dataTableModified");
-	
+	document.getElementById("dataTableOverlay").style.display = 'none';
 	dataTable.innerHTML = '';
 	initialData = tableData.slice(0,1000);
 	table = new Tabulator("#dataTableModified", {
@@ -998,6 +999,7 @@ function queryRealm(url, config, params){
 }
 function redrawTable() {
 	var dataTable = document.getElementById("dataTableModified");
+	document.getElementById("dataTableOverlay").style.display = 'none';
 	dataTable.style.width = '';
 	if (table){table.redraw(true);}
 }
