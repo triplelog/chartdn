@@ -1253,7 +1253,7 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable) {
 			modifiers[i].options['expstr']=bothparts[1];
 			cpptable.newCol(modifiers[i].options);
 			console.log('created new col', performance.now());
-			cpptable.readRow(5);
+			console.log(cpptable.readRow(5));
 			console.log('read new col', performance.now());
 		}
 		else if (modifiers[i].type == 'filter'){
