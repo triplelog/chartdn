@@ -81,8 +81,6 @@ function initialLoad() {
 		}
 	}
 	if (hasData){
-		var dataTable = document.getElementById("dataTableModified");
-		dataTable.innerHTML = '20%';
 		minimizeBox('dataSource');
 		modifierChanged(false);
 		headersChanged(true);
