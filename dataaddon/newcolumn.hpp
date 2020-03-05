@@ -136,85 +136,83 @@ flat_hash_map<std::string,Cppdata> makeRowMap(NewColumn newcol,int idx){
 			else {
 				rowmap[var.name]=temparray[row][var.column];
 			}
-		}/*
+		}
 		else {
-			var rows = vars[ii].row.split(',');
-			var rowStart; var rowEnd;
-			if (rows[0].indexOf('$')==0 && rows[1].indexOf('$')==0){
+			int row = idx;
+			int rowStart = 0; int rowEnd = -1;
+			if (var.row[0]>-2 && var.row[1]>-2){
 				continue;
 			}
 			else {
-				if (rows[0].indexOf('$')==0){
-					rowStart = parseInt(rows[0].substring(1));
+				if (var.row[0]>-2){
+					rowStart = var.row[0];
 				}
 				else {
-					rowStart = parseInt(rows[0])+parseInt(i);
+					rowStart = var.row[2];
 				}
-				if (rows[1].indexOf('$')==0){
-					rowEnd = parseInt(rows[1].substring(1));
+				if (var.row[0]>-2){
+					rowEnd = var.row[1];
 				}
 				else {
-					rowEnd = parseInt(rows[1])+parseInt(i);
+					rowEnd = var.row[3];
 				}
 				if (rowEnd < 0){
-					rowEnd = array.length + rowEnd;
+					rowEnd = temparray.size() + rowEnd;
 				}
-				if (rowEnd > array.length-1){
-					rowEnd = array.length - 1;
+				if (rowEnd > temparray.size()-1){
+					rowEnd = temparray.size() - 1;
 				}
 				if (rowStart < 0){
-					rowStart = array.length + rowStart;
+					rowStart = temparray.size() + rowStart;
 				}
-				rowEnd = rowEnd - nHeaders;
-				rowStart = rowStart - nHeaders;
-				if (rowStart < 0){
-					rowStart = 0;
+				if (rowStart > temparray.size()-1){
+					rowStart = temparray.size() - 1;
 				}
-				if (vars[ii].type=='mean'){
-					var sum = 0;
-					var n = 0;
-					for (var i=rowStart;i<=rowEnd;i++){
-						sum += parseInt(array[i][vars[ii].column]);
-						n += 1;
+				if (var.type=="mean"){
+					Cppdata sum = temparray[rowStart][var.column];
+					int n = 0;
+					for (ii=rowStart+1;ii<=rowEnd;ii++){
+						sum = sum + temparray[ii][var.column];
+						n++;
 					}
 					if (n > 0){
-						rowmap[ii.toUpperCase()]=sum/n;
+						rowmap[var.name]=sum/Cppdata(n);
 					}
 				}
-				else if (vars[ii].type=='count'){
-					var n = 0;
-					for (var i=rowStart;i<=rowEnd;i++){
-						n += 1;
+				else if (var.type=="count"){
+					int n = 0;
+					for (ii=rowStart;ii<=rowEnd;ii++){
+						n++;
 					}
-					rowmap[ii.toUpperCase()]=n;
+					rowmap[var.name]=Cppdata(n);
 				}
-				else if (vars[ii].type=='sum'){
-					var sum = 0;
-					for (var i=rowStart;i<=rowEnd;i++){
-						sum += parseInt(array[i][vars[ii].column]);
+				else if (var.type=="sum"){
+					Cppdata sum = temparray[rowStart][var.column];
+					for (ii=rowStart+1;ii<=rowEnd;ii++){
+						sum = sum + temparray[ii][var.column];
 					}
-					rowmap[ii.toUpperCase()]=sum;
+					rowmap[var.name]=sum;
 				}
-				else if (vars[ii].type=='max'){
-					var max = parseInt(array[rowStart][vars[ii].column]);
-					for (var i=rowStart;i<=rowEnd;i++){
-						if (parseInt(array[i][vars[ii].column]) > max){
-							max = parseInt(array[i][vars[ii].column]);
+				else if (var.type=="max"){
+					Cppdata max = temparray[rowStart][var.column];
+					for (ii=rowStart+1;ii<=rowEnd;ii++){
+						if (temparray[ii][var.column] > max){
+							max = temparray[ii][var.column];
 						}
 					}
-					rowmap[ii.toUpperCase()]=max;
+					rowmap[var.name]=max;
 				}
-				else if (vars[ii].type=='min'){
-					var min = parseInt(array[rowStart][vars[ii].column]);
-					for (var i=rowStart;i<=rowEnd;i++){
-						if (parseInt(array[i][vars[ii].column]) < min){
-							min = parseInt(array[i][vars[ii].column]);
+				else if (var.type=="min"){
+					Cppdata min = temparray[rowStart][var.column];
+					for (ii=rowStart+1;ii<=rowEnd;ii++){
+						if (temparray[ii][var.column] < min){
+							min = temparray[ii][var.column];
 						}
 					}
-					rowmap[ii.toUpperCase()]=min;
+					rowmap[var.name]=min;
 				}
 			}
-		}*/
+		}
 	}
 	/*if (skipi){
 		return 'skip';
