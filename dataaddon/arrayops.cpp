@@ -180,7 +180,7 @@ void MethodNewCol(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	}
 	
 	
-	v8::String::Utf8Value expin(isolate, info[1]->Utf8Value(context));
+	v8::String::Utf8Value expin(isolate, info[1]);
 	std::string estr(*expin);
 	newcol.expstr = estr;
 	NewColumnVar newvar;
