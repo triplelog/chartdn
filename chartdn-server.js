@@ -237,7 +237,16 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,cpptable){
 		}
 	});
 	file.end();
-	return loadChart(chartid,ws,dm,cpptable,false,false);
+	return new Promise(function(resolve, reject) {
+		loadChart(chartid,ws,dm,cpptable,false,false).then(function(result, err) {
+			if (err){
+				reject(true);
+			}
+			else {
+				resolve(result);
+			}
+		});
+	}
 }
 function updateOptions(oldOptions, newOptions) {
 	for(var k in newOptions){
@@ -358,7 +367,10 @@ wss.on('connection', function connection(ws) {
 				var child = exec(wget, function(err, stdout, stderr) {
 					if (err) throw err;
 					else {
-						hArray = loadChart(chartid,ws,dm,cpptable,true,false);
+						loadChart(chartid,ws,dm,cpptable,true,false).then(function(result,err) {
+							if (err){}
+							else {hArray = result;}
+						});
 						
 					}
 					
@@ -367,7 +379,10 @@ wss.on('connection', function connection(ws) {
 		}
 		else {
 			fs.writeFile("saved/"+chartid+".csv", fstr, function (err) {
-				hArray = loadChart(chartid,ws,dm,cpptable,false,false);
+				loadChart(chartid,ws,dm,cpptable,false,false).then(function(result,err) {
+					if (err){}
+					else {hArray = result;}
+				});
 
 			});
 		}
@@ -392,7 +407,10 @@ wss.on('connection', function connection(ws) {
 		var child = exec(wget, function(err, stdout, stderr) {
 			if (err) throw err;
 			else {
-				loadChart(chartid,ws,dm,cpptable,false,false);
+				loadChart(chartid,ws,dm,cpptable,false,false).then(function(result,err) {
+					if (err){}
+					else {hArray = result;}
+				});
 				//fs.readFile('saved/'+chartid+'.csv', 'utf8', function(err, fileData) {
 					//var jsonmessage = {'operation':'downloaded','message':fileData};
 					//ws.send(JSON.stringify(jsonmessage));
@@ -706,52 +724,53 @@ wss.on('connection', function connection(ws) {
 });
 
 function loadChart(chartid,ws,dm,cpptable,deletexls=false,result=false){
-	if (deletexls){
-		fs.unlink("saved/"+chartid+"."+dm.type, (err) => {
-			if (err){
-				console.log('Did not delete xls file');
-			}
-		});
-	}
-	if (result){
-		makeAllCharts(ws,dm,result,'all',true,true,cpptable).then(function(result3) {
-			hArray = result3.hArray;
-			result.types = result3.types;
-			result.markModified('types');
-			result.save(function (err, chart) {
-				if (err) return console.error(err);
-				console.log('saved',chart.types.slice(0,10));
+	return new Promise(function(resolve, reject) {
+		if (deletexls){
+			fs.unlink("saved/"+chartid+"."+dm.type, (err) => {
+				if (err){
+					console.log('Did not delete xls file');
+				}
 			});
-			return hArray;
-		}, function(err) {
-			console.log(err);
-			return false;
-		});
-	}
-	else {
-		Chart.findOne({ id: chartid }, function(err, result2) {
-		  if (err) {
-		
-		  } else {
-		  	
-			makeAllCharts(ws,dm,result2,'all',true,true,cpptable).then(function(result3) {
+		}
+		if (result){
+			makeAllCharts(ws,dm,result,'all',true,true,cpptable).then(function(result3) {
 				hArray = result3.hArray;
-				result2.types = result3.types;
-				result2.markModified('types');
-				result2.save(function (err, chart) {
+				result.types = result3.types;
+				result.markModified('types');
+				result.save(function (err, chart) {
 					if (err) return console.error(err);
-					console.log('saved types',chart.types.slice(0,10));
+					console.log('saved',chart.types.slice(0,10));
 				});
-				return hArray;
+				resolve(hArray);
 			}, function(err) {
 				console.log(err);
-				return false;
+				reject(true);
 			});
+		}
+		else {
+			Chart.findOne({ id: chartid }, function(err, result2) {
+			  if (err) {
+		
+			  } else {
 			
-		  }
-		});
+				makeAllCharts(ws,dm,result2,'all',true,true,cpptable).then(function(result3) {
+					hArray = result3.hArray;
+					result2.types = result3.types;
+					result2.markModified('types');
+					result2.save(function (err, chart) {
+						if (err) return console.error(err);
+						console.log('saved types',chart.types.slice(0,10));
+					});
+					resolve(hArray);
+				}, function(err) {
+					console.log(err);
+					reject(true);
+				});
+			
+			  }
+			});
+		}
 	}
-	
 
 }
 
