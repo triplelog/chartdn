@@ -908,6 +908,7 @@ function updateTable(data,sentHeaders) {
 	
 	dataTable.innerHTML = '';
 	table = new Tabulator("#dataTableModified", {
+		ajaxURL:"placeholder",
 		ajaxProgressiveLoad:"scroll",
 		ajaxProgressiveLoadScrollMargin:300,
 		ajaxRequestFunc:queryRealm,
