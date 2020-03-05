@@ -367,6 +367,77 @@ void MethodPivot(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	pivot.types = {"max"};
 	MakeFullMap(pivot);
 	
+	std::vector<std::vector<Cppdata>> temparray2;
+	
+	int csz = pivot.columns.size();
+	flat_hash_map<std::string,std::vector<Cppdata>>::iterator f = pivot.fullmap.begin();
+	int idx = 0;
+	while (f != pivot.fullmap.end(); ){
+		std::vector<Cppdata> oneRow;
+		oneRow.push_back(f->first);
+		std::vector<Cppdata> object = f->second;
+		int ii;
+		for (ii=0;ii<csz;ii++) {
+			if (pivot.types[ii] == "mean"){
+				oneRow[ii] = object[ii*2]/object[ii*2+1];
+			}
+			else {
+				oneRow[ii] = object[ii];
+			}
+		}
+		temparray2.push_back(oneRow);
+	}
+	temparray = temparray2;
+	//if (idx<array.length){array.splice(idx,array.length-idx);}
+	
+	/*var hArrayNew = [];
+	
+	for (var i in hArray){
+		hArrayNew.push([]);
+		if (hArray[i][options.pivot]){
+			hArrayNew[i].push(hArray[i][options.pivot]);
+		}
+		for (var ii in options.columns) {
+			hArrayNew[i].push(hArray[i][options.columns[ii].column]);
+		}
+	}
+	
+	idx = 0;
+	for (var i in hArrayNew){
+		var iidx = 0;
+		for (var ii in hArrayNew[i]){
+			hArray[idx][iidx]=hArrayNew[i][ii];
+			iidx++;
+		}
+		
+		if (iidx<hArray[idx].length){hArray[idx].splice(iidx,hArray[idx].length-iidx);}
+		idx++;
+	}
+	if (idx<hArray.length){hArray.splice(idx,hArray.length-idx);}*/
+	
+	/*var typesNew = [];
+	if (types[options.pivot]){
+		typesNew.push(types[options.pivot]);
+	}
+	for (var ii in options.columns) {
+		if (options.columns[ii].type == 'count'){
+			typesNew.push('Int');
+		}
+		else if (options.columns[ii].type == 'mean'){
+			typesNew.push('Float');
+		}
+		else {
+			typesNew.push(types[options.columns[ii].column]);
+		}
+	}
+	idx = 0;
+	for (var i in typesNew){
+		types[idx]=typesNew[i];
+		idx++;
+	}
+	if (idx<types.length){types.splice(idx,types.length-idx);}
+	console.log('New types: ', types);*/
+	
 
 }
 

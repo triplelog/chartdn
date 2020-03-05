@@ -94,3 +94,5 @@ void MakeFullMap(Pivot pivot) {
 		}
 	}
 }
+
+
