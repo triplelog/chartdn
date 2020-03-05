@@ -32,7 +32,7 @@ struct NewColumn {
 	std::vector<NewColumnVar> vars;//This is actually map of name to formula
 };
 
-void makeFullMap(NewColumn newcol) {
+NewColumn makeFullMap(NewColumn newcol) {
 	newcol.fullmap.clear();
 	int varsz = newcol.vars.size();
 	int i;
@@ -108,6 +108,7 @@ void makeFullMap(NewColumn newcol) {
 			newcol.fullmap[var.name]=min;
 		}
 	}
+	return newcol;
 }
 
 flat_hash_map<std::string,Cppdata> makeRowMap(NewColumn newcol,int idx){
