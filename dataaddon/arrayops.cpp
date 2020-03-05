@@ -190,6 +190,10 @@ void MethodNewCol(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	int sz = temparray.size();
 	int i;
 	std::vector<Cppdata> stack;
+	
+	v8::Local<v8::Array> outArray = Nan::New<v8::Array>(sz);
+	
+	
 	for (i=0;i<sz;i++){
 		flat_hash_map<std::string,Cppdata> rowmap = makeRowMap(newcol,i);
 		//if (rowmap === 'skip'){array[i].push(''); continue;}
@@ -215,10 +219,14 @@ void MethodNewCol(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		int len = newcol.expstr.length();
 		char exp[len+1];
 		strcpy(exp, newcol.expstr.c_str());
-		Cppdata answer = solvePostfixVV(exp, intArray, stack);
-		/*temparray[i].push_back(answer);*/
+		Nan::MaybeLocal<v8::String> tt = Nan::New<v8::String>(exp);
+		Nan::Set(outArray,i,tt.ToLocalChecked());
+		
+		/*Cppdata answer = solvePostfixVV(exp, intArray, stack);
+		temparray[i].push_back(answer);*/
 
 	}
+	info.GetReturnValue().Set(outArray);
 	//types.push('Float');*/
 
 }

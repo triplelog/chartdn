@@ -174,7 +174,8 @@ exports.newCol = function(options){
 	//var bothparts = postfixify(formula);
 	
 	//var fullmap = makeFullMap(options);
-	dataArray.newcolumn();
+	var out = dataArray.newcolumn();
+	console.log(out);
 	/*for (var i in array){
 		var rowmap = makeRowMap(array,options,nHeaders,i);
 		if (rowmap === 'skip'){array[i].push(''); continue;}
