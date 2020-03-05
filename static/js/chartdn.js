@@ -52,7 +52,7 @@ ws.onmessage = function(evt){
 	else if (dm.operation == 'loading'){
 		var dataTableOverlay = document.getElementById('dataTableOverlay');
 		dataTableOverlay.innerHTML = dm.message;
-		dataTableOver.style.display = 'block';
+		dataTableOverlay.style.display = 'block';
 	}
 }
 
