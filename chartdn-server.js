@@ -1266,13 +1266,17 @@ function convertDataToFull(dataStr,nHeaders,modifiers,nsteps,types,cpptable) {
 			modJS.replace(rawArray,modifiers[i].options);
 		}
 		else if (modifiers[i].type == 'pivot'){
-			modJS.pivot(rawArray,modifiers[i].options,hArray,types);
+			//modJS.pivot(rawArray,modifiers[i].options,hArray,types);
 			console.log('starting pivot', performance.now());
 			cpptable.pivot(modifiers[i].options);
 			console.log('finished pivot', performance.now());
 			console.log(cpptable.readRow(5));
 			//Update columns in create chart
 		}
+		for (var idd=0;idd<5;idd++){
+			console.log(cpptable.readRow(idd));
+		}
+		
 	}
 	var t3 = performance.now();
 	allHeaders['current']=[];
