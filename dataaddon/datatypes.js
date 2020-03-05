@@ -175,11 +175,11 @@ exports.newCol = function(options){
 		return;
 	}
 	var vars = [];
-	for (var i in options.vars){
-		vars.push(options.vars[i].type);
+	for (var i in options.variables){
+		vars.push(options.variables[i].type);
 		vars.push(i);
-		vars.push(options.vars[i].column);
-		var rows = options.vars[i].row.split(',');
+		vars.push(options.variables[i].column);
+		var rows = options.variables[i].row.split(',');
 		if (rows[0].indexOf('$')==0){vars.push(rows[0].substring(1));}
 		else {vars.push(-2);}
 		if (rows.length >= 2 && rows[1].indexOf('$')==0){vars.push(rows[1].substring(1));}
