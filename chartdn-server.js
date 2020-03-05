@@ -53,6 +53,7 @@ var express = require('express');
 
 var app = express();
 app.use('/',express.static('static'));
+app.use('/docs/',express.static('chartdn-docs'));
 
 
 const server1 = https.createServer(options, app);
@@ -316,7 +317,7 @@ wss.on('connection', function connection(ws) {
   var chartData = false;
   var mongoChart = {};
   var sendTable = true;
-  var cpptable = require('./dataaddon/datatypes.js');
+  var cpptable = require('./chartdn-data/datatypes.js');
   ws.on('message', function incoming(message) {
   	var dm = JSON.parse(message);
   	console.log(dm.operation);

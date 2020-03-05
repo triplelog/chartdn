@@ -64,6 +64,12 @@ app2.get('/account',
 			}));
 			res.end();
   		}
+  		else if (req.query.e && req.query.e=='badlogin'){
+  			res.write(nunjucks.render('loginregister.html',{
+				badlogin: true,
+			}));
+			res.end();
+  		}
   		else {
   			res.write(nunjucks.render('loginregister.html',{}));
 			res.end();
@@ -248,7 +254,7 @@ function usernameToLowerCase(req, res, next){
 	next();
 } 
 app2.post('/login',  usernameToLowerCase,
-	passport.authenticate('local', { successRedirect: '/account', failureRedirect: '/fail' })
+	passport.authenticate('local', { successRedirect: '/account', failureRedirect: '/account?e=badlogin' })
 );
 
 app2.get('/logout', 

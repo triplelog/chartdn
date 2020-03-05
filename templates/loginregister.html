@@ -41,6 +41,7 @@
 
 						<label for="username">Username</label>
 						<input id="username" name="username" type="text" placeholder="Username">
+						{% if badlogin %}<div style="color: red;">Username or password not correct!</div>{% endif %}
 
 						<label for="password">Password</label>
 						<input id="password" name="password" type="password" placeholder="Password">
