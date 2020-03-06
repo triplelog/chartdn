@@ -913,7 +913,9 @@ function updateTable(data,sentHeaders) {
 		
 	}
 	var dataTable = document.getElementById("dataTableModified");
-	document.getElementById("dataTableOverlay").style.display = 'none';
+	if (document.getElementById("dataTableOverlay")){
+		document.getElementById("dataTableOverlay").style.display = 'none';
+	}
 	dataTable.innerHTML = '';
 	initialData = tableData.slice(0,500);
 	table = new Tabulator("#dataTableModified", {
