@@ -717,7 +717,11 @@ wss.on('connection', function connection(ws) {
 		  })
 		  
   	}
-
+	else if (dm.operation == 'data'){
+		var jsonmessage = {'operation':'data','lastPage':10,'data':[]};
+		ws.send(JSON.stringify(jsonmessage));
+		  
+  	}
   		
 
   });

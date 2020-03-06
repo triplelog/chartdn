@@ -974,27 +974,36 @@ function updateTable(data,sentHeaders) {
 	
 }
 function queryRealm(url, config, params){
-    //url - the url of the request
-    //config - the ajaxConfig object
-    //params - the ajaxParams object
-	console.log(url);
-	console.log(config);
-	console.log(params);
-    //return promise
+
     return new Promise(function(resolve, reject){
         //do some async data retrieval then pass the array of row data back into Tabulator
         //ws request data
-        //var jsonmessage = {'operation':'data','size':params.size,'page':params.page};
-		//console.log(jsonmessage);
-		//ws.send(JSON.stringify(jsonmessage));
-		var returnData = {
-			"last_page":10, //the total number of available pages (this value must be greater than 0)
+        var jsonmessage = {'operation':'data','size':params.size,'page':params.page};
+		console.log(jsonmessage);
+		ws.send(JSON.stringify(jsonmessage));
+		
+		ws.addEventListener('message', function (evt) {
+			var dm;
+			if (evt.data[0]=='{'){
+				dm = JSON.parse(evt.data);
+			}
+			if (dm.operation == 'data'){
+				var returnData = {};
+				returnData["last_page"]=dm.lastPage;
+				//returnData["data"]=dm.data;
+				returnData["data"]=initialData.slice(params.page*100-100,params.page*100);
+			}
+			console.log('Message from server ', evt.data);
+			resolve(returnData);
+		});
+		
+		setTimeout(function(){ reject(); }, 5000);
+		
+			
+		/*	"last_page":10, //the total number of available pages (this value must be greater than 0)
 			"data":initialData.slice(params.page*100-100,params.page*100),
-		}
-        resolve(returnData);
-
-        //if there is an error call this function and pass the error message or object into it
-        reject();
+		}*/
+        
     });
 }
 function redrawTable() {
