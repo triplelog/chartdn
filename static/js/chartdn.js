@@ -959,6 +959,7 @@ function updateTable(data,sentHeaders) {
 			document.getElementById('saveUserChanges').style.display = 'block';
 		},
 		renderComplete:function(){
+			console.log(this.tableWidth);
 			if (this.tableWidth && this.options.layout == 'fitData'){
 				var el = document.querySelector('div.tabulator-tableHolder');
 				var scrollWidth = 17;
