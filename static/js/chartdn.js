@@ -677,7 +677,7 @@ function clickTippy(evt) {
 				}
 			}
 			var newObject = {'id':id,'name':'Sort by '+colName,'type':'sort','options':{},'enabled':true};
-			newObject.options.column = [parseInt(col),0,0];
+			newObject.options.column = [parseInt(col),false,false];
 			if (evt.target.getAttribute('name')=='ascButton') {
 				newObject.options.ascending = [true,true,true];
 			}
@@ -2292,7 +2292,7 @@ function createNewModifier(show=false) {
 			createNew(oldObject);
 		}
 		else if (mType == 'sort'){
-			oldObject.options = {'column':[0,0,0],'ascending':[true,true,true]};
+			oldObject.options = {'column':[0,false,false],'ascending':[true,true,true]};
 			createSort(oldObject);
 		}
 		else if (mType == 'replace'){
