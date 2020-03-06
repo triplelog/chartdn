@@ -919,11 +919,11 @@ function updateTable(data,sentHeaders) {
 	dataTable.innerHTML = '';
 	initialData = tableData.slice(0,500);
 	table = new Tabulator("#dataTableModified", {
-		ajaxURL:"placeholder",
-		paginationSize:100,
-		ajaxProgressiveLoad:"scroll",
-		ajaxProgressiveLoadScrollMargin:300,
-		ajaxRequestFunc:queryRealm,
+		//ajaxURL:"placeholder",
+		//paginationSize:100,
+		//ajaxProgressiveLoad:"scroll",
+		//ajaxProgressiveLoadScrollMargin:300,
+		//ajaxRequestFunc:queryRealm,
 		columns: tableColumns,
 		autoResize:true,
 		movableRows:movableRows,
@@ -971,7 +971,7 @@ function updateTable(data,sentHeaders) {
 				document.getElementById("dataTableModified").style.width = nWidth+'px';
 			}
     	},
-    	//data: tableData.slice(0,1000),
+    	data: tableData.slice(0,1000),
 	});
 	dataTable.style.width = '';
 	table.redraw(true);
