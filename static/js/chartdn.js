@@ -1000,10 +1000,8 @@ function queryRealm(url, config, params){
 					returnData["data"].push(newDataRow);
 		
 				}
-				//returnData["data"]=initialData.slice(params.page*100-100,params.page*100);
+				resolve(returnData);
 			}
-			console.log('Message from server ', evt.data);
-			resolve(returnData);
 		});
 		
 		setTimeout(function(){ reject(); }, 5000);
