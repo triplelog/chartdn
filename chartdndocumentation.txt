@@ -50,7 +50,7 @@ mongo (to check that it is installed)
 
 mkdir saved (from chartdn directory)
 mkdir robots (from chartdn/static directory)
-pip3 install robohash (only need natsort and pillow -- I think im using custom robohash)
+pip3 install csvkit robohash (only need natsort and pillow -- I think im using custom robohash)
 git clone https://github.com/triplelog/qr-art.git (from python folder)
 wget -q https://packages.microsoft.com/config/ubuntu/19.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
 sudo dpkg -i packages-microsoft-prod.deb

@@ -1234,7 +1234,7 @@ function updateColumns(id='all') {
 			}
 			else if (modifiers[i].type == 'sort'){
 				var el = document.getElementById('sortcol'+modifiers[i].id);
-				var elval = modifiers[i].options.column;
+				var elval = modifiers[i].options.column[0];
 				el.innerHTML = '';
 				var cols = allHeaders[modifiers[i].id];
 				for (var ii in cols){
@@ -1433,12 +1433,12 @@ function updateModifier(evt){
 			else if (mType == 'sort'){
 				if (el.getAttribute('name')=='column'){
 					//modifiers[i].options.type = evt.target.querySelector('option:checked').value;
-					modifiers[i].options.column = parseInt(el.value);
+					modifiers[i].options.column[0] = parseInt(el.value);
 					modifiers[i].name = 'Sort by ' + el.querySelector('option:checked').textContent;
 					document.getElementById(modifiers[i].id).textContent = 'Sort by ' + el.querySelector('option:checked').textContent;
 				}
 				else if (el.getAttribute('name')=='descending'){
-					modifiers[i].options.ascending = !el.checked;
+					modifiers[i].options.ascending[0] = !el.checked;
 				}
 			}
 			else if (mType == 'replace'){
@@ -2120,7 +2120,7 @@ function createSort(obj) {
 	
 	newI = newM.querySelector('input[name=descending]');
 	newI.addEventListener('change',updateModifier);
-	if (!obj.options.ascending){
+	if (!obj.options.ascending[0]){
 		newI.setAttribute('checked','checked');
 	}
 	
@@ -2292,7 +2292,7 @@ function createNewModifier(show=false) {
 			createNew(oldObject);
 		}
 		else if (mType == 'sort'){
-			oldObject.options = {'column':0,'ascending':true};
+			oldObject.options = {'column':[0,0,0],'ascending':[true,true,true]};
 			createSort(oldObject);
 		}
 		else if (mType == 'replace'){
