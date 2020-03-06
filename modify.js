@@ -23,7 +23,7 @@ function makePost(infixexpr) {
 	temptoken = ''
 	for (var i=0;i<infixexpr.length;i++){
 		var ie = infixexpr[i];
-		if ("-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".indexOf(ie) > -1){
+		if ("-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".indexOf(ie) > -1){
 			temptoken += ie
 		}
 		else{
