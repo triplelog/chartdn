@@ -918,7 +918,7 @@ function updateTable(data,sentHeaders) {
 	}
 	dataTable.innerHTML = '';
 	initialData = tableData.slice(0,500);
-	//var redrawnow = true;
+	var redrawnow = true;
 	table = new Tabulator("#dataTableModified", {
 		ajaxURL:"placeholder",
 		paginationSize:100,
@@ -972,23 +972,23 @@ function updateTable(data,sentHeaders) {
 				var nWidth = this.tableWidth + scrollWidth;
 				document.getElementById("dataTableModified").style.width = nWidth+'px';
 			}
-			/*console.log('rc',this.tableWidth);
+			console.log('rc',this.tableWidth);
 			if (redrawnow){
 				redrawnow = false;
 				document.getElementById("dataTableModified").style.width = '';
 				this.redraw(true);
-			}*/
+			}
 			
     	},
-    	/*dataLoaded:function(){
+    	dataLoaded:function(){
     		//this.redraw();
     		redrawnow = true;
     		console.log('dl',this.tableWidth);
-		},*/
+		},
     	//data: tableData.slice(0,1000),
 	});
 	dataTable.style.width = '';
-	//console.log('tr');
+	console.log('tr');
 	table.redraw(true);
 	
 }
