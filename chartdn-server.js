@@ -718,7 +718,23 @@ wss.on('connection', function connection(ws) {
 		  
   	}
 	else if (dm.operation == 'data'){
-		var jsonmessage = {'operation':'data','lastPage':10,'data':[]};
+		var page = dm.page;
+		var n = dm.size;
+		var startRow = page*n-n;
+		var endRow = page*n;
+		var data = [];
+		var lastPage = page + 1;
+		for (var i=startRow;i<endRow;i++){
+			var newrow = cpptable.readRow(i);
+			if (newrow === false){
+				lastPage = page;
+				break;
+			}
+			else {
+				data.push(newrow);
+			}
+		}
+		var jsonmessage = {'operation':'data','lastPage':lastPage,'data':data};
 		ws.send(JSON.stringify(jsonmessage));
 		  
   	}

@@ -990,8 +990,8 @@ function queryRealm(url, config, params){
 			if (dm.operation == 'data'){
 				var returnData = {};
 				returnData["last_page"]=dm.lastPage;
-				//returnData["data"]=dm.data;
-				returnData["data"]=initialData.slice(params.page*100-100,params.page*100);
+				returnData["data"]=dm.data;
+				//returnData["data"]=initialData.slice(params.page*100-100,params.page*100);
 			}
 			console.log('Message from server ', evt.data);
 			resolve(returnData);
