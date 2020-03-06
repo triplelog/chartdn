@@ -975,6 +975,7 @@ function updateTable(data,sentHeaders) {
 			console.log('rc',this.tableWidth);
 			if (redrawnow){
 				redrawnow = false;
+				document.getElementById("dataTableModified").style.width = '';
 				this.redraw(true);
 			}
 			
