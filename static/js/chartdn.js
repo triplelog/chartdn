@@ -959,7 +959,7 @@ function updateTable(data,sentHeaders) {
 			document.getElementById('saveUserChanges').style.display = 'block';
 		},
 		renderComplete:function(){
-			console.log(this.tableWidth);
+			console.log('rc',this.tableWidth);
 			if (this.tableWidth && this.options.layout == 'fitData'){
 				var el = document.querySelector('div.tabulator-tableHolder');
 				var scrollWidth = 17;
@@ -972,14 +972,19 @@ function updateTable(data,sentHeaders) {
 				document.getElementById("dataTableModified").style.width = nWidth+'px';
 			}
     	},
-    	pageLoaded:function(pageno){
-			console.log(pageno, this.tableWidth);
-		},
-		tableBuilt:function(){
-			console.log('table built',this.tableWidth);
-    	},
-    	dataLoaded:function(data){
-			console.log('data loaded',this.tableWidth);
+    	dataLoaded:function(){
+    		console.log('dl',this.tableWidth);
+			if (this.tableWidth && this.options.layout == 'fitData'){
+				var el = document.querySelector('div.tabulator-tableHolder');
+				var scrollWidth = 17;
+				if (el.offsetWidth && el.clientWidth){
+					if (el.offsetWidth > el.clientWidth){
+						scrollWidth = parseInt(el.offsetWidth) - parseInt(el.clientWidth) + 2;
+					}
+				}
+				var nWidth = this.tableWidth + scrollWidth;
+				document.getElementById("dataTableModified").style.width = nWidth+'px';
+			}
 		},
     	//data: tableData.slice(0,1000),
 	});
