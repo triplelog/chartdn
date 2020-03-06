@@ -1274,7 +1274,7 @@ function updateColumns(id='all') {
 			
 			}
 			else if (modifiers[i].type == 'sort'){
-				var el = document.getElementById('sortcol'+modifiers[i].id);
+				var el = document.getElementById('sortcol1_'+modifiers[i].id);
 				var elval = modifiers[i].options.column[0];
 				el.innerHTML = '';
 				var cols = allHeaders[modifiers[i].id];
@@ -1286,7 +1286,32 @@ function updateColumns(id='all') {
 						varOption.setAttribute('selected','selected');
 					}
 					el.appendChild(varOption);
-				
+				}
+				var el = document.getElementById('sortcol2_'+modifiers[i].id);
+				var elval = modifiers[i].options.column[1];
+				el.innerHTML = '';
+				var cols = allHeaders[modifiers[i].id];
+				for (var ii in cols){
+					var varOption = document.createElement('option');
+					varOption.value = parseInt(ii);
+					varOption.textContent = cols[parseInt(ii)];
+					if (parseInt(ii) == parseInt(elval)){
+						varOption.setAttribute('selected','selected');
+					}
+					el.appendChild(varOption);
+				}
+				var el = document.getElementById('sortcol3_'+modifiers[i].id);
+				var elval = modifiers[i].options.column[2];
+				el.innerHTML = '';
+				var cols = allHeaders[modifiers[i].id];
+				for (var ii in cols){
+					var varOption = document.createElement('option');
+					varOption.value = parseInt(ii);
+					varOption.textContent = cols[parseInt(ii)];
+					if (parseInt(ii) == parseInt(elval)){
+						varOption.setAttribute('selected','selected');
+					}
+					el.appendChild(varOption);
 				}
 			}
 			else if (modifiers[i].type == 'pivot'){
@@ -1506,14 +1531,29 @@ function updateModifier(evt){
 				}
 			}
 			else if (mType == 'sort'){
-				if (el.getAttribute('name')=='column'){
-					//modifiers[i].options.type = evt.target.querySelector('option:checked').value;
+				if (el.getAttribute('name')=='column1'){
 					modifiers[i].options.column[0] = parseInt(el.value);
 					modifiers[i].name = 'Sort by ' + el.querySelector('option:checked').textContent;
 					document.getElementById(modifiers[i].id).textContent = 'Sort by ' + el.querySelector('option:checked').textContent;
 				}
-				else if (el.getAttribute('name')=='descending'){
+				else if (el.getAttribute('name')=='descending1'){
 					modifiers[i].options.ascending[0] = !el.checked;
+				}
+				else if (el.getAttribute('name')=='column2'){
+					modifiers[i].options.column[1] = parseInt(el.value);
+					modifiers[i].name = 'Sort by ' + el.querySelector('option:checked').textContent;
+					document.getElementById(modifiers[i].id).textContent = 'Sort by ' + el.querySelector('option:checked').textContent;
+				}
+				else if (el.getAttribute('name')=='descending2'){
+					modifiers[i].options.ascending[1] = !el.checked;
+				}
+				else if (el.getAttribute('name')=='column3'){
+					modifiers[i].options.column[2] = parseInt(el.value);
+					modifiers[i].name = 'Sort by ' + el.querySelector('option:checked').textContent;
+					document.getElementById(modifiers[i].id).textContent = 'Sort by ' + el.querySelector('option:checked').textContent;
+				}
+				else if (el.getAttribute('name')=='descending3'){
+					modifiers[i].options.ascending[2] = !el.checked;
 				}
 			}
 			else if (mType == 'replace'){
@@ -2190,13 +2230,29 @@ function createSort(obj) {
 	var newM = parentEl.querySelector('#edit_id');
 	newM.id = 'edit'+obj.id;
 	
-	var newI = newM.querySelector('#sortcol_id');
-	newI.id = 'sortcol'+obj.id;
+	var newI = newM.querySelector('#sortcol1_id');
+	newI.id = 'sortcol1_'+obj.id;
+	newI.addEventListener('change',updateModifier);
+	var newI = newM.querySelector('#sortcol2_id');
+	newI.id = 'sortcol2_'+obj.id;
+	newI.addEventListener('change',updateModifier);
+	var newI = newM.querySelector('#sortcol3_id');
+	newI.id = 'sortcol3_'+obj.id;
 	newI.addEventListener('change',updateModifier);
 	
-	newI = newM.querySelector('input[name=descending]');
+	newI = newM.querySelector('input[name=descending1]');
 	newI.addEventListener('change',updateModifier);
 	if (!obj.options.ascending[0]){
+		newI.setAttribute('checked','checked');
+	}
+	newI = newM.querySelector('input[name=descending2]');
+	newI.addEventListener('change',updateModifier);
+	if (!obj.options.ascending[1]){
+		newI.setAttribute('checked','checked');
+	}
+	newI = newM.querySelector('input[name=descending3]');
+	newI.addEventListener('change',updateModifier);
+	if (!obj.options.ascending[2]){
 		newI.setAttribute('checked','checked');
 	}
 	
