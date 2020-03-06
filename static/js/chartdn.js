@@ -982,6 +982,7 @@ function updateTable(data,sentHeaders) {
     	//data: tableData.slice(0,1000),
 	});
 	dataTable.style.width = '';
+	console.log('tr');
 	table.redraw(true);
 	
 }
