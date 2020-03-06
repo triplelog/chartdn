@@ -973,6 +973,7 @@ function updateTable(data,sentHeaders) {
 			}
     	},
     	dataLoaded:function(){
+    		this.redraw();
     		console.log('dl',this.tableWidth);
 			if (this.tableWidth && this.options.layout == 'fitData'){
 				var el = document.querySelector('div.tabulator-tableHolder');
