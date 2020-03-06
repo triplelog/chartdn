@@ -975,6 +975,12 @@ function updateTable(data,sentHeaders) {
     	pageLoaded:function(pageno){
 			console.log(pageno, this.tableWidth);
 		},
+		tableBuilt:function(){
+			console.log('table built',this.tableWidth);
+    	},
+    	dataLoaded:function(data){
+			console.log('data loaded',this.tableWidth);
+		},
     	//data: tableData.slice(0,1000),
 	});
 	dataTable.style.width = '';
