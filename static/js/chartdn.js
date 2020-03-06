@@ -974,18 +974,6 @@ function updateTable(data,sentHeaders) {
     	},
     	dataLoaded:function(){
     		this.redraw();
-    		console.log('dl',this.tableWidth);
-			if (this.tableWidth && this.options.layout == 'fitData'){
-				var el = document.querySelector('div.tabulator-tableHolder');
-				var scrollWidth = 17;
-				if (el.offsetWidth && el.clientWidth){
-					if (el.offsetWidth > el.clientWidth){
-						scrollWidth = parseInt(el.offsetWidth) - parseInt(el.clientWidth) + 2;
-					}
-				}
-				var nWidth = this.tableWidth + scrollWidth;
-				document.getElementById("dataTableModified").style.width = nWidth+'px';
-			}
 		},
     	//data: tableData.slice(0,1000),
 	});
