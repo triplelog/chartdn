@@ -139,6 +139,39 @@ function replaceNegatives(istr){
 function postfixify(input_str) {
 	//make variables and and/or uppercase
 	//leave "text" as default case
+	var openpar = [false,false,false];
+	var i = 0;
+	var c = input_str.charAt(i);
+	while(c != ''){
+		var t = -1;
+		if (c =='"'){
+			t = 0;
+		}
+		if (c =="'"){
+			t = 1;
+		}
+		if (c =='`'){
+			t = 2;
+		}
+		if (!openpar[0] && !openpar[1] && !openpar[2]){
+			input_str = input_str.substring(0,i)+input_str.substring(i,i+1).toUpperCase()+input_str.substring(i+1);
+		}
+		if (t > -1){
+			if (!openpar[0] && !openpar[1] && !openpar[2]){
+				input_str = input_str.substring(0,i)+input_str.substring(i+1);
+				i--;
+				openpar[t] = true;
+			}
+			else if (openpar[t]){
+				input_str = input_str.substring(0,i)+input_str.substring(i+1);
+				i--;
+				openpar[t] = false;
+			}
+		}
+		
+		i++;
+		c = input_str.charAt(i);
+	}
 	input_str = input_str.toUpperCase();
 	input_str = input_str.replace(/\sAND\s/g,'&');
 	input_str = input_str.replace(/\sOR\s/g,'|');
