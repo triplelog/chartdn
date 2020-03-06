@@ -981,7 +981,7 @@ function queryRealm(url, config, params){
         var jsonmessage = {'operation':'data','size':params.size,'page':params.page};
 		console.log(jsonmessage);
 		ws.send(JSON.stringify(jsonmessage));
-		
+		var offset = (params.page-1)*params.size;
 		ws.addEventListener('message', function (evt) {
 			var dm;
 			if (evt.data[0]=='{'){
@@ -990,7 +990,16 @@ function queryRealm(url, config, params){
 			if (dm.operation == 'data'){
 				var returnData = {};
 				returnData["last_page"]=dm.lastPage;
-				returnData["data"]=dm.data;
+				returnData["data"]=[];
+				
+				for (var i=offset;i<offset+dm.data.length;i++){
+					var newDataRow = {id:i,colRow:i};
+					for (var ii=0;ii<dm.data[i-offset].length;ii++){
+						newDataRow['col'+ii]=dm.data[i-offset][ii];
+					}
+					returnData["data"].push(newDataRow);
+		
+				}
 				//returnData["data"]=initialData.slice(params.page*100-100,params.page*100);
 			}
 			console.log('Message from server ', evt.data);
