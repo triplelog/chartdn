@@ -913,12 +913,12 @@ function updateTable(data,sentHeaders) {
 	var dataTable = document.getElementById("dataTableModified");
 	document.getElementById("dataTableOverlay").style.display = 'none';
 	dataTable.innerHTML = '';
-	initialData = tableData.slice(0,1000);
+	initialData = tableData.slice(0,500);
 	table = new Tabulator("#dataTableModified", {
 		ajaxURL:"placeholder",
 		paginationSize:100,
 		ajaxProgressiveLoad:"scroll",
-		ajaxProgressiveLoadScrollMargin:500,
+		ajaxProgressiveLoadScrollMargin:300,
 		ajaxRequestFunc:queryRealm,
 		columns: tableColumns,
 		autoResize:true,
@@ -978,38 +978,43 @@ function queryRealm(url, config, params){
     return new Promise(function(resolve, reject){
         //do some async data retrieval then pass the array of row data back into Tabulator
         //ws request data
-        var jsonmessage = {'operation':'data','size':params.size,'page':params.page};
-		console.log(jsonmessage);
-		ws.send(JSON.stringify(jsonmessage));
-		var offset = (params.page-1)*params.size;
-		ws.addEventListener('message', function (evt) {
-			var dm;
-			if (evt.data[0]=='{'){
-				dm = JSON.parse(evt.data);
-			}
-			if (dm.operation == 'data'){
-				var returnData = {};
-				returnData["last_page"]=dm.lastPage;
-				returnData["data"]=[];
-				
-				for (var i=offset;i<offset+dm.data.length;i++){
-					var newDataRow = {id:i,colRow:i};
-					for (var ii=0;ii<dm.data[i-offset].length;ii++){
-						newDataRow['col'+ii]=dm.data[i-offset][ii];
-					}
-					returnData["data"].push(newDataRow);
-		
+        if (params.page > 5){
+			var jsonmessage = {'operation':'data','size':params.size,'page':params.page};
+			console.log(jsonmessage);
+			ws.send(JSON.stringify(jsonmessage));
+			var offset = (params.page-1)*params.size;
+			ws.addEventListener('message', function (evt) {
+				var dm;
+				if (evt.data[0]=='{'){
+					dm = JSON.parse(evt.data);
 				}
-				resolve(returnData);
+				if (dm.operation == 'data' && dm.page == params.page){
+					var returnData = {};
+					returnData["last_page"]=dm.lastPage;
+					returnData["data"]=[];
+				
+					for (var i=offset;i<offset+dm.data.length;i++){
+						var newDataRow = {id:i,colRow:i};
+						for (var ii=0;ii<dm.data[i-offset].length;ii++){
+							newDataRow['col'+ii]=dm.data[i-offset][ii];
+						}
+						returnData["data"].push(newDataRow);
+		
+					}
+					resolve(returnData);
+				}
+			});
+		
+			setTimeout(function(){ reject(); }, 5000);
+		}
+		else {
+			var returnData = {
+				"last_page":10, //the total number of available pages (this value must be greater than 0)
+				"data":initialData.slice(params.page*params.size-params.size,params.page*params.size),
 			}
-		});
-		
-		setTimeout(function(){ reject(); }, 5000);
-		
-			
-		/*	"last_page":10, //the total number of available pages (this value must be greater than 0)
-			"data":initialData.slice(params.page*100-100,params.page*100),
-		}*/
+			resolve(returnData);
+		}
+
         
     });
 }

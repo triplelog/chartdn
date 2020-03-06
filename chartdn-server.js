@@ -734,7 +734,7 @@ wss.on('connection', function connection(ws) {
 				data.push(newrow);
 			}
 		}
-		var jsonmessage = {'operation':'data','lastPage':lastPage,'data':data};
+		var jsonmessage = {'operation':'data','lastPage':lastPage,'data':data,'page':page};
 		ws.send(JSON.stringify(jsonmessage));
 		  
   	}
@@ -1258,7 +1258,7 @@ function convertDataToFull(hArray,nHeaders,modifiers,nsteps,types,cpptable) {
 			allHeaders['modified'].headers=hArray.slice();
 			allHeaders['modified'].types=types.slice();
 			modifiedArray = [];
-			var rlen = 1000;
+			var rlen = 500;
 			for (var ii=0;ii<rlen;ii++){
 				var newrow = cpptable.readRow(ii);
 				if (newrow === false){
@@ -1322,7 +1322,7 @@ function convertDataToFull(hArray,nHeaders,modifiers,nsteps,types,cpptable) {
 		allHeaders['modified'].headers=hArray.slice();
 		allHeaders['modified'].types=types.slice();
 		modifiedArray = [];
-		var rlen = 1000;
+		var rlen = 500;
 		var t4 = performance.now();
 		for (var ii=0;ii<rlen;ii++){
 			var newrow = cpptable.readRow(ii);
