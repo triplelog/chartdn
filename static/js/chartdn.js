@@ -918,7 +918,7 @@ function updateTable(data,sentHeaders) {
 	}
 	dataTable.innerHTML = '';
 	initialData = tableData.slice(0,500);
-	var redrawnow = true;
+	//var redrawnow = true;
 	table = new Tabulator("#dataTableModified", {
 		ajaxURL:"placeholder",
 		paginationSize:100,
@@ -972,23 +972,23 @@ function updateTable(data,sentHeaders) {
 				var nWidth = this.tableWidth + scrollWidth;
 				document.getElementById("dataTableModified").style.width = nWidth+'px';
 			}
-			console.log('rc',this.tableWidth);
+			/*console.log('rc',this.tableWidth);
 			if (redrawnow){
 				redrawnow = false;
 				document.getElementById("dataTableModified").style.width = '';
 				this.redraw(true);
-			}
+			}*/
 			
     	},
-    	dataLoaded:function(){
+    	/*dataLoaded:function(){
     		//this.redraw();
     		redrawnow = true;
     		console.log('dl',this.tableWidth);
-		},
+		},*/
     	//data: tableData.slice(0,1000),
 	});
 	dataTable.style.width = '';
-	console.log('tr');
+	//console.log('tr');
 	table.redraw(true);
 	
 }
@@ -1020,6 +1020,7 @@ function queryRealm(url, config, params){
 						returnData["data"].push(newDataRow);
 		
 					}
+					document.getElementById("dataTableModified").style.width = '';
 					resolve(returnData);
 				}
 			});
@@ -1031,6 +1032,7 @@ function queryRealm(url, config, params){
 				"last_page":10, //the total number of available pages (this value must be greater than 0)
 				"data":initialData.slice(params.page*params.size-params.size,params.page*params.size),
 			}
+			document.getElementById("dataTableModified").style.width = '';
 			resolve(returnData);
 		}
 
