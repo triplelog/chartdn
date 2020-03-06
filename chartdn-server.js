@@ -1233,7 +1233,7 @@ loginServer.listen(3000);
 
 
 
-function convertDataToFull(hArray,nHeaders,modifiers,nsteps,types,cpptable) {
+function convertDataToFull(hArrayOld,nHeaders,modifiers,nsteps,types,cpptable) {
 	var t1 = performance.now();
 	console.log('tocopy cpptable',performance.now());
 	cpptable.copyArray();
@@ -1244,6 +1244,7 @@ function convertDataToFull(hArray,nHeaders,modifiers,nsteps,types,cpptable) {
 	var idx = 0;
 	var allHeaders = {};
 	var modifiedArray = [];
+	hArray = hArrayOld.slice();
 	
 	for (var i in modifiers){
 		
@@ -1276,7 +1277,8 @@ function convertDataToFull(hArray,nHeaders,modifiers,nsteps,types,cpptable) {
 		t2 = performance.now();
 		if (modifiers[i].type == 'new'){
 			hArray.push(modifiers[i].name);
-			types.push('F');//Set this to determine the actual type
+			//types.push('F');//Set this to determine the actual type
+			types = cpptable.getTypes();
 			console.log('starting new col', performance.now());
 			var bothparts = modJS.newpostfix(modifiers[i].options.formula);
 			modifiers[i].options['intstr']=bothparts[0];
@@ -1298,7 +1300,8 @@ function convertDataToFull(hArray,nHeaders,modifiers,nsteps,types,cpptable) {
 			console.log('finished sort', performance.now());
 		}
 		else if (modifiers[i].type == 'pivot'){
-			modJS.pivotHeaders(modifiers[i].options,hArray,types);
+			modJS.pivotHeaders(modifiers[i].options,hArray);
+			types = cpptable.getTypes();
 			console.log('starting pivot', performance.now());
 			cpptable.pivot(modifiers[i].options);
 			console.log('finished pivot', performance.now());

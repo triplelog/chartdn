@@ -579,7 +579,7 @@ exports.pivotHeaders = function(options,hArray,types){
 		iidx++;
 	}
 	if (iidx<hArray.length){hArray.splice(iidx,hArray.length-iidx);}
-	
+	/*
 	var typesNew = [];
 	if (types[options.pivot]){
 		typesNew.push(types[options.pivot]);
@@ -601,6 +601,7 @@ exports.pivotHeaders = function(options,hArray,types){
 		idx++;
 	}
 	if (idx<types.length){types.splice(idx,types.length-idx);}
+	*/
 }
 exports.pivot = function(array,options,hArray,types) {
 	toData(array);
