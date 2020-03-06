@@ -918,6 +918,7 @@ function updateTable(data,sentHeaders) {
 	}
 	dataTable.innerHTML = '';
 	initialData = tableData.slice(0,500);
+	var redrawnow = true;
 	table = new Tabulator("#dataTableModified", {
 		ajaxURL:"placeholder",
 		paginationSize:100,
@@ -959,7 +960,7 @@ function updateTable(data,sentHeaders) {
 			document.getElementById('saveUserChanges').style.display = 'block';
 		},
 		renderComplete:function(){
-			console.log('rc',this.tableWidth);
+			
 			if (this.tableWidth && this.options.layout == 'fitData'){
 				var el = document.querySelector('div.tabulator-tableHolder');
 				var scrollWidth = 17;
@@ -971,9 +972,12 @@ function updateTable(data,sentHeaders) {
 				var nWidth = this.tableWidth + scrollWidth;
 				document.getElementById("dataTableModified").style.width = nWidth+'px';
 			}
+			console.log('rc',this.tableWidth);
     	},
     	dataLoaded:function(){
-    		this.redraw();
+    		//this.redraw();
+    		redrawnow = 
+    		console.log('dl',this.tableWidth);
 		},
     	//data: tableData.slice(0,1000),
 	});
@@ -986,7 +990,6 @@ function queryRealm(url, config, params){
     return new Promise(function(resolve, reject){
         //do some async data retrieval then pass the array of row data back into Tabulator
         //ws request data
-        console.log(table);
         if (params.page > 5){
 			var jsonmessage = {'operation':'data','size':params.size,'page':params.page};
 			console.log(jsonmessage);
