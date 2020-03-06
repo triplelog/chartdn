@@ -973,10 +973,15 @@ function updateTable(data,sentHeaders) {
 				document.getElementById("dataTableModified").style.width = nWidth+'px';
 			}
 			console.log('rc',this.tableWidth);
+			if (redrawnow){
+				redrawnow = false;
+				this.redraw();
+			}
+			
     	},
     	dataLoaded:function(){
     		//this.redraw();
-    		redrawnow = 
+    		redrawnow = true;
     		console.log('dl',this.tableWidth);
 		},
     	//data: tableData.slice(0,1000),
