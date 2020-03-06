@@ -925,7 +925,7 @@ function updateTable(data,sentHeaders) {
 		ajaxProgressiveLoadScrollMargin:300,
 		ajaxRequestFunc:queryRealm,
 		columns: tableColumns,
-		autoResize:true,
+		autoResize:false,
 		movableRows:movableRows,
 		movableColumns:movableColumns,
 		height:"100%",
@@ -973,7 +973,7 @@ function updateTable(data,sentHeaders) {
 			}
     	},
     	dataLoaded:function(){
-    		this.redraw(true);
+    		this.redraw();
 		},
     	//data: tableData.slice(0,1000),
 	});
