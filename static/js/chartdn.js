@@ -1312,6 +1312,36 @@ function updateColumns(id='all') {
 
 function toKatex(input_str){
 	input_str = input_str.replace(/\sAND\s/gi,'\\text{ and }');
+	input_str = input_str.replace(/\sOR\s/gi,'\\text{ or }');
+	var openpar = [false,false,false];
+	var i = 0;
+	var c = input_str.charAt(i);
+	while(c != ''){
+		var t = -1;
+		if (c =='"'){
+			t = 0;
+		}
+		if (c =="'"){
+			t = 1;
+		}
+		if (c =='`'){
+			t = 2;
+		}
+		
+		if (t > -1){
+			if (!openpar[0] && !openpar[1] && !openpar[2]){
+				input_str = input_str.substring(0,i)+"\\text{"+input_str.substring(i+1);
+				openpar[t] = true;
+			}
+			else if (openpar[t]){
+				input_str = input_str.substring(0,i)+"}"+input_str.substring(i+1);
+				openpar[t] = false;
+			}
+		}
+		
+		i++;
+		c = input_str.charAt(i);
+	}
 	return input_str;
 }
 function updateNsteps(evt,id='',pm=0) {
