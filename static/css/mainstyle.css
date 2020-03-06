@@ -33,7 +33,7 @@ label {
 
 #dataTableHolder {
 	max-height: 20rem;
-	//position: relative;
+	position: relative;
 }
 .flex-column table{
 	max-height: 100%;

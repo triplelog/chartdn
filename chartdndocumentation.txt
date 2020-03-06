@@ -61,6 +61,8 @@ sudo apt-get install dotnet-sdk-3.1
 dotnet build (from qr-art/src/qr-art)
 sudo apt-get install -y libgdiplus
 
+sudo systemctl restart mongod (every time reboot?)
+
 Create ssh key on server and add to github
 #Copy the database and data files
 
