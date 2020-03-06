@@ -975,7 +975,7 @@ function updateTable(data,sentHeaders) {
 			console.log('rc',this.tableWidth);
 			if (redrawnow){
 				redrawnow = false;
-				this.redraw();
+				this.redraw(true);
 			}
 			
     	},
