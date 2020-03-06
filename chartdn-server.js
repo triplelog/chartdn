@@ -1269,6 +1269,7 @@ function convertDataToFull(hArray,nHeaders,modifiers,nsteps,types,cpptable) {
 				}
 			
 			}
+			cpptable.copyArray('toN');
 			nsteps = false;
 		}
 		else {idx++;}
@@ -1394,6 +1395,9 @@ function makeChartsWithData(ws,hArray,chartInfo,chartStyle,dm,reloadTable,cpptab
 		}
 		console.log('message sent',performance.now());
 	}
+	cpptable.copyArray('fromN');
+	
+	//copy from nsteps
 }
 
 function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes,sendTable,cpptable) {
