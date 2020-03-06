@@ -984,6 +984,7 @@ function updateTable(data,sentHeaders) {
 			
     	},
     	dataLoaded:function(){
+    		document.getElementById("dataTableModified").style.width = '';
     		redrawnow = true;
 		},
     	//data: tableData.slice(0,1000),
