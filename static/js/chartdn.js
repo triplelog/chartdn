@@ -959,10 +959,6 @@ function updateTable(data,sentHeaders) {
 			userDataChanges.push({'newColumns':myColumns});
 			document.getElementById('saveUserChanges').style.display = 'block';
 		},
-		renderStarted:function(){
-			document.getElementById("dataTableModified").style.width = '';
-			
-    	},
 		renderComplete:function(){
 			
 			if (this.tableWidth && this.options.layout == 'fitData'){
@@ -978,13 +974,12 @@ function updateTable(data,sentHeaders) {
 			}
 			if (redrawnow){
 				redrawnow = false;
-				//document.getElementById("dataTableModified").style.width = '';
+				document.getElementById("dataTableModified").style.width = '';
 				this.redraw(true);
 			}
 			
     	},
     	dataLoaded:function(){
-    		document.getElementById("dataTableModified").style.width = '';
     		redrawnow = true;
 		},
     	//data: tableData.slice(0,1000),
@@ -1021,7 +1016,7 @@ function queryRealm(url, config, params){
 						returnData["data"].push(newDataRow);
 		
 					}
-					document.getElementById("dataTableModified").style.width = '';
+					
 					resolve(returnData);
 				}
 			});
@@ -1033,7 +1028,7 @@ function queryRealm(url, config, params){
 				"last_page":10, //the total number of available pages (this value must be greater than 0)
 				"data":initialData.slice(params.page*params.size-params.size,params.page*params.size),
 			}
-			document.getElementById("dataTableModified").style.width = '';
+			
 			resolve(returnData);
 		}
 
