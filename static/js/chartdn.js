@@ -677,12 +677,12 @@ function clickTippy(evt) {
 				}
 			}
 			var newObject = {'id':id,'name':'Sort by '+colName,'type':'sort','options':{},'enabled':true};
-			newObject.options.column = parseInt(col);
+			newObject.options.column = [parseInt(col),0,0];
 			if (evt.target.getAttribute('name')=='ascButton') {
-				newObject.options.ascending = true;
+				newObject.options.ascending = [true,true,true];
 			}
 			else {
-				newObject.options.ascending = false;
+				newObject.options.ascending = [false,true,true];
 			}
 			var el = document.getElementById('createModifyMenu');
 			el.style.display = 'none';
