@@ -982,7 +982,7 @@ function queryRealm(url, config, params){
     return new Promise(function(resolve, reject){
         //do some async data retrieval then pass the array of row data back into Tabulator
         //ws request data
-        console.log(table.tableWidth);
+        console.log(table);
         if (params.page > 5){
 			var jsonmessage = {'operation':'data','size':params.size,'page':params.page};
 			console.log(jsonmessage);
