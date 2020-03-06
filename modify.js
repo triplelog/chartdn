@@ -172,9 +172,8 @@ function postfixify(input_str) {
 		i++;
 		c = input_str.charAt(i);
 	}
-	input_str = input_str.toUpperCase();
-	input_str = input_str.replace(/\sAND\s/g,'&');
-	input_str = input_str.replace(/\sOR\s/g,'|');
+	input_str = input_str.replace(/\sAND\s/gi,'&');
+	input_str = input_str.replace(/\sOR\s/gi,'|');
 	input_str = input_str.replace(/\s/g,'');
 	input_str = input_str.replace(/\[/g,'(');
 	input_str = input_str.replace(/]/g,')');
