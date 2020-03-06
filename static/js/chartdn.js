@@ -972,6 +972,9 @@ function updateTable(data,sentHeaders) {
 				document.getElementById("dataTableModified").style.width = nWidth+'px';
 			}
     	},
+    	pageLoaded:function(pageno){
+			console.log(pageno, this.tableWidth);
+		},
     	//data: tableData.slice(0,1000),
 	});
 	dataTable.style.width = '';
