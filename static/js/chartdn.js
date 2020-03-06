@@ -1311,7 +1311,7 @@ function updateColumns(id='all') {
 }
 
 function toKatex(input_str){
-	input_str = input_str.replace(/\sAND\s/gi,'\text{ and }');
+	input_str = input_str.replace(/\sAND\s/gi,'\\text{ and }');
 	return input_str;
 }
 function updateNsteps(evt,id='',pm=0) {
