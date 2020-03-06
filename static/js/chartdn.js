@@ -959,6 +959,10 @@ function updateTable(data,sentHeaders) {
 			userDataChanges.push({'newColumns':myColumns});
 			document.getElementById('saveUserChanges').style.display = 'block';
 		},
+		renderStarted:function(){
+			document.getElementById("dataTableModified").style.width = '';
+			
+    	},
 		renderComplete:function(){
 			
 			if (this.tableWidth && this.options.layout == 'fitData'){
@@ -972,23 +976,19 @@ function updateTable(data,sentHeaders) {
 				var nWidth = this.tableWidth + scrollWidth;
 				document.getElementById("dataTableModified").style.width = nWidth+'px';
 			}
-			console.log('rc',this.tableWidth);
 			if (redrawnow){
 				redrawnow = false;
-				document.getElementById("dataTableModified").style.width = '';
+				//document.getElementById("dataTableModified").style.width = '';
 				this.redraw(true);
 			}
 			
     	},
     	dataLoaded:function(){
-    		//this.redraw();
     		redrawnow = true;
-    		console.log('dl',this.tableWidth);
 		},
     	//data: tableData.slice(0,1000),
 	});
 	dataTable.style.width = '';
-	console.log('tr');
 	table.redraw(true);
 	
 }
