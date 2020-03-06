@@ -973,7 +973,7 @@ function updateTable(data,sentHeaders) {
 			}
     	},
     	dataLoaded:function(){
-    		this.redraw();
+    		this.redraw(true);
 		},
     	//data: tableData.slice(0,1000),
 	});
