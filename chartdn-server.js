@@ -1439,7 +1439,7 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes,sendTable,cppta
 				console.log('cpptable copied',performance.now());
 				if (chgTypes){
 					console.log('start getting types',performance.now());
-					var types = cpptable.makeTypes(results.data.slice(0,1000));
+					var types = cpptable.getTypes();
 					console.log('got types',performance.now());
 					returnData.types = types;
 				}
