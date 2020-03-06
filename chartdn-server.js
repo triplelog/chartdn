@@ -1335,6 +1335,7 @@ function convertDataToFull(hArray,nHeaders,modifiers,nsteps,types,cpptable) {
 			}
 			
 		}
+		cpptable.clearArray('N');
 	}
 	console.log('finished modifying', performance.now());
 	return {'modified':modifiedArray,'headers':allHeaders};
