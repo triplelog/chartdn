@@ -1310,6 +1310,10 @@ function updateColumns(id='all') {
 	}
 }
 
+function toKatex(input_str){
+	input_str = input_str.replace(/\sAND\s/gi,'\text{ and }');
+	return input_str;
+}
 function updateNsteps(evt,id='',pm=0) {
 	if (!evt){
 		if (!id){
@@ -1513,9 +1517,10 @@ function updateModifier(evt){
 					saveModifier = true;
 				}
 				else if (el.getAttribute('name')=='formula'){
+					
 					modifiers[i].options.formula = el.value;
 					var ell = el.parentElement.querySelector('div[name=katex]');
-					katex.render(modifiers[i].options.formula, ell, {
+					katex.render(toKatex(el.value), ell, {
 						throwOnError: false
 					});
 				}
@@ -2203,7 +2208,7 @@ function fillNew(obj) {
 	
 	//formula
 	el.querySelector('textarea[name=formula]').value = obj.options.formula;
-	katex.render(obj.options.formula, el.querySelector('div[name=katex]'), {
+	katex.render(toKatex(obj.options.formula), el.querySelector('div[name=katex]'), {
 		throwOnError: false
 	});
 	

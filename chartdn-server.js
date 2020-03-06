@@ -1278,12 +1278,12 @@ function convertDataToFull(hArrayOld,nHeaders,modifiers,nsteps,types,cpptable) {
 		if (modifiers[i].type == 'new'){
 			hArray.push(modifiers[i].name);
 			//types.push('F');//Set this to determine the actual type
-			types = cpptable.getTypes();
 			console.log('starting new col', performance.now());
 			var bothparts = modJS.newpostfix(modifiers[i].options.formula);
 			modifiers[i].options['intstr']=bothparts[0];
 			modifiers[i].options['expstr']=bothparts[1];
 			cpptable.newCol(modifiers[i].options);
+			types = cpptable.getTypes();
 			console.log('created new col', performance.now());
 		}
 		else if (modifiers[i].type == 'filter'){
@@ -1301,9 +1301,10 @@ function convertDataToFull(hArrayOld,nHeaders,modifiers,nsteps,types,cpptable) {
 		}
 		else if (modifiers[i].type == 'pivot'){
 			modJS.pivotHeaders(modifiers[i].options,hArray);
-			types = cpptable.getTypes();
+			
 			console.log('starting pivot', performance.now());
 			cpptable.pivot(modifiers[i].options);
+			types = cpptable.getTypes();
 			console.log('finished pivot', performance.now());
 			//Update columns in create chart
 		}

@@ -137,6 +137,8 @@ function replaceNegatives(istr){
 }
 
 function postfixify(input_str) {
+	//make variables and and/or uppercase
+	//leave "text" as default case
 	input_str = input_str.toUpperCase();
 	input_str = input_str.replace(/\sAND\s/g,'&');
 	input_str = input_str.replace(/\sOR\s/g,'|');
