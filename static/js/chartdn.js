@@ -51,8 +51,10 @@ ws.onmessage = function(evt){
 	}
 	else if (dm.operation == 'loading'){
 		var dataTableOverlay = document.getElementById('dataTableOverlay');
-		dataTableOverlay.innerHTML = dm.message;
-		dataTableOverlay.style.display = 'block';
+		if (dataTableOverlay){
+			dataTableOverlay.innerHTML = dm.message;
+			dataTableOverlay.style.display = 'block';
+		}
 	}
 }
 
@@ -1020,9 +1022,12 @@ function queryRealm(url, config, params){
 }
 function redrawTable() {
 	var dataTable = document.getElementById("dataTableModified");
-	document.getElementById("dataTableOverlay").style.display = 'none';
 	dataTable.style.width = '';
 	if (table){table.redraw(true);}
+	if (document.getElementById("dataTableOverlay")){
+		document.getElementById("dataTableOverlay").style.display = 'none';
+	}
+	
 }
 
 function dataChanged(csv='',dataType='csv') {
