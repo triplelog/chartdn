@@ -1423,7 +1423,7 @@ function updateNsteps(evt,id='',pm=0) {
 		return;
 	}
 	var el = evt.target;
-	if (el.tagName == 'i'){
+	if (el.tagName == 'I'){
 		el = el.parentElement;	
 		console.log(el);
 	}
