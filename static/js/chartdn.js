@@ -1422,39 +1422,43 @@ function updateNsteps(evt,id='',pm=0) {
 		}
 		return;
 	}
-	else {
-		var others = evt.target.parentElement.querySelectorAll('.baf-yes');
-		for (var i=0;i<others.length;i++){
-			others[i].remove('baf-yes');
-			others[i].add('baf-no');
-		}
-		evt.target.classList.add('baf-yes');
-		evt.target.classList.remove('baf-no');
+	var el = evt.target;
+	if (el.tagName == 'i'){
+		el = el.parentElement;	
 	}
-	if (evt.target.getAttribute('name')=='final'){
+	var id = el.parentElement.parentElement.id;
+
+	var others = el.parentElement.querySelectorAll('.baf-yes');
+	for (var i=0;i<others.length;i++){
+		others[i].classList.remove('baf-yes');
+		others[i].classList.add('baf-no');
+	}
+	el.classList.add('baf-yes');
+	el.classList.remove('baf-no');
+
+	if (el.getAttribute('name')=='final'){
 		newnsteps = -1;
 		chgStep(evt,true);
 		return;
 	}
-	var id = evt.target.parentElement.parentElement.id;
-	var el = evt.target;
+	
 	if (!id || id.substring(0,4) != 'edit'){
-		id = evt.target.parentElement.parentElement.parentElement.id;
+		id = el.parentElement.parentElement.parentElement.id;
 	}
 	if (!id || id.substring(0,4) != 'edit'){
-		id = evt.target.parentElement.parentElement.parentElement.parentElement.id;
+		id = el.parentElement.parentElement.parentElement.parentElement.id;
 	}
 	if (!id || id.substring(0,4) != 'edit'){
-		id = evt.target.parentElement.parentElement.parentElement.parentElement.parentElement.id;
+		id = el.parentElement.parentElement.parentElement.parentElement.parentElement.id;
 	}
 	if (el.getAttribute('name') == null || el.getAttribute('name') == ''){
-		el = evt.target.parentElement;
+		el = el.parentElement;
 	}
 	var cnsteps = 0;
 	for (var i in modifiers){
 		if ('edit'+modifiers[i].id == id){
 			newnsteps = cnsteps;
-			if (evt.target.getAttribute('name') == 'after'){
+			if (el.getAttribute('name') == 'after'){
 				newnsteps++;
 			}
 			chgStep(evt,true);
