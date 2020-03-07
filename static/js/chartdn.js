@@ -1965,7 +1965,7 @@ function createPivot(obj) {
 	});
 	
 }
-
+/*
 function copyReplace(evt) {
 	var el = evt.target;
 	var modid = evt.target.parentElement.parentElement.parentElement.parentElement.id.substring(4);
@@ -2212,7 +2212,7 @@ function createReplace(obj) {
 	
 
 }
-
+*/
 function createSort(obj) {
 	var newEl = document.createElement('div');
 	newEl.setAttribute('data-id',obj.type);
