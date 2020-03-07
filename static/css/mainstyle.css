@@ -500,3 +500,9 @@ div[name=createReplace] label {
 	margin: 0px;
 	background-color: rgba(0,0,220,.5);
 }
+.baf-no:hover {
+	background-color: rgba(200,0,0,.25);
+}
+.baf-yes:hover {
+	background-color: rgba(0,0,220,.5);
+}
