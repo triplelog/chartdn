@@ -583,6 +583,25 @@ function chgStep(evt,knownstep=false) {
 			allyes[i].classList.remove('baf-yes');
 			allyes[i].classList.add('baf-no');
 		}
+		
+		var allnsteps = document.querySelectorAll('div[data-nsteps]')
+		for (var i=0;i<allnsteps.length;i++){
+			if (newnsteps == -1){
+				var toyes = allnsteps[i].querySelectorAll('.baf-no')[2];
+				toyes.classList.remove('baf-no');
+				toyes.classList.add('baf-yes');
+			}
+			else if (newnsteps == parseInt(allnsteps[i].getAttribute('data-nsteps')) ){
+				var toyes = allnsteps[i].querySelectorAll('.baf-no')[0];
+				toyes.classList.remove('baf-no');
+				toyes.classList.add('baf-yes');
+			}
+			else if (newnsteps == parseInt(allnsteps[i].getAttribute('data-nsteps'))+1 ){
+				var toyes = allnsteps[i].querySelectorAll('.baf-no')[1];
+				toyes.classList.remove('baf-no');
+				toyes.classList.add('baf-yes');
+			}
+		}
 	}
 	var ell = document.getElementById('rawModified');
 	var qel = ell.querySelectorAll('a[name]');
@@ -1435,6 +1454,7 @@ function updateNsteps(evt,id='',pm=0) {
 		var cnsteps = 0;
 		for (var i in modifiers){
 			if (modifiers[i].id == id){
+				el.setAttribute('data-nsteps',cnsteps);
 				newnsteps = cnsteps+pm;
 				chgStep(evt,true);
 				break;
