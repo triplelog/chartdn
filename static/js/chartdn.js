@@ -1207,9 +1207,12 @@ drake.on('remove', function (el, target, source) {
 	d = new Date(); n = d.getTime(); console.log('timeremove2: ', n);
 });
 drake.on('drag', function (el, target, source) { 
+	var d = new Date(); n = d.getTime(); console.log('start drG: ', n);
 	var elval = el.id.substring(5);
 	document.getElementById('lineStyleMenu').value = elval;
+	d = new Date(); n = d.getTime(); console.log('mid drG: ', n);
 	chgLineTab();
+	d = new Date(); n = d.getTime(); console.log('end drG: ', n);
 });
 function clickLineData(evt) {
 	var elval = evt.target.id.substring(5);
