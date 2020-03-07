@@ -2528,8 +2528,10 @@ function minimizeBox(boxid,full=false){
 		var el = document.getElementById('dataSourceBox');
 		el.style.display = 'none';
 		var otherEl = document.getElementById('dataTableHolder');
-		otherEl.classList.add('pure-u-1-1');
-		otherEl.classList.remove('pure-u-3-4');
+		otherEl.classList.add('pure-u-lg-1-1');
+		otherEl.classList.remove('pure-u-lg-3-4');
+		otherEl.classList.add('pure-u-md-1-1');
+		otherEl.classList.remove('pure-u-md-2-3');
 		minimizedBoxes[boxid] = 'small';
 		document.getElementById('editSource').style.display = 'inline';
 		redrawTable();
@@ -2539,8 +2541,10 @@ function minimizeBox(boxid,full=false){
 		var el = document.getElementById('dataSourceBox');
 		el.style.display = 'block';
 		var otherEl = document.getElementById('dataTableHolder');
-		otherEl.classList.remove('pure-u-1-1');
-		otherEl.classList.add('pure-u-3-4');
+		otherEl.classList.remove('pure-u-lg-1-1');
+		otherEl.classList.add('pure-u-lg-3-4');
+		otherEl.classList.remove('pure-u-md-1-1');
+		otherEl.classList.add('pure-u-md-2-3');
 		minimizedBoxes[boxid] = 'large';
 		document.getElementById('editSource').style.display = 'none';
 		redrawTable();
@@ -2576,8 +2580,8 @@ function minimizeBox(boxid,full=false){
 	else if (boxid == 'chartjs' || boxid == 'plotly' || boxid == 'xkcd' || boxid == 'google'){
 		if (full){
 			var el = document.getElementById(boxid+'Box');
-			el.classList.add('pure-u-1-1');
-			el.classList.remove('pure-u-1-2');
+			el.classList.add('pure-u-lg-1-1');
+			el.classList.remove('pure-u-lg-1-2');
 			el.style.display = 'block';
 			minimizedBoxes[boxid] = 'full';
 			var myStyle = el.querySelector('chartdn-chart').getAttribute('data-style');
@@ -2588,8 +2592,8 @@ function minimizeBox(boxid,full=false){
 		}
 		else if (minimizedBoxes[boxid] == 'full') {
 			var el = document.getElementById(boxid+'Box');
-			el.classList.add('pure-u-1-2');
-			el.classList.remove('pure-u-1-1');
+			el.classList.add('pure-u-lg-1-2');
+			el.classList.remove('pure-u-lg-1-1');
 			el.style.display = 'block';
 			var myStyle = el.querySelector('chartdn-chart').getAttribute('data-style');
 			var jsonmessage = {'operation':'view','id':chartid,'loc':0,'style':myStyle}
@@ -2605,8 +2609,8 @@ function minimizeBox(boxid,full=false){
 		}
 		else if (minimizedBoxes[boxid] == 'none') {
 			var el = document.getElementById(boxid+'Box');
-			el.classList.add('pure-u-1-2');
-			el.classList.remove('pure-u-1-1');
+			el.classList.add('pure-u-lg-1-2');
+			el.classList.remove('pure-u-lg-1-1');
 			el.style.display = 'block';
 			var myStyle = el.querySelector('chartdn-chart').getAttribute('data-style');
 			var jsonmessage = {'operation':'view','id':chartid,'loc':0,'style':myStyle}
