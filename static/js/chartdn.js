@@ -1425,6 +1425,7 @@ function updateNsteps(evt,id='',pm=0) {
 	var el = evt.target;
 	if (el.tagName == 'i'){
 		el = el.parentElement;	
+		console.log(el);
 	}
 	var id = el.parentElement.parentElement.id;
 
