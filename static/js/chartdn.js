@@ -1422,6 +1422,15 @@ function updateNsteps(evt,id='',pm=0) {
 		}
 		return;
 	}
+	else {
+		var others = evt.target.parentElement.querySelectorAll('.baf-yes');
+		for (var i=0;i<others.length;i++){
+			others[i].remove('baf-yes');
+			others[i].add('baf-no');
+		}
+		evt.target.classList.add('baf-yes');
+		evt.target.classList.remove('baf-no');
+	}
 	if (evt.target.getAttribute('name')=='final'){
 		newnsteps = -1;
 		chgStep(evt,true);
