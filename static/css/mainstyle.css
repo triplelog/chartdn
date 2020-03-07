@@ -417,6 +417,7 @@ a.pure-button-primary {
 .box-form {
 	border: 1px solid black;
 	padding: .5rem;
+	position: relative;
 }
 .box-buttons {
 	float: right;

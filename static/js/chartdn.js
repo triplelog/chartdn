@@ -40,6 +40,10 @@ ws.onmessage = function(evt){
 			headersChanged(false,true);
 			updateColumns();
 		}
+		var plotlyOverlay = document.getElementById('plotlyOverlay');
+		if (plotlyOverlay){
+			plotlyOverlay.style.display = 'none';
+		}
 	}
 	else if (dm.operation == 'headers'){
 		var oldHeaders = [];
@@ -54,6 +58,11 @@ ws.onmessage = function(evt){
 		if (dataTableOverlay){
 			dataTableOverlay.innerHTML = dm.message;
 			dataTableOverlay.style.display = 'block';
+		}
+		var plotlyOverlay = document.getElementById('plotlyOverlay');
+		if (plotlyOverlay){
+			plotlyOverlay.innerHTML = dm.message;
+			plotlyOverlay.style.display = 'block';
 		}
 	}
 }
