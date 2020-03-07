@@ -2321,7 +2321,6 @@ function fillNew(obj) {
 	}
 	
 	
-	el.querySelector('span[name=title]').textContent = obj.name;
 	el.querySelector('input[name=name]').value = obj.name;
 	
 	//formula

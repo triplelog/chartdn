@@ -490,3 +490,13 @@ div[name=createReplace] label {
 	vertical-align: inherit;
 	padding: 0px 4px;
 }
+.baf-no {
+	padding: 0rem 1rem;
+	margin: 0px;
+	background-color: rgba(0,0,0,0);
+}
+.baf-yes {
+	padding: 0rem 1rem;
+	margin: 0px;
+	background-color: rgba(0,0,220,.5);
+}
