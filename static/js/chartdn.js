@@ -577,6 +577,12 @@ function chgStep(evt,knownstep=false) {
 	if (!knownstep){
 		var el = evt.target;
 		newnsteps = parseInt(el.getAttribute('name'));
+		
+		var allyes = document.querySelectorAll('.baf-yes');
+		for (var i=0;i<allyes.length;i++){
+			allyes[i].classList.remove('baf-yes');
+			allyes[i].classList.add('baf-no');
+		}
 	}
 	var ell = document.getElementById('rawModified');
 	var qel = ell.querySelectorAll('a[name]');
@@ -1402,13 +1408,30 @@ function toKatex(input_str){
 	return input_str;
 }
 function updateNsteps(evt,id='',pm=0) {
-	if (!evt){
-		if (!id){
+	if (!evt){// Here when modifier is opened/closed pm=0 is pivot,pm=1 if not
+		if (!id){// modifier was closed
 			newnsteps = -1;
 			chgStep(evt,true);
 			return;
 		}
 		console.log(id,pm);
+		var el = document.getElementById('edit'+id);
+		var allyes = el.querySelectorAll('.baf-yes');
+		for (var i=0;i<allyes.length;i++){
+			allyes[i].classList.remove('baf-yes');
+			allyes[i].classList.add('baf-no');
+		}
+		var allno = el.querySelectorAll('.baf-no');
+		if (pm ==0){
+			allno[0].classList.add('baf-yes');
+			allno[0].classList.remove('baf-no');
+		}
+		else {
+			allno[1].classList.add('baf-yes');
+			allno[1].classList.remove('baf-no');
+		}
+		
+		
 		var cnsteps = 0;
 		for (var i in modifiers){
 			if (modifiers[i].id == id){
