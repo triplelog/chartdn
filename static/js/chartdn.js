@@ -1087,6 +1087,7 @@ function redrawTable() {
 function gotoLastPage(){
 	if (table){
 		table.options.pagination = 'remote';
+		console.log(table);
 		table.options.ajaxProgressiveLoad = "false";
 		redrawTable();
 	}
