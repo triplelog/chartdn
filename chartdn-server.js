@@ -255,10 +255,6 @@ function updateOptions(oldOptions, newOptions) {
 		if (k == 'yColumns' || k == 'tags'){
 			oldOptions[k] = v;
 		}
-		else if (k == 'nsteps'){
-			if (v < 0){delete oldOptions[k];}
-			else {oldOptions[k] = v;}
-		}
 		else if (k == 'lines'){
 			for (var vvv in v){
 				var vv = v[vvv];
@@ -326,6 +322,7 @@ wss.on('connection', function connection(ws) {
   var hArray = false;
   var mongoChart = {};
   var sendTable = true;
+  var nsteps = false;
   var cpptable = require('./chartdn-data/datatypes.js');
   ws.on('message', function incoming(message) {
   	var dm = JSON.parse(message);
@@ -339,7 +336,7 @@ wss.on('connection', function connection(ws) {
   			Chart.updateOne({ id: chartid }, {data: chartid+'.csv'}, function(err, result) {});
   			dataid = chartid;
   		}
-  		
+  		dm.nsteps = nsteps;
 		var t0 = performance.now();
 		var fstr = '';
 		if (!dm.type || dm.type == 'csv'){
@@ -396,7 +393,7 @@ wss.on('connection', function connection(ws) {
   			Chart.updateOne({ id: chartid }, {data: chartid+'.csv'}, function(err, result) {});
   			dataid = chartid;
   		}
-  		
+  		dm.nsteps = nsteps;
 		var wget = 'wget -O saved/'+chartid+'.csv "' + dm.message + '" && echo "done"';
 		if (!dm.type || dm.type == 'csv') {
 		
@@ -424,6 +421,7 @@ wss.on('connection', function connection(ws) {
   	}
   	else if (dm.operation == 'dataupdate'){
 		dm.delimiter = '|';
+		dm.nsteps = nsteps;
   		if (chartid != dataid){
   			Chart.updateOne({ id: chartid }, {data: chartid+'.csv', "options.delimiter":'|'}, function(err, result) {});
 		}
@@ -447,14 +445,20 @@ wss.on('connection', function connection(ws) {
   		else if (mongoChart[chartid]) {
   				var result = mongoChart[chartid];
   				console.log('Chart Found',performance.now());
-				updateOptions(result.options, dm);
-				updateOptions(myOptions, dm);
-				result.markModified('options');
-				result.save(function (err, result2) {
-					if (err) return console.error('sajdhfkasdhjfkjsahdfkjsadhfs\n',err);
-					console.log('saved options', result.options, performance.now());
-				});
+  				if (dm.nsteps || dm.nsteps === 0){
+  					nsteps = dm.nsteps;
+  				}
+  				else {
+					updateOptions(result.options, dm);
+					updateOptions(myOptions, dm);
+					result.markModified('options');
+					result.save(function (err, result2) {
+						if (err) return console.error('sajdhfkasdhjfkjsahdfkjsadhfs\n',err);
+						console.log('saved options', result.options, performance.now());
+					});
+				}
 				if (!hArray){
+					dm.nsteps = nsteps;
 					makeAllCharts(ws,dm,result,'all',false,true,cpptable).then(function(result3) {
 						hArray = result3.hArray;
 					}, function(err) {
@@ -468,6 +472,7 @@ wss.on('connection', function connection(ws) {
 						makeChartsWithData(ws,hArray,result,'all',dm,true,cpptable);
 					}
 					else {
+						dm.nsteps = nsteps;
 						makeChartsWithData(ws,hArray,result,'all',dm,false,cpptable);
 					}
 					
@@ -479,15 +484,21 @@ wss.on('connection', function connection(ws) {
 				
 			  } else {
 			  	console.log('Chart Found',performance.now());
-				updateOptions(result.options, dm);
-				updateOptions(myOptions, dm);
-				result.markModified('options');
-				result.save(function (err, result2) {
-					if (err) return console.error('sajdhfkasdhjfkjsahdfkjsadhfs\n',err);
-					console.log('saved options', performance.now());
-				});
+			  	if (dm.nsteps || dm.nsteps === 0){
+			  		nsteps = dm.nsteps;
+  				}
+  				else {
+					updateOptions(result.options, dm);
+					updateOptions(myOptions, dm);
+					result.markModified('options');
+					result.save(function (err, result2) {
+						if (err) return console.error('sajdhfkasdhjfkjsahdfkjsadhfs\n',err);
+						console.log('saved options', performance.now());
+					});
+				}
 				mongoChart[chartid] = result;
 				if (!hArray){
+					dm.nsteps = nsteps;
 					makeAllCharts(ws,dm,result,'all',false,true,cpptable).then(function(result3) {
 						hArray = result3.hArray;
 					}, function(err) {
@@ -501,6 +512,7 @@ wss.on('connection', function connection(ws) {
 						makeChartsWithData(ws,hArray,result,'all',dm,true,cpptable);
 					}
 					else {
+						dm.nsteps = nsteps;
 						makeChartsWithData(ws,hArray,result,'all',dm,false,cpptable);
 					}
 					
@@ -558,6 +570,7 @@ wss.on('connection', function connection(ws) {
 					if (err) return console.error('sajdhfkasdhjfkjsahdfkjsadhfs\n',err);
 					console.log('saved modifiers', performance.now());
 				});
+				dm.nsteps = nsteps;
 				if (!hArray){
 					makeAllCharts(ws,dm,result,'all',false,true,cpptable).then(function(result3) {
 						hArray = result3.hArray;
@@ -645,6 +658,7 @@ wss.on('connection', function connection(ws) {
   	}
   	else if (dm.operation == 'view'){
 		  chartid = dm.id;
+		  dm.nsteps = nsteps;
 		  if (chartid && chartid != ""){
 			  Chart.findOne({ id: chartid }, function(err, result) {
 			  	if (err || result == null){
@@ -1094,14 +1108,6 @@ loginApp.get('/edit/:chartid',
 					dataname = result.data;
 					myOptions = result.options;
 					
-					if (result.options.nsteps || result.options.nsteps === 0){
-						delete result.options.nsteps;
-						result.markModified('options');
-						result.save(function (err, result) {
-							if (err) return console.error('sajdhfkasdhj\n',err);
-							console.log('deleted nsteps');
-						});
-					}
 					
 					if (result.users.edit.all[0]== 'any' || result.users.creator == username) {
 						if (username != '') {
@@ -1351,7 +1357,7 @@ function makeChartsWithData(ws,hArray,chartInfo,chartStyle,dm,reloadTable,cpptab
 	var nHeaders = chartInfo.options.nHeaders || 1;
 	var jsonmessage = {'operation':'loading','message':'10%'};
 	ws.send(JSON.stringify(jsonmessage));
-	var data = convertDataToFull(hArray,nHeaders,chartInfo.modifiers,chartInfo.options.nsteps,chartInfo.types.slice(0,maxColumns),cpptable);
+	var data = convertDataToFull(hArray,nHeaders,chartInfo.modifiers,dm.nsteps,chartInfo.types.slice(0,maxColumns),cpptable);
 	console.log('modifiers applied',performance.now());
 	jsonmessage = {'operation':'loading','message':'90%'};
 	ws.send(JSON.stringify(jsonmessage));
@@ -1402,7 +1408,6 @@ function makeChartsWithData(ws,hArray,chartInfo,chartStyle,dm,reloadTable,cpptab
 	}
 	cpptable.copyArray('fromN');
 	
-	//copy from nsteps
 }
 
 function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes,sendTable,cpptable) {
