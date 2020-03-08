@@ -749,7 +749,6 @@ wss.on('connection', function connection(ws) {
 		var startRow = page*n-n;
 		var endRow = page*n;
 		var data = [];
-		
 		var nrows = cpptable.getSize();
 		var lastPage = parseInt(nrows/n) + 1;
 		for (var i=startRow;i<endRow;i++){
@@ -1362,6 +1361,7 @@ function convertDataToFull(hArrayOld,nHeaders,modifiers,nsteps,types,cpptable) {
 		cpptable.clearArray('N');
 	}
 	console.log('finished modifying', performance.now());
+	cpptable.copyArray('fromN');
 	return {'modified':modifiedArray,'headers':allHeaders};
 	
 }
@@ -1403,6 +1403,7 @@ function makeChartsWithData(ws,hArray,chartInfo,chartStyle,dm,reloadTable,cpptab
 		var jsonmessage = {'operation':'chart','message':chartJSON,'loc':dm.loc,'style':'plotly','allHeaders':data.headers};
 		if (reloadTable){
 			jsonmessage['mdata']=data.modified;
+			jsonmessage['nrows']=cpptable.getSize();
 		}
 		console.log('precompress: ',performance.now());
 		var a = JSON.stringify(jsonmessage);
@@ -1420,7 +1421,7 @@ function makeChartsWithData(ws,hArray,chartInfo,chartStyle,dm,reloadTable,cpptab
 		}
 		console.log('message sent',performance.now());
 	}
-	cpptable.copyArray('fromN');
+	
 	
 }
 

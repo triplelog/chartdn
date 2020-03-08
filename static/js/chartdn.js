@@ -40,6 +40,9 @@ ws.onmessage = function(evt){
 			headersChanged(false,true);
 			updateColumns();
 		}
+		if (dm.nrows){
+			nrows = dm.nrows;
+		}
 		var plotlyOverlay = document.getElementById('plotlyOverlay');
 		if (plotlyOverlay){
 			plotlyOverlay.style.display = 'none';
@@ -138,6 +141,7 @@ var nsteps = -1;
 var newnsteps = -1;
 var userDataChanges = [];
 var firstPaginate = false;
+var nrows = 0;
 minimizedBoxes.dataSource = 'large';
 minimizedBoxes.dataTable = 'large';
 minimizedBoxes.modifyData = 'large';
@@ -795,9 +799,8 @@ function clickTippy(evt) {
 			document.getElementById('saveUserChanges').classList.add('savesToMake');
 		}
 		else if (evt.target.getAttribute('name')=='addButton'){
-			var rowCount = table.getDataCount();
-			table.addRow({id:rowCount,colRow:rowCount},false,row);
-			userDataChanges.push({'originalRow':rowCount,'newRow':parseInt(row)+1});
+			table.addRow({id:nrows,colRow:nrows},false,row);
+			userDataChanges.push({'originalRow':nrows,'newRow':parseInt(row)+1});
 			document.getElementById('saveUserChanges').classList.add('savesToMake');
 		}
 		
@@ -1068,7 +1071,7 @@ function queryRealm(url, config, params){
     return new Promise(function(resolve, reject){
         //do some async data retrieval then pass the array of row data back into Tabulator
         //ws request data
-        if (params.page > 5 || firstPaginate){
+        if (params.page > 5){
         	firstPaginate = false;
 			var jsonmessage = {'operation':'data','size':params.size,'page':params.page};
 			console.log(jsonmessage);
@@ -1104,6 +1107,9 @@ function queryRealm(url, config, params){
 				"last_page":10, //the total number of available pages (this value must be greater than 0)
 				"data":initialData.slice(params.page*params.size-params.size,params.page*params.size),
 			}
+			if (nrows >0 && params.size>0) {
+				returnData["last_page"]=parseInt(nrows/params.size)+1;
+			}
 			
 			resolve(returnData);
 		}
@@ -1124,14 +1130,12 @@ function gotoPaginate(){
 	if (table && table.options.pagination == false){
 		table.destroy();
 		document.getElementById("dataTableModified").style.width = '';
-		firstPaginate = true;
 		document.getElementById('paginationButton').textContent = 'Scroll';
 		updateTable(false,allHeaders.modified,'paginate');
 	}
 	else if (table) {
 		table.destroy();
 		document.getElementById("dataTableModified").style.width = '';
-		firstPaginate = true;
 		document.getElementById('paginationButton').textContent = 'Pagination';
 		updateTable(false,allHeaders.modified);
 	}
