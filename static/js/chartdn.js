@@ -98,7 +98,9 @@ function initialLoad() {
 	}
 	let template = document.getElementById('dataOptionsTemplate');
 	let tc = template.content.cloneNode(true);
-	let dotippy = tippy('dataOptionsTippy', {
+	let el = document.getElementById('dataOptionsTippy');
+	console.log(el);
+	let dotippy = tippy(el, {
 	  content: tc,
 	  trigger: 'click',
 	  interactive: true,
