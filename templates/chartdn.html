@@ -64,7 +64,10 @@
     	<div class="pure-g">
 			<div class="l-box-half pure-u-1-1 sectionpart">
 				<div class="box-header">
-					<span class="box-buttons-left"><a onclick="minimizeBox('dataSource')" id="editSource" style="display: none;">Edit Source</a></span>
+					<span class="box-buttons-left" id="dataOptionsTippy">Options</span>
+					<template id="dataOptionsTemplate">
+						<a onclick="minimizeBox('dataSource')" id="editSource" style="display: none;">Edit Source</a>
+					</template>
 					Data Table
 					<span class="box-buttons"><span id="rawModified"></span><a onclick="minimizeBox('dataTable')"><i class="fas fa-compress-alt"></i></a></span>
 				</div>

@@ -101,6 +101,14 @@ function initialLoad() {
 		modifierChanged(false);
 		headersChanged(true);
 	}
+	let template = document.getElementById('dataOptionsTemplate');
+	let tc = template.content.cloneNode(true);
+	let dotippy = tippy('dataOptionsTippy', {
+	  content: tc,
+	  trigger: 'click',
+	  interactive: true,
+	  placement: 'top',
+	});
 }
 
 function getOrdinal(n) {
