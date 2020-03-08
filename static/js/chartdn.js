@@ -765,7 +765,7 @@ function clickTippy(evt) {
 		else if (evt.target.getAttribute('name')=='deleteButton'){
 			table.deleteColumn('col'+col);
 			userDataChanges.push({'deleteColumn':parseInt(col)});
-			document.getElementById('saveUserChanges').style.display = 'block';
+			document.getElementById('saveUserChanges').classList.add('savesToMake');
 		}
 		if(tippys[col]){
 			tippys[col].destroy();
@@ -778,13 +778,13 @@ function clickTippy(evt) {
 		if (evt.target.getAttribute('name')=='deleteButton'){
 			table.deleteRow(row);
 			userDataChanges.push({'originalRow':parseInt(row),'newRow':-1});
-			document.getElementById('saveUserChanges').style.display = 'block';
+			document.getElementById('saveUserChanges').classList.add('savesToMake');
 		}
 		else if (evt.target.getAttribute('name')=='addButton'){
 			var rowCount = table.getDataCount();
 			table.addRow({id:rowCount,colRow:rowCount},false,row);
 			userDataChanges.push({'originalRow':rowCount,'newRow':parseInt(row)+1});
-			document.getElementById('saveUserChanges').style.display = 'block';
+			document.getElementById('saveUserChanges').classList.add('savesToMake');
 		}
 		
 		
@@ -802,7 +802,7 @@ function sendUserChanges() {
 	ws.send(JSON.stringify(jsonmessage));
 	console.log(userDataChanges);
 	userDataChanges = [];
-	document.getElementById('saveUserChanges').style.display = 'none';
+	document.getElementById('saveUserChanges').classList.remove('savesToMake');
 }
 function updateTable(data,sentHeaders) {
 	console.log(sentHeaders);
@@ -978,13 +978,13 @@ function updateTable(data,sentHeaders) {
 			var col = cell['_cell'].column.field;
 			var value = cell['_cell'].value;
 			userDataChanges.push({'row':row,'col':col,'value':value});
-			document.getElementById('saveUserChanges').style.display = 'block';
+			document.getElementById('saveUserChanges').classList.add('savesToMake');
 		},
 		rowMoved:function(row){
 			var originalRow = row['_row'].data.id;
 			var newRow = row.getPosition();
 			userDataChanges.push({'originalRow':originalRow,'newRow':newRow});
-			document.getElementById('saveUserChanges').style.display = 'block';
+			document.getElementById('saveUserChanges').classList.add('savesToMake');
 		},
 		columnMoved:function(column, columns){
 			var originalColumn = column['_column'].field.substring(3);
@@ -997,7 +997,7 @@ function updateTable(data,sentHeaders) {
 				}
 			}
 			userDataChanges.push({'newColumns':myColumns});
-			document.getElementById('saveUserChanges').style.display = 'block';
+			document.getElementById('saveUserChanges').classList.add('savesToMake');
 		},
 		renderComplete:function(){
 			

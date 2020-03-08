@@ -100,7 +100,9 @@
 							<!--<table id="dataTableModified" class="striped hoverable" style="display: inline-block; max-width: 100%;"></table>-->
 							<div id="dataTableModified" style="display: inline-block; max-width: 100%;"></div>
 							<div id="dataTableOverlay" style="display: none; width: 100%; position: absolute; height: 100%; min-height: 50px; background-color:rgba(0,0,0,.3); left: 0px; top: 0px;"></div>
-							<button id="saveUserChanges" onclick="sendUserChanges()" style="display: none">Save Changes</button>
+							<div id="dataTableBar" style="display: inline-block; max-width: 100%;">
+								<button id="saveUserChanges" onclick="sendUserChanges()">Save Changes</button>
+							</div>
 							<template id="clickColumn-template">
 								<div data-col="" class="columnTooltip">
 									<div>

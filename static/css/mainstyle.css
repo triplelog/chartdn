@@ -506,3 +506,9 @@ div[name=createReplace] label {
 .baf-yes:hover {
 	background-color: rgba(0,0,220,.5);
 }
+#saveUserChanges {
+	color: gray;
+}
+#saveUserChanges.savesToMake {
+	color: red;
+}
