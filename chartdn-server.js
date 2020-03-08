@@ -469,7 +469,7 @@ wss.on('connection', function connection(ws) {
 						console.log('saved options', result.options, performance.now());
 					});
 				}
-				if (!hArray){
+				if (!hArray || dm.delimiter){
 					dm.nsteps = nsteps;
 					makeAllCharts(ws,dm,result,'all',false,true,cpptable).then(function(result3) {
 						hArray = result3.hArray;
@@ -790,6 +790,7 @@ function loadChart(chartid,ws,dm,cpptable,deletexls=false,result=false){
 		if (result){
 			makeAllCharts(ws,dm,result,'all',true,true,cpptable).then(function(result3) {
 				hArray = result3.hArray;
+				result.options.delimiter = result3.delimiter;
 				result.types = result3.types;
 				result.markModified('types');
 				result.save(function (err, chart) {
@@ -810,6 +811,7 @@ function loadChart(chartid,ws,dm,cpptable,deletexls=false,result=false){
 			
 				makeAllCharts(ws,dm,result2,'all',true,true,cpptable).then(function(result3) {
 					hArray = result3.hArray;
+					result2.options.delimiter = result3.delimiter;
 					result2.types = result3.types;
 					result2.markModified('types');
 					result2.save(function (err, chart) {
@@ -1499,6 +1501,7 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes,sendTable,cppta
 				}
 				var hArray = results.data[0];
 				returnData.hArray = hArray.slice();
+				returnData.delimiter = results.meta.delimiter;
 				makeChartsWithData(ws,hArray,chartInfo,chartStyle,dm,sendTable,cpptable);
 				
 				resolve(returnData);
