@@ -65,7 +65,7 @@
 			<div class="l-box-half pure-u-1-1 sectionpart">
 				<div class="box-header">
 					<span class="box-buttons-left" id="dataOptionsTippy">Options</span>
-					<template id="dataOptionsTemplate">
+					<div id="dataOptionsTemplate">
 						<div>
 							<div>
 								<button class="pure-button pure-button-primary" onclick="minimizeBox('dataSource')" id="editSource">Edit Source</a>
@@ -84,7 +84,7 @@
 								Header Rows: <input type="number" style="width:4rem; color: black;" value="{{ nHeaders | default(1) }}" name="nHeaders" id="nHeaders" onchange="headerChg()">
 							</div>
 						</div>
-					</template>
+					</div>
 					Data Table
 					<span class="box-buttons"><span id="rawModified"></span><a onclick="minimizeBox('dataTable',true)"><i class="fas fa-expand"></i></a><a onclick="minimizeBox('dataTable')"><i class="fas fa-compress-alt"></i></a></span>
 				</div>

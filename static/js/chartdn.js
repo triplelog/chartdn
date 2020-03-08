@@ -109,12 +109,12 @@ function initialLoad() {
 			createFilter(modifiers[i]);
 		}
 	}
-	let template = document.getElementById('dataOptionsTemplate');
-	let tc = template.content.cloneNode(true).firstElementChild;
+	let div = document.getElementById('dataOptionsTemplate').firstElementChild;
+	//let tc = template.content.cloneNode(true).firstElementChild;
 	let el = document.getElementById('dataOptionsTippy');
 
 	doTippy = tippy(el, {
-	  content: tc,
+	  content: div,
 	  trigger: 'click',
 	  interactive: true,
 	  placement: 'bottom',
@@ -134,6 +134,7 @@ function getOrdinal(n) {
 }
 // Set options like number of Header Rows
 var nHeaders = 1;
+var delimiter = '';
 var initialData;
 var yColsVals = [];
 var xColumn = '';
