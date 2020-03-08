@@ -96,11 +96,6 @@ function initialLoad() {
 			createFilter(modifiers[i]);
 		}
 	}
-	if (hasData){
-		minimizeBox('dataSource');
-		modifierChanged(false);
-		headersChanged(true);
-	}
 	let template = document.getElementById('dataOptionsTemplate');
 	let tc = template.content.cloneNode(true);
 	let dotippy = tippy('dataOptionsTippy', {
@@ -109,6 +104,12 @@ function initialLoad() {
 	  interactive: true,
 	  placement: 'top',
 	});
+	if (hasData){
+		minimizeBox('dataSource');
+		modifierChanged(false);
+		headersChanged(true);
+	}
+	
 }
 
 function getOrdinal(n) {
@@ -2632,7 +2633,9 @@ function minimizeBox(boxid,full=false){
 		otherEl.classList.add('pure-u-md-1-1');
 		otherEl.classList.remove('pure-u-md-2-3');
 		minimizedBoxes[boxid] = 'small';
-		document.getElementById('editSource').style.display = 'inline';
+		if (document.getElementById('editSource')){
+			document.getElementById('editSource').style.display = 'inline';
+		}
 		redrawTable();
 		
 	}
@@ -2645,7 +2648,9 @@ function minimizeBox(boxid,full=false){
 		otherEl.classList.remove('pure-u-md-1-1');
 		otherEl.classList.add('pure-u-md-2-3');
 		minimizedBoxes[boxid] = 'large';
-		document.getElementById('editSource').style.display = 'none';
+		if (document.getElementById('editSource')){
+			document.getElementById('editSource').style.display = 'none';
+		}
 		redrawTable();
 	}
 	else if (boxid == 'dataTable' || boxid == 'modifyData' || boxid == 'createChart'){
