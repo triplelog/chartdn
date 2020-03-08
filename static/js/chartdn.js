@@ -48,6 +48,9 @@ ws.onmessage = function(evt){
 		if (dm.nrows){
 			nrows = dm.nrows;
 		}
+		if (dm.delimiter && document.getElementById('delimiter')){
+			document.getElementById('delimiter').value = dm.delimiter;
+		}
 		var plotlyOverlay = document.getElementById('plotlyOverlay');
 		if (plotlyOverlay){
 			plotlyOverlay.style.display = 'none';

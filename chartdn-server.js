@@ -515,7 +515,7 @@ wss.on('connection', function connection(ws) {
 					});
 				}
 				mongoChart[chartid] = result;
-				if (!hArray){
+				if (!hArray || dm.delimiter){
 					dm.nsteps = nsteps;
 					makeAllCharts(ws,dm,result,'all',false,true,cpptable).then(function(result3) {
 						hArray = result3.hArray;
@@ -1414,6 +1414,10 @@ function makeChartsWithData(ws,hArray,chartInfo,chartStyle,dm,reloadTable,cpptab
 		if (reloadTable){
 			jsonmessage['mdata']=data.modified;
 			jsonmessage['nrows']=cpptable.getSize();
+			if (dm.delimiter && dm.delimiter != 'auto'){
+				jsonmessage['delimiter']=dm.delimiter;
+			}
+			
 		}
 		console.log('precompress: ',performance.now());
 		var a = JSON.stringify(jsonmessage);
@@ -1502,6 +1506,7 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes,sendTable,cppta
 				var hArray = results.data[0];
 				returnData.hArray = hArray.slice();
 				returnData.delimiter = results.meta.delimiter;
+				dm.delimiter = results.meta.delimiter;
 				makeChartsWithData(ws,hArray,chartInfo,chartStyle,dm,sendTable,cpptable);
 				
 				resolve(returnData);
