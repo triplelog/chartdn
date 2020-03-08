@@ -240,6 +240,7 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,cpptable){
 			file.write(newLine);
 		}
 	});
+	console.log(file);
 	file.end();
 	return new Promise(function(resolve, reject) {
 		loadChart(chartid,ws,dm,cpptable,false,false).then(function(result, err) {
