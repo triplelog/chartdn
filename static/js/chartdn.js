@@ -969,7 +969,7 @@ function updateTable(data,sentHeaders) {
 		autoResize:true,
 		movableRows:movableRows,
 		movableColumns:movableColumns,
-		height:"100%",
+		height:"calc(100%-2rem)",
 		headerSort: false,
 		layout:"fitData",
 		layoutColumnsOnNewData:true,
