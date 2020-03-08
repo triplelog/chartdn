@@ -973,6 +973,7 @@ function updateTable(data,sentHeaders,isPaginate=false) {
 	var includeHeaders = false;
 	var ajaxProgressiveLoad = 'scroll';
 	var pagination = false;
+	var paginationSize = 100;
 	if (data){
 		for (var i=0;i<data.length;i++){
 			var newDataRow = {id:i,colRow:i};
@@ -988,6 +989,7 @@ function updateTable(data,sentHeaders,isPaginate=false) {
 	else if (isPaginate){
 		ajaxProgressiveLoad = false;
 		pagination = "remote";
+		paginationSize = 10;
 	}
 	var dataTable = document.getElementById("dataTableModified");
 	if (document.getElementById("dataTableOverlay")){
@@ -998,9 +1000,10 @@ function updateTable(data,sentHeaders,isPaginate=false) {
 	var redrawnow = true;
 	table = new Tabulator("#dataTableModified", {
 		ajaxURL:"placeholder",
-		paginationSize:100,
+		paginationSize:paginationSize,
 		ajaxProgressiveLoad: ajaxProgressiveLoad,
 		pagination: pagination,
+		paginationSizeSelector:[10, 25, 50, 100],
 		ajaxProgressiveLoadScrollMargin:300,
 		ajaxRequestFunc:queryRealm,
 		columns: tableColumns,
