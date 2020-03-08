@@ -1123,12 +1123,14 @@ function redrawTable() {
 function gotoPaginate(){
 	if (table && table.options.pagination == false){
 		table.destroy();
+		document.getElementById("dataTableModified").style.width = '';
 		firstPaginate = true;
 		document.getElementById('paginationButton').textContent = 'Scroll';
 		updateTable(false,allHeaders.modified,'paginate');
 	}
 	else if (table) {
 		table.destroy();
+		document.getElementById("dataTableModified").style.width = '';
 		firstPaginate = true;
 		document.getElementById('paginationButton').textContent = 'Pagination';
 		updateTable(false,allHeaders.modified);
