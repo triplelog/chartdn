@@ -108,7 +108,7 @@ function initialLoad() {
 	let tc = template.content.cloneNode(true).firstElementChild;
 	let el = document.getElementById('dataOptionsTippy');
 
-	let dotippy = tippy(el, {
+	dotippy = tippy(el, {
 	  content: tc,
 	  trigger: 'click',
 	  interactive: true,
@@ -147,6 +147,7 @@ var newnsteps = -1;
 var userDataChanges = [];
 var paginateOrScroll = 'scroll';
 var nrows = 0;
+var doTippy;
 minimizedBoxes.dataSource = 'large';
 minimizedBoxes.dataTable = 'large';
 minimizedBoxes.modifyData = 'large';
@@ -389,11 +390,13 @@ function dst() {
 
 		
 function delimiterChg() {
+	doTippy.hide();
 	delimiter = document.getElementById('delimiter').value;
 	var jsonmessage = {'operation':'options','delimiter':delimiter};
 	ws.send(JSON.stringify(jsonmessage));
 }		
 function headerChg() {
+	doTippy.hide();
 	nHeaders = parseInt(document.getElementById('nHeaders').value);
 	var jsonmessage = {'operation':'options','nHeaders':nHeaders};
 	ws.send(JSON.stringify(jsonmessage));
@@ -1139,6 +1142,7 @@ function addRowBottom() {
 		userDataChanges.push({'originalRow':nrows,'newRow':parseInt(row)+1});
 		document.getElementById('saveUserChanges').classList.add('savesToMake');
 	}
+	doTippy.hide();
 }
 function gotoPaginate(){
 	if (table && table.options.pagination == false){
@@ -1155,6 +1159,7 @@ function gotoPaginate(){
 		document.getElementById('paginationButton').textContent = 'Pagination';
 		updateTable(false,allHeaders.modified);
 	}
+	doTippy.hide();
 }
 
 function dataChanged(csv='',dataType='csv') {
@@ -2660,6 +2665,7 @@ drakeF.on('drag', function (el, target, source, sibling) {
 // Minimize and Maximize elements
 function minimizeBox(boxid,full=false){
 	if (boxid == 'dataSource' && minimizedBoxes[boxid] == 'large'){
+		doTippy.hide();
 		var el = document.getElementById('dataSourceBox');
 		el.style.display = 'none';
 		var otherEl = document.getElementById('dataTableHolder');
@@ -2672,6 +2678,7 @@ function minimizeBox(boxid,full=false){
 		
 	}
 	else if (boxid == 'dataSource' && minimizedBoxes[boxid]== 'small'){
+		doTippy.hide();
 		var el = document.getElementById('dataSourceBox');
 		el.style.display = 'block';
 		var otherEl = document.getElementById('dataTableHolder');
