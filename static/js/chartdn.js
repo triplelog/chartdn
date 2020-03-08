@@ -1139,7 +1139,7 @@ function redrawTable() {
 function addRowBottom() {
 	if (table){
 		table.addRow({id:nrows,colRow:nrows},false);
-		userDataChanges.push({'originalRow':nrows,'newRow':parseInt(row)+1});
+		userDataChanges.push({'originalRow':nrows,'newRow':nrows});
 		document.getElementById('saveUserChanges').classList.add('savesToMake');
 	}
 	doTippy.hide();
