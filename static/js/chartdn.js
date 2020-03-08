@@ -1086,9 +1086,9 @@ function redrawTable() {
 }
 function gotoLastPage(){
 	if (table){
-		console.log(table);
-		table.pagination = 'remote';
-		console.log(table);
+		table.options.pagination = 'remote';
+		table.options.ajaxProgressiveLoad = "false";
+		redrawTable();
 	}
 }
 
