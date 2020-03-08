@@ -2665,27 +2665,21 @@ function minimizeBox(boxid,full=false){
 	else if (boxid == 'dataTable' && full){
 		if (minimizedBoxes[boxid] == 'large'){
 			var el = document.getElementById(boxid+'Box');
-			//el.style.display = 'none';
 			minimizedBoxes[boxid] = 'full';
-			//var elp = el.parentElement;
-			//elp.classList.add('l-box-thin');
-			//elp.classList.remove('l-box-half');
-			//var ell = elp.querySelector('.box-header i.fa-compress-alt');
-			//ell.classList.remove('fa-compress-alt');
-			//ell.classList.add('fa-expand-alt');
-			document.getElementById('dataTableHolder').style.maxHeight = '90vh';
+			document.getElementById('dataTableHolder').style.maxHeight = '95vh';
 			
 		}
 		else {
 			var el = document.getElementById(boxid+'Box');
 			el.style.display = 'flex';
-			minimizedBoxes[boxid] = 'large';
+			minimizedBoxes[boxid] = 'full';
 			var elp = el.parentElement;
 			elp.classList.add('l-box-half');
 			elp.classList.remove('l-box-thin');
 			var ell = elp.querySelector('.box-header i.fa-expand-alt');
 			ell.classList.add('fa-compress-alt');
 			ell.classList.remove('fa-expand-alt');
+			document.getElementById('dataTableHolder').style.maxHeight = '95vh';
 		}
 		redrawTable();
 		
@@ -2713,6 +2707,18 @@ function minimizeBox(boxid,full=false){
 			var ell = elp.querySelector('.box-header i.fa-expand-alt');
 			ell.classList.add('fa-compress-alt');
 			ell.classList.remove('fa-expand-alt');
+		}
+		else if (minimizedBoxes[boxid] == 'full'){
+			var el = document.getElementById(boxid+'Box');
+			el.style.display = 'flex';
+			minimizedBoxes[boxid] = 'large';
+			var elp = el.parentElement;
+			elp.classList.add('l-box-half');
+			elp.classList.remove('l-box-thin');
+			var ell = elp.querySelector('.box-header i.fa-expand-alt');
+			ell.classList.add('fa-compress-alt');
+			ell.classList.remove('fa-expand-alt');
+			document.getElementById('dataTableHolder').style.maxHeight = '22rem';
 		}
 		if (boxid == 'dataTable'){
 			redrawTable();
