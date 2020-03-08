@@ -48,7 +48,7 @@ ws.onmessage = function(evt){
 		if (dm.nrows){
 			nrows = dm.nrows;
 		}
-		if (dm.delimiter && document.getElementById('delimiter')){
+		if (dm.delimiter){
 			delimiter = dm.delimiter;
 		}
 		var plotlyOverlay = document.getElementById('plotlyOverlay');
@@ -120,6 +120,8 @@ function initialLoad() {
 	  	var ell = instance.props.content.querySelector('#delimiter');
 		console.log(ell);
 		ell.value = delimiter;
+		console.log(delimiter);
+		console.log(ell);
 	  }
 	});
 	if (hasData){
