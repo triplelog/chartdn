@@ -4,7 +4,8 @@ var syncWorker = new Worker('../wasm/uploadworker.js');
 var syncWorker2 = new Worker('../wasm/datatypeworker.js');
 
 document.getElementById('dropArea').addEventListener('drop', handleDrop, false);
-['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+var names = ['dragenter', 'dragover', 'dragleave', 'drop'];
+names.forEach(eventName => {
   document.getElementById('dropArea').addEventListener(eventName, preventDefaults, false)
 })
 

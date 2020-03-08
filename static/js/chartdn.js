@@ -107,9 +107,9 @@ function initialLoad() {
 			createFilter(modifiers[i]);
 		}
 	}
-	let template = document.getElementById('dataOptionsTemplate');
-	let tc = template.content.cloneNode(true).firstElementChild;
-	let el = document.getElementById('dataOptionsTippy');
+	var template = document.getElementById('dataOptionsTemplate');
+	var tc = template.content.cloneNode(true).firstElementChild;
+	var el = document.getElementById('dataOptionsTippy');
 
 	doTippy = tippy(el, {
 	  content: tc,
@@ -424,9 +424,9 @@ function createLineDiv(id,chg=false) {
 		return
 	}
 
-	let template = document.getElementById('yAxisFormat-template');
-	let tc = template.content.cloneNode(true);
-	let parentEl = document.getElementById('yAxisFormatBox');
+	var template = document.getElementById('yAxisFormat-template');
+	var tc = template.content.cloneNode(true);
+	var parentEl = document.getElementById('yAxisFormatBox');
 	parentEl.appendChild(tc);
 	var newEl = parentEl.querySelector('#lineStyleDiv_id');
 	newEl.id = 'lineStyleDiv'+id;
@@ -852,8 +852,8 @@ function updateTable(data,sentHeaders,isPaginate=false) {
 	rowColumn.rowHandle = true;
 	rowColumn.cellClick = function(e, cell){
 		var row = cell.getRow()['_row'].data.colRow;
-		let templateR = document.getElementById('clickRow-template');
-		let tcr = templateR.content.cloneNode(true).firstElementChild;
+		var templateR = document.getElementById('clickRow-template');
+		var tcr = templateR.content.cloneNode(true).firstElementChild;
 		tcr.setAttribute('data-row',row);
 		
 		if (!modifiers || modifiers.length == 0 || nsteps == 0) {
@@ -872,7 +872,7 @@ function updateTable(data,sentHeaders,isPaginate=false) {
 		}
 			
 		if (!tippysR[row]){
-			let mytippy = tippy(e.target, {
+			var mytippy = tippy(e.target, {
 			  content: tcr,
 			  appendTo: document.querySelector('.header'),
 			  trigger: 'manual',
@@ -887,7 +887,7 @@ function updateTable(data,sentHeaders,isPaginate=false) {
 	}
 	/*rowColumn.headerClick = function(e, column){
 		if (!tippysR[-1]){
-			let templateR = document.getElementById('clickRow-template');
+			var templateR = document.getElementById('clickRow-template');
 			var tcr = document.createElement('div');
 			tcr.setAttribute('data-row',-1);
 			var newDiv = document.createElement('div');
@@ -901,7 +901,7 @@ function updateTable(data,sentHeaders,isPaginate=false) {
 			newDiv.appendChild(newA);
 			tcr.appendChild(newDiv);
 				
-			let mytippy = tippy(e.target, {
+			var mytippy = tippy(e.target, {
 			  content: tcr,
 			  appendTo: document.querySelector('.header'),
 			  trigger: 'manual',
@@ -941,8 +941,8 @@ function updateTable(data,sentHeaders,isPaginate=false) {
 		thisColumn.cellClick = cellClick,
 		thisColumn.headerClick = function(e, column){
 			var col = column['_column'].field.substring(3);
-			let template = document.getElementById('clickColumn-template');
-			let tc = template.content.cloneNode(true).firstElementChild;
+			var template = document.getElementById('clickColumn-template');
+			var tc = template.content.cloneNode(true).firstElementChild;
 			tc.setAttribute('data-col',col);
 			tc.setAttribute('data-name',headers[parseInt(col)]);
 			if (!modifiers || modifiers.length == 0 || nsteps == 0) {
@@ -968,7 +968,7 @@ function updateTable(data,sentHeaders,isPaginate=false) {
 			
 			
 			if (!tippys[col]){
-				let mytippy = tippy(e.target, {
+				var mytippy = tippy(e.target, {
 				  content: tc,
 				  appendTo: document.querySelector('.header'),
 				  trigger: 'manual',
@@ -2026,9 +2026,9 @@ function createPivot(obj) {
 	newEl.id = obj.id;
 	document.getElementById('allModifiers').appendChild(newEl);
 		
-	let template = document.getElementById('pivot-template');
-	let tc = template.content.cloneNode(true);
-	let parentEl = document.getElementById('modifyDataBox');
+	var template = document.getElementById('pivot-template');
+	var tc = template.content.cloneNode(true);
+	var parentEl = document.getElementById('modifyDataBox');
 	parentEl.appendChild(tc);
 	var newM = parentEl.querySelector('#edit_id');
 	newM.id = 'edit'+obj.id;
@@ -2255,9 +2255,9 @@ function createReplace(obj) {
 	newEl.id = obj.id;
 	document.getElementById('allModifiers').appendChild(newEl);
 		
-	let template = document.getElementById('replace-template');
-	let tc = template.content.cloneNode(true);
-	let parentEl = document.getElementById('modifyDataBox');
+	var template = document.getElementById('replace-template');
+	var tc = template.content.cloneNode(true);
+	var parentEl = document.getElementById('modifyDataBox');
 	parentEl.appendChild(tc);
 	var newM = parentEl.querySelector('#edit_id');
 	newM.id = 'edit'+obj.id;
@@ -2384,9 +2384,9 @@ function createSort(obj) {
 	newEl.id = obj.id;
 	document.getElementById('allModifiers').appendChild(newEl);
 		
-	let template = document.getElementById('sort-template');
-	let tc = template.content.cloneNode(true);
-	let parentEl = document.getElementById('modifyDataBox');
+	var template = document.getElementById('sort-template');
+	var tc = template.content.cloneNode(true);
+	var parentEl = document.getElementById('modifyDataBox');
 	parentEl.appendChild(tc);
 	var newM = parentEl.querySelector('#edit_id');
 	newM.id = 'edit'+obj.id;
@@ -2501,9 +2501,9 @@ function createNew(obj) {
 	newEl.id = obj.id;
 	document.getElementById('allModifiers').appendChild(newEl);
 		
-	let template = document.getElementById('newColumn-template');
-	let tc = template.content.cloneNode(true);
-	let parentEl = document.getElementById('modifyDataBox');
+	var template = document.getElementById('newColumn-template');
+	var tc = template.content.cloneNode(true);
+	var parentEl = document.getElementById('modifyDataBox');
 	parentEl.appendChild(tc);
 	var newM = parentEl.querySelector('#edit_id');
 	newM.id = 'edit'+obj.id;
