@@ -804,8 +804,8 @@ function sendUserChanges() {
 	userDataChanges = [];
 	document.getElementById('saveUserChanges').classList.remove('savesToMake');
 }
-function updateTable(data,sentHeaders) {
-	console.log(sentHeaders);
+function updateTable(data,sentHeaders,isPaginate=false) {
+	//console.log(sentHeaders);
 	var tableColumns = [];
 	
 	var rowColumn = {};
@@ -943,26 +943,36 @@ function updateTable(data,sentHeaders) {
 	}
 	var tableData = [];
 	var includeHeaders = false;
-	for (var i=0;i<data.length;i++){
-		var newDataRow = {id:i,colRow:i};
+	var ajaxProgressiveLoad = 'scroll';
+	var pagination = false;
+	if (data){
+		for (var i=0;i<data.length;i++){
+			var newDataRow = {id:i,colRow:i};
 		
-		for (var ii=0;ii<data[i].length;ii++){
-			newDataRow['col'+ii]=data[i][ii];
+			for (var ii=0;ii<data[i].length;ii++){
+				newDataRow['col'+ii]=data[i][ii];
+			}
+			tableData.push(newDataRow);
+		
 		}
-		tableData.push(newDataRow);
-		
+		initialData = tableData.slice(0,500);
+	}
+	else if (isPaginate){
+		ajaxProgressiveLoad = false;
+		pagination = "remote";
 	}
 	var dataTable = document.getElementById("dataTableModified");
 	if (document.getElementById("dataTableOverlay")){
 		document.getElementById("dataTableOverlay").style.display = 'none';
 	}
 	dataTable.innerHTML = '';
-	initialData = tableData.slice(0,500);
+	
 	var redrawnow = true;
 	table = new Tabulator("#dataTableModified", {
 		ajaxURL:"placeholder",
 		paginationSize:100,
-		ajaxProgressiveLoad:"scroll",
+		ajaxProgressiveLoad: ajaxProgressiveLoad,
+		pagination: pagination,
 		ajaxProgressiveLoadScrollMargin:300,
 		ajaxRequestFunc:queryRealm,
 		columns: tableColumns,
@@ -1084,12 +1094,10 @@ function redrawTable() {
 	}
 	
 }
-function gotoLastPage(){
+function gotoPaginate(){
 	if (table){
-		table.options.pagination = 'remote';
-		console.log(table);
-		table.options.ajaxProgressiveLoad = "false";
-		redrawTable();
+		table.destroy()
+		updateTable(false,allHeaders.modified,'paginate');
 	}
 }
 
