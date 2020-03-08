@@ -89,7 +89,9 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,cpptable){
 	var newColumns = [];
 	var deleteColumns = [];
 	var chgRows = [];
+	
 	for (var i=0;i<dm.message.length;i++){
+		console.log(dm.message[i]);
 		if (dm.message[i].col){
 			var cellData = dm.message[i];
 			if (cellData.row+nHeaders<results.data.length){
@@ -110,6 +112,7 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,cpptable){
 			chgRows.push(dm.message[i]);
 		}
 	}
+	console.log(chgRows);
 	for (var i=0;i<deleteColumns.length;i++){
 		if (newColumns.length == 0){
 			for (var ii=0;ii<results.data[0].length;ii++){
@@ -142,6 +145,7 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,cpptable){
 			originalRows[chgRows[i].originalRow] = {'row':[],'index':chgRows[i].originalRow+nHeaders};
 		}
 	}
+	console.log(originalRows);
 	for (var i=0;i<chgRows.length;i++){
 		var cIndex = originalRows[chgRows[i].originalRow].index;
 		results.data.splice(cIndex,1);
