@@ -119,7 +119,7 @@ function initialLoad() {
 	  interactive: true,
 	  placement: 'bottom',
 	  onTrigger(instance, event) {
-		console.log(instance);
+		console.log(instance.props);
 	  }
 	});
 	if (hasData){
