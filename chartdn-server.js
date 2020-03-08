@@ -1453,7 +1453,6 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes,sendTable,cppta
 				console.log('file parsed',performance.now());
 				jsonmessage = {'operation':'loading','message':'40%'};
 				ws.send(JSON.stringify(jsonmessage));
-				
 				cpptable.loadRows(results.data);
 				console.log('cpptable loaded',performance.now());
 				jsonmessage = {'operation':'loading','message':'70%'};
