@@ -68,12 +68,12 @@ ws.onmessage = function(evt){
 	else if (dm.operation == 'loading'){
 		var dataTableOverlay = document.getElementById('dataTableOverlay');
 		if (dataTableOverlay){
-			dataTableOverlay.innerHTML = dm.message;
+			//dataTableOverlay.innerHTML = dm.message;
 			dataTableOverlay.style.display = 'block';
 		}
 		var plotlyOverlay = document.getElementById('plotlyOverlay');
 		if (plotlyOverlay){
-			plotlyOverlay.innerHTML = dm.message;
+			//plotlyOverlay.innerHTML = dm.message;
 			plotlyOverlay.style.display = 'block';
 		}
 	}

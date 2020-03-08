@@ -36,13 +36,12 @@ label {
 	position: relative;
 }
 #dataTableOverlay {
-	display: block;
+	display: none;
 	width: 100%;
 	position: absolute;
 	height: 100%;
 	min-height: 50px;
 	background-color:rgba(0,0,0,.3);
-	color: rgba(0,0,0,.5);
 	left: 0px;
 	top: 0px;
 }
