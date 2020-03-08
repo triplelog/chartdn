@@ -126,6 +126,7 @@ var table = false;
 var nsteps = -1;
 var newnsteps = -1;
 var userDataChanges = [];
+var firstPaginate = false;
 minimizedBoxes.dataSource = 'large';
 minimizedBoxes.dataTable = 'large';
 minimizedBoxes.modifyData = 'large';
@@ -1043,7 +1044,8 @@ function queryRealm(url, config, params){
     return new Promise(function(resolve, reject){
         //do some async data retrieval then pass the array of row data back into Tabulator
         //ws request data
-        if (params.page > 5){
+        if (params.page > 5 || firstPaginate){
+        	firstPaginate = false;
 			var jsonmessage = {'operation':'data','size':params.size,'page':params.page};
 			console.log(jsonmessage);
 			ws.send(JSON.stringify(jsonmessage));
@@ -1096,7 +1098,8 @@ function redrawTable() {
 }
 function gotoPaginate(){
 	if (table){
-		table.destroy()
+		table.destroy();
+		firstPaginate = true;
 		updateTable(false,allHeaders.modified,'paginate');
 	}
 }
