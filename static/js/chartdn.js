@@ -48,10 +48,8 @@ ws.onmessage = function(evt){
 		if (dm.nrows){
 			nrows = dm.nrows;
 		}
-		console.log(dm.delimiter);
-		console.log(document.getElementById('delimiter'));
 		if (dm.delimiter && document.getElementById('delimiter')){
-			document.getElementById('delimiter').value = dm.delimiter;
+			delimiter = dm.delimiter;
 		}
 		var plotlyOverlay = document.getElementById('plotlyOverlay');
 		if (plotlyOverlay){
@@ -119,7 +117,9 @@ function initialLoad() {
 	  interactive: true,
 	  placement: 'bottom',
 	  onTrigger(instance, event) {
-		console.log(instance.props.content);
+	  	var ell = instance.props.content.querySelector('#delimiter');
+		console.log(ell);
+		ell.value = delimiter;
 	  }
 	});
 	if (hasData){
