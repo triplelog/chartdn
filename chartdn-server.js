@@ -1365,7 +1365,6 @@ function convertDataToFull(hArrayOld,nHeaders,modifiers,nsteps,types,cpptable) {
 				break;
 			}
 			if (newrow.length > 0){
-				console.log(newrow);
 				modifiedArray.push(newrow);
 			}
 			
