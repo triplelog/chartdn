@@ -768,6 +768,7 @@ wss.on('connection', function connection(ws) {
 				break;
 			}
 			else {
+				console.log(newrow);
 				data.push(newrow);
 			}
 		}
@@ -1484,9 +1485,7 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes,sendTable,cppta
 				console.log('file parsed',performance.now());
 				jsonmessage = {'operation':'loading','message':'40%'};
 				ws.send(JSON.stringify(jsonmessage));
-				console.log(results.data);
 				cpptable.loadRows(results.data);
-				console.log(cpptable.getSize());
 				console.log('cpptable loaded',performance.now());
 				jsonmessage = {'operation':'loading','message':'70%'};
 				ws.send(JSON.stringify(jsonmessage));
