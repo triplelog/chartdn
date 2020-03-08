@@ -333,11 +333,11 @@ wss.on('connection', function connection(ws) {
   		//write data.csv
   		var d = new Date(); var n = d.getTime(); console.log('time3: ', n);
   		if (chartid != dataid){
-  			Chart.updateOne({ id: chartid }, {data: chartid+'.csv', "options.delimiter": '""'}, function(err, result) {});
+  			Chart.updateOne({ id: chartid }, {data: chartid+'.csv', "options.delimiter": 'auto'}, function(err, result) {});
   			dataid = chartid;
   		}
   		else {
-  			Chart.updateOne({ id: chartid }, {"options.delimiter": '""'}, function(err, result) {});
+  			Chart.updateOne({ id: chartid }, {"options.delimiter": 'auto'}, function(err, result) {});
   		}
   		dm.nsteps = nsteps;
 		var t0 = performance.now();
@@ -393,11 +393,11 @@ wss.on('connection', function connection(ws) {
   	else if (dm.operation == 'download'){
   		
   		if (chartid != dataid){
-  			Chart.updateOne({ id: chartid }, {data: chartid+'.csv', "options.delimiter": '""'}, function(err, result) {});
+  			Chart.updateOne({ id: chartid }, {data: chartid+'.csv', "options.delimiter": 'auto'}, function(err, result) {});
   			dataid = chartid;
   		}
   		else {
-  			Chart.updateOne({ id: chartid }, {"options.delimiter": ''}, function(err, result) {});
+  			Chart.updateOne({ id: chartid }, {"options.delimiter": 'auto'}, function(err, result) {});
   		}
   		dm.nsteps = nsteps;
 		var wget = 'wget -O saved/'+chartid+'.csv "' + dm.message + '" && echo "done"';
@@ -777,7 +777,7 @@ wss.on('connection', function connection(ws) {
 });
 
 function loadChart(chartid,ws,dm,cpptable,deletexls=false,result=false){
-	dm.delimiter = '';
+	dm.delimiter = 'auto';
 	return new Promise(function(resolve, reject) {
 		if (deletexls){
 			fs.unlink("saved/"+chartid+"."+dm.type, (err) => {
@@ -1450,8 +1450,21 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes,sendTable,cppta
 				console.log('file read',performance.now());
 				var jsonmessage = {'operation':'loading','message':'10%'};
 				ws.send(JSON.stringify(jsonmessage));
+				var delimiter = "";
+				if (dm.delimiter == 'auto') {
+					delimiter = "";
+				}
+				else if (dm.delimiter){
+					delimiter = dm.delimiter;
+				}
+				else if (chartInfo.options.delimiter == 'auto'){
+					delimiter = "";
+				}
+				else if (chartInfo.options.delimiter){
+					delimiter = chartInfo.options.delimiter;
+				}
 				var results = Papa.parse(fileData, {
-					delimiter: dm.delimiter || chartInfo.options.delimiter || "",
+					delimiter: delimiter,
 					skipEmptyLines: false,
 					quoteChar: '"',
 				});
