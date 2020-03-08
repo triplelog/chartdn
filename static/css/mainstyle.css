@@ -543,10 +543,9 @@ div[name=createReplace] label {
   content: " ";
   display: block;
   position: absolute;
-  top: 3px;
-  left: 37px;
   width: 6px;
   height: 18px;
+  margin: auto;
   border-radius: 20%;
   background: #fff;
 }
