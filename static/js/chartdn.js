@@ -1097,10 +1097,17 @@ function redrawTable() {
 	
 }
 function gotoPaginate(){
-	if (table){
+	if (table && table.options.pagination == false){
 		table.destroy();
 		firstPaginate = true;
+		document.getElementById('paginationButton').textContent = 'Scroll';
 		updateTable(false,allHeaders.modified,'paginate');
+	}
+	else if (table) {
+		table.destroy();
+		firstPaginate = true;
+		document.getElementById('paginationButton').textContent = 'Pagination';
+		updateTable(false,allHeaders.modified);
 	}
 }
 
