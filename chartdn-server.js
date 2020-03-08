@@ -768,7 +768,6 @@ wss.on('connection', function connection(ws) {
 				break;
 			}
 			else {
-				console.log(newrow);
 				data.push(newrow);
 			}
 		}
@@ -1366,6 +1365,7 @@ function convertDataToFull(hArrayOld,nHeaders,modifiers,nsteps,types,cpptable) {
 				break;
 			}
 			if (newrow.length > 0){
+				console.log(newrow);
 				modifiedArray.push(newrow);
 			}
 			
