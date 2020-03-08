@@ -44,6 +44,10 @@ ws.onmessage = function(evt){
 		if (plotlyOverlay){
 			plotlyOverlay.style.display = 'none';
 		}
+		var dataTableOverlay = document.getElementById('dataTableOverlay');
+		if (dataTableOverlay){
+			dataTableOverlay.style.display = 'none';
+		}
 	}
 	else if (dm.operation == 'headers'){
 		var oldHeaders = [];
