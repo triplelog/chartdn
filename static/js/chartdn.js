@@ -962,6 +962,7 @@ function updateTable(data,sentHeaders) {
 	table = new Tabulator("#dataTableModified", {
 		ajaxURL:"placeholder",
 		paginationSize:100,
+		pagination:"remote",
 		ajaxProgressiveLoad:"scroll",
 		ajaxProgressiveLoadScrollMargin:300,
 		ajaxRequestFunc:queryRealm,
