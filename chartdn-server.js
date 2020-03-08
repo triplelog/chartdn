@@ -397,7 +397,7 @@ wss.on('connection', function connection(ws) {
   			dataid = chartid;
   		}
   		else {
-  			Chart.updateOne({ id: chartid }, {"options.delimiter": '""'}, function(err, result) {});
+  			Chart.updateOne({ id: chartid }, {"options.delimiter": ''}, function(err, result) {});
   		}
   		dm.nsteps = nsteps;
 		var wget = 'wget -O saved/'+chartid+'.csv "' + dm.message + '" && echo "done"';
@@ -777,7 +777,7 @@ wss.on('connection', function connection(ws) {
 });
 
 function loadChart(chartid,ws,dm,cpptable,deletexls=false,result=false){
-	dm.delimiter = '""';
+	dm.delimiter = '';
 	return new Promise(function(resolve, reject) {
 		if (deletexls){
 			fs.unlink("saved/"+chartid+"."+dm.type, (err) => {
