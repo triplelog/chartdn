@@ -252,7 +252,7 @@ function updateOptions(oldOptions, newOptions) {
 	for(var k in newOptions){
 		
 		var v = newOptions[k];
-		if (k == 'yColumns' || k == 'tags'){
+		if (k == 'yColumns' || k == 'tags' || k == 'delimiter'){
 			oldOptions[k] = v;
 		}
 		else if (k == 'lines'){

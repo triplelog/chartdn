@@ -314,10 +314,8 @@ function chgLineTab(){
 //Download from url
 function urlChg(url) {
 	var url = document.getElementById('dataUrl').value;
-	var delimiter = document.getElementById('delimiter').value;
-	if (delimiter.toLowerCase() == 'auto'){delimiter = '';}
 	
-	var jsonmessage = {'operation':'download','message':url,'delimiter':delimiter};
+	var jsonmessage = {'operation':'download','message':url};
 	if (url.indexOf('.csv') == url.length-4 || url.indexOf('.tsv') == url.length-4){
 	
 	}
@@ -370,7 +368,11 @@ function dst() {
 
 
 		
-		
+function delimiterChg() {
+	delimiter = document.getElementById('delimiter').value;
+	var jsonmessage = {'operation':'options','delimiter':delimiter};
+	ws.send(JSON.stringify(jsonmessage));
+}		
 function headerChg() {
 	nHeaders = parseInt(document.getElementById('nHeaders').value);
 	var jsonmessage = {'operation':'options','nHeaders':nHeaders};
@@ -1119,11 +1121,10 @@ function dataChanged(csv='',dataType='csv') {
 		csv = btoa(compbase64);
 		isString = true;
 	}
-
-	var delimiter = document.getElementById('delimiter').value;
-	if (delimiter.toLowerCase() == 'auto'){delimiter = '';}
+	minimizedBoxes['dataSource'] == 'large';
+	minimizeBox('dataSource');
 	var d = new Date(); var n = d.getTime(); console.log('time: ', n);
-	var jsonmessage = {'operation':'upload','message':csv,'delimiter':delimiter,'isString':isString};
+	var jsonmessage = {'operation':'upload','message':csv,'isString':isString};
 	if (dataType != 'csv'){
 		jsonmessage.type = dataType;
 	}
