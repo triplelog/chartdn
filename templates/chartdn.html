@@ -68,6 +68,10 @@
 					<template id="dataOptionsTemplate">
 						<div>
 							<a onclick="minimizeBox('dataSource')" id="editSource">Edit Source</a>
+							<button id="paginationButton" onclick="gotoPaginate()">Pagination</button>
+							<button>Add Row</button>
+							<span>Delimiter: <input type="text" style="width:4rem;" value="" name="delimiter" id="delimiter" onchange="delimiterChg()" placeholder="auto"></span>
+							<span>Header Rows: <input type="number" style="width:4rem;" value="{{ nHeaders | default(1) }}" name="nHeaders" id="nHeaders" onchange="headerChg()"></span>
 						</div>
 					</template>
 					Data Table
@@ -108,10 +112,6 @@
 							<div style="max-width: 100%; position: relative;">
 								<div id="dataTableBar" style="display: inline-block; max-width: 100%; position: relative; background: gray;">
 									<button id="saveUserChanges" onclick="sendUserChanges()">Save Changes</button>
-									<button id="paginationButton" onclick="gotoPaginate()">Pagination</button>
-									<button>Add Row</button>
-									<span>Delimiter: <input type="text" style="width:4rem;" value="" name="delimiter" id="delimiter" onchange="delimiterChg()" placeholder="auto"></span>
-									<span>Header Rows: <input type="number" style="width:4rem;" value="{{ nHeaders | default(1) }}" name="nHeaders" id="nHeaders" onchange="headerChg()"></span>
 								</div>
 							</div>
 							<template id="clickColumn-template">
