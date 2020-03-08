@@ -532,10 +532,10 @@ div[name=createReplace] label {
   color: red;
   display: inline-block;
   position: relative;
-  width: 80px;
-  height: 80px;
-  left: calc(50% - 40px);
-  top: calc(50% - 40px);
+  width: 160px;
+  height: 160px;
+  left: calc(50% - 80px);
+  top: calc(50% - 80px);
 }
 .lds-spinner div {
   transform-origin: 40px 40px;
