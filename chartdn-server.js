@@ -333,8 +333,11 @@ wss.on('connection', function connection(ws) {
   		//write data.csv
   		var d = new Date(); var n = d.getTime(); console.log('time3: ', n);
   		if (chartid != dataid){
-  			Chart.updateOne({ id: chartid }, {data: chartid+'.csv'}, function(err, result) {});
+  			Chart.updateOne({ id: chartid }, {data: chartid+'.csv', "options.delimiter": '""'}, function(err, result) {});
   			dataid = chartid;
+  		}
+  		else {
+  			Chart.updateOne({ id: chartid }, {"options.delimiter": '""'}, function(err, result) {});
   		}
   		dm.nsteps = nsteps;
 		var t0 = performance.now();
@@ -390,8 +393,11 @@ wss.on('connection', function connection(ws) {
   	else if (dm.operation == 'download'){
   		
   		if (chartid != dataid){
-  			Chart.updateOne({ id: chartid }, {data: chartid+'.csv'}, function(err, result) {});
+  			Chart.updateOne({ id: chartid }, {data: chartid+'.csv', "options.delimiter": '""'}, function(err, result) {});
   			dataid = chartid;
+  		}
+  		else {
+  			Chart.updateOne({ id: chartid }, {"options.delimiter": '""'}, function(err, result) {});
   		}
   		dm.nsteps = nsteps;
 		var wget = 'wget -O saved/'+chartid+'.csv "' + dm.message + '" && echo "done"';
@@ -771,6 +777,7 @@ wss.on('connection', function connection(ws) {
 });
 
 function loadChart(chartid,ws,dm,cpptable,deletexls=false,result=false){
+	dm.delimiter = '';
 	return new Promise(function(resolve, reject) {
 		if (deletexls){
 			fs.unlink("saved/"+chartid+"."+dm.type, (err) => {
