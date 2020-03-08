@@ -98,6 +98,7 @@ function initialLoad() {
 	}
 	let template = document.getElementById('dataOptionsTemplate');
 	let tc = template.content.cloneNode(true).firstElementChild;
+	console.log(tc);
 	let el = document.getElementById('dataOptionsTippy');
 
 	let dotippy = tippy(el, {
