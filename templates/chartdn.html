@@ -88,12 +88,12 @@
 									<input type="text" name="dataUrl" id="dataUrl" onchange="urlChg()"></input>
 
 								</div>
-								<label for="nHeaders">Header Rows: 
+								<!--<label for="nHeaders">Header Rows: 
 									<input type="number" style="width:4rem;" value="{{ nHeaders | default(1) }}" name="nHeaders" id="nHeaders" onchange="headerChg()">
 								</label>
 								<label for="delimiter">Delimiter: 
 									<input type="text" style="width:4rem;" value="" name="delimiter" id="delimiter" onchange="delimiterChg()" placeholder="auto">
-								</label>
+								</label>-->
 							</form>
 						</div>
 						<div class="l-box pure-u-1 pure-u-md-2-3 pure-u-lg-3-4 sectionpart flex-center flex-column" id="dataTableHolder">
@@ -102,6 +102,10 @@
 							<div id="dataTableOverlay" style="display: none; width: 100%; position: absolute; height: 100%; min-height: 50px; background-color:rgba(0,0,0,.3); left: 0px; top: 0px;"></div>
 							<div id="dataTableBar" style="display: block; max-width: 100%; position: relative; top: -.5rem;">
 								<button id="saveUserChanges" onclick="sendUserChanges()">Save Changes</button>
+								<button>Last Page</button>
+								<button>Add Row</button>
+								<span>Delimiter: <input type="text" style="width:4rem;" value="" name="delimiter" id="delimiter" onchange="delimiterChg()" placeholder="auto"></span>
+								<span>Header Rows: <input type="number" style="width:4rem;" value="{{ nHeaders | default(1) }}" name="nHeaders" id="nHeaders" onchange="headerChg()"></span>
 							</div>
 							<template id="clickColumn-template">
 								<div data-col="" class="columnTooltip">
