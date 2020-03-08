@@ -2665,7 +2665,9 @@ drakeF.on('drag', function (el, target, source, sibling) {
 // Minimize and Maximize elements
 function minimizeBox(boxid,full=false){
 	if (boxid == 'dataSource' && minimizedBoxes[boxid] == 'large'){
-		doTippy.hide();
+		if (doTippy){
+			doTippy.hide();
+		}
 		var el = document.getElementById('dataSourceBox');
 		el.style.display = 'none';
 		var otherEl = document.getElementById('dataTableHolder');
@@ -2678,7 +2680,9 @@ function minimizeBox(boxid,full=false){
 		
 	}
 	else if (boxid == 'dataSource' && minimizedBoxes[boxid]== 'small'){
-		doTippy.hide();
+		if (doTippy){
+			doTippy.hide();
+		}
 		var el = document.getElementById('dataSourceBox');
 		el.style.display = 'block';
 		var otherEl = document.getElementById('dataTableHolder');
