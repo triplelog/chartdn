@@ -513,5 +513,8 @@ div[name=createReplace] label {
 	display: inline-block;
 	position: absolute;
 	left: 1rem;
-	bottom: 2rem;
+	bottom: 1rem;
+	background: rgb(202, 60, 60);
+	color: white;
+	font-size: 1.5rem;
 }
