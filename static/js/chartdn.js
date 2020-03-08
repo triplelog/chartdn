@@ -35,7 +35,12 @@ ws.onmessage = function(evt){
 			}
 		}
 		if (dm.mdata){
-			updateTable(dm.mdata,dm.allHeaders.modified);
+			if (paginateOrScroll == 'paginate'){
+				updateTable(dm.mdata,dm.allHeaders.modified,'paginate');
+			}
+			else {
+				updateTable(dm.mdata,dm.allHeaders.modified);
+			}
 			allHeaders = dm.allHeaders;
 			headersChanged(false,true);
 			updateColumns();
@@ -140,7 +145,7 @@ var table = false;
 var nsteps = -1;
 var newnsteps = -1;
 var userDataChanges = [];
-var firstPaginate = false;
+var paginateOrScroll = 'scroll';
 var nrows = 0;
 minimizedBoxes.dataSource = 'large';
 minimizedBoxes.dataTable = 'large';
@@ -1075,7 +1080,6 @@ function queryRealm(url, config, params){
         //do some async data retrieval then pass the array of row data back into Tabulator
         //ws request data
         if (params.page > 5){
-        	firstPaginate = false;
 			var jsonmessage = {'operation':'data','size':params.size,'page':params.page};
 			console.log(jsonmessage);
 			ws.send(JSON.stringify(jsonmessage));
@@ -1139,12 +1143,14 @@ function addRowBottom() {
 function gotoPaginate(){
 	if (table && table.options.pagination == false){
 		table.destroy();
+		paginateOrScroll = 'paginate';
 		document.getElementById("dataTableModified").style.width = '';
 		document.getElementById('paginationButton').textContent = 'Scroll';
 		updateTable(false,allHeaders.modified,'paginate');
 	}
 	else if (table) {
 		table.destroy();
+		paginateOrScroll = 'scroll';
 		document.getElementById("dataTableModified").style.width = '';
 		document.getElementById('paginationButton').textContent = 'Pagination';
 		updateTable(false,allHeaders.modified);
