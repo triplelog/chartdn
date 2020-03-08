@@ -507,13 +507,11 @@ div[name=createReplace] label {
 	background-color: rgba(0,0,220,.5);
 }
 #saveUserChanges {
-	color: gray;
 	display: none;
 }
 #saveUserChanges.savesToMake {
-	color: red;
 	display: inline-block;
 	position: absolute;
 	left: 1rem;
-	bottom: 1rem;
+	bottom: 2rem;
 }

@@ -1007,7 +1007,7 @@ function updateTable(data,sentHeaders,isPaginate=false) {
 		autoResize:true,
 		movableRows:movableRows,
 		movableColumns:movableColumns,
-		height:"90%",
+		height:"100%",
 		headerSort: false,
 		layout:"fitData",
 		layoutColumnsOnNewData:true,
