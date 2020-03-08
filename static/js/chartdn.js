@@ -1008,7 +1008,6 @@ function updateTable(data,sentHeaders,isPaginate=false) {
 		headerSort: false,
 		layout:"fitData",
 		layoutColumnsOnNewData:true,
-		rowClick:rowClick,
 		cellEdited:function(cell){
 			var row = cell['_cell'].row.data.colRow;
 			var col = cell['_cell'].column.field;
