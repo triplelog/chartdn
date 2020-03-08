@@ -1507,6 +1507,7 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes,sendTable,cppta
 				returnData.hArray = hArray.slice();
 				returnData.delimiter = results.meta.delimiter;
 				dm.delimiter = results.meta.delimiter;
+				console.log('delimiter',dm.delimiter);
 				makeChartsWithData(ws,hArray,chartInfo,chartStyle,dm,sendTable,cpptable);
 				
 				resolve(returnData);
