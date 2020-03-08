@@ -2673,7 +2673,7 @@ function minimizeBox(boxid,full=false){
 			//var ell = elp.querySelector('.box-header i.fa-compress-alt');
 			//ell.classList.remove('fa-compress-alt');
 			//ell.classList.add('fa-expand-alt');
-			document.getElementById('dataTableHolder').style.maxHeight = '100%';
+			document.getElementById('dataTableHolder').style.maxHeight = '90vh';
 			
 		}
 		else {
