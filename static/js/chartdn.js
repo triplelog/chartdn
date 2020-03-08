@@ -2635,9 +2635,6 @@ function minimizeBox(boxid,full=false){
 		otherEl.classList.add('pure-u-md-1-1');
 		otherEl.classList.remove('pure-u-md-2-3');
 		minimizedBoxes[boxid] = 'small';
-		if (document.getElementById('editSource')){
-			document.getElementById('editSource').style.display = 'inline';
-		}
 		redrawTable();
 		
 	}
@@ -2650,9 +2647,6 @@ function minimizeBox(boxid,full=false){
 		otherEl.classList.remove('pure-u-md-1-1');
 		otherEl.classList.add('pure-u-md-2-3');
 		minimizedBoxes[boxid] = 'large';
-		if (document.getElementById('editSource')){
-			document.getElementById('editSource').style.display = 'none';
-		}
 		redrawTable();
 	}
 	else if (boxid == 'dataTable' || boxid == 'modifyData' || boxid == 'createChart'){
