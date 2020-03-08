@@ -67,11 +67,22 @@
 					<span class="box-buttons-left" id="dataOptionsTippy">Options</span>
 					<template id="dataOptionsTemplate">
 						<div>
-							<a onclick="minimizeBox('dataSource')" id="editSource">Edit Source</a>
-							<button id="paginationButton" onclick="gotoPaginate()">Pagination</button>
-							<button id="addRowBottom" onclick="addRowBottom()">Add Row</button>
-							<span>Delimiter: <input type="text" style="width:4rem;" value="" name="delimiter" id="delimiter" onchange="delimiterChg()" placeholder="auto"></span>
-							<span>Header Rows: <input type="number" style="width:4rem;" value="{{ nHeaders | default(1) }}" name="nHeaders" id="nHeaders" onchange="headerChg()"></span>
+							<div>
+								<button class="pure-button pure-button-primary" onclick="minimizeBox('dataSource')" id="editSource">Edit Source</a>
+							</div>
+							<div>
+								<button class="pure-button pure-button-primary" id="paginationButton" onclick="gotoPaginate()">Pagination</button>
+							</div>
+							<div>
+								<button class="pure-button pure-button-primary" id="addRowBottom" onclick="addRowBottom()">Add Row</button>
+							</div>
+							
+							<div>
+								Delimiter: <input type="text" style="width:4rem;" value="" name="delimiter" id="delimiter" onchange="delimiterChg()" placeholder="auto">
+							</div>
+							<div>
+								Header Rows: <input type="number" style="width:4rem;" value="{{ nHeaders | default(1) }}" name="nHeaders" id="nHeaders" onchange="headerChg()">
+							</div>
 						</div>
 					</template>
 					Data Table
