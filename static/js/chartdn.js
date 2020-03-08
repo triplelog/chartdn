@@ -2697,7 +2697,7 @@ function minimizeBox(boxid,full=false){
 			ell.classList.add('fa-expand-alt');
 			
 		}
-		else {
+		else if (minimizedBoxes[boxid] == 'small') {
 			var el = document.getElementById(boxid+'Box');
 			el.style.display = 'flex';
 			minimizedBoxes[boxid] = 'large';
