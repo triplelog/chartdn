@@ -574,6 +574,9 @@ function optionsChg(optionname) {
 	}
 }
 function chgStep(evt,knownstep=false) {
+	var ell = document.getElementById('rawModified');
+	var qel = ell.querySelectorAll('a[name]');
+	
 	if (!knownstep){
 		var el = evt.target;
 		newnsteps = parseInt(el.getAttribute('name'));
@@ -586,7 +589,7 @@ function chgStep(evt,knownstep=false) {
 		
 		var allnsteps = document.querySelectorAll('div[data-nsteps]')
 		for (var i=0;i<allnsteps.length;i++){
-			if (newnsteps == -1){
+			if (newnsteps == -1 || newnsteps >= qel.length -1){
 				var toyes = allnsteps[i].querySelectorAll('.baf-no')[2];
 				toyes.classList.remove('baf-no');
 				toyes.classList.add('baf-yes');
@@ -603,8 +606,7 @@ function chgStep(evt,knownstep=false) {
 			}
 		}
 	}
-	var ell = document.getElementById('rawModified');
-	var qel = ell.querySelectorAll('a[name]');
+	
 	for (var i=0;i<qel.length;i++){
 		if (i != newnsteps){qel[i].classList.remove('selectedRaw');}
 		else {qel[i].classList.add('selectedRaw');}
