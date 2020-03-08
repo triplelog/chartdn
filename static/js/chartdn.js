@@ -962,7 +962,6 @@ function updateTable(data,sentHeaders) {
 	table = new Tabulator("#dataTableModified", {
 		ajaxURL:"placeholder",
 		paginationSize:100,
-		pagination:"remote",
 		ajaxProgressiveLoad:"scroll",
 		ajaxProgressiveLoadScrollMargin:300,
 		ajaxRequestFunc:queryRealm,
@@ -1084,6 +1083,13 @@ function redrawTable() {
 		document.getElementById("dataTableOverlay").style.display = 'none';
 	}
 	
+}
+function gotoLastPage(){
+	if (table){
+		console.log(table);
+		table.pagination = 'remote';
+		console.log(table);
+	}
 }
 
 function dataChanged(csv='',dataType='csv') {
