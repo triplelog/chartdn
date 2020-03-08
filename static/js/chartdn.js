@@ -1126,6 +1126,13 @@ function redrawTable() {
 	}
 	
 }
+function addRowBottom() {
+	if (table){
+		table.addRow({id:nrows,colRow:nrows},false);
+		userDataChanges.push({'originalRow':nrows,'newRow':parseInt(row)+1});
+		document.getElementById('saveUserChanges').classList.add('savesToMake');
+	}
+}
 function gotoPaginate(){
 	if (table && table.options.pagination == false){
 		table.destroy();
