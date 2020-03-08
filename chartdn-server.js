@@ -1472,7 +1472,14 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes,sendTable,cppta
 					skipEmptyLines: false,
 					quoteChar: '"',
 				});
-				
+				for (var i=results.data.length;i>=0;i--){
+					if (results.data[i].length == 0 || (results.data[i].length == 1 && results.data[i][0]=='')){
+						results.data.splice(i,1);
+					}
+					else {
+						break;
+					}
+				}
 				var returnData = {};
 				console.log('file parsed',performance.now());
 				jsonmessage = {'operation':'loading','message':'40%'};
