@@ -48,6 +48,8 @@ ws.onmessage = function(evt){
 		if (dm.nrows){
 			nrows = dm.nrows;
 		}
+		console.log(dm.delimiter);
+		console.log(document.getElementById('delimiter'));
 		if (dm.delimiter && document.getElementById('delimiter')){
 			document.getElementById('delimiter').value = dm.delimiter;
 		}
