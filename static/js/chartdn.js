@@ -2662,6 +2662,34 @@ function minimizeBox(boxid,full=false){
 		minimizedBoxes[boxid] = 'large';
 		redrawTable();
 	}
+	else if (boxid == 'dataTable' && full){
+		if (minimizedBoxes[boxid] == 'large'){
+			var el = document.getElementById(boxid+'Box');
+			//el.style.display = 'none';
+			minimizedBoxes[boxid] = 'full';
+			//var elp = el.parentElement;
+			//elp.classList.add('l-box-thin');
+			//elp.classList.remove('l-box-half');
+			//var ell = elp.querySelector('.box-header i.fa-compress-alt');
+			//ell.classList.remove('fa-compress-alt');
+			//ell.classList.add('fa-expand-alt');
+			document.getElementById('dataTableHolder').style.maxHeight = '100%';
+			
+		}
+		else {
+			var el = document.getElementById(boxid+'Box');
+			el.style.display = 'flex';
+			minimizedBoxes[boxid] = 'large';
+			var elp = el.parentElement;
+			elp.classList.add('l-box-half');
+			elp.classList.remove('l-box-thin');
+			var ell = elp.querySelector('.box-header i.fa-expand-alt');
+			ell.classList.add('fa-compress-alt');
+			ell.classList.remove('fa-expand-alt');
+		}
+		redrawTable();
+		
+	}
 	else if (boxid == 'dataTable' || boxid == 'modifyData' || boxid == 'createChart'){
 		if (minimizedBoxes[boxid] == 'large'){
 			var el = document.getElementById(boxid+'Box');
