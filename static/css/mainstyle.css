@@ -534,6 +534,8 @@ div[name=createReplace] label {
   position: relative;
   width: 80px;
   height: 80px;
+  left: calc(50% - 40px);
+  top: calc(50% - 40px);
 }
 .lds-spinner div {
   transform-origin: 40px 40px;
@@ -543,9 +545,10 @@ div[name=createReplace] label {
   content: " ";
   display: block;
   position: absolute;
+  top: 3px;
+  left: 37px;
   width: 6px;
   height: 18px;
-  margin: auto;
   border-radius: 20%;
   background: #fff;
 }
