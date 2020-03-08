@@ -818,9 +818,7 @@ function sendUserChanges() {
 	userDataChanges = [];
 	document.getElementById('saveUserChanges').classList.remove('savesToMake');
 }
-var rowClick = function(e,row){
-	alert('Only raw table is editable!');
-}
+
 function updateTable(data,sentHeaders,isPaginate=false) {
 	//console.log(sentHeaders);
 	var tableColumns = [];
@@ -898,6 +896,15 @@ function updateTable(data,sentHeaders,isPaginate=false) {
 	tableColumns[0] = rowColumn;
 	var movableRows = false;
 	var movableColumns = false;
+	var cellClick = false;
+	if (!modifiers || modifiers.length == 0 || nsteps == 0){
+		
+	}
+	else {
+		cellClick = function(e,cell){
+			alert('Only raw table is editable!');
+		}
+	}
 	for (var i=0;i<sentHeaders.headers.length;i++){
 
 		var thisColumn = {};
@@ -909,6 +916,7 @@ function updateTable(data,sentHeaders,isPaginate=false) {
 		else {
 			thisColumn.align = 'right';
 		}
+		thisColumn.cellClick = cellClick,
 		thisColumn.headerClick = function(e, column){
 			var col = column['_column'].field.substring(3);
 			let template = document.getElementById('clickColumn-template');
