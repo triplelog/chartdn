@@ -109,15 +109,18 @@ function initialLoad() {
 			createFilter(modifiers[i]);
 		}
 	}
-	let div = document.getElementById('dataOptionsTemplate').firstElementChild;
-	//let tc = template.content.cloneNode(true).firstElementChild;
+	let template = document.getElementById('dataOptionsTemplate');
+	let tc = template.content.cloneNode(true).firstElementChild;
 	let el = document.getElementById('dataOptionsTippy');
 
 	doTippy = tippy(el, {
-	  content: div,
+	  content: tc,
 	  trigger: 'click',
 	  interactive: true,
 	  placement: 'bottom',
+	  onTrigger(instance, event) {
+		console.log(instance);
+	  }
 	});
 	if (hasData){
 		minimizeBox('dataSource');
