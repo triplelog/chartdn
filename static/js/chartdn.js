@@ -78,7 +78,7 @@ ws.onmessage = function(evt){
 		}
 	}
 }
-
+var doTippy;
 function initialLoad() {
 	
 	minimizeBox('modifyData');
@@ -108,7 +108,7 @@ function initialLoad() {
 	let tc = template.content.cloneNode(true).firstElementChild;
 	let el = document.getElementById('dataOptionsTippy');
 
-	dotippy = tippy(el, {
+	doTippy = tippy(el, {
 	  content: tc,
 	  trigger: 'click',
 	  interactive: true,
@@ -147,7 +147,7 @@ var newnsteps = -1;
 var userDataChanges = [];
 var paginateOrScroll = 'scroll';
 var nrows = 0;
-var doTippy;
+
 minimizedBoxes.dataSource = 'large';
 minimizedBoxes.dataTable = 'large';
 minimizedBoxes.modifyData = 'large';
