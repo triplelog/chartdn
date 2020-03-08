@@ -446,7 +446,12 @@ wss.on('connection', function connection(ws) {
   				var result = mongoChart[chartid];
   				console.log('Chart Found',performance.now());
   				if (dm.nsteps || dm.nsteps === 0){
-  					nsteps = dm.nsteps;
+  					if (dm.nsteps < 0){
+  						nsteps = false;
+  					}
+  					else {
+  						nsteps = dm.nsteps;
+  					}
   				}
   				else {
 					updateOptions(result.options, dm);
@@ -469,6 +474,7 @@ wss.on('connection', function connection(ws) {
 				else {
 					console.log('used cached data', performance.now());
 					if (dm.nsteps || dm.nsteps === 0){
+						dm.nsteps = nsteps;
 						makeChartsWithData(ws,hArray,result,'all',dm,true,cpptable);
 					}
 					else {
@@ -485,7 +491,12 @@ wss.on('connection', function connection(ws) {
 			  } else {
 			  	console.log('Chart Found',performance.now());
 			  	if (dm.nsteps || dm.nsteps === 0){
-			  		nsteps = dm.nsteps;
+			  		if (dm.nsteps < 0){
+  						nsteps = false;
+  					}
+  					else {
+  						nsteps = dm.nsteps;
+  					}
   				}
   				else {
 					updateOptions(result.options, dm);
@@ -509,6 +520,7 @@ wss.on('connection', function connection(ws) {
 				else {
 					console.log('used cached data', performance.now());
 					if (dm.nsteps || dm.nsteps === 0){
+						dm.nsteps = nsteps;
 						makeChartsWithData(ws,hArray,result,'all',dm,true,cpptable);
 					}
 					else {
