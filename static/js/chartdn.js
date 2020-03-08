@@ -97,14 +97,14 @@ function initialLoad() {
 		}
 	}
 	let template = document.getElementById('dataOptionsTemplate');
-	let tc = template.content.cloneNode(true);
+	let tc = template.content.cloneNode(true).firstElementChild;
 	let el = document.getElementById('dataOptionsTippy');
-	console.log(el);
+
 	let dotippy = tippy(el, {
 	  content: tc,
 	  trigger: 'click',
 	  interactive: true,
-	  placement: 'top',
+	  placement: 'bottom',
 	});
 	if (hasData){
 		minimizeBox('dataSource');
