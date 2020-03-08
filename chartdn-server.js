@@ -749,7 +749,9 @@ wss.on('connection', function connection(ws) {
 		var startRow = page*n-n;
 		var endRow = page*n;
 		var data = [];
-		var lastPage = page + 1;
+		
+		var nrows = cpptable.getSize();
+		var lastPage = parseInt(nrows/n) + 1;
 		for (var i=startRow;i<endRow;i++){
 			var newrow = cpptable.readRow(i);
 			if (newrow === false){
