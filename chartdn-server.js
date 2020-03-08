@@ -777,7 +777,7 @@ wss.on('connection', function connection(ws) {
 });
 
 function loadChart(chartid,ws,dm,cpptable,deletexls=false,result=false){
-	dm.delimiter = '';
+	dm.delimiter = '""';
 	return new Promise(function(resolve, reject) {
 		if (deletexls){
 			fs.unlink("saved/"+chartid+"."+dm.type, (err) => {
