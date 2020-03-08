@@ -240,7 +240,6 @@ function updateData(oldDataStr,delimiter,chartid,ws,dm,cpptable){
 			file.write(newLine);
 		}
 	});
-	console.log(file);
 	file.end();
 	return new Promise(function(resolve, reject) {
 		loadChart(chartid,ws,dm,cpptable,false,false).then(function(result, err) {
@@ -1478,7 +1477,9 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes,sendTable,cppta
 				console.log('file parsed',performance.now());
 				jsonmessage = {'operation':'loading','message':'40%'};
 				ws.send(JSON.stringify(jsonmessage));
+				console.log(results.data);
 				cpptable.loadRows(results.data);
+				console.log(cpptable.getSize());
 				console.log('cpptable loaded',performance.now());
 				jsonmessage = {'operation':'loading','message':'70%'};
 				ws.send(JSON.stringify(jsonmessage));
