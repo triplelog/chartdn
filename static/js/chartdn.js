@@ -37,7 +37,6 @@ ws.onmessage = function(evt){
 		if (dm.mdata){
 			
 			if (paginateOrScroll == 'paginate'){
-				console.log(paginateOrScroll);
 				updateTable(dm.mdata,dm.allHeaders.modified,'paginate');
 			}
 			else {
@@ -1007,7 +1006,7 @@ function updateTable(data,sentHeaders,isPaginate=false) {
 		}
 		initialData = tableData.slice(0,500);
 	}
-	else if (isPaginate){
+	if (isPaginate){
 		ajaxProgressiveLoad = false;
 		pagination = "remote";
 		paginationSize = 10;
