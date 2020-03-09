@@ -97,7 +97,7 @@ app2.get('/account',
   		res.write(nunjucks.render('account.html',{
   			username: req.user.options.displayName || req.user.username,
   			name: req.user.name || '',
-  			robot: req.user.options.robot || 1,
+  			options: req.user.options,
   			charts: charts || {},
   			chartkeys: chartkeys || [],
   			friends: req.user.friends,
@@ -203,7 +203,6 @@ app2.post('/settings',
   		}
   		else if (query){
   			User.updateOne({ username: req.user.username }, query, function(err, result) {
-  				console.log(result);
 				res.redirect('/account?t=settings');
 			});
   		}

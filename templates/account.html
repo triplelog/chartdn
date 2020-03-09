@@ -157,13 +157,13 @@
 							<input id="name" name="name" type="text" placeholder="Name" value="{{ name }}">
 							<label for="pagination">Table Default</label>
 							<select id="pagination" name="pagination">
-								<option value="scroll">Scroll</option>
-								<option value="paginate">Pagination</option>
+								<option value="scroll" {{ 'selected="selected"' if options.pagination && options.pagination == 'scroll' else '' }}>Scroll</option>
+								<option value="paginate" {{ 'selected="selected"' if options.pagination && options.pagination == 'paginate' else '' }}>Pagination</option>
 							</select>
 							<label for="stylePlotly">Chart Styles</label>
 							<input type="checkbox" id="stylePlotly" name="stylePlotly" />
 							<label for="robot">Robot</label>
-							<input id="robot" name="robot" type="number" min="1" max="4" placeholder="1" value="{{ robot }}">
+							<input id="robot" name="robot" type="number" min="1" max="4" placeholder="1" value="{{ options.robot if options.robot else 1 }}">
 							<!--<label for="password">Password</label>
 							<input id="password" name="password" type="password" placeholder="Password">-->
 
