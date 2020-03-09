@@ -36,7 +36,7 @@
     <div class="content">
     	<div class="pure-g">
     		<div class="l-box pure-u-1 pure-u-md-1-4 pure-u-lg-1-5">
-				<img class="avatar" src="../robots/{{ username }}{{ robot }}.png"></img>
+				<img class="avatar" src="../robots/{{ username }}{{ options.robot if options.robot else 1 }}.png"></img>
 				<center>{{ name }}</center>
 				<div id="profile" class="pure-g">
 					<div class="l-box pure-u-1">

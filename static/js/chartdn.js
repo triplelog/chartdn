@@ -156,7 +156,7 @@ var table = false;
 var nsteps = -1;
 var newnsteps = -1;
 var userDataChanges = [];
-var paginateOrScroll = 'scroll';
+
 var nrows = 0;
 
 minimizedBoxes.dataSource = 'large';

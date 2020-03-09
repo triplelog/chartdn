@@ -1135,6 +1135,7 @@ loginApp.get('/edit/:chartid',
 					if (result.users.edit.all[0]== 'any' || result.users.creator == username) {
 						if (username != '') {
 							User.updateOne({username: username, "charts.edited": { "$ne": chartid}, "charts.forked": { "$ne": chartid}, "charts.created": { "$ne": chartid}}, {$push: {"charts.edited": chartid}}, function (err, result) {});
+							paginate = req.user.options.pagination;
 						}
 						var savedData = myOptions;
 						var chartType = {'line':'','bar':'','scatter':'','pie':'','bubble':'','histogram':'','heatmap':'','radar':'','box':'','choropleth':'','splom':'','diff':'','calendar':''};
@@ -1166,6 +1167,7 @@ loginApp.get('/edit/:chartid',
 						res.write(nunjucks.render('chartdn.html',{
 							chartScript: '',
 							hasData: hasData,
+							paginate: paginate,
 							nHeaders: savedData.nHeaders || 1,
 							isChecked: chartType,
 							options: savedData || {},
@@ -1191,6 +1193,7 @@ loginApp.get('/edit/:chartid',
 							else if (result3 > 0){
 								if (username != '') {
 									User.updateOne({username: username, "charts.edited": { "$ne": chartid}, "charts.forked": { "$ne": chartid}, "charts.created": { "$ne": chartid}}, {$push: {"charts.edited": chartid}}, function (err, result) {});
+									paginate = req.user.options.pagination;
 								}
 								var savedData = myOptions;
 								var chartType = {'line':'','bar':'','scatter':'','pie':'','bubble':'','histogram':'','heatmap':'','radar':'','box':'','choropleth':'','splom':'','diff':'','calendar':''};
@@ -1222,6 +1225,7 @@ loginApp.get('/edit/:chartid',
 								res.write(nunjucks.render('chartdn.html',{
 									chartScript: '',
 									hasData: hasData,
+									paginate: paginate,
 									nHeaders: savedData.nHeaders || 1,
 									isChecked: chartType,
 									options: savedData || {},

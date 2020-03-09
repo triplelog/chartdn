@@ -717,6 +717,7 @@
   	var modifiers = {{ modifiers | dump | safe if modifiers else '[]'  }};
   	var key = "{{ key }}";
   	var chartid = "{{ chartid }}";
+  	var paginateOrScroll = "{{ paginate if paginate else 'scroll' }}";
   	var hasData = {{ hasData }};
   </script>
   <script src="https://unpkg.com/popper.js@1"></script>
