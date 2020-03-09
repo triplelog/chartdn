@@ -1108,7 +1108,7 @@ loginApp.get('/edit/:chartid',
         req.on('data', function (chunk) {
         
         });
-
+		var paginate = 'scroll';
 		// when we get data we want to store it in memory
 		req.on('end', () => {
 				Chart.findOne({ id: chartid }, function(err, result) {
