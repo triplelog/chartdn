@@ -157,8 +157,8 @@
 							<input id="name" name="name" type="text" placeholder="Name" value="{{ name }}">
 							<label for="pagination">Table Default</label>
 							<select id="pagination" name="pagination">
-								<option value="scroll" {{ 'selected="selected"' if options.pagination && options.pagination == 'scroll' else '' }}>Scroll</option>
-								<option value="paginate" {{ 'selected="selected"' if options.pagination && options.pagination == 'paginate' else '' }}>Pagination</option>
+								<option value="scroll" {{ 'selected="selected"' if (options.pagination and options.pagination == 'scroll') else '' }}>Scroll</option>
+								<option value="paginate" {{ 'selected="selected"' if (options.pagination and options.pagination == 'paginate') else '' }}>Pagination</option>
 							</select>
 							<label for="stylePlotly">Chart Styles</label>
 							<input type="checkbox" id="stylePlotly" name="stylePlotly" />
