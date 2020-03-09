@@ -35,8 +35,9 @@ ws.onmessage = function(evt){
 			}
 		}
 		if (dm.mdata){
-			console.log(paginateOrScroll);
+			
 			if (paginateOrScroll == 'paginate'){
+				console.log(paginateOrScroll);
 				updateTable(dm.mdata,dm.allHeaders.modified,'paginate');
 			}
 			else {
