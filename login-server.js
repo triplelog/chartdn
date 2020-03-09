@@ -182,6 +182,9 @@ app2.post('/settings',
   		if (user.name != req.body.name){
   			query['name']= req.body.name;
   		}
+  		if (user.options.pagination != req.body.pagination){
+  			query['options.pagination']= req.body.pagination;
+  		}
   		if (user.options.robot != parseInt(req.body.robot)){
   			query['options.robot']= parseInt(req.body.robot);
   			if (!fs.existsSync('static/robots/'+user.username+req.body.robot+'.png')){
@@ -200,6 +203,7 @@ app2.post('/settings',
   		}
   		else if (query){
   			User.updateOne({ username: req.user.username }, query, function(err, result) {
+  				console.log(result);
 				res.redirect('/account?t=settings');
 			});
   		}

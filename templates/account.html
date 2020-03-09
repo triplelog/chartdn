@@ -155,6 +155,13 @@
 						<fieldset>
 							<label for="name">Name</label>
 							<input id="name" name="name" type="text" placeholder="Name" value="{{ name }}">
+							<label for="pagination">Table Default</label>
+							<select id="pagination" name="pagination">
+								<option value="scroll">Scroll</option>
+								<option value="paginate">Pagination</option>
+							</select>
+							<label for="stylePlotly">Chart Styles</label>
+							<input type="checkbox" id="stylePlotly" name="stylePlotly" />
 							<label for="robot">Robot</label>
 							<input id="robot" name="robot" type="number" min="1" max="4" placeholder="1" value="{{ robot }}">
 							<!--<label for="password">Password</label>

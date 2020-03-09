@@ -173,7 +173,7 @@ minimizedBoxes.xkcd = 'half';
 minimizedBoxes.google = 'half';
 
 //Headers Changed
-function headersChanged(initialData,chg=false) {
+function headersChanged(initialData,chg = false) {
 	if (allHeaders.current){
 		headers = allHeaders.current;
 	}
