@@ -1448,6 +1448,48 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes,sendTable,cppta
 	return new Promise(function(resolve, reject) {
 		if (!chartInfo.data){reject('no data file');}
 		console.log('starting file read',performance.now());
+		cpptable.clearArray();
+		cpptable.resize();
+		cpptable.parse('saved/'+chartInfo.data);
+				
+		console.log('file read, parsed, and loaded',performance.now());
+		var jsonmessage = {'operation':'loading','message':'10%'};
+		ws.send(JSON.stringify(jsonmessage));
+
+
+		
+		var returnData = {};
+		//var predHeaders = cpptable.loadRows(results.data);
+		
+		cpptable.copyArray();
+		console.log('cpptable copied',performance.now());
+		if (chgTypes){
+			console.log('start getting types',performance.now());
+			var types = cpptable.getTypes();
+			console.log('got types',performance.now());
+			returnData.types = types;
+		}
+		else {
+			//console.log(chartInfo.types);
+		}
+		var hArray = ['col0','col1','col2','col3','col4','col5','col6','col7','col8','col9','col10','col11'];
+		returnData.hArray = hArray.slice();
+		returnData.delimiter = ",";
+		dm.delimiter = ",";
+		makeChartsWithData(ws,hArray,chartInfo,chartStyle,dm,sendTable,cpptable);
+		
+		resolve(returnData);
+
+    });
+
+	
+}
+function makeAllChartsOld(ws,dm,chartInfo,chartStyle='all',chgTypes,sendTable,cpptable) {
+	
+	return new Promise(function(resolve, reject) {
+		if (!chartInfo.data){reject('no data file');}
+		console.log('starting file read',performance.now());
+		
         fs.readFile('saved/'+chartInfo.data, 'utf8', function(err, fileData) {
         	console.log(chartInfo.data);
         	if (err){
@@ -1491,8 +1533,8 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes,sendTable,cppta
 				console.log('file parsed',performance.now());
 				jsonmessage = {'operation':'loading','message':'40%'};
 				ws.send(JSON.stringify(jsonmessage));
-				cpptable.loadRows(results.data);
-				console.log('cpptable loaded',performance.now());
+				var predHeaders = cpptable.loadRows(results.data);
+				console.log('cpptable loaded with ', predHeaders, ' header rows? ',performance.now());
 				jsonmessage = {'operation':'loading','message':'70%'};
 				ws.send(JSON.stringify(jsonmessage));
 				
