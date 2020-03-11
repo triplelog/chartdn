@@ -1455,7 +1455,7 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes,sendTable,cppta
 		
 		var hArray = cpptable.parse('saved/'+chartInfo.data);
 		returnData.hArray = hArray.slice();
-			
+		console.log(hArray);	
 		console.log('file read, parsed, and loaded',performance.now());
 		var jsonmessage = {'operation':'loading','message':'10%'};
 		ws.send(JSON.stringify(jsonmessage));
