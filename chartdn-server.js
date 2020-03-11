@@ -1447,17 +1447,22 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes,sendTable,cppta
 	
 	return new Promise(function(resolve, reject) {
 		if (!chartInfo.data){reject('no data file');}
+		
+		var returnData = {};
 		console.log('starting file read',performance.now());
 		cpptable.clearArray();
-		cpptable.parse('saved/'+chartInfo.data);
-				
+		//['col0','col1','col2','col3','col4','col5','col6','col7','col8','col9','col10','col11'];
+		
+		var hArray = cpptable.parse('saved/'+chartInfo.data);
+		returnData.hArray = hArray.slice();
+			
 		console.log('file read, parsed, and loaded',performance.now());
 		var jsonmessage = {'operation':'loading','message':'10%'};
 		ws.send(JSON.stringify(jsonmessage));
 
 
 		
-		var returnData = {};
+		
 		//var predHeaders = cpptable.loadRows(results.data);
 		
 		cpptable.copyArray();
@@ -1471,8 +1476,7 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes,sendTable,cppta
 		else {
 			//console.log(chartInfo.types);
 		}
-		var hArray = ['col0','col1','col2','col3','col4','col5','col6','col7','col8','col9','col10','col11'];
-		returnData.hArray = hArray.slice();
+		
 		returnData.delimiter = ",";
 		dm.delimiter = ",";
 		makeChartsWithData(ws,hArray,chartInfo,chartStyle,dm,sendTable,cpptable);
