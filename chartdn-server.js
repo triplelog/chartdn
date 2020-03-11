@@ -1449,7 +1449,6 @@ function makeAllCharts(ws,dm,chartInfo,chartStyle='all',chgTypes,sendTable,cppta
 		if (!chartInfo.data){reject('no data file');}
 		console.log('starting file read',performance.now());
 		cpptable.clearArray();
-		cpptable.resize();
 		cpptable.parse('saved/'+chartInfo.data);
 				
 		console.log('file read, parsed, and loaded',performance.now());
